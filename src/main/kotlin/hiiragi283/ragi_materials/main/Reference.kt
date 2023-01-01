@@ -14,7 +14,7 @@ object Reference {
     const val VERSION = "v0.0.1"
 
     //依存関係の定義
-    const val DEPENDENCIES = "required-after:forgelin"
+    const val DEPENDENCIES = "required-after:forgelin;required-after:ragi_lib"
 
     //対応するMCのバージョンの定義
     const val MC_VERSIONS = "[1.12,1.12.2]"
@@ -23,10 +23,10 @@ object Reference {
     const val LANGUAGE = "net.shadowfacts.forgelin.KotlinAdapter"
 
     //Client側のProxyの定義
-    const val CLIENT_PROXY_CLASS = "hiiragi283.ragi_matrials.main.proxy.ClientProxy"
+    const val CLIENT_PROXY_CLASS = "hiiragi283.ragi_materials.main.proxy.ClientProxy"
 
     //Server側のProxyの定義
-    const val SERVER_PROXY_CLASS = "hiiragi283.ragi_matrials.main.proxy.ServerProxy"
+    const val SERVER_PROXY_CLASS = "hiiragi283.ragi_materials.main.proxy.ServerProxy"
 
     //Serverの定義 (コマンド実行用)
     val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer

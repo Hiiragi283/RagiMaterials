@@ -9,12 +9,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 //Modの定義
 @Mod(
-    modid = Reference.MOD_ID,
-    name = Reference.MOD_NAME,
-    version = Reference.VERSION,
-    dependencies = Reference.DEPENDENCIES,
-    acceptedMinecraftVersions = Reference.MC_VERSIONS,
-    modLanguageAdapter = Reference.LANGUAGE
+        modid = Reference.MOD_ID,
+        name = Reference.MOD_NAME,
+        version = Reference.VERSION,
+        dependencies = Reference.DEPENDENCIES,
+        acceptedMinecraftVersions = Reference.MC_VERSIONS,
+        modLanguageAdapter = Reference.LANGUAGE
 )
 class RagiMaterials {
 
@@ -29,6 +29,9 @@ class RagiMaterials {
     fun preInit(event: FMLPreInitializationEvent?) {
         //configの読み込み
         //Block, Event, Itemの登録
+        RagiMaterialsInit.registerBlocks()
+        RagiMaterialsInit.registerEvents()
+        RagiMaterialsInit.registerItems()
         //proxyの読み込み
         proxy!!.loadPreInit()
     }
