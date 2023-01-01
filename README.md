@@ -1,16 +1,19 @@
-## TemplateDevEnv
+# Ragi Materials
 
-Template workspace for modding Minecraft 1.12.2. Licensed under MIT, it is made for public use.
+## Overview
 
-This template currently utilizies **Gradle 4.10.3** + **ForgeGradle 2.3.4** + **Forge 14.23.5.2847**.
+- A simple mod adding materials in a unified style for MC1.12
+- _**Requires [Shadowfacts' Forgelin](https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)**_
+- _**Requires [Ragi Library](https://github.com/Hiiragi283/RagiLibrary)**_
 
-With **coremod and mixin support** that is easy to configure.
+## Credit
 
-### Instructions:
+- Copyrights
+    - The code of Ragi Library is based on [HeatAndClimateLib](https://github.com/defeatedcrow/HeatAndClimateLib)
+      and [HeatAndClimateMod](https://github.com/defeatedcrow/HeatAndClimateMod)
 
-1. Click `use this template` at the top.
-2. Clone the repository you have created with this template.
-3. In the local repository, run the command `gradlew setupDecompWorkspace idea`
-4. Open the `.ipr` file in IDEA.
-5. Right-click in IDEA `build.gradle` of your project, and select `Link Gradle Project`, after completion, hit `Refresh All` in the gradle tab on the right.
-6. Instead of running `genIntellijRuns` and using generated IntelliJ tasks, just run `gradlew runClient` and `gradlew runServer`.
+- Modders helped me!
+    - [A1lic](https://twitter.com/a1lic)
+    - [Defeatedcrow](https://twitter.com/defeatedcrow)
+    - [Karakufire](https://twitter.com/karakufire)
+    - [Tsukimimushi](https://twitter.com/Tsukimimushi)
