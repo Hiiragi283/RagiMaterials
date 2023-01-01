@@ -19,9 +19,6 @@ object Reference {
     //対応するMCのバージョンの定義
     const val MC_VERSIONS = "[1.12,1.12.2]"
 
-    //
-    const val LANGUAGE = "net.shadowfacts.forgelin.KotlinAdapter"
-
     //Client側のProxyの定義
     const val CLIENT_PROXY_CLASS = "hiiragi283.ragi_materials.main.proxy.ClientProxy"
 

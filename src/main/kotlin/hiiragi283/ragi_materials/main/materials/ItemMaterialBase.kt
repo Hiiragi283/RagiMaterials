@@ -27,8 +27,8 @@ class ItemMaterialBase(ID: String) : ItemBase(Reference.MOD_ID, ID, 32767) {
             for (i in 0 until 32767) {
                 //EnumMaterialsを取得
                 val material = MaterialHelper.getMaterial(i)
-                //materialがDEBUGでない場合
-                if (material != EnumMaterials.DEBUG) {
+                //materialがWILDCARDでない場合
+                if (material != EnumMaterials.WILDCARD) {
                     //materialのtypeがDUSTかMETALの場合
                     if (material.type == MaterialTypes.DUST || material.type == MaterialTypes.METAL) {
                         //ItemStackをlistに追加
