@@ -2,11 +2,29 @@
 # Item
 
 item.ragi_dust.name=%s Dust
+item.ragi_ingot.name=%s Ingot
 
 # Materials
 
 material.hiiragi_tsubasa=DEBUG
+
 material.hydrogen=Hydrogen
 material.helium=Helium
 material.beryllium=Beryllium
 material.lithium=Lithium
+material.boron=Boron
+material.carbon=Carbon
+material.nitrogen=Nitrogen
+material.oxygen=Oxygen
+material.fluorine=Fluorine
+material.neon=Neon
+material.sodium=Sodium
+material.magnesium=Magnesium
+material.aluminium=Aluminium
+material.silicon=Silicon
+material.phosphorus=Phosphorus
+material.sulfur=Sulfur
+material.chlorine=Chlorine
+material.argon=Argon
+
+material.wildcard=INVALID
