@@ -4,7 +4,7 @@
 
 - A simple mod adding materials in a unified style for MC1.12
 - _**Requires [Shadowfacts' Forgelin](https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)**_
-- _**Requires [Ragi Library](https://github.com/Hiiragi283/RagiLibrary)**_
+- _**Requires [Ragi Library](https://www.curseforge.com/minecraft/mc-mods/ragi-library)**_
 
 ## License
 
