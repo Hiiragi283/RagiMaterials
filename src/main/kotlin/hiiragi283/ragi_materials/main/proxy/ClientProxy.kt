@@ -10,12 +10,14 @@ class ClientProxy : CommonProxy() {
     override fun loadPreInit() {
         RagiModel.setModelSame(RagiMaterialsInit.ItemDust)
         RagiModel.setModelSame(RagiMaterialsInit.ItemIngot)
+        RagiModel.setModelSame(RagiMaterialsInit.ItemPlate)
     }
 
     //Initializationで読み込むメソッド
     override fun loadInit() {
         RagiColor.setColor(ColorMaterial(), RagiMaterialsInit.ItemDust)
         RagiColor.setColor(ColorMaterial(), RagiMaterialsInit.ItemIngot)
+        RagiColor.setColor(ColorMaterial(), RagiMaterialsInit.ItemPlate)
     }
 
     //Post-Initializationで読み込むメソッド

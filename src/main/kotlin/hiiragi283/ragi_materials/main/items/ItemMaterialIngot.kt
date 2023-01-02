@@ -12,7 +12,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialIngot() : ItemBase(Reference.MOD_ID, "ingot", 32767) {
+class ItemMaterialIngot : ItemBase(Reference.MOD_ID, "ingot", 255) {
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
@@ -24,7 +24,7 @@ class ItemMaterialIngot() : ItemBase(Reference.MOD_ID, "ingot", 32767) {
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
-            for (i in 0 until 32767) {
+            for (i in 0 until 255) {
                 //EnumMaterialsを取得
                 val material = MaterialHelper.getMaterial(i)
                 //materialがWILDCARDでない場合

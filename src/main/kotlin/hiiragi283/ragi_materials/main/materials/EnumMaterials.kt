@@ -15,7 +15,7 @@ enum class EnumMaterials(val index: Int, val registryName: String, val type: Mat
     LITHIUM(3, "lithium", MaterialTypes.METAL, RagiColor.CLEAR),
     BERYLLIUM(4, "beryllium", MaterialTypes.METAL, Color.GREEN),
     BORON(5, "boron", MaterialTypes.DUST, Color.GRAY),
-    CARBON(6, "carbon", MaterialTypes.DUST, Color.DARK_GRAY),
+    CARBON(6, "carbon", MaterialTypes.METAL, Color.DARK_GRAY),
     NITROGEN(7, "nitrogen", MaterialTypes.GAS, Color.CYAN),
     OXYGEN(8, "oxygen", MaterialTypes.GAS, Color.CYAN),
     FLUORINE(9, "fluorine", MaterialTypes.GAS, Color.GREEN),

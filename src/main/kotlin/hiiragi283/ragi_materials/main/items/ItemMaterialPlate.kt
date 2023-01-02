@@ -12,12 +12,12 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialDust : ItemBase(Reference.MOD_ID, "dust", 255) {
+class ItemMaterialPlate : ItemBase(Reference.MOD_ID, "plate", 255) {
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
         val material = MaterialHelper.getMaterial(stack.metadata)
-        return I18n.format("item.ragi_dust.name", I18n.format("material.${material.registryName}"))
+        return I18n.format("item.ragi_plate.name", I18n.format("material.${material.registryName}"))
     }
 
     @SideOnly(Side.CLIENT) //Client側のみ
@@ -29,8 +29,8 @@ class ItemMaterialDust : ItemBase(Reference.MOD_ID, "dust", 255) {
                 val material = MaterialHelper.getMaterial(i)
                 //materialがWILDCARDでない場合
                 if (material != EnumMaterials.WILDCARD) {
-                    //materialのtypeがDUSTかMETALの場合
-                    if (material.type == MaterialTypes.DUST || material.type == MaterialTypes.METAL) {
+                    //materialのtypeがMETALの場合
+                    if (material.type == MaterialTypes.METAL) {
                         //ItemStackをlistに追加
                         subItems.add(ItemStack(this, 1, i))
                     }
