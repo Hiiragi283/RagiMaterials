@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.proxy
 
-import hiiragi283.ragi_materials.util.RagiColor
-import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.RagiMaterialsInit
 import hiiragi283.ragi_materials.render.ColorMaterial
+import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.util.RagiModel
 
 class ClientProxy : CommonProxy() {
     //Pre-Initializationで読み込むメソッド
@@ -12,6 +12,7 @@ class ClientProxy : CommonProxy() {
         RagiModel.setModelSame(RagiMaterialsInit.ItemDust)
         RagiModel.setModelSame(RagiMaterialsInit.ItemIngot)
         RagiModel.setModelSame(RagiMaterialsInit.ItemPlate)
+        RagiModel.setModelFluid(RagiMaterialsInit.FluidRagi)
     }
 
     //Initializationで読み込むメソッド

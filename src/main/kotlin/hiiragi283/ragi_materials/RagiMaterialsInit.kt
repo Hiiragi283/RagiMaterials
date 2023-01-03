@@ -1,22 +1,27 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.base.FluidBase
+import hiiragi283.ragi_materials.base.FluidBlockBase
+import hiiragi283.ragi_materials.base.ItemBlockBase
+import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.items.ItemBookDebug
 import hiiragi283.ragi_materials.items.ItemMaterialDust
 import hiiragi283.ragi_materials.items.ItemMaterialIngot
 import hiiragi283.ragi_materials.items.ItemMaterialPlate
 import hiiragi283.ragi_materials.util.RagiColor
+import net.minecraft.item.ItemBlock
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
+
 
 object RagiMaterialsInit {
 
     //Blockの定義
 
     //Fluidの定義
-    var FluidRagi: Fluid = FluidBase("hiiragi").setColor(RagiColor.RAGI_RED).setTemperature(283)
-
+    val FluidRagi: Fluid = FluidBase("hiiragi").setColor(RagiColor.RAGI_RED).setTemperature(283)
 
     //Itemの定義
     val ItemBookDebug = ItemBookDebug()
@@ -29,7 +34,7 @@ object RagiMaterialsInit {
 
     //Eventを登録するメソッド
     fun registerEvents() {
-        //MinecraftForge.EVENT_BUS.register()
+        MinecraftForge.EVENT_BUS.register(RightClickBlock())
     }
 
     //Fluidを登録するメソッド
@@ -50,7 +55,19 @@ object RagiMaterialsInit {
 
     //FluidとBucketを登録するメソッド
     private fun registerFluid(fluid: Fluid) {
-        FluidRegistry.addBucketForFluid(fluid)
+        //fluidを登録
         FluidRegistry.registerFluid(fluid)
+        //fluid入りバケツを登録
+        FluidRegistry.addBucketForFluid(fluid)
+
+        /*
+          Thanks to defeatedcrow!
+          Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/MainMaterialRegister.java
+        */
+
+        //液体ブロックを生成・登録・割り当て
+        val fluidBlock = FluidBlockBase(fluid)
+        ForgeRegistries.BLOCKS.register(fluidBlock)
+        fluid.block = fluidBlock
     }
 }

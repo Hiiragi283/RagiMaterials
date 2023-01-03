@@ -1,10 +1,21 @@
 package hiiragi283.ragi_materials.util
 
+import hiiragi283.ragi_materials.RagiMaterialsInit
+import hiiragi283.ragi_materials.Reference
+import net.minecraft.client.renderer.ItemMeshDefinition
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraft.block.state.IBlockState
+
+import net.minecraft.client.renderer.block.statemap.StateMapperBase
+
+
+
 
 object RagiModel {
 
@@ -33,5 +44,23 @@ object RagiModel {
             val location = ModelResourceLocation(item.registryName!!, "inventory")
             ModelLoader.setCustomModelResourceLocation(item, i, location)
         }
+    }
+
+    //液体ブロックにmodelを割り当てるメソッド
+    /*
+      Thanks to defeatedcrow!
+      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java
+    */
+    @SideOnly(Side.CLIENT)
+    fun setModelFluid(fluid: Fluid) {
+        val fluidModel = ModelResourceLocation((Reference.MOD_ID + ":" + fluid.name), "fluid")
+        //アイテムとしての描画処理
+        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { fluidModel }
+        //ブロックとしての描画処理
+        ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
+            override fun getModelResourceLocation(p_178132_1_: IBlockState): ModelResourceLocation {
+                return fluidModel
+            }
+        })
     }
 }

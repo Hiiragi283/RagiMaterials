@@ -38,6 +38,7 @@ class RagiMaterials {
         //Block, Event, Itemの登録
         RagiMaterialsInit.registerBlocks()
         RagiMaterialsInit.registerEvents()
+        RagiMaterialsInit.registerFluids()
         RagiMaterialsInit.registerItems()
         //proxyの読み込み
         proxy!!.loadPreInit()
