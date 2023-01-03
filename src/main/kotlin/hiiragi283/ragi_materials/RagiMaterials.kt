@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.proxy.CommonProxy
+import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -22,6 +23,11 @@ class RagiMaterials {
         //Proxyの定義
         @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
         var proxy: CommonProxy? = null
+    }
+
+    init {
+        //Universal Bucketの使用
+        FluidRegistry.enableUniversalBucket()
     }
 
     //Pre-Initializationの段階で呼ばれるevent

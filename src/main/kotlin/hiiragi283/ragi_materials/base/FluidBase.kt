@@ -4,4 +4,4 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 
 class FluidBase(ID: String) :
-        Fluid(ID, ResourceLocation("minecraft:blocks/water_still"), ResourceLocation("minecraft:blocks/water_flow"))
+        Fluid(ID, ResourceLocation("wool_colored_white"), ResourceLocation("wool_colored_white"))

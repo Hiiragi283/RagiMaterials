@@ -8,6 +8,7 @@ import hiiragi283.ragi_materials.render.ColorMaterial
 class ClientProxy : CommonProxy() {
     //Pre-Initializationで読み込むメソッド
     override fun loadPreInit() {
+        RagiModel.setModel(RagiMaterialsInit.ItemBookDebug)
         RagiModel.setModelSame(RagiMaterialsInit.ItemDust)
         RagiModel.setModelSame(RagiMaterialsInit.ItemIngot)
         RagiModel.setModelSame(RagiMaterialsInit.ItemPlate)
