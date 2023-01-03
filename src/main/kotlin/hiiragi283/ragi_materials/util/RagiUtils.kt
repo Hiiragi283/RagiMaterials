@@ -135,6 +135,10 @@ object RagiUtils {
         return getSound("$domain:$path")
     }
 
+    /*
+      Thanks to defeatedcrow!
+      Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java
+    */
     //2つのItemStackが同じかどうかを判断するメソッド
     fun isSameStack(stack1: ItemStack, stack2: ItemStack): Boolean {
         val isNotSame = false

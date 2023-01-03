@@ -9,6 +9,12 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import java.util.*
 
+/*
+  Thanks to defeatedcrow!
+  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/BlockDC.java
+          https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCSimpleBlock.java
+*/
+
 class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : Block(Material!!) {
 
     //private変数の宣言

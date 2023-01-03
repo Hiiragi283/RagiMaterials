@@ -3,6 +3,12 @@ package hiiragi283.ragi_materials.config
 import net.minecraftforge.common.config.Configuration
 import java.io.File
 
+/*
+  Thanks to defeatedcrow!
+  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/config/ClimateConfig.java
+          https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/config/CoreConfigDC.java
+*/
+
 object RagiConfig {
 
     //変数の宣言
@@ -17,12 +23,7 @@ object RagiConfig {
             //configの読み込み
             config.load()
             //各値の取得
-            isDebug = config.get(
-                "debug setting",
-                "Debug Log",
-                isDebug,
-                "If true, Ragi Library throws sooo many debug logs..."
-            ).boolean
+            isDebug = config.get("debug setting", "Debug Log", isDebug, "If true, Ragi Library throws sooo many debug logs...").boolean
         } catch (e: Exception) {
             //エラーを出力
             e.printStackTrace()

@@ -10,6 +10,11 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
+/*
+  Thanks to defeatedcrow!
+  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCItemBlock.java
+*/
+
 class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
 
     //private変数の宣言
