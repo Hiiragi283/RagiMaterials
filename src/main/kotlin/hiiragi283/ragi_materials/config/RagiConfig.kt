@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.config
 import net.minecraftforge.common.config.Configuration
 import java.io.File
 
-object RagiLibConfig {
+object RagiConfig {
 
     //変数の宣言
     //Debug Setting

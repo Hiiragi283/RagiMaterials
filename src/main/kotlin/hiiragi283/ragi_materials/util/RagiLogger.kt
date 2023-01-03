@@ -1,7 +1,7 @@
-package hiiragi283.ragi_materials.main.util
+package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.config.RagiLibConfig
-import hiiragi283.ragi_materials.main.Reference
+import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.config.RagiConfig
 import org.apache.logging.log4j.LogManager
 
 object RagiLogger {
@@ -19,19 +19,19 @@ object RagiLogger {
     }
 
     fun infoDebug(info: Any?) {
-        if (RagiLibConfig.isDebug) {
+        if (RagiConfig.isDebug) {
             LOGGER_RAGI.info(info)
         }
     }
 
     fun warnDebug(info: Any?) {
-        if (RagiLibConfig.isDebug) {
+        if (RagiConfig.isDebug) {
             LOGGER_RAGI.warn(info)
         }
     }
 
     fun errorDebug(info: Any?) {
-        if (RagiLibConfig.isDebug) {
+        if (RagiConfig.isDebug) {
             LOGGER_RAGI.error(info)
         }
     }

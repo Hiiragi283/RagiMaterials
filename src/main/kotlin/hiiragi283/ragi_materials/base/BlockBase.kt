@@ -13,11 +13,11 @@ class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : B
 
     //private変数の宣言
     private val maxMeta: Int
-    private val type16 = PropertyInteger.create("type", 0, 15)
+    private val property16 = PropertyInteger.create("property", 0, 15)
 
     //コンストラクタの宣言
     init {
-        defaultState = blockState.baseState.withProperty(type16, 0) //デフォルトのBlockstateをtype16の0番に設定
+        defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをproperty16の0番に設定
         setCreativeTab(CreativeTabs.DECORATIONS) //表示するクリエイティブタブの設定
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得
@@ -26,18 +26,16 @@ class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : B
 
     //Blockstateの登録をするメソッド
     override fun createBlockState(): BlockStateContainer {
-        //type16を使用すると、Blockstateは"type=0"から"type=15"までが登録される
-        return BlockStateContainer(this, type16)
+        //property16を使用すると、Blockstateは"type=0"から"type=15"までが登録される
+        return BlockStateContainer(this, property16)
     }
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        var i = 0
-        //type16をもとにBlockstateからメタデータを返す
-        i = state.getValue(type16)
+        //property16をもとにBlockstateからメタデータを返す
+        val i = state.getValue(property16)
         //メタデータがmaxMetaよりも大きい場合、最大値を返す
-        if (i > maxMeta) i = maxMeta
-        return i
+        return i.coerceAtMost(maxMeta)
     }
 
     //メタデータからBlockstateを得るメソッド
@@ -45,17 +43,16 @@ class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : B
         //metaをmaxMete+1で割った剰余を求める
         //これmaxMeta % maxMeta = 0になるからわざと+1してます
         val i = meta % (maxMeta + 1)
-        //type16をもとに指定したメタデータからBlockstateを返す
-        return defaultState.withProperty(type16, i)
+        //property16をもとに指定したメタデータからBlockstateを返す
+        return defaultState.withProperty(property16, i)
     }
 
     //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
     override fun damageDropped(state: IBlockState): Int {
-        //type16をもとにBlockstateからメタデータを返す
-        var i = state.getValue(type16)
+        //property16をもとにBlockstateからメタデータを返す
+        val i = state.getValue(property16)
         //メタデータがmaxMetaよりも大きい場合、最大値を返す
-        if (i > maxMeta) i = maxMeta
-        return i
+        return i.coerceAtMost(maxMeta)
     }
 
     //ドロップするアイテムを得るメソッド

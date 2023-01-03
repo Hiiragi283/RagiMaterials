@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.event
 
-import hiiragi283.ragi_materials.main.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation

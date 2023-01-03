@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials
 
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
@@ -27,6 +28,7 @@ class RagiMaterials {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         //configの読み込み
+        RagiConfig.load(event!!.modConfigurationDirectory)
         //Block, Event, Itemの登録
         RagiMaterialsInit.registerBlocks()
         RagiMaterialsInit.registerEvents()

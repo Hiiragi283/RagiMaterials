@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.main.util
+package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.main.Reference
+import hiiragi283.ragi_materials.Reference
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.FurnaceRecipes

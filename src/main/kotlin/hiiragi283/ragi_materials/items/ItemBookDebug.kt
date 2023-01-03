@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.items
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.main.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack

@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.main.util
+package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.main.Reference
+import hiiragi283.ragi_materials.Reference
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
