@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.main
+package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.main.proxy.CommonProxy
+import hiiragi283.ragi_materials.proxy.CommonProxy
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent

@@ -1,10 +1,10 @@
-package hiiragi283.ragi_materials.main.items
+package hiiragi283.ragi_materials.items
 
-import hiiragi283.ragi_lib.main.base.ItemBase
-import hiiragi283.ragi_materials.main.Reference
-import hiiragi283.ragi_materials.main.materials.EnumMaterials
-import hiiragi283.ragi_materials.main.materials.MaterialHelper
-import hiiragi283.ragi_materials.main.materials.MaterialTypes
+import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.materials.EnumMaterials
+import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialTypes
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack

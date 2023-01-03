@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.main.materials
+package hiiragi283.ragi_materials.materials
 
 object MaterialHelper {
 

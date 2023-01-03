@@ -1,8 +1,8 @@
-package hiiragi283.ragi_materials.main
+package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.main.items.ItemMaterialDust
-import hiiragi283.ragi_materials.main.items.ItemMaterialIngot
-import hiiragi283.ragi_materials.main.items.ItemMaterialPlate
+import hiiragi283.ragi_materials.items.ItemMaterialDust
+import hiiragi283.ragi_materials.items.ItemMaterialIngot
+import hiiragi283.ragi_materials.items.ItemMaterialPlate
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 object RagiMaterialsInit {

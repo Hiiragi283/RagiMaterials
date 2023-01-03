@@ -1,9 +1,9 @@
-package hiiragi283.ragi_materials.main.proxy
+package hiiragi283.ragi_materials.proxy
 
-import hiiragi283.ragi_lib.main.util.RagiColor
-import hiiragi283.ragi_lib.main.util.RagiModel
-import hiiragi283.ragi_materials.main.RagiMaterialsInit
-import hiiragi283.ragi_materials.main.render.ColorMaterial
+import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.util.RagiModel
+import hiiragi283.ragi_materials.RagiMaterialsInit
+import hiiragi283.ragi_materials.render.ColorMaterial
 
 class ClientProxy : CommonProxy() {
     //Pre-Initializationで読み込むメソッド

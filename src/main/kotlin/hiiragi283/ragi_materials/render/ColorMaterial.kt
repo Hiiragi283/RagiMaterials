@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.main.render
+package hiiragi283.ragi_materials.render
 
-import hiiragi283.ragi_materials.main.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialHelper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
