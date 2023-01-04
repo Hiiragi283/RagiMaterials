@@ -30,6 +30,18 @@ material.phosphorus=Phosphorus
 material.sulfur=Sulfur
 material.chlorine=Chlorine
 material.argon=Argon
+material.potassium=Potassium
+material.calcium=Calcium
+material.titanium=Titanium
+material.chromium=Chromium
+material.manganese=Manganese
+material.iron=Iron
+material.cobalt=Cobalt
+material.nickel=Nickel
+material.copper=Copper
+material.zinc=Zinc
+material.gallium=Gallium
+material.arsenic=Arsenic
 
 material.wildcard=INVALID
 

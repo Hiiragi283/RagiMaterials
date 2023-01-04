@@ -30,6 +30,18 @@ material.phosphorus=燐
 material.sulfur=硫黄
 material.chlorine=塩素
 material.argon=アルゴン
+material.potassium=カリウム
+material.calcium=カルシウム
+material.titanium=チタン
+material.chromium=クロム
+material.manganese=マンガン
+material.iron=鉄
+material.cobalt=コバルト
+material.nickel=ニッケル
+material.copper=銅
+material.zinc=亜鉛
+material.gallium=ガリウム
+material.arsenic=砒素
 
 material.wildcard=無効な
 
