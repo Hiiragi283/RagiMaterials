@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "minecraft:items/book_writable",
+    "layer1": "ragi_materials:items/ticket_mythic"
+  }
+}

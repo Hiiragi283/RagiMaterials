@@ -1,6 +1,9 @@
 
 # Item
 
+item.book_debug.0.name=Spawn Book (DEBUG)
+item.book_debug.1.name=Syntax Book (DEBUG)
+item.book_debug.2.name=Property Book (DEBUG)
 item.ragi_dust.name=%s Dust
 item.ragi_ingot.name=%s Ingot
 item.ragi_plate.name=%s Plate
@@ -29,3 +32,8 @@ material.chlorine=Chlorine
 material.argon=Argon
 
 material.wildcard=INVALID
+
+# Text
+text.ragi_materials.decoration_line.name=§e§l========================================
+text.ragi_materials.spawn.name=§bTeleport you to the spawn point!
+text.ragi_materials.syntax.name=§bSyntax and Reload!

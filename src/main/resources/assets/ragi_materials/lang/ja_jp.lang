@@ -1,0 +1,39 @@
+
+# Item
+
+item.book_debug.0.name=Spawn Book (DEBUG)
+item.book_debug.1.name=Syntax Book (DEBUG)
+item.book_debug.2.name=Property Book (DEBUG)
+item.ragi_dust.name=%s粉末
+item.ragi_ingot.name=%sインゴット
+item.ragi_plate.name=%s板
+
+# Materials
+
+material.hiiragi_tsubasa=DEBUG
+
+material.hydrogen=水素
+material.helium=ヘリウム
+material.beryllium=ベリリウム
+material.lithium=リチウム
+material.boron=硼素
+material.carbon=炭素
+material.nitrogen=窒素
+material.oxygen=酸素
+material.fluorine=弗素
+material.neon=ネオン
+material.sodium=ナトリウム
+material.magnesium=マグネシウム
+material.aluminium=アルミニウム
+material.silicon=珪素
+material.phosphorus=燐
+material.sulfur=硫黄
+material.chlorine=塩素
+material.argon=アルゴン
+
+material.wildcard=無効な
+
+# Text
+text.ragi_materials.decoration_line.name=§e§l========================================
+text.ragi_materials.spawn.name=§bスポーン地点にテレポートしました!
+text.ragi_materials.syntax.name=§bSyntax and Reload!

@@ -1,6 +1,8 @@
-package hiiragi283.ragi_materials.main
+package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.main.proxy.CommonProxy
+import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.proxy.CommonProxy
+import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -23,13 +25,20 @@ class RagiMaterials {
         var proxy: CommonProxy? = null
     }
 
+    init {
+        //Universal Bucketの使用
+        FluidRegistry.enableUniversalBucket()
+    }
+
     //Pre-Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         //configの読み込み
+        RagiConfig.load(event!!.modConfigurationDirectory)
         //Block, Event, Itemの登録
         RagiMaterialsInit.registerBlocks()
         RagiMaterialsInit.registerEvents()
+        RagiMaterialsInit.registerFluids()
         RagiMaterialsInit.registerItems()
         //proxyの読み込み
         proxy!!.loadPreInit()

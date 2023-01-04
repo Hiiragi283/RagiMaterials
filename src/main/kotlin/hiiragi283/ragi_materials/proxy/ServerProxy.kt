@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.main.proxy
+package hiiragi283.ragi_materials.proxy
 
 class ServerProxy : CommonProxy() {
     //Pre-Initializationで読み込むメソッド
