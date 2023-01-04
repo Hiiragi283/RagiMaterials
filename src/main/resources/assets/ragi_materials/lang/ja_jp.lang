@@ -1,4 +1,41 @@
 
+# Fluid
+
+fluid.hiiragi_tsubasa=DEBUG
+
+fluid.hydrogen=水素
+fluid.helium=ヘリウム
+fluid.beryllium=溶融ベリリウム
+fluid.lithium=溶融リチウム
+#fluid.boron=溶融硼素
+fluid.carbon=溶融炭素
+fluid.nitrogen=窒素
+fluid.oxygen=酸素
+fluid.fluorine=弗素
+fluid.neon=ネオン
+fluid.sodium=溶融ナトリウム
+fluid.magnesium=溶融マグネシウム
+fluid.aluminium=溶融アルミニウム
+fluid.silicon=溶融珪素
+#fluid.phosphorus=溶融燐
+#fluid.sulfur=溶融硫黄
+fluid.chlorine=塩素
+fluid.argon=アルゴン
+fluid.potassium=溶融カリウム
+fluid.calcium=溶融カルシウム
+fluid.titanium=溶融チタン
+fluid.chromium=溶融クロム
+fluid.manganese=溶融マンガン
+fluid.iron=溶融鉄
+fluid.cobalt=溶融コバルト
+fluid.nickel=溶融ニッケル
+fluid.copper=溶融銅
+fluid.zinc=溶融亜鉛
+fluid.gallium=溶融ガリウム
+#fluid.arsenic=溶融砒素
+
+fluid.wildcard=無効な
+
 # Item
 
 item.book_debug.0.name=Spawn Book (DEBUG)

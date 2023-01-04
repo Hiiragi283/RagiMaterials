@@ -1,4 +1,41 @@
 
+# Fluid
+
+fluid.hiiragi_tsubasa=DEBUG
+
+fluid.hydrogen=Hydrogen
+fluid.helium=Helium
+fluid.beryllium=Molten Beryllium
+fluid.lithium=Molten Lithium
+#fluid.boron=Molten Boron
+fluid.carbon=Molten Carbon
+fluid.nitrogen=Nitrogen
+fluid.oxygen=Oxygen
+fluid.fluorine=Fluorine
+fluid.neon=Neon
+fluid.sodium=Molten Sodium
+fluid.magnesium=Molten Magnesium
+fluid.aluminium=Molten Aluminium
+fluid.silicon=Molten Silicon
+#fluid.phosphorus=Molten Phosphorus
+#fluid.sulfur=Molten Sulfur
+fluid.chlorine=Chlorine
+fluid.argon=Argon
+fluid.potassium=Molten Potassium
+fluid.calcium=Molten Calcium
+fluid.titanium=Molten Titanium
+fluid.chromium=Molten Chromium
+fluid.manganese=Molten Manganese
+fluid.iron=Molten Iron
+fluid.cobalt=Molten Cobalt
+fluid.nickel=Molten Nickel
+fluid.copper=Molten Copper
+fluid.zinc=Molten Zinc
+fluid.gallium=Molten Gallium
+#fluid.arsenic=Molten Arsenic
+
+fluid.wildcard=INVALID
+
 # Item
 
 item.book_debug.0.name=Spawn Book (DEBUG)

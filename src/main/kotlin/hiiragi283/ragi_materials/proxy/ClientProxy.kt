@@ -12,7 +12,7 @@ class ClientProxy : CommonProxy() {
         RagiModel.setModelSame(RagiMaterialsInit.ItemDust)
         RagiModel.setModelSame(RagiMaterialsInit.ItemIngot)
         RagiModel.setModelSame(RagiMaterialsInit.ItemPlate)
-        RagiModel.setModelFluid(RagiMaterialsInit.FluidRagi)
+        RagiModel.setModelFluids()
     }
 
     //Initializationで読み込むメソッド

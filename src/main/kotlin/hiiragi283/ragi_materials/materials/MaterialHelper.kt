@@ -1,5 +1,8 @@
 package hiiragi283.ragi_materials.materials
 
+import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidRegistry
+
 object MaterialHelper {
 
     //代入したindexと一致するEnumMaterialsを返すメソッド
@@ -15,5 +18,16 @@ object MaterialHelper {
         }
         //materialMatchesを返す
         return materialMatches
+    }
+
+    //EnumMaterialもしくはindexから液体を取得するメソッド
+    fun getFluid(material: EnumMaterials): Fluid {
+        val fluid = FluidRegistry.getFluid(material.registryName)
+        //fluidが存在しない場合は水を返す
+        return if (fluid !== null) fluid else FluidRegistry.getFluid("water")
+    }
+
+    fun getFluid(index: Int): Fluid {
+        return getFluid(getMaterial(index))
     }
 }
