@@ -4,7 +4,6 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.materials.EnumMaterials
 import hiiragi283.ragi_materials.materials.MaterialHelper
-import hiiragi283.ragi_materials.materials.MaterialTypes
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -29,8 +28,8 @@ class ItemMaterialDust : ItemBase(Reference.MOD_ID, "dust", 255) {
                 val material = MaterialHelper.getMaterial(i)
                 //materialがWILDCARDでない場合
                 if (material != EnumMaterials.WILDCARD) {
-                    //materialのtypeがDUSTかMETALの場合
-                    if (material.type == MaterialTypes.DUST || material.type == MaterialTypes.METAL) {
+                    //materialのtypeのhasDustがtrueの場合
+                    if (material.type.hasDust) {
                         //ItemStackをlistに追加
                         subItems.add(ItemStack(this, 1, i))
                     }

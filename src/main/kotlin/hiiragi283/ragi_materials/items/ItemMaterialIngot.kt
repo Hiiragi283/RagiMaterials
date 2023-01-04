@@ -4,7 +4,6 @@ import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.EnumMaterials
 import hiiragi283.ragi_materials.materials.MaterialHelper
-import hiiragi283.ragi_materials.materials.MaterialTypes
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -12,12 +11,12 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialIngot : ItemBase(Reference.MOD_ID, "ingot", 255) {
+class ItemMaterialIngot(private val ID: String) : ItemBase(Reference.MOD_ID, ID, 255) {
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
         val material = MaterialHelper.getMaterial(stack.metadata)
-        return I18n.format("item.ragi_ingot.name", I18n.format("material.${material.registryName}"))
+        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.registryName}"))
     }
 
     @SideOnly(Side.CLIENT) //Client側のみ
@@ -29,8 +28,8 @@ class ItemMaterialIngot : ItemBase(Reference.MOD_ID, "ingot", 255) {
                 val material = MaterialHelper.getMaterial(i)
                 //materialがWILDCARDでない場合
                 if (material != EnumMaterials.WILDCARD) {
-                    //materialのtypeがMETALの場合
-                    if (material.type == MaterialTypes.METAL) {
+                    //materialのtypeのhasIngotがtrueの場合
+                    if (material.type.hasIngot) {
                         //ItemStackをlistに追加
                         subItems.add(ItemStack(this, 1, i))
                     }
