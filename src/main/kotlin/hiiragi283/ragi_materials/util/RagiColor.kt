@@ -15,7 +15,7 @@ object RagiColor {
     val CLEAR = Color(255, 255, 255, 0)
 
     //2つの色の中間色を取得するメソッド
-    fun getColorAve(color1: Color, color2: Color): Color {
+    fun mixColor(color1: Color, color2: Color): Color {
         //color1とcolor2の各RGB値の平均値を計算
         val aveR = (color1.red + color2.red) / 2
         val aveG = (color1.green + color2.green) / 2
@@ -36,13 +36,13 @@ object RagiColor {
 
     //代入されたIBlockColorをBlockに登録するメソッド
     @SideOnly(Side.CLIENT)
-    fun setColor(color: IBlockColor?, block: Block?) {
-        Minecraft.getMinecraft().blockColors.registerBlockColorHandler(color!!, block)
+    fun setColor(color: IBlockColor?, vararg blocks: Block?) {
+        Minecraft.getMinecraft().blockColors.registerBlockColorHandler(color!!, *blocks)
     }
 
     //代入されたIItemColorをItemに登録するメソッド
     @SideOnly(Side.CLIENT)
-    fun setColor(color: IItemColor?, item: Item?) {
-        Minecraft.getMinecraft().itemColors.registerItemColorHandler(color!!, item)
+    fun setColor(color: IItemColor?, vararg items: Item?) {
+        Minecraft.getMinecraft().itemColors.registerItemColorHandler(color!!, *items)
     }
 }
