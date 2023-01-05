@@ -38,10 +38,10 @@ class RagiMaterials {
         //configの読み込み
         RagiConfig.load(event!!.modConfigurationDirectory)
         //Block, Event, Itemの登録
-        RagiMaterialsInit.registerBlocks()
-        RagiMaterialsInit.registerEvents()
-        RagiMaterialsInit.registerFluids()
-        RagiMaterialsInit.registerItems()
+        RagiInit.registerBlocks()
+        RagiInit.registerEvents()
+        RagiInit.registerFluids()
+        RagiInit.registerItems()
         //proxyの読み込み
         proxy!!.loadPreInit()
     }

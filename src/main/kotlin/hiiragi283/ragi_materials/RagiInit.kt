@@ -7,14 +7,17 @@ import hiiragi283.ragi_materials.items.ItemMaterialDust
 import hiiragi283.ragi_materials.items.ItemMaterialIngot
 import hiiragi283.ragi_materials.materials.EnumMaterials
 import hiiragi283.ragi_materials.materials.MaterialTypes
+import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RegexStatics.snakeToLowerCamelCase
 import net.minecraft.block.material.Material
+import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 
-object RagiMaterialsInit {
+object RagiInit {
 
     //Blockの定義
 
@@ -79,5 +82,15 @@ object RagiMaterialsInit {
     }
 
     //鉱石辞書を登録するメソッド
-    fun registerOreDict() {}
+    fun registerOreDict() {
+        //EnumMaterialsの各enumに対して実行
+        for (material in EnumMaterials.values()) {
+            //list内の各prefixに対して実行
+            for (prefix in listOf("dust", "ingot", "plate")) {
+                //鉱石辞書名 -> prefix + registryNameをLowerCamelCaseに変換した文字列
+                //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
+                RagiUtils.setOreDict(prefix + material.registryName.snakeToLowerCamelCase(), RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index))
+            }
+        }
+    }
 }
