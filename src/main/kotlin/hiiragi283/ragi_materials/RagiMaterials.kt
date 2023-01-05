@@ -50,6 +50,7 @@ class RagiMaterials {
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent?) {
         //鉱石辞書の登録
+        RagiInit.registerOreDict()
         //proxyの読み込み
         proxy!!.loadInit()
     }

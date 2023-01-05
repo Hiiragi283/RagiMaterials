@@ -152,7 +152,7 @@ object RagiUtils {
     //鉱石辞書を追加するメソッド
     fun setOreDict(oreDict: String, stack: ItemStack) {
         OreDictionary.registerOre(oreDict, stack)
-        RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stackToBracket(stack))
+        RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.stackToBracket())
     }
 
     //titleコマンドをより簡潔に実行するメソッド
@@ -171,11 +171,11 @@ object RagiUtils {
     }
 
     //ItemStackをCrTのブラケット記法に変換するメソッド (ログ出力用)
-    fun stackToBracket(stack: ItemStack): String {
-        val item: Item = stack.item
+    fun ItemStack.stackToBracket(): String {
+        val item: Item = this.item
         val location: ResourceLocation? = item.registryName
-        val amount: Int = stack.count
-        val meta: Int = stack.metadata
+        val amount: Int = this.count
+        val meta: Int = this.metadata
         return "<$location:$meta> * $amount"
     }
 }

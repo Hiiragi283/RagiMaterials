@@ -8,9 +8,8 @@ import hiiragi283.ragi_materials.items.ItemMaterialIngot
 import hiiragi283.ragi_materials.materials.EnumMaterials
 import hiiragi283.ragi_materials.materials.MaterialTypes
 import hiiragi283.ragi_materials.util.RagiUtils
-import hiiragi283.ragi_materials.util.RegexStatics.snakeToLowerCamelCase
+import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import net.minecraft.block.material.Material
-import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
@@ -87,9 +86,9 @@ object RagiInit {
         for (material in EnumMaterials.values()) {
             //list内の各prefixに対して実行
             for (prefix in listOf("dust", "ingot", "plate")) {
-                //鉱石辞書名 -> prefix + registryNameをLowerCamelCaseに変換した文字列
+                //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                 //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
-                RagiUtils.setOreDict(prefix + material.registryName.snakeToLowerCamelCase(), RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index))
+                RagiUtils.setOreDict(prefix + material.registryName.snakeToUpperCamelCase(), RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index))
             }
         }
     }

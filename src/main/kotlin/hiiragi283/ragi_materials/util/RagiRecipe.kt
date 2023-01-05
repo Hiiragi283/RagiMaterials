@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.util.RagiUtils.stackToBracket
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.FurnaceRecipes
@@ -28,8 +29,8 @@ object RagiRecipe {
     //かまどレシピを追加するメソッド
     fun addFurnace(output: ItemStack, input: ItemStack) {
         GameRegistry.addSmelting(input, output, 0f)
-        val bracketIn = RagiUtils.stackToBracket(input)
-        val bracketOut = RagiUtils.stackToBracket(output)
+        val bracketIn = input.stackToBracket()
+        val bracketOut = output.stackToBracket()
         RagiLogger.infoDebug("The smelting recipe $bracketIn -> $bracketOut was added successfully!")
     }
 
@@ -49,7 +50,7 @@ object RagiRecipe {
             if (RagiUtils.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input)) {
                 //レシピを削除する
                 iteratorFurnace.remove()
-                RagiLogger.infoDebug("The smelting input " + RagiUtils.stackToBracket(input) + " was removed successfully!")
+                RagiLogger.infoDebug("The smelting input " + input.stackToBracket() + " was removed successfully!")
             }
         }
     }
@@ -85,7 +86,7 @@ object RagiRecipe {
     fun addShapelessOverride(registryName: String, output: ItemStack?, vararg inputs: Ingredient?) {
         //レシピを上書きする
         GameRegistry.addShapelessRecipe(
-                ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs
+            ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs
         )
         RagiLogger.infoDebug("The recipe <recipe:$registryName> was overrided successfully!")
     }
@@ -100,7 +101,7 @@ object RagiRecipe {
         if (recipeBefore !== null) {
             //レシピを置き換える
             GameRegistry.addShapedRecipe(
-                    location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtils.getStack("minecraft:barrier", 1, 0)
+                location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtils.getStack("minecraft:barrier", 1, 0)
             )
             RagiLogger.infoDebug("The recipe <recipe:$registryName> was removed successfully!")
         } else {

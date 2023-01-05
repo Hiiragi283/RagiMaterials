@@ -56,7 +56,7 @@ object RagiModel {
             //アイテムとしての描画処理
             ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { fluidModel }
             //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
-            if(fluid.block !== null) {
+            if (fluid.block !== null) {
                 ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
                     override fun getModelResourceLocation(p_178132_1_: IBlockState): ModelResourceLocation {
                         return fluidModel
