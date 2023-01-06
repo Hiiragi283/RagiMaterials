@@ -37,6 +37,7 @@ object RagiColor {
         var redSum = 0
         var greenSum = 0
         var blueSum = 0
+        val weightSum = colors.values.sum()
         //colorsの各keyに対して実行
         for (i in colors.keys) {
             //RGB値にweightをかけた値を加算していく
@@ -45,7 +46,7 @@ object RagiColor {
             blueSum += i.blue * colors[i]!!
         }
         //加算した各RGB値をweightの合計で割った値からColorを生成
-        return Color(redSum / colors.values.sum(), greenSum / colors.values.sum(), blueSum / colors.values.sum())
+        return Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum)
     }
 
     //混合色から元の色を取得するメソッド
