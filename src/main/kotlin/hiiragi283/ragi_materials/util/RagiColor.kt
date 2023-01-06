@@ -14,14 +14,38 @@ object RagiColor {
     val RAGI_RED = Color(255, 0, 31)
     val CLEAR = Color(255, 255, 255, 0)
 
-    //2つの色の中間色を取得するメソッド
-    fun mixColor(color1: Color, color2: Color): Color {
-        //color1とcolor2の各RGB値の平均値を計算
-        val aveR = (color1.red + color2.red) / 2
-        val aveG = (color1.green + color2.green) / 2
-        val aveB = (color1.blue + color2.blue) / 2
-        //中間 (管理) 色を返す
-        return Color(aveR, aveG, aveB)
+    //複数の色を混合するメソッド
+    fun mixColor(vararg colors: Color): Color {
+        //変数の宣言・初期化
+        var redAve = 0
+        var greenAve = 0
+        var blueAve = 0
+        //colorsの各colorに対して実行
+        for (color in colors) {
+            //RGB値のそれぞれの総和をとる
+            redAve += color.red
+            greenAve += color.green
+            blueAve += color.blue
+        }
+        //各RGB値の平均値からColorを生成
+        return Color(redAve / colors.size, greenAve / colors.size, blueAve / colors.size)
+    }
+
+    //複数の色を比率を指定して混合するメソッド
+    fun mixColor(colors: Map<Color, Int>): Color {
+        //変数の宣言・初期化
+        var redSum = 0
+        var greenSum = 0
+        var blueSum = 0
+        //colorsの各keyに対して実行
+        for (i in colors.keys) {
+            //RGB値にweightをかけた値を加算していく
+            redSum += i.red * colors[i]!!
+            greenSum += i.green * colors[i]!!
+            blueSum += i.blue * colors[i]!!
+        }
+        //加算した各RGB値をweightの合計で割った値からColorを生成
+        return Color(redSum / colors.values.sum(), greenSum / colors.values.sum(), blueSum / colors.values.sum())
     }
 
     //混合色から元の色を取得するメソッド
