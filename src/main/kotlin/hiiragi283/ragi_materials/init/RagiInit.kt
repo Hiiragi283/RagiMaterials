@@ -1,11 +1,13 @@
-package hiiragi283.ragi_materials
+package hiiragi283.ragi_materials.init
 
+import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.items.ItemBookDebug
 import hiiragi283.ragi_materials.items.ItemMaterialDust
-import hiiragi283.ragi_materials.items.ItemMaterialIngot
+import hiiragi283.ragi_materials.items.ItemMaterialMetal
 import hiiragi283.ragi_materials.materials.EnumMaterials
+import hiiragi283.ragi_materials.materials.MaterialHelper
 import hiiragi283.ragi_materials.materials.MaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
@@ -23,8 +25,9 @@ object RagiInit {
     //Itemの定義
     val ItemBookDebug = ItemBookDebug()
     val ItemDust = ItemMaterialDust()
-    val ItemIngot = ItemMaterialIngot("ingot")
-    val ItemPlate = ItemMaterialIngot("plate")
+    val ItemIngot = ItemMaterialMetal("ingot")
+    val ItemNugget = ItemMaterialMetal("nugget")
+    val ItemPlate = ItemMaterialMetal("plate")
 
     //Blockを登録するメソッド
     fun registerBlocks() {}
@@ -77,6 +80,7 @@ object RagiInit {
         ForgeRegistries.ITEMS.register(ItemBookDebug)
         ForgeRegistries.ITEMS.register(ItemDust)
         ForgeRegistries.ITEMS.register(ItemIngot)
+        ForgeRegistries.ITEMS.register(ItemNugget)
         ForgeRegistries.ITEMS.register(ItemPlate)
     }
 
@@ -85,10 +89,11 @@ object RagiInit {
         //EnumMaterialsの各enumに対して実行
         for (material in EnumMaterials.values()) {
             //list内の各prefixに対して実行
-            for (prefix in listOf("dust", "ingot", "plate")) {
+            for (prefix in MaterialHelper.listPrefix) {
                 //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                 //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
-                RagiUtils.setOreDict(prefix + material.registryName.snakeToUpperCamelCase(), RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index))
+                RagiUtils.setOreDict(prefix + material.getOreDict(), RagiUtils.getStack(
+                    Reference.MOD_ID, prefix, 1, material.index))
             }
         }
     }

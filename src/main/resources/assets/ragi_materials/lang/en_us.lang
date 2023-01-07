@@ -43,6 +43,7 @@ item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
 item.ragi_dust.name=%s Dust
 item.ragi_ingot.name=%s Ingot
+item.ragi_nugget.name=%s Nugget
 item.ragi_plate.name=%s Plate
 
 # Materials
