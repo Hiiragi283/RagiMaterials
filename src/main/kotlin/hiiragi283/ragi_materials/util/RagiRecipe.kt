@@ -66,7 +66,7 @@ object RagiRecipe {
     }
 
     //定型クラフトレシピを名前付きで追加するメソッド
-    fun addShapedOverride(registryName: String, output: ItemStack?, vararg inputs: Any?) {
+    fun addShaped(registryName: String, output: ItemStack?, vararg inputs: Any?) {
         //レシピを上書きする
         GameRegistry.addShapedRecipe(ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs)
         RagiLogger.infoDebug("The recipe <recipe:$registryName> was overrided successfully!")
@@ -83,7 +83,7 @@ object RagiRecipe {
     }
 
     //不定型クラフトレシピを名前付きで追加するメソッド
-    fun addShapelessOverride(registryName: String, output: ItemStack?, vararg inputs: Ingredient?) {
+    fun addShapeless(registryName: String, output: ItemStack?, vararg inputs: Ingredient?) {
         //レシピを上書きする
         GameRegistry.addShapelessRecipe(
             ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs
@@ -92,7 +92,7 @@ object RagiRecipe {
     }
 
     //クラフトレシピを削除するメソッド
-    fun remove(registryName: String) {
+    fun removeCrafting(registryName: String) {
         //registryNameからResource Locationを生成
         val location = ResourceLocation(registryName)
         //locationからレシピを取得

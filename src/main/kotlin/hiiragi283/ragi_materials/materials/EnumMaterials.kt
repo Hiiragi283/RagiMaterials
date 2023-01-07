@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.materials
 
 import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import java.awt.Color
 
 enum class EnumMaterials(val index: Int, val registryName: String, val type: MaterialType, val color: Color) {
@@ -75,5 +76,10 @@ enum class EnumMaterials(val index: Int, val registryName: String, val type: Mat
     PLUTONIUM(94, "plutonium", MaterialType.METAL, RagiColor.RED),
 
     //32768: WILDCARD
-    WILDCARD(32768, "wildcard", MaterialType.WILDCARD, RagiColor.WHITE)
+    WILDCARD(32768, "wildcard", MaterialType.WILDCARD, RagiColor.WHITE);
+
+    //registryNameからUCC型のStringを取得するメソッド
+    fun getOreDict(): String {
+        return this.registryName.snakeToUpperCamelCase()
+    }
 }

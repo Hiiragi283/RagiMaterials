@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiInitRecipe
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraftforge.fluids.FluidRegistry
@@ -51,6 +53,8 @@ class RagiMaterials {
     fun init(event: FMLInitializationEvent?) {
         //鉱石辞書の登録
         RagiInit.registerOreDict()
+        //レシピの登録
+        RagiInitRecipe.registerRecipes()
         //proxyの読み込み
         proxy!!.loadInit()
     }
