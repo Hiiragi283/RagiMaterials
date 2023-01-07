@@ -49,6 +49,7 @@ item.ragi_plate.name=%s板
 
 material.hiiragi_tsubasa=DEBUG
 
+
 material.hydrogen=水素
 material.helium=ヘリウム
 material.beryllium=ベリリウム
@@ -59,6 +60,7 @@ material.nitrogen=窒素
 material.oxygen=酸素
 material.fluorine=弗素
 material.neon=ネオン
+
 material.sodium=ナトリウム
 material.magnesium=マグネシウム
 material.aluminium=アルミニウム
@@ -67,6 +69,7 @@ material.phosphorus=燐
 material.sulfur=硫黄
 material.chlorine=塩素
 material.argon=アルゴン
+
 material.potassium=カリウム
 material.calcium=カルシウム
 material.titanium=チタン
@@ -79,6 +82,38 @@ material.copper=銅
 material.zinc=亜鉛
 material.gallium=ガリウム
 material.arsenic=砒素
+
+material.strontium=ストロンチウム
+material.zirconium=ジルコニウム
+material.niobium=ニオブ
+material.molybdenum=モリブデン
+material.ruthenium=ルテニウム
+material.rhodium=ロジウム
+material.palladium=パラジウム
+material.silver=銀
+material.indium=インジウム
+material.tin=錫
+material.antimony=アンチモン
+material.iodine=沃素
+
+material.barium=バリウム
+material.neodymium=ネオジム
+material.samarium=サマリウム
+material.hafnium=ハフニウム
+material.tantalum=タンタル
+material.tungsten=タングステン
+material.osmium=オスミウム
+material.iridium=イリジウム
+material.platinum=白金
+material.gold=金
+material.mercury=水銀
+material.lead=鉛
+material.bismuth=ビスマス
+
+material.thorium=トリウム
+material.uranium=ウラニウム
+material.plutonium=プルトニウム
+
 
 material.wildcard=無効な
 

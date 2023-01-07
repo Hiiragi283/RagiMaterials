@@ -49,8 +49,10 @@ item.ragi_plate.name=%s Plate
 
 material.hiiragi_tsubasa=DEBUG
 
+
 material.hydrogen=Hydrogen
 material.helium=Helium
+
 material.beryllium=Beryllium
 material.lithium=Lithium
 material.boron=Boron
@@ -59,6 +61,7 @@ material.nitrogen=Nitrogen
 material.oxygen=Oxygen
 material.fluorine=Fluorine
 material.neon=Neon
+
 material.sodium=Sodium
 material.magnesium=Magnesium
 material.aluminium=Aluminium
@@ -67,6 +70,7 @@ material.phosphorus=Phosphorus
 material.sulfur=Sulfur
 material.chlorine=Chlorine
 material.argon=Argon
+
 material.potassium=Potassium
 material.calcium=Calcium
 material.titanium=Titanium
@@ -79,6 +83,38 @@ material.copper=Copper
 material.zinc=Zinc
 material.gallium=Gallium
 material.arsenic=Arsenic
+
+material.strontium=Strontium
+material.zirconium=Zirconium
+material.niobium=Niobium
+material.molybdenum=Molybdenum
+material.ruthenium=Ruthenium
+material.rhodium=Rhodium
+material.palladium=Palladium
+material.silver=Silver
+material.indium=Indium
+material.tin=Tin
+material.antimony=Antimony
+material.iodine=iodine
+
+material.barium=Barium
+material.neodymium=Neodymium
+material.samarium=Samarium
+material.hafnium=Hafnium
+material.tantalum=Tantalum
+material.tungsten=Tungsten
+material.osmium=Osmium
+material.iridium=Iridium
+material.platinum=Platinum
+material.gold=Gold
+material.mercury=Mercury
+material.lead=Lead
+material.bismuth=Bismuth
+
+material.thorium=Thorium
+material.uranium=Uranium
+material.plutonium=Plutonium
+
 
 material.wildcard=INVALID
 
