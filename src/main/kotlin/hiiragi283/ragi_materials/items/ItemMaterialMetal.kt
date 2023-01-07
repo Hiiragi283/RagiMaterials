@@ -11,7 +11,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialIngot(private val ID: String) : ItemBase(Reference.MOD_ID, ID, 255) {
+class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID, 255) {
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
