@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.items.ItemBookDebug
 import hiiragi283.ragi_materials.items.ItemMaterialDust
 import hiiragi283.ragi_materials.items.ItemMaterialIngot
 import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialTypes
+import hiiragi283.ragi_materials.materials.MaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import net.minecraft.block.material.Material
@@ -46,7 +46,7 @@ object RagiInit {
                     val fluid = FluidBase(material.registryName)
                     fluid.setColor(material.color)
                     //MaterialTypesがGASの場合
-                    if(material.type == MaterialTypes.GAS) {
+                    if(material.type == MaterialType.GAS) {
                         fluid.isGaseous = true
                         fluid.density = fluid.density * -1
                     }
