@@ -14,9 +14,21 @@ object RagiInitRecipe {
     private fun addCrafting() {
         for (material in EnumMaterials.values()) {
             //nugget -> ingotのレシピを登録
-            RagiRecipe.addShaped(RagiUtils.getStack(Reference.MOD_ID, "ingot", 1, material.index), "AAA", "AAA", "AAA", 'A', "nugget${material.getOreDict()}")
+            RagiRecipe.addShaped(
+                RagiUtils.getStack(Reference.MOD_ID, "ingot", 1, material.index),
+                "AAA",
+                "AAA",
+                "AAA",
+                'A',
+                "nugget${material.getOreDict()}"
+            )
             //ingot -> nuggetのレシピを登録
-            RagiRecipe.addShaped(RagiUtils.getStack(Reference.MOD_ID, "nugget", 9, material.index), "A", 'A', "ingot${material.getOreDict()}")
+            RagiRecipe.addShaped(
+                RagiUtils.getStack(Reference.MOD_ID, "nugget", 9, material.index),
+                "A",
+                'A',
+                "ingot${material.getOreDict()}"
+            )
         }
     }
 }
