@@ -27,4 +27,7 @@ object Reference {
 
     //Serverの定義 (コマンド実行用)
     val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer
+
+    //
+    const val numMaterial = 255
 }

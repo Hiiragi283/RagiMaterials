@@ -11,7 +11,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialDust : ItemBase(Reference.MOD_ID, "dust", 255) {
+class ItemMaterialDust : ItemBase(Reference.MOD_ID, "dust", Reference.numMaterial) {
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
