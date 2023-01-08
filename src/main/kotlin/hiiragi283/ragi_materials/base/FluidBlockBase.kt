@@ -6,7 +6,8 @@ import net.minecraftforge.fluids.Fluid
 
 class FluidBlockBase(fluid: Fluid) : BlockFluidClassic(fluid, Material.WATER) {
 
+    //コンストラクタの初期化
     init {
-        setRegistryName(fluid.name)
+        setRegistryName(fluid.name) //IDの設定
     }
 }

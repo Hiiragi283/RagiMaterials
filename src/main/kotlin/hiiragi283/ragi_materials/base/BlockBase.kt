@@ -15,19 +15,21 @@ import java.util.*
           https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCSimpleBlock.java
 */
 
-class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : Block(Material!!) {
+open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : Block(Material!!) {
 
     //private変数の宣言
+    companion object {
+        private val property16 = PropertyInteger.create("property", 0, 15)
+    }
     private val maxMeta: Int
-    private val property16 = PropertyInteger.create("property", 0, 15)
 
-    //コンストラクタの宣言
+    //コンストラクタの初期化
     init {
-        defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをproperty16の0番に設定
-        setCreativeTab(CreativeTabs.DECORATIONS) //表示するクリエイティブタブの設定
+        this.maxMeta = maxMeta //メタデータの最大値の初期化
+        this.setCreativeTab(CreativeTabs.DECORATIONS) //表示するクリエイティブタブの設定
+        defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得
-        this.maxMeta = maxMeta //メタデータの最大値を代入
     }
 
     //Blockstateの登録をするメソッド

@@ -15,16 +15,16 @@ import net.minecraftforge.fml.relauncher.SideOnly
   Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCItemBlock.java
 */
 
-class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
+open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
 
     //private変数の宣言
     private val maxMeta: Int
 
     //コンストラクタの宣言
     init {
+        this.maxMeta = maxMeta //メタデータの最大値を代入
         registryName = block.registryName!! //翻訳キーはblockのものから取得
         setHasSubtypes(true) //メタデータを使用する
-        this.maxMeta = maxMeta //メタデータの最大値を代入
     }
 
     //メタデータを得るメソッド

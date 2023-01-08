@@ -19,13 +19,13 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     //private変数の宣言
     private val maxMeta: Int
 
-    //コンストラクタの宣言
+    //コンストラクタの初期化
     init {
+        this.maxMeta = maxMeta //メタデータの最大値の初期化
         creativeTab = CreativeTabs.MISC //表示するクリエイティブタブの設定
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
-        this.maxMeta = maxMeta //メタデータの代入
-        if (maxMeta != 0) this.setHasSubtypes(true) //メタデータを使用する
+        if (maxMeta != 0) setHasSubtypes(true) //メタデータを使用する
     }
 
     //メタデータを得るメソッド
