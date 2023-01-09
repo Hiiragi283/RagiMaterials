@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.materials
 
 enum class MaterialType(val hasDust: Boolean, val hasIngot: Boolean, val hasFluid: Boolean, val hasFluidBlock: Boolean) {
+    CARBON(true, true, false, false), //昇華する半金属
     DUST(true, false, false, false), //粉末
     GAS(false, false, true, true), //気体
     INTERNAL(false, false, false, false), //内部データ用
