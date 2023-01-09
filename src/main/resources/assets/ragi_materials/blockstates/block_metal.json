@@ -1,0 +1,13 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "blocks/iron_block"
+    },
+    "model": "ragi_materials:all_tintindex",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}

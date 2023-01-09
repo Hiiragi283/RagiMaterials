@@ -1,10 +1,13 @@
 
 # Fluid
 
+## DEBUG
 fluid.hiiragi_tsubasa=DEBUG
 
+## Periodic Table
 fluid.hydrogen=Hydrogen
 fluid.helium=Helium
+
 fluid.beryllium=Molten Beryllium
 fluid.lithium=Molten Lithium
 #fluid.boron=Molten Boron
@@ -13,6 +16,7 @@ fluid.nitrogen=Nitrogen
 fluid.oxygen=Oxygen
 fluid.fluorine=Fluorine
 fluid.neon=Neon
+
 fluid.sodium=Molten Sodium
 fluid.magnesium=Molten Magnesium
 fluid.aluminium=Molten Aluminium
@@ -21,6 +25,7 @@ fluid.silicon=Molten Silicon
 #fluid.sulfur=Molten Sulfur
 fluid.chlorine=Chlorine
 fluid.argon=Argon
+
 fluid.potassium=Molten Potassium
 fluid.calcium=Molten Calcium
 fluid.titanium=Molten Titanium
@@ -34,6 +39,38 @@ fluid.zinc=Molten Zinc
 fluid.gallium=Molten Gallium
 #fluid.arsenic=Molten Arsenic
 
+fluid.strontium=Molten Strontium
+fluid.zirconium=Molten Zirconium
+fluid.niobium=Molten Niobium
+fluid.molybdenum=Molten Molybdenum
+fluid.ruthenium=Molten Ruthenium
+fluid.rhodium=Molten Rhodium
+fluid.palladium=Molten Palladium
+fluid.silver=Molten Silver
+fluid.indium=Molten Indium
+fluid.tin=Molten Tin
+fluid.antimony=Molten Antimony
+#fluid.iodine=Molten iodine
+
+fluid.barium=Molten Barium
+fluid.neodymium=Molten Neodymium
+fluid.samarium=Molten Samarium
+fluid.hafnium=Molten Hafnium
+fluid.tantalum=Molten Tantalum
+fluid.tungsten=Molten Tungsten
+fluid.osmium=Molten Osmium
+fluid.iridium=Molten Iridium
+fluid.platinum=Molten Platinum
+fluid.gold=Molten Gold
+fluid.mercury=Molten Mercury
+fluid.lead=Molten Lead
+fluid.bismuth=Molten Bismuth
+
+fluid.thorium=Molten Thorium
+fluid.uranium=Molten Uranium
+fluid.plutonium=Molten Plutonium
+
+## WILDCARD
 fluid.wildcard=INVALID
 
 # Item
@@ -41,6 +78,7 @@ fluid.wildcard=INVALID
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
+item.ragi_block_metal.name=Block of %s
 item.ragi_dust.name=%s Dust
 item.ragi_ingot.name=%s Ingot
 item.ragi_nugget.name=%s Nugget
@@ -48,9 +86,10 @@ item.ragi_plate.name=%s Plate
 
 # Materials
 
+## DEBUG
 material.hiiragi_tsubasa=DEBUG
 
-
+## Periodic Table
 material.hydrogen=Hydrogen
 material.helium=Helium
 
@@ -116,10 +155,14 @@ material.thorium=Thorium
 material.uranium=Uranium
 material.plutonium=Plutonium
 
-
+## WILDCARD
 material.wildcard=INVALID
 
 # Text
 text.ragi_materials.decoration_line.name=§e§l========================================
+text.ragi_materials.property.boil=- Boiling Point: §b%s§r [K]
+text.ragi_materials.property.melt=- Melting Point: §b%s§r [K]
+text.ragi_materials.property.mol=- Amount of Substances: §b%s§r [g/mol]
+text.ragi_materials.property.subl=- Sublimation Point: §b%s§r [K]
 text.ragi_materials.spawn.name=§bTeleport you to the spawn point!
 text.ragi_materials.syntax.name=§bSyntax and Reload!

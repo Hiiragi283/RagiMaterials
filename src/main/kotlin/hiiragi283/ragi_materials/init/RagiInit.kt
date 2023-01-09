@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.init
 
+import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraftforge.common.MinecraftForge
@@ -33,7 +34,8 @@ object RagiInit {
     }
 
     //Eventを登録するメソッド
-    fun registerEvents() {
+    private fun registerEvents() {
+        MinecraftForge.EVENT_BUS.register(ItemTooltip())
         MinecraftForge.EVENT_BUS.register(RightClickBlock())
     }
 }

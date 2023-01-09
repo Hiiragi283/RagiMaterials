@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.base
 
+import hiiragi283.ragi_materials.Reference
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
@@ -15,53 +16,50 @@ import java.util.*
           https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCSimpleBlock.java
 */
 
-open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : Block(Material!!) {
+open class BlockMaterialBase(Material: Material?, MOD: String, ID: String?) : Block(Material!!) {
 
     //private変数の宣言
     companion object {
-        private val property16 = PropertyInteger.create("property", 0, 15)
+        private val propertyMaterial = PropertyInteger.create("material", 0, Reference.numMaterial)
     }
-
-    private val maxMeta: Int
 
     //コンストラクタの初期化
     init {
-        this.maxMeta = maxMeta //メタデータの最大値の初期化
         this.setCreativeTab(CreativeTabs.DECORATIONS) //表示するクリエイティブタブの設定
-        defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
+        defaultState = blockState.baseState.withProperty(propertyMaterial, 0) //デフォルトのBlockstateをpropertyの0番に設定
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得
     }
 
     //Blockstateの登録をするメソッド
     override fun createBlockState(): BlockStateContainer {
-        //property16を使用すると、Blockstateは"type=0"から"type=15"までが登録される
-        return BlockStateContainer(this, property16)
+        //propertyMaterialを使用すると、Blockstateは"type=0"から"type=15"までが登録される
+        return BlockStateContainer(this, propertyMaterial)
     }
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        //property16をもとにBlockstateからメタデータを返す
-        val i = state.getValue(property16)
-        //メタデータがmaxMetaよりも大きい場合、最大値を返す
-        return i.coerceAtMost(maxMeta)
+        //propertyMaterialをもとにBlockstateからメタデータを返す
+        val i = state.getValue(propertyMaterial)
+        //メタデータがReference.numMaterialよりも大きい場合、最大値を返す
+        return i.coerceAtMost(Reference.numMaterial)
     }
 
     //メタデータからBlockstateを得るメソッド
     override fun getStateFromMeta(meta: Int): IBlockState {
         //metaをmaxMete+1で割った剰余を求める
-        //これmaxMeta % maxMeta = 0になるからわざと+1してます
-        val i = meta % (maxMeta + 1)
-        //property16をもとに指定したメタデータからBlockstateを返す
-        return defaultState.withProperty(property16, i)
+        //これReference.numMaterial % Reference.numMaterial = 0になるからわざと+1してます
+        val i = meta % (Reference.numMaterial + 1)
+        //propertyMaterialをもとに指定したメタデータからBlockstateを返す
+        return defaultState.withProperty(propertyMaterial, i)
     }
 
     //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
     override fun damageDropped(state: IBlockState): Int {
-        //property16をもとにBlockstateからメタデータを返す
-        val i = state.getValue(property16)
-        //メタデータがmaxMetaよりも大きい場合、最大値を返す
-        return i.coerceAtMost(maxMeta)
+        //propertyMaterialをもとにBlockstateからメタデータを返す
+        val i = state.getValue(propertyMaterial)
+        //メタデータがReference.numMaterialよりも大きい場合、最大値を返す
+        return i.coerceAtMost(Reference.numMaterial)
     }
 
     //ドロップするアイテムを得るメソッド

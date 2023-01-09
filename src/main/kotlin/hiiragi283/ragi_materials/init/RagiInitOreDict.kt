@@ -21,6 +21,12 @@ object RagiInitOreDict {
                     )
                 )
             }
+            //金属ブロックの鉱石辞書
+            RagiUtils.setOreDict(
+                "block" + material.getOreDict(), RagiUtils.getStack(
+                    Reference.MOD_ID, "block_metal", 1, material.index
+                )
+            )
         }
     }
 }

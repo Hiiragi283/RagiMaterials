@@ -1,10 +1,13 @@
 
 # Fluid
 
+## DEBUG
 fluid.hiiragi_tsubasa=DEBUG
 
+## Periodic Table
 fluid.hydrogen=水素
 fluid.helium=ヘリウム
+
 fluid.beryllium=溶融ベリリウム
 fluid.lithium=溶融リチウム
 #fluid.boron=溶融硼素
@@ -13,6 +16,7 @@ fluid.nitrogen=窒素
 fluid.oxygen=酸素
 fluid.fluorine=弗素
 fluid.neon=ネオン
+
 fluid.sodium=溶融ナトリウム
 fluid.magnesium=溶融マグネシウム
 fluid.aluminium=溶融アルミニウム
@@ -21,6 +25,7 @@ fluid.silicon=溶融珪素
 #fluid.sulfur=溶融硫黄
 fluid.chlorine=塩素
 fluid.argon=アルゴン
+
 fluid.potassium=溶融カリウム
 fluid.calcium=溶融カルシウム
 fluid.titanium=溶融チタン
@@ -34,6 +39,38 @@ fluid.zinc=溶融亜鉛
 fluid.gallium=溶融ガリウム
 #fluid.arsenic=溶融砒素
 
+fluid.strontium=溶融ストロンチウム
+fluid.zirconium=溶融ジルコニウム
+fluid.niobium=溶融ニオブ
+fluid.molybdenum=溶融モリブデン
+fluid.ruthenium=溶融ルテニウム
+fluid.rhodium=溶融ロジウム
+fluid.palladium=溶融パラジウム
+fluid.silver=溶融銀
+fluid.indium=溶融インジウム
+fluid.tin=溶融錫
+fluid.antimony=溶融アンチモン
+#fluid.iodine=溶融沃素
+
+fluid.barium=溶融バリウム
+fluid.neodymium=溶融ネオジム
+fluid.samarium=溶融サマリウム
+fluid.hafnium=溶融ハフニウム
+fluid.tantalum=溶融タンタル
+fluid.tungsten=溶融タングステン
+fluid.osmium=溶融オスミウム
+fluid.iridium=溶融イリジウム
+fluid.platinum=溶融白金
+fluid.gold=溶融金
+fluid.mercury=溶融水銀
+fluid.lead=溶融鉛
+fluid.bismuth=溶融ビスマス
+
+fluid.thorium=溶融トリウム
+fluid.uranium=溶融ウラニウム
+fluid.plutonium=溶融プルトニウム
+
+## WILDCARD
 fluid.wildcard=無効な
 
 # Item
@@ -41,6 +78,7 @@ fluid.wildcard=無効な
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
+item.ragi_block_metal.name=%sブロック
 item.ragi_dust.name=%s粉末
 item.ragi_ingot.name=%sインゴット
 item.ragi_nugget.name=%sナゲット
@@ -48,11 +86,13 @@ item.ragi_plate.name=%s板
 
 # Materials
 
+## DEBUG
 material.hiiragi_tsubasa=DEBUG
 
-
+## Periodic Table
 material.hydrogen=水素
 material.helium=ヘリウム
+
 material.beryllium=ベリリウム
 material.lithium=リチウム
 material.boron=硼素
@@ -115,10 +155,14 @@ material.thorium=トリウム
 material.uranium=ウラニウム
 material.plutonium=プルトニウム
 
-
+## WILDCARD
 material.wildcard=無効な
 
 # Text
 text.ragi_materials.decoration_line.name=§e§l========================================
+text.ragi_materials.property.boil=- 沸点: §b%s§r [K]
+text.ragi_materials.property.melt=- 融点: §b%s§r [K]
+text.ragi_materials.property.mol=- 物質量: §b%s§r [g/mol]
+text.ragi_materials.property.subl=- 昇華点: §b%s§r [K]
 text.ragi_materials.spawn.name=§bスポーン地点にテレポートしました!
 text.ragi_materials.syntax.name=§bSyntax and Reload!
