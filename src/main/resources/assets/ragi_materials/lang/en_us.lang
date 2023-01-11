@@ -160,9 +160,9 @@ material.wildcard=INVALID
 
 # Text
 text.ragi_materials.decoration_line.name=§e§l========================================
-text.ragi_materials.property.boil=- Boiling Point: §b%s§r [K]
-text.ragi_materials.property.melt=- Melting Point: §b%s§r [K]
-text.ragi_materials.property.mol=- Amount of Substances: §b%s§r [g/mol]
-text.ragi_materials.property.subl=- Sublimation Point: §b%s§r [K]
+text.ragi_materials.property.boil=- Boiling Point: §b%s§r K
+text.ragi_materials.property.melt=- Melting Point: §b%s§r K
+text.ragi_materials.property.mol=- Molar Mass: §b%s§r g/mol
+text.ragi_materials.property.subl=- Sublimation Point: §b%s§r K
 text.ragi_materials.spawn.name=§bTeleport you to the spawn point!
 text.ragi_materials.syntax.name=§bSyntax and Reload!

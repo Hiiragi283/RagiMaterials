@@ -160,9 +160,9 @@ material.wildcard=無効な
 
 # Text
 text.ragi_materials.decoration_line.name=§e§l========================================
-text.ragi_materials.property.boil=- 沸点: §b%s§r [K]
-text.ragi_materials.property.melt=- 融点: §b%s§r [K]
-text.ragi_materials.property.mol=- 物質量: §b%s§r [g/mol]
-text.ragi_materials.property.subl=- 昇華点: §b%s§r [K]
+text.ragi_materials.property.boil=- 沸点: §b%s§r K
+text.ragi_materials.property.melt=- 融点: §b%s§r K
+text.ragi_materials.property.mol=- 物質量: §b%s§r g/mol
+text.ragi_materials.property.subl=- 昇華点: §b%s§r K
 text.ragi_materials.spawn.name=§bスポーン地点にテレポートしました!
 text.ragi_materials.syntax.name=§bSyntax and Reload!
