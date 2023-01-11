@@ -25,8 +25,8 @@ class ItemMaterialDust : ItemBase(Reference.MOD_ID, "dust", Reference.numMateria
     //エンチャント効果を乗せるかどうかを決めるメソッド
     @SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
-        //白金族のindexとメタデータが一致するならtrue
-        return listOf(44, 45, 46, 76, 77, 78).contains(stack.metadata)
+        //放射性物質のindexとメタデータが一致するならtrue
+        return listOf(90, 92, 94).contains(stack.metadata)
     }
 
     //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
