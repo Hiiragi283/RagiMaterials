@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.EnumMaterials
 import hiiragi283.ragi_materials.util.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraft.item.ItemStack
 
 object RagiInitRecipe {
 
@@ -38,6 +39,16 @@ object RagiInitRecipe {
                 "A",
                 'A',
                 "ingot${material.getOreDict()}"
+            )
+            //ingot -> plateのレシピを登録
+            RagiRecipe.addShaped(
+                Reference.MOD_ID + ":ingot_to_plate_" + material.index,
+                RagiUtils.getStack(Reference.MOD_ID, "plate", 1, material.index),
+                "AB",
+                'A',
+                "ingot${material.getOreDict()}",
+                'B',
+                ItemStack(RagiInitItem.ItemCraftingHammer)
             )
             //nugget -> ingotのレシピを登録
             RagiRecipe.addShaped(

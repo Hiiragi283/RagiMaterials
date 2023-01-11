@@ -11,6 +11,7 @@ class ClientProxy : CommonProxy() {
     override fun loadPreInit() {
         ModelMaterial.setModelMaterial()
         RagiModel.setModel(RagiInitItem.ItemBookDebug)
+        RagiModel.setModel(RagiInitItem.ItemCraftingHammer)
         RagiModel.setModelFluids()
     }
 

@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.items.ItemBookDebug
+import hiiragi283.ragi_materials.items.ItemCraftingTool
 import hiiragi283.ragi_materials.items.ItemMaterialDust
 import hiiragi283.ragi_materials.items.ItemMaterialMetal
 import net.minecraftforge.fml.common.registry.ForgeRegistries
@@ -10,6 +11,7 @@ object RagiInitItem {
     //Itemの定義
     val ItemBlockMetal = ItemMaterialMetal("block_metal")
     val ItemBookDebug = ItemBookDebug()
+    val ItemCraftingHammer = ItemCraftingTool("crafting_hammer")
     val ItemDust = ItemMaterialDust()
     val ItemIngot = ItemMaterialMetal("ingot")
     val ItemNugget = ItemMaterialMetal("nugget")
@@ -19,6 +21,7 @@ object RagiInitItem {
     fun registerItems() {
         ForgeRegistries.ITEMS.register(ItemBlockMetal)
         ForgeRegistries.ITEMS.register(ItemBookDebug)
+        ForgeRegistries.ITEMS.register(ItemCraftingHammer)
         ForgeRegistries.ITEMS.register(ItemDust)
         ForgeRegistries.ITEMS.register(ItemIngot)
         ForgeRegistries.ITEMS.register(ItemNugget)

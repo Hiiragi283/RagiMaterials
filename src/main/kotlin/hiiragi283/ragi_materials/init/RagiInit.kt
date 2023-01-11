@@ -75,7 +75,7 @@ object RagiInit {
     private fun overrideStack() {
         for (name in ForgeRegistries.ITEMS.keys) {
             val item = RagiUtils.getItem(name.toString())
-            //itemの耐久値が0の場合、最大スタック数を64に上書きする
+            //かつitemの耐久値が0の場合、最大スタック数を64に上書きする
             if (item.maxDamage == 0) item.setMaxStackSize(64)
         }
     }
