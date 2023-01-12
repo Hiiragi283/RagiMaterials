@@ -1,11 +1,11 @@
 package hiiragi283.ragi_materials.init
 
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.init.Blocks
 import net.minecraftforge.common.MinecraftForge
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 
 object RagiInit {
@@ -73,9 +73,10 @@ object RagiInit {
 
     //Itemの最大スタック数を上書きする
     private fun overrideStack() {
-        for (name in ForgeRegistries.ITEMS.keys) {
-            val item = RagiUtils.getItem(name.toString())
-            //かつitemの耐久値が0の場合、最大スタック数を64に上書きする
+        //configのlistMaxStackを参照する
+        for (name in RagiConfig.listMaxStack) {
+            val item = RagiUtils.getItem(name)
+            //itemの耐久値が0の場合、最大スタック数を64に上書きする
             if (item.maxDamage == 0) item.setMaxStackSize(64)
         }
     }
