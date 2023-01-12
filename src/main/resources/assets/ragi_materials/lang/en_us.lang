@@ -79,6 +79,7 @@ item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
 item.ragi_block_metal.name=Block of %s
+item.ragi_crafting_tool.0.name=%s Hammer
 item.ragi_dust.name=%s Dust
 item.ragi_ingot.name=%s Ingot
 item.ragi_nugget.name=%s Nugget
@@ -160,6 +161,7 @@ material.wildcard=INVALID
 
 # Text
 text.ragi_materials.decoration_line.name=§e§l========================================
+text.ragi_materials.durability.name=- Durability: §b%s§r
 text.ragi_materials.property.boil=- Boiling Point: §b%s§r K
 text.ragi_materials.property.melt=- Melting Point: §b%s§r K
 text.ragi_materials.property.mol=- Molar Mass: §b%s§r g/mol

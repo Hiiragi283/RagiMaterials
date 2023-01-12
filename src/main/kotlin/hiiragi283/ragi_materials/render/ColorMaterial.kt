@@ -12,11 +12,22 @@ class ColorMaterial : IItemColor, IBlockColor {
 
     override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
         val material = MaterialHelper.getMaterial(stack.metadata)
-        return if (tintIndex == 0) material.color.rgb else 0x000000
+        return if (tintIndex == 0) material.color.rgb else 0xFFFFFF
     }
 
     override fun colorMultiplier(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?, tintIndex: Int): Int {
         val material = MaterialHelper.getMaterial(state.block.getMetaFromState(state))
-        return if (tintIndex == 0) material.color.rgb else 0x000000
+        return if (tintIndex == 0) material.color.rgb else 0xFFFFFF
+    }
+}
+
+class ColorMaterialTool : IItemColor {
+
+    override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
+        return if (stack.tagCompound == null) 0xFFFFFF else {
+            val tag = stack.tagCompound!!
+            val material = MaterialHelper.getMaterial(tag.getString("material"))
+            return if (tintIndex == 1) material.color.rgb else 0xFFFFFF
+        }
     }
 }

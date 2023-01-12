@@ -1,22 +1,11 @@
 package hiiragi283.ragi_materials.util
 
+import hiiragi283.ragi_materials.materials.EnumMaterials
+import hiiragi283.ragi_materials.materials.MaterialHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 
 object RagiNBT {
-    //Safety Mimicを生成するメソッド
-    fun chestMimic(): ItemStack {
-        val chest = RagiUtils.getStack("minecraft:chest", 1, 0)
-        val nbtLoot = NBTTagCompound()
-        nbtLoot.setString("LootTable", "artifacts:mimic_underground")
-        val nbtName = NBTTagCompound()
-        nbtName.setString("LocName", "item.safety_mimic.name")
-        val nbt = NBTTagCompound()
-        nbt.setTag("BlockEntityTag", nbtLoot)
-        nbt.setTag("display", nbtName)
-        chest.tagCompound = nbt
-        return chest
-    }
 
     //stackに名前を設定するメソッド
     fun setName(stack: ItemStack, name: String?): ItemStack {
@@ -36,5 +25,22 @@ object RagiNBT {
         nbtBase.setTag("display", nbtName)
         stack.tagCompound = nbtBase
         return stack
+    }
+
+    //道具用のNBTタグを生成するメソッド
+    fun getTagTool(material: EnumMaterials): NBTTagCompound {
+        val tag = NBTTagCompound()
+        tag.setString("material", material.registryName)
+        //materialがmapToolMaterialに含まれている場合
+        if(MaterialHelper.mapToolMaterial.contains(material)) {
+            //mapToolMaterialから耐久値を取得する
+            tag.setInteger("durability", MaterialHelper.mapToolMaterial[material]!!)
+        }
+        //materialがmapToolMaterialに含まれていない場合
+        else {
+            //EnumMaterials.DEBUGの耐久値を参照
+            tag.setInteger("durability", MaterialHelper.mapToolMaterial[EnumMaterials.DEBUG]!!)
+        }
+        return tag
     }
 }

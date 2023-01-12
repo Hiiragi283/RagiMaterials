@@ -5,7 +5,14 @@ import net.minecraftforge.fluids.FluidRegistry
 
 object MaterialHelper {
 
-    val listPrefix = listOf("dust", "ingot", "nugget", "plate")
+    //道具に使える素材と耐久値のMap
+    val mapToolMaterial = mapOf(
+        EnumMaterials.DEBUG to 1109,
+        EnumMaterials.TITANIUM to 512,
+        EnumMaterials.IRON to 64,
+        EnumMaterials.COPPER to 32,
+        EnumMaterials.TUNGSTEN to 512
+    )
 
     //EnumMaterialもしくはindexから液体を取得するメソッド
     fun getFluid(material: EnumMaterials): Fluid {

@@ -11,7 +11,7 @@ object RagiInitItem {
     //Itemの定義
     val ItemBlockMetal = ItemMaterialMetal("block_metal")
     val ItemBookDebug = ItemBookDebug()
-    val ItemCraftingHammer = ItemCraftingTool("crafting_hammer")
+    val ItemCraftingTool = ItemCraftingTool("crafting_tool", 0)
     val ItemDust = ItemMaterialDust()
     val ItemIngot = ItemMaterialMetal("ingot")
     val ItemNugget = ItemMaterialMetal("nugget")
@@ -21,7 +21,7 @@ object RagiInitItem {
     fun registerItems() {
         ForgeRegistries.ITEMS.register(ItemBlockMetal)
         ForgeRegistries.ITEMS.register(ItemBookDebug)
-        ForgeRegistries.ITEMS.register(ItemCraftingHammer)
+        ForgeRegistries.ITEMS.register(ItemCraftingTool)
         ForgeRegistries.ITEMS.register(ItemDust)
         ForgeRegistries.ITEMS.register(ItemIngot)
         ForgeRegistries.ITEMS.register(ItemNugget)
