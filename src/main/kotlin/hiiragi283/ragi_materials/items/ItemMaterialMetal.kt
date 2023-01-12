@@ -15,11 +15,21 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
 
-    //stackの表示名を上書きするメソッド
-    override fun getItemStackDisplayName(stack: ItemStack): String {
-        //EnumMaterialの取得
-        val material = MaterialHelper.getMaterial(stack.metadata)
-        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.registryName}"))
+    //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
+    @SideOnly(Side.CLIENT) //Client側のみ
+    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
+        if (isInCreativeTab(tab)) {
+            //メタデータの最大値まで処理を繰り返す
+            for (i in 0 until Reference.numMaterial) {
+                //EnumMaterialsを取得
+                val material = MaterialHelper.getMaterial(i)
+                //materialがWILDCARDでない，かつmaterialのtypeのhasIngotがtrueの場合
+                if (material != EnumMaterials.WILDCARD && material.type.hasIngot) {
+                    //ItemStackをlistに追加
+                    subItems.add(ItemStack(this, 1, i))
+                }
+            }
+        }
     }
 
     //エンチャント効果を乗せるかどうかを決めるメソッド
@@ -29,24 +39,11 @@ class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID,
         return listOf(90, 92, 94).contains(stack.metadata)
     }
 
-    //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
-    @SideOnly(Side.CLIENT) //Client側のみ
-    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
-            //メタデータの最大値まで処理を繰り返す
-            for (i in 0 until 255) {
-                //EnumMaterialsを取得
-                val material = MaterialHelper.getMaterial(i)
-                //materialがWILDCARDでない場合
-                if (material != EnumMaterials.WILDCARD) {
-                    //materialのtypeのhasIngotがtrueの場合
-                    if (material.type.hasIngot) {
-                        //ItemStackをlistに追加
-                        subItems.add(ItemStack(this, 1, i))
-                    }
-                }
-            }
-        }
+    //stackの表示名を上書きするメソッド
+    override fun getItemStackDisplayName(stack: ItemStack): String {
+        //EnumMaterialの取得
+        val material = MaterialHelper.getMaterial(stack.metadata)
+        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.registryName}"))
     }
 
     @SideOnly(Side.CLIENT)

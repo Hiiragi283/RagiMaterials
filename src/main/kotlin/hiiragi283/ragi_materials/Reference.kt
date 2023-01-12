@@ -29,5 +29,5 @@ object Reference {
     val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer
 
     //
-    const val numMaterial = 255
+    const val numMaterial = 255 + 1
 }
