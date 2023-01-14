@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "fuel=0,state=extinguish": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=0,state=burning": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=0,state=blasting": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=1,state=extinguish": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=1,state=burning": {
+      "model": "minecraft:lit_furnace"
+    },
+    "fuel=1,state=blasting": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=2,state=extinguish": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=2,state=burning": {
+      "model": "minecraft:lit_furnace"
+    },
+    "fuel=2,state=blasting": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=3,state=extinguish": {
+      "model": "minecraft:furnace"
+    },
+    "fuel=3,state=burning": {
+      "model": "minecraft:lit_furnace"
+    },
+    "fuel=3,state=blasting": {
+      "model": "minecraft:magma"
+    }
+  }
+}
