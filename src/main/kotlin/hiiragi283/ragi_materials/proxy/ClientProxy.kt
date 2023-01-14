@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.init.RagiInitItem
 import hiiragi283.ragi_materials.render.ColorMaterial
-import hiiragi283.ragi_materials.render.ColorMaterialTool
 import hiiragi283.ragi_materials.render.ModelMaterial
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
@@ -21,12 +20,12 @@ class ClientProxy : CommonProxy() {
         RagiColor.setColor(
             ColorMaterial(),
             RagiInitItem.ItemBlockMetal,
+            RagiInitItem.ItemCraftingTool,
             RagiInitItem.ItemDust,
             RagiInitItem.ItemIngot,
             RagiInitItem.ItemNugget,
             RagiInitItem.ItemPlate
         )
-        RagiColor.setColor(ColorMaterialTool(), RagiInitItem.ItemCraftingTool)
     }
 
     //Post-Initializationで読み込むメソッド
