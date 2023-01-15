@@ -1,4 +1,14 @@
 
+# Block
+tile.forge_furnace.0.name=Forge Furnace (§7Extinguished§r)
+tile.forge_furnace.1.name=Forge Furnace (§7Extinguished§r)
+tile.forge_furnace.2.name=Forge Furnace (§7Extinguished§r)
+tile.forge_furnace.3.name=Forge Furnace (§7Extinguished§r)
+tile.forge_furnace.4.name=Forge Furnace (§6Burning§r)
+tile.forge_furnace.5.name=Forge Furnace (§6Burning§r)
+tile.forge_furnace.6.name=Forge Furnace (§6Burning§r)
+tile.forge_furnace.7.name=Forge Furnace (§cBlasting§r)
+
 # Fluid
 
 ## DEBUG

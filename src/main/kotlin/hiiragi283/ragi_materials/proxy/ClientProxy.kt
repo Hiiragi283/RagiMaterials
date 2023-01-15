@@ -10,6 +10,7 @@ class ClientProxy : CommonProxy() {
     //Pre-Initializationで読み込むメソッド
     override fun loadPreInit() {
         ModelMaterial.setModelMaterial()
+        RagiModel.setModel(RagiInitItem.ItemBlockForgeFurnace)
         RagiModel.setModel(RagiInitItem.ItemBookDebug)
         RagiModel.setModel(RagiInitItem.ItemCraftingTool)
         RagiModel.setModelFluids()

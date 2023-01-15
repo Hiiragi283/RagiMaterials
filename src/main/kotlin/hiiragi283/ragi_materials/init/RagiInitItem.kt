@@ -1,14 +1,12 @@
 package hiiragi283.ragi_materials.init
 
-import hiiragi283.ragi_materials.items.ItemBookDebug
-import hiiragi283.ragi_materials.items.ItemCraftingTool
-import hiiragi283.ragi_materials.items.ItemMaterialDust
-import hiiragi283.ragi_materials.items.ItemMaterialMetal
+import hiiragi283.ragi_materials.items.*
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 object RagiInitItem {
 
     //Itemの定義
+    val ItemBlockForgeFurnace = ItemBlockForgeFurnace()
     val ItemBlockMetal = ItemMaterialMetal("block_metal")
     val ItemBookDebug = ItemBookDebug()
     val ItemCraftingTool = ItemCraftingTool("crafting_tool", 0)
@@ -19,6 +17,7 @@ object RagiInitItem {
 
     //Itemを登録するメソッド
     fun registerItems() {
+        ForgeRegistries.ITEMS.register(ItemBlockForgeFurnace)
         ForgeRegistries.ITEMS.register(ItemBlockMetal)
         ForgeRegistries.ITEMS.register(ItemBookDebug)
         ForgeRegistries.ITEMS.register(ItemCraftingTool)
