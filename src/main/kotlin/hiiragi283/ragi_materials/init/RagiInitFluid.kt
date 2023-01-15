@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialType
 import net.minecraft.block.material.Material
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
@@ -22,7 +21,7 @@ object RagiInitFluid {
                     val fluid = FluidBase(material.registryName)
                     fluid.setColor(material.color)
                     //MaterialTypesがGASの場合
-                    if (material.type == MaterialType.GAS) {
+                    if (material.type == EnumMaterials.MaterialType.GAS) {
                         fluid.isGaseous = true
                         fluid.density = fluid.density * -1
                     }

@@ -88,4 +88,14 @@ enum class EnumMaterials(val index: Int, val registryName: String, val type: Mat
     fun getOreDict(): String {
         return this.registryName.snakeToUpperCamelCase()
     }
+
+    enum class MaterialType(val hasDust: Boolean, val hasIngot: Boolean, val hasFluid: Boolean, val hasFluidBlock: Boolean) {
+        CARBON(true, true, false, false), //昇華する半金属
+        DUST(true, false, false, false), //粉末
+        GAS(false, false, true, true), //気体
+        INTERNAL(false, false, false, false), //内部データ用
+        LIQUID(false, false, true, true), //液体
+        METAL(true, true, true, false), //金属
+        WILDCARD(true, true, true, true) //すべての部品を追加
+    }
 }
