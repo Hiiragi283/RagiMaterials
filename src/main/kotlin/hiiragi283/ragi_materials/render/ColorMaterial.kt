@@ -16,11 +16,18 @@ class ColorMaterial : IItemColor, IBlockColor {
         val item = stack.item
         //itemがItemCraftingToolクラスの派生物の場合
         return if (item is ItemCraftingTool) {
-            //NBTタグからEnumMaterialsを取得
-            val tag = stack.tagCompound!!
-            val material = MaterialHelper.getMaterial(tag.getString("material"))
-            //tintIndexが1ならばEnumMaterials.color，そうでないなら白を返す
-            if (tintIndex == 1) material.color.rgb else 0xFFFFFF
+            //NBTタグがnullでない場合
+            if (stack.tagCompound !== null) {
+                //NBTタグからEnumMaterialsを取得
+                val tag = stack.tagCompound!!
+                val material = MaterialHelper.getMaterial(tag.getString("material"))
+                //tintIndexが1ならばEnumMaterials.color，そうでないなら白を返す
+                if (tintIndex == 1) material.color.rgb else 0xFFFFFF
+            }
+            //NBTタグがnullの場合
+            else {
+                0xFFFFFF //白色を返す
+            }
         }
         //itemがItemCraftingToolクラスの派生物でない場合
         else {
