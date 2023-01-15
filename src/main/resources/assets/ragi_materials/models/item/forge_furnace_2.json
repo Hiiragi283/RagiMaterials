@@ -1,3 +1,3 @@
 {
-  "parent": "minecraft:block/furnace"
+  "parent": "ragi_materials:block/forge_furnace_2"
 }
