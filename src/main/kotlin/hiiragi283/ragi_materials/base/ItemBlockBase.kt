@@ -7,6 +7,7 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -25,6 +26,7 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
         this.maxMeta = maxMeta //メタデータの最大値を代入
         registryName = block.registryName!! //翻訳キーはblockのものから取得
         setHasSubtypes(true) //メタデータを使用する
+        ForgeRegistries.ITEMS.register(this)
     }
 
     //メタデータを得るメソッド

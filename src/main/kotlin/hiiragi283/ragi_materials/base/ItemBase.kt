@@ -6,6 +6,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -26,6 +27,7 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
         if (maxMeta != 0) setHasSubtypes(true) //メタデータを使用する
+        ForgeRegistries.ITEMS.register(this)
     }
 
     //メタデータを得るメソッド

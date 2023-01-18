@@ -16,29 +16,31 @@ object RagiModel {
 
     //代入されたItemに応じてモデルファイルのパスを登録するメソッド
     @SideOnly(Side.CLIENT)
-    fun setModel(item: Item) {
+    fun Item.setModel(): Item {
         //itemがメタデータを使用する場合
-        if (item.hasSubtypes) {
+        if (this.hasSubtypes) {
             //メタデータが最大値になるまで処理を繰り返す
-            for (i in 0 until item.getMetadata(283) + 1) {
-                val location = ModelResourceLocation(item.registryName.toString() + "_" + i, "inventory")
-                ModelLoader.setCustomModelResourceLocation(item, i, location)
+            for (i in 0 until this.getMetadata(283) + 1) {
+                val location = ModelResourceLocation(this.registryName.toString() + "_" + i, "inventory")
+                ModelLoader.setCustomModelResourceLocation(this, i, location)
             }
         } else {
             //itemがメタデータを使用しない場合，IDから設定
-            val location = ModelResourceLocation(item.registryName!!, "inventory")
-            ModelLoader.setCustomModelResourceLocation(item, 0, location)
+            val location = ModelResourceLocation(this.registryName!!, "inventory")
+            ModelLoader.setCustomModelResourceLocation(this, 0, location)
         }
+        return this
     }
 
     //メタデータによらず特定のモデルファイルだけを利用させるメソッド
     @SideOnly(Side.CLIENT)
-    fun setModelSame(item: Item) {
+    fun Item.setModelSame(): Item {
         //メタデータが最大値になるまで処理を繰り返す
-        for (i in 0 until item.getMetadata(283) + 1) {
-            val location = ModelResourceLocation(item.registryName!!, "inventory")
-            ModelLoader.setCustomModelResourceLocation(item, i, location)
+        for (i in 0 until this.getMetadata(283) + 1) {
+            val location = ModelResourceLocation(this.registryName!!, "inventory")
+            ModelLoader.setCustomModelResourceLocation(this, i, location)
         }
+        return this
     }
 
     //液体ブロックにmodelを割り当てるメソッド
@@ -64,5 +66,27 @@ object RagiModel {
                 })
             }
         }
+    }
+
+    //素材のモデルを一括で登録するメソッド
+    fun Item.setModelMaterial(): Item {
+        val item: Item = this
+        //EnumMaterials内の各materialに対して実行
+        for (material in EnumMaterials.values()) {
+            //白金族のindexとindexが一致する場合
+            if (listOf(44, 45, 46, 76, 77, 78).contains(material.index)) {
+                //専用のモデルを割り当てる
+                ModelLoader.setCustomModelResourceLocation(
+                    this, material.index, ModelResourceLocation(this.registryName.toString() + "_precious", "inventory")
+                )
+            }
+            //一般庶民の場合
+            else {
+                ModelLoader.setCustomModelResourceLocation(
+                    this, material.index, ModelResourceLocation(this.registryName.toString(), "inventory")
+                )
+            }
+        }
+        return item
     }
 }

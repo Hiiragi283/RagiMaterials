@@ -3,22 +3,49 @@ package hiiragi283.ragi_materials.init
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
+import hiiragi283.ragi_materials.items.ItemMaterialDust
+import hiiragi283.ragi_materials.items.ItemMaterialMetal
+import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.util.RagiModel
+import hiiragi283.ragi_materials.util.RagiModel.setModel
+import hiiragi283.ragi_materials.util.RagiModel.setModelMaterial
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.init.Blocks
 import net.minecraftforge.common.MinecraftForge
 
-
 object RagiInit {
 
+    //Blockの定義
+    val BlockForgeFurnace = hiiragi283.ragi_materials.blocks.BlockForgeFurnace()
+
+    //Itemの定義
+    private val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
+    private val ItemBlockMetal = ItemMaterialMetal("block_metal").setModelMaterial()
+    private val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
+    private val ItemCraftingTool = hiiragi283.ragi_materials.items.ItemCraftingTool("crafting_tool", 0).setModel()
+    private val ItemDust = ItemMaterialDust().setModelMaterial()
+    private val ItemIngot = ItemMaterialMetal("ingot").setModelMaterial()
+    private val ItemNugget = ItemMaterialMetal("nugget").setModelMaterial()
+    private val ItemPlate = ItemMaterialMetal("plate").setModelMaterial()
+
     fun loadPreInit() {
-        //Block, Event, Fluid, Itemの登録
-        RagiInitBlock.registerBlocks()
+        //Event, Fluidの登録
         registerEvents()
         RagiInitFluid.registerFluids()
-        RagiInitItem.registerItems()
+        RagiModel.setModelFluids()
     }
 
     fun loadInit() {
+        //BlockとItemの着色
+        RagiColor.setColor(
+            RagiColor.ColorMaterial(),
+            ItemBlockMetal,
+            ItemCraftingTool,
+            ItemDust,
+            ItemIngot,
+            ItemNugget,
+            ItemPlate
+        )
         //鉱石辞書の登録
         RagiInitOreDict.registerOreDict()
         //レシピの登録

@@ -19,15 +19,9 @@ object Reference {
     //対応するMCのバージョンの定義
     const val MC_VERSIONS = "[1.12,1.12.2]"
 
-    //Client側のProxyの定義
-    const val CLIENT_PROXY_CLASS = "hiiragi283.ragi_materials.proxy.ClientProxy"
-
-    //Server側のProxyの定義
-    const val SERVER_PROXY_CLASS = "hiiragi283.ragi_materials.proxy.ServerProxy"
-
     //Serverの定義 (コマンド実行用)
     val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer
 
-    //
+    //Materialで使用するMetadataの最大数
     const val numMaterial = 255 + 1
 }

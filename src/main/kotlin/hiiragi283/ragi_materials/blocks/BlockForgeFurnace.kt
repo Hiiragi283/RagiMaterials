@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.util.IStringSerializable
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import java.util.*
 
 class BlockForgeFurnace : Block(Material.ROCK) {
@@ -30,6 +31,7 @@ class BlockForgeFurnace : Block(Material.ROCK) {
             blockState.baseState.withProperty(propertyFire, PropertyState.EXTINGUISH).withProperty(propertyFuel, 0)
         setRegistryName(Reference.MOD_ID, registryName)
         unlocalizedName = registryName.toString()
+        ForgeRegistries.BLOCKS.register(this)
     }
 
     //Blockstateの登録をするメソッド

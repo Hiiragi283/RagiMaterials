@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.items
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.init.RagiInitBlock
 import hiiragi283.ragi_materials.materials.EnumMaterials
 import hiiragi283.ragi_materials.materials.MaterialHelper
 import net.minecraft.block.Block

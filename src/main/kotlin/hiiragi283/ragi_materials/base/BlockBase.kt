@@ -7,6 +7,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import java.util.*
 
 /*
@@ -31,6 +32,7 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int
         defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得
+        ForgeRegistries.BLOCKS.register(this)
     }
 
     //Blockstateの登録をするメソッド
