@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.materials.MaterialRegistry.getOreDict
 import hiiragi283.ragi_materials.util.RagiNBT
 import hiiragi283.ragi_materials.util.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
@@ -15,7 +15,7 @@ object RagiInitRecipe {
     }
 
     private fun addCraftingMaterial() {
-        for (material in EnumMaterials.values()) {
+        for (material in MaterialRegistry.list) {
             //block -> ingotのレシピを登録
             RagiRecipe.addShaped(
                 Reference.MOD_ID + ":block_to_ingot_" + material.index,
@@ -66,7 +66,7 @@ object RagiInitRecipe {
     }
 
     private fun addCraftingTool() {
-        for (material in MaterialHelper.mapToolMaterial.keys) {
+        for (material in MaterialRegistry.mapToolMaterial.keys) {
             val tag = RagiNBT.getTagTool(material)
             val stack = RagiUtils.getStack(Reference.MOD_ID, "crafting_tool", 1, 0)
             stack.tagCompound = tag

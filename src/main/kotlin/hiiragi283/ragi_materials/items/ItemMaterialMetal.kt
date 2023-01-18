@@ -2,8 +2,7 @@ package hiiragi283.ragi_materials.items
 
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -22,9 +21,9 @@ class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID,
             //メタデータの最大値まで処理を繰り返す
             for (i in 0 until Reference.numMaterial) {
                 //EnumMaterialsを取得
-                val material = MaterialHelper.getMaterial(i)
+                val material = MaterialRegistry.getMaterial(i)
                 //materialがWILDCARDでない，かつmaterialのtypeのhasIngotがtrueの場合
-                if (material != EnumMaterials.WILDCARD && material.type.hasIngot) {
+                if (material != MaterialRegistry.WILDCARD && material.type.hasIngot) {
                     //ItemStackをlistに追加
                     subItems.add(ItemStack(this, 1, i))
                 }
@@ -42,14 +41,14 @@ class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID,
     //stackの表示名を上書きするメソッド
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
-        val material = MaterialHelper.getMaterial(stack.metadata)
+        val material = MaterialRegistry.getMaterial(stack.metadata)
         return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.registryName}"))
     }
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         //EnumMaterialsの取得
-        val material = MaterialHelper.getMaterial(stack.metadata)
+        val material = MaterialRegistry.getMaterial(stack.metadata)
         //tooltipの追加
         tooltip.add("§e===Property===")
         tooltip.add(I18n.format("text.ragi_materials.property.mol", material.mol))

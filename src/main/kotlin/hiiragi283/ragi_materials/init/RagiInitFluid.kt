@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.base.FluidBase
-import hiiragi283.ragi_materials.materials.EnumMaterials
+import hiiragi283.ragi_materials.materials.MaterialBuilder
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.block.material.Material
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
@@ -12,16 +13,16 @@ object RagiInitFluid {
     //Fluidを登録するメソッド
     fun registerFluids() {
         //EnumMaterialsの各enumに対して実行
-        for (material in EnumMaterials.values()) {
+        for (material in MaterialRegistry.list) {
             //materialがWILDCARDでない場合
-            if (material != EnumMaterials.WILDCARD) {
+            if (material != MaterialRegistry.WILDCARD) {
                 //materialのtypeのhasFluidがtrueの場合
                 if (material.type.hasFluid) {
                     //Fluidの登録
                     val fluid = FluidBase(material.registryName)
                     fluid.setColor(material.color)
                     //MaterialTypesがGASの場合
-                    if (material.type == EnumMaterials.MaterialType.GAS) {
+                    if (material.type == MaterialBuilder.MaterialType.GAS) {
                         fluid.isGaseous = true
                         fluid.density = fluid.density * -1
                     }

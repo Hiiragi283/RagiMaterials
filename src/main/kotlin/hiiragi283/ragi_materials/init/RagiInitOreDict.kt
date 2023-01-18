@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.EnumMaterials
+import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.materials.MaterialRegistry.getOreDict
 import hiiragi283.ragi_materials.util.RagiUtils
 
 object RagiInitOreDict {
@@ -9,7 +10,7 @@ object RagiInitOreDict {
     //鉱石辞書を登録するメソッド
     fun registerOreDict() {
         //EnumMaterialsの各enumに対して実行
-        for (material in EnumMaterials.values()) {
+        for (material in MaterialRegistry.list) {
             //list内の各prefixに対して実行
             //ItemMaterialDust()用
             for (prefix in listOf("dust")) {

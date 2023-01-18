@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialBuilder
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 
@@ -28,18 +28,18 @@ object RagiNBT {
     }
 
     //道具用のNBTタグを生成するメソッド
-    fun getTagTool(material: EnumMaterials): NBTTagCompound {
+    fun getTagTool(material: MaterialBuilder): NBTTagCompound {
         val tag = NBTTagCompound()
         tag.setString("material", material.registryName)
         //materialがmapToolMaterialに含まれている場合
-        if (MaterialHelper.mapToolMaterial.contains(material)) {
+        if (MaterialRegistry.mapToolMaterial.contains(material)) {
             //mapToolMaterialから耐久値を取得する
-            tag.setInteger("durability", MaterialHelper.mapToolMaterial[material]!!)
+            tag.setInteger("durability", MaterialRegistry.mapToolMaterial[material]!!)
         }
         //materialがmapToolMaterialに含まれていない場合
         else {
             //EnumMaterials.DEBUGの耐久値を参照
-            tag.setInteger("durability", MaterialHelper.mapToolMaterial[EnumMaterials.DEBUG]!!)
+            tag.setInteger("durability", MaterialRegistry.mapToolMaterial[MaterialRegistry.DEBUG]!!)
         }
         return tag
     }

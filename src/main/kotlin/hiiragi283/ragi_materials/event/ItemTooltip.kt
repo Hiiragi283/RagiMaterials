@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.event
 
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.client.resources.I18n
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -24,9 +23,9 @@ class ItemTooltip {
                     //tagから液体名を取得
                     val nameFluid = tag.getString("FluidName")
                     //nameFluidからEnumMaterialsを取得
-                    val material = MaterialHelper.getMaterial(nameFluid)
+                    val material = MaterialRegistry.getMaterial(nameFluid)
                     //materialがWILDCARDでない場合
-                    if (material !== EnumMaterials.WILDCARD) {
+                    if (material !== MaterialRegistry.WILDCARD) {
                         //tooltipの追加
                         tooltip.add("§e===Property===")
                         tooltip.add(I18n.format("text.ragi_materials.property.mol", material.mol))

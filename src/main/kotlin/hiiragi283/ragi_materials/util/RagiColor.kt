@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.items.ItemCraftingTool
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -105,7 +105,7 @@ object RagiColor {
                 if (stack.tagCompound !== null) {
                     //NBTタグからEnumMaterialsを取得
                     val tag = stack.tagCompound!!
-                    val material = MaterialHelper.getMaterial(tag.getString("material"))
+                    val material = MaterialRegistry.getMaterial(tag.getString("material"))
                     //tintIndexが1ならばEnumMaterials.color，そうでないなら白を返す
                     if (tintIndex == 1) material.color.rgb else 0xFFFFFF
                 }
@@ -117,14 +117,14 @@ object RagiColor {
             //itemがItemCraftingToolクラスの派生物でない場合
             else {
                 //メタデータからEnumMaterialsを取得
-                val material = MaterialHelper.getMaterial(stack.metadata)
+                val material = MaterialRegistry.getMaterial(stack.metadata)
                 //tintIndexが0ならばEnumMaterials.color，そうでないなら白を返す
                 if (tintIndex == 0) material.color.rgb else 0xFFFFFF
             }
         }
 
         override fun colorMultiplier(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?, tintIndex: Int): Int {
-            val material = MaterialHelper.getMaterial(state.block.getMetaFromState(state))
+            val material = MaterialRegistry.getMaterial(state.block.getMetaFromState(state))
             return if (tintIndex == 0) material.color.rgb else 0xFFFFFF
         }
     }

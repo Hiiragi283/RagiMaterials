@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.materials.MaterialRegistry.getFluid
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
@@ -51,9 +51,9 @@ object RagiModel {
     @SideOnly(Side.CLIENT)
     fun setModelFluids() {
         //EnumMaterialsの各enumに対して実行
-        for (material in EnumMaterials.values()) {
+        for (material in MaterialRegistry.list) {
             //Fluidを取得
-            val fluid = MaterialHelper.getFluid(material)
+            val fluid = material.getFluid()
             val fluidModel = ModelResourceLocation((Reference.MOD_ID + ":" + fluid.name), "fluid")
             //アイテムとしての描画処理
             ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { fluidModel }
@@ -72,7 +72,7 @@ object RagiModel {
     fun Item.setModelMaterial(): Item {
         val item: Item = this
         //EnumMaterials内の各materialに対して実行
-        for (material in EnumMaterials.values()) {
+        for (material in MaterialRegistry.list) {
             //白金族のindexとindexが一致する場合
             if (listOf(44, 45, 46, 76, 77, 78).contains(material.index)) {
                 //専用のモデルを割り当てる

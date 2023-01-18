@@ -2,8 +2,7 @@ package hiiragi283.ragi_materials.items
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiNBT
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
@@ -31,9 +30,9 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
                 //numMaterialの最大値まで処理を繰り替えす
                 for (j in 0 until Reference.numMaterial) {
                     //EnumMaterialsの取得
-                    val material = MaterialHelper.getMaterial(j)
+                    val material = MaterialRegistry.getMaterial(j)
                     //materialがWILDCARDでない，かつmaterialがmapToolMaterialに含まれている場合
-                    if (material !== EnumMaterials.WILDCARD && MaterialHelper.mapToolMaterial.contains(material)) {
+                    if (material !== MaterialRegistry.WILDCARD && MaterialRegistry.mapToolMaterial.contains(material)) {
                         //NBTタグの生成
                         val tag = RagiNBT.getTagTool(material)
                         //ItemStackの生成
@@ -53,7 +52,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {
             //NBTタグを生成・代入
-            stack.tagCompound = RagiNBT.getTagTool(EnumMaterials.DEBUG)
+            stack.tagCompound = RagiNBT.getTagTool(MaterialRegistry.WILDCARD)
         }
         //NBTタグを取得
         val tag = stack.tagCompound!!
@@ -67,7 +66,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         //EnumMaterialsの取得
-        val material = MaterialHelper.getMaterial(stack.metadata)
+        val material = MaterialRegistry.getMaterial(stack.metadata)
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {
             //NBTタグを生成・代入
@@ -86,7 +85,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {
             //NBTタグを生成・代入
-            stack.tagCompound = RagiNBT.getTagTool(EnumMaterials.DEBUG)
+            stack.tagCompound = RagiNBT.getTagTool(MaterialRegistry.WILDCARD)
         }
         //NBTタグを取得
         val tag = stack.tagCompound!!

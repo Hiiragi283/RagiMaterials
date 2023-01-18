@@ -2,8 +2,7 @@ package hiiragi283.ragi_materials.items
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.materials.EnumMaterials
-import hiiragi283.ragi_materials.materials.MaterialHelper
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.block.Block
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
@@ -20,9 +19,9 @@ class ItemBlockMaterialMetal(private val blockFrom: Block): ItemBlockBase(blockF
             //メタデータの最大値まで処理を繰り返す
             for (i in 0 until Reference.numMaterial) {
                 //EnumMaterialsを取得
-                val material = MaterialHelper.getMaterial(i)
+                val material = MaterialRegistry.getMaterial(i)
                 //materialがWILDCARDでない，かつmaterialのtypeのhasIngotがtrueの場合
-                if (material != EnumMaterials.WILDCARD && material.type.hasIngot) {
+                if (material != MaterialRegistry.WILDCARD && material.type.hasIngot) {
                     //ItemStackをlistに追加
                     subItems.add(ItemStack(this, 1, i))
                 }
@@ -32,7 +31,7 @@ class ItemBlockMaterialMetal(private val blockFrom: Block): ItemBlockBase(blockF
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
-        val material = MaterialHelper.getMaterial(stack.metadata)
+        val material = MaterialRegistry.getMaterial(stack.metadata)
         return I18n.format("item.ragi_${blockFrom.registryName}.name", I18n.format("material.${material.registryName}"))
     }
 }
