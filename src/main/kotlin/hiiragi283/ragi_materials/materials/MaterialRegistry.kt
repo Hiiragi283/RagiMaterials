@@ -86,7 +86,7 @@ object MaterialRegistry {
     val WILDCARD = MaterialBuilder(32768, "wildcard", MaterialBuilder.MaterialType.WILDCARD, RagiColor.WHITE, 32768, 32768, 32768.0F)
 
     //listの定義
-    val list = listOf(
+    val list = mutableListOf(
         //DEBUG
         DEBUG,
         //Periodic Table

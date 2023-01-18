@@ -81,12 +81,26 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
     //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
     override fun damageDropped(state: IBlockState): Int {
-        return when (state.getValue(propertyFuel)) {
-            1 -> 1
-            2 -> 2
-            3 -> 3
-            else -> 0
+        val stateFire = state.getValue(propertyFire)
+        val stateFuel = state.getValue(propertyFuel)
+        val stateMeta = when (stateFire) {
+            PropertyState.EXTINGUISH -> when (stateFuel) {
+                1 -> 1
+                2 -> 2
+                3 -> 3
+                else -> 0
+            }
+
+            PropertyState.BURNING -> when (stateFuel) {
+                1 -> 4
+                2 -> 5
+                3 -> 6
+                else -> 0
+            }
+
+            PropertyState.BLASTING -> 7
         }
+        return stateMeta
     }
 
     //ドロップするアイテムを得るメソッド
