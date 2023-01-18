@@ -17,7 +17,10 @@ object RagiInitOreDict {
                 if (material.type.hasDust) {
                     //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                     //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
-                    RagiUtils.setOreDict(prefix + material.getOreDict(), RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index))
+                    RagiUtils.setOreDict(
+                        prefix + material.getOreDict(),
+                        RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index)
+                    )
                 }
             }
             //list内の各prefixに対して実行
@@ -27,9 +30,15 @@ object RagiInitOreDict {
                 if (material.type.hasIngot) {
                     //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                     //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
-                    RagiUtils.setOreDict(prefix + material.getOreDict(), RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index))
+                    RagiUtils.setOreDict(
+                        prefix + material.getOreDict(),
+                        RagiUtils.getStack(Reference.MOD_ID, prefix, 1, material.index)
+                    )
                     //金属ブロックの鉱石辞書
-                    RagiUtils.setOreDict("block" + material.getOreDict(), RagiUtils.getStack(Reference.MOD_ID, "block_metal", 1, material.index))
+                    RagiUtils.setOreDict(
+                        "block" + material.getOreDict(),
+                        RagiUtils.getStack(Reference.MOD_ID, "block_metal", 1, material.index)
+                    )
                 }
             }
         }

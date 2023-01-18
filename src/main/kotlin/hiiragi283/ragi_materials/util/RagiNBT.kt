@@ -32,7 +32,7 @@ object RagiNBT {
         val tag = NBTTagCompound()
         tag.setString("material", material.registryName)
         //materialがmapToolMaterialに含まれている場合
-        if(MaterialHelper.mapToolMaterial.contains(material)) {
+        if (MaterialHelper.mapToolMaterial.contains(material)) {
             //mapToolMaterialから耐久値を取得する
             tag.setInteger("durability", MaterialHelper.mapToolMaterial[material]!!)
         }
