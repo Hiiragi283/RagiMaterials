@@ -28,9 +28,9 @@ class ItemTooltip {
                     if (material !== MaterialRegistry.WILDCARD) {
                         //tooltipの追加
                         tooltip.add("§e===Property===")
-                        tooltip.add(I18n.format("text.ragi_materials.property.mol", material.mol))
-                        tooltip.add(I18n.format("text.ragi_materials.property.melt", material.melting!! + 273))
-                        tooltip.add(I18n.format("text.ragi_materials.property.boil", material.boiling + 273))
+                        tooltip.add(I18n.format("text.ragi_materials.property.mol", material.getMolarMass()))
+                        tooltip.add(I18n.format("text.ragi_materials.property.melt", material.getTempMelt() + 273))
+                        tooltip.add(I18n.format("text.ragi_materials.property.boil", material.getTempBoil() + 273))
                     }
                 }
             }

@@ -30,7 +30,7 @@ object RagiNBT {
     //道具用のNBTタグを生成するメソッド
     fun getTagTool(material: MaterialBuilder): NBTTagCompound {
         val tag = NBTTagCompound()
-        tag.setString("material", material.registryName)
+        tag.setString("material", material.name)
         //materialがmapToolMaterialに含まれている場合
         if (MaterialRegistry.mapToolMaterial.contains(material)) {
             //mapToolMaterialから耐久値を取得する

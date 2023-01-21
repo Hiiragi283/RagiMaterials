@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.MaterialRegistry
-import hiiragi283.ragi_materials.materials.MaterialRegistry.getOreDict
 import hiiragi283.ragi_materials.util.RagiUtils
 
 object RagiInitOreDict {

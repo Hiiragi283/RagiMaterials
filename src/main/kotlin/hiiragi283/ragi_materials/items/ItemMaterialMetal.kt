@@ -35,14 +35,14 @@ class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID,
     @SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
         //放射性物質のindexとメタデータが一致するならtrue
-        return listOf(90, 92, 94).contains(stack.metadata)
+        return listOf(90, 92, 94, 97, 98).contains(stack.metadata)
     }
 
     //stackの表示名を上書きするメソッド
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
         val material = MaterialRegistry.getMaterial(stack.metadata)
-        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.registryName}"))
+        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
     }
 
     @SideOnly(Side.CLIENT)
@@ -51,17 +51,17 @@ class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID,
         val material = MaterialRegistry.getMaterial(stack.metadata)
         //tooltipの追加
         tooltip.add("§e===Property===")
-        tooltip.add(I18n.format("text.ragi_materials.property.mol", material.mol))
+        tooltip.add(I18n.format("text.ragi_materials.property.mol", material.getMolarMass()))
         //融点がnullでない場合
-        if(material.melting !== null) {
+        if(material.getTempMelt(true) !== null) {
             //融点・沸点をtooltipに追加 (ケルビン温度)
-            tooltip.add(I18n.format("text.ragi_materials.property.melt", material.melting + 273))
-            tooltip.add(I18n.format("text.ragi_materials.property.boil", material.boiling + 273))
+            tooltip.add(I18n.format("text.ragi_materials.property.melt", material.getTempMelt() + 273))
+            tooltip.add(I18n.format("text.ragi_materials.property.boil", material.getTempBoil() + 273))
         }
         //融点がnullの場合
         else {
             //沸点を昇華点としてtooltipに追加 (ケルビン温度)
-            tooltip.add(I18n.format("text.ragi_materials.property.subl", material.boiling + 273))
+            tooltip.add(I18n.format("text.ragi_materials.property.subl", material.getTempSubl() + 273))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }

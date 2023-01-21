@@ -32,6 +32,6 @@ class ItemBlockMaterialMetal(private val blockFrom: Block): ItemBlockBase(blockF
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
         val material = MaterialRegistry.getMaterial(stack.metadata)
-        return I18n.format("item.ragi_${blockFrom.registryName}.name", I18n.format("material.${material.registryName}"))
+        return I18n.format("item.ragi_${blockFrom.registryName}.name", I18n.format("material.${material.name}"))
     }
 }
