@@ -80,6 +80,9 @@ fluid.thorium=Molten Thorium
 fluid.uranium=Molten Uranium
 fluid.plutonium=Molten Plutonium
 
+fluid.deuterium=Deuterium
+fluid.tritium=Tritium
+
 ## WILDCARD
 fluid.wildcard=INVALID
 
@@ -165,6 +168,11 @@ material.bismuth=Bismuth
 material.thorium=Thorium
 material.uranium=Uranium
 material.plutonium=Plutonium
+
+material.deuterium=Deuterium
+material.tritium=Tritium
+material.uranium_235=Uranium 235
+material.plutonium_241=Plutonium 241
 
 ## WILDCARD
 material.wildcard=INVALID
