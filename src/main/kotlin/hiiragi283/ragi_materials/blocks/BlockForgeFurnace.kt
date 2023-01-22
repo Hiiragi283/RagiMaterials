@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.blocks
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
@@ -8,8 +10,16 @@ import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.util.EnumFacing
+import net.minecraft.util.EnumHand
 import net.minecraft.util.IStringSerializable
+import net.minecraft.util.SoundCategory
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import java.util.*
 
@@ -113,6 +123,69 @@ class BlockForgeFurnace : Block(Material.ROCK) {
     override fun quantityDropped(random: Random): Int {
         //常にドロップさせるので1を返す
         return 1
+    }
+
+    //ブロックを右クリックした時に呼ばれるメソッド
+    override fun onBlockActivated(
+        world: World,
+        pos: BlockPos,
+        state: IBlockState,
+        player: EntityPlayer,
+        hand: EnumHand,
+        facing: EnumFacing,
+        hitX: Float,
+        hitY: Float,
+        hitZ: Float
+    ): Boolean {
+        //プレイヤーが利き手に持っているアイテムを取得
+        val stack: ItemStack = player.getHeldItem(hand)
+        val item = stack.item
+        setFuel(world, pos, state, stack) //燃料を投入
+        setFire(world, pos, state, player, stack) //着火
+        setBlasting(world, pos, state, player, stack) //火力UP
+        return true
+    }
+
+    //燃料を投入するメソッド
+    private fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
+        //ブロックに蓄えられた燃料の量を取得
+        val fuel = state.getValue(propertyFuel)
+        //手持ちのアイテムが燃料，かつブロックに蓄えられた燃料が3未満の場合
+        if (stack.item == Items.COAL && fuel < 3) {
+            world.setBlockState(
+                pos,
+                blockState.baseState.withProperty(propertyFire, state.getValue(propertyFire))
+                    .withProperty(propertyFuel, fuel + 1)
+            ) //燃料を投入する
+            world.playSound(null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
+            stack.shrink(1) //手持ちの燃料を1つ減らす
+        }
+    }
+
+    //着火するメソッド
+    private fun setFire(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, stack: ItemStack) {
+        //消火状態，かつ燃料が1つ以上の場合
+        if (state.getValue(propertyFire) == PropertyState.EXTINGUISH && state.getValue(propertyFuel) > 0)
+        //ファイアーチャージの場合
+            if (stack.item == Items.FIRE_CHARGE) {
+                world.setBlockState(
+                    pos,
+                    blockState.baseState.withProperty(propertyFire, PropertyState.BURNING)
+                        .withProperty(propertyFuel, state.getValue(propertyFuel))
+                ) //着火
+                world.playSound(null, pos, RagiUtils.getSound("minecraft:item.firecharge.use"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+                stack.shrink(1) //手持ちの火種を1つ減らす
+            }
+            //火打石の場合
+            else if (stack.item == Items.FLINT_AND_STEEL) {
+                world.setBlockState(
+                    pos,
+                    blockState.baseState.withProperty(propertyFire, PropertyState.BURNING)
+                        .withProperty(propertyFuel, state.getValue(propertyFuel))
+                ) //着火
+                world.playSound(null, pos, RagiUtils.getSound("minecraft:item.flintandsteel.use"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+                stack.damageItem(1, player)//耐久値を1つ減らす
+            }
     }
 
     /*

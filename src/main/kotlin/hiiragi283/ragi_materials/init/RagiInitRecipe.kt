@@ -9,8 +9,24 @@ import hiiragi283.ragi_materials.util.RagiUtils
 object RagiInitRecipe {
 
     fun registerRecipes() {
+        addCrafting()
         addCraftingMaterial()
         addCraftingTool()
+    }
+
+    private fun addCrafting() {
+        RagiRecipe.addShaped(
+            RagiUtils.getStack(Reference.MOD_ID, "forge_furnace", 1, 0),
+            "A A",
+            "A A",
+            "BCB",
+            'A',
+            "cobblestone",
+            'B',
+            "stone",
+            'C',
+            RagiUtils.getStack("minecraft:furnace", 1, 0)
+        )
     }
 
     private fun addCraftingMaterial() {

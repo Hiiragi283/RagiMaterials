@@ -1,16 +1,20 @@
 package hiiragi283.ragi_materials.init
 
+import com.google.common.collect.Sets
+import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.ItemToolBase
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
-import hiiragi283.ragi_materials.items.ItemMaterialDust
-import hiiragi283.ragi_materials.items.ItemMaterialMetal
+import hiiragi283.ragi_materials.items.ItemMaterial
+import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiModel.setModel
 import hiiragi283.ragi_materials.util.RagiModel.setModelMaterial
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.init.Blocks
+import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
 
 object RagiInit {
@@ -19,14 +23,14 @@ object RagiInit {
     val BlockForgeFurnace = hiiragi283.ragi_materials.blocks.BlockForgeFurnace()
 
     //Itemの定義
-    private val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
-    private val ItemBlockMetal = ItemMaterialMetal("block_metal").setModelMaterial()
-    private val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
-    private val ItemCraftingTool = hiiragi283.ragi_materials.items.ItemCraftingTool("crafting_tool", 0).setModel()
-    private val ItemDust = ItemMaterialDust().setModelMaterial()
-    private val ItemIngot = ItemMaterialMetal("ingot").setModelMaterial()
-    private val ItemNugget = ItemMaterialMetal("nugget").setModelMaterial()
-    private val ItemPlate = ItemMaterialMetal("plate").setModelMaterial()
+    val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
+    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
+    val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
+    val ItemCraftingTool = hiiragi283.ragi_materials.items.ItemCraftingTool("crafting_tool", 0).setModel()
+    val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()
+    val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()
+    val ItemNugget = ItemMaterial("nugget", MaterialType.METAL).setModelMaterial()
+    val ItemPlate = ItemMaterial("plate", MaterialType.METAL).setModelMaterial()
 
     fun loadPreInit() {
         //Event, Fluidの登録

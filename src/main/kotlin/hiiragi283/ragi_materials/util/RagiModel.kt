@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.items.ItemMaterial
 import hiiragi283.ragi_materials.materials.MaterialRegistry
 import hiiragi283.ragi_materials.materials.MaterialRegistry.getFluid
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -69,8 +70,8 @@ object RagiModel {
     }
 
     //素材のモデルを一括で登録するメソッド
-    fun Item.setModelMaterial(): Item {
-        val item: Item = this
+    fun ItemMaterial.setModelMaterial(): ItemMaterial {
+        val item: ItemMaterial = this
         //EnumMaterials内の各materialに対して実行
         for (material in MaterialRegistry.list) {
             //白金族のindexとindexが一致する場合

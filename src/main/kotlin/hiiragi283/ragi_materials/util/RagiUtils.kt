@@ -167,7 +167,7 @@ object RagiUtils {
 
     //Hypixelで慣れ親しんだこの音声を再び聞いたとき，感動で泣きそうになりました
     fun soundHypixel(world: World, pos: BlockPos) {
-        world.playSound(null, pos, getSound("minecraft", "entity.player.levelup"), SoundCategory.BLOCKS, 1.0f, 0.5f)
+        world.playSound(null, pos, getSound("minecraft:entity.player.levelup"), SoundCategory.BLOCKS, 1.0f, 0.5f)
     }
 
     //ItemStackをCrTのブラケット記法に変換するメソッド (ログ出力用)

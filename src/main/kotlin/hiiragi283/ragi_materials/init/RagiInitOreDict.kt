@@ -11,7 +11,7 @@ object RagiInitOreDict {
         //EnumMaterialsの各enumに対して実行
         for (material in MaterialRegistry.list) {
             //list内の各prefixに対して実行
-            //ItemMaterialDust()用
+            //MaterialType.DUST用
             for (prefix in listOf("dust")) {
                 //materialのtypeのhasIngotがtrueの場合
                 if (material.type.hasDust) {
@@ -24,7 +24,7 @@ object RagiInitOreDict {
                 }
             }
             //list内の各prefixに対して実行
-            //ItemMaterialMetal()用
+            //MaterialType.METAL用
             for (prefix in listOf("ingot", "nugget", "plate")) {
                 //materialのtypeのhasIngotがtrueの場合
                 if (material.type.hasIngot) {
