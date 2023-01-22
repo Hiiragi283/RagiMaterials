@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.items
 
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
@@ -12,20 +13,18 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialMetal(private val ID: String) : ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
+class ItemMaterial(private val ID: String, private vararg val type: MaterialType) : ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
 
     //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
     @SideOnly(Side.CLIENT) //Client側のみ
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
-            //メタデータの最大値まで処理を繰り返す
-            for (i in 0 until Reference.numMaterial) {
-                //EnumMaterialsを取得
-                val material = MaterialRegistry.getMaterial(i)
-                //materialがWILDCARDでない，かつmaterialのtypeのhasIngotがtrueの場合
-                if (material != MaterialRegistry.WILDCARD && material.type.hasIngot) {
+            //MaterialRegistry.list内の各materialに対して実行
+            for (material in MaterialRegistry.list) {
+                //materialがWILDCARDでない，かつmaterialのtypeが一致する場合
+                if (material != MaterialRegistry.WILDCARD && type.contains(material.type)) {
                     //ItemStackをlistに追加
-                    subItems.add(ItemStack(this, 1, i))
+                    subItems.add(ItemStack(this, 1, material.index))
                 }
             }
         }
