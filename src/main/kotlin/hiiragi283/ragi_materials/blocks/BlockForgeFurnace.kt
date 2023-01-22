@@ -188,6 +188,23 @@ class BlockForgeFurnace : Block(Material.ROCK) {
             }
     }
 
+    //ふいごで火力を上げるメソッド
+    private fun setBlasting(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, stack: ItemStack) {
+        //着火済み，かつ燃料が満タンの場合
+        if (state.getValue(propertyFire) == PropertyState.BURNING && state.getValue(propertyFuel) == 3) {
+            //手持ちのアイテムがふいごの場合
+            if(stack.item == RagiInit.ItemToolBellow) {
+                world.setBlockState(
+                    pos,
+                    blockState.baseState.withProperty(propertyFire, PropertyState.BLASTING)
+                        .withProperty(propertyFuel, 3)
+                ) //火力UP
+                world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
+                stack.damageItem(1, player)//耐久値を1つ減らす
+            }
+        }
+    }
+
     /*
       Thanks to TeamCofh!
       Source: https://github.com/CoFH/ThermalFoundation-1.12-Legacy/blob/1.12/src/main/java/cofh/thermalfoundation/block/BlockOre.java

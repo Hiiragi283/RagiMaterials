@@ -31,6 +31,7 @@ object RagiInit {
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL).setModelMaterial()
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL).setModelMaterial()
+    val ItemToolBellow = ItemToolBase(Reference.MOD_ID, "bellow", 63, Item.ToolMaterial.WOOD, Sets.newHashSet(Blocks.AIR)).setModel()
 
     fun loadPreInit() {
         //Event, Fluidの登録
