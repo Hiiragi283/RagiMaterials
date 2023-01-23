@@ -58,6 +58,8 @@ object RagiInit {
     }
 
     fun loadPostInit() {
+        //ディスペンサーの機能の登録
+        RagiInitDispenser.registerDispense()
         overrideProperty()
         overrideStack()
     }
