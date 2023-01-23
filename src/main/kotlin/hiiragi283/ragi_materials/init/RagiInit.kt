@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials.init
 
-import com.google.common.collect.Sets
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemToolBase
+import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
@@ -12,9 +11,9 @@ import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiModel.setModel
 import hiiragi283.ragi_materials.util.RagiModel.setModelMaterial
+import hiiragi283.ragi_materials.util.RagiModel.setModelSame
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.init.Blocks
-import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
 
 object RagiInit {

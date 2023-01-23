@@ -18,15 +18,15 @@ object RagiModel {
     //代入されたItemに応じてモデルファイルのパスを登録するメソッド
     @SideOnly(Side.CLIENT)
     fun Item.setModel(): Item {
-        //itemがメタデータを使用する場合
-        if (this.hasSubtypes) {
+        //itemが耐久値を使用しない場合
+        if (this.maxDamage == 0) {
             //メタデータが最大値になるまで処理を繰り返す
             for (i in 0 until this.getMetadata(283) + 1) {
                 val location = ModelResourceLocation(this.registryName.toString() + "_" + i, "inventory")
                 ModelLoader.setCustomModelResourceLocation(this, i, location)
             }
         } else {
-            //itemがメタデータを使用しない場合，IDから設定
+            //itemが耐久値を使用する場合，1つだけ登録する
             val location = ModelResourceLocation(this.registryName!!, "inventory")
             ModelLoader.setCustomModelResourceLocation(this, 0, location)
         }
