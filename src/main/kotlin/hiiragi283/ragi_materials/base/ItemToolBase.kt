@@ -15,7 +15,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
   Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCItem.java
 */
 
-open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: ToolMaterial, set: Set<Block>) : ItemTool(material, set) {
+open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: ToolMaterial, set: Set<Block>) :
+    ItemTool(material, set) {
 
     //コンストラクタの初期化
     init {

@@ -37,10 +37,6 @@ object RagiUtils {
         }
     }
 
-    fun getBlock(domain: String, path: String): Block {
-        return getBlock("$domain:$path")
-    }
-
     //液体名からFluidを取得するメソッド
     //Fluidがnullの場合は水を返す
     fun getFluid(name: String): Fluid {
@@ -61,22 +57,14 @@ object RagiUtils {
         }
     }
 
-    fun getItem(domain: String, path: String): Item {
-        return getItem("$domain:$path")
-    }
-
     //ResourceLocationなどからItemStackを取得するメソッド
     //ItemStackがnullの場合はバリアブロックを返す
     fun getStack(registryName: String, amount: Int, meta: Int): ItemStack {
         val item: Item? = ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))
         return if (item !== null) ItemStack(item, amount, meta) else {
             RagiLogger.warnDebug("The item stack <$registryName:$meta> * $amount was not found...")
-            ItemStack(getItem("minecraft", "barrier"), amount, 0)
+            ItemStack(getItem("minecraft:barrier"), amount, 0)
         }
-    }
-
-    fun getStack(domain: String, path: String, amount: Int, meta: Int): ItemStack {
-        return getStack("$domain:$path", amount, meta)
     }
 
     //ResourceLocationなどからIBlockStateを取得するメソッド
@@ -88,10 +76,6 @@ object RagiUtils {
             RagiLogger.warnDebug("The blockstate <blockstate:$block:$meta> was not found...")
             getBlock("minecraft:barrier").defaultState
         }
-    }
-
-    fun getState(domain: String, path: String, meta: Int): IBlockState {
-        return getState("$domain:$path", meta)
     }
 
     fun getState(block: Block, meta: Int): IBlockState {
@@ -112,13 +96,9 @@ object RagiUtils {
         }
     }
 
-    fun getPotion(domain: String, path: String): Potion {
-        return getPotion("$domain:$path")
-    }
-
     //ResourceLocationなどからPotionEffectを取得するメソッド
-    fun getPotionEffect(domain: String, path: String, time: Int, level: Int): PotionEffect {
-        return PotionEffect(getPotion(domain, path), time, level)
+    fun getPotionEffect(registryName: String, time: Int, level: Int): PotionEffect {
+        return PotionEffect(getPotion(registryName), time, level)
     }
 
     //ResourceLocationからSoundEventを取得するメソッド
@@ -129,10 +109,6 @@ object RagiUtils {
             RagiLogger.warnDebug("The sound <soundevent:$registryName> was not found...")
             ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("minecraft:entity.player.levelup"))!!
         }
-    }
-
-    fun getSound(domain: String, path: String): SoundEvent {
-        return getSound("$domain:$path")
     }
 
     /*
