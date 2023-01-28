@@ -1,9 +1,12 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.items.ItemMaterial
 import hiiragi283.ragi_materials.materials.MaterialRegistry
 import hiiragi283.ragi_materials.materials.MaterialRegistry.getFluid
+import hiiragi283.ragi_materials.util.RagiModel.setModel
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
@@ -21,7 +24,7 @@ object RagiModel {
         //itemが耐久値を使用しない場合
         if (this.maxDamage == 0) {
             //メタデータが最大値になるまで処理を繰り返す
-            for (i in 0 until this.getMetadata(283) + 1) {
+            for (i in 0 until this.getMetadata(32768) + 1) {
                 val location = ModelResourceLocation(this.registryName.toString() + "_" + i, "inventory")
                 ModelLoader.setCustomModelResourceLocation(this, i, location)
             }
@@ -37,7 +40,7 @@ object RagiModel {
     @SideOnly(Side.CLIENT)
     fun Item.setModelSame(): Item {
         //メタデータが最大値になるまで処理を繰り返す
-        for (i in 0 until this.getMetadata(283) + 1) {
+        for (i in 0 until this.getMetadata(32768) + 1) {
             val location = ModelResourceLocation(this.registryName!!, "inventory")
             ModelLoader.setCustomModelResourceLocation(this, i, location)
         }

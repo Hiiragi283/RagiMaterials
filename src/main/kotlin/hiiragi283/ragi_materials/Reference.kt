@@ -23,5 +23,5 @@ object Reference {
     val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer
 
     //Materialで使用するMetadataの最大数
-    const val numMaterial = 255 + 1
+    const val numMaterial = 1024 + 1
 }

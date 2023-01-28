@@ -182,6 +182,7 @@ material.wildcard=無効な
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- 耐久値: §b%s§r
 text.ragi_materials.property.boil=- 沸点: §b%s§r K
+text.ragi_materials.property.formula=- 化学式: §b%s§r
 text.ragi_materials.property.melt=- 融点: §b%s§r K
 text.ragi_materials.property.mol=- モル質量: §b%s§r g/mol
 text.ragi_materials.property.subl=- 昇華点: §b%s§r K

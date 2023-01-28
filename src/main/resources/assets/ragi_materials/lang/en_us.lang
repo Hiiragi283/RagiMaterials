@@ -182,6 +182,7 @@ material.wildcard=INVALID
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- Durability: §b%s§r
 text.ragi_materials.property.boil=- Boiling Point: §b%s§r K
+text.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 text.ragi_materials.property.melt=- Melting Point: §b%s§r K
 text.ragi_materials.property.mol=- Molar Mass: §b%s§r g/mol
 text.ragi_materials.property.subl=- Sublimation Point: §b%s§r K
