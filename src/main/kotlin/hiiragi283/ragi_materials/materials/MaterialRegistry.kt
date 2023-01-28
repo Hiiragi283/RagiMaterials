@@ -273,6 +273,8 @@ object MaterialRegistry {
 
     //125~199: Alloy
 
+    val BRONZE = CompoundBuilder(125, "bronze", mapOf(COPPER to 3, TIN to 1))
+
     //200~599: Non-organic Compound
 
     //600~999: Organic Compound
@@ -353,6 +355,8 @@ object MaterialRegistry {
             TRITIUM,
             URANIUM_235,
             PLUTONIUM_241,
+            //Alloy
+            BRONZE,
             //WILDCARD
             WILDCARD
         )

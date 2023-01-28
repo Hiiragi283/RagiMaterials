@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import java.awt.Color
 
 open class MaterialBuilder(
-    val index: Int, val name: String, val type: MaterialType
+    open val index: Int, open val name: String, val type: MaterialType
 ) {
     //private変数の宣言
     private var color = Color(0xFFFFFF)
@@ -16,7 +16,7 @@ open class MaterialBuilder(
     private var formula: String? = null
 
     //色を取得するメソッド (デフォルトは0xFFFFFF)
-    fun getColor(): Color {
+    open fun getColor(): Color {
         return color
     }
 
@@ -36,20 +36,21 @@ open class MaterialBuilder(
     open fun getFormula(): String {
         return getFormula(false)!!
     }
+
     //モル質量を取得するメソッド (デフォルトは32767.0 g/mol)
-    fun getMolarMass(isNull: Boolean): Float? {
-        if(molar !== null) return molar!! else {
+    open fun getMolarMass(isNull: Boolean): Float? {
+        return if(molar !== null) molar!! else {
             //返り値にnullを使わない場合
             if (!isNull) {
                 RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                return 32767.0F
+                32767.0F
             }
             //返り値にnullを使う場合
-            else return null
+            else null
         }
     }
 
-    fun getMolarMass(): Float {
+    open fun getMolarMass(): Float {
         return getMolarMass(false)!!
     }
 
@@ -59,15 +60,15 @@ open class MaterialBuilder(
     }
 
     //融点を取得するメソッド (デフォルトは32767 ℃)
-    fun getTempMelt(isNull: Boolean): Int? {
-        if(melting !== null) return melting!! else {
+    open fun getTempMelt(isNull: Boolean): Int? {
+        return if(melting !== null) melting!! else {
             //返り値にnullを使わない場合
             if (!isNull) {
                 RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                return 32767
+                32767
             }
             //返り値にnullを使う場合
-            else return null
+            else null
         }
     }
 
@@ -76,15 +77,15 @@ open class MaterialBuilder(
     }
 
     //沸点を取得するメソッド (デフォルトは32767 ℃)
-    fun getTempBoil(isNull: Boolean): Int? {
-        if(boiling !== null) return boiling!! else {
+    open fun getTempBoil(isNull: Boolean): Int? {
+        return if(boiling !== null) boiling!! else {
             //返り値にnullを使わない場合
             if (!isNull) {
                 RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                return 32767
+                32767
             }
             //返り値にnullを使う場合
-            else return null
+            else null
         }
     }
 
@@ -93,15 +94,15 @@ open class MaterialBuilder(
     }
 
     //昇華点を取得するメソッド (デフォルトは32767 ℃)
-    fun getTempSubl(isNull: Boolean): Int? {
-        if(subl !== null) return subl!! else {
+    open fun getTempSubl(isNull: Boolean): Int? {
+        return if(subl !== null) subl!! else {
             //返り値にnullを使わない場合
             if (!isNull) {
                 RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                return 32767
+                32767
             }
             //返り値にnullを使う場合
-            else return null
+            else null
         }
     }
 
@@ -109,7 +110,7 @@ open class MaterialBuilder(
         return getTempSubl(false)!!
     }
 
-    //色を設定するメソッド (デフォルトは0xFFFFFF)
+    //色を設定するメソッド
     fun setColor(color: Color): MaterialBuilder {
         this.color = color
         return this
