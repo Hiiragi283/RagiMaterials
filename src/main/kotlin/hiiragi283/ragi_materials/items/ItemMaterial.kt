@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.util.MaterialUtils
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -49,19 +50,7 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
         //EnumMaterialsの取得
         val material = MaterialRegistry.getMaterial(stack.metadata)
         //tooltipの追加
-        tooltip.add("§e===Property===")
-        tooltip.add(I18n.format("text.ragi_materials.property.mol", material.getMolarMass()))
-        //融点がnullでない場合
-        if(material.getTempMelt(true) !== null) {
-            //融点・沸点をtooltipに追加 (ケルビン温度)
-            tooltip.add(I18n.format("text.ragi_materials.property.melt", material.getTempMelt() + 273))
-            tooltip.add(I18n.format("text.ragi_materials.property.boil", material.getTempBoil() + 273))
-        }
-        //融点がnullの場合
-        else {
-            //沸点を昇華点としてtooltipに追加 (ケルビン温度)
-            tooltip.add(I18n.format("text.ragi_materials.property.subl", material.getTempSubl() + 273))
-        }
+        MaterialUtils.materialInfo(material, tooltip)
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 }

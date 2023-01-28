@@ -13,12 +13,29 @@ open class MaterialBuilder(
     private var melting: Int? = null
     private var boiling: Int? = null
     private var subl: Int? = null
+    private var formula: String? = null
 
     //色を取得するメソッド (デフォルトは0xFFFFFF)
     fun getColor(): Color {
         return color
     }
 
+    //化学式を取得するメソッド（デフォルトはH.T.）
+    open fun getFormula(isNull: Boolean): String? {
+        return if(formula !== null) formula!! else {
+            //返り値にnullを使わない場合
+            if (!isNull) {
+                RagiLogger.warn("The material <material:${this.name}> does not have the Chemical Formula!")
+                "H.T."
+            }
+            //返り値にnullを使う場合
+            else null
+        }
+    }
+
+    open fun getFormula(): String {
+        return getFormula(false)!!
+    }
     //モル質量を取得するメソッド (デフォルトは32767.0 g/mol)
     fun getMolarMass(isNull: Boolean): Float? {
         if(molar !== null) return molar!! else {
@@ -95,6 +112,12 @@ open class MaterialBuilder(
     //色を設定するメソッド (デフォルトは0xFFFFFF)
     fun setColor(color: Color): MaterialBuilder {
         this.color = color
+        return this
+    }
+
+    //化学式を設定するメソッド
+    fun setFormula(formula: String): MaterialBuilder {
+        this.formula = formula
         return this
     }
 
