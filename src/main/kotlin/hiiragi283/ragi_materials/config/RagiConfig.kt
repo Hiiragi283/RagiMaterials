@@ -15,6 +15,7 @@ object RagiConfig {
     //Debug Setting
     var isDebug = false
     var listMaxStack = arrayOf(
+        "forge:bucketfilled",
         "minecraft:bed",
         "minecraft:beetroot_soup",
         "minecraft:birch_boat",

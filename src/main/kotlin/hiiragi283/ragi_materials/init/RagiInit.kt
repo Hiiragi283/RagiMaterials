@@ -6,6 +6,7 @@ import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.items.ItemMaterial
+import hiiragi283.ragi_materials.items.ItemForgeHammer
 import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
@@ -25,8 +26,8 @@ object RagiInit {
     val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
     val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
-    val ItemCraftingTool = hiiragi283.ragi_materials.items.ItemCraftingTool("crafting_tool", 0).setModel()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()
+    val ItemForgeHammer = ItemForgeHammer().setModel()
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL).setModelMaterial()
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL).setModelMaterial()
@@ -44,12 +45,12 @@ object RagiInit {
         RagiColor.setColor(
             RagiColor.ColorMaterial(),
             ItemBlockMetal,
-            ItemCraftingTool,
             ItemDust,
             ItemIngot,
             ItemNugget,
             ItemPlate
         )
+        RagiColor.setColor(RagiColor.ColorNBT(), ItemForgeHammer)
         //鉱石辞書の登録
         RagiInitOreDict.registerOreDict()
         //レシピの登録

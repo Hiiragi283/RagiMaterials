@@ -2,16 +2,15 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.MaterialRegistry
-import hiiragi283.ragi_materials.util.RagiNBT
 import hiiragi283.ragi_materials.util.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraftforge.oredict.OreDictionary
 
 object RagiInitRecipe {
 
     fun registerRecipes() {
         addCrafting()
         addCraftingMaterial()
-        addCraftingTool()
     }
 
     private fun addCrafting() {
@@ -65,7 +64,7 @@ object RagiInitRecipe {
                 'A',
                 "ingot${material.getOreDict()}",
                 'B',
-                RagiUtils.getStack("${Reference.MOD_ID}:crafting_tool", 1, 0)
+                RagiUtils.getStack("${Reference.MOD_ID}:forge_hammer", 1, OreDictionary.WILDCARD_VALUE)
             )
             //nugget -> ingotのレシピを登録
             RagiRecipe.addShaped(
@@ -76,26 +75,6 @@ object RagiInitRecipe {
                 "AAA",
                 'A',
                 "nugget${material.getOreDict()}"
-            )
-        }
-    }
-
-    private fun addCraftingTool() {
-        for (material in MaterialRegistry.mapToolMaterial.keys) {
-            val tag = RagiNBT.getTagTool(material)
-            val stack = RagiUtils.getStack("${Reference.MOD_ID}:crafting_tool", 1, 0)
-            stack.tagCompound = tag
-            //Crafting Hammerのレシピを登録
-            RagiRecipe.addShaped(
-                Reference.MOD_ID + ":crafting_hammer" + material.index,
-                stack,
-                "AA ",
-                "ABB",
-                "AA ",
-                'A',
-                "ingot${material.getOreDict()}",
-                'B',
-                "stickWood"
             )
         }
     }

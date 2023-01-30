@@ -26,7 +26,7 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
         creativeTab = CreativeTabs.MISC //表示するクリエイティブタブの設定
         setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
-        if (maxMeta != 0) setHasSubtypes(true) //メタデータを使用する
+        if (maxMeta == 0) setHasSubtypes(false) else setHasSubtypes(true) //メタデータを使用する
         ForgeRegistries.ITEMS.register(this)
     }
 
