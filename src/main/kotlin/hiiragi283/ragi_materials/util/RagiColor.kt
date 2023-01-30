@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.items.ItemCraftingTool
 import hiiragi283.ragi_materials.materials.MaterialRegistry
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
@@ -97,35 +96,31 @@ object RagiColor {
     class ColorMaterial : IItemColor, IBlockColor {
 
         override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-            //stackからitemを取得
-            val item = stack.item
-            //itemがItemCraftingToolクラスの派生物の場合
-            return if (item is ItemCraftingTool) {
-                //NBTタグがnullでない場合
-                if (stack.tagCompound !== null) {
-                    //NBTタグからEnumMaterialsを取得
-                    val tag = stack.tagCompound!!
-                    val material = MaterialRegistry.getMaterial(tag.getString("material"))
-                    //tintIndexが1ならばEnumMaterials.color，そうでないなら白を返す
-                    if (tintIndex == 1) material.getColor().rgb else 0xFFFFFF
-                }
-                //NBTタグがnullの場合
-                else {
-                    0xFFFFFF //白色を返す
-                }
-            }
-            //itemがItemCraftingToolクラスの派生物でない場合
-            else {
-                //メタデータからEnumMaterialsを取得
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                //tintIndexが0ならばEnumMaterials.color，そうでないなら白を返す
-                if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
-            }
+            //メタデータからMaterialBuilderを取得
+            val material = MaterialRegistry.getMaterial(stack.metadata)
+            //tintIndexが0ならばEnumMaterials.color，そうでないなら白を返す
+            return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
         }
 
         override fun colorMultiplier(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?, tintIndex: Int): Int {
             val material = MaterialRegistry.getMaterial(state.block.getMetaFromState(state))
             return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
+        }
+    }
+
+    class ColorNBT : IItemColor {
+
+        override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
+            //NBTタグがnullでない場合
+            return if (stack.tagCompound !== null) {
+                //NBTタグからEnumMaterialsを取得
+                val tag = stack.tagCompound!!
+                val material = MaterialRegistry.getMaterial(tag.getString("material"))
+                //tintIndexが1ならばEnumMaterials.color，そうでないなら白を返す
+                if (tintIndex == 1) material.getColor().rgb else 0xFFFFFF
+            }
+            //NBTタグがnullの場合
+            else 0xFFFFFF //白色を返す
         }
     }
 }

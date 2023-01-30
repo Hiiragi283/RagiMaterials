@@ -4,14 +4,14 @@ import hiiragi283.ragi_materials.util.MaterialUtils
 import hiiragi283.ragi_materials.util.RagiColor
 import java.awt.Color
 
-class CompoundBuilder(override val index: Int, override val name: String, private val mapComponents: Map<Any, Int>) :
-    MaterialBuilder(index, name, MaterialType.METAL) {
+open class CompoundBuilder(index: Int, name: String, type: MaterialType, private val mapComponents: Map<Any, Int>) :
+    MaterialBuilder(index, name, type) {
 
     init {
         this.setColor(RagiColor.mixColor(getColorMap()))
-        this.setFormula(MaterialUtils.calcFormula(mapComponents))
-        this.setTempMelt(setMelt())
-        this.setTempBoil(setBoil())
+            .setComponents(mapComponents)
+            .setFormula(MaterialUtils.calcFormula(mapComponents))
+            .setMolarMass(setMolar())
     }
 
     private fun getColorMap(): MutableMap<Color, Int> {
@@ -25,37 +25,21 @@ class CompoundBuilder(override val index: Int, override val name: String, privat
         return mapColor
     }
 
-    private fun setMelt(): Int {
+    private fun setMolar(): Float {
         //変数の宣言
-        var tempMelt: Int = 0
-        var divideMelt: Int = 0
+        var tempMolar: Float = 0.0f
+        var divideMolar: Int = 0
+        val mapComponents = getComponents()
         //mapComponents内の各keyに対して実行
         for (i in mapComponents.keys) {
             //keyがMaterialBuilder型の場合
             if (i is MaterialBuilder) {
-                tempMelt += i.getTempMelt() * mapComponents.getValue(i)
-                divideMelt += mapComponents.getValue(i)
+                tempMolar += i.getMolarMass() * mapComponents.getValue(i)
+                divideMolar += mapComponents.getValue(i)
             }
         }
         //融点の平均値をとる
-        tempMelt /= divideMelt
-        return tempMelt
-    }
-
-    private fun setBoil(): Int {
-        //変数の宣言
-        var tempBoil: Int = 0
-        var divideBoil: Int = 0
-        //mapComponents内の各keyに対して実行
-        for (i in mapComponents.keys) {
-            //keyがMaterialBuilder型の場合
-            if (i is MaterialBuilder) {
-                tempBoil += i.getTempBoil() * mapComponents.getValue(i)
-                divideBoil += mapComponents.getValue(i)
-            }
-        }
-        //沸点の平均値をとる
-        tempBoil /= divideBoil
-        return tempBoil
+        tempMolar /= divideMolar
+        return tempMolar
     }
 }

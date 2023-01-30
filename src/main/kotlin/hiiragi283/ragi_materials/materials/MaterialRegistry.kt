@@ -273,7 +273,7 @@ object MaterialRegistry {
 
     //125~199: Alloy
 
-    val BRONZE = CompoundBuilder(125, "bronze", mapOf(COPPER to 3, TIN to 1))
+    val BRONZE = AlloyBuilder(125, "bronze", mapOf(COPPER to 3, TIN to 1))
 
     //200~599: Non-organic Compound
 

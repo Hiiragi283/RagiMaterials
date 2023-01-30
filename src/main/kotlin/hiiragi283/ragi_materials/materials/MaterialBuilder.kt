@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import java.awt.Color
 
 open class MaterialBuilder(
-    open val index: Int, open val name: String, val type: MaterialType
+    open val index: Int, open val name: String, open val type: MaterialType
 ) {
     //private変数の宣言
     private var color = Color(0xFFFFFF)
@@ -14,10 +14,16 @@ open class MaterialBuilder(
     private var boiling: Int? = null
     private var subl: Int? = null
     private var formula: String? = null
+    private var mapComponents: Map<Any, Int> = mapOf(MaterialRegistry.DEBUG to 1)
 
     //色を取得するメソッド (デフォルトは0xFFFFFF)
     open fun getColor(): Color {
         return color
+    }
+
+    //組成を取得するメソッド
+    fun getComponents(): Map<Any, Int> {
+        return mapComponents
     }
 
     //化学式を取得するメソッド（デフォルトはH.T.）
@@ -113,6 +119,12 @@ open class MaterialBuilder(
     //色を設定するメソッド
     fun setColor(color: Color): MaterialBuilder {
         this.color = color
+        return this
+    }
+
+    //組成を設定するメソッド
+    fun setComponents(mapComponents: Map<Any, Int>): MaterialBuilder {
+        this.mapComponents = mapComponents
         return this
     }
 
