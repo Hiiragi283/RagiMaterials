@@ -13,11 +13,11 @@ class AlloyBuilder(index: Int, name: String, mapComponents: Map<Any, Int>) :
         var divideMelt: Int = 0
         val mapComponents = getComponents()
         //mapComponents内の各keyに対して実行
-        for (i in mapComponents.keys) {
+        for (key in mapComponents.keys) {
             //keyがMaterialBuilder型の場合
-            if (i is MaterialBuilder) {
-                tempMelt += i.getTempMelt() * mapComponents.getValue(i)
-                divideMelt += mapComponents.getValue(i)
+            if (key is MaterialBuilder) {
+                tempMelt += key.getTempMelt() * mapComponents.getValue(key)
+                divideMelt += mapComponents.getValue(key)
             }
         }
         //融点の平均値をとる
@@ -31,11 +31,11 @@ class AlloyBuilder(index: Int, name: String, mapComponents: Map<Any, Int>) :
         var divideBoil: Int = 0
         val mapComponents = getComponents()
         //mapComponents内の各keyに対して実行
-        for (i in mapComponents.keys) {
+        for (key in mapComponents.keys) {
             //keyがMaterialBuilder型の場合
-            if (i is MaterialBuilder) {
-                tempBoil += i.getTempBoil() * mapComponents.getValue(i)
-                divideBoil += mapComponents.getValue(i)
+            if (key is MaterialBuilder) {
+                tempBoil += key.getTempBoil() * mapComponents.getValue(key)
+                divideBoil += mapComponents.getValue(key)
             }
         }
         //沸点の平均値をとる

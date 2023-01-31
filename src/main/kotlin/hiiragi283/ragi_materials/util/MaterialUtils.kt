@@ -43,24 +43,24 @@ object MaterialUtils {
         var subscript1 = '\u2080'
         var subscript10 = '\u2080'
         //mapComponents内の各keyに対して実行
-        for (i in mapComponents.keys) {
+        for (key in mapComponents.keys) {
             //化学式の下付き数字の桁数調整
-            if (mapComponents.getValue(i) in 2..9) subscript1 = '\u2080' + mapComponents.getValue(i)
-            else if (mapComponents.getValue(i) in 10 .. 99) {
-                subscript1 = '\u2080' + (mapComponents.getValue(i) / 10)
-                subscript10 = '\u2080' + (mapComponents.getValue(i) % 10)
+            if (mapComponents.getValue(key) in 2..9) subscript1 = '\u2080' + mapComponents.getValue(key)
+            else if (mapComponents.getValue(key) in 10 .. 99) {
+                subscript1 = '\u2080' + (mapComponents.getValue(key) / 10)
+                subscript10 = '\u2080' + (mapComponents.getValue(key) % 10)
             }
             //2桁目が0でない場合，下付き数字を2桁にする
             subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
             //keyがMaterialBuilder型の場合
-            if (i is MaterialBuilder) {
-                formula += i.getFormula()
-                if (mapComponents.getValue(i) > 1) formula += subscript
+            if (key is MaterialBuilder) {
+                formula += key.getFormula()
+                if (mapComponents.getValue(key) > 1) formula += subscript
             }
             //keyがString型の場合
-            else if (i is String) {
-                formula += i
-                if (mapComponents.getValue(i) > 1) formula += subscript
+            else if (key is String) {
+                formula += key
+                if (mapComponents.getValue(key) > 1) formula += subscript
             }
         }
         //化学式を返す
