@@ -5,19 +5,6 @@ import net.minecraft.client.resources.I18n
 
 object MaterialUtils {
 
-    private val mapSubscripts = mapOf(
-        0 to "\u2080",
-        1 to "\u2081",
-        2 to "\u2082",
-        3 to "\u2083",
-        4 to "\u2084",
-        5 to "\u2085",
-        6 to "\u2086",
-        7 to "\u2087",
-        8 to "\u2088",
-        9 to "\u2089"
-    )
-
     //素材のツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
         tooltip.add("§e===Property===")
@@ -59,9 +46,9 @@ object MaterialUtils {
         for (i in mapComponents.keys) {
             //化学式の下付き数字の桁数調整
             if (mapComponents.getValue(i) in 2..9) subscript1 = '\u2080' + mapComponents.getValue(i)
-            else if (mapComponents.getValue(i) >= 10) {
-                subscript1 = mapSubscripts.getValue(mapComponents.getValue(i) / 10).first()
-                subscript10 = mapSubscripts.getValue(mapComponents.getValue(i) % 10).first()
+            else if (mapComponents.getValue(i) in 10 .. 99) {
+                subscript1 = '\u2080' + (mapComponents.getValue(i) / 10)
+                subscript10 = '\u2080' + (mapComponents.getValue(i) % 10)
             }
             //2桁目が0でない場合，下付き数字を2桁にする
             subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
