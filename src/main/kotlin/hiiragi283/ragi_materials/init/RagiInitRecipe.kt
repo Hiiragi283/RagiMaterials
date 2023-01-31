@@ -26,6 +26,16 @@ object RagiInitRecipe {
             'C',
             RagiUtils.getStack("minecraft:furnace", 1, 0)
         )
+        RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:forge_hammer", 1, 0),
+            "AAA",
+            "AAA",
+            " B ",
+            'A',
+            "ingotIron",
+            'B',
+            RagiUtils.getStack("minecraft:sign", 1, 0)
+        )
     }
 
     private fun addCraftingMaterial() {
