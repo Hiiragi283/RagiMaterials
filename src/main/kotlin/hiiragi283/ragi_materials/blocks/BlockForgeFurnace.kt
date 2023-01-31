@@ -142,7 +142,7 @@ class BlockForgeFurnace : Block(Material.ROCK) {
             Items.FIRE_CHARGE -> ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
             Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
             RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
-            else -> ForgeFurnaceHelper.getResultPlayer(world, pos, state, stack) //レシピ実行
+            else -> ForgeFurnaceHelper.getResult(world, pos, state, stack) //レシピ実行
         }
         return true
     }

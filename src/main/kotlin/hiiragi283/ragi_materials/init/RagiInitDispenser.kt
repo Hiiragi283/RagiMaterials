@@ -40,26 +40,10 @@ object RagiInitDispenser {
             //blockがForge Furnaceの場合
             return if (block is BlockForgeFurnace) {
                 when (stack.item) {
-                    Items.COAL -> {
-                        ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-                        stack
-                    }
-
-                    Items.FIRE_CHARGE -> {
-                        ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
-                        stack
-                    }
-
-                    Items.FLINT_AND_STEEL -> {
-                        ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
-                        stack
-                    }
-
-                    RagiInit.ItemToolBellow -> {
-                        ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
-                        stack
-                    }
-
+                    Items.COAL -> ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
+                    Items.FIRE_CHARGE -> ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
+                    Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
+                    RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
                     else -> super.dispenseStack(source, stack)
                 }
             } else super.dispenseStack(source, stack)

@@ -16,7 +16,7 @@ object ForgeFurnaceHelper {
     )
 
     //燃料を投入するメソッド
-    fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
+    fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //ブロックに蓄えられた燃料の量を取得
         val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
         //ブロックに蓄えられた燃料が3未満の場合
@@ -31,10 +31,11 @@ object ForgeFurnaceHelper {
             ) //SEを再生
             stack.shrink(1) //手持ちの燃料を1つ減らす
         }
+        return stack
     }
 
     //着火するメソッド
-    fun setFireItem(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
+    fun setFireItem(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //消火状態，かつ燃料が1つ以上の場合
         if (state.getValue(BlockForgeFurnace.propertyFire) == BlockForgeFurnace.PropertyState.EXTINGUISH && state.getValue(
                 BlockForgeFurnace.propertyFuel
@@ -50,9 +51,10 @@ object ForgeFurnaceHelper {
             ) //SEを再生
             stack.shrink(1) //手持ちの火種を1つ減らす
         }
+        return stack
     }
 
-    fun setFireTool(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
+    fun setFireTool(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //消火状態，かつ燃料が1つ以上の場合
         if (state.getValue(BlockForgeFurnace.propertyFire) == BlockForgeFurnace.PropertyState.EXTINGUISH && state.getValue(
                 BlockForgeFurnace.propertyFuel
@@ -66,12 +68,13 @@ object ForgeFurnaceHelper {
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:item.flintandsteel.use"), SoundCategory.BLOCKS, 1.0f, 1.0f
             ) //SEを再生
-            stack.itemDamage -= 1//耐久値を1つ減らす
+            stack.itemDamage += 1//耐久値を1つ減らす
         }
+        return stack
     }
 
     //ふいごで火力を上げるメソッド
-    fun setBlasting(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
+    fun setBlasting(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //着火済み，かつ燃料が満タンの場合
         if (state.getValue(BlockForgeFurnace.propertyFire) == BlockForgeFurnace.PropertyState.BURNING && state.getValue(
                 BlockForgeFurnace.propertyFuel
@@ -85,12 +88,13 @@ object ForgeFurnaceHelper {
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
-            stack.itemDamage -= 1//耐久値を1つ減らす
+            stack.itemDamage += 1//耐久値を1つ減らす
         }
+        return stack
     }
 
     //右クリックレシピを司るメソッド
-    fun getResultPlayer(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
+    fun getResult(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         var result = ItemStack.EMPTY
         if (canProcess(state)) {
             //mapRecipe内の各keyに対して実行
@@ -102,7 +106,7 @@ object ForgeFurnaceHelper {
             if (!RagiUtils.isSameStack(result, ItemStack.EMPTY)) {
                 stack.shrink(1) //stackを1つ減らす
                 val drop = EntityItem(
-                    world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), result
+                    world, pos.x.toDouble(), pos.y.toDouble() + 1.0, pos.z.toDouble(), result
                 ) //ドロップアイテムを生成
                 drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
                 if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
@@ -112,6 +116,7 @@ object ForgeFurnaceHelper {
                 ) //SEを再生
             }
         }
+        return stack
     }
 
     //レシピが実行できるかどうか
