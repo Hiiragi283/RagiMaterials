@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.blocks.BlockForgeFurnace
+import hiiragi283.ragi_materials.blocks.ForgeFurnaceHelper
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockCauldron
 import net.minecraft.block.BlockDispenser
@@ -40,22 +41,22 @@ object RagiInitDispenser {
             return if (block is BlockForgeFurnace) {
                 when (stack.item) {
                     Items.COAL -> {
-                        BlockForgeFurnace.ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
+                        ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
                         stack
                     }
 
                     Items.FIRE_CHARGE -> {
-                        BlockForgeFurnace.ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
+                        ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
                         stack
                     }
 
                     Items.FLINT_AND_STEEL -> {
-                        BlockForgeFurnace.ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
+                        ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
                         stack
                     }
 
                     RagiInit.ItemToolBellow -> {
-                        BlockForgeFurnace.ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
+                        ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
                         stack
                     }
 

@@ -361,6 +361,9 @@ object MaterialRegistry {
             WILDCARD
         )
 
+    //バニラ素材のリスト
+    val listVanilla = listOf(MaterialRegistry.IRON, MaterialRegistry.GOLD)
+
         //道具に使える素材と耐久値のMap
         val mapToolMaterial = mapOf(
             DEBUG to 1109,

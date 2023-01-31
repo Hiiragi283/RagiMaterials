@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.blocks
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
@@ -17,7 +16,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.IStringSerializable
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.ForgeRegistries
@@ -139,11 +137,13 @@ class BlockForgeFurnace : Block(Material.ROCK) {
     ): Boolean {
         //プレイヤーが利き手に持っているアイテムを取得
         val stack: ItemStack = player.getHeldItem(hand)
-        val item = stack.item
-        if (item == Items.COAL) ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-        if (item == Items.FIRE_CHARGE) ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
-        if (item == Items.FLINT_AND_STEEL) ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
-        if (item == RagiInit.ItemToolBellow) ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
+        when (stack.item) {
+            Items.COAL -> ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
+            Items.FIRE_CHARGE -> ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
+            Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
+            RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
+            else -> ForgeFurnaceHelper.getResultPlayer(world, pos, state, stack) //レシピ実行
+        }
         return true
     }
 
@@ -156,72 +156,6 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
         override fun getName(): String {
             return this.state
-        }
-    }
-
-    //Forge Furnaceの機能をオブジェクト化することで他クラスからも参照できるようにした
-    object ForgeFurnaceHelper {
-
-        //燃料を投入するメソッド
-        fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
-            //ブロックに蓄えられた燃料の量を取得
-            val fuel = state.getValue(propertyFuel)
-            //ブロックに蓄えられた燃料が3未満の場合
-            if (fuel < 3) {
-                world.setBlockState(
-                    pos,
-                    state.withProperty(propertyFire, state.getValue(propertyFire)).withProperty(propertyFuel, fuel + 1)
-                ) //燃料を投入する
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
-                ) //SEを再生
-                stack.shrink(1) //手持ちの燃料を1つ減らす
-            }
-        }
-
-        //着火するメソッド
-        fun setFireItem(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
-            //消火状態，かつ燃料が1つ以上の場合
-            if (state.getValue(propertyFire) == PropertyState.EXTINGUISH && state.getValue(propertyFuel) > 0) {
-                world.setBlockState(
-                    pos,
-                    state.withProperty(propertyFire, PropertyState.BURNING)
-                        .withProperty(propertyFuel, state.getValue(propertyFuel))
-                ) //着火
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:item.firecharge.use"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
-                stack.shrink(1) //手持ちの火種を1つ減らす
-            }
-        }
-
-        fun setFireTool(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
-            //消火状態，かつ燃料が1つ以上の場合
-            if (state.getValue(propertyFire) == PropertyState.EXTINGUISH && state.getValue(propertyFuel) > 0) {
-                world.setBlockState(
-                    pos,
-                    state.withProperty(propertyFire, PropertyState.BURNING)
-                        .withProperty(propertyFuel, state.getValue(propertyFuel))
-                ) //着火
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:item.flintandsteel.use"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
-                stack.itemDamage -= 1//耐久値を1つ減らす
-            }
-        }
-
-        //ふいごで火力を上げるメソッド
-        fun setBlasting(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack) {
-            //着火済み，かつ燃料が満タンの場合
-            if (state.getValue(propertyFire) == PropertyState.BURNING && state.getValue(propertyFuel) == 3) {
-                world.setBlockState(
-                    pos, state.withProperty(propertyFire, PropertyState.BLASTING).withProperty(propertyFuel, 3)
-                ) //火力UP
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f
-                ) //SEを再生
-                stack.itemDamage -= 1//耐久値を1つ減らす
-            }
         }
     }
 

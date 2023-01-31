@@ -18,8 +18,7 @@ object RagiInitOreDict {
                     //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                     //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
                     RagiUtils.setOreDict(
-                        prefix + material.getOreDict(),
-                        RagiUtils.getStack(Reference.MOD_ID + prefix, 1, material.index)
+                        prefix + material.getOreDict(), RagiUtils.getStack(Reference.MOD_ID + prefix, 1, material.index)
                     )
                 }
             }
