@@ -2,8 +2,10 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.recipes.RecipeTest
 import hiiragi283.ragi_materials.util.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 
 object RagiInitRecipe {
@@ -11,6 +13,7 @@ object RagiInitRecipe {
     fun registerRecipes() {
         addCrafting()
         addCraftingMaterial()
+        ForgeRegistries.RECIPES.register(RecipeTest())
     }
 
     private fun addCrafting() {
