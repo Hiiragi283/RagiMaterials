@@ -96,6 +96,7 @@ item.ragi_block_metal.name=Block of %s
 item.ragi_crafting_tool.0.name=%s Hammer
 item.ragi_dust.name=%s Dust
 item.ragi_ingot.name=%s Ingot
+item.ragi_ingot_hot.name=Hot %s Ingot
 item.ragi_nugget.name=%s Nugget
 item.ragi_plate.name=%s Plate
 

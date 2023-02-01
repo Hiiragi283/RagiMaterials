@@ -66,13 +66,13 @@ object RagiInitRecipe {
                 'A',
                 "ingot${material.getOreDict()}"
             )
-            //ingot -> plateのレシピを登録
+            //hot ingot -> plateのレシピを登録
             RagiRecipe.addShaped(
                 Reference.MOD_ID + ":ingot_to_plate_" + material.index,
                 RagiUtils.getStack("${Reference.MOD_ID}:plate", 1, material.index),
                 "AB",
                 'A',
-                "ingot${material.getOreDict()}",
+                "ingotHot${material.getOreDict()}",
                 'B',
                 RagiUtils.getStack("${Reference.MOD_ID}:forge_hammer", 1, OreDictionary.WILDCARD_VALUE)
             )

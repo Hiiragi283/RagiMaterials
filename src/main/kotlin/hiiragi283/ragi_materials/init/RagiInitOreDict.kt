@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.init
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RegexStatics.snakeToLowerCamelCase
 
 object RagiInitOreDict {
 
@@ -18,19 +19,19 @@ object RagiInitOreDict {
                     //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                     //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
                     RagiUtils.setOreDict(
-                        prefix + material.getOreDict(), RagiUtils.getStack(Reference.MOD_ID + prefix, 1, material.index)
+                        prefix + material.getOreDict(), RagiUtils.getStack(Reference.MOD_ID + ":" + prefix, 1, material.index)
                     )
                 }
             }
             //list内の各prefixに対して実行
             //MaterialType.METAL用
-            for (prefix in listOf("ingot", "nugget", "plate")) {
+            for (prefix in listOf("ingot", "ingot_hot", "nugget", "plate")) {
                 //materialのtypeのhasIngotがtrueの場合
                 if (material.type.hasIngot) {
                     //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
                     //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
                     RagiUtils.setOreDict(
-                        prefix + material.getOreDict(),
+                        prefix.snakeToLowerCamelCase() + material.getOreDict(),
                         RagiUtils.getStack(Reference.MOD_ID + ":" + prefix, 1, material.index)
                     )
                     //金属ブロックの鉱石辞書

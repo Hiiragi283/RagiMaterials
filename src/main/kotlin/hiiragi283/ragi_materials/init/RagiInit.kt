@@ -29,6 +29,7 @@ object RagiInit {
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()
     val ItemForgeHammer = ItemForgeHammer().setModel()
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()
+    val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL).setModelSame()
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL).setModelMaterial()
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL).setModelMaterial()
     val ItemToolBellow = ItemBase(Reference.MOD_ID, "bellow", 0).setMaxDamage(63).setModelSame()
@@ -50,6 +51,7 @@ object RagiInit {
             ItemNugget,
             ItemPlate
         )
+        RagiColor.setColor(RagiColor.ColorHot(), ItemIngotHot)
         RagiColor.setColor(RagiColor.ColorNBT(), ItemForgeHammer)
         //鉱石辞書の登録
         RagiInitOreDict.registerOreDict()

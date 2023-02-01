@@ -96,6 +96,7 @@ item.ragi_block_metal.name=%sブロック
 item.ragi_crafting_tool.0.name=%s製のハンマー
 item.ragi_dust.name=%s粉末
 item.ragi_ingot.name=%sインゴット
+item.ragi_ingot_hot.name=加熱した%sインゴット
 item.ragi_nugget.name=%sナゲット
 item.ragi_plate.name=%s板
 
