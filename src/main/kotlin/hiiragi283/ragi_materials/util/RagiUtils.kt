@@ -67,6 +67,11 @@ object RagiUtils {
         }
     }
 
+    //config用
+    fun getStack(id: String): ItemStack {
+        return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
+    }
+
     //ResourceLocationなどからIBlockStateを取得するメソッド
     //IBlockStateがnullの場合はバリアブロックを返す
     fun getState(registryName: String, meta: Int): IBlockState {
@@ -128,7 +133,7 @@ object RagiUtils {
     //鉱石辞書を追加するメソッド
     fun setOreDict(oreDict: String, stack: ItemStack) {
         OreDictionary.registerOre(oreDict, stack)
-        RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.stackToBracket())
+        RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.toBracket())
     }
 
     //titleコマンドをより簡潔に実行するメソッド
@@ -147,7 +152,7 @@ object RagiUtils {
     }
 
     //ItemStackをCrTのブラケット記法に変換するメソッド (ログ出力用)
-    fun ItemStack.stackToBracket(): String {
+    fun ItemStack.toBracket(): String {
         val item: Item = this.item
         val location: ResourceLocation? = item.registryName
         val amount: Int = this.count

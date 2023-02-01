@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.blocks
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
@@ -142,7 +143,10 @@ class BlockForgeFurnace : Block(Material.ROCK) {
             Items.FIRE_CHARGE -> ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
             Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
             RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
-            else -> ForgeFurnaceHelper.getResult(world, pos, state, stack) //レシピ実行
+            else -> {
+                ForgeFurnaceHelper.getResult(world, pos, state, PropertyState.BURNING, stack, RagiConfig.mapForgeBurning) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, PropertyState.BLASTING, stack, RagiConfig.mapForgeBlasting) //レシピ実行
+            }
         }
         return true
     }

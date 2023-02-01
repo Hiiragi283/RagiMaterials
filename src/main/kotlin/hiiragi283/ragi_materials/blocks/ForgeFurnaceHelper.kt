@@ -1,8 +1,12 @@
 package hiiragi283.ragi_materials.blocks
 
+import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
@@ -10,10 +14,6 @@ import net.minecraft.world.World
 
 //Forge Furnaceの機能をオブジェクト化することで他クラスからも参照できるようにした
 object ForgeFurnaceHelper {
-
-    val mapRecipe = mutableMapOf(
-        RagiUtils.getStack("minecraft:cobblestone", 1, 0) to RagiUtils.getStack("minecraft:magma", 1, 0)
-    )
 
     //燃料を投入するメソッド
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
@@ -94,16 +94,20 @@ object ForgeFurnaceHelper {
     }
 
     //右クリックレシピを司るメソッド
-    fun getResult(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
+    fun getResult(world: World, pos: BlockPos, state: IBlockState, value: BlockForgeFurnace.PropertyState, stack: ItemStack, map: MutableMap<String, String>): ItemStack {
         var result = ItemStack.EMPTY
-        if (canProcess(state)) {
+        if (canProcess(state, value)) {
             //mapRecipe内の各keyに対して実行
-            for (key in mapRecipe.keys) {
+            for (key in map.keys) {
                 //stackがkeyと等しい場合は対応する完成品を，そうでない場合は空のItemStackを返す
-                result = if (RagiUtils.isSameStack(key, stack)) mapRecipe.getValue(key) else ItemStack.EMPTY
+                if (RagiUtils.isSameStack(stack, RagiUtils.getStack(key))
+                ) {
+                    result = RagiUtils.getStack(map.getValue(key))
+                    break
+                } else ItemStack.EMPTY
             }
-            //resultが空のItemStackでない場合
-            if (!RagiUtils.isSameStack(result, ItemStack.EMPTY)) {
+            //resultが空気でない場合
+            if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす
                 val drop = EntityItem(
                     world, pos.x.toDouble(), pos.y.toDouble() + 1.0, pos.z.toDouble(), result
@@ -120,11 +124,11 @@ object ForgeFurnaceHelper {
     }
 
     //レシピが実行できるかどうか
-    private fun canProcess(state: IBlockState): Boolean {
+    private fun canProcess(state: IBlockState, value: BlockForgeFurnace.PropertyState): Boolean {
         val fire = state.getValue(BlockForgeFurnace.propertyFire)
         val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
-        //消化状態ではない，かつ燃料が入っているならtrue
-        return fire !== BlockForgeFurnace.PropertyState.EXTINGUISH && fuel > 0
+        //燃料が入っているならtrue
+        return fire == value && fuel > 0
     }
 
     //レシピ実行後にblockstateを上書きするメソッド
@@ -143,8 +147,7 @@ object ForgeFurnaceHelper {
                 }
             //BLASTING -> 燃料を1つ減らし，BURNINGにする
             BlockForgeFurnace.PropertyState.BLASTING -> state.withProperty(
-                BlockForgeFurnace.propertyFire,
-                BlockForgeFurnace.PropertyState.BURNING
+                BlockForgeFurnace.propertyFire, BlockForgeFurnace.PropertyState.BURNING
             ).withProperty(BlockForgeFurnace.propertyFuel, stateFuel - 1)
         }
         world.setBlockState(pos, stateReturn)

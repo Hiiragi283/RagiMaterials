@@ -24,8 +24,8 @@ object RagiInitDispenser {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BUCKET, DispenseCauldron()) //水バケツで水を搬出
 
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.COAL, DispenseForgeFurnace()) //燃料を投入
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FIRE_CHARGE, DispenseForgeFurnace()) //着火
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FLINT_AND_STEEL, DispenseForgeFurnace()) //着火
+        //BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FIRE_CHARGE, DispenseForgeFurnace()) //着火
+        //BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.FLINT_AND_STEEL, DispenseForgeFurnace()) //着火
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(RagiInit.ItemToolBellow, DispenseForgeFurnace()) //火力UP
     }
 

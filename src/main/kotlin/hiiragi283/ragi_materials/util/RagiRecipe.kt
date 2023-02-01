@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.util.RagiUtils.stackToBracket
+import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.FurnaceRecipes
@@ -29,8 +29,8 @@ object RagiRecipe {
     //かまどレシピを追加するメソッド
     fun addFurnace(output: ItemStack, input: ItemStack) {
         GameRegistry.addSmelting(input, output, 0f)
-        val bracketIn = input.stackToBracket()
-        val bracketOut = output.stackToBracket()
+        val bracketIn = input.toBracket()
+        val bracketOut = output.toBracket()
         RagiLogger.infoDebug("The smelting recipe $bracketIn -> $bracketOut was added successfully!")
     }
 
@@ -50,7 +50,7 @@ object RagiRecipe {
             if (RagiUtils.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input)) {
                 //レシピを削除する
                 iteratorFurnace.remove()
-                RagiLogger.infoDebug("The smelting input " + input.stackToBracket() + " was removed successfully!")
+                RagiLogger.infoDebug("The smelting input " + input.toBracket() + " was removed successfully!")
             }
         }
     }
