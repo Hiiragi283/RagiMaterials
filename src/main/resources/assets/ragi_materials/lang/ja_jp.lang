@@ -1,13 +1,13 @@
 
 # Block
-tile.forge_furnace.0.name=Forge Furnace (§7Extinguished§r)
-tile.forge_furnace.1.name=Forge Furnace (§7Extinguished§r)
-tile.forge_furnace.2.name=Forge Furnace (§7Extinguished§r)
-tile.forge_furnace.3.name=Forge Furnace (§7Extinguished§r)
-tile.forge_furnace.4.name=Forge Furnace (§6Burning§r)
-tile.forge_furnace.5.name=Forge Furnace (§6Burning§r)
-tile.forge_furnace.6.name=Forge Furnace (§6Burning§r)
-tile.forge_furnace.7.name=Forge Furnace (§cBlasting§r)
+tile.forge_furnace.0.name=鍛造炉 (§7消火§r)
+tile.forge_furnace.1.name=鍛造炉 (§7消火§r)
+tile.forge_furnace.2.name=鍛造炉 (§7消火§r)
+tile.forge_furnace.3.name=鍛造炉 (§7消火§r)
+tile.forge_furnace.4.name=鍛造炉 (§6燃焼中§r)
+tile.forge_furnace.5.name=鍛造炉 (§6燃焼中§r)
+tile.forge_furnace.6.name=鍛造炉 (§6燃焼中§r)
+tile.forge_furnace.7.name=鍛造炉 (§c高火力§r)
 
 # Fluid
 
@@ -103,7 +103,7 @@ item.ragi_plate.name=%s板
 # Materials
 
 ## DEBUG
-material.hiiragi_tsubasa=DEBUG
+material.hiiragi_tsubasa=らぎマテリアル
 
 ## Periodic Table
 material.hydrogen=水素
@@ -180,6 +180,7 @@ material.plutonium_241=プルトニウム241
 material.wildcard=無効な
 
 # Text
+text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- 耐久値: §b%s§r
 text.ragi_materials.property.boil=- 沸点: §b%s§r K

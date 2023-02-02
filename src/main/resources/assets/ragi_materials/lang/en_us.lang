@@ -180,6 +180,7 @@ material.plutonium_241=Plutonium 241
 material.wildcard=INVALID
 
 # Text
+text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- Durability: §b%s§r
 text.ragi_materials.property.boil=- Boiling Point: §b%s§r K
