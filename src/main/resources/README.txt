@@ -1,10 +1,9 @@
-# Ragi Library
+# Ragi Materials
 
 ## Overview
 
 - A simple mod adding materials in a unified style for MC1.12
 - Requires Shadowfacts' Forgelin (https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)
-- Requires Ragi Library (https://www.curseforge.com/minecraft/mc-mods/ragi-library)
 
 ## License
 
@@ -20,5 +19,3 @@
     - Sayamame-beans (https://github.com/Sayamame-beans)
     - toliner (https://github.com/toliner)
     - tsukimimushi (https://twitter.com/Tsukimimushi)
-- Special thanks for HeatAndClimateLib (https://github.com/defeatedcrow/HeatAndClimateLib)
-  and HeatAndClimateMod (https://github.com/defeatedcrow/HeatAndClimateMod) !
