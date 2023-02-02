@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.event
 
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 import net.minecraft.util.text.TextComponentString
@@ -11,29 +12,17 @@ class RightClickBlock {
     //ブロックを右クリックすると呼ばれるevent
     @SubscribeEvent
     fun onRightClickBlock(event: PlayerInteractEvent.RightClickBlock) {
-        //サーバー側のみで実行
-        if (!event.world.isRemote) {
+        //サーバー側&&デバッグ状態のみで実行
+        if (!event.world.isRemote && RagiConfig.isDebug) {
             //各値の取得
             val stack = event.itemStack
             val item = stack.item
-            val stackCompare = ItemStack(item, 1, stack.metadata) //比較用にスタック数を1に置き換えたもの
             val player = event.entityPlayer
             val world = event.world
             val pos = event.pos
             val state = world.getBlockState(pos)
             val block = state.block
             val meta = block.getMetaFromState(state)
-            //取得した値をログに出力
-            /*infoDebug("============")
-            infoDebug(stack)
-            infoDebug(item)
-            infoDebug(stackCompare)
-            infoDebug(player)
-            infoDebug(world)
-            infoDebug(pos)
-            infoDebug(state)
-            infoDebug(block)
-            infoDebug(meta)*/
             //Property Bookの機能
             if (RagiUtils.isSameStack(stack, RagiUtils.getStack("ragi_materials:book_debug", 1, 2))) {
                 player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
