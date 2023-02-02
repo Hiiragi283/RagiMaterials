@@ -24,10 +24,10 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     init {
         this.maxMeta = maxMeta //メタデータの最大値の初期化
         creativeTab = CreativeTabs.MISC //表示するクリエイティブタブの設定
-        setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
         if (maxMeta == 0) setHasSubtypes(false) else setHasSubtypes(true) //メタデータを使用する
-        ForgeRegistries.ITEMS.register(this)
+
+        ForgeRegistries.ITEMS.register(this.setRegistryName(MOD, ID))
     }
 
     //メタデータを得るメソッド

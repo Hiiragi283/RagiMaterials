@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 )
 class RagiMaterials {
 
-
     init {
         //Universal Bucketの使用
         FluidRegistry.enableUniversalBucket()

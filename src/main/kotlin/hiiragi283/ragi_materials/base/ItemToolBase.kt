@@ -22,9 +22,9 @@ open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: Tool
     init {
         this.maxDamage = maxDamage
         creativeTab = CreativeTabs.TOOLS //表示するクリエイティブタブの設定
-        setRegistryName(MOD, ID) //IDの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
-        ForgeRegistries.ITEMS.register(this)
+
+        ForgeRegistries.ITEMS.register(this.setRegistryName(MOD, ID))
     }
 
     //Itemにtooltipを付与するメソッド

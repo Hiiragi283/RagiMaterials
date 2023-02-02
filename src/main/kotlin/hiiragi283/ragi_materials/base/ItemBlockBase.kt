@@ -24,9 +24,9 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
     //コンストラクタの宣言
     init {
         this.maxMeta = maxMeta //メタデータの最大値を代入
-        registryName = block.registryName!! //翻訳キーはblockのものから取得
         setHasSubtypes(true) //メタデータを使用する
-        ForgeRegistries.ITEMS.register(this)
+
+        ForgeRegistries.ITEMS.register(this.setRegistryName(block.registryName!!))
     }
 
     //メタデータを得るメソッド

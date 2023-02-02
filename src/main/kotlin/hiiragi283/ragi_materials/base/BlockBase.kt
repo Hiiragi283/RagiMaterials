@@ -28,11 +28,12 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int
     //コンストラクタの初期化
     init {
         this.maxMeta = maxMeta //メタデータの最大値の初期化
-        this.setCreativeTab(CreativeTabs.DECORATIONS) //表示するクリエイティブタブの設定
         defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
-        setRegistryName(MOD, ID) //IDの設定
+        setCreativeTab(CreativeTabs.DECORATIONS) //表示するクリエイティブタブの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得
-        ForgeRegistries.BLOCKS.register(this)
+
+        ForgeRegistries.BLOCKS.register(this.setRegistryName(MOD, ID))
+
     }
 
     //Blockstateの登録をするメソッド

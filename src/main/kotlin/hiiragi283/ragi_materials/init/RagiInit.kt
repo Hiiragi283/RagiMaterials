@@ -23,6 +23,7 @@ object RagiInit {
 
     //Itemの定義
     val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
+    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 7).setModel()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
     val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
     val ItemBookDebug = ItemBookDebug().setModel()
@@ -33,7 +34,7 @@ object RagiInit {
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL).setModelSame()
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL).setModelMaterial()
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL).setModelMaterial()
-    val ItemToolBellow = ItemBase(Reference.MOD_ID, "bellow", 0).setMaxDamage(63).setModelSame()
+    val ItemToolBellow = ItemBase(Reference.MOD_ID, "bellow", 0).setMaxDamage(63).setMaxStackSize(1).setModelSame()
 
     fun loadPreInit() {
         //Event, Fluidの登録
@@ -45,12 +46,7 @@ object RagiInit {
     fun loadInit() {
         //BlockとItemの着色
         RagiColor.setColor(
-            RagiColor.ColorMaterial(),
-            ItemBlockMetal,
-            ItemDust,
-            ItemIngot,
-            ItemNugget,
-            ItemPlate
+            RagiColor.ColorMaterial(), ItemBlockMetal, ItemDust, ItemIngot, ItemNugget, ItemPlate
         )
         RagiColor.setColor(RagiColor.ColorHot(), ItemIngotHot)
         RagiColor.setColor(RagiColor.ColorNBT(), ItemForgeHammer)
