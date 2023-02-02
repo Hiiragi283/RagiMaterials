@@ -5,8 +5,7 @@ import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
-import hiiragi283.ragi_materials.items.ItemMaterial
-import hiiragi283.ragi_materials.items.ItemForgeHammer
+import hiiragi283.ragi_materials.items.*
 import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
@@ -26,6 +25,8 @@ object RagiInit {
     val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
     val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
+    val ItemBookDebug = ItemBookDebug().setModel()
+    val ItemBookConversion = ItemBookConversion().setModelSame()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()
     val ItemForgeHammer = ItemForgeHammer().setModel()
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()
