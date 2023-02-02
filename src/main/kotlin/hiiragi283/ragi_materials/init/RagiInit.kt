@@ -2,6 +2,8 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.base.ItemBlockBase
+import hiiragi283.ragi_materials.blocks.BlockForgeFurnace
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
@@ -19,13 +21,11 @@ import net.minecraftforge.common.MinecraftForge
 object RagiInit {
 
     //Blockの定義
-    val BlockForgeFurnace = hiiragi283.ragi_materials.blocks.BlockForgeFurnace()
+    val BlockForgeFurnace = BlockForgeFurnace()
 
     //Itemの定義
-    val ItemBlockForgeFurnace = hiiragi283.ragi_materials.items.ItemBlockForgeFurnace().setModel()
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 7).setModel()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
-    val ItemBookDebug = hiiragi283.ragi_materials.items.ItemBookDebug().setModel()
     val ItemBookDebug = ItemBookDebug().setModel()
     val ItemBookConversion = ItemBookConversion().setModelSame()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()

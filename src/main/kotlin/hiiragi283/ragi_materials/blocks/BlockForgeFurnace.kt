@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraft.block.Block
+import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.properties.PropertyInteger
@@ -30,17 +31,20 @@ class BlockForgeFurnace : Block(Material.ROCK) {
         val propertyFuel: PropertyInteger = PropertyInteger.create("fuel", 0, 3)
     }
 
-    private val maxMeta = 8
     private val registryName = "forge_furnace"
 
     //コンストラクタの初期化
     init {
-        this.setCreativeTab(CreativeTabs.DECORATIONS)
         defaultState =
             blockState.baseState.withProperty(propertyFire, PropertyState.EXTINGUISH).withProperty(propertyFuel, 0)
-        setRegistryName(Reference.MOD_ID, registryName)
-        unlocalizedName = registryName.toString()
-        ForgeRegistries.BLOCKS.register(this)
+        setCreativeTab(CreativeTabs.DECORATIONS)
+        setHardness(3.5F)
+        setHarvestLevel("pickaxe", 0)
+        setResistance(3.5F)
+        soundType = SoundType.STONE
+        unlocalizedName = registryName
+
+        ForgeRegistries.BLOCKS.register(this.setRegistryName(Reference.MOD_ID, registryName))
     }
 
     //Blockstateの登録をするメソッド
@@ -50,17 +54,15 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        val stateFire = state.getValue(propertyFire)
-        val stateFuel = state.getValue(propertyFuel)
-        val stateMeta = when (stateFire) {
-            PropertyState.EXTINGUISH -> when (stateFuel) {
+        val stateMeta = when (state.getValue(propertyFire)) {
+            PropertyState.EXTINGUISH -> when (state.getValue(propertyFuel)) {
                 1 -> 1
                 2 -> 2
                 3 -> 3
                 else -> 0
             }
 
-            PropertyState.BURNING -> when (stateFuel) {
+            PropertyState.BURNING -> when (state.getValue(propertyFuel)) {
                 1 -> 4
                 2 -> 5
                 3 -> 6
@@ -90,17 +92,15 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
     //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
     override fun damageDropped(state: IBlockState): Int {
-        val stateFire = state.getValue(propertyFire)
-        val stateFuel = state.getValue(propertyFuel)
-        val stateMeta = when (stateFire) {
-            PropertyState.EXTINGUISH -> when (stateFuel) {
+        val stateMeta = when (state.getValue(propertyFire)) {
+            PropertyState.EXTINGUISH -> when (state.getValue(propertyFuel)) {
                 1 -> 1
                 2 -> 2
                 3 -> 3
                 else -> 0
             }
 
-            PropertyState.BURNING -> when (stateFuel) {
+            PropertyState.BURNING -> when (state.getValue(propertyFuel)) {
                 1 -> 4
                 2 -> 5
                 3 -> 6
@@ -144,7 +144,9 @@ class BlockForgeFurnace : Block(Material.ROCK) {
             Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
             RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
             else -> {
+                ForgeFurnaceHelper.getResult(world, pos, state, PropertyState.BURNING, stack, ForgeFurnaceHelper.mapForgeBurning) //レシピ実行
                 ForgeFurnaceHelper.getResult(world, pos, state, PropertyState.BURNING, stack, RagiConfig.mapForgeBurning) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, PropertyState.BLASTING, stack, ForgeFurnaceHelper.mapForgeBlasting) //レシピ実行
                 ForgeFurnaceHelper.getResult(world, pos, state, PropertyState.BLASTING, stack, RagiConfig.mapForgeBlasting) //レシピ実行
             }
         }

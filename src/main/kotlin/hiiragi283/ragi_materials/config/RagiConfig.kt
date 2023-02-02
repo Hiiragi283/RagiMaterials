@@ -17,48 +17,10 @@ object RagiConfig {
     var isDebug = false
     //Recipe
     private var listForgeBurning = arrayOf(
-        "minecraft:cobblestone:0;minecraft:magma:0",
-        "ragi_materials:ingot:3;ragi_materials:ingot_hot:3",
-        "ragi_materials:ingot:4;ragi_materials:ingot_hot:4",
-        "ragi_materials:ingot:12;ragi_materials:ingot_hot:12",
-        "ragi_materials:ingot:13;ragi_materials:ingot_hot:13",
-        "ragi_materials:ingot:25;ragi_materials:ingot_hot:25",
-        "minecraft:iron_ingot:0;ragi_materials:ingot_hot:26",
-        "ragi_materials:ingot:26;ragi_materials:ingot_hot:26",
-        "ragi_materials:ingot:27;ragi_materials:ingot_hot:27",
-        "ragi_materials:ingot:28;ragi_materials:ingot_hot:28",
-        "ragi_materials:ingot:29;ragi_materials:ingot_hot:29",
-        "ragi_materials:ingot:30;ragi_materials:ingot_hot:30",
-        "ragi_materials:ingot:31;ragi_materials:ingot_hot:31",
-        "ragi_materials:ingot:47;ragi_materials:ingot_hot:47",
-        "ragi_materials:ingot:49;ragi_materials:ingot_hot:49",
-        "ragi_materials:ingot:50;ragi_materials:ingot_hot:50",
-        "ragi_materials:ingot:51;ragi_materials:ingot_hot:51",
-        "ragi_materials:ingot:60;ragi_materials:ingot_hot:60",
-        "ragi_materials:ingot:62;ragi_materials:ingot_hot:62",
-        "minecraft:gold_ingot:0;ragi_materials:ingot_hot:79",
-        "ragi_materials:ingot:79;ragi_materials:ingot_hot:79",
-        "ragi_materials:ingot:82;ragi_materials:ingot_hot:82",
-        "ragi_materials:ingot:83;ragi_materials:ingot_hot:83"
+        "minecraft:cobblestone:0;minecraft:magma:32767"
     )
-    private var listForgeBlasting = arrayOf(
-        "ragi_materials:ingot:14;ragi_materials:ingot_hot:14",
-        "ragi_materials:ingot:22;ragi_materials:ingot_hot:22",
-        "ragi_materials:ingot:24;ragi_materials:ingot_hot:24",
-        "ragi_materials:ingot:40;ragi_materials:ingot_hot:40",
-        "ragi_materials:ingot:41;ragi_materials:ingot_hot:41",
-        "ragi_materials:ingot:42;ragi_materials:ingot_hot:42",
-        "ragi_materials:ingot:44;ragi_materials:ingot_hot:44",
-        "ragi_materials:ingot:45;ragi_materials:ingot_hot:45",
-        "ragi_materials:ingot:46;ragi_materials:ingot_hot:46",
-        "ragi_materials:ingot:72;ragi_materials:ingot_hot:72",
-        "ragi_materials:ingot:78;ragi_materials:ingot_hot:78"
-    )
-    private var listForgeHellfire = arrayOf(
-        "ragi_materials:ingot:73;ragi_materials:ingot_hot:73",
-        "ragi_materials:ingot:74;ragi_materials:ingot_hot:74",
-        "ragi_materials:ingot:76;ragi_materials:ingot_hot:76"
-    )
+    private var listForgeBlasting: Array<String> = arrayOf()
+    private var listForgeHellfire: Array<String> = arrayOf()
     var mapForgeBurning: MutableMap<String, String> = mutableMapOf()
     var mapForgeBlasting: MutableMap<String, String> = mutableMapOf()
     var mapForgeHellfire: MutableMap<String, String> = mutableMapOf()
@@ -115,11 +77,13 @@ object RagiConfig {
         try {
             //configの読み込み
             config.load()
+            //コメントの付与
+            config.addCustomCategoryComment("Recipe Map", "Add your custom recipe in this format: input;output\nThe stack format: mod:id:meta")
             //各値の取得
             isDebug = config.get("debug setting", "Debug Log", isDebug, "If true, Ragi Library throws sooo many debug logs...").boolean
-            listForgeBurning = config.get("Recipe Map", "Recipes for Forge Furnace - Burning tier", listForgeBurning).stringList
-            listForgeBlasting = config.get("Recipe Map", "Recipes for Forge Furnace - Blasting tier", listForgeBlasting).stringList
-            listForgeHellfire = config.get("Recipe Map", "Recipes for Forge Furnace - Hellfire tier", listForgeHellfire).stringList
+            listForgeBurning = config.get("Recipe Map", "Forge Furnace - Burning tier", listForgeBurning).stringList
+            listForgeBlasting = config.get("Recipe Map", "Forge Furnace - Blasting tier", listForgeBlasting).stringList
+            listForgeHellfire = config.get("Recipe Map", "Forge Furnace - Hellfire tier", listForgeHellfire).stringList
             mapForgeBurning = convertListToMap(listForgeBurning, mapForgeBurning)
             mapForgeBlasting = convertListToMap(listForgeBlasting, mapForgeBlasting)
             mapForgeHellfire = convertListToMap(listForgeHellfire, mapForgeHellfire)
