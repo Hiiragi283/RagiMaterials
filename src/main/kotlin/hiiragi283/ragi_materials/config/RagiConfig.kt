@@ -1,7 +1,10 @@
 package hiiragi283.ragi_materials.config
 
+import hiiragi283.ragi_materials.materials.MaterialBuilder
+import hiiragi283.ragi_materials.materials.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraftforge.common.config.Configuration
+import java.awt.Color
 import java.io.File
 
 /*
@@ -13,8 +16,12 @@ import java.io.File
 object RagiConfig {
 
     //変数の宣言
-    //Debug Setting
+    //Debug Mode
     var isDebug = false
+    //Material
+    private var listMaterials = arrayOf(
+        "1025:ragi_metal:METAL:FF003F:Rm:110.9f:110:1109"
+    )
     //Recipe
     private var listForgeBurning = arrayOf(
         "minecraft:cobblestone:0;minecraft:magma:32767"
@@ -78,16 +85,33 @@ object RagiConfig {
             //configの読み込み
             config.load()
             //コメントの付与
+            config.addCustomCategoryComment("Materials",
+                "Add your custom recipe in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
+                        "\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048" +
+                        "\nname: String ... used for translation key and ore dictionary" +
+                        "\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD" +
+                        "\ncolor: Int ... use color code" +
+                        "\nformula: String ... show its chemical formula" +
+                        "\nmolar_mass: Float ... show its molar mass [g/mol]" +
+                        "\nmelting: Int ... show its melting point" +
+                        "\nboiling: Int ... show its boiling point")
             config.addCustomCategoryComment("Recipe Map", "Add your custom recipe in this format: input;output\nThe stack format: mod:id:meta")
             //各値の取得
-            isDebug = config.get("debug setting", "Debug Log", isDebug, "If true, Ragi Library throws sooo many debug logs...").boolean
+            isDebug = config.get("Debug Mode", "Debug Mode", isDebug, "If true, you can use some debug items but Ragi Library throws sooo many debug logs...").boolean
+
+            listMaterials = config.get("Materials", "List for Custom Material", listMaterials, "Register your custom materials in above format").stringList
+            for (value in listMaterials) {
+                registerMaterial(value)
+            }
+
             listForgeBurning = config.get("Recipe Map", "Forge Furnace - Burning tier", listForgeBurning).stringList
             listForgeBlasting = config.get("Recipe Map", "Forge Furnace - Blasting tier", listForgeBlasting).stringList
             listForgeHellfire = config.get("Recipe Map", "Forge Furnace - Hellfire tier", listForgeHellfire).stringList
             mapForgeBurning = convertListToMap(listForgeBurning, mapForgeBurning)
             mapForgeBlasting = convertListToMap(listForgeBlasting, mapForgeBlasting)
             mapForgeHellfire = convertListToMap(listForgeHellfire, mapForgeHellfire)
-            listMaxStack = config.get("utility", "Override Max Stack Size", listMaxStack, "The maximum stack size of items added to this list will be changed").stringList
+
+            listMaxStack = config.get("Utility", "Override Max Stack Size", listMaxStack, "The maximum stack size of items added to this list will be changed").stringList
         } catch (e: Exception) {
             //エラーを出力
             e.printStackTrace()
@@ -104,5 +128,35 @@ object RagiConfig {
             RagiLogger.infoDebug("${key.split(";")[0]} to ${map[key.split(";")[0]]}")
         }
         return map
+    }
+
+    private fun registerMaterial(value: String) {
+        //valueをばらしてプロパティを得る
+        val listProperty = value.split(":")
+        val index = listProperty[0].toInt()
+        val name = listProperty[1]
+        var type = MaterialBuilder.MaterialType.WILDCARD
+        val color = Color(listProperty[3].toIntOrNull(16)!!)
+        val formula = listProperty[4]
+        val molar = listProperty[5].toFloat()
+        val melt = listProperty[6].toInt()
+        val boil = listProperty[7].toInt()
+        //MaterialTypeの確認
+        for (i in MaterialBuilder.MaterialType.values()) {
+            if (i.name == listProperty[2]) {
+                type = i
+                break
+            }
+        }
+        //indexが1025以上，かつtypeがWILDCARDでない場合，素材を登録する
+        if (index > 1024 && type != MaterialBuilder.MaterialType.WILDCARD) {
+            val material = MaterialBuilder(index, name, type)
+            material.setColor(color)
+            material.setFormula(formula)
+            material.setMolarMass(molar)
+            material.setTempMelt(melt)
+            material.setTempBoil(boil)
+            MaterialRegistry.list.add(material)
+        }
     }
 }
