@@ -32,7 +32,7 @@ object RagiInitFluid {
 
                     /*
                       Thanks to defeatedcrow!
-                      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/MainMaterialRegister.java
+                      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/MainMaterialRegister.java#L1607
                     */
 
                     //materialのtypeのhasFluidBlockがtrueの場合

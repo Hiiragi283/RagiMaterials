@@ -50,7 +50,7 @@ object RagiModel {
     //液体ブロックにmodelを割り当てるメソッド
     /*
       Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java
+      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463
     */
     @SideOnly(Side.CLIENT)
     fun setModelFluids() {

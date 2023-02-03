@@ -155,7 +155,7 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
     /*
       Thanks to TeamCofh!
-      Source: https://github.com/CoFH/ThermalFoundation-1.12-Legacy/blob/1.12/src/main/java/cofh/thermalfoundation/block/BlockOre.java
+      Source: https://github.com/CoFH/ThermalFoundation-1.12-Legacy/blob/1.12/src/main/java/cofh/thermalfoundation/block/BlockOre.java#L183
     */
     enum class PropertyState(private val state: String) : IStringSerializable {
         EXTINGUISH("extinguish"), BURNING("burning"), BLASTING("blasting");

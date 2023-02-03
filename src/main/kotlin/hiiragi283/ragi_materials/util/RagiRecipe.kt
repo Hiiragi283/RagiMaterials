@@ -36,7 +36,7 @@ object RagiRecipe {
 
     /*
       Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/recipe/CustomizeVanillaRecipe.java
+      Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/recipe/CustomizeVanillaRecipe.java#L61
     */
     //かまどレシピを削除するメソッド
     fun removeFurnace(input: ItemStack) {
