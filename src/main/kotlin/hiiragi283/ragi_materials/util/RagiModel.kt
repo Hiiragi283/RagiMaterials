@@ -10,6 +10,7 @@ import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.ModelBakery
 
 import net.minecraft.client.renderer.block.statemap.StateMapperBase
 
@@ -17,31 +18,30 @@ object RagiModel {
 
     //代入されたItemに応じてモデルファイルのパスを登録するメソッド
     @SideOnly(Side.CLIENT)
-    fun Item.setModel(): Item {
-        //itemが耐久値を使用しない場合
-        if (this.maxDamage == 0) {
-            //メタデータが最大値になるまで処理を繰り返す
-            for (i in 0 until this.getMetadata(32768) + 1) {
-                val location = ModelResourceLocation(this.registryName.toString() + "_" + i, "inventory")
-                ModelLoader.setCustomModelResourceLocation(this, i, location)
+    fun setModel(vararg items: Item) {
+        for (item in items) {
+            //itemが耐久値を使用しない，かつhasSubtypesがtrueの場合
+            if (item.maxDamage == 0 && item.hasSubtypes) {
+                //メタデータが最大値になるまで処理を繰り返す
+                for (i in 0..item.getMetadata(32768)) {
+                    val location = ModelResourceLocation(item.registryName.toString() + "_" + i, "inventory")
+                    ModelLoader.setCustomModelResourceLocation(item, i, location)
+                }
+            } else {
+                //1つだけ登録する
+                val location = ModelResourceLocation(item.registryName!!, "inventory")
+                ModelLoader.setCustomModelResourceLocation(item, 0, location)
             }
-        } else {
-            //itemが耐久値を使用する場合，1つだけ登録する
-            val location = ModelResourceLocation(this.registryName!!, "inventory")
-            ModelLoader.setCustomModelResourceLocation(this, 0, location)
         }
-        return this
     }
 
     //メタデータによらず特定のモデルファイルだけを利用させるメソッド
     @SideOnly(Side.CLIENT)
-    fun Item.setModelSame(): Item {
-        //メタデータが最大値になるまで処理を繰り返す
-        for (i in 0 until this.getMetadata(32768) + 1) {
-            val location = ModelResourceLocation(this.registryName!!, "inventory")
-            ModelLoader.setCustomModelResourceLocation(this, i, location)
+    fun setModelSame(vararg items: Item) {
+        for (item in items) {
+            val model = ModelResourceLocation(item.registryName!!, "inventory")
+            ModelLoader.setCustomMeshDefinition(item) { model }
         }
-        return this
     }
 
     //液体ブロックにmodelを割り当てるメソッド
@@ -55,14 +55,14 @@ object RagiModel {
         for (material in MaterialRegistry.list) {
             //Fluidを取得
             val fluid = material.getFluid()
-            val fluidModel = ModelResourceLocation((Reference.MOD_ID + ":" + fluid.name), "fluid")
+            val model = ModelResourceLocation((Reference.MOD_ID + ":" + fluid.name), "fluid")
             //アイテムとしての描画処理
-            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { fluidModel }
+            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { model }
             //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
             if (fluid.block !== null) {
                 ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
                     override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
-                        return fluidModel
+                        return model
                     }
                 })
             }
@@ -70,24 +70,18 @@ object RagiModel {
     }
 
     //素材のモデルを一括で登録するメソッド
-    fun ItemMaterial.setModelMaterial(): ItemMaterial {
-        val item: ItemMaterial = this
-        //EnumMaterials内の各materialに対して実行
-        for (material in MaterialRegistry.list) {
-            //白金族のindexとindexが一致する場合
-            if (listOf(44, 45, 46, 76, 77, 78).contains(material.index)) {
-                //専用のモデルを割り当てる
-                ModelLoader.setCustomModelResourceLocation(
-                    this, material.index, ModelResourceLocation(this.registryName.toString() + "_precious", "inventory")
-                )
-            }
-            //一般庶民の場合
-            else {
-                ModelLoader.setCustomModelResourceLocation(
-                    this, material.index, ModelResourceLocation(this.registryName.toString(), "inventory")
-                )
+    @SideOnly(Side.CLIENT)
+    fun setModelMaterial(vararg items: ItemMaterial) {
+        for (item in items) {
+            //変数の宣言
+            val location = ModelResourceLocation(item.registryName.toString(), "inventory")
+            val locationPrecious = ModelResourceLocation("${item.registryName.toString()}_precious", "inventory")
+            ModelBakery.registerItemVariants(item, location, locationPrecious) //modelの登録
+            ModelLoader.setCustomMeshDefinition(item) { stack ->
+                if (listOf(44, 45, 46, 76, 77, 78).contains(stack.metadata)) {
+                    ModelResourceLocation("${stack.item.registryName.toString()}_precious", "inventory")
+                } else ModelResourceLocation(stack.item.registryName.toString(), "inventory")
             }
         }
-        return item
     }
 }

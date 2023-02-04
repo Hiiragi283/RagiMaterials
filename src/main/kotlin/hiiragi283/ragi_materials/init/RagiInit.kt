@@ -6,16 +6,15 @@ import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.BlockForgeFurnace
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
+import hiiragi283.ragi_materials.event.ModelRegistry
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
-import hiiragi283.ragi_materials.util.RagiModel.setModel
-import hiiragi283.ragi_materials.util.RagiModel.setModelMaterial
-import hiiragi283.ragi_materials.util.RagiModel.setModelSame
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.init.Blocks
+import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
 
 object RagiInit {
@@ -24,17 +23,16 @@ object RagiInit {
     val BlockForgeFurnace = BlockForgeFurnace()
 
     //Itemの定義
-    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 7).setModel()
-    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
-    val ItemBookDebug = ItemBookDebug().setModel()
-    //val ItemBookConversion = ItemBookConversion().setModelSame()
-    val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()
-    val ItemForgeHammer = ItemForgeHammer().setModel()
-    val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()
-    val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL).setModelSame()
-    val ItemNugget = ItemMaterial("nugget", MaterialType.METAL).setModelMaterial()
-    val ItemPlate = ItemMaterial("plate", MaterialType.METAL).setModelMaterial()
-    val ItemToolBellow = ItemBase(Reference.MOD_ID, "bellow", 0).setMaxDamage(63).setMaxStackSize(1).setModelSame()
+    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 7)
+    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
+    val ItemBookDebug = ItemBookDebug()
+    val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
+    val ItemForgeHammer = ItemForgeHammer()
+    val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
+    val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
+    val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
+    val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
+    val ItemToolBellow: Item = ItemBase(Reference.MOD_ID, "bellow", 0).setMaxDamage(63).setMaxStackSize(1)
 
     fun loadPreInit() {
         //Event, Fluidの登録
@@ -66,6 +64,7 @@ object RagiInit {
     //Eventを登録するメソッド
     private fun registerEvents() {
         MinecraftForge.EVENT_BUS.register(ItemTooltip())
+        MinecraftForge.EVENT_BUS.register(ModelRegistry())
         MinecraftForge.EVENT_BUS.register(RightClickBlock())
     }
 
