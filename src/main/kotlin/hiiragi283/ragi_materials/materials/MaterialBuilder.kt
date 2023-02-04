@@ -14,7 +14,7 @@ open class MaterialBuilder(
     private var boiling: Int? = null
     private var subl: Int? = null
     private var formula: String? = null
-    private var mapComponents: Map<Any, Int> = mapOf(MaterialRegistry.DEBUG to 1)
+    private var mapComponents: Map<Any, Int> = mapOf(MaterialRegistry.WILDCARD to 1)
 
     //色を取得するメソッド (デフォルトは0xFFFFFF)
     open fun getColor(): Color {

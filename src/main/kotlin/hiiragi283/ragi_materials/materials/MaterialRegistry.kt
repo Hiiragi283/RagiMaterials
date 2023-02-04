@@ -7,10 +7,10 @@ import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
 
 object MaterialRegistry {
 
-    //0: DEBUG
-    val DEBUG = MaterialBuilder(0, "hiiragi_tsubasa", MaterialType.WILDCARD)
-        .setColor(RagiColor.RAGI_RED).setMolarMass(283.0f).setFormula("H.T.")
-        .setTempMelt(283).setTempBoil(1109)
+    //0: WILDCARD
+    val WILDCARD = MaterialBuilder(0, "wildcard", MaterialType.WILDCARD)
+            .setMolarMass(1024.0f).setFormula("WILDCARD")
+            .setTempMelt(1024).setTempBoil(1024)
 
     //1~94: Periodic Table
     //1st Period
@@ -281,16 +281,10 @@ object MaterialRegistry {
 
     //1000~1023: Mixture
 
-    //1024: WILDCARD
-    val WILDCARD =
-        MaterialBuilder(1024, "wildcard", MaterialType.WILDCARD)
-            .setMolarMass(1024.0f).setFormula("WILDCARD")
-            .setTempMelt(1024).setTempBoil(1024)
-
         //listの定義
         val list = mutableListOf(
-            //DEBUG
-            DEBUG,
+            //WILDCARD
+            WILDCARD,
             //Periodic Table
             HYDROGEN,
             HELIUM,
@@ -356,9 +350,7 @@ object MaterialRegistry {
             URANIUM_235,
             PLUTONIUM_241,
             //Alloy
-            BRONZE,
-            //WILDCARD
-            WILDCARD
+            BRONZE
         )
 
     //バニラ素材のリスト
@@ -366,7 +358,6 @@ object MaterialRegistry {
 
         //道具に使える素材と耐久値のMap
         val mapToolMaterial = mapOf(
-            DEBUG to 1109,
             TITANIUM to 512,
             IRON to 64,
             COPPER to 32,

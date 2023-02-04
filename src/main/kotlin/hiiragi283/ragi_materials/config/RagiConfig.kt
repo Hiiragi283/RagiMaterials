@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.config
 
+import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.materials.MaterialBuilder
 import hiiragi283.ragi_materials.materials.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -20,7 +21,7 @@ object RagiConfig {
     var isDebug = false
     //Material
     private var listMaterials = arrayOf(
-        "1025:ragi_metal:METAL:FF003F:Rm:110.9f:110:1109"
+        "1025:hiiragi_tsubasa:METAL:FF003F:H.T.:110.9f:283:1109"
     )
     //Recipe
     private var listForgeBurning = arrayOf(
@@ -148,8 +149,8 @@ object RagiConfig {
                 break
             }
         }
-        //indexが1025以上，かつtypeがWILDCARDでない場合，素材を登録する
-        if (index > 1024 && type != MaterialBuilder.MaterialType.WILDCARD) {
+        //indexが1025以上2048以下，かつtypeがWILDCARDでない場合，素材を登録する
+        if (index in 1025 .. Reference.numMaterial && type != MaterialBuilder.MaterialType.WILDCARD) {
             val material = MaterialBuilder(index, name, type)
             material.setColor(color)
             material.setFormula(formula)
