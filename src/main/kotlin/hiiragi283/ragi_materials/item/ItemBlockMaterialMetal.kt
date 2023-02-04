@@ -3,6 +3,8 @@ package hiiragi283.ragi_materials.item
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.block.Block
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
@@ -17,13 +19,15 @@ class ItemBlockMaterialMetal(private val blockFrom: Block): ItemBlockBase(blockF
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
-            for (i in 0 until Reference.numMaterial) {
+            for (i in 0 .. Reference.numMaterial) {
                 //EnumMaterialsを取得
                 val material = MaterialRegistry.getMaterial(i)
                 //materialがWILDCARDでない，かつmaterialのtypeのhasIngotがtrueの場合
                 if (material != MaterialRegistry.WILDCARD && material.type.hasIngot) {
                     //ItemStackをlistに追加
-                    subItems.add(ItemStack(this, 1, i))
+                    val stack = ItemStack(this, 1, i)
+                    subItems.add(stack)
+                    RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
                 }
             }
         }

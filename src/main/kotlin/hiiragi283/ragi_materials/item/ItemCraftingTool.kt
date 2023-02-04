@@ -26,9 +26,9 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
-            for (i in 0 until maxMeta + 1) {
+            for (i in 0 .. maxMeta) {
                 //numMaterialの最大値まで処理を繰り替えす
-                for (j in 0 until Reference.numMaterial) {
+                for (j in 0 .. Reference.numMaterial) {
                     //EnumMaterialsの取得
                     val material = MaterialRegistry.getMaterial(j)
                     //materialがWILDCARDでない，かつmaterialがmapToolMaterialに含まれている場合

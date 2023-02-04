@@ -1,5 +1,7 @@
 package hiiragi283.ragi_materials.base
 
+import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -43,8 +45,10 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
-            for (i in 0 until maxMeta + 1) {
-                subItems.add(ItemStack(this, 1, i))
+            for (i in 0 .. maxMeta) {
+                val stack = ItemStack(this, 1, i)
+                subItems.add(stack)
+                RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
             }
         }
     }

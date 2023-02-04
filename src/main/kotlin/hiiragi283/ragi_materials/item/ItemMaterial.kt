@@ -5,6 +5,8 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.MaterialUtils
+import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -25,7 +27,9 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
                 //materialがWILDCARDでない，かつmaterialのtypeが一致する場合
                 if (material != MaterialRegistry.WILDCARD && type.contains(material.type)) {
                     //ItemStackをlistに追加
-                    subItems.add(ItemStack(this, 1, material.index))
+                    val stack = ItemStack(this, 1, material.index)
+                    subItems.add(stack)
+                    RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
                 }
             }
         }
