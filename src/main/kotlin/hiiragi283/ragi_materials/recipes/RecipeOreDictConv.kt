@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary
-import shadows.placebo.item.ItemBase
 
 class RecipeOreDictConv : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 

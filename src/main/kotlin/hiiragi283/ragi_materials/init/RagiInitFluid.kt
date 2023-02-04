@@ -30,16 +30,10 @@ object RagiInitFluid {
                     //fluid入りバケツを登録
                     FluidRegistry.addBucketForFluid(fluid)
 
-                    /*
-                      Thanks to defeatedcrow!
-                      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/MainMaterialRegister.java#L1607
-                    */
-
                     //materialのtypeのhasFluidBlockがtrueの場合
                     if (material.type.hasFluidBlock) {
                         //液体ブロックを生成・登録・割り当て
-                        val fluidBlock = BlockFluidClassic(fluid, Material.WATER)
-                        fluidBlock.setRegistryName(fluid.name)
+                        val fluidBlock = BlockFluidClassic(fluid, Material.WATER).setRegistryName(fluid.name)
                         ForgeRegistries.BLOCKS.register(fluidBlock)
                         fluid.block = fluidBlock
                     }

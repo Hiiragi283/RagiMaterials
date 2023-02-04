@@ -7,11 +7,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/Hiiragi283/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/recipes/ArmorDyesRecipeDC.java
-*/
-
 class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     init {
@@ -24,16 +19,14 @@ class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecip
         var hasWritableBook = false
         var hasEnchantedBook = false
         //クラフトグリッド内の各スロットに対して実行
-        for (i in 0 .. 2) {
-            for (j in 0 .. 2) {
-                //そのスロットに本と羽ペンが入っている場合
-                if(inv.getStackInRowAndColumn(i ,j).item == Items.WRITABLE_BOOK && !hasWritableBook) {
-                    hasWritableBook = true
-                }
-                //そのスロットにエンチャント本が入っている場合
-                else if (inv.getStackInRowAndColumn(i ,j).item == Items.ENCHANTED_BOOK) {
-                    hasEnchantedBook = true
-                }
+        for (i in 0 .. inv.sizeInventory) {
+            //そのスロットに本と羽ペンが入っている場合
+            if(inv.getStackInSlot(i).item == Items.WRITABLE_BOOK && !hasWritableBook) {
+                hasWritableBook = true
+            }
+            //そのスロットにエンチャント本が入っている場合
+            else if (inv.getStackInSlot(i).item == Items.ENCHANTED_BOOK) {
+                hasEnchantedBook = true
             }
         }
         //2つの変数の論理積を返す
@@ -46,16 +39,14 @@ class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecip
         var amountWritableBook = 1
         var bookEnchanted = ItemStack.EMPTY
         //クラフトグリッド内の各スロットに対して実行
-        for (i in 0 .. 2) {
-            for (j in 0 .. 2) {
-                //そのスロットに本と羽ペンが入っている場合
-                if(inv.getStackInRowAndColumn(i ,j).item == Items.WRITABLE_BOOK) {
-                    amountWritableBook++
-                }
-                //そのスロットにエンチャント本が入っている場合
-                else if (inv.getStackInRowAndColumn(i ,j).item == Items.ENCHANTED_BOOK) {
-                    bookEnchanted = inv.getStackInRowAndColumn(i ,j)
-                }
+        for (i in 0 .. inv.sizeInventory) {
+            //そのスロットに本と羽ペンが入っている場合
+            if(inv.getStackInSlot(i).item == Items.WRITABLE_BOOK) {
+                amountWritableBook++
+            }
+            //そのスロットにエンチャント本が入っている場合
+            else if (inv.getStackInSlot(i).item == Items.ENCHANTED_BOOK) {
+                bookEnchanted = inv.getStackInSlot(i)
             }
         }
         val result = ItemStack(Items.ENCHANTED_BOOK, amountWritableBook, 0)
@@ -67,7 +58,7 @@ class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecip
     //レシピのサイズが一致するかどうかを返すメソッド
     //よくわかってない
     override fun canFit(width: Int, height: Int): Boolean {
-        return width == 2 && height == 1
+        return true
     }
 
     //デフォルトのクラフト結果を返すメソッド

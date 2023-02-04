@@ -10,11 +10,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCItem.java
-*/
-
 open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
 
     //private変数の宣言
@@ -32,8 +27,9 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
 
     //メタデータを得るメソッド
     override fun getMetadata(damage: Int): Int {
-        //代入した値とメタデータの最大値を比較し、小さい方を返す
-        return damage.coerceAtMost(maxMeta)
+        //代入した値が0以上maxMeta以下の場合，そのまま返す
+        //そうでない場合はmaxMetaを返す
+        return if (damage in 0..maxMeta) damage else maxMeta
     }
 
     //翻訳キーを得るメソッド

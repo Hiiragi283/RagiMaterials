@@ -12,12 +12,6 @@ import net.minecraft.item.ItemStack
 
 object RagiInitDispenser {
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HarvestWithDispenser/blob/1.12.2_master/java/defeatedcrow/dispenser/DispenserHervestDC.java
-              https://github.com/defeatedcrow/HarvestWithDispenser/blob/1.12.2_master/java/defeatedcrow/dispenser/DispenseBonemeal.java
-    */
-
     //ディスペンサーに機能を登録するメソッド
     fun registerDispense() {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WATER_BUCKET, DispenseCauldron()) //水バケツで水を搬入
@@ -41,8 +35,8 @@ object RagiInitDispenser {
             return if (block is BlockForgeFurnace) {
                 when (stack.item) {
                     Items.COAL -> ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-                    Items.FIRE_CHARGE -> ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
-                    Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
+                    //Items.FIRE_CHARGE -> ForgeFurnaceHelper.setFireItem(world, pos, state, stack) //着火
+                    //Items.FLINT_AND_STEEL -> ForgeFurnaceHelper.setFireTool(world, pos, state, stack) //着火
                     RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
                     else -> super.dispenseStack(source, stack)
                 }

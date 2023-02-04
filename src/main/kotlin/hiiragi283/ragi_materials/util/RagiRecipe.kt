@@ -34,10 +34,6 @@ object RagiRecipe {
         RagiLogger.infoDebug("The smelting recipe $bracketIn -> $bracketOut was added successfully!")
     }
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/recipe/CustomizeVanillaRecipe.java#L61
-    */
     //かまどレシピを削除するメソッド
     fun removeFurnace(input: ItemStack) {
         //かまどレシピのマップを取得する

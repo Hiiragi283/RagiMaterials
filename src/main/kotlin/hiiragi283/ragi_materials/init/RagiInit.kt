@@ -27,7 +27,7 @@ object RagiInit {
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 7).setModel()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL).setModelMaterial()
     val ItemBookDebug = ItemBookDebug().setModel()
-    val ItemBookConversion = ItemBookConversion().setModelSame()
+    //val ItemBookConversion = ItemBookConversion().setModelSame()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL).setModelMaterial()
     val ItemForgeHammer = ItemForgeHammer().setModel()
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL).setModelMaterial()

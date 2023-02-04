@@ -10,12 +10,6 @@ import net.minecraft.item.Item
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import java.util.*
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/BlockDC.java
-          https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCSimpleBlock.java
-*/
-
 open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : Block(Material!!) {
 
     //private変数の宣言
@@ -44,27 +38,25 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        //property16をもとにBlockstateからメタデータを返す
-        val i = state.getValue(property16)
-        //メタデータがmaxMetaよりも大きい場合、最大値を返す
-        return i.coerceAtMost(maxMeta)
+        //stateから得られたmetadataが0以上maxMeta以下の場合，そのまま返す
+        //そうでない場合はmaxMetaを返す
+        return if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
     }
 
     //メタデータからBlockstateを得るメソッド
     override fun getStateFromMeta(meta: Int): IBlockState {
-        //metaをmaxMete+1で割った剰余を求める
-        //これmaxMeta % maxMeta = 0になるからわざと+1してます
-        val i = meta % (maxMeta + 1)
+        //代入した値が0以上maxMeta以下の場合，そのまま返す
+        //そうでない場合はmaxMetaを返す
+        val metadata = if (meta in 0..maxMeta) meta else maxMeta
         //property16をもとに指定したメタデータからBlockstateを返す
-        return defaultState.withProperty(property16, i)
+        return defaultState.withProperty(property16, metadata)
     }
 
     //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
     override fun damageDropped(state: IBlockState): Int {
-        //property16をもとにBlockstateからメタデータを返す
-        val i = state.getValue(property16)
-        //メタデータがmaxMetaよりも大きい場合、最大値を返す
-        return i.coerceAtMost(maxMeta)
+        //stateから得られたmetadataが0以上maxMeta以下の場合，そのまま返す
+        //そうでない場合はmaxMetaを返す
+        return if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
     }
 
     //ドロップするアイテムを得るメソッド

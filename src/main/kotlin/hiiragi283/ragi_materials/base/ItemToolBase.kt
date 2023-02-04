@@ -10,11 +10,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/base/DCItem.java
-*/
-
 open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: ToolMaterial, set: Set<Block>) :
     ItemTool(material, set) {
 
