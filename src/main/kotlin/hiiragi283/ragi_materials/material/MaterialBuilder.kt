@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.materials
+package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase

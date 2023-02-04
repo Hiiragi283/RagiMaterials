@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.materials
+package hiiragi283.ragi_materials.material
 
 class AlloyBuilder(index: Int, name: String, mapComponents: Map<Any, Int>) :
     CompoundBuilder(index, name, MaterialType.METAL, mapComponents) {

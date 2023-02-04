@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.init
 
-import hiiragi283.ragi_materials.blocks.BlockForgeFurnace
-import hiiragi283.ragi_materials.blocks.ForgeFurnaceHelper
+import hiiragi283.ragi_materials.block.BlockForgeFurnace
+import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockCauldron
 import net.minecraft.block.BlockDispenser

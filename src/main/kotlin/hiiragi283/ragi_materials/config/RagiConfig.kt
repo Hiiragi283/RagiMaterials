@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.MaterialBuilder
-import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraftforge.common.config.Configuration
 import java.awt.Color

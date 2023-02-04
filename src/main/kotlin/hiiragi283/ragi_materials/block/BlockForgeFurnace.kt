@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.blocks
+package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.config.RagiConfig

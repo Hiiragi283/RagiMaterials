@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.event
 
-import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.MaterialUtils
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent

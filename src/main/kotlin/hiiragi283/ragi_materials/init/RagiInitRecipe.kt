@@ -1,11 +1,9 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.MaterialRegistry
-import hiiragi283.ragi_materials.recipes.RecipeOreDictConv
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 
 object RagiInitRecipe {

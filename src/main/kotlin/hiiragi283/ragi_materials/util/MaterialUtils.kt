@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.materials.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialBuilder
 import net.minecraft.client.resources.I18n
 
 object MaterialUtils {

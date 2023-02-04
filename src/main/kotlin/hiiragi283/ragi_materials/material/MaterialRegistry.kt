@@ -1,9 +1,9 @@
-package hiiragi283.ragi_materials.materials
+package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
-import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
+import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 
 object MaterialRegistry {
 

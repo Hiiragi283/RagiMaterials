@@ -3,12 +3,12 @@ package hiiragi283.ragi_materials.init
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.blocks.BlockForgeFurnace
+import hiiragi283.ragi_materials.block.BlockForgeFurnace
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.RightClickBlock
-import hiiragi283.ragi_materials.items.*
-import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
+import hiiragi283.ragi_materials.item.*
+import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiModel.setModel

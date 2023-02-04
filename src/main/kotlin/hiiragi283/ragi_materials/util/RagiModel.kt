@@ -1,12 +1,9 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.items.ItemMaterial
-import hiiragi283.ragi_materials.materials.MaterialRegistry
-import hiiragi283.ragi_materials.materials.MaterialRegistry.getFluid
-import hiiragi283.ragi_materials.util.RagiModel.setModel
+import hiiragi283.ragi_materials.item.ItemMaterial
+import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialRegistry.getFluid
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
@@ -64,7 +61,7 @@ object RagiModel {
             //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
             if (fluid.block !== null) {
                 ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
-                    override fun getModelResourceLocation(p_178132_1_: IBlockState): ModelResourceLocation {
+                    override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
                         return fluidModel
                     }
                 })

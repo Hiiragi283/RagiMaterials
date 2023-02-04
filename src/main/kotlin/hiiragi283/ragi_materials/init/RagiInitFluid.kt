@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.base.FluidBase
-import hiiragi283.ragi_materials.materials.MaterialBuilder
-import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.block.material.Material
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry

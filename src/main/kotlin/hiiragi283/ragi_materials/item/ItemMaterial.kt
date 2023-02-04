@@ -1,9 +1,9 @@
-package hiiragi283.ragi_materials.items
+package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.materials.MaterialBuilder.MaterialType
-import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.MaterialUtils
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag

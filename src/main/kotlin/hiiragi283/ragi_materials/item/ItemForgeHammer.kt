@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.items
+package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase

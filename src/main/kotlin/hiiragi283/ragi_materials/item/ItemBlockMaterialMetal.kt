@@ -1,8 +1,8 @@
-package hiiragi283.ragi_materials.items
+package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.materials.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.block.Block
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs

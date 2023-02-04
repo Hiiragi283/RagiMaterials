@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.recipes
+package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.Reference
 import net.minecraft.init.Items
