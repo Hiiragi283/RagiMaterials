@@ -31,7 +31,7 @@ class RecipeOreDictConv : net.minecraftforge.registries.IForgeRegistryEntry.Impl
                     hasIngredient = true
                 }
                 //そのスロットに変換本が入っている場合
-                else if (inv.getStackInRowAndColumn(i ,j).item == RagiInit.ItemBookConversion) {
+                else if (inv.getStackInRowAndColumn(i ,j).item == RagiInit.ItemBookDebug) {
                     hasConversionBook = true
                 }
             }
@@ -51,7 +51,7 @@ class RecipeOreDictConv : net.minecraftforge.registries.IForgeRegistryEntry.Impl
         for (i in 0 .. 2) {
             for (j in 0 .. 2) {
                 //そのスロットに変換本が入っている場合
-                if (inv.getStackInRowAndColumn(i ,j).item == RagiInit.ItemBookConversion) {
+                if (inv.getStackInRowAndColumn(i ,j).item == RagiInit.ItemBookDebug) {
                     hasConversionBook = true
                 }
                 //そのスロットに何かしらのものが入っている場合
