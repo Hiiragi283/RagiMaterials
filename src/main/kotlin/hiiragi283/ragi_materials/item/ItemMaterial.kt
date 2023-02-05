@@ -29,7 +29,7 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)
-                    RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
+                    //RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
                 }
             }
         }

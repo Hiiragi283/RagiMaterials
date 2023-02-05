@@ -27,7 +27,7 @@ class ItemBlockMaterialMetal(private val blockFrom: Block): ItemBlockBase(blockF
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, i)
                     subItems.add(stack)
-                    RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
+                    //RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
                 }
             }
         }

@@ -48,7 +48,7 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
             for (i in 0 .. maxMeta) {
                 val stack = ItemStack(this, 1, i)
                 subItems.add(stack)
-                RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
+                //RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
             }
         }
     }
