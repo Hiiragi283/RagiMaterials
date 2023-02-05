@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.SoundCategory
@@ -60,15 +61,14 @@ object ForgeFurnaceHelper {
 
     //燃料を投入するメソッド
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
-        //ブロックに蓄えられた燃料の量を取得
+        //stateから状態を取得
+        val face = state.getValue(BlockForgeFurnace.propertyFacing)
         val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
         //ブロックに蓄えられた燃料が3未満の場合
         if (fuel < 3) {
-            world.setBlockState(
-                pos,
-                state.withProperty(BlockForgeFurnace.propertyFire, state.getValue(BlockForgeFurnace.propertyFire))
-                    .withProperty(BlockForgeFurnace.propertyFuel, fuel + 1)
-            ) //燃料を投入する
+            val result = state.withProperty(BlockForgeFurnace.propertyFacing, face)
+                .withProperty(BlockForgeFurnace.propertyFuel, fuel + 1)
+            world.setBlockState(pos, result, 2) //燃料を投入する
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
@@ -77,57 +77,11 @@ object ForgeFurnaceHelper {
         return stack
     }
 
-    //着火するメソッド
-    fun setFireItem(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
-        //消火状態，かつ燃料が1つ以上の場合
-        if (state.getValue(BlockForgeFurnace.propertyFire) == BlockForgeFurnace.PropertyState.EXTINGUISH && state.getValue(
-                BlockForgeFurnace.propertyFuel
-            ) > 0
-        ) {
-            world.setBlockState(
-                pos,
-                state.withProperty(BlockForgeFurnace.propertyFire, BlockForgeFurnace.PropertyState.BURNING)
-                    .withProperty(BlockForgeFurnace.propertyFuel, state.getValue(BlockForgeFurnace.propertyFuel))
-            ) //着火
-            world.playSound(
-                null, pos, RagiUtils.getSound("minecraft:item.firecharge.use"), SoundCategory.BLOCKS, 1.0f, 1.0f
-            ) //SEを再生
-            stack.shrink(1) //手持ちの火種を1つ減らす
-        }
-        return stack
-    }
-
-    fun setFireTool(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
-        //消火状態，かつ燃料が1つ以上の場合
-        if (state.getValue(BlockForgeFurnace.propertyFire) == BlockForgeFurnace.PropertyState.EXTINGUISH && state.getValue(
-                BlockForgeFurnace.propertyFuel
-            ) > 0
-        ) {
-            world.setBlockState(
-                pos,
-                state.withProperty(BlockForgeFurnace.propertyFire, BlockForgeFurnace.PropertyState.BURNING)
-                    .withProperty(BlockForgeFurnace.propertyFuel, state.getValue(BlockForgeFurnace.propertyFuel))
-            ) //着火
-            world.playSound(
-                null, pos, RagiUtils.getSound("minecraft:item.flintandsteel.use"), SoundCategory.BLOCKS, 1.0f, 1.0f
-            ) //SEを再生
-            stack.itemDamage += 1//耐久値を1つ減らす
-        }
-        return stack
-    }
-
     //ふいごで火力を上げるメソッド
     fun setBlasting(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
-        //着火済み，かつ燃料が満タンの場合
-        if (state.getValue(BlockForgeFurnace.propertyFire) == BlockForgeFurnace.PropertyState.BURNING && state.getValue(
-                BlockForgeFurnace.propertyFuel
-            ) == 3
-        ) {
-            world.setBlockState(
-                pos,
-                state.withProperty(BlockForgeFurnace.propertyFire, BlockForgeFurnace.PropertyState.BLASTING)
-                    .withProperty(BlockForgeFurnace.propertyFuel, 3)
-            ) //火力UP
+        //燃料が満タンの場合
+        if (state.getValue(BlockForgeFurnace.propertyFuel) == 3) {
+            world.setBlockState(pos, Blocks.MAGMA.defaultState, 2) //火力UP
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
@@ -137,14 +91,19 @@ object ForgeFurnaceHelper {
     }
 
     //右クリックレシピを司るメソッド
-    fun getResult(world: World, pos: BlockPos, state: IBlockState, value: BlockForgeFurnace.PropertyState, stack: ItemStack, map: MutableMap<String, String>): ItemStack {
+    fun getResult(
+        world: World,
+        pos: BlockPos,
+        state: IBlockState,
+        stack: ItemStack,
+        map: MutableMap<String, String>
+    ): ItemStack {
         var result = ItemStack.EMPTY
-        if (canProcess(state, value)) {
+        if (canProcess(state)) {
             //mapRecipe内の各keyに対して実行
             for (key in map.keys) {
                 //stackがkeyと等しい場合は対応する完成品を，そうでない場合は空のItemStackを返す
-                if (RagiUtils.isSameStack(stack, RagiUtils.getStack(key))
-                ) {
+                if (RagiUtils.isSameStack(stack, RagiUtils.getStack(key))) {
                     result = RagiUtils.getStack(map.getValue(key))
                     break
                 } else ItemStack.EMPTY
@@ -167,32 +126,19 @@ object ForgeFurnaceHelper {
     }
 
     //レシピが実行できるかどうか
-    private fun canProcess(state: IBlockState, value: BlockForgeFurnace.PropertyState): Boolean {
-        val fire = state.getValue(BlockForgeFurnace.propertyFire)
+    private fun canProcess(state: IBlockState): Boolean {
         val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
         //燃料が入っているならtrue
-        return fire == value && fuel > 0
+        return fuel > 0
     }
 
     //レシピ実行後にblockstateを上書きするメソッド
     private fun setState(world: World, pos: BlockPos, state: IBlockState) {
-        val stateFire = state.getValue(BlockForgeFurnace.propertyFire)
-        val stateFuel = state.getValue(BlockForgeFurnace.propertyFuel)
-        val stateReturn = when (stateFire) {
-            //EXTINGUISH -> デフォルトのblockstateを返す
-            BlockForgeFurnace.PropertyState.EXTINGUISH -> state.block.defaultState
-            //BURNING ->
-            BlockForgeFurnace.PropertyState.BURNING ->
-                //燃料が1つの場合，デフォルトのblockstateを返す
-                //2つ以上なら燃料を1つ減らす
-                if (stateFuel == 1) state.block.defaultState else {
-                    state.withProperty(BlockForgeFurnace.propertyFuel, stateFuel - 1)
-                }
-            //BLASTING -> 燃料を1つ減らし，BURNINGにする
-            BlockForgeFurnace.PropertyState.BLASTING -> state.withProperty(
-                BlockForgeFurnace.propertyFire, BlockForgeFurnace.PropertyState.BURNING
-            ).withProperty(BlockForgeFurnace.propertyFuel, stateFuel - 1)
-        }
-        world.setBlockState(pos, stateReturn)
+        //stateから状態を取得
+        val face = state.getValue(BlockForgeFurnace.propertyFacing)
+        val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
+        val result = state.withProperty(BlockForgeFurnace.propertyFacing, face)
+            .withProperty(BlockForgeFurnace.propertyFuel, fuel - 1)
+        world.setBlockState(pos, result, 2)
     }
 }

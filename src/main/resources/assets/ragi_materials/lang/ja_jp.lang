@@ -1,13 +1,6 @@
 
 # Block
-tile.forge_furnace.0.name=鍛造炉 (§7消火§r)
-tile.forge_furnace.1.name=鍛造炉 (§7消火§r)
-tile.forge_furnace.2.name=鍛造炉 (§7消火§r)
-tile.forge_furnace.3.name=鍛造炉 (§7消火§r)
-tile.forge_furnace.4.name=鍛造炉 (§6燃焼中§r)
-tile.forge_furnace.5.name=鍛造炉 (§6燃焼中§r)
-tile.forge_furnace.6.name=鍛造炉 (§6燃焼中§r)
-tile.forge_furnace.7.name=鍛造炉 (§c高火力§r)
+tile.forge_furnace.name=鍛造炉
 
 # Fluid
 

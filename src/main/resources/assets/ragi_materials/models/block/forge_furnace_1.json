@@ -1,7 +1,7 @@
 {
 	"credit": "Tweaked by Hiiragi Russell Tsubasa",
 	"textures": {
-		"0": "blocks/furnace_front_off",
+		"0": "blocks/furnace_front_on",
 		"2": "blocks/furnace_side",
 		"3": "blocks/furnace_top",
 		"4": "blocks/stone_slab_top",
