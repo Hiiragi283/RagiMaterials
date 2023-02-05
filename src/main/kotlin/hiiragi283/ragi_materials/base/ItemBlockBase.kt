@@ -19,7 +19,7 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
     //コンストラクタの宣言
     init {
         this.maxMeta = maxMeta //メタデータの最大値を代入
-        setHasSubtypes(true) //メタデータを使用する
+        if (maxMeta == 0) setHasSubtypes(false) else setHasSubtypes(true) //メタデータを使用する
 
         ForgeRegistries.ITEMS.register(this.setRegistryName(block.registryName!!))
     }

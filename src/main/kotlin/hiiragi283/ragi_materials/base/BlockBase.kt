@@ -44,6 +44,7 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int
     }
 
     //メタデータからBlockstateを得るメソッド
+    @Deprecated("Deprecated in Java")
     override fun getStateFromMeta(meta: Int): IBlockState {
         //代入した値が0以上maxMeta以下の場合，そのまま返す
         //そうでない場合はmaxMetaを返す
