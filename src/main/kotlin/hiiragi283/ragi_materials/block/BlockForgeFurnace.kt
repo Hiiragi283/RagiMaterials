@@ -130,7 +130,6 @@ class BlockForgeFurnace : Block(Material.ROCK) {
             RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
             else -> {
                 ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBurning) //レシピ実行
-                ForgeFurnaceHelper.getResult(world, pos, state, stack, RagiConfig.mapForgeBurning) //レシピ実行
             }
         }
         return true

@@ -4,10 +4,8 @@ import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
-import net.minecraft.util.EnumFacing
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -16,16 +14,12 @@ import net.minecraft.world.World
 object ForgeFurnaceHelper {
 
     //レシピマップの登録
-    val mapForgeBurning = mutableMapOf(
+    var mapForgeBurning = mutableMapOf(
         "ragi_materials:ingot:3" to "ragi_materials:ingot_hot:3",
-        "ragi_materials:ingot:4" to "ragi_materials:ingot_hot:4",
         "ragi_materials:ingot:12" to "ragi_materials:ingot_hot:12",
         "ragi_materials:ingot:13" to "ragi_materials:ingot_hot:13",
-        "ragi_materials:ingot:25" to "ragi_materials:ingot_hot:25",
         "minecraft:iron_ingot:0" to "ragi_materials:ingot_hot:26",
         "ragi_materials:ingot:26" to "ragi_materials:ingot_hot:26",
-        "ragi_materials:ingot:27" to "ragi_materials:ingot_hot:27",
-        "ragi_materials:ingot:28" to "ragi_materials:ingot_hot:28",
         "ragi_materials:ingot:29" to "ragi_materials:ingot_hot:29",
         "ragi_materials:ingot:30" to "ragi_materials:ingot_hot:30",
         "ragi_materials:ingot:31" to "ragi_materials:ingot_hot:31",
@@ -41,21 +35,25 @@ object ForgeFurnaceHelper {
         "ragi_materials:ingot:83" to "ragi_materials:ingot_hot:83"
     )
 
-    val mapForgeBlasting = mutableMapOf(
+    var mapForgeBlasting = mutableMapOf(
+        "ragi_materials:ingot:4" to "ragi_materials:ingot_hot:4",
         "ragi_materials:ingot:14" to "ragi_materials:ingot_hot:14",
         "ragi_materials:ingot:22" to "ragi_materials:ingot_hot:22",
         "ragi_materials:ingot:24" to "ragi_materials:ingot_hot:24",
+        "ragi_materials:ingot:25" to "ragi_materials:ingot_hot:25",
+        "ragi_materials:ingot:27" to "ragi_materials:ingot_hot:27",
+        "ragi_materials:ingot:28" to "ragi_materials:ingot_hot:28",
         "ragi_materials:ingot:40" to "ragi_materials:ingot_hot:40",
-        "ragi_materials:ingot:41" to "ragi_materials:ingot_hot:41",
         "ragi_materials:ingot:42" to "ragi_materials:ingot_hot:42",
-        "ragi_materials:ingot:44" to "ragi_materials:ingot_hot:44",
         "ragi_materials:ingot:45" to "ragi_materials:ingot_hot:45",
         "ragi_materials:ingot:46" to "ragi_materials:ingot_hot:46",
-        "ragi_materials:ingot:72" to "ragi_materials:ingot_hot:72",
         "ragi_materials:ingot:78" to "ragi_materials:ingot_hot:78"
     )
 
-    val mapForgeHellfire = mutableMapOf(
+    var mapForgeHellfire = mutableMapOf(
+        "ragi_materials:ingot:41" to "ragi_materials:ingot_hot:41",
+        "ragi_materials:ingot:44" to "ragi_materials:ingot_hot:44",
+        "ragi_materials:ingot:72" to "ragi_materials:ingot_hot:72",
         "ragi_materials:ingot:73" to "ragi_materials:ingot_hot:73",
         "ragi_materials:ingot:74" to "ragi_materials:ingot_hot:74",
         "ragi_materials:ingot:76" to "ragi_materials:ingot_hot:76"
