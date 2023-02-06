@@ -20,17 +20,17 @@ object MaterialUtils {
         ) //モル質量
         if (material.getTempMelt(true) !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.melt", material.getTempMelt() + 273
+                "text.ragi_materials.property.melt", material.getTempMelt()
             )
         ) //融点
         if (material.getTempBoil(true) !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.boil", material.getTempBoil() + 273
+                "text.ragi_materials.property.boil", material.getTempBoil()
             )
         ) //沸点
         if (material.getTempSubl(true) !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.subl", material.getTempSubl() + 273
+                "text.ragi_materials.property.subl", material.getTempSubl()
             )
         ) //昇華点
     }

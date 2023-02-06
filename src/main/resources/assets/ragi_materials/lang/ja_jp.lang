@@ -7,13 +7,8 @@ tile.oredict_converter.name=鉱石辞書変換機
 
 # Fluid
 
-## DEBUG
-fluid.hiiragi_tsubasa=DEBUG
-
-## Periodic Table
 fluid.hydrogen=水素
 fluid.helium=ヘリウム
-
 fluid.beryllium=溶融ベリリウム
 fluid.lithium=溶融リチウム
 #fluid.boron=溶融硼素
@@ -22,7 +17,6 @@ fluid.nitrogen=窒素
 fluid.oxygen=酸素
 fluid.fluorine=弗素
 fluid.neon=ネオン
-
 fluid.sodium=溶融ナトリウム
 fluid.magnesium=溶融マグネシウム
 fluid.aluminium=溶融アルミニウム
@@ -31,7 +25,6 @@ fluid.silicon=溶融珪素
 #fluid.sulfur=溶融硫黄
 fluid.chlorine=塩素
 fluid.argon=アルゴン
-
 fluid.potassium=溶融カリウム
 fluid.calcium=溶融カルシウム
 fluid.titanium=溶融チタン
@@ -44,7 +37,6 @@ fluid.copper=溶融銅
 fluid.zinc=溶融亜鉛
 fluid.gallium=溶融ガリウム
 #fluid.arsenic=溶融砒素
-
 fluid.strontium=溶融ストロンチウム
 fluid.zirconium=溶融ジルコニウム
 fluid.niobium=溶融ニオブ
@@ -57,7 +49,6 @@ fluid.indium=溶融インジウム
 fluid.tin=溶融錫
 fluid.antimony=溶融アンチモン
 #fluid.iodine=溶融沃素
-
 fluid.barium=溶融バリウム
 fluid.neodymium=溶融ネオジム
 fluid.samarium=溶融サマリウム
@@ -71,7 +62,6 @@ fluid.gold=溶融金
 fluid.mercury=水銀
 fluid.lead=溶融鉛
 fluid.bismuth=溶融ビスマス
-
 fluid.thorium=溶融トリウム
 fluid.uranium=溶融ウラニウム
 fluid.plutonium=溶融プルトニウム
@@ -79,8 +69,8 @@ fluid.plutonium=溶融プルトニウム
 fluid.deuterium=重水素
 fluid.tritium=三重水素
 
-## WILDCARD
 fluid.wildcard=無効な
+fluid.hiiragi_tsubasa=DEBUG
 
 # Item
 
@@ -98,13 +88,8 @@ item.ragi_plate.name=%s板
 
 # Materials
 
-## DEBUG
-material.hiiragi_tsubasa=らぎマテリアル
-
-## Periodic Table
 material.hydrogen=水素
 material.helium=ヘリウム
-
 material.beryllium=ベリリウム
 material.lithium=リチウム
 material.boron=硼素
@@ -113,7 +98,6 @@ material.nitrogen=窒素
 material.oxygen=酸素
 material.fluorine=弗素
 material.neon=ネオン
-
 material.sodium=ナトリウム
 material.magnesium=マグネシウム
 material.aluminium=アルミニウム
@@ -122,7 +106,6 @@ material.phosphorus=燐
 material.sulfur=硫黄
 material.chlorine=塩素
 material.argon=アルゴン
-
 material.potassium=カリウム
 material.calcium=カルシウム
 material.titanium=チタン
@@ -135,7 +118,6 @@ material.copper=銅
 material.zinc=亜鉛
 material.gallium=ガリウム
 material.arsenic=砒素
-
 material.strontium=ストロンチウム
 material.zirconium=ジルコニウム
 material.niobium=ニオブ
@@ -148,7 +130,6 @@ material.indium=インジウム
 material.tin=錫
 material.antimony=アンチモン
 material.iodine=沃素
-
 material.barium=バリウム
 material.neodymium=ネオジム
 material.samarium=サマリウム
@@ -162,7 +143,6 @@ material.gold=金
 material.mercury=水銀
 material.lead=鉛
 material.bismuth=ビスマス
-
 material.thorium=トリウム
 material.uranium=ウラニウム
 material.plutonium=プルトニウム
@@ -172,8 +152,11 @@ material.tritium=三重水素
 material.uranium_235=ウラニウム235
 material.plutonium_241=プルトニウム241
 
-## WILDCARD
 material.wildcard=無効な
+material.hiiragi_tsubasa=らぎマテリアル
+
+# GUi
+gui.ragi_materials.forge_furnace=鍛造炉
 
 # Text
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
@@ -185,10 +168,10 @@ text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして�
 text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要
 text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換する
 text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換する
-text.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
+text.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
 text.ragi_materials.property.formula=- 化学式: §b%s§r
-text.ragi_materials.property.melt=- 融点: §b%s§r§7 K
+text.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
 text.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
-text.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
+text.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
 text.ragi_materials.spawn.name=§bスポーン地点にテレポートしました!
 text.ragi_materials.syntax.name=§bSyntax and Reload!

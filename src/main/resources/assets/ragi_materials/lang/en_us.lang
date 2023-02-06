@@ -6,13 +6,8 @@ tile.oredict_converter.name=Ore Dictionary Converter
 
 # Fluid
 
-## DEBUG
-fluid.hiiragi_tsubasa=DEBUG
-
-## Periodic Table
 fluid.hydrogen=Hydrogen
 fluid.helium=Helium
-
 fluid.beryllium=Molten Beryllium
 fluid.lithium=Molten Lithium
 #fluid.boron=Molten Boron
@@ -21,7 +16,6 @@ fluid.nitrogen=Nitrogen
 fluid.oxygen=Oxygen
 fluid.fluorine=Fluorine
 fluid.neon=Neon
-
 fluid.sodium=Molten Sodium
 fluid.magnesium=Molten Magnesium
 fluid.aluminium=Molten Aluminium
@@ -30,7 +24,6 @@ fluid.silicon=Molten Silicon
 #fluid.sulfur=Molten Sulfur
 fluid.chlorine=Chlorine
 fluid.argon=Argon
-
 fluid.potassium=Molten Potassium
 fluid.calcium=Molten Calcium
 fluid.titanium=Molten Titanium
@@ -43,7 +36,6 @@ fluid.copper=Molten Copper
 fluid.zinc=Molten Zinc
 fluid.gallium=Molten Gallium
 #fluid.arsenic=Molten Arsenic
-
 fluid.strontium=Molten Strontium
 fluid.zirconium=Molten Zirconium
 fluid.niobium=Molten Niobium
@@ -56,7 +48,6 @@ fluid.indium=Molten Indium
 fluid.tin=Molten Tin
 fluid.antimony=Molten Antimony
 #fluid.iodine=Molten iodine
-
 fluid.barium=Molten Barium
 fluid.neodymium=Molten Neodymium
 fluid.samarium=Molten Samarium
@@ -70,7 +61,6 @@ fluid.gold=Molten Gold
 fluid.mercury=Mercury
 fluid.lead=Molten Lead
 fluid.bismuth=Molten Bismuth
-
 fluid.thorium=Molten Thorium
 fluid.uranium=Molten Uranium
 fluid.plutonium=Molten Plutonium
@@ -78,8 +68,8 @@ fluid.plutonium=Molten Plutonium
 fluid.deuterium=Deuterium
 fluid.tritium=Tritium
 
-## WILDCARD
 fluid.wildcard=INVALID
+fluid.hiiragi_tsubasa=DEBUG
 
 # Item
 
@@ -97,13 +87,8 @@ item.ragi_plate.name=%s Plate
 
 # Materials
 
-## DEBUG
-material.hiiragi_tsubasa=DEBUG
-
-## Periodic Table
 material.hydrogen=Hydrogen
 material.helium=Helium
-
 material.beryllium=Beryllium
 material.lithium=Lithium
 material.boron=Boron
@@ -112,7 +97,6 @@ material.nitrogen=Nitrogen
 material.oxygen=Oxygen
 material.fluorine=Fluorine
 material.neon=Neon
-
 material.sodium=Sodium
 material.magnesium=Magnesium
 material.aluminium=Aluminium
@@ -121,7 +105,6 @@ material.phosphorus=Phosphorus
 material.sulfur=Sulfur
 material.chlorine=Chlorine
 material.argon=Argon
-
 material.potassium=Potassium
 material.calcium=Calcium
 material.titanium=Titanium
@@ -134,7 +117,6 @@ material.copper=Copper
 material.zinc=Zinc
 material.gallium=Gallium
 material.arsenic=Arsenic
-
 material.strontium=Strontium
 material.zirconium=Zirconium
 material.niobium=Niobium
@@ -147,7 +129,6 @@ material.indium=Indium
 material.tin=Tin
 material.antimony=Antimony
 material.iodine=iodine
-
 material.barium=Barium
 material.neodymium=Neodymium
 material.samarium=Samarium
@@ -161,7 +142,6 @@ material.gold=Gold
 material.mercury=Mercury
 material.lead=Lead
 material.bismuth=Bismuth
-
 material.thorium=Thorium
 material.uranium=Uranium
 material.plutonium=Plutonium
@@ -171,8 +151,11 @@ material.tritium=Tritium
 material.uranium_235=Uranium 235
 material.plutonium_241=Plutonium 241
 
-## WILDCARD
 material.wildcard=INVALID
+material.hiiragi_tsubasa=DEBUG
+
+# GUi
+gui.ragi_materials.forge_furnace=Forge Furnace
 
 # Text
 text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
@@ -184,10 +167,10 @@ text.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §c§obo
 text.ragi_materials.forge_furnace.3=Some metals require to be §c§oboost§r§7ed
 text.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
 text.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
-text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
+text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
 text.ragi_materials.property.formula=- Chemical Formula: §b%s§r
-text.ragi_materials.property.melt=- Melting Point: §b%s§r§7 K
+text.ragi_materials.property.melt=- Melting Point: §b%s§r§7 °C
 text.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
-text.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
+text.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 °C
 text.ragi_materials.spawn.name=§bTeleport you to the spawn point!
-text.ragi_materials.syntax.name=§bSyntax and Reload!
+text.ragi_materials.syntax.name=§bSyntax and Reload
