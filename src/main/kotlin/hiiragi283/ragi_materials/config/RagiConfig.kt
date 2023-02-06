@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -29,9 +30,6 @@ object RagiConfig {
     )
     private var listForgeBlasting: Array<String> = arrayOf()
     private var listForgeHellfire: Array<String> = arrayOf()
-    var mapForgeBurning: MutableMap<String, String> = mutableMapOf()
-    var mapForgeBlasting: MutableMap<String, String> = mutableMapOf()
-    var mapForgeHellfire: MutableMap<String, String> = mutableMapOf()
     //Utility
     var listMaxStack = arrayOf(
         "forge:bucketfilled",
@@ -108,9 +106,9 @@ object RagiConfig {
             listForgeBurning = config.get("Recipe Map", "Forge Furnace - Burning tier", listForgeBurning).stringList
             listForgeBlasting = config.get("Recipe Map", "Forge Furnace - Blasting tier", listForgeBlasting).stringList
             listForgeHellfire = config.get("Recipe Map", "Forge Furnace - Hellfire tier", listForgeHellfire).stringList
-            mapForgeBurning = convertListToMap(listForgeBurning, mapForgeBurning)
-            mapForgeBlasting = convertListToMap(listForgeBlasting, mapForgeBlasting)
-            mapForgeHellfire = convertListToMap(listForgeHellfire, mapForgeHellfire)
+            ForgeFurnaceHelper.mapForgeBurning = convertListToMap(listForgeBurning, ForgeFurnaceHelper.mapForgeBurning)
+            ForgeFurnaceHelper.mapForgeBlasting = convertListToMap(listForgeBlasting, ForgeFurnaceHelper.mapForgeBlasting)
+            ForgeFurnaceHelper.mapForgeHellfire = convertListToMap(listForgeHellfire, ForgeFurnaceHelper.mapForgeHellfire)
 
             listMaxStack = config.get("Utility", "Override Max Stack Size", listMaxStack, "The maximum stack size of items added to this list will be changed").stringList
         } catch (e: Exception) {
