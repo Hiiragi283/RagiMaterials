@@ -1,6 +1,6 @@
 
 # Block
-tile.lit_forge_furnace.name=Forge Furnace (§cBlasting§r)
+tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.forge_furnace.name=Forge Furnace
 tile.oredict_converter.name=Ore Dictionary Converter
 
@@ -87,8 +87,8 @@ item.bellow.name=Bellow
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
+item.forge_hammer.name=Forge Hammer
 item.ragi_block_metal.name=Block of %s
-item.ragi_crafting_tool.0.name=%s Hammer
 item.ragi_dust.name=%s Dust
 item.ragi_ingot.name=%s Ingot
 item.ragi_ingot_hot.name=Hot %s Ingot
@@ -178,12 +178,16 @@ material.wildcard=INVALID
 text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- Durability: §b%s§r
-text.ragi_materials.property.boil=- Boiling Point: §b%s§r K
+text.ragi_materials.forge_furnace.0=Used for heating metal ingot
+text.ragi_materials.forge_furnace.1=Right-click with §bCoal§r§7 / §bCharcoal§r§7 to add fuel
+text.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §c§oboost§r§7 fire
+text.ragi_materials.forge_furnace.3=Some metals require to be §c§oboost§r§7ed
 text.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
 text.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
+text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
 text.ragi_materials.property.formula=- Chemical Formula: §b%s§r
-text.ragi_materials.property.melt=- Melting Point: §b%s§r K
-text.ragi_materials.property.mol=- Molar Mass: §b%s§r g/mol
-text.ragi_materials.property.subl=- Sublimation Point: §b%s§r K
+text.ragi_materials.property.melt=- Melting Point: §b%s§r§7 K
+text.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
+text.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
 text.ragi_materials.spawn.name=§bTeleport you to the spawn point!
 text.ragi_materials.syntax.name=§bSyntax and Reload!

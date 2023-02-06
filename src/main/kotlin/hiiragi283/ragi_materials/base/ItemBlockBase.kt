@@ -56,7 +56,7 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
 
     //Itemにtooltipを付与するメソッド
     @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: List<String>, flag: ITooltipFlag) {
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 }

@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
@@ -26,12 +25,13 @@ object RagiInit {
     val BlockOreDictConv = BlockOreDictConv()
 
     //Itemの定義
-    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
+    val ItemBlockForgeFurnace = ItemBlockForgeFurnace()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
     val ItemBlockOreDictConv = ItemBlockOreDictConv()
+
     val ItemBookDebug = ItemBookDebug()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
-    val ItemForgeHammer = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
+    val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)

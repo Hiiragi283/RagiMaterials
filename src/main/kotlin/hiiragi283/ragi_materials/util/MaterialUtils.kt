@@ -7,7 +7,7 @@ object MaterialUtils {
 
     //素材のツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
-        tooltip.add("§e===Property===")
+        tooltip.add("§e=== Property ===")
         if (material.getFormula(true) !== null) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.formula", material.getFormula()
