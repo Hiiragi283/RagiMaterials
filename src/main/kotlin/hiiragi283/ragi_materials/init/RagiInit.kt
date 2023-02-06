@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.init
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.block.BlockForgeFurnace
+import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.ModelRegistry
@@ -21,6 +21,8 @@ object RagiInit {
 
     //Blockの定義
     val BlockForgeFurnace = BlockForgeFurnace()
+    val BlockLitForgeFurnace = BlockLitForgeFurnace()
+    val BlockOreDictConv = BlockOreDictConv()
 
     //Itemの定義
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "ragi_materials:lit_forge_furnace"},
+    "facing=south": {"model": "ragi_materials:lit_forge_furnace", "y": 180},
+    "facing=west": {"model": "ragi_materials:lit_forge_furnace", "y": 270},
+    "facing=east": {"model": "ragi_materials:lit_forge_furnace", "y": 90}
+  }
+}

@@ -1,5 +1,6 @@
 
 # Block
+tile.lit_forge_furnace.name=Forge Furnace (§cBlasting§r)
 tile.forge_furnace.name=Forge Furnace
 
 # Fluid
