@@ -37,6 +37,17 @@ object RagiInitRecipe {
             'B',
             RagiUtils.getStack("minecraft:sign", 1, 0)
         )
+        RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:oredict_converter", 1, 0),
+            "ABA",
+            "ACA",
+            'A',
+            "logWood",
+            'B',
+            RagiUtils.getStack("minecraft:bookshelf", 1, 0),
+            'C',
+            "chest"
+        )
     }
 
     private fun addCraftingMaterial() {

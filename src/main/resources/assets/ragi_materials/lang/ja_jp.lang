@@ -2,6 +2,7 @@
 # Block
 tile.lit_forge_furnace.name=鍛造炉 (§c強火§r)
 tile.forge_furnace.name=鍛造炉
+tile.oredict_converter.name=鉱石辞書変換機
 
 # Fluid
 
@@ -178,6 +179,8 @@ text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§o
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- 耐久値: §b%s§r
 text.ragi_materials.property.boil=- 沸点: §b%s§r K
+text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換する
+text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換する
 text.ragi_materials.property.formula=- 化学式: §b%s§r
 text.ragi_materials.property.melt=- 融点: §b%s§r K
 text.ragi_materials.property.mol=- モル質量: §b%s§r g/mol

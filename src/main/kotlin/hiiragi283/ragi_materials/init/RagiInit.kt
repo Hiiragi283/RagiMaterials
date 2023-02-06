@@ -28,6 +28,7 @@ object RagiInit {
     //Itemの定義
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
+    val ItemBlockOreDictConv = ItemBlockOreDictConv()
     val ItemBookDebug = ItemBookDebug()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
     val ItemForgeHammer = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)

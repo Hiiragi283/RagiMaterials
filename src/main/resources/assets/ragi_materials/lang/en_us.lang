@@ -2,6 +2,7 @@
 # Block
 tile.lit_forge_furnace.name=Forge Furnace (§cBlasting§r)
 tile.forge_furnace.name=Forge Furnace
+tile.oredict_converter.name=Ore Dictionary Converter
 
 # Fluid
 
@@ -178,6 +179,8 @@ text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true u
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- Durability: §b%s§r
 text.ragi_materials.property.boil=- Boiling Point: §b%s§r K
+text.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
+text.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
 text.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 text.ragi_materials.property.melt=- Melting Point: §b%s§r K
 text.ragi_materials.property.mol=- Molar Mass: §b%s§r g/mol
