@@ -13,6 +13,7 @@ import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
@@ -29,12 +30,14 @@ object RagiInit {
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
     val ItemBookDebug = ItemBookDebug()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
-    val ItemForgeHammer = ItemForgeHammer()
+    val ItemForgeHammer = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
-    val ItemToolBellow: Item = ItemBase(Reference.MOD_ID, "bellow", 0).setMaxDamage(63).setMaxStackSize(1)
+    val ItemToolBellow: Item = ItemBase(Reference.MOD_ID, "bellow", 0)
+        .setCreativeTab(CreativeTabs.TOOLS)
+        .setMaxDamage(63).setMaxStackSize(1)
 
     fun loadPreInit() {
         //Event, Fluidの登録

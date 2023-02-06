@@ -79,8 +79,8 @@ object RagiModel {
             ModelBakery.registerItemVariants(item, location, locationPrecious) //modelの登録
             ModelLoader.setCustomMeshDefinition(item) { stack ->
                 if (listOf(44, 45, 46, 76, 77, 78).contains(stack.metadata)) {
-                    ModelResourceLocation("${stack.item.registryName.toString()}_precious", "inventory")
-                } else ModelResourceLocation(stack.item.registryName.toString(), "inventory")
+                    locationPrecious
+                } else location
             }
         }
     }

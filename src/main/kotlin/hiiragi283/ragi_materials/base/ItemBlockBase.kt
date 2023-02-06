@@ -19,9 +19,15 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
     //コンストラクタの宣言
     init {
         this.maxMeta = maxMeta //メタデータの最大値を代入
-        if (maxMeta == 0) setHasSubtypes(false) else setHasSubtypes(true) //メタデータを使用する
+        hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
 
         ForgeRegistries.ITEMS.register(this.setRegistryName(block.registryName!!))
+    }
+
+    //メタデータを使用するか判定するメソッド
+    private fun setHasSubtypes(maxMeta: Int): Boolean {
+        //maxMetaが0より大きい場合true
+        return maxMeta > 0
     }
 
     //メタデータを得るメソッド
@@ -42,7 +48,7 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
-            for (i in 0 .. maxMeta) {
+            for (i in 0..maxMeta) {
                 subItems.add(ItemStack(this, 1, i))
             }
         }

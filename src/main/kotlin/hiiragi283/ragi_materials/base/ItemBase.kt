@@ -1,7 +1,5 @@
 package hiiragi283.ragi_materials.base
 
-import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -22,9 +20,15 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
         this.maxMeta = maxMeta //メタデータの最大値の初期化
         creativeTab = CreativeTabs.MISC //表示するクリエイティブタブの設定
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
-        if (maxMeta == 0) setHasSubtypes(false) else setHasSubtypes(true) //メタデータを使用する
+        hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
 
         ForgeRegistries.ITEMS.register(this.setRegistryName(MOD, ID))
+    }
+
+    //メタデータを使用するか判定するメソッド
+    private fun setHasSubtypes(maxMeta: Int): Boolean {
+        //maxMetaが0より大きい場合true
+        return maxMeta > 0
     }
 
     //メタデータを得るメソッド
@@ -45,7 +49,7 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
-            for (i in 0 .. maxMeta) {
+            for (i in 0..maxMeta) {
                 val stack = ItemStack(this, 1, i)
                 subItems.add(stack)
                 //RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")

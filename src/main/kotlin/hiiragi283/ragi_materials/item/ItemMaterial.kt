@@ -5,8 +5,6 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.MaterialUtils
-import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils.toBracket
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs

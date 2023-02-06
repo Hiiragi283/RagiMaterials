@@ -16,6 +16,7 @@ import net.minecraft.world.World
 
 class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
     //Rarityを得るメソッド
+    @Deprecated("Deprecated in Java", ReplaceWith("EnumRarity.EPIC", "net.minecraft.item.EnumRarity"))
     override fun getRarity(item: ItemStack): EnumRarity {
         //EPICを返す
         return EnumRarity.EPIC
