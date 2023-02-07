@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.init.RagiInit
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
@@ -18,8 +19,8 @@ class ForgeFurnaceCategory(guiHelper: IGuiHelper) : IRecipeCategory<ForgeFurnace
 
     //JEIタブの背景を設定するメソッド
     init {
-        val location = ResourceLocation("ragi_materials", "textures/gui/c_mill_gui_jei.png")
-        background = guiHelper.createDrawable(location, 0, 0, 54, 18)
+        val location = ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png")
+        background = guiHelper.createDrawable(location, 1, 1, 90, 18)
     }
 
     //JEiタブのIDを取得するメソッド
@@ -55,7 +56,13 @@ class ForgeFurnaceCategory(guiHelper: IGuiHelper) : IRecipeCategory<ForgeFurnace
         recipeLayout.itemStacks[0] = input
         //outputのスロットを登録
         recipeLayout.itemStacks.init(1, false, 36, 0)
-        recipeLayout.itemStacks[1] = output
+        when (recipeWrapper.recipeType) {
+            "§6§lBurning" -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockForgeFurnace)
+            "§c§lBoosted" -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockLitForgeFurnace)
+        }
+        //outputのスロットを登録
+        recipeLayout.itemStacks.init(2, false, 72, 0)
+        recipeLayout.itemStacks[2] = output
     }
 
     //JEiタブに紐づいたmod名を取得するメソッド

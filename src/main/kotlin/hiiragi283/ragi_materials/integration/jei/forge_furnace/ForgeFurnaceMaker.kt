@@ -10,16 +10,16 @@ object ForgeFurnaceMaker {
     fun register(registry: IModRegistry) {
         //listの宣言
         val list: MutableList<ForgeFurnaceRecipe?> = Lists.newArrayList()
-        val listMap = listOf(
-            ForgeFurnaceHelper.mapForgeBurning,
-            ForgeFurnaceHelper.mapForgeBoosted
+        val mapMap = mapOf(
+            ForgeFurnaceHelper.mapForgeBurning to "§6§lBurning",
+            ForgeFurnaceHelper.mapForgeBoosted to "§c§lBoosted"
         )
         //listMap内の各mapに対して実行
-        for (map in listMap) {
+        for (map in mapMap.keys) {
             //mapの各inputに対して実行
             for (input in map.keys) {
                 //レシピを生成
-                val info = ForgeFurnaceRecipe(input, map)
+                val info = ForgeFurnaceRecipe(input, map, mapMap[map]!!)
                 //完成品が空でない場合
                 if (!info.stackOut.isEmpty) {
                     //listにレシピを追加

@@ -12,11 +12,13 @@ class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
     //private変数の宣言
     val stackIn: ItemStack
     val stackOut: ItemStack
+    val recipeType: String
 
     //コンストラクタの宣言
     init {
         stackIn = info.stackIn
         stackOut = info.stackOut
+        recipeType = info.recipeType
     }
 
     //スロットにはめるIIngredientsを定義するメソッド
@@ -54,12 +56,11 @@ class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
         }
 
     override fun drawInfo(mc: Minecraft, wid: Int, hei: Int, mouseX: Int, mouseY: Int) {
-        val baseY = 0
         //テクスチャをGUI上に乗せる
-        //ResourceLocation res = new ResourceLocation("dcs_climate", "textures/gui/c_effective_gui.png");
+        //ResourceLocation res = new ResourceLocation(domain, path);
         //mc.getTextureManager().bindTexture(res);
         //文字列をGUI上に描画する
-        //mc.fontRenderer.drawString(recipe.nameBefore, 5, baseY, 0x000000, false);
+        mc.fontRenderer.drawString(recipeType, 30.0f, -10.0f, 0x000000, false);
     }
 
     //
