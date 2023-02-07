@@ -16,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 object RagiInit {
 
@@ -41,8 +42,17 @@ object RagiInit {
         .setMaxDamage(63).setMaxStackSize(1)
 
     fun loadPreInit() {
-        //Event, Fluidの登録
+        //Blockの登録
+        ForgeRegistries.BLOCKS.registerAll(
+            BlockForgeFurnace, BlockLitForgeFurnace, BlockOreDictConv
+        )
+        //Itemの登録
+        ForgeRegistries.ITEMS.registerAll(
+            ItemBlockForgeFurnace, ItemBlockMetal, ItemBlockOreDictConv, ItemBookDebug, ItemDust, ItemForgeHammer, ItemIngot, ItemIngotHot, ItemNugget, ItemPlate, ItemToolBellow
+        )
+        //Eventの登録
         registerEvents()
+        //Fluidの登録
         RagiInitFluid.registerFluids()
         RagiModel.setModelFluids()
     }

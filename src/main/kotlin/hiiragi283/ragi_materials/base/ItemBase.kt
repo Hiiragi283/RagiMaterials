@@ -6,7 +6,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -18,11 +17,11 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     //コンストラクタの初期化
     init {
         this.maxMeta = maxMeta //メタデータの最大値の初期化
+        setRegistryName(MOD, ID)
         creativeTab = CreativeTabs.MISC //表示するクリエイティブタブの設定
-        unlocalizedName = ID.toString() //翻訳キーをIDから取得する
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
+        unlocalizedName = ID.toString() //翻訳キーをIDから取得する
 
-        ForgeRegistries.ITEMS.register(this.setRegistryName(MOD, ID))
     }
 
     //メタデータを使用するか判定するメソッド

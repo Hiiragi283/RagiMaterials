@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -22,22 +23,23 @@ class RagiMaterials {
         FluidRegistry.enableUniversalBucket()
     }
 
+    private val isLoadedGT = Loader.isModLoaded("gregtech")
+
     //Pre-Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
-        //configの読み込み
-        RagiInit.loadPreInit()
+        if (!isLoadedGT) RagiInit.loadPreInit()
     }
 
     //Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent?) {
-        RagiInit.loadInit()
+        if (!isLoadedGT) RagiInit.loadInit()
     }
 
     //Post-Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent?) {
-        RagiInit.loadPostInit()
+        if (!isLoadedGT) RagiInit.loadPostInit()
     }
 }

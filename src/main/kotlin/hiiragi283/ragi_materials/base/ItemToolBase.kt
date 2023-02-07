@@ -6,7 +6,6 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.item.ItemTool
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -17,9 +16,8 @@ open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: Tool
     init {
         this.maxDamage = maxDamage
         creativeTab = CreativeTabs.TOOLS //表示するクリエイティブタブの設定
+        setRegistryName(MOD, ID)
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
-
-        ForgeRegistries.ITEMS.register(this.setRegistryName(MOD, ID))
     }
 
     //Itemにtooltipを付与するメソッド

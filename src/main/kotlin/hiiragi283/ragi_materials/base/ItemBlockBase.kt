@@ -20,8 +20,7 @@ open class ItemBlockBase(block: Block, maxMeta: Int) : ItemBlock(block) {
     init {
         this.maxMeta = maxMeta //メタデータの最大値を代入
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
-
-        ForgeRegistries.ITEMS.register(this.setRegistryName(block.registryName!!))
+        registryName = block.registryName!!
     }
 
     //メタデータを使用するか判定するメソッド

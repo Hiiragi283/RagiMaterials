@@ -17,7 +17,6 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import java.util.*
 
 class BlockLitForgeFurnace : Block(Material.ROCK) {
@@ -35,11 +34,10 @@ class BlockLitForgeFurnace : Block(Material.ROCK) {
         setCreativeTab(CreativeTabs.DECORATIONS)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
+        setRegistryName(Reference.MOD_ID, registryName)
         setResistance(3.5F)
         soundType = SoundType.STONE
         unlocalizedName = registryName
-
-        ForgeRegistries.BLOCKS.register(this.setRegistryName(Reference.MOD_ID, registryName))
     }
 
     //Blockstateの登録をするメソッド

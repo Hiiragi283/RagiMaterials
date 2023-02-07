@@ -16,7 +16,6 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 import net.minecraft.util.math.AxisAlignedBB
@@ -32,11 +31,10 @@ class BlockOreDictConv: Block(Material.IRON) {
         setCreativeTab(CreativeTabs.DECORATIONS)
         setHardness(5.0F)
         setHarvestLevel("pickaxe", 1)
+        setRegistryName(Reference.MOD_ID, registryName)
         setResistance(5.0F)
         soundType = SoundType.METAL
         unlocalizedName = registryName
-
-        ForgeRegistries.BLOCKS.register(this.setRegistryName(Reference.MOD_ID, registryName))
     }
 
     //ブロックがフルブロックかどうかを判定するメソッド
