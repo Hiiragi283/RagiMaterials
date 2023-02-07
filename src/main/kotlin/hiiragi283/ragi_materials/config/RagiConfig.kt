@@ -2,160 +2,167 @@ package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
-import hiiragi283.ragi_materials.material.MaterialBuilder
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.util.RagiLogger
-import net.minecraftforge.common.config.Configuration
-import java.awt.Color
-import java.io.File
+import net.minecraftforge.common.config.Config
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/config/ClimateConfig.java
-          https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/config/CoreConfigDC.java
-*/
-
+@Config(modid = Reference.MOD_ID, category = "")
 object RagiConfig {
 
-    //変数の宣言
-    //Debug Mode
-    var isDebug = false
-    //Material
-    private var listMaterials = arrayOf(
-        "1025:hiiragi_tsubasa:METAL:FF003F:H.T.:110.9f:283:1109"
+    @Config.Name("Debug Mode")
+    @Config.LangKey(DebugMode.prefix)
+    @JvmField
+    var debugMode = DebugMode()
+
+    @Config.Name("Custom Material Registry")
+    @Config.Comment(
+        "Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
+        "\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048" +
+        "\nname: String ... used for translation key and ore dictionary" +
+        "\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD" +
+        "\ncolor: Int ... use color code" +
+        "\nformula: String ... show its chemical formula" +
+        "\nmolar_mass: Float ... show its molar mass [g/mol]" +
+        "\nmelting: Int ... show its melting point [°C]" +
+        "\nboiling: Int ... show its boiling point [°C]"
     )
-    //Recipe
-    private var listForgeBurning = arrayOf(
-        "minecraft:cobblestone:0;minecraft:magma:32767"
+    @Config.LangKey(Material.prefix)
+    @JvmField
+    var material = Material()
+
+    @Config.Name("Recipe Map")
+    @Config.Comment(
+        "Add your custom recipes in this format: input;output\nThe stack format: mod:id:meta"
     )
-    private var listForgeBlasting: Array<String> = arrayOf()
-    private var listForgeHellfire: Array<String> = arrayOf()
-    //Utility
-    var listMaxStack = arrayOf(
-        "forge:bucketfilled",
-        "minecraft:bed",
-        "minecraft:beetroot_soup",
-        "minecraft:birch_boat",
-        "minecraft:boat",
-        "minecraft:bucket",
-        "minecraft:cake",
-        "minecraft:chest_minecart",
-        "minecraft:command_block_minecart",
-        "minecraft:dark_oak_boat",
-        "minecraft:diamond_horse_armor",
-        "minecraft:egg",
-        "minecraft:enchanted_book",
-        "minecraft:ender_pearl",
-        "minecraft:furnace_minecart",
-        "minecraft:golden_horse_armor",
-        "minecraft:hopper_minecart",
-        "minecraft:iron_horse_armor",
-        "minecraft:jungle_boat",
-        "minecraft:lava_bucket",
-        "minecraft:minecart",
-        "minecraft:mushroom_stew",
-        "minecraft:rabbit_stew",
-        "minecraft:record_11",
-        "minecraft:record_13",
-        "minecraft:record_blocks",
-        "minecraft:record_cat",
-        "minecraft:record_chirp",
-        "minecraft:record_far",
-        "minecraft:record_mall",
-        "minecraft:record_mellohi",
-        "minecraft:record_stal",
-        "minecraft:record_strad",
-        "minecraft:record_wait",
-        "minecraft:record_ward",
-        "minecraft:saddle",
-        "minecraft:sign",
-        "minecraft:snowball",
-        "minecraft:spruce_boat",
-        "minecraft:tnt_minecart",
-        "minecraft:water_bucket",
-        "minecraft:written_book"
-    )
+    @Config.LangKey(RecipeMap.prefix)
+    @JvmField
+    var recipeMap = RecipeMap()
 
-    //configを読み込むメソッド
-    fun load(file: File) {
-        //configファイルを指定
-        val config = Configuration(File(file, "ragi_materials.cfg"))
-        try {
-            //configの読み込み
-            config.load()
-            //コメントの付与
-            config.addCustomCategoryComment("Materials",
-                "Add your custom recipe in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
-                        "\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048" +
-                        "\nname: String ... used for translation key and ore dictionary" +
-                        "\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD" +
-                        "\ncolor: Int ... use color code" +
-                        "\nformula: String ... show its chemical formula" +
-                        "\nmolar_mass: Float ... show its molar mass [g/mol]" +
-                        "\nmelting: Int ... show its melting point" +
-                        "\nboiling: Int ... show its boiling point")
-            config.addCustomCategoryComment("Recipe Map", "Add your custom recipe in this format: input;output\nThe stack format: mod:id:meta")
-            //各値の取得
-            isDebug = config.get("Debug Mode", "Debug Mode", isDebug, "If true, you can use some debug items but Ragi Library throws sooo many debug logs...").boolean
+    @Config.Name("Utility")
+    @Config.LangKey(Utility.prefix)
+    @JvmField
+    var utility = Utility()
 
-            listMaterials = config.get("Materials", "List for Custom Material", listMaterials, "Register your custom materials in above format").stringList
-            for (value in listMaterials) {
-                registerMaterial(value)
-            }
+    class DebugMode {
 
-            listForgeBurning = config.get("Recipe Map", "Forge Furnace - Burning tier", listForgeBurning).stringList
-            listForgeBlasting = config.get("Recipe Map", "Forge Furnace - Blasting tier", listForgeBlasting).stringList
-            listForgeHellfire = config.get("Recipe Map", "Forge Furnace - Hellfire tier", listForgeHellfire).stringList
-            ForgeFurnaceHelper.mapForgeBurning = convertListToMap(listForgeBurning, ForgeFurnaceHelper.mapForgeBurning)
-            ForgeFurnaceHelper.mapForgeBlasting = convertListToMap(listForgeBlasting, ForgeFurnaceHelper.mapForgeBlasting)
-            ForgeFurnaceHelper.mapForgeHellfire = convertListToMap(listForgeHellfire, ForgeFurnaceHelper.mapForgeHellfire)
+        companion object {
+            const val prefix = "config.${Reference.MOD_ID}.debug"
+        }
 
-            listMaxStack = config.get("Utility", "Override Max Stack Size", listMaxStack, "The maximum stack size of items added to this list will be changed").stringList
-        } catch (e: Exception) {
-            //エラーを出力
-            e.printStackTrace()
-        } finally {
-            //configを保存
-            config.save()
+        @Config.LangKey("${prefix}.debug")
+        @Config.Comment("If true, you can use some debug items but Ragi Library throws sooo many debug logs...")
+        @JvmField
+        var isDebug = false
+
+    }
+
+    class Display
+
+    class Material {
+
+        companion object {
+            const val prefix = "config.${Reference.MOD_ID}.material"
+        }
+
+        @Config.Name("List for Custom Material")
+        @Config.Comment("Register your custom materials in above format")
+        @Config.LangKey("$prefix.custom")
+        @JvmField
+        var listMaterials = arrayOf(
+            "1025:hiiragi_tsubasa:METAL:FF003F:H.T.:110.9f:283:1109"
+        )
+
+    }
+
+    class RecipeMap {
+
+        companion object {
+            const val prefix = "config.${Reference.MOD_ID}.recipe_map"
+        }
+
+        @Config.Name("Forge Furnace - Tier: Burning")
+        @Config.LangKey("${prefix}.forge_burning")
+        @Config.RequiresMcRestart
+        @JvmField
+        var listForgeBurning = arrayOf(
+            "minecraft:cobblestone:0;minecraft:magma:32767"
+        )
+
+        @Config.Name("Forge Furnace - Tier: Boosted")
+        @Config.LangKey("${prefix}.forge_boosted")
+        @Config.RequiresMcRestart
+        @JvmField
+        var listForgeBoosted: Array<String> = arrayOf()
+
+        @Config.Name("Forge Furnace - Tier: Hell-rise")
+        @Config.LangKey("${prefix}.forge_hellrise")
+        @Config.RequiresMcRestart
+        @JvmField
+        var listForgeHellrise: Array<String> = arrayOf()
+
+        init {
+            ForgeFurnaceHelper.mapForgeBurning =
+                RagiConfigHelper.convertListToMap(listForgeBurning, ForgeFurnaceHelper.mapForgeBurning)
+            ForgeFurnaceHelper.mapForgeBoosted =
+                RagiConfigHelper.convertListToMap(listForgeBoosted, ForgeFurnaceHelper.mapForgeBoosted)
+            ForgeFurnaceHelper.mapForgeHellrise =
+                RagiConfigHelper.convertListToMap(listForgeHellrise, ForgeFurnaceHelper.mapForgeHellrise)
         }
     }
 
-    //String型のlist/arrayをmapに変換するメソッド
-    private fun convertListToMap(list: Array<String>, map: MutableMap<String, String>): MutableMap<String, String> {
-        for (key in list) {
-            map[key.split(";")[0]] = key.split(";")[1]
-            RagiLogger.infoDebug("${key.split(";")[0]} to ${map[key.split(";")[0]]}")
+    class Utility {
+
+        companion object {
+            const val prefix = "config.${Reference.MOD_ID}.utility"
         }
-        return map
+
+        @Config.Name("Override Max Stack Size")
+        @Config.Comment("The maximum stack size of items added to this list will be changed to 64")
+        @Config.LangKey("${prefix}.max_stack")
+        @Config.RequiresMcRestart
+        @JvmField
+        var listMaxStack = arrayOf(
+            "forge:bucketfilled",
+            "minecraft:bed",
+            "minecraft:beetroot_soup",
+            "minecraft:birch_boat",
+            "minecraft:boat",
+            "minecraft:bucket",
+            "minecraft:cake",
+            "minecraft:chest_minecart",
+            "minecraft:command_block_minecart",
+            "minecraft:dark_oak_boat",
+            "minecraft:diamond_horse_armor",
+            "minecraft:egg",
+            "minecraft:enchanted_book",
+            "minecraft:ender_pearl",
+            "minecraft:furnace_minecart",
+            "minecraft:golden_horse_armor",
+            "minecraft:hopper_minecart",
+            "minecraft:iron_horse_armor",
+            "minecraft:jungle_boat",
+            "minecraft:lava_bucket",
+            "minecraft:minecart",
+            "minecraft:mushroom_stew",
+            "minecraft:rabbit_stew",
+            "minecraft:record_11",
+            "minecraft:record_13",
+            "minecraft:record_blocks",
+            "minecraft:record_cat",
+            "minecraft:record_chirp",
+            "minecraft:record_far",
+            "minecraft:record_mall",
+            "minecraft:record_mellohi",
+            "minecraft:record_stal",
+            "minecraft:record_strad",
+            "minecraft:record_wait",
+            "minecraft:record_ward",
+            "minecraft:saddle",
+            "minecraft:sign",
+            "minecraft:snowball",
+            "minecraft:spruce_boat",
+            "minecraft:tnt_minecart",
+            "minecraft:water_bucket",
+            "minecraft:written_book"
+        )
     }
 
-    private fun registerMaterial(value: String) {
-        //valueをばらしてプロパティを得る
-        val listProperty = value.split(":")
-        val index = listProperty[0].toInt()
-        val name = listProperty[1]
-        var type = MaterialBuilder.MaterialType.WILDCARD
-        val color = Color(listProperty[3].toIntOrNull(16)!!)
-        val formula = listProperty[4]
-        val molar = listProperty[5].toFloat()
-        val melt = listProperty[6].toInt()
-        val boil = listProperty[7].toInt()
-        //MaterialTypeの確認
-        for (i in MaterialBuilder.MaterialType.values()) {
-            if (i.name == listProperty[2]) {
-                type = i
-                break
-            }
-        }
-        //indexが1025以上2048以下，かつtypeがWILDCARDでない場合，素材を登録する
-        if (index in 1025 .. Reference.numMaterial && type != MaterialBuilder.MaterialType.WILDCARD) {
-            val material = MaterialBuilder(index, name, type)
-            material.setColor(color)
-            material.setFormula(formula)
-            material.setMolarMass(molar)
-            material.setTempMelt(melt)
-            material.setTempBoil(boil)
-            MaterialRegistry.list.add(material)
-        }
-    }
 }

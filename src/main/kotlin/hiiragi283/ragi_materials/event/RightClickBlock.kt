@@ -13,7 +13,7 @@ class RightClickBlock {
     @SubscribeEvent
     fun onRightClickBlock(event: PlayerInteractEvent.RightClickBlock) {
         //サーバー側&&デバッグ状態のみで実行
-        if (!event.world.isRemote && RagiConfig.isDebug) {
+        if (!event.world.isRemote && RagiConfig.debugMode.isDebug) {
             //各値の取得
             val stack = event.itemStack
             val item = stack.item

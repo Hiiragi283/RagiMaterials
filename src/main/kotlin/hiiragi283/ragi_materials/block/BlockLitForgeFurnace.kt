@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
@@ -14,7 +13,6 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
@@ -90,7 +88,7 @@ class BlockLitForgeFurnace : Block(Material.ROCK) {
     ): Boolean {
         //プレイヤーが利き手に持っているアイテムを取得
         val stack = player.getHeldItem(hand)
-        ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBlasting) //レシピ実行
+        ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
         return true
     }
 

@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Mod
@@ -27,7 +26,6 @@ class RagiMaterials {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         //configの読み込み
-        RagiConfig.load(event!!.modConfigurationDirectory)
         RagiInit.loadPreInit()
     }
 

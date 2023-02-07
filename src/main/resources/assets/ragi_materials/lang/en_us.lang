@@ -4,8 +4,31 @@ tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.forge_furnace.name=Forge Furnace
 tile.oredict_converter.name=Ore Dictionary Converter
 
-# Fluid
+# Config
+config.ragi_materials.debug=Debug Option
+config.ragi_materials.debug.tooltip=Warning, warning. This is not a test!
+config.ragi_materials.debug.debug=Enable Debug Mode
+config.ragi_materials.debug.debug.tooltip=If true, you can use some debug items but Ragi Library throws sooo many debug logs...
 
+config.ragi_materials.material=Custom Material Registry
+config.ragi_materials.material.tooltip=Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048\nname: String ... used for translation key and ore dictionary\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... use color code\nformula: String ... show its chemical formula\nmolar_mass: Float ... show its molar mass [g/mol]\nmelting: Int ... show its melting point [°C]\nboiling: Int ... show its boiling point [°C]
+config.ragi_materials.material.custom=List for Custom Material
+config.ragi_materials.material.custom.tooltip=Register your custom materials in above format
+
+config.ragi_materials.recipe_map=Custom Recipe Map
+config.ragi_materials.recipe_map.forge_burning=Forge Furnace - Tier: Burning
+config.ragi_materials.recipe_map.forge_burning.tooltip=§oThe strongest wings bearing the fire of hell.
+config.ragi_materials.recipe_map.forge_boosted=Forge Furnace - Tier: Boosted
+config.ragi_materials.recipe_map.forge_boosted.tooltip=§oGET READY FOR BOOST
+config.ragi_materials.recipe_map.forge_hellrise=Forge Furnace - Tier: Hell-rise
+config.ragi_materials.recipe_map.forge_hellrise.tooltip=§oHEAVEN or HELL it doesn't matter.
+
+config.ragi_materials.utility=Utility
+config.ragi_materials.utility.tooltip=Not Extra but Beneficial
+config.ragi_materials.utility.max_stack=List for the item you want to be change maximum stack size.
+config.ragi_materials.utility.max_stack.tooltip=The maximum stack size of items added to this list will be changed to 64
+
+# Fluid
 fluid.hydrogen=Hydrogen
 fluid.helium=Helium
 fluid.beryllium=Molten Beryllium
@@ -154,7 +177,7 @@ material.plutonium_241=Plutonium 241
 material.wildcard=INVALID
 material.hiiragi_tsubasa=DEBUG
 
-# GUi
+# GUI
 gui.ragi_materials.forge_furnace=Forge Furnace
 
 # Text

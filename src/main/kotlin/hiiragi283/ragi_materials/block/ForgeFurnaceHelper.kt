@@ -35,7 +35,7 @@ object ForgeFurnaceHelper {
         "ragi_materials:ingot:83" to "ragi_materials:ingot_hot:83"
     )
 
-    var mapForgeBlasting = mutableMapOf(
+    var mapForgeBoosted = mutableMapOf(
         "ragi_materials:ingot:4" to "ragi_materials:ingot_hot:4",
         "ragi_materials:ingot:14" to "ragi_materials:ingot_hot:14",
         "ragi_materials:ingot:22" to "ragi_materials:ingot_hot:22",
@@ -50,7 +50,7 @@ object ForgeFurnaceHelper {
         "ragi_materials:ingot:78" to "ragi_materials:ingot_hot:78"
     )
 
-    var mapForgeHellfire = mutableMapOf(
+    var mapForgeHellrise = mutableMapOf(
         "ragi_materials:ingot:41" to "ragi_materials:ingot_hot:41",
         "ragi_materials:ingot:44" to "ragi_materials:ingot_hot:44",
         "ragi_materials:ingot:72" to "ragi_materials:ingot_hot:72",
@@ -78,7 +78,7 @@ object ForgeFurnaceHelper {
     }
 
     //ふいごで火力を上げるメソッド
-    fun setBlasting(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
+    fun setBoosted(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //燃料が満タンの場合
         if (state.getValue(BlockForgeFurnace.propertyFuel) == 3) {
             val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState

@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
@@ -16,7 +15,6 @@ import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
@@ -127,7 +125,7 @@ class BlockForgeFurnace : Block(Material.ROCK) {
         val stack = player.getHeldItem(hand)
         when (stack.item) {
             Items.COAL -> ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-            RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
+            RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBoosted(world, pos, state, stack) //火力UP
             else -> {
                 ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBurning) //レシピ実行
             }

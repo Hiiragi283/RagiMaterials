@@ -1,12 +1,34 @@
-#PARSE_ESCAPES
 
 # Block
 tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.forge_furnace.name=鍛造炉
 tile.oredict_converter.name=鉱石辞書変換機
 
-# Fluid
+# Config
+config.ragi_materials.debug=デバッグ設定
+config.ragi_materials.debug.tooltip=警告、警告。これは試験ではない!
+config.ragi_materials.debug.debug=デバッグモードを有効にする
+config.ragi_materials.debug.debug.tooltip=trueにするとデバッグアイテムが使えるようになりますが, 大量のログが出力されます……
 
+config.ragi_materials.material=カスタム素材の登録
+config.ragi_materials.material.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
+config.ragi_materials.material.custom=カスタム素材の一覧
+config.ragi_materials.material.custom.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
+
+config.ragi_materials.recipe_map=カスタムレシピの登録
+config.ragi_materials.recipe_map.forge_burning=鍛造炉 - Tier: バーニング
+config.ragi_materials.recipe_map.forge_burning.tooltip=§o地獄の焔を齎す最強の翼。
+config.ragi_materials.recipe_map.forge_boosted=鍛造炉 - Tier: ブースト
+config.ragi_materials.recipe_map.forge_boosted.tooltip=§oGET READY FOR BOOST
+config.ragi_materials.recipe_map.forge_hellrise=鍛造炉 - Tier: ヘルライズ
+config.ragi_materials.recipe_map.forge_hellrise.tooltip=§o天国も地獄も関係ない。
+
+config.ragi_materials.utility=便利機能
+config.ragi_materials.utility.tooltip=ExtraじゃないけどBeneficial
+config.ragi_materials.utility.max_stack=最大スタック数を変えるアイテムの一覧
+config.ragi_materials.utility.max_stack.tooltip=このリストに追加されたアイテムは, 最大スタック数が自動的に64へ変更されます
+
+# Fluid
 fluid.hydrogen=水素
 fluid.helium=ヘリウム
 fluid.beryllium=溶融ベリリウム
@@ -155,7 +177,7 @@ material.plutonium_241=プルトニウム241
 material.wildcard=無効な
 material.hiiragi_tsubasa=らぎマテリアル
 
-# GUi
+# GUI
 gui.ragi_materials.forge_furnace=鍛造炉
 
 # Text

@@ -12,7 +12,7 @@ object ForgeFurnaceMaker {
         val list: MutableList<ForgeFurnaceRecipe?> = Lists.newArrayList()
         val listMap = listOf(
             ForgeFurnaceHelper.mapForgeBurning,
-            ForgeFurnaceHelper.mapForgeBlasting
+            ForgeFurnaceHelper.mapForgeBoosted
         )
         //listMap内の各mapに対して実行
         for (map in listMap) {

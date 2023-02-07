@@ -60,7 +60,7 @@ object RagiInitDispenser {
             return if (block is BlockForgeFurnace) {
                 when (stack.item) {
                     Items.COAL -> ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-                    RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBlasting(world, pos, state, stack) //火力UP
+                    RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBoosted(world, pos, state, stack) //火力UP
                     else -> super.dispenseStack(source, stack)
                 }
             } else super.dispenseStack(source, stack)

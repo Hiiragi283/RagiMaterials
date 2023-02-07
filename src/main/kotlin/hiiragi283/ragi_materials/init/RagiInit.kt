@@ -112,7 +112,7 @@ object RagiInit {
     //Itemの最大スタック数を上書きする
     private fun overrideStack() {
         //configのlistMaxStackを参照する
-        for (name in RagiConfig.listMaxStack) {
+        for (name in RagiConfig.utility.listMaxStack) {
             val item = RagiUtils.getItem(name)
             //itemの耐久値が0の場合、最大スタック数を64に上書きする
             if (item.maxDamage == 0) item.setMaxStackSize(64)

@@ -24,19 +24,19 @@ object RagiLogger {
     }
 
     fun infoDebug(info: Any?) {
-        if (RagiConfig.isDebug) {
+        if (RagiConfig.debugMode.isDebug) {
             LOGGER_RAGI.info(info)
         }
     }
 
     fun warnDebug(info: Any?) {
-        if (RagiConfig.isDebug) {
+        if (RagiConfig.debugMode.isDebug) {
             LOGGER_RAGI.warn(info)
         }
     }
 
     fun errorDebug(info: Any?) {
-        if (RagiConfig.isDebug) {
+        if (RagiConfig.debugMode.isDebug) {
             LOGGER_RAGI.error(info)
         }
     }

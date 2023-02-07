@@ -26,7 +26,7 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
     override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val stack: ItemStack = player.getHeldItem(hand)
         //デバッグモードの場合
-        if (RagiConfig.isDebug) {
+        if (RagiConfig.debugMode.isDebug) {
             //Spawn用
             if (stack.metadata == 0) {
                 //各値の取得
