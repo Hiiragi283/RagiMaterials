@@ -108,12 +108,6 @@ object RagiColor {
         }
     }
 
-    class ColorHot : IItemColor {
-        override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-            return MaterialRegistry.COPPER.getColor().rgb
-        }
-    }
-
     class ColorNBT : IItemColor {
 
         override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {

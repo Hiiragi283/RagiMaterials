@@ -101,7 +101,7 @@ object MaterialRegistry {
         .setColor(RagiColor.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2))).setMolarMass(47.9f).setFormula("Ti")
         .setTempMelt(1668).setTempBoil(3287)
 
-    val CHROMIUM = MaterialBuilder(24, "chromium", MaterialType.METAL)
+    val CHROMIUM = MaterialBuilder(24, "chrome", MaterialType.METAL)
         .setColor(RagiColor.GREEN).setMolarMass(52.0f).setFormula("Cr")
         .setTempMelt(1907).setTempBoil(2671)
 

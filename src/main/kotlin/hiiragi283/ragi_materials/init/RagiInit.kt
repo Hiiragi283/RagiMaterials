@@ -79,7 +79,7 @@ object RagiInit {
     fun loadInit() {
         //BlockとItemの着色
         RagiColor.setColor(
-            RagiColor.ColorMaterial(), ItemBlockMetal, ItemDust, ItemIngot, ItemNugget, ItemPlate
+            RagiColor.ColorMaterial(), ItemBlockMetal, ItemDust, ItemIngot, ItemIngotHot, ItemNugget, ItemPlate
         )
         RagiColor.setColor(RagiColor.ColorNBT(), ItemForgeHammer)
         //鉱石辞書の登録
