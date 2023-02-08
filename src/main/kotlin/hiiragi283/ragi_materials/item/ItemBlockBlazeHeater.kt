@@ -9,7 +9,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemBlockForgeFurnace: ItemBlockBase(RagiInit.BlockForgeFurnace, 0) {
+class ItemBlockBlazeHeater: ItemBlockBase(RagiInit.BlockBlazeHeater, 1) {
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {

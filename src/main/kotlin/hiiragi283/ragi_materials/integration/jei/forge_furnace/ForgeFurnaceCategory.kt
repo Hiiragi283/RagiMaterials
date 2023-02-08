@@ -57,8 +57,9 @@ class ForgeFurnaceCategory(guiHelper: IGuiHelper) : IRecipeCategory<ForgeFurnace
         //outputのスロットを登録
         recipeLayout.itemStacks.init(1, false, 36, 0)
         when (recipeWrapper.recipeType) {
-            "§6§lBurning" -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockForgeFurnace)
-            "§c§lBoosted" -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockLitForgeFurnace)
+            ForgeFurnaceRecipe.EnumFire.BURNING -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockForgeFurnace)
+            ForgeFurnaceRecipe.EnumFire.BOOSTED -> recipeLayout.itemStacks[1] = listOf(ItemStack(RagiInit.BlockForgeFurnace), ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 0))
+            ForgeFurnaceRecipe.EnumFire.HELLRISE -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 1)
         }
         //outputのスロットを登録
         recipeLayout.itemStacks.init(2, false, 72, 0)

@@ -1,5 +1,7 @@
 
 # Block
+tile.blaze_heater.0.name=ブレイズヒーター
+tile.blaze_heater.1.name=ヘルライズヒーター
 tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.forge_furnace.name=鍛造炉
 tile.oredict_converter.name=鉱石辞書変換機
@@ -50,7 +52,7 @@ fluid.argon=アルゴン
 fluid.potassium=溶融カリウム
 fluid.calcium=溶融カルシウム
 fluid.titanium=溶融チタン
-fluid.chromium=溶融クロム
+fluid.chrome=溶融クロム
 fluid.manganese=溶融マンガン
 fluid.iron=溶融鉄
 fluid.cobalt=溶融コバルト
@@ -97,6 +99,7 @@ fluid.hiiragi_tsubasa=DEBUG
 # Item
 
 item.bellow.name=ふいご
+item.blazing_cube.name=燃え盛るキューブ
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
@@ -131,7 +134,7 @@ material.argon=アルゴン
 material.potassium=カリウム
 material.calcium=カルシウム
 material.titanium=チタン
-material.chromium=クロム
+material.chrome=クロム
 material.manganese=マンガン
 material.iron=鉄
 material.cobalt=コバルト
@@ -181,12 +184,16 @@ material.hiiragi_tsubasa=らぎマテリアル
 gui.ragi_materials.forge_furnace=鍛造炉
 
 # Text
+text.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します
+text.ragi_materials.blaze_heater.1=燃料の消費はありません
+text.ragi_materials.blaze_heater.2=Right-click with §b§lBellow§r§7 to §c§lboost§r§7 fire
+text.ragi_materials.blaze_heater.3=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- 耐久値: §b%s§r
 text.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用します
-text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入する
-text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして火力を§c§oブースト§r§7する
+text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入
+text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして火力を§c§oブースト§r§
 text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要
 text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換する
 text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換する

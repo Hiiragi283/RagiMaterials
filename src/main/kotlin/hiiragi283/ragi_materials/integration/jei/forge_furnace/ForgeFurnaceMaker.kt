@@ -11,8 +11,9 @@ object ForgeFurnaceMaker {
         //listの宣言
         val list: MutableList<ForgeFurnaceRecipe?> = Lists.newArrayList()
         val mapMap = mapOf(
-            ForgeFurnaceHelper.mapForgeBurning to "§6§lBurning",
-            ForgeFurnaceHelper.mapForgeBoosted to "§c§lBoosted"
+            ForgeFurnaceHelper.mapForgeBurning to ForgeFurnaceRecipe.EnumFire.BURNING,
+            ForgeFurnaceHelper.mapForgeBoosted to ForgeFurnaceRecipe.EnumFire.BOOSTED,
+            ForgeFurnaceHelper.mapForgeHellrise to ForgeFurnaceRecipe.EnumFire.HELLRISE
         )
         //listMap内の各mapに対して実行
         for (map in mapMap.keys) {

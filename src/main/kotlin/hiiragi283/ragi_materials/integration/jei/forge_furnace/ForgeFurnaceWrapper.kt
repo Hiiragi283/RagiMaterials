@@ -12,7 +12,7 @@ class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
     //private変数の宣言
     val stackIn: ItemStack
     val stackOut: ItemStack
-    val recipeType: String
+    val recipeType: ForgeFurnaceRecipe.EnumFire
 
     //コンストラクタの宣言
     init {
@@ -60,7 +60,7 @@ class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
         //ResourceLocation res = new ResourceLocation(domain, path);
         //mc.getTextureManager().bindTexture(res);
         //文字列をGUI上に描画する
-        mc.fontRenderer.drawString(recipeType, 30.0f, -10.0f, 0x000000, false);
+        mc.fontRenderer.drawString(recipeType.display, 20.0f, -10.0f, 0x000000, false);
     }
 
     //

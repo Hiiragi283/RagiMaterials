@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,hellrise=false": {"model": "ragi_materials:blaze_heater"},
+    "facing=north,hellrise=true": {"model": "ragi_materials:hellrise_heater"},
+    "facing=south,hellrise=false": {"model": "ragi_materials:blaze_heater", "y": 180},
+    "facing=south,hellrise=true": {"model": "ragi_materials:hellrise_heater", "y": 180},
+    "facing=west,hellrise=false": {"model": "ragi_materials:blaze_heater", "y": 270},
+    "facing=west,hellrise=true": {"model": "ragi_materials:hellrise_heater", "y": 270},
+    "facing=east,hellrise=false": {"model": "ragi_materials:blaze_heater", "y": 90},
+    "facing=east,hellrise=true": {"model": "ragi_materials:hellrise_heater", "y": 90}
+  }
+}

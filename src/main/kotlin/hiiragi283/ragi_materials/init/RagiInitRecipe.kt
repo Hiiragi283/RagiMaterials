@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
 
 object RagiInitRecipe {
@@ -11,10 +12,35 @@ object RagiInitRecipe {
     fun registerRecipes() {
         addCrafting()
         addCraftingMaterial()
-        //ForgeRegistries.RECIPES.register(RecipeOreDictConv())
     }
 
     private fun addCrafting() {
+        RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:blazing_cube", 1, 0),
+            "ABA",
+            "CDC",
+            "ABA",
+            'A',
+            RagiUtils.getStack("minecraft:blaze_powder", 1, 0),
+            'B',
+            "dustPhosphorus",
+            'C',
+            "dustSulfur",
+            'D',
+            "blockCoal"
+        )
+        RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:blazing_heater", 1, 0),
+            "A A",
+            "ABA",
+            "CCC",
+            'A',
+            RagiUtils.getStack("minecraft:iron_bars", 1, 0),
+            'B',
+            ItemStack(RagiInit.ItemBlazingCube, 1, 0),
+            'C',
+            RagiUtils.getStack("minecraft:nether_brick", 1, 0)
+        )
         RagiRecipe.addShaped(
             RagiUtils.getStack("${Reference.MOD_ID}:forge_furnace", 1, 0),
             "A A",

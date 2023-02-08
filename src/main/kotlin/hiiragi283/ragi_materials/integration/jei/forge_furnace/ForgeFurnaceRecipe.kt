@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 
 //JEiに登録するためのレシピを生成するクラス
-class ForgeFurnaceRecipe(input: String, map: MutableMap<String, String>, type: String) {
+class ForgeFurnaceRecipe(input: String, map: MutableMap<String, String>, type: EnumFire) {
 
     //private変数の宣言
     private val stringIn = input
@@ -16,5 +16,9 @@ class ForgeFurnaceRecipe(input: String, map: MutableMap<String, String>, type: S
     init {
         stringOut = map.getValue(stringIn)
         stackOut = RagiUtils.getStack(stringOut)
+    }
+
+    enum class EnumFire(val display: String) {
+        BURNING("§6§lBurning"), BOOSTED("§c§lBoosted"), HELLRISE("§4§lHellrise")
     }
 }

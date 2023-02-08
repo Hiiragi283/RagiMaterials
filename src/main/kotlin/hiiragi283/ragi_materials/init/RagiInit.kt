@@ -21,15 +21,18 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 object RagiInit {
 
     //Blockの定義
+    val BlockBlazeHeater = BlockBlazeHeater()
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockLitForgeFurnace = BlockLitForgeFurnace()
     val BlockOreDictConv = BlockOreDictConv()
 
     //Itemの定義
+    val ItemBlockBlazeHeater = ItemBlockBlazeHeater()
     val ItemBlockForgeFurnace = ItemBlockForgeFurnace()
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
     val ItemBlockOreDictConv = ItemBlockOreDictConv()
 
+    val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0)
     val ItemBookDebug = ItemBookDebug()
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
@@ -44,11 +47,27 @@ object RagiInit {
     fun loadPreInit() {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
-            BlockForgeFurnace, BlockLitForgeFurnace, BlockOreDictConv
+            BlockBlazeHeater,
+            BlockForgeFurnace,
+            BlockLitForgeFurnace,
+            BlockOreDictConv
         )
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
-            ItemBlockForgeFurnace, ItemBlockMetal, ItemBlockOreDictConv, ItemBookDebug, ItemDust, ItemForgeHammer, ItemIngot, ItemIngotHot, ItemNugget, ItemPlate, ItemToolBellow
+            ItemBlockBlazeHeater,
+            ItemBlockForgeFurnace,
+            ItemBlockMetal,
+            ItemBlockOreDictConv,
+
+            ItemBlazingCube,
+            ItemBookDebug,
+            ItemDust,
+            ItemForgeHammer,
+            ItemIngot,
+            ItemIngotHot,
+            ItemNugget,
+            ItemPlate,
+            ItemToolBellow
         )
         //Eventの登録
         registerEvents()
@@ -62,7 +81,6 @@ object RagiInit {
         RagiColor.setColor(
             RagiColor.ColorMaterial(), ItemBlockMetal, ItemDust, ItemIngot, ItemNugget, ItemPlate
         )
-        RagiColor.setColor(RagiColor.ColorHot(), ItemIngotHot)
         RagiColor.setColor(RagiColor.ColorNBT(), ItemForgeHammer)
         //鉱石辞書の登録
         RagiInitOreDict.registerOreDict()

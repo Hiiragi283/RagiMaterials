@@ -10,11 +10,22 @@ class ModelRegistry {
     @SubscribeEvent
     fun modelRegistry(event: ModelRegistryEvent) {
         RagiModel.setModel(
-            RagiInit.ItemBlockForgeFurnace, RagiInit.ItemBlockOreDictConv, RagiInit.ItemBookDebug, RagiInit.ItemForgeHammer, RagiInit.ItemToolBellow
+            RagiInit.ItemBlockBlazeHeater,
+            RagiInit.ItemBlockForgeFurnace,
+            RagiInit.ItemBlockOreDictConv,
+
+            RagiInit.ItemBlazingCube,
+            RagiInit.ItemBookDebug,
+            RagiInit.ItemForgeHammer,
+            RagiInit.ItemToolBellow
         )
         RagiModel.setModelSame(RagiInit.ItemIngotHot)
         RagiModel.setModelMaterial(
-            RagiInit.ItemBlockMetal, RagiInit.ItemDust, RagiInit.ItemIngot, RagiInit.ItemNugget, RagiInit.ItemPlate
+            RagiInit.ItemBlockMetal,
+            RagiInit.ItemDust,
+            RagiInit.ItemIngot,
+            RagiInit.ItemNugget,
+            RagiInit.ItemPlate
         )
     }
 }

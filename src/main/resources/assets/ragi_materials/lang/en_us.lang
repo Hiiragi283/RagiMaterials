@@ -1,5 +1,7 @@
 
 # Block
+tile.blaze_heater.0.name=Blaze Heater
+tile.blaze_heater.1.name=Hellrise Heater
 tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.forge_furnace.name=Forge Furnace
 tile.oredict_converter.name=Ore Dictionary Converter
@@ -50,7 +52,7 @@ fluid.argon=Argon
 fluid.potassium=Molten Potassium
 fluid.calcium=Molten Calcium
 fluid.titanium=Molten Titanium
-fluid.chromium=Molten Chromium
+fluid.chrome=Molten Chromium
 fluid.manganese=Molten Manganese
 fluid.iron=Molten Iron
 fluid.cobalt=Molten Cobalt
@@ -97,6 +99,7 @@ fluid.hiiragi_tsubasa=DEBUG
 # Item
 
 item.bellow.name=Bellow
+item.blazing_cube.name=Blazing Cube
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
@@ -131,7 +134,7 @@ material.argon=Argon
 material.potassium=Potassium
 material.calcium=Calcium
 material.titanium=Titanium
-material.chromium=Chromium
+material.chrome=Chromium
 material.manganese=Manganese
 material.iron=Iron
 material.cobalt=Cobalt
@@ -181,13 +184,17 @@ material.hiiragi_tsubasa=DEBUG
 gui.ragi_materials.forge_furnace=Forge Furnace
 
 # Text
+text.ragi_materials.blaze_heater.0=Used for heating metal ingot
+text.ragi_materials.blaze_heater.1=Not consume fuels
+text.ragi_materials.blaze_heater.2=Right-click with §b§lBellow§r§7 to §c§lboost§r§7 fire
+text.ragi_materials.blaze_heater.3=Some metals require §4§lHellrise§r§7 Heater
 text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- Durability: §b%s§r
 text.ragi_materials.forge_furnace.0=Used for heating metal ingot
 text.ragi_materials.forge_furnace.1=Right-click with §bCoal§r§7 / §bCharcoal§r§7 to add fuel
 text.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §c§oboost§r§7 fire
-text.ragi_materials.forge_furnace.3=Some metals require to be §c§oboost§r§7ed
+text.ragi_materials.forge_furnace.3=Some metals require §c§oBoost§r§7ed Forge Furnace
 text.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
 text.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
 text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C

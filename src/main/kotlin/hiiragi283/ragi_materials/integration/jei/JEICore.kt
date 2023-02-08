@@ -29,6 +29,8 @@ class JEICore : IModPlugin {
         RagiLogger.info("The integration for JEI/HEI has loaded!")
         //catalystの登録
         registry.addRecipeCatalyst(ItemStack(RagiInit.ItemBlockForgeFurnace), "ragi_materials.forge_furnace")
+        registry.addRecipeCatalyst(ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 0), "ragi_materials.forge_furnace")
+        registry.addRecipeCatalyst(ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 1), "ragi_materials.forge_furnace")
     }
 
     @Deprecated("Deprecated in Java")

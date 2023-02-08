@@ -135,26 +135,33 @@ object ForgeFurnaceHelper {
                 //燃料が入っているならtrue
                 fuel > 0
             }
-            is BlockLitForgeFurnace -> return true
+            is BlockLitForgeFurnace -> true
+            is BlockBlazeHeater -> true
             else -> false
         }
     }
 
     //レシピ実行後にblockstateを上書きするメソッド
     private fun setState(world: World, pos: BlockPos, state: IBlockState) {
-        if (state.block is BlockForgeFurnace) {
-            //stateから状態を取得
-            val facing = state.getValue(BlockForgeFurnace.propertyFacing)
-            val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
-            val result = state.withProperty(BlockForgeFurnace.propertyFacing, facing)
-                .withProperty(BlockForgeFurnace.propertyFuel, fuel - 1)
-            world.setBlockState(pos, result, 2)
-        } else if (state.block is BlockLitForgeFurnace) {
-            val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
-            val facing = state.getValue(BlockLitForgeFurnace.propertyFacing)
-            val result = forgeFurnace.withProperty(BlockForgeFurnace.propertyFacing, facing)
-                .withProperty(BlockForgeFurnace.propertyFuel, 2)
-            world.setBlockState(pos, result, 2)
+        when (state.block) {
+            is BlockForgeFurnace -> {
+                //stateから状態を取得
+                val facing = state.getValue(BlockForgeFurnace.propertyFacing)
+                val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
+                val result = state.withProperty(BlockForgeFurnace.propertyFacing, facing)
+                    .withProperty(BlockForgeFurnace.propertyFuel, fuel - 1)
+                world.setBlockState(pos, result, 2)
+            }
+
+            is BlockLitForgeFurnace -> {
+                val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
+                val facing = state.getValue(BlockForgeFurnace.propertyFacing)
+                val result = forgeFurnace.withProperty(BlockForgeFurnace.propertyFacing, facing)
+                    .withProperty(BlockForgeFurnace.propertyFuel, 2)
+                world.setBlockState(pos, result, 2)
+            }
+
+            is BlockBlazeHeater -> {}
         }
     }
 }
