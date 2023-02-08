@@ -30,7 +30,7 @@ object RagiInitRecipe {
             "blockCoal"
         )
         RagiRecipe.addShaped(
-            RagiUtils.getStack("${Reference.MOD_ID}:blazing_heater", 1, 0),
+            RagiUtils.getStack("${Reference.MOD_ID}:blaze_heater", 1, 0),
             "A A",
             "ABA",
             "CCC",

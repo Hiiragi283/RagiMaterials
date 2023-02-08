@@ -119,9 +119,6 @@ object ForgeFurnaceHelper {
                 drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
                 if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
             }
         }
         return stack
@@ -151,6 +148,9 @@ object ForgeFurnaceHelper {
                 val result = state.withProperty(BlockForgeFurnace.propertyFacing, facing)
                     .withProperty(BlockForgeFurnace.propertyFuel, fuel - 1)
                 world.setBlockState(pos, result, 2)
+                world.playSound(
+                    null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                ) //SEを再生
             }
 
             is BlockLitForgeFurnace -> {
@@ -159,9 +159,22 @@ object ForgeFurnaceHelper {
                 val result = forgeFurnace.withProperty(BlockForgeFurnace.propertyFacing, facing)
                     .withProperty(BlockForgeFurnace.propertyFuel, 2)
                 world.setBlockState(pos, result, 2)
+                world.playSound(
+                    null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                ) //SEを再生
             }
 
-            is BlockBlazeHeater -> {}
+            is BlockBlazeHeater -> {
+                if (state.getValue(BlockBlazeHeater.propertyHell)) {
+                    world.playSound(
+                        null, pos, RagiUtils.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f
+                    ) //SEを再生
+                } else {
+                    world.playSound(
+                        null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                    ) //SEを再生
+                }
+            }
         }
     }
 }

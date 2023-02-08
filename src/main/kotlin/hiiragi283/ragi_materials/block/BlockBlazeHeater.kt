@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
@@ -16,6 +17,7 @@ import net.minecraft.item.Item
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
@@ -86,8 +88,12 @@ class BlockBlazeHeater : Block(Material.ROCK) {
         val stack = placer.getHeldItem(hand)
         var isHellrise = false
         if (stack.metadata == 1) isHellrise = true
-        return this.defaultState.withProperty(propertyFacing, placer.horizontalFacing.opposite)
-            .withProperty(propertyHell, isHellrise)
+        if (isHellrise) {
+            world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.endermen.stare"), SoundCategory.BLOCKS, 1.0f, 2.0f)
+        } else {
+            world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.blaze.ambient"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+        }
+            return this.defaultState.withProperty(propertyFacing, placer.horizontalFacing.opposite).withProperty(propertyHell, isHellrise)
     }
 
     //ブロックを右クリックした時に呼ばれるメソッド
