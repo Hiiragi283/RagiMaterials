@@ -2,12 +2,10 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.util.RagiUtils
-import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
-import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
@@ -23,11 +21,10 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-class BlockBlazeHeater : Block(Material.ROCK) {
+class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
 
     //private変数の宣言
     companion object {
-        val propertyFacing: PropertyDirection = BlockHorizontal.FACING
         val propertyHell: PropertyBool = PropertyBool.create("hellrise")
     }
 
@@ -36,7 +33,7 @@ class BlockBlazeHeater : Block(Material.ROCK) {
     //コンストラクタの初期化
     init {
         defaultState =
-            blockState.baseState.withProperty(propertyFacing, EnumFacing.NORTH).withProperty(propertyHell, false)
+            blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(propertyHell, false)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
@@ -47,12 +44,12 @@ class BlockBlazeHeater : Block(Material.ROCK) {
 
     //Blockstateの登録をするメソッド
     override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, propertyFacing, propertyHell)
+        return BlockStateContainer(this, FACING, propertyHell)
     }
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        return when (state.getValue(propertyFacing)) {
+        return when (state.getValue(FACING)) {
             EnumFacing.NORTH -> if (!state.getValue(propertyHell)) 0 else 4
             EnumFacing.SOUTH -> if (!state.getValue(propertyHell)) 1 else 5
             EnumFacing.WEST -> if (!state.getValue(propertyHell)) 2 else 6
@@ -66,7 +63,7 @@ class BlockBlazeHeater : Block(Material.ROCK) {
     override fun getStateFromMeta(meta: Int): IBlockState {
         val facing = EnumFacing.getFront((meta / 4) + 2)
         val hell = meta % 4
-        return blockState.baseState.withProperty(propertyFacing, facing).withProperty(
+        return blockState.baseState.withProperty(FACING, facing).withProperty(
             propertyHell, hell == 1
         )
     }
@@ -91,7 +88,7 @@ class BlockBlazeHeater : Block(Material.ROCK) {
         } else {
             world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.blaze.ambient"), SoundCategory.BLOCKS, 1.0f, 1.0f)
         }
-            return this.defaultState.withProperty(propertyFacing, placer.horizontalFacing.opposite).withProperty(propertyHell, isHellrise)
+            return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(propertyHell, isHellrise)
     }
 
     //ブロックを右クリックした時に呼ばれるメソッド

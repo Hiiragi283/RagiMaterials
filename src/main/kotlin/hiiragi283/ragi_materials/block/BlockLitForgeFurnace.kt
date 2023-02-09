@@ -2,11 +2,9 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
-import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
@@ -18,18 +16,14 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import java.util.*
 
-class BlockLitForgeFurnace : Block(Material.ROCK) {
+class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
 
     //private変数の宣言
-    companion object {
-        val propertyFacing: PropertyDirection = BlockHorizontal.FACING
-    }
-
     private val registryName = "lit_forge_furnace"
 
     //コンストラクタの初期化
     init {
-        defaultState = blockState.baseState.withProperty(propertyFacing, EnumFacing.NORTH)
+        defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
@@ -40,19 +34,19 @@ class BlockLitForgeFurnace : Block(Material.ROCK) {
 
     //Blockstateの登録をするメソッド
     override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, propertyFacing)
+        return BlockStateContainer(this, FACING)
     }
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        return state.getValue(propertyFacing).index - 2
+        return state.getValue(FACING).index - 2
     }
 
     //メタデータからBlockstateを得るメソッド
     @Deprecated("Deprecated in Java")
     override fun getStateFromMeta(meta: Int): IBlockState {
         val facing = EnumFacing.getFront((meta / 4) + 2)
-        return blockState.baseState.withProperty(BlockForgeFurnace.propertyFacing, facing)
+        return blockState.baseState.withProperty(FACING, facing)
     }
 
     //ブロックが設置されたときに呼び出されるメソッド

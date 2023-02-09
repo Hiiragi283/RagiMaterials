@@ -2,11 +2,9 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
-import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
@@ -20,11 +18,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import java.util.*
 
-class BlockForgeFurnace : Block(Material.ROCK) {
+class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
 
     //private変数の宣言
     companion object {
-        val propertyFacing: PropertyDirection = BlockHorizontal.FACING
         val propertyFuel: PropertyInteger = PropertyInteger.create("fuel", 0, 3)
     }
 
@@ -32,7 +29,7 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
     //コンストラクタの初期化
     init {
-        defaultState = blockState.baseState.withProperty(propertyFacing, EnumFacing.NORTH).withProperty(propertyFuel, 0)
+        defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(propertyFuel, 0)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
@@ -43,12 +40,12 @@ class BlockForgeFurnace : Block(Material.ROCK) {
 
     //Blockstateの登録をするメソッド
     override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, propertyFacing, propertyFuel)
+        return BlockStateContainer(this, FACING, propertyFuel)
     }
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        val stateMeta = when (state.getValue(propertyFacing)) {
+        val stateMeta = when (state.getValue(FACING)) {
             EnumFacing.NORTH -> when (state.getValue(propertyFuel)) {
                 1 -> 1
                 2 -> 2
@@ -87,7 +84,7 @@ class BlockForgeFurnace : Block(Material.ROCK) {
     override fun getStateFromMeta(meta: Int): IBlockState {
         val facing = EnumFacing.getFront((meta / 4) + 2)
         val fuel = meta % 4
-        return blockState.baseState.withProperty(propertyFacing, facing).withProperty(propertyFuel, fuel)
+        return blockState.baseState.withProperty(FACING, facing).withProperty(propertyFuel, fuel)
     }
 
     //ブロックが設置されたときに呼び出されるメソッド

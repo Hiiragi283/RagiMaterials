@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.init.Items
@@ -62,11 +63,11 @@ object ForgeFurnaceHelper {
     //燃料を投入するメソッド
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //stateから状態を取得
-        val facing = state.getValue(BlockForgeFurnace.propertyFacing)
+        val facing = state.getValue(BlockHorizontal.FACING)
         val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
         //ブロックに蓄えられた燃料が3未満の場合
         if (fuel < 3) {
-            val result = state.withProperty(BlockForgeFurnace.propertyFacing, facing)
+            val result = state.withProperty(BlockHorizontal.FACING, facing)
                 .withProperty(BlockForgeFurnace.propertyFuel, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.playSound(
@@ -82,8 +83,8 @@ object ForgeFurnaceHelper {
         //燃料が満タンの場合
         if (state.getValue(BlockForgeFurnace.propertyFuel) == 3) {
             val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
-            val facing = litForgeFurnace.getValue(BlockLitForgeFurnace.propertyFacing)
-            world.setBlockState(pos, litForgeFurnace.withProperty(BlockLitForgeFurnace.propertyFacing, facing), 2) //火力UP
+            val facing = litForgeFurnace.getValue(BlockHorizontal.FACING)
+            world.setBlockState(pos, litForgeFurnace.withProperty(BlockHorizontal.FACING, facing), 2) //火力UP
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
@@ -143,9 +144,9 @@ object ForgeFurnaceHelper {
         when (state.block) {
             is BlockForgeFurnace -> {
                 //stateから状態を取得
-                val facing = state.getValue(BlockForgeFurnace.propertyFacing)
+                val facing = state.getValue(BlockHorizontal.FACING)
                 val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
-                val result = state.withProperty(BlockForgeFurnace.propertyFacing, facing)
+                val result = state.withProperty(BlockHorizontal.FACING, facing)
                     .withProperty(BlockForgeFurnace.propertyFuel, fuel - 1)
                 world.setBlockState(pos, result, 2)
                 world.playSound(
@@ -155,8 +156,8 @@ object ForgeFurnaceHelper {
 
             is BlockLitForgeFurnace -> {
                 val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
-                val facing = state.getValue(BlockForgeFurnace.propertyFacing)
-                val result = forgeFurnace.withProperty(BlockForgeFurnace.propertyFacing, facing)
+                val facing = state.getValue(BlockHorizontal.FACING)
+                val result = forgeFurnace.withProperty(BlockHorizontal.FACING, facing)
                     .withProperty(BlockForgeFurnace.propertyFuel, 2)
                 world.setBlockState(pos, result, 2)
                 world.playSound(
