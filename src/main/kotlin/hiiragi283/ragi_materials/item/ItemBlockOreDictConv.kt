@@ -11,6 +11,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemBlockOreDictConv: ItemBlockBase(RagiInit.BlockOreDictConv, 0) {
 
+    init {
+        creativeTab = RagiInit.TabBlocks
+    }
+
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         tooltip.add("§e=== Info ===")

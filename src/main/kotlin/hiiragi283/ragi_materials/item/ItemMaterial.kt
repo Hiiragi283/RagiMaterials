@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.MaterialUtils
@@ -15,6 +16,10 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemMaterial(private val ID: String, private vararg val type: MaterialType) : ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
+
+    init {
+        creativeTab = RagiInit.TabMaterials
+    }
 
     //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
     @SideOnly(Side.CLIENT) //Client側のみ

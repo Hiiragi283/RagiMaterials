@@ -11,6 +11,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemBlockBlazeHeater: ItemBlockBase(RagiInit.BlockBlazeHeater, 1) {
 
+    init {
+        creativeTab = RagiInit.TabBlocks
+    }
+
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         val path = stack.item.registryName.toString().split(":")[1]

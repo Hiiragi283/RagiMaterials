@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
@@ -31,7 +30,6 @@ class BlockLitForgeFurnace : Block(Material.ROCK) {
     //コンストラクタの初期化
     init {
         defaultState = blockState.baseState.withProperty(propertyFacing, EnumFacing.NORTH)
-        setCreativeTab(CreativeTabs.DECORATIONS)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)

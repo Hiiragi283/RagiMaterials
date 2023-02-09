@@ -11,6 +11,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemBlockForgeFurnace: ItemBlockBase(RagiInit.BlockForgeFurnace, 0) {
 
+    init {
+        creativeTab = RagiInit.TabBlocks
+    }
+
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         val path = stack.item.registryName.toString().split(":")[1]

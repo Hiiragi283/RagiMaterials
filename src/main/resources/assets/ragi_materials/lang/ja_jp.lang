@@ -182,6 +182,8 @@ material.hiiragi_tsubasa=らぎマテリアル
 
 # GUI
 gui.ragi_materials.forge_furnace=鍛造炉
+itemGroup.ragi_materials.blocks=らぎマテリアルズ - ブロック
+itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材
 
 # Text
 text.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します

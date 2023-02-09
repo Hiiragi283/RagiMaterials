@@ -10,7 +10,6 @@ import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
@@ -34,7 +33,6 @@ class BlockForgeFurnace : Block(Material.ROCK) {
     //コンストラクタの初期化
     init {
         defaultState = blockState.baseState.withProperty(propertyFacing, EnumFacing.NORTH).withProperty(propertyFuel, 0)
-        setCreativeTab(CreativeTabs.DECORATIONS)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)

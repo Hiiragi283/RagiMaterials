@@ -10,7 +10,6 @@ import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
@@ -38,7 +37,6 @@ class BlockBlazeHeater : Block(Material.ROCK) {
     init {
         defaultState =
             blockState.baseState.withProperty(propertyFacing, EnumFacing.NORTH).withProperty(propertyHell, false)
-        setCreativeTab(CreativeTabs.DECORATIONS)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)

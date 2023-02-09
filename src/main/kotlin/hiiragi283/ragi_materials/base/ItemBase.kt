@@ -18,7 +18,6 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     init {
         this.maxMeta = maxMeta //メタデータの最大値の初期化
         setRegistryName(MOD, ID)
-        creativeTab = CreativeTabs.MISC //表示するクリエイティブタブの設定
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
 

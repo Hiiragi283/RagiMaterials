@@ -20,6 +20,10 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 object RagiInit {
 
+    //Creative Tabの定義
+    val TabBlocks = RagiCreativeTabs.Blocks()
+    val TabMaterials = RagiCreativeTabs.Materials()
+
     //Blockの定義
     val BlockBlazeHeater = BlockBlazeHeater()
     val BlockForgeFurnace = BlockForgeFurnace()
@@ -32,8 +36,8 @@ object RagiInit {
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
     val ItemBlockOreDictConv = ItemBlockOreDictConv()
 
-    val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0)
-    val ItemBookDebug = ItemBookDebug()
+    val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
+    val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
