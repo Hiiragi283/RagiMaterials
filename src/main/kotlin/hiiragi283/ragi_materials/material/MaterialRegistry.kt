@@ -236,7 +236,7 @@ object MaterialRegistry {
         .setTempMelt(327).setTempBoil(1749)
 
     val BISMUTH = MaterialBuilder(83, "bismuth", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(RagiColor.BLUE, RagiColor.WHITE)).setMolarMass(209.0f).setFormula("Bi")
+        .setColor(RagiColor.DARK_AQUA).setMolarMass(209.0f).setFormula("Bi")
         .setTempMelt(271).setTempBoil(1564)
 
     //7th Period
@@ -273,22 +273,30 @@ object MaterialRegistry {
 
     //200~299: Alloy
     val TITANIUM_ALLOY = AlloyBuilder(200, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
+        .setColor(TITANIUM.getColor())
     val ADVANCED_ALLOY = AlloyBuilder(201, "advanced_alloy", mapOf(IRON to 3, COPPER to 3, TIN to 3))
     val INVAR = AlloyBuilder(202, "invar", mapOf(IRON to 2, NICKEL to 1))
     val KANTHAL = AlloyBuilder(203, "kanthal", mapOf(IRON to 6, CHROMIUM to 2, ALUMINIUM to 1))
-    val MAGNET = AlloyBuilder(204, "magnet", mapOf(IRON to 7, "(SrSo\u2084)" to 1, "(CaCO\u2083)" to 1)).setColor(CARBON.getColor())
+    val MAGNET = AlloyBuilder(204, "magnet", mapOf(IRON to 7, "(SrSO\u2084)" to 1, "(CaCO\u2083)" to 1))
+        .setColor(CARBON.getColor())
     val MANGALLOY = AlloyBuilder(205, "mangalloy", mapOf(IRON to 6, MANGANESE to 2, CARBON to 1))
+        .setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.WHITE))
     val STAINLESS_STEEL = AlloyBuilder(206, "stainless_steel", mapOf(IRON to 6, CHROMIUM to 2, NICKEL to 1))
+        .setColor(RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE))
     val STEEL = AlloyBuilder(207, "steel", mapOf(IRON to 1, CARBON to 1))
     val TOOL_STEEL = AlloyBuilder(208, "tool_steel", mapOf(IRON to 6, CHROMIUM to 1, MANGANESE to 1, MOLYBDENUM to 1))
     val CONSTANTAN = AlloyBuilder(209, "constantan", mapOf(NICKEL to 1, COPPER to 1))
     val NICHROME = AlloyBuilder(210, "nichrome", mapOf(NICKEL to 4, CHROMIUM to 1))
-    val BRASS = AlloyBuilder(211, "brass", mapOf(COPPER to 3, ZINC to 1)).setColor(RagiColor.GOLD)
+    val BRASS = AlloyBuilder(211, "brass", mapOf(COPPER to 3, ZINC to 1))
+        .setColor(RagiColor.GOLD)
     val BRONZE = AlloyBuilder(212, "bronze", mapOf(COPPER to 3, TIN to 1))
-    val NICKELSILVER = AlloyBuilder(213, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1)).setColor(SILVER.getColor())
-    val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1)).setColor(GOLD.getColor())
+    val NICKELSILVER = AlloyBuilder(213, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1))
+        .setColor(SILVER.getColor())
+    val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1))
+        .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
     val TUNGSTEN_STEEL = AlloyBuilder(215, "tungsten_steel", mapOf(TUNGSTEN to 1, "(" to 1, STEEL to 1, ")" to 1))
     val IRIDIUM_ALLOY = AlloyBuilder(216, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
+        .setColor(RagiColor.WHITE)
 
     //listの定義
         val list = mutableListOf(
