@@ -7,6 +7,7 @@ import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
@@ -70,6 +71,16 @@ object RagiUtils {
     //config用
     fun getStack(id: String): ItemStack {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
+    }
+
+    //液体入りバケツを返すメソッド
+    fun getFilledBucket(fluid: String): ItemStack {
+        val bucket = getStack("forge:bucketfilled", 1, 0)
+        val tag = NBTTagCompound()
+        tag.setString("FluidName", fluid)
+        tag.setInteger("Amount", 1000)
+        bucket.tagCompound = tag
+        return bucket
     }
 
     //ResourceLocationなどからIBlockStateを取得するメソッド

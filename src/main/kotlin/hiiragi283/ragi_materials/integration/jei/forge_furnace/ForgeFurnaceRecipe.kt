@@ -4,10 +4,9 @@ import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 
 //JEiに登録するためのレシピを生成するクラス
-class ForgeFurnaceRecipe(input: String, map: MutableMap<String, String>, type: EnumFire) {
+class ForgeFurnaceRecipe(stringIn: String, map: MutableMap<String, String>, type: EnumFire) {
 
     //private変数の宣言
-    private val stringIn = input
     val stackIn: ItemStack = RagiUtils.getStack(stringIn)
     private val stringOut: String
     val stackOut: ItemStack

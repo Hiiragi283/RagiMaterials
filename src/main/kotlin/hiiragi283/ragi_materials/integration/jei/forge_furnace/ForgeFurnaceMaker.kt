@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
 import com.google.common.collect.Lists
 import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
+import hiiragi283.ragi_materials.integration.jei.JEICore
 
 import mezz.jei.api.IModRegistry
 
@@ -29,6 +30,6 @@ object ForgeFurnaceMaker {
             }
         }
         //リストをレシピ一覧に登録
-        registry.addRecipes(list, "ragi_materials.forge_furnace")
+        registry.addRecipes(list, JEICore.ForgeFurnace)
     }
 }

@@ -74,6 +74,15 @@ object RagiInitRecipe {
             'C',
             "chest"
         )
+        RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:salt_pond", 1, 0),
+            "ABA",
+            "AAA",
+            'A',
+            "slabWood",
+            'B',
+            "sand"
+        )
     }
 
     private fun addCraftingMaterial() {

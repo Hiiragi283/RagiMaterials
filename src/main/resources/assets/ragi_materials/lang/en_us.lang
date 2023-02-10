@@ -183,6 +183,7 @@ material.hiiragi_tsubasa=DEBUG
 
 # GUI
 gui.ragi_materials.forge_furnace=Forge Furnace
+gui.ragi_materials.Salt_pond=Salt Evaporation Pond
 itemGroup.ragi_materials.blocks=RagiMaterials - Blocks
 itemGroup.ragi_materials.materials=RagiMaterials - Materials
 

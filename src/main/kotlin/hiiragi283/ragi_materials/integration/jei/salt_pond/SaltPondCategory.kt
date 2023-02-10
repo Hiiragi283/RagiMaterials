@@ -1,8 +1,7 @@
-package hiiragi283.ragi_materials.integration.jei.forge_furnace
+package hiiragi283.ragi_materials.integration.jei.salt_pond
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.integration.jei.JEICore
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
@@ -14,7 +13,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 
-class ForgeFurnaceCategory(guiHelper: IGuiHelper) : IRecipeCategory<ForgeFurnaceWrapper> {
+class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper> {
 
     private val background: IDrawableStatic
 
@@ -26,7 +25,7 @@ class ForgeFurnaceCategory(guiHelper: IGuiHelper) : IRecipeCategory<ForgeFurnace
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String {
-        return JEICore.ForgeFurnace
+        return "ragi_materials.salt_pond"
     }
 
     //JEiタブの名前を取得するメソッド
@@ -48,20 +47,16 @@ class ForgeFurnaceCategory(guiHelper: IGuiHelper) : IRecipeCategory<ForgeFurnace
     }
 
     //JEiタブにレシピを設定するメソッド
-    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: ForgeFurnaceWrapper, ingredients: IIngredients) {
+    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: SaltPondWrapper, ingredients: IIngredients) {
         //変化前と変化後のアイテムをwrapperから取得
         val input: ItemStack = recipeWrapper.stackIn
         val output: ItemStack = recipeWrapper.stackOut
         //inputのスロットを登録
         recipeLayout.itemStacks.init(0, true, 0, 0)
         recipeLayout.itemStacks[0] = input
-        //Forge Furnaceのスロットを登録
+        //Salt Pondのスロットを登録
         recipeLayout.itemStacks.init(1, false, 36, 0)
-        when (recipeWrapper.recipeType) {
-            ForgeFurnaceRecipe.EnumFire.BURNING -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockForgeFurnace)
-            ForgeFurnaceRecipe.EnumFire.BOOSTED -> recipeLayout.itemStacks[1] = listOf(ItemStack(RagiInit.BlockForgeFurnace), ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 0))
-            ForgeFurnaceRecipe.EnumFire.HELLRISE -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 1)
-        }
+        recipeLayout.itemStacks[1] = ItemStack(RagiInit.ItemBlockSaltPond)
         //outputのスロットを登録
         recipeLayout.itemStacks.init(2, false, 72, 0)
         recipeLayout.itemStacks[2] = output
