@@ -10,7 +10,6 @@ class RagiCreativeTabs {
         override fun getTabIconItem(): ItemStack {
             return ItemStack(RagiInit.ItemIngot, 1, 26)
         }
-
     }
 
     class Blocks : CreativeTabs("ragi_materials.blocks") {
@@ -18,7 +17,5 @@ class RagiCreativeTabs {
         override fun getTabIconItem(): ItemStack {
             return ItemStack(RagiInit.ItemBlockForgeFurnace)
         }
-
     }
-
 }

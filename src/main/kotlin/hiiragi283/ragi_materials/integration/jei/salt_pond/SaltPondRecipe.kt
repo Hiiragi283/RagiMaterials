@@ -13,5 +13,4 @@ class SaltPondRecipe(val stringIn: String) {
         "brine" -> ItemStack(RagiInit.ItemDust, 1, 3)
         else -> ItemStack.EMPTY
     }
-
 }

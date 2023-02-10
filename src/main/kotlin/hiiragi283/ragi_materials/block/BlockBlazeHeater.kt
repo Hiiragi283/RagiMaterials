@@ -151,5 +151,4 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
         //常にドロップさせるので1を返す
         return 1
     }
-
 }

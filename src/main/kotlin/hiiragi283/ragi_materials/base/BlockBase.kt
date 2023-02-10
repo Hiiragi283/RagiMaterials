@@ -28,6 +28,19 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, val maxMeta:
         return BlockStateContainer(this, property16)
     }
 
+    //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
+    override fun damageDropped(state: IBlockState): Int {
+        //stateから得られたmetadataが0以上maxMeta以下の場合，そのまま返す
+        //そうでない場合はmaxMetaを返す
+        return if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
+    }
+
+    //ドロップするアイテムを得るメソッド
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
+        //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
+        return Item.getItemFromBlock(state.block)
+    }
+
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
         //stateから得られたmetadataが0以上maxMeta以下の場合，そのまま返す
@@ -45,23 +58,9 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, val maxMeta:
         return defaultState.withProperty(property16, metadata)
     }
 
-    //Blockstateをもとにドロップするアイテムのメタデータを指定するメソッド
-    override fun damageDropped(state: IBlockState): Int {
-        //stateから得られたmetadataが0以上maxMeta以下の場合，そのまま返す
-        //そうでない場合はmaxMetaを返す
-        return if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
-    }
-
-    //ドロップするアイテムを得るメソッド
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
-        //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
-        return Item.getItemFromBlock(state.block)
-    }
-
     //ドロップする確率を得るメソッド
     override fun quantityDropped(random: Random): Int {
         //常にドロップさせるので1を返す
         return 1
     }
-
 }

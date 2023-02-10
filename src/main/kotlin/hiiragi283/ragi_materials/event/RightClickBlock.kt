@@ -9,7 +9,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class RightClickBlock {
-    //ブロックを右クリックすると呼ばれるevent
     @SubscribeEvent
     fun onRightClickBlock(event: PlayerInteractEvent.RightClickBlock) {
         //サーバー側&&デバッグ状態のみで実行

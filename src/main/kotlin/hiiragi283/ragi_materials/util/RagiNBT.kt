@@ -1,7 +1,5 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.material.MaterialBuilder
-import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 
@@ -28,7 +26,7 @@ object RagiNBT {
     }
 
     //道具用のNBTタグを生成するメソッド
-    fun getTagTool(material: MaterialBuilder): NBTTagCompound {
+    /*fun getTagTool(material: MaterialBuilder): NBTTagCompound {
         val tag = NBTTagCompound()
         tag.setString("material", material.name)
         //materialがmapToolMaterialに含まれている場合
@@ -42,5 +40,5 @@ object RagiNBT {
             tag.setInteger("durability", MaterialRegistry.mapToolMaterial[MaterialRegistry.WILDCARD]!!)
         }
         return tag
-    }
+    }*/
 }

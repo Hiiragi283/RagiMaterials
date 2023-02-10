@@ -18,7 +18,7 @@ class ItemTooltip {
                 val tag = stack.tagCompound
                 val tooltip = event.toolTip
                 //tagがullでない場合
-                if (tag !== null && tag.getString("FluidName") !== null) {
+                if ((tag !== null) && tag.hasKey("FluidName")) {
                     //tagから液体名を取得
                     val nameFluid = tag.getString("FluidName")
                     //nameFluidからEnumMaterialsを取得

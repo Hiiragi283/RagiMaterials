@@ -15,10 +15,20 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterial(private val ID: String, private vararg val type: MaterialType) : ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
+class ItemMaterial(private val ID: String, private vararg val type: MaterialType) :
+    ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
 
     init {
         creativeTab = RagiInit.TabMaterials
+    }
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        //EnumMaterialsの取得
+        val material = MaterialRegistry.getMaterial(stack.metadata)
+        //tooltipの追加
+        MaterialUtils.materialInfo(material, tooltip)
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
@@ -38,13 +48,6 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
         }
     }
 
-    //エンチャント効果を乗せるかどうかを決めるメソッド
-    @SideOnly(Side.CLIENT)
-    override fun hasEffect(stack: ItemStack): Boolean {
-        //放射性物質のindexとメタデータが一致するならtrue
-        return listOf(90, 92, 94, 97, 98).contains(stack.metadata)
-    }
-
     //stackの表示名を上書きするメソッド
     override fun getItemStackDisplayName(stack: ItemStack): String {
         //EnumMaterialの取得
@@ -52,12 +55,10 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
         return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
     }
 
+    //エンチャント効果を乗せるかどうかを決めるメソッド
     @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        //EnumMaterialsの取得
-        val material = MaterialRegistry.getMaterial(stack.metadata)
-        //tooltipの追加
-        MaterialUtils.materialInfo(material, tooltip)
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
+    override fun hasEffect(stack: ItemStack): Boolean {
+        //放射性物質のindexとメタデータが一致するならtrue
+        return listOf(90, 92, 94, 97, 98).contains(stack.metadata)
     }
 }
