@@ -75,11 +75,11 @@ object RagiModel {
         for (item in items) {
             //変数の宣言
             val location = ModelResourceLocation(item.registryName.toString(), "inventory")
-            val locationPrecious = ModelResourceLocation("${item.registryName.toString()}_precious", "inventory")
-            ModelBakery.registerItemVariants(item, location, locationPrecious) //modelの登録
+            //val locationPrecious = ModelResourceLocation("${item.registryName.toString()}_precious", "inventory")
+            ModelBakery.registerItemVariants(item, location/*, locationPrecious*/) //modelの登録
             ModelLoader.setCustomMeshDefinition(item) { stack ->
                 if (listOf(44, 45, 46, 76, 77, 78).contains(stack.metadata)) {
-                    locationPrecious
+                    location
                 } else location
             }
         }

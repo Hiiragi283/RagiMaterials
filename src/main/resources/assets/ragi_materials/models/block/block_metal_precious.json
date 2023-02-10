@@ -1,8 +1,0 @@
-{
-  "credit": "Tweaked by Hiiragi Russell Tsubasa",
-  "parent": "ragi_materials:block/all_tintindex",
-  "textures": {
-    "all": "blocks/iron_block",
-    "particle": "blocks/iron_block"
-  }
-}
