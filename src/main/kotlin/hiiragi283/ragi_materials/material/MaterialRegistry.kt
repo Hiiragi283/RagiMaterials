@@ -106,7 +106,7 @@ object MaterialRegistry {
         .setTempMelt(1907).setTempBoil(2671)
 
     val MANGANESE = MaterialBuilder(25, "manganese", MaterialType.METAL)
-        .setColor(RagiColor.GRAY).setMolarMass(54.9f).setFormula("Mn")
+        .setColor(RagiColor.mixColor(RagiColor.RED, RagiColor.WHITE)).setMolarMass(54.9f).setFormula("Mn")
         .setTempMelt(1246).setTempBoil(2061)
 
     val IRON = MaterialBuilder(26, "iron", MaterialType.METAL)
@@ -269,19 +269,28 @@ object MaterialRegistry {
         .setColor(PLUTONIUM_239.getColor()).setMolarMass(241.0f).setFormula("Pu-241")
         .setTempMelt(PLUTONIUM_239.getTempMelt()).setTempBoil(PLUTONIUM_239.getTempBoil())
 
-    //100~124: Atomic Group
+    //100~199: Atomic Group
 
-    //125~199: Alloy
+    //200~299: Alloy
+    val TITANIUM_ALLOY = AlloyBuilder(200, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
+    val ADVANCED_ALLOY = AlloyBuilder(201, "advanced_alloy", mapOf(IRON to 3, COPPER to 3, TIN to 3))
+    val INVAR = AlloyBuilder(202, "invar", mapOf(IRON to 2, NICKEL to 1))
+    val KANTHAL = AlloyBuilder(203, "kanthal", mapOf(IRON to 6, CHROMIUM to 2, ALUMINIUM to 1))
+    val MAGNET = AlloyBuilder(204, "magnet", mapOf(IRON to 7, "(SrSo\u2084)" to 1, "(CaCO\u2083)" to 1)).setColor(CARBON.getColor())
+    val MANGALLOY = AlloyBuilder(205, "mangalloy", mapOf(IRON to 6, MANGANESE to 2, CARBON to 1))
+    val STAINLESS_STEEL = AlloyBuilder(206, "stainless_steel", mapOf(IRON to 6, CHROMIUM to 2, NICKEL to 1))
+    val STEEL = AlloyBuilder(207, "steel", mapOf(IRON to 1, CARBON to 1))
+    val TOOL_STEEL = AlloyBuilder(208, "tool_steel", mapOf(IRON to 6, CHROMIUM to 1, MANGANESE to 1, MOLYBDENUM to 1))
+    val CONSTANTAN = AlloyBuilder(209, "constantan", mapOf(NICKEL to 1, COPPER to 1))
+    val NICHROME = AlloyBuilder(210, "nichrome", mapOf(NICKEL to 4, CHROMIUM to 1))
+    val BRASS = AlloyBuilder(211, "brass", mapOf(COPPER to 3, ZINC to 1)).setColor(RagiColor.GOLD)
+    val BRONZE = AlloyBuilder(212, "bronze", mapOf(COPPER to 3, TIN to 1))
+    val NICKELSILVER = AlloyBuilder(213, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1)).setColor(SILVER.getColor())
+    val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1)).setColor(GOLD.getColor())
+    val TUNGSTEN_STEEL = AlloyBuilder(215, "tungsten_steel", mapOf(TUNGSTEN to 1, "(" to 1, STEEL to 1, ")" to 1))
+    val IRIDIUM_ALLOY = AlloyBuilder(216, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
 
-    val BRONZE = AlloyBuilder(125, "bronze", mapOf(COPPER to 3, TIN to 1))
-
-    //200~599: Non-organic Compound
-
-    //600~999: Organic Compound
-
-    //1000~1023: Mixture
-
-        //listの定義
+    //listの定義
         val list = mutableListOf(
             //WILDCARD
             WILDCARD,
@@ -350,18 +359,23 @@ object MaterialRegistry {
             URANIUM_235,
             PLUTONIUM_241,
             //Alloy
-            BRONZE
-        )
-
-    //バニラ素材のリスト
-    val listVanilla = listOf(MaterialRegistry.IRON, MaterialRegistry.GOLD)
-
-        //道具に使える素材と耐久値のMap
-        val mapToolMaterial = mapOf(
-            TITANIUM to 512,
-            IRON to 64,
-            COPPER to 32,
-            TUNGSTEN to 512
+            TITANIUM_ALLOY,
+            ADVANCED_ALLOY,
+            INVAR,
+            KANTHAL,
+            MAGNET,
+            MANGALLOY,
+            STAINLESS_STEEL,
+            STEEL,
+            TOOL_STEEL,
+            CONSTANTAN,
+            NICHROME,
+            BRASS,
+            BRONZE,
+            NICKELSILVER,
+            ELECTRUM,
+            TUNGSTEN_STEEL,
+            IRIDIUM_ALLOY
         )
 
     //EnumMaterialもしくはindexから液体を取得するメソッド

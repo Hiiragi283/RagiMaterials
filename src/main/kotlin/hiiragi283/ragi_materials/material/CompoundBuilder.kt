@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.material
 import hiiragi283.ragi_materials.util.MaterialUtils
 import hiiragi283.ragi_materials.util.RagiColor
 import java.awt.Color
+import kotlin.math.roundToInt
 
 open class CompoundBuilder(index: Int, name: String, type: MaterialType, private val mapComponents: Map<Any, Int>) :
     MaterialBuilder(index, name, type) {
@@ -38,8 +39,8 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, private
                 divideMolar += mapComponents.getValue(key)
             }
         }
-        //融点の平均値をとる
-        tempMolar /= divideMolar
+        tempMolar /= divideMolar //融点の平均値をとる
+        tempMolar = (tempMolar * 100).roundToInt() / 100.0f //平均値を100倍したあと丸め込み，さらに100で割ることで小数点2桁までにする
         return tempMolar
     }
 }

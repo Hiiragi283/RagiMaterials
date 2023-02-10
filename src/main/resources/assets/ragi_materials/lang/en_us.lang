@@ -181,9 +181,27 @@ material.plutonium_241=Plutonium 241
 material.wildcard=INVALID
 material.hiiragi_tsubasa=DEBUG
 
+material.titanium_alloy=Titanium Alloy
+material.advanced_alloy=Advanced Alloy
+material.invar=Invar
+material.kanthal=Kanthal
+material.magnet=Magnet
+material.mangalloy=Mangalloy
+material.stainless_steel=Stainless Steel
+material.steel=Steel
+material.tool_steel=Tool Steel
+material.constantan=Constantan
+material.nichrome=Nichrome
+material.brass=Brass
+material.bronze=Bronze
+material.nickelsilver=Nickel Silver
+material.electrum=Electrum
+material.tungsten_steel=Tungsten Steel
+material.iridium_alloy=Iridium Alloy
+
 # GUI
 gui.ragi_materials.forge_furnace=Forge Furnace
-gui.ragi_materials.Salt_pond=Salt Evaporation Pond
+gui.ragi_materials.salt_pond=Salt Evaporation Pond
 itemGroup.ragi_materials.blocks=RagiMaterials - Blocks
 itemGroup.ragi_materials.materials=RagiMaterials - Materials
 
