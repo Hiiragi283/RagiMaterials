@@ -1,0 +1,75 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "ragi_materials:salt_pond_base"
+      }
+    },
+    {
+      "when": {
+        "north": "false"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_wall",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "false"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_wall",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "false"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_wall",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "false"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_wall",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "type": "water"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_water",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "type": "saltwater"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_saltwater",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "type": "brine"
+      },
+      "apply": {
+        "model": "ragi_materials:salt_pond_brine",
+        "uvlock": true
+      }
+    }
+  ]
+}

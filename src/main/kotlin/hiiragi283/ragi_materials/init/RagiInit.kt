@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.ItemTooltip
@@ -12,11 +13,17 @@ import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiUtils
+import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.renderer.block.statemap.StateMapperBase
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
+import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.registry.ForgeRegistries
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 object RagiInit {
 
@@ -29,14 +36,17 @@ object RagiInit {
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockLitForgeFurnace = BlockLitForgeFurnace()
     val BlockOreDictConv = BlockOreDictConv()
+    val BlockSaltPond = BlockSaltPond()
 
     //Itemの定義
-    val ItemBlockBlazeHeater = ItemBlockBlazeHeater()
-    val ItemBlockForgeFurnace = ItemBlockForgeFurnace()
-    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
-    val ItemBlockOreDictConv = ItemBlockOreDictConv()
+    val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1, 2)
+    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0, 3)
+    val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0, 1)
+    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 3);
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
+    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
+
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
     val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
@@ -54,16 +64,18 @@ object RagiInit {
             BlockBlazeHeater,
             BlockForgeFurnace,
             BlockLitForgeFurnace,
-            BlockOreDictConv
+            BlockOreDictConv,
+            BlockSaltPond
         )
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
             ItemBlockBlazeHeater,
             ItemBlockForgeFurnace,
-            ItemBlockMetal,
             ItemBlockOreDictConv,
+            ItemBlockSaltPond,
 
             ItemBlazingCube,
+            ItemBlockMetal,
             ItemBookDebug,
             ItemDust,
             ItemForgeHammer,
@@ -78,6 +90,8 @@ object RagiInit {
         //Fluidの登録
         RagiInitFluid.registerFluids()
         RagiModel.setModelFluids()
+        //Modelの登録
+        registerModels()
     }
 
     fun loadInit() {
@@ -104,6 +118,16 @@ object RagiInit {
         MinecraftForge.EVENT_BUS.register(ItemTooltip())
         MinecraftForge.EVENT_BUS.register(ModelRegistry())
         MinecraftForge.EVENT_BUS.register(RightClickBlock())
+    }
+
+    //特殊なModelを登録するメソッド
+    @SideOnly(Side.CLIENT)
+    private fun registerModels() {
+        ModelLoader.setCustomStateMapper(RagiInit.BlockSaltPond, object : StateMapperBase() {
+            override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
+                return ModelResourceLocation((state.block.registryName!!), "multipart")
+            }
+        })
     }
 
     //Vanillaのブロックのプロパティを上書きするメソッド

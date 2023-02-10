@@ -5,6 +5,7 @@ tile.blaze_heater.1.name=Hellrise Heater
 tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.forge_furnace.name=Forge Furnace
 tile.oredict_converter.name=Ore Dictionary Converter
+tile.salt_pond.name=Salt Evaporation Pond
 
 # Config
 config.ragi_materials.debug=Debug Option
@@ -188,8 +189,7 @@ itemGroup.ragi_materials.materials=RagiMaterials - Materials
 # Text
 text.ragi_materials.blaze_heater.0=Used for heating metal ingot
 text.ragi_materials.blaze_heater.1=Not consume fuels
-text.ragi_materials.blaze_heater.2=Right-click with §b§lBellow§r§7 to §c§lboost§r§7 fire
-text.ragi_materials.blaze_heater.3=Some metals require §4§lHellrise§r§7 Heater
+text.ragi_materials.blaze_heater.2=Some metals require §4§lHellrise§r§7 Heater
 text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- Durability: §b%s§r

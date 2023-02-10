@@ -5,6 +5,7 @@ tile.blaze_heater.1.name=ヘルライズヒーター
 tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.forge_furnace.name=鍛造炉
 tile.oredict_converter.name=鉱石辞書変換機
+tile.salt_pond.name=塩田ブロック
 
 # Config
 config.ragi_materials.debug=デバッグ設定
@@ -188,8 +189,7 @@ itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材
 # Text
 text.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します
 text.ragi_materials.blaze_heater.1=燃料の消費はありません
-text.ragi_materials.blaze_heater.2=Right-click with §b§lBellow§r§7 to §c§lboost§r§7 fire
-text.ragi_materials.blaze_heater.3=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
+text.ragi_materials.blaze_heater.2=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
 text.ragi_materials.decoration_line.name=§e§l========================================
 text.ragi_materials.durability.name=- 耐久値: §b%s§r
