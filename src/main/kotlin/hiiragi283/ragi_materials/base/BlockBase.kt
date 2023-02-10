@@ -8,18 +8,15 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.item.Item
 import java.util.*
 
-open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int) : Block(Material!!) {
+open class BlockBase(Material: Material?, MOD: String, ID: String?, val maxMeta: Int) : Block(Material!!) {
 
     //private変数の宣言
     companion object {
         private val property16 = PropertyInteger.create("property", 0, 15)
     }
 
-    private val maxMeta: Int
-
     //コンストラクタの初期化
     init {
-        this.maxMeta = maxMeta //メタデータの最大値の初期化
         defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
         setRegistryName(MOD, ID)
         unlocalizedName = ID.toString() //翻訳キーをIDから取得
@@ -66,4 +63,5 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, maxMeta: Int
         //常にドロップさせるので1を返す
         return 1
     }
+
 }

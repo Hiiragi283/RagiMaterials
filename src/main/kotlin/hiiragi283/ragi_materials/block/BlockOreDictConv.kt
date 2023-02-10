@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
@@ -20,19 +21,36 @@ import java.util.*
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.world.IBlockAccess
 
-class BlockOreDictConv: Block(Material.IRON) {
+class BlockOreDictConv: Block(Material.WOOD) {
 
     private val registryName = "oredict_converter"
     private val box = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)
 
     //コンストラクタの初期化
     init {
+        setCreativeTab(RagiInit.TabBlocks)
         setHardness(5.0F)
-        setHarvestLevel("pickaxe", 1)
+        setHarvestLevel("axe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
         setResistance(5.0F)
-        soundType = SoundType.METAL
+        soundType = SoundType.WOOD
         unlocalizedName = registryName
+    }
+
+    //ブロックの当たり判定を取得するメソッド
+    @Deprecated("Deprecated in Java")
+    override fun getBoundingBox(
+        blockState: IBlockState,
+        worldIn: IBlockAccess,
+        pos: BlockPos
+    ): AxisAlignedBB {
+        return box //エンチャント台と同じ
+    }
+
+    //ドロップするアイテムを得るメソッド
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
+        //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
+        return Item.getItemFromBlock(state.block)
     }
 
     //ブロックがフルブロックかどうかを判定するメソッド
@@ -47,16 +65,6 @@ class BlockOreDictConv: Block(Material.IRON) {
         return false
     }
 
-    //ブロックの当たり判定を取得するメソッド
-    @Deprecated("Deprecated in Java")
-    override fun getBoundingBox(
-        blockState: IBlockState,
-        worldIn: IBlockAccess,
-        pos: BlockPos
-    ): AxisAlignedBB {
-        return box //エンチャント台と同じ
-    }
-
     //ブロックを右クリックした時に呼ばれるメソッド
     override fun onBlockActivated(
         world: World,
@@ -69,47 +77,43 @@ class BlockOreDictConv: Block(Material.IRON) {
         hitY: Float,
         hitZ: Float
     ): Boolean {
-        //プレイヤーが利き手に持っているアイテムを取得
-        val stack = player.getHeldItem(hand)
-        val count = stack.count
-        var result = ItemStack.EMPTY
-        //stackががEMPTYでない場合
-        if (stack.item != Items.AIR) {
-            //鉱石辞書の数値IDの配列を取得
-            val arrayIDs = OreDictionary.getOreIDs(stack)
-            //配列内の各IDに対して実行
-            for (id in arrayIDs) {
-                //IDからString型の鉱石辞書を取得
-                val oreDict = OreDictionary.getOreName(id)
-                //鉱石辞書から紐づいたstackのNonNullListを取得
-                val listStacks = OreDictionary.getOres(oreDict)
-                //NonNullList内の各stackOreに対して実行
-                for (stackOre in listStacks) {
-                    //stackOreのmodidがragi_materialsの場合
-                    if (stackOre.item.registryName.toString().split(":")[0] == Reference.MOD_ID) {
-                        result = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
-                        break
+        if (!world.isRemote) {
+            //プレイヤーが利き手に持っているアイテムを取得
+            val stack = player.getHeldItem(hand)
+            val count = stack.count
+            var result = ItemStack.EMPTY
+            //stackががEMPTYでない場合
+            if (stack.item != Items.AIR) {
+                //鉱石辞書の数値IDの配列を取得
+                val arrayIDs = OreDictionary.getOreIDs(stack)
+                //配列内の各IDに対して実行
+                for (id in arrayIDs) {
+                    //IDからString型の鉱石辞書を取得
+                    val oreDict = OreDictionary.getOreName(id)
+                    //鉱石辞書から紐づいたstackのNonNullListを取得
+                    val listStacks = OreDictionary.getOres(oreDict)
+                    //NonNullList内の各stackOreに対して実行
+                    for (stackOre in listStacks) {
+                        //stackOreのmodidがragi_materialsの場合
+                        if (stackOre.item.registryName.toString().split(":")[0] == Reference.MOD_ID) {
+                            result = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
+                            break
+                        }
                     }
                 }
-            }
-            //resultがEMPTYでない場合
-            if (result.item !== Items.AIR) {
-                stack.shrink(count) //stackを1つ減らす
-                val drop = EntityItem(
-                    world, pos.x.toDouble(), pos.y.toDouble() + 1.0, pos.z.toDouble(), result
-                ) //ドロップアイテムを生成
-                drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
-                if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
-                RagiUtils.soundHypixel(world, pos) //SEを再生
+                //resultがEMPTYでない場合
+                if (result.item !== Items.AIR) {
+                    stack.shrink(count) //stackを1つ減らす
+                    val drop = EntityItem(
+                        world, pos.x.toDouble(), pos.y.toDouble() + 1.0, pos.z.toDouble(), result
+                    ) //ドロップアイテムを生成
+                    drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
+                    world.spawnEntity(drop) //ドロップアイテムをスポーン
+                    RagiUtils.soundHypixel(world, pos) //SEを再生
+                }
             }
         }
         return true
-    }
-
-    //ドロップするアイテムを得るメソッド
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
-        //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
-        return Item.getItemFromBlock(state.block)
     }
 
     //ドロップする確率を得るメソッド

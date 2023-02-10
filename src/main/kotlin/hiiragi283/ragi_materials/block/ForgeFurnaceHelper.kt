@@ -63,12 +63,10 @@ object ForgeFurnaceHelper {
     //燃料を投入するメソッド
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //stateから状態を取得
-        val facing = state.getValue(BlockHorizontal.FACING)
-        val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
+        val fuel = state.getValue(BlockForgeFurnace.FUEL)
         //ブロックに蓄えられた燃料が3未満の場合
         if (fuel < 3) {
-            val result = state.withProperty(BlockHorizontal.FACING, facing)
-                .withProperty(BlockForgeFurnace.propertyFuel, fuel + 1)
+            val result = state.withProperty(BlockForgeFurnace.FUEL, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
@@ -81,7 +79,7 @@ object ForgeFurnaceHelper {
     //ふいごで火力を上げるメソッド
     fun setBoosted(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //燃料が満タンの場合
-        if (state.getValue(BlockForgeFurnace.propertyFuel) == 3) {
+        if (state.getValue(BlockForgeFurnace.FUEL) == 3) {
             val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
             val facing = litForgeFurnace.getValue(BlockHorizontal.FACING)
             world.setBlockState(pos, litForgeFurnace.withProperty(BlockHorizontal.FACING, facing), 2) //火力UP
@@ -129,7 +127,7 @@ object ForgeFurnaceHelper {
     private fun canProcess(state: IBlockState): Boolean {
         return when (state.block) {
             is BlockForgeFurnace -> {
-                val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
+                val fuel = state.getValue(BlockForgeFurnace.FUEL)
                 //燃料が入っているならtrue
                 fuel > 0
             }
@@ -144,10 +142,8 @@ object ForgeFurnaceHelper {
         when (state.block) {
             is BlockForgeFurnace -> {
                 //stateから状態を取得
-                val facing = state.getValue(BlockHorizontal.FACING)
-                val fuel = state.getValue(BlockForgeFurnace.propertyFuel)
-                val result = state.withProperty(BlockHorizontal.FACING, facing)
-                    .withProperty(BlockForgeFurnace.propertyFuel, fuel - 1)
+                val fuel = state.getValue(BlockForgeFurnace.FUEL)
+                val result = state.withProperty(BlockForgeFurnace.FUEL, fuel - 1)
                 world.setBlockState(pos, result, 2)
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
@@ -156,9 +152,7 @@ object ForgeFurnaceHelper {
 
             is BlockLitForgeFurnace -> {
                 val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
-                val facing = state.getValue(BlockHorizontal.FACING)
-                val result = forgeFurnace.withProperty(BlockHorizontal.FACING, facing)
-                    .withProperty(BlockForgeFurnace.propertyFuel, 2)
+                val result = forgeFurnace.withProperty(BlockForgeFurnace.FUEL, 2)
                 world.setBlockState(pos, result, 2)
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
@@ -166,7 +160,7 @@ object ForgeFurnaceHelper {
             }
 
             is BlockBlazeHeater -> {
-                if (state.getValue(BlockBlazeHeater.propertyHell)) {
+                if (state.getValue(BlockBlazeHeater.HELL)) {
                     world.playSound(
                         null, pos, RagiUtils.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f
                     ) //SEを再生

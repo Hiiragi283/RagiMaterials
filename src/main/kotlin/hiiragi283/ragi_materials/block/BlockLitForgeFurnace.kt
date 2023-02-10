@@ -24,6 +24,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
     //コンストラクタの初期化
     init {
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
+        setCreativeTab(RagiInit.TabBlocks)
         setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
@@ -37,16 +38,15 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         return BlockStateContainer(this, FACING)
     }
 
+    //ドロップするアイテムを得るメソッド
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
+        //ForgeFurnaceを返す
+        return Item.getItemFromBlock(RagiInit.BlockForgeFurnace)
+    }
+
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
         return state.getValue(FACING).index - 2
-    }
-
-    //メタデータからBlockstateを得るメソッド
-    @Deprecated("Deprecated in Java")
-    override fun getStateFromMeta(meta: Int): IBlockState {
-        val facing = EnumFacing.getFront((meta / 4) + 2)
-        return blockState.baseState.withProperty(FACING, facing)
     }
 
     //ブロックが設置されたときに呼び出されるメソッド
@@ -64,6 +64,13 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         return this.defaultState.withProperty(BlockHorizontal.FACING, placer.horizontalFacing.opposite)
     }
 
+    //メタデータからBlockstateを得るメソッド
+    @Deprecated("Deprecated in Java")
+    override fun getStateFromMeta(meta: Int): IBlockState {
+        val facing = EnumFacing.getFront((meta / 4) + 2)
+        return blockState.baseState.withProperty(FACING, facing)
+    }
+
     //ブロックを右クリックした時に呼ばれるメソッド
     override fun onBlockActivated(
         world: World,
@@ -76,16 +83,12 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         hitY: Float,
         hitZ: Float
     ): Boolean {
-        //プレイヤーが利き手に持っているアイテムを取得
-        val stack = player.getHeldItem(hand)
-        ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
+        if(!world.isRemote) {
+            //プレイヤーが利き手に持っているアイテムを取得
+            val stack = player.getHeldItem(hand)
+            ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
+        }
         return true
-    }
-
-    //ドロップするアイテムを得るメソッド
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
-        //ForgeFurnaceを返す
-        return Item.getItemFromBlock(RagiInit.BlockForgeFurnace)
     }
 
     //ドロップする確率を得るメソッド

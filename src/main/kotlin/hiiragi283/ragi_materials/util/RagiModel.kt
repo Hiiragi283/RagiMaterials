@@ -55,7 +55,7 @@ object RagiModel {
         for (material in MaterialRegistry.list) {
             //Fluidを取得
             val fluid = material.getFluid()
-            val model = ModelResourceLocation((Reference.MOD_ID + ":" + fluid.name), "fluid")
+            val model = ModelResourceLocation(("${Reference.MOD_ID}:${fluid.name}"), "fluid")
             //アイテムとしての描画処理
             ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { model }
             //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する

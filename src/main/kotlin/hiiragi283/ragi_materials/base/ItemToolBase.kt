@@ -25,4 +25,5 @@ open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: Tool
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
+
 }

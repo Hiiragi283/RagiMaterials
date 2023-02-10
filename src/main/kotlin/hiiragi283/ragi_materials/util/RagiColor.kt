@@ -106,6 +106,7 @@ object RagiColor {
             val material = MaterialRegistry.getMaterial(state.block.getMetaFromState(state))
             return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
         }
+
     }
 
     class ColorNBT : IItemColor {
@@ -122,5 +123,7 @@ object RagiColor {
             //NBTタグがnullの場合
             else 0xFFFFFF //白色を返す
         }
+
     }
+
 }

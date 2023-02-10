@@ -9,14 +9,10 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
-
-    //private変数の宣言
-    private val maxMeta: Int
+open class ItemBase(MOD: String, ID: String?, private val maxMeta: Int) : Item() {
 
     //コンストラクタの初期化
     init {
-        this.maxMeta = maxMeta //メタデータの最大値の初期化
         setRegistryName(MOD, ID)
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
@@ -60,4 +56,5 @@ open class ItemBase(MOD: String, ID: String?, maxMeta: Int) : Item() {
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
+
 }
