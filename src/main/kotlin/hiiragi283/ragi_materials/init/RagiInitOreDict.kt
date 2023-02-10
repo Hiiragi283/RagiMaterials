@@ -1,19 +1,19 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiUtils
 
 object RagiInitOreDict {
 
     private val mapType = mapOf(
-        "block" to listOf(MaterialBuilder.MaterialType.METAL),
-        "dust" to listOf(MaterialBuilder.MaterialType.DUST, MaterialBuilder.MaterialType.METAL),
-        "ingot" to listOf(MaterialBuilder.MaterialType.METAL),
-        "ingot_hot" to listOf(MaterialBuilder.MaterialType.METAL),
-        "nugget" to listOf(MaterialBuilder.MaterialType.METAL),
-        "plate" to listOf(MaterialBuilder.MaterialType.METAL)
+        "block" to listOf(MaterialType.CARBON, MaterialType.METAL),
+        "dust" to listOf(MaterialType.CARBON, MaterialType.DUST, MaterialType.METAL),
+        "ingot" to listOf(MaterialType.CARBON, MaterialType.METAL),
+        "ingot_hot" to listOf(MaterialType.METAL),
+        "nugget" to listOf(MaterialType.CARBON, MaterialType.METAL),
+        "plate" to listOf(MaterialType.CARBON, MaterialType.METAL)
     )
 
     private val mapPrefix = mapOf(
@@ -37,9 +37,18 @@ object RagiInitOreDict {
                         mapPrefix[ID] + material.getOreDict(),
                         RagiUtils.getStack("${Reference.MOD_ID}:$ID", 1, material.index)
                     )
+                    //Chromium
+                    RagiUtils.setOreDict(
+                        "${mapPrefix[ID]}Chromium",
+                        RagiUtils.getStack("${Reference.MOD_ID}:$ID", 1, 24)
+                    )
+                    //SUS
+                    RagiUtils.setOreDict(
+                        "${mapPrefix[ID]}SUS",
+                        RagiUtils.getStack("${Reference.MOD_ID}:$ID", 1, 206)
+                    )
                 }
             }
         }
     }
-
 }

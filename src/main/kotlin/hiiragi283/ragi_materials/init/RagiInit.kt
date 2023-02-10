@@ -42,18 +42,18 @@ object RagiInit {
     val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1, 2)
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0, 3)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0, 1)
-    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 3);
+    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 3)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
-    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
+    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.CARBON, MaterialType.METAL)
 
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
-    val ItemDust = ItemMaterial("dust", MaterialType.DUST, MaterialType.METAL)
+    val ItemDust = ItemMaterial("dust", MaterialType.CARBON, MaterialType.DUST, MaterialType.METAL)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
-    val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
+    val ItemIngot = ItemMaterial("ingot", MaterialType.CARBON, MaterialType.METAL)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
-    val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
-    val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
+    val ItemNugget = ItemMaterial("nugget", MaterialType.CARBON, MaterialType.METAL)
+    val ItemPlate = ItemMaterial("plate", MaterialType.CARBON, MaterialType.METAL)
     val ItemToolBellow: Item = ItemBase(Reference.MOD_ID, "bellow", 0)
         .setCreativeTab(CreativeTabs.TOOLS)
         .setMaxDamage(63).setMaxStackSize(1)
@@ -123,7 +123,7 @@ object RagiInit {
     //特殊なModelを登録するメソッド
     @SideOnly(Side.CLIENT)
     private fun registerModels() {
-        ModelLoader.setCustomStateMapper(RagiInit.BlockSaltPond, object : StateMapperBase() {
+        ModelLoader.setCustomStateMapper(BlockSaltPond, object : StateMapperBase() {
             override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
                 return ModelResourceLocation((state.block.registryName!!), "multipart")
             }
