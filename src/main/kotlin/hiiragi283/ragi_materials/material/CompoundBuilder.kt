@@ -28,8 +28,8 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, private
 
     private fun setMolar(): Float {
         //変数の宣言
-        var tempMolar: Float = 0.0f
-        var divideMolar: Int = 0
+        var tempMolar = 0.0f
+        var divideMolar = 0
         val mapComponents = getComponents()
         //mapComponents内の各keyに対して実行
         for (key in mapComponents.keys) {

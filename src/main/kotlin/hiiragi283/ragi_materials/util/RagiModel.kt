@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.util
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialRegistry.getFluid
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader

@@ -8,31 +8,36 @@ object MaterialUtils {
     //素材のツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
+        //化学式
         if (material.getFormula(true) !== null) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.formula", material.getFormula()
             )
-        ) //化学式
-        if (material.getMolarMass(true) !== null) tooltip.add(
+        )
+        //モル質量
+        if (material.getMolarMass() != 0.0f) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.mol", material.getMolarMass()
             )
-        ) //モル質量
-        if (material.getTempMelt(true) !== null) tooltip.add(
+        )
+        //融点
+        if (material.getTempMelt() != 0) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.melt", material.getTempMelt()
             )
-        ) //融点
-        if (material.getTempBoil(true) !== null) tooltip.add(
+        )
+        //沸点
+        if (material.getTempBoil() != 0) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.boil", material.getTempBoil()
             )
-        ) //沸点
-        if (material.getTempSubl(true) !== null) tooltip.add(
+        )
+        //昇華点
+        if (material.getTempSubl() != 0) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.subl", material.getTempSubl()
             )
-        ) //昇華点
+        )
     }
 
     //代入されたMapから化学式を生成するメソッド

@@ -2,6 +2,8 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
+import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 
 open class MaterialBuilder(
@@ -9,11 +11,11 @@ open class MaterialBuilder(
 ) {
     //private変数の宣言
     private var color = Color(0xFFFFFF)
-    private var molar: Float? = null
-    private var melting: Int? = null
-    private var boiling: Int? = null
-    private var subl: Int? = null
-    private var formula: String? = null
+    private var molar: Float = 0.0f
+    private var melting: Int = 0
+    private var boiling: Int = 0
+    private var subl: Int = 0
+    private var formula: String? = ""
     private var mapComponents: Map<Any, Int> = mapOf(MaterialRegistry.WILDCARD to 1)
 
     //色を取得するメソッド (デフォルトは0xFFFFFF)
@@ -24,6 +26,13 @@ open class MaterialBuilder(
     //組成を取得するメソッド
     fun getComponents(): Map<Any, Int> {
         return mapComponents
+    }
+
+    //EnumMaterialもしくはindexから液体を取得するメソッド
+    fun getFluid(): Fluid {
+        val fluid = FluidRegistry.getFluid(this.name)
+        //fluidが存在しない場合は水を返す
+        return if (fluid !== null) fluid else FluidRegistry.getFluid("water")
     }
 
     //化学式を取得するメソッド（デフォルトはH.T.）
@@ -43,21 +52,9 @@ open class MaterialBuilder(
         return getFormula(false)!!
     }
 
-    //モル質量を取得するメソッド (デフォルトは32767.0 g/mol)
-    open fun getMolarMass(isNull: Boolean): Float? {
-        return if(molar !== null) molar!! else {
-            //返り値にnullを使わない場合
-            if (!isNull) {
-                RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                32767.0F
-            }
-            //返り値にnullを使う場合
-            else null
-        }
-    }
-
+    //モル質量を取得するメソッド
     open fun getMolarMass(): Float {
-        return getMolarMass(false)!!
+        return molar
     }
 
     //registryNameからUCC型のStringを取得するメソッド
@@ -65,55 +62,19 @@ open class MaterialBuilder(
         return this.name.snakeToUpperCamelCase()
     }
 
-    //融点を取得するメソッド (デフォルトは32767 ℃)
-    open fun getTempMelt(isNull: Boolean): Int? {
-        return if(melting !== null) melting!! else {
-            //返り値にnullを使わない場合
-            if (!isNull) {
-                RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                32767
-            }
-            //返り値にnullを使う場合
-            else null
-        }
+    //融点を取得するメソッド
+    open fun getTempMelt(): Int {
+        return melting
     }
 
-    fun getTempMelt(): Int {
-        return getTempMelt(false)!!
+    //沸点を取得するメソッド
+    open fun getTempBoil(): Int {
+        return boiling
     }
 
-    //沸点を取得するメソッド (デフォルトは32767 ℃)
-    open fun getTempBoil(isNull: Boolean): Int? {
-        return if(boiling !== null) boiling!! else {
-            //返り値にnullを使わない場合
-            if (!isNull) {
-                RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                32767
-            }
-            //返り値にnullを使う場合
-            else null
-        }
-    }
-
-    fun getTempBoil(): Int {
-        return getTempBoil(false)!!
-    }
-
-    //昇華点を取得するメソッド (デフォルトは32767 ℃)
-    open fun getTempSubl(isNull: Boolean): Int? {
-        return if(subl !== null) subl!! else {
-            //返り値にnullを使わない場合
-            if (!isNull) {
-                RagiLogger.warn("The material <material:${this.name}> does not have the parameter of Molar Mass!")
-                32767
-            }
-            //返り値にnullを使う場合
-            else null
-        }
-    }
-
-    fun getTempSubl(): Int {
-        return getTempSubl(false)!!
+    //昇華点を取得するメソッド
+    open fun getTempSubl(): Int {
+        return subl
     }
 
     //色を設定するメソッド

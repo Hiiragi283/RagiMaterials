@@ -386,13 +386,6 @@ object MaterialRegistry {
             IRIDIUM_ALLOY
         )
 
-    //EnumMaterialもしくはindexから液体を取得するメソッド
-    fun MaterialBuilder.getFluid(): Fluid {
-        val fluid = FluidRegistry.getFluid(this.name)
-        //fluidが存在しない場合は水を返す
-        return if (fluid !== null) fluid else FluidRegistry.getFluid("water")
-    }
-
     fun getFluid(index: Int): Fluid {
         return getMaterial(index).getFluid()
     }
@@ -426,5 +419,4 @@ object MaterialRegistry {
         //materialMatchesを返す
         return materialMatches
     }
-
 }
