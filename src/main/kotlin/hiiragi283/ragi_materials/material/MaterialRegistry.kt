@@ -2,8 +2,6 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraftforge.fluids.Fluid
-import net.minecraftforge.fluids.FluidRegistry
-import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 
 object MaterialRegistry {
 
@@ -35,7 +33,7 @@ object MaterialRegistry {
         .setColor(RagiColor.DARK_GRAY).setMolarMass(10.8f).setFormula("B")
         .setTempMelt(2075).setTempBoil(4000)
 
-    val CARBON = MaterialBuilder(6, "carbon", MaterialType.CARBON)
+    val CARBON = MaterialBuilder(6, "carbon", MaterialType.SEMIMETAL)
         .setColor(RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)).setMolarMass(12.0f).setFormula("C")
         .setTempSubl(4400)
 
@@ -133,7 +131,7 @@ object MaterialRegistry {
         .setMolarMass(69.7f).setFormula("Ga")
         .setTempMelt(30).setTempBoil(2204)
 
-    val ARSENIC = MaterialBuilder(33, "arsenic", MaterialType.CARBON)
+    val ARSENIC = MaterialBuilder(33, "arsenic", MaterialType.SEMIMETAL)
         .setColor(RagiColor.DARK_GRAY).setMolarMass(74.9f).setFormula("As")
         .setTempSubl(603)
 
@@ -208,7 +206,7 @@ object MaterialRegistry {
         .setTempMelt(3017).setTempBoil(5458)
 
     val TUNGSTEN = MaterialBuilder(74, "tungsten", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)).setMolarMass(183.8f).setFormula("T")
+        .setColor(RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)).setMolarMass(183.8f).setFormula("W")
         .setTempMelt(3422).setTempBoil(5555)
 
     val OSMIUM = MaterialBuilder(76, "osmium", MaterialType.METAL)
@@ -240,34 +238,30 @@ object MaterialRegistry {
         .setTempMelt(271).setTempBoil(1564)
 
     //7th Period
-    val THORIUM = MaterialBuilder(90, "thorium", MaterialType.METAL)
+    val THORIUM = MaterialBuilder(90, "thorium", MaterialType.METAL_RADIO)
         .setColor(RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GREEN)).setMolarMass(232.0f).setFormula("Th")
         .setTempMelt(1750).setTempBoil(4788)
 
-    val URANIUM_238 = MaterialBuilder(92, "uranium", MaterialType.METAL)
+    val URANIUM_238 = MaterialBuilder(92, "uranium", MaterialType.METAL_RADIO)
         .setColor(RagiColor.GREEN).setMolarMass(238.0f).setFormula("U")
         .setTempMelt(1135).setTempBoil(4131)
 
-    val PLUTONIUM_239 = MaterialBuilder(94, "plutonium", MaterialType.METAL)
+    val PLUTONIUM_239 = MaterialBuilder(94, "plutonium", MaterialType.METAL_RADIO)
         .setColor(RagiColor.RED).setMolarMass(239.0f).setFormula("Pu")
         .setTempMelt(640).setTempBoil(3228)
 
     //95~99: Isotope
-    val DEUTERIUM = MaterialBuilder(95, "deuterium", MaterialType.GAS)
-        .setColor(HYDROGEN.getColor()).setMolarMass(2.0f).setFormula("D")
-        .setTempMelt(HYDROGEN.getTempMelt()).setTempBoil(HYDROGEN.getTempBoil())
+    val DEUTERIUM = IsotopeBuilder(95, "deuterium", HYDROGEN)
+        .setMolarMass(2.0f).setFormula("D")
 
-    val TRITIUM = MaterialBuilder(96, "tritium", MaterialType.GAS)
-        .setColor(HYDROGEN.getColor()).setMolarMass(3.0f).setFormula("T")
-        .setTempMelt(HYDROGEN.getTempMelt()).setTempBoil(HYDROGEN.getTempBoil())
+    val TRITIUM = IsotopeBuilder(96, "tritium", HYDROGEN)
+        .setMolarMass(3.0f).setFormula("T")
 
-    val URANIUM_235  = MaterialBuilder(97, "uranium_235", MaterialType.METAL)
-        .setColor(URANIUM_238.getColor()).setMolarMass(235.0f).setFormula("U-235")
-        .setTempMelt(URANIUM_238.getTempMelt()).setTempBoil(URANIUM_238.getTempBoil())
+    val URANIUM_235  = IsotopeBuilder(97, "uranium235", URANIUM_238)
+        .setMolarMass(235.0f).setFormula("U-235")
 
-    val PLUTONIUM_241 = MaterialBuilder(98, "plutonium_241", MaterialType.METAL)
-        .setColor(PLUTONIUM_239.getColor()).setMolarMass(241.0f).setFormula("Pu-241")
-        .setTempMelt(PLUTONIUM_239.getTempMelt()).setTempBoil(PLUTONIUM_239.getTempBoil())
+    val PLUTONIUM_241 = IsotopeBuilder(98, "plutonium241", PLUTONIUM_239)
+        .setMolarMass(241.0f).setFormula("Pu-241")
 
     //100~199: Atomic Group
 

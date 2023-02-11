@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraftforge.common.config.Config
 
 @Config(modid = Reference.MOD_ID, category = "")
@@ -15,9 +16,9 @@ object RagiConfig {
     @Config.Name("Custom Material Registry")
     @Config.Comment(
         "Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
-        "\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048" +
+        "\nindex: Int ... used for metadata, limited in 1023 <= index <= maxMaterials" +
         "\nname: String ... used for translation key and ore dictionary" +
-        "\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD" +
+        "\ntype: Enum ... only available: dust, fluid, liquid, metal, gas, metal_radio, semimetal" +
         "\ncolor: Int ... use color code" +
         "\nformula: String ... show its chemical formula" +
         "\nmolar_mass: Float ... show its molar mass [g/mol]" +
@@ -54,8 +55,6 @@ object RagiConfig {
 
     }
 
-    class Display
-
     class Material {
 
         companion object {
@@ -67,8 +66,15 @@ object RagiConfig {
         @Config.LangKey("$prefix.custom")
         @JvmField
         var listMaterials = arrayOf(
-            "1025:hiiragi_tsubasa:METAL:FF003F:H.T.:110.9f:283:1109"
+            "1024:hiiragi_tsubasa:metal:FF003F:H.T.:110.9f:283:1109"
         )
+
+        @Config.Name("Max Materials")
+        @Config.Comment("Set max number of materials registered")
+        @Config.LangKey("$prefix.max")
+        @Config.RangeInt(min = 1024, max = 32767)
+        @JvmField
+        var maxMaterials = 1024
 
     }
 
@@ -100,11 +106,11 @@ object RagiConfig {
 
         init {
             ForgeFurnaceHelper.mapForgeBurning =
-                RagiConfigHelper.convertListToMap(listForgeBurning, ForgeFurnaceHelper.mapForgeBurning)
+                RagiUtils.convertListToMap(listForgeBurning, ForgeFurnaceHelper.mapForgeBurning)
             ForgeFurnaceHelper.mapForgeBoosted =
-                RagiConfigHelper.convertListToMap(listForgeBoosted, ForgeFurnaceHelper.mapForgeBoosted)
+                RagiUtils.convertListToMap(listForgeBoosted, ForgeFurnaceHelper.mapForgeBoosted)
             ForgeFurnaceHelper.mapForgeHellrise =
-                RagiConfigHelper.convertListToMap(listForgeHellrise, ForgeFurnaceHelper.mapForgeHellrise)
+                RagiUtils.convertListToMap(listForgeHellrise, ForgeFurnaceHelper.mapForgeHellrise)
         }
     }
 

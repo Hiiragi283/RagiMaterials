@@ -2,9 +2,10 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialType
 import hiiragi283.ragi_materials.util.MaterialUtils
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
@@ -15,8 +16,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterial(private val ID: String, private vararg val type: MaterialType) :
-    ItemBase(Reference.MOD_ID, ID, Reference.numMaterial) {
+class ItemMaterial(private val ID: String, private val type: MaterialType) :
+    ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {
         creativeTab = RagiInit.TabMaterials
@@ -38,7 +39,7 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
             //MaterialRegistry.list内の各materialに対して実行
             for (material in MaterialRegistry.list) {
                 //materialがWILDCARDでない，かつmaterialのtypeが一致する場合
-                if (material != MaterialRegistry.WILDCARD && type.contains(material.type)) {
+                if (material != MaterialRegistry.WILDCARD && material.type.getTypeBase().contains(type.name)) {
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)
@@ -50,7 +51,6 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
 
     //stackの表示名を上書きするメソッド
     override fun getItemStackDisplayName(stack: ItemStack): String {
-        //EnumMaterialの取得
         val material = MaterialRegistry.getMaterial(stack.metadata)
         return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
     }
@@ -58,7 +58,8 @@ class ItemMaterial(private val ID: String, private vararg val type: MaterialType
     //エンチャント効果を乗せるかどうかを決めるメソッド
     @SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
-        //放射性物質のindexとメタデータが一致するならtrue
-        return listOf(90, 92, 94, 97, 98).contains(stack.metadata)
+        val material = MaterialRegistry.getMaterial(stack.metadata)
+        //素材のtypeがRADIOACTIVEを含むならtrue
+        return material.type.getTypeBase().contains(MaterialType.RADIOACTIVE.name)
     }
 }

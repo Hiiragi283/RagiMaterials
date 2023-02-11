@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.init
 
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
@@ -9,7 +10,9 @@ import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.event.ModelRegistry
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.item.*
-import hiiragi283.ragi_materials.material.MaterialBuilder.MaterialType
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialType
 import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiUtils
@@ -24,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import java.awt.Color
 
 object RagiInit {
 
@@ -42,23 +46,25 @@ object RagiInit {
     val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1, 2)
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0, 3)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0, 1)
-    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 3)
+    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 2)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
-    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.CARBON, MaterialType.METAL)
+    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
 
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
-    val ItemDust = ItemMaterial("dust", MaterialType.CARBON, MaterialType.DUST, MaterialType.METAL)
+    val ItemDust = ItemMaterial("dust", MaterialType.DUST)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
-    val ItemIngot = ItemMaterial("ingot", MaterialType.CARBON, MaterialType.METAL)
+    val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
-    val ItemNugget = ItemMaterial("nugget", MaterialType.CARBON, MaterialType.METAL)
-    val ItemPlate = ItemMaterial("plate", MaterialType.CARBON, MaterialType.METAL)
+    val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
+    val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
     val ItemToolBellow: Item = ItemBase(Reference.MOD_ID, "bellow", 0)
         .setCreativeTab(CreativeTabs.TOOLS)
         .setMaxDamage(63).setMaxStackSize(1)
 
     fun loadPreInit() {
+        //configから素材を追加
+        registerMaterial()
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
             BlockBlazeHeater,
@@ -111,6 +117,39 @@ object RagiInit {
         RagiInitDispenser.registerDispense()
         overrideProperty()
         overrideStack()
+    }
+
+    //configから素材を登録するメソッド
+    private fun registerMaterial() {
+        for (value in RagiConfig.material.listMaterials) {
+            //valueをばらしてプロパティを得る
+            val listProperty = value.split(":")
+            val index = listProperty[0].toInt()
+            val name = listProperty[1]
+            var type = MaterialType.WILDCARD
+            val color = Color(listProperty[3].toIntOrNull(16)!!)
+            val formula = listProperty[4]
+            val molar = listProperty[5].toFloat()
+            val melt = listProperty[6].toInt()
+            val boil = listProperty[7].toInt()
+            //MaterialTypeの確認
+            for (i in MaterialType.list) {
+                if (i.name == listProperty[2]) {
+                    type = i
+                    break
+                }
+            }
+            //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，素材を登録する
+            if (index in 1023..RagiConfig.material.maxMaterials && type != MaterialType.WILDCARD) {
+                val material = MaterialBuilder(index, name, type)
+                material.setColor(color)
+                material.setFormula(formula)
+                material.setMolarMass(molar)
+                material.setTempMelt(melt)
+                material.setTempBoil(boil)
+                MaterialRegistry.list.add(material)
+            }
+        }
     }
 
     //Eventを登録するメソッド

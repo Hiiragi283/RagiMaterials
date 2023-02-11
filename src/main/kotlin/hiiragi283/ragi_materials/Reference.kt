@@ -21,7 +21,4 @@ object Reference {
 
     //Serverの定義 (コマンド実行用)
     val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer
-
-    //Materialで使用するMetadataの最大数
-    const val numMaterial = 1024
 }

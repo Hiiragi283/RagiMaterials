@@ -28,6 +28,15 @@ object RagiUtils {
         }
     }
 
+    //String型のlist/arrayをmapに変換するメソッド
+    fun convertListToMap(list: Array<String>, map: MutableMap<String, String>): MutableMap<String, String> {
+        for (key in list) {
+            map[key.split(";")[0]] = key.split(";")[1]
+            RagiLogger.infoDebug("${key.split(";")[0]} to ${map[key.split(";")[0]]}")
+        }
+        return map
+    }
+
     //ResourceLocationからBlockを取得するメソッド
     //Blockがnullの場合はバリアブロックを返す
     fun getBlock(registryName: String): Block {
