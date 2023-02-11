@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -17,6 +18,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.IStringSerializable
+import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
@@ -176,6 +178,9 @@ class BlockSaltPond : Block(Material.WOOD) {
                 }
             }
         }
+        world.playSound(
+            null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
+        ) //SEを再生
         world.scheduleUpdate(pos, this, 200)
         return true
     }
@@ -198,11 +203,14 @@ class BlockSaltPond : Block(Material.WOOD) {
             }
             if (stack.item != Items.AIR) {
                 val drop = EntityItem(
-                    world, pos.x.toDouble(), pos.y.toDouble() + 0.5, pos.z.toDouble(), stack
+                    world, pos.x.toDouble(), pos.y.toDouble() + 0.75, pos.z.toDouble(), stack
                 )
                 drop.setPickupDelay(0)
                 world.spawnEntity(drop)
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2)
+                world.playSound(
+                    null, pos, RagiUtils.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                ) //SEを再生
             }
         }
     }

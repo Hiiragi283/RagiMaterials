@@ -28,8 +28,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 object RagiInit {
 
     //Creative Tabの定義
-    val TabBlocks = RagiCreativeTabs.Blocks()
-    val TabMaterials = RagiCreativeTabs.Materials()
+    val TabBlocks: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Blocks() else CreativeTabs.MISC
+    val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
     val BlockBlazeHeater = BlockBlazeHeater()

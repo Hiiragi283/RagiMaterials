@@ -39,9 +39,9 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
                 //サーバー側のみで実行
                 if (!world.isRemote) {
                     //チャットにテキストを流す
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.spawn.name"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.spawn"))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
                 }
             }
             //Syntax用
@@ -52,9 +52,9 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
                     RagiUtils.executeCommand(player, "ct syntax")
                     RagiUtils.executeCommand(player, "ct reload")
                     //チャットにテキストを流す
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.syntax.name"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.syntax"))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
                 }
             }
             //落下死防止やコマンド権限のためクリエモードに切り替え

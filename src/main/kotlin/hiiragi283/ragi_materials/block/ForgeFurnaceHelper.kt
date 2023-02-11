@@ -99,7 +99,7 @@ object ForgeFurnaceHelper {
         //燃料が満タンの場合
         if (state.getValue(BlockForgeFurnace.FUEL) == 3) {
             val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
-            val facing = litForgeFurnace.getValue(BlockHorizontal.FACING)
+            val facing = state.getValue(BlockHorizontal.FACING)
             world.setBlockState(pos, litForgeFurnace.withProperty(BlockHorizontal.FACING, facing), 2) //火力UP
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f

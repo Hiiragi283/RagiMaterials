@@ -210,11 +210,11 @@ text.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用しま
 text.ragi_materials.blaze_heater.1=燃料の消費はありません
 text.ragi_materials.blaze_heater.2=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
-text.ragi_materials.decoration_line.name=§e§l========================================
-text.ragi_materials.durability.name=- 耐久値: §b%s§r
+text.ragi_materials.decoration_line=§e§l========================================
+text.ragi_materials.durability=- 耐久値: §b%s§r
 text.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用します
 text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入
-text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして火力を§c§oブースト§r§
+text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして火力を§c§oブースト§r
 text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要
 text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換する
 text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換する
@@ -223,5 +223,8 @@ text.ragi_materials.property.formula=- 化学式: §b%s§r
 text.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
 text.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
 text.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
-text.ragi_materials.spawn.name=§bスポーン地点にテレポートしました!
-text.ragi_materials.syntax.name=§bSyntax and Reload!
+text.ragi_materials.salt_pond.0=Used for evaporating liquid
+text.ragi_materials.salt_pond.1=Right-click with §9Filled Bucket§r§7 to place liquid
+text.ragi_materials.salt_pond.2=Waiting about §b10 seconds§r§7, the pond will drop §fSalts§r
+text.ragi_materials.spawn=§bスポーン地点にテレポートしました!
+text.ragi_materials.syntax=§bSyntax and Reload!

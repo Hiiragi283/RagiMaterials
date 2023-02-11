@@ -23,7 +23,9 @@ class RagiMaterials {
         FluidRegistry.enableUniversalBucket()
     }
 
-    private val isLoadedGT = Loader.isModLoaded("gregtech")
+    companion object {
+        val isLoadedGT = Loader.isModLoaded("gregtech")
+    }
 
     //Pre-Initializationの段階で呼ばれるevent
     @Mod.EventHandler
