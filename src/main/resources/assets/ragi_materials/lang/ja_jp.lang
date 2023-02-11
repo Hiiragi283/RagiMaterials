@@ -5,7 +5,7 @@ tile.blaze_heater.1.name=ヘルライズヒーター
 tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.forge_furnace.name=鍛造炉
 tile.oredict_converter.name=鉱石辞書変換機
-tile.salt_pond.name=塩田ブロック
+tile.salt_pond.name=[未完成] 塩田ブロック
 
 # Config
 config.ragi_materials.debug=デバッグ設定
@@ -17,6 +17,8 @@ config.ragi_materials.material=カスタム素材の登録
 config.ragi_materials.material.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
 config.ragi_materials.material.custom=カスタム素材の一覧
 config.ragi_materials.material.custom.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
+config.ragi_materials.material.max=素材の最大数
+config.ragi_materials.material.max.tooltip=登録される素材の最大数 (メタデータの上限) を設定してください
 
 config.ragi_materials.recipe_map=カスタムレシピの登録
 config.ragi_materials.recipe_map.forge_burning=鍛造炉 - Tier: バーニング
@@ -93,9 +95,29 @@ fluid.plutonium=溶融プルトニウム
 
 fluid.deuterium=重水素
 fluid.tritium=三重水素
+fluid.uranium235=溶融ウラニウム235
+fluid.plutonium241=溶融プルトニウム241
 
 fluid.wildcard=無効な
 fluid.hiiragi_tsubasa=DEBUG
+
+fluid.titanium_alloy=溶融チタン合金
+fluid.advanced_alloy=溶融発展合金
+fluid.invar=溶融インバー
+fluid.kanthal=溶融カンタル
+fluid.magnet=溶融磁石
+fluid.mangalloy=溶融高マンガン鋼
+fluid.stainless_steel=溶融ステンレス鋼
+fluid.steel=溶融鋼
+fluid.tool_steel=溶融道具鋼
+fluid.constantan=溶融コンスタンタン
+fluid.nichrome=溶融ニクロム
+fluid.brass=溶融黄銅
+fluid.bronze=溶融青銅
+fluid.nickelsilver=溶融洋白
+fluid.electrum=溶融エレクトラム
+fluid.tungsten_steel=溶融タングステン鋼
+fluid.iridium_alloy=溶融イリジウム合金
 
 # Item
 
@@ -175,8 +197,8 @@ material.plutonium=プルトニウム
 
 material.deuterium=重水素
 material.tritium=三重水素
-material.uranium_235=ウラニウム235
-material.plutonium_241=プルトニウム241
+material.uranium235=ウラニウム235
+material.plutonium241=プルトニウム241
 
 material.wildcard=無効な
 material.hiiragi_tsubasa=らぎマテリアル
