@@ -2,31 +2,23 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.event.ItemTooltip
-import hiiragi283.ragi_materials.event.ModelRegistry
-import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialType
-import hiiragi283.ragi_materials.util.RagiColor
-import hiiragi283.ragi_materials.util.RagiModel
 import hiiragi283.ragi_materials.util.RagiUtils
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.block.statemap.StateMapperBase
+import net.minecraft.block.material.Material
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
-import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fluids.BlockFluidClassic
+import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import java.awt.Color
 
 object RagiInit {
@@ -63,7 +55,7 @@ object RagiInit {
         .setMaxDamage(63).setMaxStackSize(1)
 
     fun loadPreInit() {
-        //configから素材を追加
+        //configからmaterialを追加
         registerMaterial()
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
@@ -91,35 +83,34 @@ object RagiInit {
             ItemPlate,
             ItemToolBellow
         )
-        //Eventの登録
-        registerEvents()
         //Fluidの登録
-        RagiInitFluid.registerFluids()
-        RagiModel.setModelFluids()
-        //Modelの登録
-        registerModels()
+        //listの各materialに対して実行
+        for (material in MaterialRegistry.list) {
+            //materialがWILDCARDでない，かつmaterialのtypeがfluidの場合
+            if (material != MaterialRegistry.WILDCARD && material.type.getTypeBase().contains("fluid")) {
+                //Fluidの登録
+                val fluid = FluidBase(material.name)
+                fluid.setColor(material.getColor())
+                //MaterialTypesがGASの場合
+                if (material.type == MaterialType.GAS) {
+                    fluid.isGaseous = true
+                    fluid.density = fluid.density * -1
+                }
+                FluidRegistry.registerFluid(fluid)
+                //fluid入りバケツを登録
+                FluidRegistry.addBucketForFluid(fluid)
+                //materialのtypeのhasFluidBlockがtrueの場合
+                if (material.type.getTypeBase().contains("liquid")) {
+                    //液体ブロックを生成・登録・割り当て
+                    val fluidBlock = BlockFluidClassic(fluid, Material.WATER).setRegistryName(fluid.name)
+                    ForgeRegistries.BLOCKS.register(fluidBlock)
+                    fluid.block = fluidBlock
+                }
+            }
+        }
     }
 
-    fun loadInit() {
-        //BlockとItemの着色
-        RagiColor.setColor(
-            RagiColor.ColorMaterial(), ItemBlockMetal, ItemDust, ItemIngot, ItemIngotHot, ItemNugget, ItemPlate
-        )
-        RagiColor.setColor(RagiColor.ColorNBT(), ItemForgeHammer)
-        //鉱石辞書の登録
-        RagiInitOreDict.registerOreDict()
-        //レシピの登録
-        RagiInitRecipe.registerRecipes()
-    }
-
-    fun loadPostInit() {
-        //ディスペンサーの機能の登録
-        RagiInitDispenser.registerDispense()
-        overrideProperty()
-        overrideStack()
-    }
-
-    //configから素材を登録するメソッド
+    //configからmaterialを登録するメソッド
     private fun registerMaterial() {
         for (value in RagiConfig.material.listMaterials) {
             //valueをばらしてプロパティを得る
@@ -139,7 +130,7 @@ object RagiInit {
                     break
                 }
             }
-            //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，素材を登録する
+            //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，materialを登録する
             if (index in 1023..RagiConfig.material.maxMaterials && type != MaterialType.WILDCARD) {
                 val material = MaterialBuilder(index, name, type)
                 material.setColor(color)
@@ -152,25 +143,8 @@ object RagiInit {
         }
     }
 
-    //Eventを登録するメソッド
-    private fun registerEvents() {
-        MinecraftForge.EVENT_BUS.register(ItemTooltip())
-        MinecraftForge.EVENT_BUS.register(ModelRegistry())
-        MinecraftForge.EVENT_BUS.register(RightClickBlock())
-    }
-
-    //特殊なModelを登録するメソッド
-    @SideOnly(Side.CLIENT)
-    private fun registerModels() {
-        ModelLoader.setCustomStateMapper(BlockSaltPond, object : StateMapperBase() {
-            override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
-                return ModelResourceLocation((state.block.registryName!!), "multipart")
-            }
-        })
-    }
-
     //Vanillaのブロックのプロパティを上書きするメソッド
-    private fun overrideProperty() {
+    fun overrideProperty() {
         //光源レベルの上書き
         //イワライナー氏から着想を得ました
         Blocks.BROWN_MUSHROOM.setLightLevel(0.0F)
@@ -205,7 +179,7 @@ object RagiInit {
     }
 
     //Itemの最大スタック数を上書きする
-    private fun overrideStack() {
+    fun overrideStack() {
         //configのlistMaxStackを参照する
         for (name in RagiConfig.utility.listMaxStack) {
             val item = RagiUtils.getItem(name)

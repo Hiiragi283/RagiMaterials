@@ -5,7 +5,7 @@ import net.minecraft.client.resources.I18n
 
 object MaterialUtils {
 
-    //素材のツールチップを生成するメソッド
+    //materialのツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
         //化学式

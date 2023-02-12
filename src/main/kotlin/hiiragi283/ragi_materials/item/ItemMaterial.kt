@@ -25,7 +25,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        //EnumMaterialsの取得
+        //materialの取得
         val material = MaterialRegistry.getMaterial(stack.metadata)
         //tooltipの追加
         MaterialUtils.materialInfo(material, tooltip)
@@ -50,6 +50,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
     }
 
     //stackの表示名を上書きするメソッド
+    @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val material = MaterialRegistry.getMaterial(stack.metadata)
         return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
@@ -59,7 +60,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
     @SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
         val material = MaterialRegistry.getMaterial(stack.metadata)
-        //素材のtypeがRADIOACTIVEを含むならtrue
+        //materialのtypeがRADIOACTIVEを含むならtrue
         return material.type.getTypeBase().contains(MaterialType.RADIOACTIVE.name)
     }
 }

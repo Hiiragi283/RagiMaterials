@@ -27,7 +27,7 @@ object RagiInitOreDict {
 
     //鉱石辞書を登録するメソッド
     fun registerOreDict() {
-        //EnumMaterialsの各enumに対して実行
+        //list内の各materialに対して実行
         for (material in MaterialRegistry.list) {
             for (prefix in mapType.keys) {
                 if (material.type.getTypeBase().contains(mapType[prefix])) {

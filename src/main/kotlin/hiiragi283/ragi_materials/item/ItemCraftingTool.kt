@@ -28,7 +28,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
             for (i in 0 .. maxMeta) {
                 //numMaterialの最大値まで処理を繰り替えす
                 for (j in 0 .. Reference.numMaterial) {
-                    //EnumMaterialsの取得
+                    //materialの取得
                     val material = MaterialRegistry.getMaterial(j)
                     //materialがWILDCARDでない，かつmaterialがmapToolMaterialに含まれている場合
                     if (material !== MaterialRegistry.WILDCARD && MaterialRegistry.mapToolMaterial.contains(material)) {
@@ -64,7 +64,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
     //Itemにtooltipを付与するメソッド
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        //EnumMaterialsの取得
+        //materialの取得
         val material = MaterialRegistry.getMaterial(stack.metadata)
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {

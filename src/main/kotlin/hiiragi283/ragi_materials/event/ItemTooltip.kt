@@ -21,7 +21,7 @@ class ItemTooltip {
                 if ((tag !== null) && tag.hasKey("FluidName")) {
                     //tagから液体名を取得
                     val nameFluid = tag.getString("FluidName")
-                    //nameFluidからEnumMaterialsを取得
+                    //nameFluidからmaterialを取得
                     val material = MaterialRegistry.getMaterial(nameFluid)
                     //materialがWILDCARDでない場合
                     if (material !== MaterialRegistry.WILDCARD) {

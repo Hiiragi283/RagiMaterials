@@ -1,17 +1,12 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelBakery
-
-import net.minecraft.client.renderer.block.statemap.StateMapperBase
 
 object RagiModel {
 
@@ -43,32 +38,7 @@ object RagiModel {
         }
     }
 
-    //液体ブロックにmodelを割り当てるメソッド
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463
-    */
-    @SideOnly(Side.CLIENT)
-    fun setModelFluids() {
-        //EnumMaterialsの各enumに対して実行
-        for (material in MaterialRegistry.list) {
-            //Fluidを取得
-            val fluid = material.getFluid()
-            val model = ModelResourceLocation(("${Reference.MOD_ID}:${fluid.name}"), "fluid")
-            //アイテムとしての描画処理
-            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { model }
-            //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
-            if (fluid.block !== null) {
-                ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
-                    override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
-                        return model
-                    }
-                })
-            }
-        }
-    }
-
-    //素材のモデルを一括で登録するメソッド
+    //materialのモデルを一括で登録するメソッド
     @SideOnly(Side.CLIENT)
     fun setModelMaterial(vararg items: ItemMaterial) {
         for (item in items) {

@@ -96,9 +96,9 @@ object RagiColor {
     class ColorMaterial : IItemColor, IBlockColor {
 
         override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-            //メタデータからMaterialBuilderを取得
+            //メタデータからmaterialを取得
             val material = MaterialRegistry.getMaterial(stack.metadata)
-            //tintIndexが0ならばEnumMaterials.color，そうでないなら白を返す
+            //tintIndexが0ならばmaterial.getColor()，そうでないなら白を返す
             return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
         }
 
@@ -114,10 +114,10 @@ object RagiColor {
         override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
             //NBTタグがnullでない場合
             return if (stack.tagCompound !== null) {
-                //NBTタグからEnumMaterialsを取得
+                //NBTタグからmaterialを取得
                 val tag = stack.tagCompound!!
                 val material = MaterialRegistry.getMaterial(tag.getString("material"))
-                //tintIndexが1ならばEnumMaterials.color，そうでないなら白を返す
+                //tintIndexが1ならばmaterial.getColor()，そうでないなら白を返す
                 if (tintIndex == 1) material.getColor().rgb else 0xFFFFFF
             }
             //NBTタグがnullの場合

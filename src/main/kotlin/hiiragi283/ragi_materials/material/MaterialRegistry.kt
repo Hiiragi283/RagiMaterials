@@ -399,7 +399,7 @@ object MaterialRegistry {
         return materialMatches
     }
 
-    //代入したregistryNameと一致するEnumMaterialsを返すメソッド
+    //代入したregistryNameと一致するmaterialを返すメソッド
     fun getMaterial(registryName: String): MaterialBuilder {
         //デフォルト値はWILDCARD
         var materialMatches = WILDCARD
