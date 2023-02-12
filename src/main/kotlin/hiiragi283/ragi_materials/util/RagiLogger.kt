@@ -10,7 +10,9 @@ import org.apache.logging.log4j.LogManager
 */
 
 object RagiLogger {
+
     private val LOGGER_RAGI = LogManager.getLogger(Reference.MOD_ID)
+
     fun info(info: Any?) {
         LOGGER_RAGI.info(info)
     }
@@ -24,20 +26,14 @@ object RagiLogger {
     }
 
     fun infoDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) {
-            LOGGER_RAGI.info(info)
-        }
+        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.debug(info)
     }
 
     fun warnDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) {
-            LOGGER_RAGI.warn(info)
-        }
+        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.warn(info)
     }
 
     fun errorDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) {
-            LOGGER_RAGI.error(info)
-        }
+        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.error(info)
     }
 }

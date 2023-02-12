@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
@@ -107,9 +108,10 @@ class BlockOreDictConv: Block(Material.WOOD) {
                     val drop = EntityItem(
                         world, pos.x.toDouble(), pos.y.toDouble() + 1.0, pos.z.toDouble(), result
                     ) //ドロップアイテムを生成
-                    drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
-                    world.spawnEntity(drop) //ドロップアイテムをスポーン
+                    drop.setPickupDelay(0) //即座に回収できるようにする
+                    world.spawnEntity(drop) //dropをスポーン
                     RagiUtils.soundHypixel(world, pos) //SEを再生
+                    RagiLogger.infoDebug("Item was converted!")
                 }
             }
         }

@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.state.IBlockState
@@ -82,22 +83,23 @@ object ForgeFurnaceHelper {
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //stateから状態を取得
         val fuel = state.getValue(BlockForgeFurnace.FUEL)
-        //ブロックに蓄えられた燃料が3未満の場合
-        if (fuel < 3) {
+        //サーバー側，かつブロックに蓄えられた燃料が3未満の場合
+        if (!world.isRemote && fuel < 3) {
             val result = state.withProperty(BlockForgeFurnace.FUEL, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
             stack.shrink(1) //手持ちの燃料を1つ減らす
+            RagiLogger.infoDebug("Fuel was added!")
         }
         return stack
     }
 
     //ふいごで火力を上げるメソッド
     fun setBoosted(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
-        //燃料が満タンの場合
-        if (state.getValue(BlockForgeFurnace.FUEL) == 3) {
+        //サーバー側，かつ燃料が満タンの場合
+        if (!world.isRemote && state.getValue(BlockForgeFurnace.FUEL) == 3) {
             val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
             val facing = state.getValue(BlockHorizontal.FACING)
             world.setBlockState(pos, litForgeFurnace.withProperty(BlockHorizontal.FACING, facing), 2) //火力UP
@@ -105,6 +107,7 @@ object ForgeFurnaceHelper {
                 null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
             stack.itemDamage += 1//耐久値を1つ減らす
+            RagiLogger.infoDebug("Forge Furnace was boosted!")
         }
         return stack
     }
@@ -137,6 +140,7 @@ object ForgeFurnaceHelper {
                 if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
             }
+            RagiLogger.infoDebug("Heating was succeeded!")
         }
         return stack
     }
@@ -166,6 +170,7 @@ object ForgeFurnaceHelper {
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
+                RagiLogger.infoDebug("The state of Forge Furnace was updated!")
             }
 
             is BlockLitForgeFurnace -> {
@@ -175,6 +180,7 @@ object ForgeFurnaceHelper {
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
+                RagiLogger.infoDebug("The state of Boosted Forge Furnace was updated!")
             }
 
             is BlockBlazeHeater -> {
@@ -182,10 +188,12 @@ object ForgeFurnaceHelper {
                     world.playSound(
                         null, pos, RagiUtils.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f
                     ) //SEを再生
+                    RagiLogger.infoDebug("The state of Hellrise Heater was updated!")
                 } else {
                     world.playSound(
                         null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                     ) //SEを再生
+                    RagiLogger.infoDebug("The state of Blaze Heater was updated!")
                 }
             }
         }

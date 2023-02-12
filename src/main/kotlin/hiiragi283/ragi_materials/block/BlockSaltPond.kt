@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
@@ -155,33 +156,47 @@ class BlockSaltPond : Block(Material.WOOD) {
         val stack = player.getHeldItem(hand)
         val drop = EntityItem(
             world, pos.x.toDouble(), pos.y.toDouble() + 0.5, pos.z.toDouble(), ItemStack(Items.BUCKET)
-        )
-        drop.setPickupDelay(0)
-        if (state.getValue(TYPE) == EnumSalt.EMPTY) {
-            if (stack.item == Items.WATER_BUCKET) {
-                world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2)
-                stack.shrink(1)
-                if (!world.isRemote) world.spawnEntity(drop)
-            } else if (stack.item.registryName.toString() == "forge:bucketfilled" && stack.tagCompound !== null) {
-                val tag = stack.tagCompound!!
-                if (tag.hasKey("FluidName")) {
-                    val fluid = tag.getString("FluidName")
-                    if (fluid == "saltwater") {
-                        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.SALTWATER), 2)
-                        stack.shrink(1)
-                        if (!world.isRemote) world.spawnEntity(drop)
-                    } else if (fluid == "brine") {
-                        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.BRINE), 2)
-                        stack.shrink(1)
-                        if (!world.isRemote) world.spawnEntity(drop)
+        ) //空のバケツのEntityItem
+        drop.setPickupDelay(0) //即座に回収できるようにする
+        //サーバー側の場合
+        if (!world.isRemote) {
+            //塩田ブロックが空の場合
+            if (state.getValue(TYPE) == EnumSalt.EMPTY) {
+                //水バケツの場合
+                if (stack.item == Items.WATER_BUCKET) {
+                    world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
+                    stack.shrink(1) //stackの縮小
+                    world.spawnEntity(drop) //dropをスポーン
+                    RagiLogger.infoDebug("Water was placed!")
+                }
+                //forgeのバケツ，かつNBTタグがnullでない場合
+                else if (stack.item.registryName.toString() == "forge:bucketfilled" && stack.tagCompound !== null) {
+                    val tag = stack.tagCompound!! //tagを取得
+                    //tagがFluidNameを持っている場合
+                    if (tag.hasKey("FluidName")) {
+                        val fluid = tag.getString("FluidName") //FluidNameの取得
+                        //Saltwaterの場合
+                        if (fluid == "saltwater") {
+                            world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.SALTWATER), 2) //stateの更新
+                            stack.shrink(1) //stackの縮小
+                            world.spawnEntity(drop) //dropをスポーン
+                            RagiLogger.infoDebug("Saltwater was placed!")
+                        }
+                        //Brineの場合
+                        else if (fluid == "brine") {
+                            world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.BRINE), 2) //stateの更新
+                            stack.shrink(1) //stackの縮小
+                            world.spawnEntity(drop) //dropをスポーン
+                            RagiLogger.infoDebug("Brine was placed!")
+                        }
                     }
                 }
             }
+            world.playSound(
+                null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
+            ) //SEを再生
+            world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
         }
-        world.playSound(
-            null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
-        ) //SEを再生
-        world.scheduleUpdate(pos, this, 200)
         return true
     }
 
@@ -194,7 +209,9 @@ class BlockSaltPond : Block(Material.WOOD) {
     //Random Tickで呼び出されるメソッド
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
         super.updateTick(world, pos, state, rand)
+        //サーバー側の場合
         if (!world.isRemote) {
+            //完成品の場合分け
             val stack: ItemStack = when (state.getValue(TYPE)) {
                 EnumSalt.WATER -> ItemStack(RagiInit.ItemDust, 1, 11)
                 EnumSalt.SALTWATER -> ItemStack(RagiInit.ItemDust, 1, 12)
@@ -204,10 +221,10 @@ class BlockSaltPond : Block(Material.WOOD) {
             if (stack.item != Items.AIR) {
                 val drop = EntityItem(
                     world, pos.x.toDouble(), pos.y.toDouble() + 0.75, pos.z.toDouble(), stack
-                )
-                drop.setPickupDelay(0)
-                world.spawnEntity(drop)
-                world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2)
+                ) //完成品のEntityItem
+                drop.setPickupDelay(0) //即座に回収できるようにする
+                world.spawnEntity(drop) //dropをスポーン
+                world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
