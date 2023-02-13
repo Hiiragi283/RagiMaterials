@@ -87,6 +87,7 @@ object ForgeFurnaceHelper {
         if (!world.isRemote && fuel < 3) {
             val result = state.withProperty(BlockForgeFurnace.FUEL, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
+            world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
             world.playSound(
                 null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
@@ -95,7 +96,6 @@ object ForgeFurnaceHelper {
         }
         return stack
     }
-
 
     //右クリックレシピを司るメソッド
     fun getResult(
@@ -106,7 +106,7 @@ object ForgeFurnaceHelper {
         map: MutableMap<String, String>
     ): ItemStack {
         var result = ItemStack.EMPTY
-        if (canProcess(state)) {
+        if (!world.isRemote && canProcess(state)) {
             //mapRecipe内の各keyに対して実行
             for (key in map.keys) {
                 //stackがkeyと等しい場合は対応する完成品を，そうでない場合は空のItemStackを返す
@@ -124,8 +124,9 @@ object ForgeFurnaceHelper {
                 drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
                 if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
+                world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
+                RagiLogger.infoDebug("Heating was succeeded!")
             }
-            RagiLogger.infoDebug("Heating was succeeded!")
         }
         return stack
     }
@@ -146,11 +147,14 @@ object ForgeFurnaceHelper {
 
     //レシピ実行後にblockstateを上書きするメソッド
     private fun setState(world: World, pos: BlockPos, state: IBlockState) {
+        val facing = state.getValue(BlockHorizontal.FACING)
         when (state.block) {
             is BlockForgeFurnace -> {
                 //stateから状態を取得
                 val fuel = state.getValue(BlockForgeFurnace.FUEL)
-                val result = state.withProperty(BlockForgeFurnace.FUEL, fuel - 1)
+                val result = state
+                    .withProperty(BlockHorizontal.FACING, facing)
+                    .withProperty(BlockForgeFurnace.FUEL, fuel - 1)
                 world.setBlockState(pos, result, 2)
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
@@ -160,7 +164,9 @@ object ForgeFurnaceHelper {
 
             is BlockLitForgeFurnace -> {
                 val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
-                val result = forgeFurnace.withProperty(BlockForgeFurnace.FUEL, 2)
+                val result = forgeFurnace
+                    .withProperty(BlockHorizontal.FACING, facing)
+                    .withProperty(BlockForgeFurnace.FUEL, 2)
                 world.setBlockState(pos, result, 2)
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f

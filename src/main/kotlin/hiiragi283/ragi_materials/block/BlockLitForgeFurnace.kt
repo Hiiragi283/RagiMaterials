@@ -38,6 +38,12 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         return BlockStateContainer(this, FACING)
     }
 
+    //コンパレーター出力を上書きするメソッド
+    @Deprecated("Deprecated in Java", ReplaceWith("4"))
+    override fun getComparatorInputOverride(state: IBlockState, world: World, pos: BlockPos): Int {
+        return 4 //常に4を返す
+    }
+
     //ドロップするアイテムを得るメソッド
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
         //ForgeFurnaceを返す
@@ -61,7 +67,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         placer: EntityLivingBase,
         hand: EnumHand
     ): IBlockState {
-        return this.defaultState.withProperty(BlockHorizontal.FACING, placer.horizontalFacing.opposite)
+        return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
     }
 
     //メタデータからBlockstateを得るメソッド
@@ -69,6 +75,12 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
     override fun getStateFromMeta(meta: Int): IBlockState {
         val facing = EnumFacing.getFront((meta / 4) + 2)
         return blockState.baseState.withProperty(FACING, facing)
+    }
+
+    //コンパレーター出力を上書きするか判別するメソッド
+    @Deprecated("Deprecated in Java", ReplaceWith("true"))
+    override fun hasComparatorInputOverride(state: IBlockState): Boolean {
+        return true
     }
 
     //ブロックを右クリックした時に呼ばれるメソッド

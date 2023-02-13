@@ -42,7 +42,7 @@ class BlockOreDictConv: Block(Material.WOOD) {
     @Deprecated("Deprecated in Java")
     override fun getBoundingBox(
         blockState: IBlockState,
-        worldIn: IBlockAccess,
+        world: IBlockAccess,
         pos: BlockPos
     ): AxisAlignedBB {
         return box //エンチャント台と同じ

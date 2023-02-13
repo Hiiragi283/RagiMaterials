@@ -44,6 +44,15 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
         return BlockStateContainer(this, FACING, FUEL)
     }
 
+    //コンパレーター出力を上書きするメソッド
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "state.getValue(FUEL)",
+        "hiiragi283.ragi_materials.block.BlockForgeFurnace.Companion.FUEL")
+    )
+    override fun getComparatorInputOverride(state: IBlockState, world: World, pos: BlockPos): Int {
+        return state.getValue(FUEL) //燃料の量を返す
+    }
+
     //ドロップするアイテムを得るメソッド
     override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
         //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
@@ -52,38 +61,7 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
 
     //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
-        val stateMeta = when (state.getValue(FACING)) {
-            EnumFacing.NORTH -> when (state.getValue(FUEL)) {
-                1 -> 1
-                2 -> 2
-                3 -> 3
-                else -> 0
-            }
-
-            EnumFacing.SOUTH -> when (state.getValue(FUEL)) {
-                1 -> 5
-                2 -> 6
-                3 -> 7
-                else -> 4
-            }
-
-            EnumFacing.WEST -> when (state.getValue(FUEL)) {
-                1 -> 9
-                2 -> 10
-                3 -> 11
-                else -> 8
-            }
-
-            EnumFacing.EAST -> when (state.getValue(FUEL)) {
-                1 -> 13
-                2 -> 14
-                3 -> 15
-                else -> 12
-            }
-
-            else -> 0
-        }
-        return stateMeta
+        return (state.getValue(FACING).index - 2) * 4 + state.getValue(FUEL)
     }
 
     //ブロックが設置されたときに呼び出されるメソッド
@@ -98,7 +76,7 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
         placer: EntityLivingBase,
         hand: EnumHand
     ): IBlockState {
-        return this.defaultState.withProperty(BlockHorizontal.FACING, placer.horizontalFacing.opposite)
+        return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
     }
 
     //メタデータからBlockstateを得るメソッド
@@ -107,6 +85,12 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
         val facing = EnumFacing.getFront((meta / 4) + 2)
         val fuel = meta % 4
         return blockState.baseState.withProperty(FACING, facing).withProperty(FUEL, fuel)
+    }
+
+    //コンパレーター出力を上書きするか判別するメソッド
+    @Deprecated("Deprecated in Java", ReplaceWith("true"))
+    override fun hasComparatorInputOverride(state: IBlockState): Boolean {
+        return true
     }
 
     //ブロックを右クリックした時に呼ばれるメソッド
@@ -123,10 +107,11 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
     ): Boolean {
         //プレイヤーが利き手に持っているアイテムを取得
         val stack = player.getHeldItem(hand)
-        when (stack.item) {
-            Items.COAL -> ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-            RagiInit.ItemToolBellow -> ForgeFurnaceHelper.setBoosted(world, pos, state, stack) //火力UP
-            else -> {
+        //サーバー側の場合
+        if (!world.isRemote) {
+            if (stack.item == Items.COAL) {
+                ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
+            } else {
                 ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBurning) //レシピ実行
             }
         }

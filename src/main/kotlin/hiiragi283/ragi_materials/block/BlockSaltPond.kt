@@ -50,38 +50,15 @@ class BlockSaltPond : Block(Material.WOOD) {
         setRegistryName(Reference.MOD_ID, registryName)
         setResistance(3.0F)
         soundType = SoundType.WOOD
-        tickRandomly = true
         unlocalizedName = registryName
     }
 
     //あるブロックが隣接したブロックと同じかどうかを判定するメソッド
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
         val state = world.getBlockState(pos)
-        val stateN = world.getBlockState(pos.north())
-        val stateE = world.getBlockState(pos.east())
-        val stateS = world.getBlockState(pos.south())
-        val stateW = world.getBlockState(pos.west())
-        //facingの値によって比較する方角を指定する
-        return when (facing) {
-            EnumFacing.NORTH -> {
-                state.block == stateN.block
-            }
-
-            EnumFacing.EAST -> {
-                state.block == stateE.block
-            }
-
-            EnumFacing.SOUTH -> {
-                state.block == stateS.block
-            }
-
-            EnumFacing.WEST -> {
-                state.block == stateW.block
-            }
-
-            else -> false
-        }
-
+        val stateTo = world.getBlockState(pos.offset(facing))
+        //EnumFacingの先にあるstateと一致するならtrue
+        return state == stateTo
     }
 
     //Blockstateの登録をするメソッド
@@ -102,7 +79,7 @@ class BlockSaltPond : Block(Material.WOOD) {
     //ブロックの当たり判定を取得するメソッド
     @Deprecated("Deprecated in Java")
     override fun getBoundingBox(
-        blockState: IBlockState, worldIn: IBlockAccess, pos: BlockPos
+        state: IBlockState, world: IBlockAccess, pos: BlockPos
     ): AxisAlignedBB {
         return box
     }
@@ -208,7 +185,6 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     //Random Tickで呼び出されるメソッド
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        super.updateTick(world, pos, state, rand)
         //サーバー側の場合
         if (!world.isRemote) {
             //完成品の場合分け
