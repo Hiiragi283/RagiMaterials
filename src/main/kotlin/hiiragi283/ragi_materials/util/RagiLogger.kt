@@ -26,7 +26,7 @@ object RagiLogger {
     }
 
     fun infoDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.debug(info)
+        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.info(info)
     }
 
     fun warnDebug(info: Any?) {

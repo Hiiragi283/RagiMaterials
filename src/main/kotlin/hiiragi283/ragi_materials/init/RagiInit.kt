@@ -11,10 +11,8 @@ import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialType
-import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.material.Material
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
@@ -53,7 +51,7 @@ object RagiInit {
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
 
-    fun loadPreInit() {
+    fun register() {
         //configからmaterialを追加
         registerMaterial()
         //Blockの登録
@@ -81,8 +79,7 @@ object RagiInit {
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
-            ItemPlate,
-            ItemToolBellow
+            ItemPlate
         )
         //Fluidの登録
         //listの各materialに対して実行
@@ -141,51 +138,6 @@ object RagiInit {
                 material.setTempBoil(boil)
                 MaterialRegistry.list.add(material)
             }
-        }
-    }
-
-    //Vanillaのブロックのプロパティを上書きするメソッド
-    fun overrideProperty() {
-        //光源レベルの上書き
-        //イワライナー氏から着想を得ました
-        Blocks.BROWN_MUSHROOM.setLightLevel(0.0F)
-        Blocks.LIT_REDSTONE_ORE.setLightLevel(0.0F)
-        Blocks.POWERED_COMPARATOR.setLightLevel(0.0F)
-        Blocks.POWERED_REPEATER.setLightLevel(0.0F)
-        Blocks.REDSTONE_TORCH.setLightLevel(0.0F)
-        Blocks.REDSTONE_WIRE.setLightLevel(0.0F)
-        //光の透過率を上書きする
-        Blocks.FLOWING_LAVA.setLightOpacity(0)
-        Blocks.FLOWING_WATER.setLightOpacity(0)
-        Blocks.ICE.setLightOpacity(0)
-        Blocks.LAVA.setLightOpacity(0)
-        Blocks.WATER.setLightOpacity(0)
-        //採掘レベルの新規追加
-        Blocks.CACTUS.setHarvestLevel("axe", 0)
-        Blocks.CARPET.setHarvestLevel("axe", 0)
-        Blocks.GLASS.setHarvestLevel("pickaxe", 0)
-        Blocks.GLASS_PANE.setHarvestLevel("pickaxe", 0)
-        Blocks.HAY_BLOCK.setHarvestLevel("axe", 0)
-        Blocks.LEAVES2.setHarvestLevel("axe", 0)
-        Blocks.LEAVES.setHarvestLevel("axe", 0)
-        Blocks.LEVER.setHarvestLevel("pickaxe", 0)
-        Blocks.NETHER_WART_BLOCK.setHarvestLevel("axe", 0)
-        Blocks.PISTON.setHarvestLevel("pickaxe", 0)
-        Blocks.SEA_LANTERN.setHarvestLevel("pickaxe", 0)
-        Blocks.SKULL.setHarvestLevel("axe", 0)
-        Blocks.SPONGE.setHarvestLevel("shovel", 0)
-        Blocks.STAINED_GLASS.setHarvestLevel("pickaxe", 0)
-        Blocks.STAINED_GLASS_PANE.setHarvestLevel("pickaxe", 0)
-        Blocks.STICKY_PISTON.setHarvestLevel("pickaxe", 0)
-    }
-
-    //Itemの最大スタック数を上書きする
-    fun overrideStack() {
-        //configのlistMaxStackを参照する
-        for (name in RagiConfig.utility.listMaxStack) {
-            val item = RagiUtils.getItem(name)
-            //itemの耐久値が0の場合、最大スタック数を64に上書きする
-            if (item.maxDamage == 0) item.setMaxStackSize(64)
         }
     }
 }
