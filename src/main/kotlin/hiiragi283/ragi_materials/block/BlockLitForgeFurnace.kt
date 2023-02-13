@@ -96,4 +96,14 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         //常にドロップさせるので1を返す
         return 1
     }
+
+    //Random Tickで呼び出されるメソッド
+    override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
+        if (!world.isRemote) world.setBlockState(
+            pos,
+            RagiInit.BlockForgeFurnace.defaultState
+                .withProperty(FACING, state.getValue(FACING))
+                .withProperty(BlockForgeFurnace.FUEL, 3),
+            2) //火力DOWN
+    }
 }

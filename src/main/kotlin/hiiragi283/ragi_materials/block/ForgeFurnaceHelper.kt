@@ -96,21 +96,6 @@ object ForgeFurnaceHelper {
         return stack
     }
 
-    //ふいごで火力を上げるメソッド
-    fun setBoosted(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
-        //サーバー側，かつ燃料が満タンの場合
-        if (!world.isRemote && state.getValue(BlockForgeFurnace.FUEL) == 3) {
-            val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
-            val facing = state.getValue(BlockHorizontal.FACING)
-            world.setBlockState(pos, litForgeFurnace.withProperty(BlockHorizontal.FACING, facing), 2) //火力UP
-            world.playSound(
-                null, pos, RagiUtils.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f
-            ) //SEを再生
-            stack.itemDamage += 1//耐久値を1つ減らす
-            RagiLogger.infoDebug("Forge Furnace was boosted!")
-        }
-        return stack
-    }
 
     //右クリックレシピを司るメソッド
     fun getResult(

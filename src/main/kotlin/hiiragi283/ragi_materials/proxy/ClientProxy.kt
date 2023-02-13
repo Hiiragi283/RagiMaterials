@@ -21,6 +21,7 @@ class ClientProxy : CommonProxy() {
         MinecraftForge.EVENT_BUS.register(ItemTooltip())
         //アイテムのモデル登録
         RagiModel.setModel(
+            RagiInit.ItemBlockBellow,
             RagiInit.ItemBlockBlazeHeater,
             RagiInit.ItemBlockForgeFurnace,
             RagiInit.ItemBlockOreDictConv,
@@ -28,8 +29,7 @@ class ClientProxy : CommonProxy() {
 
             RagiInit.ItemBlazingCube,
             RagiInit.ItemBookDebug,
-            RagiInit.ItemForgeHammer,
-            RagiInit.ItemToolBellow
+            RagiInit.ItemForgeHammer
         )
         //アイテムのモデル登録 (メタデータ無視)
         RagiModel.setModelSame(RagiInit.ItemIngotHot)

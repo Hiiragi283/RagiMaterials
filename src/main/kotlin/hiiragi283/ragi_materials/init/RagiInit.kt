@@ -28,6 +28,7 @@ object RagiInit {
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
+    val BlockBellow = BlockBellow()
     val BlockBlazeHeater = BlockBlazeHeater()
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockLitForgeFurnace = BlockLitForgeFurnace()
@@ -35,6 +36,7 @@ object RagiInit {
     val BlockSaltPond = BlockSaltPond()
 
     //Itemの定義
+    val ItemBlockBellow = ItemBlockBase(BlockBellow, 0, 2)
     val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1, 2)
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0, 3)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0, 1)
@@ -50,15 +52,13 @@ object RagiInit {
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
-    val ItemToolBellow: Item = ItemBase(Reference.MOD_ID, "bellow", 0)
-        .setCreativeTab(CreativeTabs.TOOLS)
-        .setMaxDamage(63).setMaxStackSize(1)
 
     fun loadPreInit() {
         //configからmaterialを追加
         registerMaterial()
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
+            BlockBellow,
             BlockBlazeHeater,
             BlockForgeFurnace,
             BlockLitForgeFurnace,
@@ -67,6 +67,7 @@ object RagiInit {
         )
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
+            ItemBlockBellow,
             ItemBlockBlazeHeater,
             ItemBlockForgeFurnace,
             ItemBlockOreDictConv,

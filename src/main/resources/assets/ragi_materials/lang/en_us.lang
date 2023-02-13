@@ -2,8 +2,9 @@
 # Block
 tile.blaze_heater.0.name=Blaze Heater
 tile.blaze_heater.1.name=Hellrise Heater
-tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
+tile.block_bellow.name=Bellow
 tile.forge_furnace.name=Forge Furnace
+tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.oredict_converter.name=Ore Dictionary Converter
 tile.salt_pond.name=[WIP] Salt Evaporation Pond
 
@@ -120,8 +121,6 @@ fluid.tungsten_steel=Molten Tungsten Steel
 fluid.iridium_alloy=Molten Iridium Alloy
 
 # Item
-
-item.bellow.name=Bellow
 item.blazing_cube.name=Blazing Cube
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)

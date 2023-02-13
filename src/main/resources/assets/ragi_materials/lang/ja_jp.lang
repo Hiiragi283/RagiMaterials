@@ -2,8 +2,9 @@
 # Block
 tile.blaze_heater.0.name=ブレイズヒーター
 tile.blaze_heater.1.name=ヘルライズヒーター
-tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
+tile.block_bellow.name=ふいご
 tile.forge_furnace.name=鍛造炉
+tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=[未完成] 塩田ブロック
 
@@ -120,8 +121,6 @@ fluid.tungsten_steel=溶融タングステン鋼
 fluid.iridium_alloy=溶融イリジウム合金
 
 # Item
-
-item.bellow.name=ふいご
 item.blazing_cube.name=燃え盛るキューブ
 item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "active=false,facing=north": {"model": "minecraft:pumpkin"},
+    "active=true,facing=north": {"model": "minecraft:lit_pumpkin"},
+    "active=false,facing=south": {"model": "minecraft:pumpkin", "y": 180},
+    "active=true,facing=south": {"model": "minecraft:lit_pumpkin", "y": 180},
+    "active=false,facing=west": {"model": "minecraft:pumpkin", "y": 270},
+    "active=true,facing=west": {"model": "minecraft:lit_pumpkin", "y": 270},
+    "active=false,facing=east": {"model": "minecraft:pumpkin", "y": 90},
+    "active=true,facing=east": {"model": "minecraft:lit_pumpkin", "y": 90}
+  }
+}

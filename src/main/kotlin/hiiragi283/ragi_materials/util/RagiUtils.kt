@@ -50,11 +50,7 @@ object RagiUtils {
     //液体名からFluidを取得するメソッド
     //Fluidがnullの場合は水を返す
     fun getFluid(name: String): Fluid {
-        val fluid: Fluid = FluidRegistry.getFluid(name)
-        return if (fluid !== null) fluid else {
-            RagiLogger.warnDebug("The fluid <fluid:$name> was not found...")
-            FluidRegistry.getFluid("water")
-        }
+        return FluidRegistry.getFluid(name)
     }
 
     //ResourceLocationからItemを取得するメソッド
@@ -178,5 +174,10 @@ object RagiUtils {
         val amount: Int = this.count
         val meta: Int = this.metadata
         return "<$location:$meta> * $amount"
+    }
+
+    //BooleanをIntに変換するメソッド
+    fun Boolean.toInt(): Int {
+        return if(this) 1 else 0
     }
 }
