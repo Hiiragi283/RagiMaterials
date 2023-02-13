@@ -138,9 +138,9 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
             if (state.getValue(HELL)) {
-                ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeHellrise) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, player, stack, ForgeFurnaceHelper.mapForgeHellrise) //レシピ実行
             } else {
-                ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, player, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
             }
         }
         return true

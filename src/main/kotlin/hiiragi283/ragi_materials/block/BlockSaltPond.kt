@@ -55,10 +55,9 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     //あるブロックが隣接したブロックと同じかどうかを判定するメソッド
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
-        val state = world.getBlockState(pos)
         val stateTo = world.getBlockState(pos.offset(facing))
-        //EnumFacingの先にあるstateと一致するならtrue
-        return state == stateTo
+        //EnumFacingの先にあるblockが塩田ブロックならtrue
+        return stateTo.block == this
     }
 
     //Blockstateの登録をするメソッド
@@ -131,49 +130,53 @@ class BlockSaltPond : Block(Material.WOOD) {
         hitZ: Float
     ): Boolean {
         val stack = player.getHeldItem(hand)
+        val posPlayer = player.position
         val drop = EntityItem(
-            world, pos.x.toDouble(), pos.y.toDouble() + 0.5, pos.z.toDouble(), ItemStack(Items.BUCKET)
+            world, posPlayer.x.toDouble() + 0.5, posPlayer.y.toDouble(), posPlayer.z.toDouble() + 0.5, ItemStack(Items.BUCKET)
         ) //空のバケツのEntityItem
         drop.setPickupDelay(0) //即座に回収できるようにする
-        //サーバー側の場合
-        if (!world.isRemote) {
-            //塩田ブロックが空の場合
-            if (state.getValue(TYPE) == EnumSalt.EMPTY) {
-                //水バケツの場合
-                if (stack.item == Items.WATER_BUCKET) {
-                    world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
-                    stack.shrink(1) //stackの縮小
-                    world.spawnEntity(drop) //dropをスポーン
-                    RagiLogger.infoDebug("Water was placed!")
-                }
-                //forgeのバケツ，かつNBTタグがnullでない場合
-                else if (stack.item.registryName.toString() == "forge:bucketfilled" && stack.tagCompound !== null) {
-                    val tag = stack.tagCompound!! //tagを取得
-                    //tagがFluidNameを持っている場合
-                    if (tag.hasKey("FluidName")) {
-                        val fluid = tag.getString("FluidName") //FluidNameの取得
-                        //Saltwaterの場合
-                        if (fluid == "saltwater") {
-                            world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.SALTWATER), 2) //stateの更新
-                            stack.shrink(1) //stackの縮小
-                            world.spawnEntity(drop) //dropをスポーン
-                            RagiLogger.infoDebug("Saltwater was placed!")
-                        }
-                        //Brineの場合
-                        else if (fluid == "brine") {
-                            world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.BRINE), 2) //stateの更新
-                            stack.shrink(1) //stackの縮小
-                            world.spawnEntity(drop) //dropをスポーン
-                            RagiLogger.infoDebug("Brine was placed!")
-                        }
+        drop.motionX = 0.0
+        drop.motionY = 0.0
+        drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
+        //サーバー側，かつ塩田ブロックが空の場合
+        if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
+            //水バケツの場合
+            if (stack.item == Items.WATER_BUCKET) {
+                world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
+                stack.shrink(1) //stackの縮小
+                world.spawnEntity(drop) //dropをスポーン
+                world.playSound(
+                    null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                ) //SEを再生
+                RagiLogger.infoDebug("Water was placed!")
+            }
+            //forgeのバケツ，かつNBTタグがnullでない場合
+            else if (stack.item.registryName.toString() == "forge:bucketfilled" && stack.tagCompound !== null) {
+                val tag = stack.tagCompound!! //tagを取得
+                //tagがFluidNameを持っている場合
+                if (tag.hasKey("FluidName")) {
+                    val fluid = tag.getString("FluidName") //FluidNameの取得
+                    //Saltwaterの場合
+                    if (fluid == "saltwater") {
+                        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.SALTWATER), 2) //stateの更新
+                        stack.shrink(1) //stackの縮小
+                        world.spawnEntity(drop) //dropをスポーン
+                        RagiLogger.infoDebug("Saltwater was placed!")
+                    }
+                    //Brineの場合
+                    else if (fluid == "brine") {
+                        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.BRINE), 2) //stateの更新
+                        stack.shrink(1) //stackの縮小
+                        world.spawnEntity(drop) //dropをスポーン
+                        RagiLogger.infoDebug("Brine was placed!")
                     }
                 }
+                world.playSound(
+                    null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                ) //SEを再生
             }
-            world.playSound(
-                null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
-            ) //SEを再生
-            world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
         }
+        world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
         return true
     }
 
@@ -196,9 +199,12 @@ class BlockSaltPond : Block(Material.WOOD) {
             }
             if (stack.item != Items.AIR) {
                 val drop = EntityItem(
-                    world, pos.x.toDouble(), pos.y.toDouble() + 0.75, pos.z.toDouble(), stack
+                    world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 0.75, pos.z.toDouble() + 0.5, stack
                 ) //完成品のEntityItem
                 drop.setPickupDelay(0) //即座に回収できるようにする
+                drop.motionX = 0.0
+                drop.motionY = 0.0
+                drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
                 world.spawnEntity(drop) //dropをスポーン
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
                 world.playSound(

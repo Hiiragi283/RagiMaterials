@@ -112,7 +112,7 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
             if (stack.item == Items.COAL) {
                 ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
             } else {
-                ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBurning) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, player, stack, ForgeFurnaceHelper.mapForgeBurning) //レシピ実行
             }
         }
         return true

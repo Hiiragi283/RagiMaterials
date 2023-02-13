@@ -6,6 +6,7 @@ import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.SoundCategory
@@ -102,10 +103,12 @@ object ForgeFurnaceHelper {
         world: World,
         pos: BlockPos,
         state: IBlockState,
+        player: EntityPlayer,
         stack: ItemStack,
         map: MutableMap<String, String>
     ): ItemStack {
         var result = ItemStack.EMPTY
+        val posPlayer = player.position
         if (!world.isRemote && canProcess(state)) {
             //mapRecipe内の各keyに対して実行
             for (key in map.keys) {
@@ -119,9 +122,12 @@ object ForgeFurnaceHelper {
             if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす
                 val drop = EntityItem(
-                    world, pos.x.toDouble(), pos.y.toDouble() + 1.0, pos.z.toDouble(), result
+                    world, posPlayer.x.toDouble() + 0.5, posPlayer.y.toDouble(), posPlayer.z.toDouble() + 0.5, result
                 ) //ドロップアイテムを生成
                 drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
+                drop.motionX = 0.0
+                drop.motionY = 0.0
+                drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
                 if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
                 world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新

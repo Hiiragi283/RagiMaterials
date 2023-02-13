@@ -98,7 +98,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         if(!world.isRemote) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
-            ForgeFurnaceHelper.getResult(world, pos, state, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
+            ForgeFurnaceHelper.getResult(world, pos, state, player, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
         }
         return true
     }
