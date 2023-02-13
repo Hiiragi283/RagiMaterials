@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.block.BlockForgeFurnace
+import hiiragi283.ragi_materials.block.BlockLitForgeFurnace
 import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
 import net.minecraft.block.BlockDispenser
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem
@@ -23,7 +24,7 @@ object RagiInitDispenser {
                 //blockがForge Furnaceの場合
                 return if (block is BlockForgeFurnace && stack.item == Items.COAL) {
                     ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
-                } else super.dispenseStack(source, stack)
+                } else if(block is BlockLitForgeFurnace) stack else super.dispenseStack(source, stack)
             }
         })
     }

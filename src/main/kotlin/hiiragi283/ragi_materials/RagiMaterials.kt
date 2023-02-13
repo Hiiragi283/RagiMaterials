@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiInitDispenser
 import hiiragi283.ragi_materials.init.RagiInitOreDict
 import hiiragi283.ragi_materials.init.RagiInitRecipe
 import hiiragi283.ragi_materials.proxy.CommonProxy
@@ -70,6 +71,7 @@ class RagiMaterials {
     fun postInit(event: FMLPostInitializationEvent?) {
         if (!isLoadedGT) {
             //ディスペンサーの機能の登録
+            RagiInitDispenser.registerDispense()
             //光源レベルの上書き
             //イワライナー氏から着想を得ました
             Blocks.BROWN_MUSHROOM.setLightLevel(0.0F)
