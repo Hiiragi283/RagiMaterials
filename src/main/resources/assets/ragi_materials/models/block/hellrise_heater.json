@@ -7,7 +7,7 @@
 		"0": "blocks/mob_spawner",
 		"1": "blocks/red_nether_brick",
 		"2": "ragi_materials:blocks/hellrise_heater",
-		"particle": "ragi_materials:blocks/hellrise_heater"
+		"particle": "blocks/mob_spawner"
 	},
 	"elements": [
 		{
