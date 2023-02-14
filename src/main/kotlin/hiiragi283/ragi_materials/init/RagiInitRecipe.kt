@@ -16,6 +16,18 @@ object RagiInitRecipe {
 
     private fun addCrafting() {
         RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:block_bellow", 1, 0),
+            "AAA",
+            "BCB",
+            "AAA",
+            'A',
+            "logWood",
+            'B',
+            "leather",
+            'C',
+            RagiUtils.getStack("minecraft:piston", 1, 0)
+        )
+        RagiRecipe.addShaped(
             RagiUtils.getStack("${Reference.MOD_ID}:blazing_cube", 1, 0),
             "ABA",
             "CDC",
