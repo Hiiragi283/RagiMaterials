@@ -130,21 +130,13 @@ class BlockSaltPond : Block(Material.WOOD) {
         hitZ: Float
     ): Boolean {
         val stack = player.getHeldItem(hand)
-        val posPlayer = player.position
-        val drop = EntityItem(
-            world, posPlayer.x.toDouble() + 0.5, posPlayer.y.toDouble(), posPlayer.z.toDouble() + 0.5, ItemStack(Items.BUCKET)
-        ) //空のバケツのEntityItem
-        drop.setPickupDelay(0) //即座に回収できるようにする
-        drop.motionX = 0.0
-        drop.motionY = 0.0
-        drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
         //サーバー側，かつ塩田ブロックが空の場合
         if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
             //水バケツの場合
             if (stack.item == Items.WATER_BUCKET) {
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
                 stack.shrink(1) //stackの縮小
-                world.spawnEntity(drop) //dropをスポーン
+                RagiUtils.spawnItemAtPlayer(world, player, ItemStack(Items.BUCKET))
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
@@ -160,14 +152,14 @@ class BlockSaltPond : Block(Material.WOOD) {
                     if (fluid == "saltwater") {
                         world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.SALTWATER), 2) //stateの更新
                         stack.shrink(1) //stackの縮小
-                        world.spawnEntity(drop) //dropをスポーン
+                        RagiUtils.spawnItemAtPlayer(world, player, ItemStack(Items.BUCKET))
                         RagiLogger.infoDebug("Saltwater was placed!")
                     }
                     //Brineの場合
                     else if (fluid == "brine") {
                         world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.BRINE), 2) //stateの更新
                         stack.shrink(1) //stackの縮小
-                        world.spawnEntity(drop) //dropをスポーン
+                        RagiUtils.spawnItemAtPlayer(world, player, ItemStack(Items.BUCKET))
                         RagiLogger.infoDebug("Brine was placed!")
                     }
                 }

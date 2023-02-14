@@ -108,7 +108,6 @@ object ForgeFurnaceHelper {
         map: MutableMap<String, String>
     ): ItemStack {
         var result = ItemStack.EMPTY
-        val posPlayer = player.position
         if (!world.isRemote && canProcess(state)) {
             //mapRecipe内の各keyに対して実行
             for (key in map.keys) {
@@ -121,14 +120,7 @@ object ForgeFurnaceHelper {
             //resultが空気でない場合
             if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす
-                val drop = EntityItem(
-                    world, posPlayer.x.toDouble() + 0.5, posPlayer.y.toDouble(), posPlayer.z.toDouble() + 0.5, result
-                ) //ドロップアイテムを生成
-                drop.setPickupDelay(0) //ドロップしたら即座に回収できるようにする
-                drop.motionX = 0.0
-                drop.motionY = 0.0
-                drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-                if (!world.isRemote) world.spawnEntity(drop) //ドロップアイテムをスポーン
+                RagiUtils.spawnItemAtPlayer(world, player, result)
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
                 world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
                 RagiLogger.infoDebug("Heating was succeeded!")

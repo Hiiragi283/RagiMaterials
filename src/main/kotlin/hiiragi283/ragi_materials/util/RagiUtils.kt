@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -15,8 +16,6 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.fluids.Fluid
-import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 
@@ -45,12 +44,6 @@ object RagiUtils {
             RagiLogger.warnDebug("The block <$registryName> was not found...")
             ForgeRegistries.BLOCKS.getValue(ResourceLocation("minecraft:barrier"))!!
         }
-    }
-
-    //液体名からFluidを取得するメソッド
-    //Fluidがnullの場合は水を返す
-    fun getFluid(name: String): Fluid {
-        return FluidRegistry.getFluid(name)
     }
 
     //ResourceLocationからItemを取得するメソッド
@@ -179,5 +172,24 @@ object RagiUtils {
     //BooleanをIntに変換するメソッド
     fun Boolean.toInt(): Int {
         return if(this) 1 else 0
+    }
+
+    //EntityItemをプレイヤーの足元にスポーンさせるメソッド
+    fun spawnItemAtPlayer(
+        world: World,
+        player: EntityPlayer,
+        stack: ItemStack
+    ) {
+        if (!world.isRemote) {
+            val posPlayer = player.position
+            val drop = EntityItem(
+                world, posPlayer.x.toDouble(), posPlayer.y.toDouble(), posPlayer.z.toDouble(), stack
+            ) //空のバケツのEntityItem
+            drop.setPickupDelay(0) //即座に回収できるようにする
+            drop.motionX = 0.0
+            drop.motionY = 0.0
+            drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
+            world.spawnEntity(drop) //ドロップアイテムをスポーン
+        }
     }
 }

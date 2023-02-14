@@ -83,7 +83,6 @@ class BlockOreDictConv: Block(Material.WOOD) {
             val stack = player.getHeldItem(hand)
             val count = stack.count
             var result = ItemStack.EMPTY
-            val posPlayer = player.position
             //stackががEMPTYでない場合
             if (stack.item != Items.AIR) {
                 //鉱石辞書の数値IDの配列を取得
@@ -106,14 +105,7 @@ class BlockOreDictConv: Block(Material.WOOD) {
                 //resultがEMPTYでない場合
                 if (result.item !== Items.AIR) {
                     stack.shrink(count) //stackを1つ減らす
-                    val drop = EntityItem(
-                        world, posPlayer.x.toDouble() + 0.5, posPlayer.y.toDouble(), posPlayer.z.toDouble() + 0.5, result
-                    ) //ドロップアイテムを生成
-                    drop.setPickupDelay(0) //即座に回収できるようにする
-                    drop.motionX = 0.0
-                    drop.motionY = 0.0
-                    drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-                    world.spawnEntity(drop) //dropをスポーン
+                    RagiUtils.spawnItemAtPlayer(world, player, result)
                     RagiUtils.soundHypixel(world, pos) //SEを再生
                     RagiLogger.infoDebug("Item was converted!")
                 }
