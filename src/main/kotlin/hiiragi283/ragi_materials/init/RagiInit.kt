@@ -45,6 +45,7 @@ object RagiInit {
 
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
     val ItemDust = ItemMaterial("dust", MaterialType.DUST)
+    val ItemDustTiny = ItemMaterial("dust_tiny", MaterialType.DUST)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
@@ -75,6 +76,7 @@ object RagiInit {
             ItemBlockMetal,
             ItemBookDebug,
             ItemDust,
+            ItemDustTiny,
             ItemForgeHammer,
             ItemIngot,
             ItemIngotHot,

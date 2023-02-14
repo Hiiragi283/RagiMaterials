@@ -37,6 +37,7 @@ class ClientProxy : CommonProxy() {
         RagiModel.setModelMaterial(
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
+            RagiInit.ItemDustTiny,
             RagiInit.ItemIngot,
             RagiInit.ItemNugget,
             RagiInit.ItemPlate
@@ -78,6 +79,7 @@ class ClientProxy : CommonProxy() {
             RagiColor.ColorMaterial(),
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
+            RagiInit.ItemDustTiny,
             RagiInit.ItemIngot,
             RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,

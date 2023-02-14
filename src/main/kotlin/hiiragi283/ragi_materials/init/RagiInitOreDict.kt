@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 
 object RagiInitOreDict {
@@ -10,6 +9,7 @@ object RagiInitOreDict {
     private val mapType = mapOf(
         "block" to "metal",
         "dust" to "dust",
+        "dustTiny" to "dust",
         "ingot" to "metal",
         "ingotHot" to "metal",
         "nugget" to "metal",
@@ -19,6 +19,7 @@ object RagiInitOreDict {
     private val mapPrefix = mapOf(
         "block" to "block_metal",
         "dust" to "dust",
+        "dustTiny" to "dust_tiny",
         "ingot" to "ingot",
         "ingotHot" to "ingot_hot",
         "nugget" to "nugget",

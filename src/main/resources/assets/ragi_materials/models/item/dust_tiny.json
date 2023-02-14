@@ -1,0 +1,7 @@
+{
+	"credit": "Tweaked by Hiiragi Russell Tsubasa",
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "ragi_materials:items/dust_tiny"
+	}
+}

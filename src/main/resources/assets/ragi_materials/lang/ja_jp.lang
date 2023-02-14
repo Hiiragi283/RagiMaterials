@@ -128,6 +128,7 @@ item.book_debug.2.name=Property Book (DEBUG)
 item.forge_hammer.name=鍛造ハンマー
 item.ragi_block_metal.name=%sブロック
 item.ragi_dust.name=%s粉末
+item.ragi_dust_tiny.name=%sの1/9粉末
 item.ragi_ingot.name=%sインゴット
 item.ragi_ingot_hot.name=加熱した%sインゴット
 item.ragi_nugget.name=%sナゲット

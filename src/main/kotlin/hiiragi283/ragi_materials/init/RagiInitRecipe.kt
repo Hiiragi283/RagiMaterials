@@ -107,6 +107,14 @@ object RagiInitRecipe {
                 'A',
                 "block${material.getOreDict()}"
             )
+            //dust -> tiny dustのレシピを登録
+            RagiRecipe.addShaped(
+                Reference.MOD_ID + ":dust_to_tiny_" + material.index,
+                RagiUtils.getStack("${Reference.MOD_ID}:dust_tiny", 9, material.index),
+                "A",
+                'A',
+                "dust${material.getOreDict()}"
+            )
             //ingot -> blockのレシピを登録
             RagiRecipe.addShaped(
                 Reference.MOD_ID + ":ingot_to_block_" + material.index,
@@ -144,6 +152,16 @@ object RagiInitRecipe {
                 "AAA",
                 'A',
                 "nugget${material.getOreDict()}"
+            )
+            //tiny -> dustのレシピを登録
+            RagiRecipe.addShaped(
+                Reference.MOD_ID + ":tiny_to_dust_" + material.index,
+                RagiUtils.getStack("${Reference.MOD_ID}:dust", 1, material.index),
+                "AAA",
+                "AAA",
+                "AAA",
+                'A',
+                "dustTiny${material.getOreDict()}"
             )
         }
     }

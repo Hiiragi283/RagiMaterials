@@ -128,6 +128,7 @@ item.book_debug.2.name=Property Book (DEBUG)
 item.forge_hammer.name=Forge Hammer
 item.ragi_block_metal.name=Block of %s
 item.ragi_dust.name=%s Dust
+item.ragi_dust_tiny.name=Tiny Pile of %s Dust
 item.ragi_ingot.name=%s Ingot
 item.ragi_ingot_hot.name=Hot %s Ingot
 item.ragi_nugget.name=%s Nugget
