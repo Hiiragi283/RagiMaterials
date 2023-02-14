@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.util
 
+import hiiragi283.ragi_materials.material.CompoundBuilder
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import net.minecraft.client.resources.I18n
 
@@ -59,7 +60,10 @@ object MaterialUtils {
             subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
             //keyがMaterialBuilder型の場合
             if (key is MaterialBuilder) {
-                formula += key.getFormula()
+                var formulaRaw = key.getFormula()
+                //keyがCompoundBuilder型の場合，化学式の前後を()で囲む
+                if (key is CompoundBuilder) formulaRaw = "(${formulaRaw})"
+                formula += formulaRaw
                 if (mapComponents.getValue(key) > 1) formula += subscript
             }
             //keyがString型の場合

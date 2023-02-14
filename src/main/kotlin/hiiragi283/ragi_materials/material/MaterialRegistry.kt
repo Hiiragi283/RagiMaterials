@@ -288,7 +288,7 @@ object MaterialRegistry {
         .setColor(SILVER.getColor())
     val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1))
         .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
-    val TUNGSTEN_STEEL = AlloyBuilder(215, "tungsten_steel", mapOf(TUNGSTEN to 1, "(" to 1, STEEL to 1, ")" to 1))
+    val TUNGSTEN_STEEL = AlloyBuilder(215, "tungsten_steel", mapOf(TUNGSTEN to 1, STEEL to 1))
     val IRIDIUM_ALLOY = AlloyBuilder(216, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
         .setColor(RagiColor.WHITE)
 
