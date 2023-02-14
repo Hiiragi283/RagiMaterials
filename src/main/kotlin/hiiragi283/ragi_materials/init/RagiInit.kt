@@ -52,6 +52,8 @@ object RagiInit {
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
 
+    val ItemCellTest = ItemCellTest()
+
     fun register() {
         //configからmaterialを追加
         registerMaterial()
@@ -81,7 +83,9 @@ object RagiInit {
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
-            ItemPlate
+            ItemPlate,
+
+            ItemCellTest
         )
         //Fluidの登録
         //listの各materialに対して実行

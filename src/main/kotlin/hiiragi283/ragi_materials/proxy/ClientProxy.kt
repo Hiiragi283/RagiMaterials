@@ -29,7 +29,9 @@ class ClientProxy : CommonProxy() {
 
             RagiInit.ItemBlazingCube,
             RagiInit.ItemBookDebug,
-            RagiInit.ItemForgeHammer
+            RagiInit.ItemForgeHammer,
+
+            RagiInit.ItemCellTest
         )
         //アイテムのモデル登録 (メタデータ無視)
         RagiModel.setModelSame(RagiInit.ItemIngotHot)
