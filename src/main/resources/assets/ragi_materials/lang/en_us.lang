@@ -200,7 +200,7 @@ material.uranium235=Uranium 235
 material.plutonium241=Plutonium 241
 
 material.wildcard=INVALID
-material.hiiragi_tsubasa=DEBUG
+material.hiiragi_tsubasa=EXAMPLE
 
 material.titanium_alloy=Titanium Alloy
 material.advanced_alloy=Advanced Alloy

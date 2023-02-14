@@ -100,7 +100,7 @@ fluid.uranium235=溶融ウラニウム235
 fluid.plutonium241=溶融プルトニウム241
 
 fluid.wildcard=無効な
-fluid.hiiragi_tsubasa=DEBUG
+fluid.hiiragi_tsubasa=使用例
 
 fluid.titanium_alloy=溶融チタン合金
 fluid.advanced_alloy=溶融発展合金
