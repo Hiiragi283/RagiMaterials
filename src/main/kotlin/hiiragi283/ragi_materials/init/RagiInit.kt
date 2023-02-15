@@ -94,7 +94,7 @@ object RagiInit {
             if (material.type != MaterialType.INTERNAL && material.type.getTypeBase().contains("fluid")) {
                 //Fluidの登録
                 val fluid = FluidBase(material.name)
-                fluid.setColor(material.getColor())
+                fluid.setColor(material.color)
                 //MaterialTypesがGASの場合
                 if (material.type == MaterialType.GAS) {
                     fluid.isGaseous = true

@@ -15,23 +15,12 @@ open class MaterialBuilder(
     }
 
     //private変数の宣言
-    private var color = Color(0xFFFFFF)
-    private var molar: Float = 0.0f
-    private var melting: Int = 0
-    private var boiling: Int = 0
-    private var subl: Int = 0
-    private var formula: String? = ""
-    private var mapComponents: Map<Any, Int> = mapOf(MaterialRegistry.WILDCARD to 1)
-
-    //色を取得するメソッド (デフォルトは0xFFFFFF)
-    open fun getColor(): Color {
-        return color
-    }
-
-    //組成を取得するメソッド
-    fun getComponents(): Map<Any, Int> {
-        return mapComponents
-    }
+    var color = Color(0xFFFFFF)
+    var molar: Float = 0.0f
+    var melt: Int = 0
+    var boil: Int = 0
+    var subl: Int = 0
+    var formula: String? = ""
 
     //EnumMaterialもしくはindexから液体を取得するメソッド
     fun getFluid(): Fluid {
@@ -53,44 +42,14 @@ open class MaterialBuilder(
         }
     }
 
-    open fun getFormula(): String {
-        return getFormula(false)!!
-    }
-
-    //モル質量を取得するメソッド
-    open fun getMolarMass(): Float {
-        return molar
-    }
-
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String {
         return this.name.snakeToUpperCamelCase()
     }
 
-    //融点を取得するメソッド
-    open fun getTempMelt(): Int {
-        return melting
-    }
-
-    //沸点を取得するメソッド
-    open fun getTempBoil(): Int {
-        return boiling
-    }
-
-    //昇華点を取得するメソッド
-    open fun getTempSubl(): Int {
-        return subl
-    }
-
     //色を設定するメソッド
     fun setColor(color: Color): MaterialBuilder {
         this.color = color
-        return this
-    }
-
-    //組成を設定するメソッド
-    fun setComponents(mapComponents: Map<Any, Int>): MaterialBuilder {
-        this.mapComponents = mapComponents
         return this
     }
 
@@ -107,14 +66,14 @@ open class MaterialBuilder(
     }
 
     //融点を設定するメソッド
-    fun setTempMelt(melting: Int): MaterialBuilder {
-        this.melting = melting
+    fun setTempMelt(melt: Int): MaterialBuilder {
+        this.melt = melt
         return this
     }
 
     //沸点を設定するメソッド
-    fun setTempBoil(boiling: Int): MaterialBuilder {
-        this.boiling = boiling
+    fun setTempBoil(boil: Int): MaterialBuilder {
+        this.boil = boil
         return this
     }
 

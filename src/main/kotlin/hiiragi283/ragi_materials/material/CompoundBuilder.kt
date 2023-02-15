@@ -1,18 +1,17 @@
 package hiiragi283.ragi_materials.material
 
+import hiiragi283.ragi_materials.render.color.RagiColor
 import hiiragi283.ragi_materials.util.MaterialUtils
-import hiiragi283.ragi_materials.util.RagiColor
 import java.awt.Color
 import kotlin.math.roundToInt
 
-open class CompoundBuilder(index: Int, name: String, type: MaterialType, private val mapComponents: Map<Any, Int>) :
+open class CompoundBuilder(index: Int, name: String, type: MaterialType, var mapComponents: Map<Any, Int>) :
     MaterialBuilder(index, name, type) {
 
     init {
         this.setColor(RagiColor.mixColor(getColorMap()))
-            .setComponents(mapComponents)
-            .setFormula(MaterialUtils.calcFormula(mapComponents))
-            .setMolarMass(setMolar())
+            formula = MaterialUtils.calcFormula(mapComponents)
+            molar = setMolar()
     }
 
     private fun getColorMap(): MutableMap<Color, Int> {
@@ -21,7 +20,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, private
         //mapComponents内の各keyに対して実行
         for (key in mapComponents.keys) {
             //ColorとIntを対応させる
-            if (key is MaterialBuilder) mapColor[key.getColor()] = mapComponents.getValue(key)
+            if (key is MaterialBuilder) mapColor[key.color] = mapComponents.getValue(key)
         }
         return mapColor
     }
@@ -30,12 +29,12 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, private
         //変数の宣言
         var tempMolar = 0.0f
         var divideMolar = 0
-        val mapComponents = getComponents()
+        val mapComponents = mapComponents
         //mapComponents内の各keyに対して実行
         for (key in mapComponents.keys) {
             //keyがMaterialBuilder型の場合
             if (key is MaterialBuilder) {
-                tempMolar += key.getMolarMass() * mapComponents.getValue(key)
+                tempMolar += key.molar * mapComponents.getValue(key)
                 divideMolar += mapComponents.getValue(key)
             }
         }

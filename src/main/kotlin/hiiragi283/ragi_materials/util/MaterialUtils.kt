@@ -10,33 +10,33 @@ object MaterialUtils {
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
         //化学式
-        if (material.getFormula(true) !== null) tooltip.add(
+        if (material.formula !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.formula", material.getFormula()
+                "text.ragi_materials.property.formula", material.formula
             )
         )
         //モル質量
-        if (material.getMolarMass() != 0.0f) tooltip.add(
+        if (material.molar != 0.0f) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.mol", material.getMolarMass()
+                "text.ragi_materials.property.mol", material.molar
             )
         )
         //融点
-        if (material.getTempMelt() != 0) tooltip.add(
+        if (material.melt != 0) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.melt", material.getTempMelt()
+                "text.ragi_materials.property.melt", material.melt
             )
         )
         //沸点
-        if (material.getTempBoil() != 0) tooltip.add(
+        if (material.boil != 0) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.boil", material.getTempBoil()
+                "text.ragi_materials.property.boil", material.boil
             )
         )
         //昇華点
-        if (material.getTempSubl() != 0) tooltip.add(
+        if (material.subl != 0) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.subl", material.getTempSubl()
+                "text.ragi_materials.property.subl", material.subl
             )
         )
     }
@@ -60,7 +60,7 @@ object MaterialUtils {
             subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
             //keyがMaterialBuilder型の場合
             if (key is MaterialBuilder) {
-                var formulaRaw = key.getFormula()
+                var formulaRaw = key.formula
                 //keyがCompoundBuilder型の場合，化学式の前後を()で囲む
                 if (key is CompoundBuilder) formulaRaw = "(${formulaRaw})"
                 formula += formulaRaw

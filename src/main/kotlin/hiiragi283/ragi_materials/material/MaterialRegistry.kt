@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.render.color.RagiColor
 
 object MaterialRegistry {
 
@@ -268,7 +268,7 @@ object MaterialRegistry {
 
     //200~299: Alloy
     val TITANIUM_ALLOY = AlloyBuilder(200, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
-        .setColor(TITANIUM.getColor())
+        .setColor(TITANIUM.color)
 
     val ADVANCED_ALLOY = AlloyBuilder(201, "advanced_alloy", mapOf(IRON to 3, COPPER to 3, TIN to 3))
 
@@ -277,7 +277,7 @@ object MaterialRegistry {
     val KANTHAL = AlloyBuilder(203, "kanthal", mapOf(IRON to 6, CHROMIUM to 2, ALUMINIUM to 1))
 
     val MAGNET = AlloyBuilder(204, "magnet", mapOf(IRON to 7, "(SrSO\u2084)" to 1, "(CaCO\u2083)" to 1))
-        .setColor(CARBON.getColor())
+        .setColor(CARBON.color)
 
     val MANGALLOY = AlloyBuilder(205, "mangalloy", mapOf(IRON to 6, MANGANESE to 2, CARBON to 1))
         .setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.WHITE))
@@ -299,7 +299,7 @@ object MaterialRegistry {
     val BRONZE = AlloyBuilder(212, "bronze", mapOf(COPPER to 3, TIN to 1))
 
     val NICKELSILVER = AlloyBuilder(213, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1))
-        .setColor(SILVER.getColor())
+        .setColor(SILVER.color)
 
     val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1))
         .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))

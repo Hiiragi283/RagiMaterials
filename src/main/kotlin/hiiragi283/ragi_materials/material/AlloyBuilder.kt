@@ -4,19 +4,20 @@ class AlloyBuilder(index: Int, name: String, mapComponents: Map<Any, Int>) :
     CompoundBuilder(index, name, MaterialType.METAL, mapComponents) {
 
     init {
-        this.setTempMelt(setMelt()).setTempBoil(setBoil())
+        melt = setMelt()
+        boil = setBoil()
     }
 
     private fun setMelt(): Int {
         //変数の宣言
         var tempMelt = 0
         var divideMelt = 0
-        val mapComponents = getComponents()
+        val mapComponents = this.mapComponents
         //mapComponents内の各keyに対して実行
         for (key in mapComponents.keys) {
             //keyがMaterialBuilder型，かつ融点が0でない場合
-            if ((key is MaterialBuilder) && (key.getTempMelt() != 0)) {
-                tempMelt += key.getTempMelt() * mapComponents.getValue(key)
+            if ((key is MaterialBuilder) && (key.melt != 0)) {
+                tempMelt += key.melt * mapComponents.getValue(key)
                 divideMelt += mapComponents.getValue(key)
             }
         }
@@ -29,12 +30,12 @@ class AlloyBuilder(index: Int, name: String, mapComponents: Map<Any, Int>) :
         //変数の宣言
         var tempBoil = 0
         var divideBoil = 0
-        val mapComponents = getComponents()
+        val mapComponents = this.mapComponents
         //mapComponents内の各keyに対して実行
         for (key in mapComponents.keys) {
             //keyがMaterialBuilder型，かつ沸点が0でない場合
-            if ((key is MaterialBuilder) && (key.getTempBoil() != 0)) {
-                tempBoil += key.getTempBoil() * mapComponents.getValue(key)
+            if ((key is MaterialBuilder) && (key.boil != 0)) {
+                tempBoil += key.boil * mapComponents.getValue(key)
                 divideBoil += mapComponents.getValue(key)
             }
         }

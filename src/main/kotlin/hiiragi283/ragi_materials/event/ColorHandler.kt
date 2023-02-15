@@ -25,12 +25,13 @@ class ColorHandler {
             IItemColor { stack, tintIndex ->
                 //メタデータからmaterialを取得
                 val material = MaterialManager.getMaterial(stack.metadata)
-                //tintIndexが0ならばmaterial.getColor()，そうでないなら白を返す
-                if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
+                //tintIndexが0ならばmaterial.color，そうでないなら白を返す
+                if (tintIndex == 0) material.color.rgb else 0xFFFFFF
             },
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,
+            RagiInit.ItemGem,
             RagiInit.ItemIngot,
             RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,
@@ -44,8 +45,8 @@ class ColorHandler {
                     //NBTタグからmaterialを取得
                     val tag = stack.tagCompound!!
                     val material = MaterialManager.getMaterial(tag.getString("material"))
-                    //tintIndexが1ならばmaterial.getColor()，そうでないなら白を返す
-                    if (tintIndex == 1) material.getColor().rgb else 0xFFFFFF
+                    //tintIndexが1ならばmaterial.color，そうでないなら白を返す
+                    if (tintIndex == 1) material.color.rgb else 0xFFFFFF
                 }
                 //NBTタグがnullの場合
                 else 0xFFFFFF //白色を返す
@@ -66,7 +67,7 @@ class ColorHandler {
 
         override fun colorMultiplier(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?, tintIndex: Int): Int {
             val material = MaterialManager.getMaterial(state.block.getMetaFromState(state))
-            return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
+            return if (tintIndex == 0) material.color.rgb else 0xFFFFFF
         }
     }
 }
