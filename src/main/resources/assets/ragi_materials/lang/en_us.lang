@@ -129,6 +129,7 @@ item.forge_hammer.name=Forge Hammer
 item.fullbottle.name=Blank Full Bottle
 item.fullbottle_filled.name=%s Full Bottle
 item.ragi_block_metal.name=Block of %s
+item.ragi_crystal.name=%s Crystal
 item.ragi_dust.name=%s Dust
 item.ragi_dust_tiny.name=Tiny Pile of %s Dust
 item.ragi_ingot.name=%s Ingot

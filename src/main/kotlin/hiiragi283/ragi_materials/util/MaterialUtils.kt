@@ -53,8 +53,8 @@ object MaterialUtils {
             //化学式の下付き数字の桁数調整
             if (mapComponents.getValue(key) in 2..9) subscript1 = '\u2080' + mapComponents.getValue(key)
             else if (mapComponents.getValue(key) in 10 .. 99) {
-                subscript1 = '\u2080' + (mapComponents.getValue(key) / 10)
-                subscript10 = '\u2080' + (mapComponents.getValue(key) % 10)
+                subscript1 = '\u2080' + (mapComponents.getValue(key) % 10)
+                subscript10 = '\u2080' + (mapComponents.getValue(key) / 10)
             }
             //2桁目が0でない場合，下付き数字を2桁にする
             subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1

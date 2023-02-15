@@ -11,7 +11,7 @@ object MaterialRegistry {
             .setMolarMass(1024.0f).setFormula("WILDCARD")
             .setTempMelt(1024).setTempBoil(1024)
 
-    //1~94: Periodic Table
+    //1 ~ 94: Periodic Table
     //1st Period
     val HYDROGEN = MaterialBuilder(1, "hydrogen", MaterialType.GAS)
         .setColor(RagiColor.BLUE).setMolarMass(1.0f).setFormula("H")
@@ -251,7 +251,7 @@ object MaterialRegistry {
         .setColor(RagiColor.RED).setMolarMass(239.0f).setFormula("Pu")
         .setTempMelt(640).setTempBoil(3228)
 
-    //95~99: Isotope
+    //95 ~ 99: Isotope
     val DEUTERIUM = IsotopeBuilder(95, "deuterium", HYDROGEN)
         .setMolarMass(2.0f).setFormula("D")
 
@@ -264,9 +264,9 @@ object MaterialRegistry {
     val PLUTONIUM_241 = IsotopeBuilder(98, "plutonium241", PLUTONIUM_239)
         .setMolarMass(241.0f).setFormula("Pu-241")
 
-    //100~199: Atomic Group
+    //100 ~ 199: Atomic Group
 
-    //200~299: Alloy
+    //200 ~ 299: Alloy
     val TITANIUM_ALLOY = AlloyBuilder(200, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
         .setColor(TITANIUM.color)
 
@@ -308,4 +308,22 @@ object MaterialRegistry {
 
     val IRIDIUM_ALLOY = AlloyBuilder(216, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
         .setColor(RagiColor.WHITE)
+
+    //300 ~ 399: Gem
+    val DIAMOND = CrystalBuilder(300, "diamond", mapOf(CARBON to 1), "diamond")
+        .setColor(ALUMINIUM.color).setTempSubl(CARBON.subl)
+
+    val PYRITE = CrystalBuilder(301, "pyrite", mapOf(IRON to 1, SULFUR to 2), "cubic")
+        .setColor(IRON.color)
+
+    val EMERALD = CrystalBuilder(302, "emerald", mapOf(
+        BERYLLIUM to 3,
+        ALUMINIUM to 2,
+        SILICON to 6,
+        OXYGEN to 18
+    ), "hexagonal")
+        .setColor(CHROMIUM.color)
+
+    val COAL = CrystalBuilder(303, "coal", mapOf(CARBON to 1), "coal")
+        .setColor(CARBON.color)
 }

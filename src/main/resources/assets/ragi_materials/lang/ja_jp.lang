@@ -129,6 +129,7 @@ item.forge_hammer.name=鍛造ハンマー
 item.fullbottle.name=空のフルボトル
 item.fullbottle_filled.name=%sフルボトル
 item.ragi_block_metal.name=%sブロック
+item.ragi_crystal.name=%s結晶
 item.ragi_dust.name=%s粉末
 item.ragi_dust_tiny.name=%sの1/9粉末
 item.ragi_ingot.name=%sインゴット

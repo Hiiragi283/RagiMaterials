@@ -40,17 +40,16 @@ object RagiInit {
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
-
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
     val ItemDust = ItemMaterial("dust", MaterialType.DUST)
     val ItemDustTiny = ItemMaterial("dust_tiny", MaterialType.DUST)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
+    val ItemFullBottle = ItemFullBottle()
+    val ItemCrystal = ItemMaterial("crystal", MaterialType.CRYSTAL)
     val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
-
-    val ItemFullBottle = ItemFullBottle()
 
     fun register() {
         //configからmaterialを追加
@@ -80,12 +79,12 @@ object RagiInit {
             ItemDust,
             ItemDustTiny,
             ItemForgeHammer,
+            ItemFullBottle,
+            ItemCrystal,
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
-            ItemPlate,
-
-            ItemFullBottle
+            ItemPlate
         )
         //Fluidの登録
         //listの各materialに対して実行
