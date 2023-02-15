@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.event
 
 import hiiragi283.ragi_materials.material.MaterialManager
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.MaterialUtils
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
@@ -17,10 +18,10 @@ class ItemTooltip {
                 val stack = event.itemStack
                 val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.name !== null)) {
-                    //tagから液体名を取得
                     val nameFluid = fluidItem.tankProperties[0].contents?.fluid?.name
+                    val material = MaterialManager.getMaterial(nameFluid!!)
                     //tooltipの追加
-                    MaterialUtils.materialInfo(MaterialManager.getMaterial(nameFluid!!), event.toolTip)
+                    if(material != MaterialRegistry.WILDCARD) MaterialUtils.materialInfo(material, event.toolTip)
                 }
             }
         }
