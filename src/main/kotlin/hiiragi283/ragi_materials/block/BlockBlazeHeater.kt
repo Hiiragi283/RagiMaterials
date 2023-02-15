@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
@@ -138,9 +139,9 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
             if (state.getValue(HELL)) {
-                ForgeFurnaceHelper.getResult(world, pos, state, player, stack, ForgeFurnaceHelper.mapForgeHellrise) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, player, stack) //レシピ実行
             } else {
-                ForgeFurnaceHelper.getResult(world, pos, state, player, stack, ForgeFurnaceHelper.mapForgeBoosted) //レシピ実行
+                ForgeFurnaceHelper.getResult(world, pos, state, player, stack) //レシピ実行
             }
         }
         return true

@@ -1,8 +1,10 @@
 package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.block.ForgeFurnaceHelper
 import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialType
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
 import net.minecraftforge.common.config.Config
 
 @Config(modid = Reference.MOD_ID, category = "")
@@ -104,14 +106,6 @@ object RagiConfig {
         @JvmField
         var listForgeHellrise: Array<String> = arrayOf()
 
-        init {
-            ForgeFurnaceHelper.mapForgeBurning =
-                RagiUtils.convertListToMap(listForgeBurning, ForgeFurnaceHelper.mapForgeBurning)
-            ForgeFurnaceHelper.mapForgeBoosted =
-                RagiUtils.convertListToMap(listForgeBoosted, ForgeFurnaceHelper.mapForgeBoosted)
-            ForgeFurnaceHelper.mapForgeHellrise =
-                RagiUtils.convertListToMap(listForgeHellrise, ForgeFurnaceHelper.mapForgeHellrise)
-        }
     }
 
     class Utility {
@@ -169,6 +163,20 @@ object RagiConfig {
             "minecraft:water_bucket",
             "minecraft:written_book"
         )
+    }
+
+    //configからレシピを登録するメソッド
+    fun registerRecipe() {
+        //Forge Furnace
+        for (recipe in recipeMap.listForgeBurning) {
+            ForgeFurnaceRecipe(recipe, ForgeFurnaceRecipe.EnumFire.BURNING)
+        }
+        for (recipe in recipeMap.listForgeBoosted) {
+            ForgeFurnaceRecipe(recipe, ForgeFurnaceRecipe.EnumFire.BOOSTED)
+        }
+        for (recipe in recipeMap.listForgeHellrise) {
+            ForgeFurnaceRecipe(recipe, ForgeFurnaceRecipe.EnumFire.HELLRISE)
+        }
     }
 
 }

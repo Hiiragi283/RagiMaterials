@@ -1,11 +1,12 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -104,16 +105,15 @@ object ForgeFurnaceHelper {
         pos: BlockPos,
         state: IBlockState,
         player: EntityPlayer,
-        stack: ItemStack,
-        map: MutableMap<String, String>
+        stack: ItemStack
     ): ItemStack {
         var result = ItemStack.EMPTY
-        if (!world.isRemote && canProcess(state)) {
-            //mapRecipe内の各keyに対して実行
-            for (key in map.keys) {
-                //stackがkeyと等しい場合は対応する完成品を，そうでない場合は空のItemStackを返す
-                if (RagiUtils.isSameStack(stack, RagiUtils.getStack(key))) {
-                    result = RagiUtils.getStack(map.getValue(key))
+        if (!world.isRemote) {
+            //mapRecipe内の各recipeに対して実行
+            for (recipe in ForgeFurnaceRegistry.list) {
+                //stackがinputと等しい，かつブロックとレシピタイプが一致する場合は対応する完成品を，そうでない場合は空のItemStackを返す
+                if (RagiUtils.isSameStack(stack, recipe.input) && canProcess(state, recipe.type)) {
+                    result = recipe.output
                     break
                 } else ItemStack.EMPTY
             }
@@ -122,7 +122,6 @@ object ForgeFurnaceHelper {
                 stack.shrink(1) //stackを1つ減らす
                 RagiUtils.spawnItemAtPlayer(world, player, result)
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
-                world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
                 RagiLogger.infoDebug("Heating was succeeded!")
             }
         }
@@ -130,15 +129,18 @@ object ForgeFurnaceHelper {
     }
 
     //レシピが実行できるかどうか
-    private fun canProcess(state: IBlockState): Boolean {
+    private fun canProcess(state: IBlockState, type: ForgeFurnaceRecipe.EnumFire): Boolean {
         return when (state.block) {
             is BlockForgeFurnace -> {
                 val fuel = state.getValue(BlockForgeFurnace.FUEL)
                 //燃料が入っているならtrue
-                fuel > 0
+                type == ForgeFurnaceRecipe.EnumFire.BURNING && fuel > 0
             }
-            is BlockLitForgeFurnace -> true
-            is BlockBlazeHeater -> true
+            is BlockLitForgeFurnace -> type == ForgeFurnaceRecipe.EnumFire.BOOSTED
+            is BlockBlazeHeater -> {
+                if (state.getValue(BlockBlazeHeater.HELL)) type == ForgeFurnaceRecipe.EnumFire.HELLRISE
+                else type == ForgeFurnaceRecipe.EnumFire.BOOSTED
+            }
             else -> false
         }
     }
@@ -154,6 +156,7 @@ object ForgeFurnaceHelper {
                     .withProperty(BlockHorizontal.FACING, facing)
                     .withProperty(BlockForgeFurnace.FUEL, fuel - 1)
                 world.setBlockState(pos, result, 2)
+                world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
@@ -166,6 +169,7 @@ object ForgeFurnaceHelper {
                     .withProperty(BlockHorizontal.FACING, facing)
                     .withProperty(BlockForgeFurnace.FUEL, 2)
                 world.setBlockState(pos, result, 2)
+                world.updateComparatorOutputLevel(pos, result.block) //コンパレータ出力を更新
                 world.playSound(
                     null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生

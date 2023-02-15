@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
 import com.google.common.collect.Lists
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -10,15 +11,15 @@ import net.minecraft.item.ItemStack
 class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
 
     //private変数の宣言
-    val stackIn: ItemStack
-    val stackOut: ItemStack
-    val recipeType: ForgeFurnaceRecipe.EnumFire
+    val input: ItemStack
+    val output: ItemStack
+    val type: ForgeFurnaceRecipe.EnumFire
 
     //コンストラクタの宣言
     init {
-        stackIn = info.stackIn
-        stackOut = info.stackOut
-        recipeType = info.recipeType
+        input = info.input
+        output = info.output
+        type = info.type
     }
 
     //スロットにはめるIIngredientsを定義するメソッド
@@ -27,8 +28,8 @@ class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
         val inputList: MutableList<ItemStack> = Lists.newArrayList()
         val outputList: MutableList<ItemStack> = Lists.newArrayList()
         //listにinputを追加
-        inputList.add(stackIn)
-        outputList.add(stackOut)
+        inputList.add(input)
+        outputList.add(output)
         //各listをIIngredientsに設定
         ing.setInputs(VanillaTypes.ITEM, inputList)
         ing.setOutputs(VanillaTypes.ITEM, outputList)
@@ -39,7 +40,7 @@ class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
         //ResourceLocation res = new ResourceLocation(domain, path);
         //mc.getTextureManager().bindTexture(res);
         //文字列をGUI上に描画する
-        mc.fontRenderer.drawString(recipeType.display, 20.0f, -10.0f, 0x000000, false);
+        mc.fontRenderer.drawString(type.display, 20.0f, -10.0f, 0x000000, false);
     }
 
     //

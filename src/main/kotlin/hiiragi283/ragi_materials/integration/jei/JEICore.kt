@@ -3,12 +3,12 @@ package hiiragi283.ragi_materials.integration.jei
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceCategory
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceMaker
-import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceRecipe
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceWrapper
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondCategory
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondMaker
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondRecipe
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondWrapper
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
