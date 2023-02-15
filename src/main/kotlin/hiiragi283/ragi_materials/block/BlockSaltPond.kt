@@ -13,6 +13,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -56,8 +57,8 @@ class BlockSaltPond : Block(Material.WOOD) {
     //あるブロックが隣接したブロックと同じかどうかを判定するメソッド
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
         val stateTo = world.getBlockState(pos.offset(facing))
-        //EnumFacingの先にあるblockが塩田ブロックならtrue
-        return stateTo.block == this
+        //EnumFacingの先にあるblockがフルブロックの場合true
+        return stateTo.block != Blocks.AIR
     }
 
     //Blockstateの登録をするメソッド

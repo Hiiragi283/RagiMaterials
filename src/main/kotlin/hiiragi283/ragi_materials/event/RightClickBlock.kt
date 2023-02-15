@@ -24,7 +24,7 @@ class RightClickBlock {
             val meta = block.getMetaFromState(state)
             //Property Bookの機能
             if (RagiUtils.isSameStack(stack, RagiUtils.getStack("ragi_materials:book_debug", 1, 2))) {
-                player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
+                player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
                 //ブロックの翻訳名をチャットに表示
                 player.sendMessage(TextComponentString("  §eName:§r§b " + ItemStack(block, 1, meta).displayName))
                 //ブロックのIDをチャットに表示
@@ -39,7 +39,7 @@ class RightClickBlock {
                 player.sendMessage(TextComponentString("  §eHarvest Tool:§r§b " + block.getHarvestTool(state)))
                 //適正レベルをチャットに表示
                 player.sendMessage(TextComponentString("  §eHarvest Level:§r§b " + block.getHarvestLevel(state)))
-                player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line.name"))
+                player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
             }
         }
     }

@@ -7,6 +7,7 @@ import hiiragi283.ragi_materials.init.RagiInitDispenser
 import hiiragi283.ragi_materials.init.RagiInitOreDict
 import hiiragi283.ragi_materials.init.RagiInitRecipe
 import hiiragi283.ragi_materials.proxy.CommonProxy
+import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRegistry
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.init.Blocks
 import net.minecraftforge.common.MinecraftForge
@@ -72,6 +73,8 @@ class RagiMaterials {
         if (!isLoadedGT) {
             //ディスペンサーの機能の登録
             RagiInitDispenser.registerDispense()
+            //Forge Furnaceのレシピの登録
+            ForgeFurnaceRegistry.init()
             //光源レベルの上書き
             //イワライナー氏から着想を得ました
             Blocks.BROWN_MUSHROOM.setLightLevel(0.0F)
