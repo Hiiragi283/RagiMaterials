@@ -1,11 +1,11 @@
 package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.util.RagiUtils
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialType
 import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
 import net.minecraftforge.common.config.Config
+import java.awt.Color
 
 @Config(modid = Reference.MOD_ID, category = "")
 object RagiConfig {
@@ -163,6 +163,38 @@ object RagiConfig {
             "minecraft:water_bucket",
             "minecraft:written_book"
         )
+    }
+
+    //configからmaterialを登録するメソッド
+    fun registerMaterial() {
+        for (value in material.listMaterials) {
+            //valueをばらしてプロパティを得る
+            val listProperty = value.split(":")
+            val index = listProperty[0].toInt()
+            val name = listProperty[1]
+            var type = MaterialType.WILDCARD
+            val color = Color(listProperty[3].toIntOrNull(16)!!)
+            val formula = listProperty[4]
+            val molar = listProperty[5].toFloat()
+            val melt = listProperty[6].toInt()
+            val boil = listProperty[7].toInt()
+            //MaterialTypeの確認
+            for (i in MaterialType.list) {
+                if (i.name == listProperty[2]) {
+                    type = i
+                    break
+                }
+            }
+            //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，materialを登録する
+            if (index in 1023..material.maxMaterials && type != MaterialType.WILDCARD) {
+                val material = MaterialBuilder(index, name, type)
+                material.setColor(color)
+                material.setFormula(formula)
+                material.setMolarMass(molar)
+                material.setTempMelt(melt)
+                material.setTempBoil(boil)
+            }
+        }
     }
 
     //configからレシピを登録するメソッド

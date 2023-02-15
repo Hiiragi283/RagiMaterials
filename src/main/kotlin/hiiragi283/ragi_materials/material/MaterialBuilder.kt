@@ -9,6 +9,11 @@ import java.awt.Color
 open class MaterialBuilder(
     open val index: Int, open val name: String, open val type: MaterialType
 ) {
+    //コンストラクタの初期化
+    init {
+        register()
+    }
+
     //private変数の宣言
     private var color = Color(0xFFFFFF)
     private var molar: Float = 0.0f
@@ -116,6 +121,12 @@ open class MaterialBuilder(
     //昇華点を設定するメソッド
     fun setTempSubl(subl: Int): MaterialBuilder {
         this.subl = subl
+        return this
+    }
+
+    //素材を登録するメソッド
+    fun register(): MaterialBuilder {
+        MaterialRegistry.list.add(this)
         return this
     }
 }

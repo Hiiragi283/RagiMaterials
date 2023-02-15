@@ -8,7 +8,6 @@ import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.item.*
-import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialType
 import net.minecraft.block.material.Material
@@ -17,7 +16,6 @@ import net.minecraft.item.Item
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
-import java.awt.Color
 
 object RagiInit {
 
@@ -56,7 +54,9 @@ object RagiInit {
 
     fun register() {
         //configからmaterialを追加
-        registerMaterial()
+        RagiConfig.registerMaterial()
+        //コンフィグからレシピを追加
+        RagiConfig.registerRecipe()
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
             BlockBellow,
@@ -90,8 +90,8 @@ object RagiInit {
         //Fluidの登録
         //listの各materialに対して実行
         for (material in MaterialRegistry.list) {
-            //materialがWILDCARDでない，かつmaterialのtypeがfluidの場合
-            if (material != MaterialRegistry.WILDCARD && material.type.getTypeBase().contains("fluid")) {
+            //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
+            if (material.type != MaterialType.INTERNAL && material.type.getTypeBase().contains("fluid")) {
                 //Fluidの登録
                 val fluid = FluidBase(material.name)
                 fluid.setColor(material.getColor())
@@ -110,39 +110,6 @@ object RagiInit {
                     ForgeRegistries.BLOCKS.register(fluidBlock)
                     fluid.block = fluidBlock
                 }
-            }
-        }
-    }
-
-    //configからmaterialを登録するメソッド
-    private fun registerMaterial() {
-        for (value in RagiConfig.material.listMaterials) {
-            //valueをばらしてプロパティを得る
-            val listProperty = value.split(":")
-            val index = listProperty[0].toInt()
-            val name = listProperty[1]
-            var type = MaterialType.WILDCARD
-            val color = Color(listProperty[3].toIntOrNull(16)!!)
-            val formula = listProperty[4]
-            val molar = listProperty[5].toFloat()
-            val melt = listProperty[6].toInt()
-            val boil = listProperty[7].toInt()
-            //MaterialTypeの確認
-            for (i in MaterialType.list) {
-                if (i.name == listProperty[2]) {
-                    type = i
-                    break
-                }
-            }
-            //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，materialを登録する
-            if (index in 1023..RagiConfig.material.maxMaterials && type != MaterialType.WILDCARD) {
-                val material = MaterialBuilder(index, name, type)
-                material.setColor(color)
-                material.setFormula(formula)
-                material.setMolarMass(molar)
-                material.setTempMelt(melt)
-                material.setTempBoil(boil)
-                MaterialRegistry.list.add(material)
             }
         }
     }

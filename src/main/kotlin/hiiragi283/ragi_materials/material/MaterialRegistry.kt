@@ -1,9 +1,10 @@
 package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.util.RagiColor
-import net.minecraftforge.fluids.Fluid
 
 object MaterialRegistry {
+
+    val list: MutableList<MaterialBuilder> = mutableListOf()
 
     //0: WILDCARD
     val WILDCARD = MaterialBuilder(0, "wildcard", MaterialType.WILDCARD)
@@ -268,149 +269,43 @@ object MaterialRegistry {
     //200~299: Alloy
     val TITANIUM_ALLOY = AlloyBuilder(200, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
         .setColor(TITANIUM.getColor())
+
     val ADVANCED_ALLOY = AlloyBuilder(201, "advanced_alloy", mapOf(IRON to 3, COPPER to 3, TIN to 3))
+
     val INVAR = AlloyBuilder(202, "invar", mapOf(IRON to 2, NICKEL to 1))
+
     val KANTHAL = AlloyBuilder(203, "kanthal", mapOf(IRON to 6, CHROMIUM to 2, ALUMINIUM to 1))
+
     val MAGNET = AlloyBuilder(204, "magnet", mapOf(IRON to 7, "(SrSO\u2084)" to 1, "(CaCO\u2083)" to 1))
         .setColor(CARBON.getColor())
+
     val MANGALLOY = AlloyBuilder(205, "mangalloy", mapOf(IRON to 6, MANGANESE to 2, CARBON to 1))
         .setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.WHITE))
+
     val STAINLESS_STEEL = AlloyBuilder(206, "stainless_steel", mapOf(IRON to 6, CHROMIUM to 2, NICKEL to 1))
         .setColor(RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE))
+
     val STEEL = AlloyBuilder(207, "steel", mapOf(IRON to 1, CARBON to 1))
+
     val TOOL_STEEL = AlloyBuilder(208, "tool_steel", mapOf(IRON to 6, CHROMIUM to 1, MANGANESE to 1, MOLYBDENUM to 1))
+
     val CONSTANTAN = AlloyBuilder(209, "constantan", mapOf(NICKEL to 1, COPPER to 1))
+
     val NICHROME = AlloyBuilder(210, "nichrome", mapOf(NICKEL to 4, CHROMIUM to 1))
+
     val BRASS = AlloyBuilder(211, "brass", mapOf(COPPER to 3, ZINC to 1))
         .setColor(RagiColor.GOLD)
+
     val BRONZE = AlloyBuilder(212, "bronze", mapOf(COPPER to 3, TIN to 1))
+
     val NICKELSILVER = AlloyBuilder(213, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1))
         .setColor(SILVER.getColor())
+
     val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1))
         .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
+
     val TUNGSTEN_STEEL = AlloyBuilder(215, "tungsten_steel", mapOf(TUNGSTEN to 1, STEEL to 1))
+
     val IRIDIUM_ALLOY = AlloyBuilder(216, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
         .setColor(RagiColor.WHITE)
-
-    //listの定義
-        val list = mutableListOf(
-            //WILDCARD
-            WILDCARD,
-            //Periodic Table
-            HYDROGEN,
-            HELIUM,
-            LITHIUM,
-            BERYLLIUM,
-            BORON,
-            CARBON,
-            NITROGEN,
-            OXYGEN,
-            FLUORINE,
-            NEON,
-            SODIUM,
-            MAGNESIUM,
-            ALUMINIUM,
-            SILICON,
-            PHOSPHORUS,
-            SULFUR,
-            CHLORINE,
-            ARGON,
-            POTASSIUM,
-            CALCIUM,
-            TITANIUM,
-            CHROMIUM,
-            MANGANESE,
-            IRON,
-            COBALT,
-            NICKEL,
-            COPPER,
-            ZINC,
-            GALLIUM,
-            ARSENIC,
-            STRONTIUM,
-            ZIRCONIUM,
-            NIOBIUM,
-            MOLYBDENUM,
-            RUTHENIUM,
-            RHODIUM,
-            PALLADIUM,
-            SILVER,
-            INDIUM,
-            TIN,
-            ANTIMONY,
-            IODINE,
-            BARIUM,
-            NEODYMIUM,
-            SAMARIUM,
-            HAFNIUM,
-            TANTALUM,
-            TUNGSTEN,
-            OSMIUM,
-            IRIDIUM,
-            PLATINUM,
-            GOLD,
-            MERCURY,
-            LEAD,
-            BISMUTH,
-            THORIUM,
-            URANIUM_238,
-            PLUTONIUM_239,
-            //Isotope
-            DEUTERIUM,
-            TRITIUM,
-            URANIUM_235,
-            PLUTONIUM_241,
-            //Alloy
-            TITANIUM_ALLOY,
-            ADVANCED_ALLOY,
-            INVAR,
-            KANTHAL,
-            MAGNET,
-            MANGALLOY,
-            STAINLESS_STEEL,
-            STEEL,
-            TOOL_STEEL,
-            CONSTANTAN,
-            NICHROME,
-            BRASS,
-            BRONZE,
-            NICKELSILVER,
-            ELECTRUM,
-            TUNGSTEN_STEEL,
-            IRIDIUM_ALLOY
-        )
-
-    fun getFluid(index: Int): Fluid {
-        return getMaterial(index).getFluid()
-    }
-
-    //代入したindexと一致するMaterialBuilderを返すメソッド
-    fun getMaterial(index: Int): MaterialBuilder {
-        //デフォルト値はWILDCARD
-        var materialMatches = WILDCARD
-        for (material in list) {
-            //indexが一致する場合
-            if (material.index == index) {
-                //materialMatchesにmaterialを代入
-                materialMatches = material
-            }
-        }
-        //materialMatchesを返す
-        return materialMatches
-    }
-
-    //代入したregistryNameと一致するmaterialを返すメソッド
-    fun getMaterial(registryName: String): MaterialBuilder {
-        //デフォルト値はWILDCARD
-        var materialMatches = WILDCARD
-        for (material in list) {
-            //indexが一致する場合
-            if (material.name == registryName) {
-                //materialMatchesにmaterialを代入
-                materialMatches = material
-            }
-        }
-        //materialMatchesを返す
-        return materialMatches
-    }
 }

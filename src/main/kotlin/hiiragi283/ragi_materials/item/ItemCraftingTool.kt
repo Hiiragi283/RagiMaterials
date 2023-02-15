@@ -29,7 +29,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
                 //numMaterialの最大値まで処理を繰り替えす
                 for (j in 0 .. Reference.numMaterial) {
                     //materialの取得
-                    val material = MaterialRegistry.getMaterial(j)
+                    val material = MaterialManager.getMaterial(j)
                     //materialがWILDCARDでない，かつmaterialがmapToolMaterialに含まれている場合
                     if (material !== MaterialRegistry.WILDCARD && MaterialRegistry.mapToolMaterial.contains(material)) {
                         //NBTタグの生成
@@ -65,7 +65,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         //materialの取得
-        val material = MaterialRegistry.getMaterial(stack.metadata)
+        val material = MaterialManager.getMaterial(stack.metadata)
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {
             //NBTタグを生成・代入
