@@ -1,10 +1,10 @@
 package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.event.ColorHandler
 import hiiragi283.ragi_materials.event.ItemTooltip
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.util.RagiModel
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -18,6 +18,7 @@ class ClientProxy : CommonProxy() {
     //Pre-Initializationで読み込むメソッド
     override fun loadPreInit() {
         //Eventの登録
+        MinecraftForge.EVENT_BUS.register(ColorHandler())
         MinecraftForge.EVENT_BUS.register(ItemTooltip())
         //アイテムのモデル登録
         RagiModel.setModel(
@@ -34,13 +35,12 @@ class ClientProxy : CommonProxy() {
             RagiInit.ItemCellTest
         )
         //アイテムのモデル登録 (メタデータ無視)
-        RagiModel.setModelSame(RagiInit.ItemIngotHot)
-        //アイテムのモデル登録 (material専用)
-        RagiModel.setModelMaterial(
+        RagiModel.setModelSame(
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,
             RagiInit.ItemIngot,
+            RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,
             RagiInit.ItemPlate
         )
@@ -75,20 +75,7 @@ class ClientProxy : CommonProxy() {
     }
 
     //Initializationで読み込むメソッド
-    override fun loadInit() {
-        //BlockとItemの着色
-        RagiColor.setColor(
-            RagiColor.ColorMaterial(),
-            RagiInit.ItemBlockMetal,
-            RagiInit.ItemDust,
-            RagiInit.ItemDustTiny,
-            RagiInit.ItemIngot,
-            RagiInit.ItemIngotHot,
-            RagiInit.ItemNugget,
-            RagiInit.ItemPlate
-        )
-        RagiColor.setColor(RagiColor.ColorNBT(), RagiInit.ItemForgeHammer)
-    }
+    override fun loadInit() {}
 
     //Post-Initializationで読み込むメソッド
     override fun loadPostInit() {}

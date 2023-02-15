@@ -57,10 +57,10 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
     }
 
     //エンチャント効果を乗せるかどうかを決めるメソッド
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     override fun hasEffect(stack: ItemStack): Boolean {
-        val material = MaterialRegistry.getMaterial(stack.metadata)
+        val material = MaterialManager.getMaterial(stack.metadata)
         //materialのtypeがRADIOACTIVEを含むならtrue
         return material.type.getTypeBase().contains(MaterialType.RADIOACTIVE.name)
-    }
+    }*/
 }

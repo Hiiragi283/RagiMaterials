@@ -1,17 +1,5 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import net.minecraft.block.Block
-import net.minecraft.block.state.IBlockState
-import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.color.IBlockColor
-import net.minecraft.client.renderer.color.IItemColor
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import java.awt.Color
 
 object RagiColor {
@@ -80,50 +68,4 @@ object RagiColor {
         //混成前の色を返す
         return Color(red2, green2, blue2)
     }
-
-    //代入されたIBlockColorをBlockに登録するメソッド
-    @SideOnly(Side.CLIENT)
-    fun setColor(color: IBlockColor?, vararg blocks: Block?) {
-        Minecraft.getMinecraft().blockColors.registerBlockColorHandler(color!!, *blocks)
-    }
-
-    //代入されたIItemColorをItemに登録するメソッド
-    @SideOnly(Side.CLIENT)
-    fun setColor(color: IItemColor?, vararg items: Item?) {
-        Minecraft.getMinecraft().itemColors.registerItemColorHandler(color!!, *items)
-    }
-
-    class ColorMaterial : IItemColor, IBlockColor {
-
-        override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-            //メタデータからmaterialを取得
-            val material = MaterialRegistry.getMaterial(stack.metadata)
-            //tintIndexが0ならばmaterial.getColor()，そうでないなら白を返す
-            return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
-        }
-
-        override fun colorMultiplier(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?, tintIndex: Int): Int {
-            val material = MaterialRegistry.getMaterial(state.block.getMetaFromState(state))
-            return if (tintIndex == 0) material.getColor().rgb else 0xFFFFFF
-        }
-
-    }
-
-    class ColorNBT : IItemColor {
-
-        override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
-            //NBTタグがnullでない場合
-            return if (stack.tagCompound !== null) {
-                //NBTタグからmaterialを取得
-                val tag = stack.tagCompound!!
-                val material = MaterialRegistry.getMaterial(tag.getString("material"))
-                //tintIndexが1ならばmaterial.getColor()，そうでないなら白を返す
-                if (tintIndex == 1) material.getColor().rgb else 0xFFFFFF
-            }
-            //NBTタグがnullの場合
-            else 0xFFFFFF //白色を返す
-        }
-
-    }
-
 }

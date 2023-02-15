@@ -1,12 +1,10 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.item.ItemMaterial
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraft.client.renderer.block.model.ModelBakery
 
 object RagiModel {
 
@@ -35,22 +33,6 @@ object RagiModel {
         for (item in items) {
             val model = ModelResourceLocation(item.registryName!!, "inventory")
             ModelLoader.setCustomMeshDefinition(item) { model }
-        }
-    }
-
-    //materialのモデルを一括で登録するメソッド
-    @SideOnly(Side.CLIENT)
-    fun setModelMaterial(vararg items: ItemMaterial) {
-        for (item in items) {
-            //変数の宣言
-            val location = ModelResourceLocation(item.registryName.toString(), "inventory")
-            //val locationPrecious = ModelResourceLocation("${item.registryName.toString()}_precious", "inventory")
-            ModelBakery.registerItemVariants(item, location/*, locationPrecious*/) //modelの登録
-            ModelLoader.setCustomMeshDefinition(item) { stack ->
-                if (listOf(44, 45, 46, 76, 77, 78).contains(stack.metadata)) {
-                    location
-                } else location
-            }
         }
     }
 }
