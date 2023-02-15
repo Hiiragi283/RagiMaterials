@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.util
+package hiiragi283.ragi_materials.render.model
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
