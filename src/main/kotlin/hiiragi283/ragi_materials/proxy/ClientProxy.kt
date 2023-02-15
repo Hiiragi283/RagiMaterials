@@ -32,7 +32,7 @@ class ClientProxy : CommonProxy() {
             RagiInit.ItemBookDebug,
             RagiInit.ItemForgeHammer,
 
-            RagiInit.ItemCellTest
+            RagiInit.ItemFullBottle
         )
         //アイテムのモデル登録 (メタデータ無視)
         RagiModel.setModelSame(

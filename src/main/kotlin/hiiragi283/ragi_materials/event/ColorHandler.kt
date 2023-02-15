@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.client.event.ColorHandlerEvent
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ColorHandler {
@@ -49,6 +50,15 @@ class ColorHandler {
                 //NBTタグがnullの場合
                 else 0xFFFFFF //白色を返す
             }, RagiInit.ItemForgeHammer
+        )
+
+        itemColors.registerItemColorHandler(
+            IItemColor { stack, tintIndex ->
+                val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+                if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid !== null)) {
+                    if (tintIndex == 0) fluidItem.tankProperties[0].contents?.fluid?.color!! else 0xFFFFFF
+                } else 0xFFFFFF
+            }, RagiInit.ItemFullBottle
         )
     }
 

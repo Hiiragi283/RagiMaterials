@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
+import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -10,8 +11,20 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemCellTest: ItemBase(Reference.MOD_ID, "cell_test", 0) {
+class ItemFullBottle: ItemBase(Reference.MOD_ID, "fullbottle", 0) {
+
+    //stackの表示名を上書きするメソッド
+    @SideOnly(Side.CLIENT)
+    override fun getItemStackDisplayName(stack: ItemStack): String {
+        val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+        return if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.unlocalizedName !== null)) {
+            val name = fluidItem.tankProperties[0].contents?.fluid?.unlocalizedName
+            I18n.format("item.fullbottle_filled.name", I18n.format(name))
+        } else I18n.format("item.fullbottle.name")
+    }
 
     /*
       Thanks to defeatedcrow!
