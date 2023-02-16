@@ -8,7 +8,7 @@ open class MaterialType(val name: String) {
         val INTERNAL = MaterialType("interal") //内部データ
         val RADIOACTIVE = MaterialType("radioactive") //放射性物質
 
-        val CRYSTAL = MaterialType("gem")
+        val CRYSTAL = MaterialType("crystal")
             .addTypeBase(DUST) //宝石類
         val LIQUID = MaterialType("liquid")
             .addTypeBase(FLUID) //液体 (液体ブロックあり)

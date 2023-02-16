@@ -31,7 +31,7 @@ class ColorHandler {
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,
-            RagiInit.ItemGem,
+            RagiInit.ItemCrystal,
             RagiInit.ItemIngot,
             RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,

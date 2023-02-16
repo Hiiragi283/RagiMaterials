@@ -14,10 +14,15 @@ object ModelStack {
 
         //ItemGem
         ModelBakery.registerItemVariants(RagiInit.ItemCrystal,
-            ModelResourceLocation("${Reference.MOD_ID}:gem_coal", "inventory"),
-            ModelResourceLocation("${Reference.MOD_ID}:gem_cubic", "inventory"),
-            ModelResourceLocation("${Reference.MOD_ID}:gem_diamond", "inventory"),
-            ModelResourceLocation("${Reference.MOD_ID}:gem_hexagonal", "inventory")
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_amorphous", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_coal", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_cubic", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_diamond", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_hexagonal", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_monoclinic", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_orthorhombic", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_tetragonal", "inventory"),
+            ModelResourceLocation("${Reference.MOD_ID}:crystal_trigonal", "inventory")
         )
         ModelLoader.setCustomMeshDefinition(RagiInit.ItemCrystal) { stack ->
             //metadataからmaterialを取得
@@ -25,8 +30,8 @@ object ModelStack {
             //materialがGemBuilderの場合
             if (material is CrystalBuilder) {
                 //gemTypeに応じたモデルを割り当てる
-                ModelResourceLocation("${Reference.MOD_ID}:gem_${material.gemType}", "inventory")
-            } else ModelResourceLocation("${Reference.MOD_ID}:gem_cubic", "inventory")
+                ModelResourceLocation("${Reference.MOD_ID}:crystal_${material.system}", "inventory")
+            } else ModelResourceLocation("${Reference.MOD_ID}:crystal_cubic", "inventory")
         }
     }
 }

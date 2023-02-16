@@ -266,64 +266,128 @@ object MaterialRegistry {
 
     //100 ~ 199: Atomic Group
 
-    //200 ~ 299: Alloy
-    val TITANIUM_ALLOY = AlloyBuilder(200, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
-        .setColor(TITANIUM.color)
+    //200 ~ 299: Gem
+    val ALMANDINE = CrystalBuilder(200, "almandine", mapOf(IRON to 3, ALUMINIUM to 2, SILICON to 3, OXYGEN to 12), "cubic")
+        .setColor(RagiColor.DARK_RED)
 
-    val ADVANCED_ALLOY = AlloyBuilder(201, "advanced_alloy", mapOf(IRON to 3, COPPER to 3, TIN to 3))
+    //val AMBER = CrystalBuilder(201, "amber", mapOf("" to 1), "amorphous")
 
-    val INVAR = AlloyBuilder(202, "invar", mapOf(IRON to 2, NICKEL to 1))
+    val AMETHYST = CrystalBuilder(202, "amethyst", mapOf(SILICON to 1, OXYGEN to 2), "trigonal")
+        .setColor(ZIRCONIUM.color)
 
-    val KANTHAL = AlloyBuilder(203, "kanthal", mapOf(IRON to 6, CHROMIUM to 2, ALUMINIUM to 1))
-
-    val MAGNET = AlloyBuilder(204, "magnet", mapOf(IRON to 7, "(SrSO\u2084)" to 1, "(CaCO\u2083)" to 1))
-        .setColor(CARBON.color)
-
-    val MANGALLOY = AlloyBuilder(205, "mangalloy", mapOf(IRON to 6, MANGANESE to 2, CARBON to 1))
-        .setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.WHITE))
-
-    val STAINLESS_STEEL = AlloyBuilder(206, "stainless_steel", mapOf(IRON to 6, CHROMIUM to 2, NICKEL to 1))
-        .setColor(RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE))
-
-    val STEEL = AlloyBuilder(207, "steel", mapOf(IRON to 1, CARBON to 1))
-
-    val TOOL_STEEL = AlloyBuilder(208, "tool_steel", mapOf(IRON to 6, CHROMIUM to 1, MANGANESE to 1, MOLYBDENUM to 1))
-
-    val CONSTANTAN = AlloyBuilder(209, "constantan", mapOf(NICKEL to 1, COPPER to 1))
-
-    val NICHROME = AlloyBuilder(210, "nichrome", mapOf(NICKEL to 4, CHROMIUM to 1))
-
-    val BRASS = AlloyBuilder(211, "brass", mapOf(COPPER to 3, ZINC to 1))
-        .setColor(RagiColor.GOLD)
-
-    val BRONZE = AlloyBuilder(212, "bronze", mapOf(COPPER to 3, TIN to 1))
-
-    val NICKELSILVER = AlloyBuilder(213, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1))
-        .setColor(SILVER.color)
-
-    val ELECTRUM = AlloyBuilder(214, "electrum", mapOf(SILVER to 1, GOLD to 1))
+    val APATITE = CrystalBuilder(203, "apatite", mapOf(CALCIUM to 5, "(PO\u2084)" to 3, "OH" to 1), "hexagonal")
         .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
 
-    val TUNGSTEN_STEEL = AlloyBuilder(215, "tungsten_steel", mapOf(TUNGSTEN to 1, STEEL to 1))
-
-    val IRIDIUM_ALLOY = AlloyBuilder(216, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
-        .setColor(RagiColor.WHITE)
-
-    //300 ~ 399: Gem
-    val DIAMOND = CrystalBuilder(300, "diamond", mapOf(CARBON to 1), "diamond")
-        .setColor(ALUMINIUM.color).setTempSubl(CARBON.subl)
-
-    val PYRITE = CrystalBuilder(301, "pyrite", mapOf(IRON to 1, SULFUR to 2), "cubic")
-        .setColor(IRON.color)
-
-    val EMERALD = CrystalBuilder(302, "emerald", mapOf(
+    val AQUAMARINE = CrystalBuilder(204, "aquamarine", mapOf(
         BERYLLIUM to 3,
         ALUMINIUM to 2,
         SILICON to 6,
         OXYGEN to 18
-    ), "hexagonal")
-        .setColor(CHROMIUM.color)
+    ), "hexagonal").setColor(RagiColor.AQUA)
 
-    val COAL = CrystalBuilder(303, "coal", mapOf(CARBON to 1), "coal")
+    val CELESTITE = CrystalBuilder(205, "celestite", mapOf(
+        STRONTIUM to 1,
+        SULFUR to 1,
+        OXYGEN to 4
+    ), "orthorhombic").setColor(ALUMINIUM.color)
+
+    val DIAMOND = CrystalBuilder(206, "diamond", mapOf(CARBON to 1), "diamond")
+        .setColor(ALUMINIUM.color)
+
+    val EMERALD = CrystalBuilder(207, "emerald", mapOf(
+        BERYLLIUM to 3,
+        ALUMINIUM to 2,
+        SILICON to 6,
+        OXYGEN to 18
+    ), "hexagonal").setColor(RagiColor.GREEN)
+
+    val FLUORITE = CrystalBuilder(208, "fluorite", mapOf(CALCIUM to 1, FLUORINE to 2), "diamond")
+        .setColor(RagiColor.mixColor(RagiColor.GREEN, RagiColor.AQUA))
+
+    val GYPSUM = CrystalBuilder(209, "gypsum", mapOf(CALCIUM to 1, SULFUR to 1, OXYGEN to 4), "monoclinic")
+        .setColor(RHODIUM.color)
+
+    val MALACHITE = CrystalBuilder(210, "malachite", mapOf(
+        COPPER to 2,
+        "(CO\u2083)" to 1,
+        "(OH)" to 2
+    ), "monoclinic").setColor(RagiColor.DARK_GREEN)
+
+    val OLIVINE = CrystalBuilder(211, "olivine", mapOf(MAGNESIUM to 2, SILICON to 1, OXYGEN to 4), "monoclinic")
+        .setColor(RagiColor.mixColor(RagiColor.GREEN, RagiColor.WHITE))
+
+    val OPAL = CrystalBuilder(212, "opal", mapOf(SILICON to 1, OXYGEN to 2), "amorphous")
+
+    val SALT = CrystalBuilder(213, "salt", mapOf(SODIUM to 1, CHLORINE to 1), "cubic")
+        .setColor(RagiColor.WHITE)
+
+    val RUBY = CrystalBuilder(214, "ruby", mapOf(CHROMIUM to 1, ALUMINIUM to 2, OXYGEN to 3), "trigonal")
+        .setColor(RagiColor.RED)
+
+    val RUTILE = CrystalBuilder(215, "rutile", mapOf(TITANIUM to 1, OXYGEN to 2), "tetragonal")
+        .setColor(TITANIUM.color)
+
+    val SAPPHIRE = CrystalBuilder(216, "sapphire", mapOf(IRON to 1, ALUMINIUM to 2, OXYGEN to 3), "trigonal")
+        .setColor(RagiColor.BLUE)
+
+    val TANZANITE = CrystalBuilder(217, "tanzanite", mapOf(
+        CALCIUM to 2,
+        ALUMINIUM to 2,
+        "(SiO\u2084)" to 1,
+        "(Si\u2082O\u2087)" to 1,
+        OXYGEN to 1,
+        "(OH)" to 1
+    ), "orthorhombic").setColor(LEAD.color)
+
+    val TAUSONITE = CrystalBuilder(218, "tausonite", mapOf(STRONTIUM to 1, TITANIUM to 1, OXYGEN to 3), "diamond")
+        .setColor(RagiColor.WHITE)
+
+    val TOPAZ = CrystalBuilder(219, "topaz", mapOf(ALUMINIUM to 2, SILICON to 1, OXYGEN to 4, FLUORINE to 2), "orthorhombic")
+        .setColor(COPPER.color)
+
+    val ZIRCON = CrystalBuilder(220, "zircon", mapOf(ZIRCONIUM to 1, SILICON to 1, OXYGEN to 4), "tetragonal")
+        .setColor(ZIRCONIUM.color)
+
+    //300 ~ 399: Alloy
+    val TITANIUM_ALLOY = AlloyBuilder(300, "titanium_alloy", mapOf(TITANIUM to 7, ALUMINIUM to 1, CHROMIUM to 1))
+        .setColor(TITANIUM.color)
+
+    val ADVANCED_ALLOY = AlloyBuilder(301, "advanced_alloy", mapOf(IRON to 3, COPPER to 3, TIN to 3))
+
+    val INVAR = AlloyBuilder(302, "invar", mapOf(IRON to 2, NICKEL to 1))
+
+    val KANTHAL = AlloyBuilder(303, "kanthal", mapOf(IRON to 6, CHROMIUM to 2, ALUMINIUM to 1))
+
+    val MAGNET = AlloyBuilder(304, "magnet", mapOf(IRON to 7, CELESTITE to 1, "(CaCO\u2083)" to 1))
         .setColor(CARBON.color)
+
+    val MANGALLOY = AlloyBuilder(305, "mangalloy", mapOf(IRON to 6, MANGANESE to 2, CARBON to 1))
+        .setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.WHITE))
+
+    val STAINLESS_STEEL = AlloyBuilder(306, "stainless_steel", mapOf(IRON to 6, CHROMIUM to 2, NICKEL to 1))
+        .setColor(RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE))
+
+    val STEEL = AlloyBuilder(307, "steel", mapOf(IRON to 1, CARBON to 1))
+
+    val TOOL_STEEL = AlloyBuilder(308, "tool_steel", mapOf(IRON to 6, CHROMIUM to 1, MANGANESE to 1, MOLYBDENUM to 1))
+
+    val CONSTANTAN = AlloyBuilder(309, "constantan", mapOf(NICKEL to 1, COPPER to 1))
+
+    val NICHROME = AlloyBuilder(310, "nichrome", mapOf(NICKEL to 4, CHROMIUM to 1))
+
+    val BRASS = AlloyBuilder(311, "brass", mapOf(COPPER to 3, ZINC to 1))
+        .setColor(RagiColor.GOLD)
+
+    val BRONZE = AlloyBuilder(312, "bronze", mapOf(COPPER to 3, TIN to 1))
+
+    val NICKELSILVER = AlloyBuilder(313, "nickelsilver", mapOf(COPPER to 6, NICKEL to 2, ZINC to 1))
+        .setColor(SILVER.color)
+
+    val ELECTRUM = AlloyBuilder(314, "electrum", mapOf(SILVER to 1, GOLD to 1))
+        .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
+
+    val TUNGSTEN_STEEL = AlloyBuilder(315, "tungsten_steel", mapOf(TUNGSTEN to 1, STEEL to 1))
+
+    val IRIDIUM_ALLOY = AlloyBuilder(316, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
+        .setColor(RagiColor.WHITE)
 }
