@@ -5,4 +5,8 @@ import net.minecraftforge.fml.common.Loader
 object IntegrationCore {
 
     val enableJEI = Loader.isModLoaded("jei")
+
+    fun init() {
+        PluginVanilla.init()
+    }
 }

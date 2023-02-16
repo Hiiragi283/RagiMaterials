@@ -6,13 +6,13 @@ import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialType
 import net.minecraft.block.material.Material
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
@@ -51,11 +51,7 @@ object RagiInit {
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
 
-    fun register() {
-        //configからmaterialを追加
-        RagiConfig.registerMaterial()
-        //コンフィグからレシピを追加
-        RagiConfig.registerRecipe()
+    fun init() {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
             BlockBellow,
@@ -109,6 +105,23 @@ object RagiInit {
                     ForgeRegistries.BLOCKS.register(fluidBlock)
                     fluid.block = fluidBlock
                 }
+            }
+        }
+    }
+
+    class RagiCreativeTabs {
+
+        class Materials : CreativeTabs("ragi_materials.materials") {
+
+            override fun getTabIconItem(): ItemStack {
+                return ItemStack(ItemIngot, 1, 26)
+            }
+        }
+
+        class Blocks : CreativeTabs("ragi_materials.blocks") {
+
+            override fun getTabIconItem(): ItemStack {
+                return ItemStack(ItemBlockForgeFurnace)
             }
         }
     }

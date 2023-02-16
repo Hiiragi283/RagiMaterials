@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiUtils
 
-object RagiInitOreDict {
+object OreDictRegistry {
 
     private val mapType = mapOf(
         "block" to "metal",
@@ -29,7 +29,7 @@ object RagiInitOreDict {
     )
 
     //鉱石辞書を登録するメソッド
-    fun registerOreDict() {
+    fun init() {
         //list内の各materialに対して実行
         for (material in MaterialRegistry.list) {
             for (prefix in mapType.keys) {
