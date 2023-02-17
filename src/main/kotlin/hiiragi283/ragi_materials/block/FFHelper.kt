@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
-import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRegistry
+import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
+import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.BlockHorizontal
@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 //Forge Furnaceの機能をオブジェクト化することで他クラスからも参照できるようにした
-object ForgeFurnaceHelper {
+object FFHelper {
 
     //レシピマップの登録
     var mapForgeBurning = mutableMapOf(
@@ -110,7 +110,7 @@ object ForgeFurnaceHelper {
         var result = ItemStack.EMPTY
         if (!world.isRemote) {
             //mapRecipe内の各recipeに対して実行
-            for (recipe in ForgeFurnaceRegistry.list) {
+            for (recipe in FFRegistry.list) {
                 //stackがinputと等しい，かつブロックとレシピタイプが一致する場合は対応する完成品を，そうでない場合は空のItemStackを返す
                 if (RagiUtils.isSameStack(stack, recipe.input) && canProcess(state, recipe.type)) {
                     result = recipe.output
@@ -129,17 +129,17 @@ object ForgeFurnaceHelper {
     }
 
     //レシピが実行できるかどうか
-    private fun canProcess(state: IBlockState, type: ForgeFurnaceRecipe.EnumFire): Boolean {
+    private fun canProcess(state: IBlockState, type: FFRecipe.EnumFire): Boolean {
         return when (state.block) {
             is BlockForgeFurnace -> {
                 val fuel = state.getValue(BlockForgeFurnace.FUEL)
                 //燃料が入っているならtrue
-                type == ForgeFurnaceRecipe.EnumFire.BURNING && fuel > 0
+                type == FFRecipe.EnumFire.BURNING && fuel > 0
             }
-            is BlockLitForgeFurnace -> type == ForgeFurnaceRecipe.EnumFire.BOOSTED
+            is BlockLitForgeFurnace -> type == FFRecipe.EnumFire.BOOSTED
             is BlockBlazeHeater -> {
-                if (state.getValue(BlockBlazeHeater.HELL)) type == ForgeFurnaceRecipe.EnumFire.HELLRISE
-                else type == ForgeFurnaceRecipe.EnumFire.BOOSTED
+                if (state.getValue(BlockBlazeHeater.HELL)) type == FFRecipe.EnumFire.HELLRISE
+                else type == FFRecipe.EnumFire.BOOSTED
             }
             else -> false
         }

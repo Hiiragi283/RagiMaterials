@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.config
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialType
-import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
+import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import net.minecraftforge.common.config.Config
 import java.awt.Color
 
@@ -201,13 +201,13 @@ object RagiConfig {
     fun registerRecipe() {
         //Forge Furnace
         for (recipe in recipeMap.listForgeBurning) {
-            ForgeFurnaceRecipe(recipe, ForgeFurnaceRecipe.EnumFire.BURNING)
+            FFRecipe(recipe, FFRecipe.EnumFire.BURNING)
         }
         for (recipe in recipeMap.listForgeBoosted) {
-            ForgeFurnaceRecipe(recipe, ForgeFurnaceRecipe.EnumFire.BOOSTED)
+            FFRecipe(recipe, FFRecipe.EnumFire.BOOSTED)
         }
         for (recipe in recipeMap.listForgeHellrise) {
-            ForgeFurnaceRecipe(recipe, ForgeFurnaceRecipe.EnumFire.HELLRISE)
+            FFRecipe(recipe, FFRecipe.EnumFire.HELLRISE)
         }
     }
 

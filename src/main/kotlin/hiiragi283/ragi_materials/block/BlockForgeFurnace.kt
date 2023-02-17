@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -111,9 +110,9 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
         //サーバー側の場合
         if (!world.isRemote) {
             if (stack.item == Items.COAL) {
-                ForgeFurnaceHelper.setFuel(world, pos, state, stack) //燃料を投入
+                FFHelper.setFuel(world, pos, state, stack) //燃料を投入
             } else {
-                ForgeFurnaceHelper.getResult(world, pos, state, player, stack) //レシピ実行
+                FFHelper.getResult(world, pos, state, player, stack) //レシピ実行
             }
         }
         return true

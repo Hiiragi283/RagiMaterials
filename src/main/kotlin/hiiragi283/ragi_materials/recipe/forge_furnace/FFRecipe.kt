@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.recipe.forge_furnace
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 
-open class ForgeFurnaceRecipe(val input: ItemStack, val output: ItemStack, val type: EnumFire) {
+open class FFRecipe(val input: ItemStack, val output: ItemStack, val type: EnumFire) {
 
     constructor(input: String, output: String, type: EnumFire): this(RagiUtils.getStack(input), RagiUtils.getStack(output), type)
 
@@ -15,7 +15,7 @@ open class ForgeFurnaceRecipe(val input: ItemStack, val output: ItemStack, val t
     }
 
     fun register() {
-        ForgeFurnaceRegistry.list.add(this)
+        FFRegistry.list.add(this)
     }
 
     enum class EnumFire(val display: String) {

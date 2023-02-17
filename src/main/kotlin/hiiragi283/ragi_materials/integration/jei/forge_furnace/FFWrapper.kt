@@ -1,19 +1,19 @@
 package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
 import com.google.common.collect.Lists
-import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
+import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 
-class ForgeFurnaceWrapper(info: ForgeFurnaceRecipe) : IRecipeWrapper {
+class FFWrapper(info: FFRecipe) : IRecipeWrapper {
 
     //private変数の宣言
     val input: ItemStack
     val output: ItemStack
-    val type: ForgeFurnaceRecipe.EnumFire
+    val type: FFRecipe.EnumFire
 
     //コンストラクタの宣言
     init {

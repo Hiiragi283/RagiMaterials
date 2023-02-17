@@ -1,14 +1,14 @@
 package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceCategory
-import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceMaker
-import hiiragi283.ragi_materials.integration.jei.forge_furnace.ForgeFurnaceWrapper
+import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFCategory
+import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFMaker
+import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFWrapper
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondCategory
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondMaker
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondRecipe
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondWrapper
-import hiiragi283.ragi_materials.recipe.forge_furnace.ForgeFurnaceRecipe
+import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
@@ -26,14 +26,14 @@ class JEICore : IModPlugin {
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
         val jeiHelpers = registry.jeiHelpers
         val guiHelper = jeiHelpers.guiHelper
-        registry.addRecipeCategories(ForgeFurnaceCategory(guiHelper), SaltPondCategory(guiHelper))
+        registry.addRecipeCategories(FFCategory(guiHelper), SaltPondCategory(guiHelper))
     }
 
     override fun register(registry: IModRegistry) {
 
         registry.handleRecipes(
-            ForgeFurnaceRecipe::class.java,
-            { ForgeFurnaceWrapper(it) },
+            FFRecipe::class.java,
+            { FFWrapper(it) },
             ForgeFurnace
         )
         registry.handleRecipes(
@@ -42,7 +42,7 @@ class JEICore : IModPlugin {
             SaltPond
         )
 
-        ForgeFurnaceMaker.register(registry)
+        FFMaker.register(registry)
         SaltPondMaker.register(registry)
 
         registry.addRecipeCatalyst(ItemStack(RagiInit.ItemBlockForgeFurnace), ForgeFurnace)
