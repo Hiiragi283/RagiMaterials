@@ -61,8 +61,8 @@ object MaterialUtils {
             //keyがMaterialBuilder型の場合
             if (key is MaterialBuilder) {
                 var formulaRaw = key.formula
-                //keyがCompoundBuilder型の場合，化学式の前後を()で囲む
-                if (key is CompoundBuilder) formulaRaw = "(${formulaRaw})"
+                //hasBracketがtrueの場合，化学式の前後を()で囲む
+                if (key.hasBracket) formulaRaw = "(${formulaRaw})"
                 formula += formulaRaw
                 if (mapComponents.getValue(key) > 1) formula += subscript
             }

@@ -28,6 +28,7 @@ class ColorHandler {
                 //tintIndexが0ならばmaterial.color，そうでないなら白を返す
                 if (tintIndex == 0) material.color.rgb else 0xFFFFFF
             },
+            RagiInit.ItemBlockCrystal,
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,

@@ -21,6 +21,13 @@ open class MaterialBuilder(
     var boil: Int = 0
     var subl: Int = 0
     var formula: String? = ""
+    var hasBracket = false
+
+    //化学式に()をつけるメソッド
+    fun addBracket(): MaterialBuilder {
+        hasBracket = true
+        return this
+    }
 
     //EnumMaterialもしくはindexから液体を取得するメソッド
     fun getFluid(): Fluid {

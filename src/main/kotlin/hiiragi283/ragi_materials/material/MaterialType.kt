@@ -10,17 +10,20 @@ open class MaterialType(val name: String) {
 
         val CRYSTAL = MaterialType("crystal")
             .addTypeBase(DUST) //宝石類
+        val INGOT = MaterialType("ingot")
+            .addTypeBase(DUST) //インゴット全般
         val LIQUID = MaterialType("liquid")
             .addTypeBase(FLUID) //液体 (液体ブロックあり)
-        val METAL = MaterialType("metal")
-            .addTypeBase(DUST, FLUID) //金属全般
 
         val GAS = MaterialType("gas")
             .addTypeBase(FLUID, LIQUID) //気体全般 (液体ブロックあり)
+        val METAL = MaterialType("metal")
+            .addTypeBase(DUST, FLUID, INGOT) //金属全般
+        val SEMIMETAL = MaterialType("semimetal")
+            .addTypeBase(DUST, INGOT) //半金属
+
         val METAL_RADIO = MaterialType("metal_radio")
             .addTypeBase(DUST, FLUID, METAL, RADIOACTIVE) //放射性金属
-        val SEMIMETAL = MaterialType("semimetal")
-            .addTypeBase(DUST, FLUID, METAL) //半金属
 
         val WILDCARD = MaterialType("wildcard")
             .addTypeBase(DUST, FLUID, LIQUID, METAL) //デバッグ用
@@ -30,6 +33,7 @@ open class MaterialType(val name: String) {
             DUST,
             FLUID,
             GAS,
+            INGOT,
             INTERNAL,
             LIQUID,
             METAL,

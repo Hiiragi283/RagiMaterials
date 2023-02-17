@@ -39,6 +39,7 @@ object RagiInit {
     val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 2)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
+    val ItemBlockCrystal = ItemMaterial("block_crystal", MaterialType.CRYSTAL)
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
     val ItemDust = ItemMaterial("dust", MaterialType.DUST)
@@ -46,10 +47,10 @@ object RagiInit {
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemFullBottle = ItemFullBottle()
     val ItemCrystal = ItemMaterial("crystal", MaterialType.CRYSTAL)
-    val ItemIngot = ItemMaterial("ingot", MaterialType.METAL)
+    val ItemIngot = ItemMaterial("ingot", MaterialType.INGOT)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
-    val ItemPlate = ItemMaterial("plate", MaterialType.METAL)
+    val ItemPlate = ItemMaterial("plate", MaterialType.INGOT)
 
     fun init() {
         //Blockの登録
@@ -70,6 +71,7 @@ object RagiInit {
             ItemBlockSaltPond,
 
             ItemBlazingCube,
+            ItemBlockCrystal,
             ItemBlockMetal,
             ItemBookDebug,
             ItemDust,
@@ -98,13 +100,13 @@ object RagiInit {
                 FluidRegistry.registerFluid(fluid)
                 //fluid入りバケツを登録
                 FluidRegistry.addBucketForFluid(fluid)
-                //materialのtypeのhasFluidBlockがtrueの場合
-                if (material.type.getTypeBase().contains("liquid")) {
+                //material.typeにliquidが含まれる場合場合
+                /*if (material.type.getTypeBase().contains("liquid")) {
                     //液体ブロックを生成・登録・割り当て
                     val fluidBlock = BlockFluidClassic(fluid, Material.WATER).setRegistryName(fluid.name)
                     ForgeRegistries.BLOCKS.register(fluidBlock)
                     fluid.block = fluidBlock
-                }
+                }*/
             }
         }
     }

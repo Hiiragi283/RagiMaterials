@@ -2,56 +2,58 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 
 object OreDictRegistry {
 
-    private val mapType = mapOf(
-        "block" to "metal",
-        "dust" to "dust",
-        "dustTiny" to "dust",
-        "gem" to "crystal",
-        "ingot" to "metal",
-        "ingotHot" to "metal",
-        "nugget" to "metal",
-        "plate" to "metal"
-    )
-
-    private val mapPrefix = mapOf(
-        "block" to "block_metal",
-        "dust" to "dust",
-        "dustTiny" to "dust_tiny",
-        "gem" to "crystal",
-        "ingot" to "ingot",
-        "ingotHot" to "ingot_hot",
-        "nugget" to "nugget",
-        "plate" to "plate"
+    private val listOreDict = listOf(
+        OreDictHandler(MaterialType.CRYSTAL, "block", "block_crystal"),
+        OreDictHandler(MaterialType.METAL, "block", "block_metal"),
+        OreDictHandler(MaterialType.DUST, "dust", "dust"),
+        OreDictHandler(MaterialType.DUST, "dustTiny", "dust_tiny"),
+        OreDictHandler(MaterialType.CRYSTAL, "gem", "crystal"),
+        OreDictHandler(MaterialType.INGOT, "ingot", "ingot"),
+        OreDictHandler(MaterialType.METAL, "ingotHot", "ingot_hot"),
+        OreDictHandler(MaterialType.METAL, "nugget", "nugget"),
+        OreDictHandler(MaterialType.INGOT, "plate", "plate")
     )
 
     //鉱石辞書を登録するメソッド
     fun init() {
         //list内の各materialに対して実行
         for (material in MaterialRegistry.list) {
-            for (prefix in mapType.keys) {
-                if (material.type.getTypeBase().contains(mapType[prefix])) {
-                    //鉱石辞書名 -> prefix + registryNameをUpperCamelCaseに変換した文字列
-                    //ItemStack -> pathをprefix, metadataをmaterialのindexとしてRagiUtils.getStackで取得
+            //listOreDict内の各OreDictHandlerに対して実行
+            for (oredict in listOreDict) {
+                //materialのtypeがoredictのtypeを含む場合
+                if (material.type.getTypeBase().contains(oredict.type.name)) {
                     RagiUtils.setOreDict(
-                        prefix + material.getOreDict(),
-                        RagiUtils.getStack("${Reference.MOD_ID}:${mapPrefix[prefix]}", 1, material.index)
+                        oredict.prefix + material.getOreDict(),
+                        RagiUtils.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, material.index)
                     )
-                    //Chromium
-                    RagiUtils.setOreDict(
-                        "${prefix}Chromium",
-                        RagiUtils.getStack("${Reference.MOD_ID}:${mapPrefix[prefix]}", 1, 24)
-                    )
-                    //SUS
-                    RagiUtils.setOreDict(
-                        "${prefix}SUS",
-                        RagiUtils.getStack("${Reference.MOD_ID}:${mapPrefix[prefix]}", 1, 206)
-                    )
+                    if (material == MaterialRegistry.CHROMIUM) {
+                        //Chromium
+                        RagiUtils.setOreDict(
+                            "${oredict.prefix}Chrome",
+                            RagiUtils.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, 24)
+                        )
+                    }
+                    if (material == MaterialRegistry.NITER) {
+                        //Saltpeter
+                        RagiUtils.setOreDict(
+                            "${oredict.prefix}Saltpeter",
+                            RagiUtils.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, 222)
+                        )
+                    }
                 }
             }
         }
+
+        RagiUtils.setOreDict("dustGunpowder", RagiUtils.getStack("minecraft:gunpowder", 1, 0))
+        RagiUtils.setOreDict("gunpowder", RagiUtils.getStack("${Reference.MOD_ID}:dust", 1, 223))
+        RagiUtils.setOreDict("dustSugar", RagiUtils.getStack("minecraft:sugar", 1, 0))
+        RagiUtils.setOreDict("sugar", RagiUtils.getStack("${Reference.MOD_ID}:dust", 1, 224))
     }
+
+    class OreDictHandler(val type: MaterialType, val prefix: String, val ID: String)
 }

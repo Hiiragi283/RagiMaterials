@@ -32,6 +32,7 @@ class ClientProxy : CommonProxy() {
         )
         //アイテムのモデル登録 (メタデータ無視)
         RagiModel.setModelSame(
+            RagiInit.ItemBlockCrystal,
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,
