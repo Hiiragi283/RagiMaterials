@@ -9,6 +9,7 @@ import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.properties.PropertyEnum
+import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
@@ -25,6 +26,8 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
+import net.minecraftforge.fluids.capability.IFluidHandlerItem
 import java.util.*
 
 class BlockSaltPond : Block(Material.WOOD) {
@@ -56,9 +59,11 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     //あるブロックが隣接したブロックと同じかどうかを判定するメソッド
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
-        val stateTo = world.getBlockState(pos.offset(facing))
-        //EnumFacingの先にあるblockがフルブロックの場合true
-        return stateTo.block != Blocks.AIR
+        val posTo = pos.offset(facing)
+        val stateTo = world.getBlockState(posTo)
+        val shape = stateTo.getBlockFaceShape(world, posTo, facing)
+        //EnumFacingの先にあるblockの形状がSOLIDの場合true
+        return shape == BlockFaceShape.SOLID
     }
 
     //Blockstateの登録をするメソッド
@@ -133,44 +138,39 @@ class BlockSaltPond : Block(Material.WOOD) {
         val stack = player.getHeldItem(hand)
         //サーバー側，かつ塩田ブロックが空の場合
         if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
-            //水バケツの場合
-            if (stack.item == Items.WATER_BUCKET) {
-                world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
-                stack.shrink(1) //stackの縮小
-                RagiUtils.spawnItemAtPlayer(world, player, ItemStack(Items.BUCKET))
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
-                RagiLogger.infoDebug("Water was placed!")
-            }
-            //forgeのバケツ，かつNBTタグがnullでない場合
-            else if (stack.item.registryName.toString() == "forge:bucketfilled" && stack.tagCompound !== null) {
-                val tag = stack.tagCompound!! //tagを取得
-                //tagがFluidNameを持っている場合
-                if (tag.hasKey("FluidName")) {
-                    val fluid = tag.getString("FluidName") //FluidNameの取得
+            val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+            if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.name !== null)) {
+                when (fluidItem.tankProperties[0].contents!!.fluid.name) {
+                    //水バケツの場合
+                    "water" -> {
+                        placeFluid(world, pos, state, fluidItem)
+                        RagiLogger.infoDebug("Water was placed!")
+                    }
                     //Saltwaterの場合
-                    if (fluid == "saltwater") {
-                        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.SALTWATER), 2) //stateの更新
-                        stack.shrink(1) //stackの縮小
-                        RagiUtils.spawnItemAtPlayer(world, player, ItemStack(Items.BUCKET))
+                    "saltwater" -> {
+                        placeFluid(world, pos, state, fluidItem)
                         RagiLogger.infoDebug("Saltwater was placed!")
                     }
                     //Brineの場合
-                    else if (fluid == "brine") {
-                        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.BRINE), 2) //stateの更新
-                        stack.shrink(1) //stackの縮小
-                        RagiUtils.spawnItemAtPlayer(world, player, ItemStack(Items.BUCKET))
+                    "brine" -> {
+                        placeFluid(world, pos, state, fluidItem)
                         RagiLogger.infoDebug("Brine was placed!")
                     }
                 }
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
             }
         }
         world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
         return true
+    }
+
+    //液体を設置した際の挙動をまとめたメソッド
+    private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem) {
+        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
+        fluidItem.drain(1000, true) //液体を1000 mb汲み取る
+        world.playSound(
+            null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
+        ) //SEを再生
+
     }
 
     //ドロップする確率を得るメソッド
