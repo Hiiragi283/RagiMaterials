@@ -1,12 +1,28 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "uvlock": true
+  },
   "variants": {
-    "active=false,facing=north": {"model": "ragi_materials:block_bellow"},
-    "active=true,facing=north": {"model": "ragi_materials:block_bellow_pressed"},
-    "active=false,facing=south": {"model": "ragi_materials:block_bellow", "y": 180},
-    "active=true,facing=south": {"model": "ragi_materials:block_bellow_pressed", "y": 180},
-    "active=false,facing=west": {"model": "ragi_materials:block_bellow", "y": 270},
-    "active=true,facing=west": {"model": "ragi_materials:block_bellow_pressed", "y": 270},
-    "active=false,facing=east": {"model": "ragi_materials:block_bellow", "y": 90},
-    "active=true,facing=east": {"model": "ragi_materials:block_bellow_pressed", "y": 90}
+    "active": {
+      "true": {
+        "model": "ragi_materials:block_bellow_pressed"
+      },
+      "false": {
+        "model": "ragi_materials:block_bellow"
+      }
+    },
+    "facing": {
+      "north": {},
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    }
   }
 }

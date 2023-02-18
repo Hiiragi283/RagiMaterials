@@ -1,20 +1,34 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "uvlock": true
+  },
   "variants": {
-    "facing=north,fuel=0": {"model": "ragi_materials:forge_furnace_0"},
-    "facing=north,fuel=1": {"model": "ragi_materials:forge_furnace_1"},
-    "facing=north,fuel=2": {"model": "ragi_materials:forge_furnace_2"},
-    "facing=north,fuel=3": {"model": "ragi_materials:forge_furnace_3"},
-    "facing=south,fuel=0": {"model": "ragi_materials:forge_furnace_0", "y": 180},
-    "facing=south,fuel=1": {"model": "ragi_materials:forge_furnace_1", "y": 180},
-    "facing=south,fuel=2": {"model": "ragi_materials:forge_furnace_2", "y": 180},
-    "facing=south,fuel=3": {"model": "ragi_materials:forge_furnace_3", "y": 180},
-    "facing=west,fuel=0": {"model": "ragi_materials:forge_furnace_0", "y": 270},
-    "facing=west,fuel=1": {"model": "ragi_materials:forge_furnace_1", "y": 270},
-    "facing=west,fuel=2": {"model": "ragi_materials:forge_furnace_2", "y": 270},
-    "facing=west,fuel=3": {"model": "ragi_materials:forge_furnace_3", "y": 270},
-    "facing=east,fuel=0": {"model": "ragi_materials:forge_furnace_0", "y": 90},
-    "facing=east,fuel=1": {"model": "ragi_materials:forge_furnace_1", "y": 90},
-    "facing=east,fuel=2": {"model": "ragi_materials:forge_furnace_2", "y": 90},
-    "facing=east,fuel=3": {"model": "ragi_materials:forge_furnace_3", "y": 90}
+    "fuel": {
+      "0": {
+        "model": "ragi_materials:forge_furnace_0"
+      },
+      "1": {
+        "model": "ragi_materials:forge_furnace_1"
+      },
+      "2": {
+        "model": "ragi_materials:forge_furnace_2"
+      },
+      "3": {
+        "model": "ragi_materials:forge_furnace_3"
+      }
+    },
+    "facing": {
+      "north": {},
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    }
   }
 }
