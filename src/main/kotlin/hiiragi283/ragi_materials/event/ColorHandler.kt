@@ -1,17 +1,22 @@
 package hiiragi283.ragi_materials.event
 
+import hiiragi283.ragi_materials.block.BlockCropCoal
+import hiiragi283.ragi_materials.block.BlockCropLignite
+import hiiragi283.ragi_materials.block.BlockCropPeat
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.item.ItemSeedCoal
+import hiiragi283.ragi_materials.item.ItemSeedLignite
+import hiiragi283.ragi_materials.item.ItemSeedPeat
 import hiiragi283.ragi_materials.material.MaterialManager
-import net.minecraft.block.state.IBlockState
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ColorHandler {
+
     @SubscribeEvent
     fun colorHandler(event: ColorHandlerEvent.Item) {
         //変数の宣言
@@ -19,7 +24,18 @@ class ColorHandler {
         val itemColors = event.itemColors
 
         //BlockとItemの着色
-        //blockColors.registerBlockColorHandler()
+        blockColors.registerBlockColorHandler(
+            IBlockColor { state, world, pos, tintIndex ->
+                when (state.block) {
+                    is BlockCropCoal -> MaterialRegistry.COAL.color.rgb
+                    is BlockCropLignite -> MaterialRegistry.LIGNITE.color.rgb
+                    else -> MaterialRegistry.PEAT.color.rgb
+                }
+            },
+            RagiInit.BlockCropCoal,
+            RagiInit.BlockCropLignite,
+            RagiInit.BlockCropPeat
+        )
 
         itemColors.registerItemColorHandler(
             IItemColor { stack, tintIndex ->
@@ -62,13 +78,19 @@ class ColorHandler {
                 } else 0xFFFFFF
             }, RagiInit.ItemFullBottle
         )
-    }
 
-    class ColorMaterial : IBlockColor {
-
-        override fun colorMultiplier(state: IBlockState, worldIn: IBlockAccess?, pos: BlockPos?, tintIndex: Int): Int {
-            val material = MaterialManager.getMaterial(state.block.getMetaFromState(state))
-            return if (tintIndex == 0) material.color.rgb else 0xFFFFFF
-        }
+        itemColors.registerItemColorHandler(
+            IItemColor { stack, tintIndex ->
+                when (stack.item) {
+                    is ItemSeedCoal -> MaterialRegistry.COAL.color.rgb
+                    is ItemSeedLignite -> MaterialRegistry.LIGNITE.color.rgb
+                    is ItemSeedPeat -> MaterialRegistry.PEAT.color.rgb
+                    else -> 0xFFFFFF
+                }
+            },
+            RagiInit.ItemSeedCoal,
+            RagiInit.ItemSeedLignite,
+            RagiInit.ItemSeedPeat
+        )
     }
 }

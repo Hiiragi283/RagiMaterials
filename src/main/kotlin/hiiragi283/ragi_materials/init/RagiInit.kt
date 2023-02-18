@@ -9,11 +9,9 @@ import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialType
-import net.minecraft.block.material.Material
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.BlockFluidClassic
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 
@@ -26,37 +24,46 @@ object RagiInit {
     //Blockの定義
     val BlockBellow = BlockBellow()
     val BlockBlazeHeater = BlockBlazeHeater()
+    val BlockCropCoal = BlockCropCoal()
+    val BlockCropLignite = BlockCropLignite()
+    val BlockCropPeat = BlockCropPeat("crop_peat")
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockLitForgeFurnace = BlockLitForgeFurnace()
     val BlockOreDictConv = BlockOreDictConv()
     val BlockSaltPond = BlockSaltPond()
 
     //Itemの定義
-    val ItemBlockBellow = ItemBlockBase(BlockBellow, 0, 2)
-    val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1, 2)
-    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0, 3)
-    val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0, 1)
-    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0, 2)
+    val ItemBlockBellow = ItemBlockBase(BlockBellow, 0)
+    val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1)
+    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
+    val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0)
+    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
     val ItemBlockCrystal = ItemMaterial("block_crystal", MaterialType.CRYSTAL)
     val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.METAL)
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
+    val ItemCrystal = ItemMaterial("crystal", MaterialType.CRYSTAL)
     val ItemDust = ItemMaterial("dust", MaterialType.DUST)
     val ItemDustTiny = ItemMaterial("dust_tiny", MaterialType.DUST)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemFullBottle = ItemFullBottle()
-    val ItemCrystal = ItemMaterial("crystal", MaterialType.CRYSTAL)
     val ItemIngot = ItemMaterial("ingot", MaterialType.INGOT)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.INGOT)
+    val ItemSeedCoal = ItemSeedCoal().setCreativeTab(CreativeTabs.MISC)
+    val ItemSeedLignite = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)
+    val ItemSeedPeat: Item = ItemSeedPeat("seed_peat").setCreativeTab(CreativeTabs.MISC)
 
     fun init() {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
             BlockBellow,
             BlockBlazeHeater,
+            BlockCropCoal,
+            BlockCropLignite,
+            BlockCropPeat,
             BlockForgeFurnace,
             BlockLitForgeFurnace,
             BlockOreDictConv,
@@ -82,7 +89,10 @@ object RagiInit {
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
-            ItemPlate
+            ItemPlate,
+            ItemSeedCoal,
+            ItemSeedLignite,
+            ItemSeedPeat
         )
         //Fluidの登録
         //listの各materialに対して実行

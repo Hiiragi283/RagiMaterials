@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class ItemTooltip {
+
     @SubscribeEvent
     fun onItemTooltip(event: ItemTooltipEvent) {
         //プレイヤーがnullでない場合

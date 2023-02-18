@@ -3,6 +3,9 @@
 tile.blaze_heater.0.name=ブレイズヒーター
 tile.blaze_heater.1.name=ヘルライズヒーター
 tile.block_bellow.name=ふいご
+tile.crop_coal.name=石炭畑
+tile.crop_lignite.name=褐炭畑
+tile.crop_peat.name=泥炭畑
 tile.forge_furnace.name=鍛造炉
 tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.oredict_converter.name=鉱石辞書変換機
@@ -137,6 +140,9 @@ item.ragi_ingot.name=%sインゴット
 item.ragi_ingot_hot.name=加熱した%sインゴット
 item.ragi_nugget.name=%sナゲット
 item.ragi_plate.name=%s板
+item.seed_coal.name=石炭の種
+item.seed_lignite.name=褐炭の種
+item.seed_peat.name=泥炭の種
 
 # Materials
 

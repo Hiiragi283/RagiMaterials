@@ -3,6 +3,9 @@
 tile.blaze_heater.0.name=Blaze Heater
 tile.blaze_heater.1.name=Hellrise Heater
 tile.block_bellow.name=Bellow
+tile.crop_coal.name=Coal Farm
+tile.crop_lignite.name=Lignite Farm
+tile.crop_peat.name=Peat Farm
 tile.forge_furnace.name=Forge Furnace
 tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.oredict_converter.name=Ore Dictionary Converter
@@ -137,6 +140,9 @@ item.ragi_ingot.name=%s Ingot
 item.ragi_ingot_hot.name=Hot %s Ingot
 item.ragi_nugget.name=%s Nugget
 item.ragi_plate.name=%s Plate
+item.seed_coal.name=Coal Seed
+item.seed_lignite.name=Lignite Seed
+item.seed_peat.name=Peat Seed
 
 # Materials
 
