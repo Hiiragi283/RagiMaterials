@@ -56,7 +56,7 @@ object MaterialRegistry {
 
     //3rd Period
     val SODIUM = MaterialBuilder(11, "sodium", MaterialType.INTERNAL)
-        .setColor(RagiColor.DARK_BLUE).setMolarMass(23.0f).setFormula("Na")
+        .setMolarMass(23.0f).setFormula("Na")
         .setTempMelt(98).setTempBoil(883)
 
     val MAGNESIUM = MaterialBuilder(12, "magnesium", MaterialType.METAL)
@@ -89,11 +89,11 @@ object MaterialRegistry {
 
     //4th Period
     val POTASSIUM = MaterialBuilder(19, "potassium", MaterialType.INTERNAL)
-        .setColor(RagiColor.DARK_BLUE).setMolarMass(39.1f).setFormula("K")
+        .setMolarMass(39.1f).setFormula("K")
         .setTempMelt(64).setTempBoil(759)
 
     val CALCIUM = MaterialBuilder(20, "calcium", MaterialType.INTERNAL)
-        .setColor(RagiColor.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE)).setMolarMass(40.1f).setFormula("Ca")
+        .setMolarMass(40.1f).setFormula("Ca")
         .setTempMelt(842).setTempBoil(1484)
 
     val TITANIUM = MaterialBuilder(22, "titanium", MaterialType.METAL)
@@ -138,7 +138,7 @@ object MaterialRegistry {
 
     //5th Period
     val STRONTIUM = MaterialBuilder(38, "strontium", MaterialType.INTERNAL)
-        .setColor(RagiColor.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE)).setMolarMass(87.6f).setFormula("Sr")
+        .setMolarMass(87.6f).setFormula("Sr")
         .setTempMelt(777).setTempBoil(1377)
 
     val ZIRCONIUM = MaterialBuilder(40, "zirconium", MaterialType.METAL)
@@ -265,6 +265,19 @@ object MaterialRegistry {
         .setMolarMass(241.0f).setFormula("Pu-241")
 
     //100 ~ 199: Atomic Group
+    val HYDROXIDE = CompoundBuilder(100, "hydroxide", MaterialType.INTERNAL, mapOf(OXYGEN to 1, HYDROGEN to 1))
+
+    val BORATE = CompoundBuilder(101, "borate", MaterialType.INTERNAL, mapOf(BORON to 1, OXYGEN to 3))
+
+    val CARBONATE = CompoundBuilder(102, "carbonate", MaterialType.INTERNAL, mapOf(CARBON to 1, OXYGEN to 3))
+
+    val NITRATE = CompoundBuilder(103, "nitrate", MaterialType.INTERNAL, mapOf(NITROGEN to 1, OXYGEN to 3))
+
+    val SILICATE = CompoundBuilder(104, "silicate", MaterialType.INTERNAL, mapOf(SILICON to 1, OXYGEN to 3))
+
+    val PHOSPHATE = CompoundBuilder(105, "phosphate", MaterialType.INTERNAL, mapOf(PHOSPHORUS to 1, OXYGEN to 4))
+
+    val SULFATE = CompoundBuilder(106, "sulfate", MaterialType.INTERNAL, mapOf(SULFUR to 1, OXYGEN to 4))
 
     //200 ~ 299: Vanilla
     val STONE = CompoundBuilder(200, "stone", MaterialType.DUST, mapOf(SILICON to 1, OXYGEN to 2))
@@ -353,14 +366,11 @@ object MaterialRegistry {
     val PRISMARINE = CrystalBuilder(220, "prismarine", mapOf(QUARTZ to 1, WATER.addBracket() to 1), "trigonal")
         .setColor(ALUMINIUM.color)
 
-    val BONE = CompoundBuilder(221, "bone", MaterialType.DUST, mapOf(CALCIUM to 3, "(PO\u2084)" to 2))
+    val BONE = CompoundBuilder(221, "bone", MaterialType.DUST, mapOf(CALCIUM to 3, PHOSPHATE.addBracket() to 2))
         .setColor(RagiColor.WHITE)
 
-    val NITER = CrystalBuilder(222, "niter", mapOf(
-        POTASSIUM to 1,
-        NITROGEN to 1,
-        OXYGEN to 3
-    ), "orthorhombic").setColor(RagiColor.WHITE)
+    val NITER = CrystalBuilder(222, "niter", mapOf(POTASSIUM to 1, NITRATE to 1), "orthorhombic")
+        .setColor(RagiColor.WHITE)
 
     val GUNPOWDER = CompoundBuilder(223, "gunpowder", MaterialType.DUST, mapOf(NITER.addBracket() to 2, CARBON to 1, SULFUR to 1))
         .setColor(RagiColor.DARK_GRAY)
