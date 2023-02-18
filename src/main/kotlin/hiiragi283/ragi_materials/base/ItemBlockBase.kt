@@ -1,33 +1,19 @@
 package hiiragi283.ragi_materials.base
 
 import net.minecraft.block.Block
-import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
-import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemBlockBase(block: Block, private val maxMeta: Int, private val maxTooltip: Int) : ItemBlock(block) {
+open class ItemBlockBase(block: Block, private val maxMeta: Int) : ItemBlock(block) {
 
     //コンストラクタの宣言
     init {
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
         registryName = block.registryName!!
-    }
-
-    //Itemにtooltipを付与するメソッド
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName.toString().split(":")[1]
-        tooltip.add("§e=== Info ===")
-        for (i in 0..maxTooltip) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
-        }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     //メタデータを得るメソッド

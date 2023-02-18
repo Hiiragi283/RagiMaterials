@@ -8,14 +8,19 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.resources.I18n
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
 class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
@@ -37,6 +42,17 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
         setResistance(3.5F)
         soundType = SoundType.STONE
         unlocalizedName = registryName
+    }
+
+    //Itemにtooltipを付与するメソッド
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val path = stack.item.registryName.toString().split(":")[1]
+        tooltip.add("§e=== Info ===")
+        for (i in 0..3) {
+            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+        }
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     //Blockstateの登録をするメソッド

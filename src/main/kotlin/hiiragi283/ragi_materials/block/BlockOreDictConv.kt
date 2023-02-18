@@ -7,7 +7,10 @@ import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
+import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.resources.I18n
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
@@ -21,6 +24,8 @@ import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.world.IBlockAccess
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 class BlockOreDictConv: Block(Material.WOOD) {
 
@@ -36,6 +41,33 @@ class BlockOreDictConv: Block(Material.WOOD) {
         setResistance(5.0F)
         soundType = SoundType.WOOD
         unlocalizedName = registryName
+    }
+
+    //Itemにtooltipを付与するメソッド
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val path = stack.item.registryName.toString().split(":")[1]
+        tooltip.add("§e=== Info ===")
+        for (i in 0..2) {
+            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+        }
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
+    }
+
+    //面の種類を取得するメソッド
+    @Deprecated("Deprecated in Java")
+    override fun getBlockFaceShape(
+        worldIn: IBlockAccess,
+        state: IBlockState,
+        pos: BlockPos,
+        face: EnumFacing
+    ): BlockFaceShape {
+        return when (face) {
+            //下 -> SOLID
+            EnumFacing.DOWN -> BlockFaceShape.SOLID
+            //それ以外 -> UNDEFINED
+            else -> BlockFaceShape.UNDEFINED
+        }
     }
 
     //ブロックの当たり判定を取得するメソッド

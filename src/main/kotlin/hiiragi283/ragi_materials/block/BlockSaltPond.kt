@@ -12,6 +12,8 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.resources.I18n
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
@@ -28,6 +30,8 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandlerItem
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
 class BlockSaltPond : Block(Material.WOOD) {
@@ -57,13 +61,23 @@ class BlockSaltPond : Block(Material.WOOD) {
         unlocalizedName = registryName
     }
 
+    //Itemにtooltipを付与するメソッド
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val path = stack.item.registryName.toString().split(":")[1]
+        tooltip.add("§e=== Info ===")
+        for (i in 0..2) {
+            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+        }
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
+    }
+
     //あるブロックが隣接したブロックと同じかどうかを判定するメソッド
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
         val posTo = pos.offset(facing)
         val stateTo = world.getBlockState(posTo)
         val shape = stateTo.getBlockFaceShape(world, posTo, facing)
-        //EnumFacingの先にあるblockの形状がSOLIDの場合true
-        return shape == BlockFaceShape.SOLID
+        return stateTo.block != Blocks.AIR && (stateTo.block == this || shape == BlockFaceShape.SOLID || shape == BlockFaceShape.UNDEFINED)
     }
 
     //Blockstateの登録をするメソッド
@@ -79,6 +93,22 @@ class BlockSaltPond : Block(Material.WOOD) {
         val connectW = canConnectTo(world, pos, EnumFacing.WEST)
         return state.withProperty(NORTH, connectN).withProperty(EAST, connectE).withProperty(SOUTH, connectS)
             .withProperty(WEST, connectW)
+    }
+
+    //面の種類を取得するメソッド
+    @Deprecated("Deprecated in Java")
+    override fun getBlockFaceShape(
+        worldIn: IBlockAccess,
+        state: IBlockState,
+        pos: BlockPos,
+        face: EnumFacing
+    ): BlockFaceShape {
+        return when (face) {
+            //下 -> SOLID
+            EnumFacing.DOWN -> BlockFaceShape.SOLID
+            //それ以外 -> UNDEFINED
+            else -> BlockFaceShape.UNDEFINED
+        }
     }
 
     //ブロックの当たり判定を取得するメソッド
