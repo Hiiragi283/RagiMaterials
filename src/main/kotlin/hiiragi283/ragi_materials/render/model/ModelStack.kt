@@ -4,7 +4,6 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.CrystalBuilder
 import hiiragi283.ragi_materials.material.MaterialManager
-import net.minecraft.client.renderer.block.model.ModelBakery
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 
@@ -13,7 +12,7 @@ object ModelStack {
     fun init() {
 
         //ItemGem
-        ModelBakery.registerItemVariants(
+        ModelLoader.registerItemVariants(
             RagiInit.ItemCrystal,
             ModelResourceLocation("${Reference.MOD_ID}:crystal_amorphous", "inventory"),
             ModelResourceLocation("${Reference.MOD_ID}:crystal_coal", "inventory"),

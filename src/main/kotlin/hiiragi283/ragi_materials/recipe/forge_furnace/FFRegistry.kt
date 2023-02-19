@@ -28,10 +28,7 @@ object FFRegistry {
         FFRecipe("ragi_materials:ingot:79", "ragi_materials:ingot_hot:79", burning)
         FFRecipe("ragi_materials:ingot:82", "ragi_materials:ingot_hot:82", burning)
         FFRecipe("ragi_materials:ingot:83", "ragi_materials:ingot_hot:83", burning)
-        //FFRecipe("ragi_materials:ingot:201", "ragi_materials:ingot_hot:201", burning)
-        //FFRecipe("ragi_materials:ingot:211", "ragi_materials:ingot_hot:211", burning)
-        //FFRecipe("ragi_materials:ingot:212", "ragi_materials:ingot_hot:212", burning)
-
+s
         FFRecipe("ragi_materials:ingot:4", "ragi_materials:ingot_hot:4", boosted)
         FFRecipe("ragi_materials:ingot:14", "ragi_materials:ingot_hot:14", boosted)
         FFRecipe("ragi_materials:ingot:22", "ragi_materials:ingot_hot:22", boosted)
@@ -43,19 +40,6 @@ object FFRegistry {
         FFRecipe("ragi_materials:ingot:45", "ragi_materials:ingot_hot:45", boosted)
         FFRecipe("ragi_materials:ingot:46", "ragi_materials:ingot_hot:46", boosted)
         FFRecipe("ragi_materials:ingot:78", "ragi_materials:ingot_hot:78", boosted)
-        /*FFRecipe("ragi_materials:ingot:200", "ragi_materials:ingot_hot:200", boosted)
-        FFRecipe("ragi_materials:ingot:202", "ragi_materials:ingot_hot:202", boosted)
-        FFRecipe("ragi_materials:ingot:203", "ragi_materials:ingot_hot:203", boosted)
-        FFRecipe("ragi_materials:ingot:204", "ragi_materials:ingot_hot:204", boosted)
-        FFRecipe("ragi_materials:ingot:205", "ragi_materials:ingot_hot:205", boosted)
-        FFRecipe("ragi_materials:ingot:206", "ragi_materials:ingot_hot:206", boosted)
-        FFRecipe("ragi_materials:ingot:207", "ragi_materials:ingot_hot:207", boosted)
-        FFRecipe("ragi_materials:ingot:208", "ragi_materials:ingot_hot:208", boosted)
-        FFRecipe("ragi_materials:ingot:209", "ragi_materials:ingot_hot:209", boosted)
-        FFRecipe("ragi_materials:ingot:210", "ragi_materials:ingot_hot:210", boosted)
-        FFRecipe("ragi_materials:ingot:213", "ragi_materials:ingot_hot:213", boosted)
-        FFRecipe("ragi_materials:ingot:214", "ragi_materials:ingot_hot:214", boosted)
-        FFRecipe("ragi_materials:ingot:216", "ragi_materials:ingot_hot:216", boosted)*/
 
         FFRecipe("ragi_materials:ingot:41", "ragi_materials:ingot_hot:41", hellrise)
         FFRecipe("ragi_materials:ingot:42", "ragi_materials:ingot_hot:42", hellrise)
@@ -65,7 +49,6 @@ object FFRegistry {
         FFRecipe("ragi_materials:ingot:74", "ragi_materials:ingot_hot:74", hellrise)
         FFRecipe("ragi_materials:ingot:76", "ragi_materials:ingot_hot:76", hellrise)
         FFRecipe("ragi_materials:ingot:77", "ragi_materials:ingot_hot:77", hellrise)
-        //FFRecipe("ragi_materials:ingot:215", "ragi_materials:ingot_hot:215", hellrise)
 
     }
 }

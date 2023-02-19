@@ -110,13 +110,6 @@ object RagiInit {
                 FluidRegistry.registerFluid(fluid)
                 //fluid入りバケツを登録
                 FluidRegistry.addBucketForFluid(fluid)
-                //material.typeにliquidが含まれる場合場合
-                /*if (material.type.getTypeBase().contains("liquid")) {
-                    //液体ブロックを生成・登録・割り当て
-                    val fluidBlock = BlockFluidClassic(fluid, Material.WATER).setRegistryName(fluid.name)
-                    ForgeRegistries.BLOCKS.register(fluidBlock)
-                    fluid.block = fluidBlock
-                }*/
             }
         }
     }

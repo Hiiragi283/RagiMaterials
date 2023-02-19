@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.event
 
 import hiiragi283.ragi_materials.block.BlockCropCoal
 import hiiragi283.ragi_materials.block.BlockCropLignite
-import hiiragi283.ragi_materials.block.BlockCropPeat
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.item.ItemSeedCoal
 import hiiragi283.ragi_materials.item.ItemSeedLignite
