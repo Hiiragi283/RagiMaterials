@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-open class BlockCropPeat(ID: String): Block(Material.PLANTS), IGrowable, IPlantable {
+open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlantable {
 
     companion object {
         val AGE: PropertyInteger = PropertyInteger.create("age", 0, 3)
@@ -58,7 +58,8 @@ open class BlockCropPeat(ID: String): Block(Material.PLANTS), IGrowable, IPlanta
     }
 
     //面の種類を取得するメソッド
-    @Deprecated("Deprecated in Java",
+    @Deprecated(
+        "Deprecated in Java",
         ReplaceWith("BlockFaceShape.UNDEFINED", "net.minecraft.block.state.BlockFaceShape")
     )
     override fun getBlockFaceShape(
@@ -103,7 +104,7 @@ open class BlockCropPeat(ID: String): Block(Material.PLANTS), IGrowable, IPlanta
             }
             //fortune/8の確率で褐炭がドロップ
             if (random.nextInt(7) < fortune) {
-                drops.add(ItemStack(RagiInit.ItemCrystal,  1, getDropSub()))
+                drops.add(ItemStack(RagiInit.ItemCrystal, 1, getDropSub()))
             }
         }
     }
@@ -140,10 +141,12 @@ open class BlockCropPeat(ID: String): Block(Material.PLANTS), IGrowable, IPlanta
     }
 
     //メタデータからBlockstateを得るメソッド
-    @Deprecated("Deprecated in Java", ReplaceWith(
-        "blockState.baseState.withProperty(AGE, meta)",
-        "hiiragi283.ragi_materials.block.BlockCropPeat.Companion.AGE"
-    ))
+    @Deprecated(
+        "Deprecated in Java", ReplaceWith(
+            "blockState.baseState.withProperty(AGE, meta)",
+            "hiiragi283.ragi_materials.block.BlockCropPeat.Companion.AGE"
+        )
+    )
     override fun getStateFromMeta(meta: Int): IBlockState {
         return blockState.baseState.withProperty(AGE, meta % 4)
     }

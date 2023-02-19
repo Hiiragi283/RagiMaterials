@@ -171,7 +171,7 @@ object RagiUtils {
 
     //BooleanをIntに変換するメソッド
     fun Boolean.toInt(): Int {
-        return if(this) 1 else 0
+        return if (this) 1 else 0
     }
 
     //EntityItemをプレイヤーの足元にスポーンさせるメソッド

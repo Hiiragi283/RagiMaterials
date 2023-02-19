@@ -8,8 +8,8 @@ object MaterialRegistry {
 
     //0: WILDCARD
     val WILDCARD = MaterialBuilder(0, "wildcard", MaterialType.WILDCARD)
-            .setMolarMass(1024.0f).setFormula("WILDCARD")
-            .setTempMelt(1024).setTempBoil(1024)
+        .setMolarMass(1024.0f).setFormula("WILDCARD")
+        .setTempMelt(1024).setTempBoil(1024)
 
     //1 ~ 94: Periodic Table
     //1st Period
@@ -97,7 +97,8 @@ object MaterialRegistry {
         .setTempMelt(842).setTempBoil(1484)
 
     val TITANIUM = MaterialBuilder(22, "titanium", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2))).setMolarMass(47.9f).setFormula("Ti")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2))).setMolarMass(47.9f)
+        .setFormula("Ti")
         .setTempMelt(1668).setTempBoil(3287)
 
     val CHROMIUM = MaterialBuilder(24, "chromium", MaterialType.METAL)
@@ -154,19 +155,23 @@ object MaterialRegistry {
         .setTempMelt(2023).setTempBoil(4639)
 
     val RUTHENIUM = MaterialBuilder(44, "ruthenium", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.LIGHT_PURPLE to 1, RagiColor.WHITE to 3))).setMolarMass(101.1f).setFormula("Ru")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.LIGHT_PURPLE to 1, RagiColor.WHITE to 3))).setMolarMass(101.1f)
+        .setFormula("Ru")
         .setTempMelt(2334).setTempBoil(4150)
 
     val RHODIUM = MaterialBuilder(45, "rhodium", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.RED to 1, RagiColor.WHITE to 3))).setMolarMass(102.9f).setFormula("Rh")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.RED to 1, RagiColor.WHITE to 3))).setMolarMass(102.9f)
+        .setFormula("Rh")
         .setTempMelt(1964).setTempBoil(3695)
 
     val PALLADIUM = MaterialBuilder(46, "palladium", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3))).setMolarMass(106.4f).setFormula("Pa")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3))).setMolarMass(106.4f)
+        .setFormula("Pa")
         .setTempMelt(1555).setTempBoil(2963)
 
     val SILVER = MaterialBuilder(47, "silver", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 2))).setMolarMass(107.9f).setFormula("Ag")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 2))).setMolarMass(107.9f)
+        .setFormula("Ag")
         .setTempMelt(962).setTempBoil(2162)
 
     val INDIUM = MaterialBuilder(49, "indium", MaterialType.METAL)
@@ -211,15 +216,18 @@ object MaterialRegistry {
         .setTempMelt(3422).setTempBoil(5555)
 
     val OSMIUM = MaterialBuilder(76, "osmium", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.WHITE to 3))).setMolarMass(190.2f).setFormula("Os")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.WHITE to 3))).setMolarMass(190.2f)
+        .setFormula("Os")
         .setTempMelt(3033).setTempBoil(5012)
 
     val IRIDIUM = MaterialBuilder(77, "iridium", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 3))).setMolarMass(192.2f).setFormula("Ir")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 3))).setMolarMass(192.2f)
+        .setFormula("Ir")
         .setTempMelt(2446).setTempBoil(4428)
 
     val PLATINUM = MaterialBuilder(78, "platinum", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.GREEN to 1, RagiColor.WHITE to 3))).setMolarMass(195.1f).setFormula("Pt")
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.GREEN to 1, RagiColor.WHITE to 3))).setMolarMass(195.1f)
+        .setFormula("Pt")
         .setTempMelt(1768).setTempBoil(3825)
 
     val GOLD = MaterialBuilder(79, "gold", MaterialType.METAL)
@@ -231,7 +239,8 @@ object MaterialRegistry {
         .setTempMelt(-39).setTempBoil(357)
 
     val LEAD = MaterialBuilder(82, "lead", MaterialType.METAL)
-        .setColor(RagiColor.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_GRAY, RagiColor.WHITE)).setMolarMass(207.2f).setFormula("Pb")
+        .setColor(RagiColor.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_GRAY, RagiColor.WHITE)).setMolarMass(207.2f)
+        .setFormula("Pb")
         .setTempMelt(327).setTempBoil(1749)
 
     val BISMUTH = MaterialBuilder(83, "bismuth", MaterialType.METAL)
@@ -258,7 +267,7 @@ object MaterialRegistry {
     val TRITIUM = IsotopeBuilder(96, "tritium", HYDROGEN)
         .setMolarMass(3.0f).setFormula("T")
 
-    val URANIUM_235  = IsotopeBuilder(97, "uranium235", URANIUM_238)
+    val URANIUM_235 = IsotopeBuilder(97, "uranium235", URANIUM_238)
         .setMolarMass(235.0f).setFormula("U-235")
 
     val PLUTONIUM_241 = IsotopeBuilder(98, "plutonium241", PLUTONIUM_239)
@@ -301,27 +310,40 @@ object MaterialRegistry {
         .setFormula("?")
 
     val CLAY = MaterialBuilder(206, "clay", MaterialType.DUST)
-        .setColor(RagiColor.mixColor(mapOf(
-            RagiColor.BLUE to 1,
-            RagiColor.AQUA to 1,
-            RagiColor.WHITE to 2)))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    RagiColor.BLUE to 1,
+                    RagiColor.AQUA to 1,
+                    RagiColor.WHITE to 2
+                )
+            )
+        )
         .setFormula("?")
 
     val BRICK = MaterialBuilder(207, "brick", MaterialType.INGOT)
-        .setColor(RagiColor.mixColor(mapOf(
-            RagiColor.DARK_RED to 4,
-            RagiColor.DARK_PURPLE to 1,
-            RagiColor.GOLD to 2,
-            RagiColor.WHITE to 3
-        )))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    RagiColor.DARK_RED to 4,
+                    RagiColor.DARK_PURPLE to 1,
+                    RagiColor.GOLD to 2,
+                    RagiColor.WHITE to 3
+                )
+            )
+        )
         .setFormula("?")
 
     val OBSIDIAN = CompoundBuilder(208, "obsidian", MaterialType.DUST, mapOf(STONE to 1))
-        .setColor(RagiColor.mixColor(mapOf(
-            RagiColor.BLACK to 2,
-            RagiColor.BLUE to 1,
-            RagiColor.RED to 1
-        )))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    RagiColor.BLACK to 2,
+                    RagiColor.BLUE to 1,
+                    RagiColor.RED to 1
+                )
+            )
+        )
 
     val REDSTONE = MaterialBuilder(209, "redstone", MaterialType.DUST)
         .setColor(RagiColor.DARK_RED).setFormula("Rs")
@@ -335,7 +357,12 @@ object MaterialRegistry {
     val ICE = CompoundBuilder(212, "ice", MaterialType.INGOT, mapOf(WATER to 1))
         .setColor(ALUMINIUM.color)
 
-    val NETHERRACK = CompoundBuilder(213, "netherrack", MaterialType.DUST, mapOf(STONE.addBracket() to 1, SULFUR to 1, PHOSPHORUS to 1))
+    val NETHERRACK = CompoundBuilder(
+        213,
+        "netherrack",
+        MaterialType.DUST,
+        mapOf(STONE.addBracket() to 1, SULFUR to 1, PHOSPHORUS to 1)
+    )
         .setColor(RagiColor.DARK_RED)
 
     val SOUL_SAND = MaterialBuilder(214, "soul_sand", MaterialType.DUST)
@@ -344,21 +371,28 @@ object MaterialRegistry {
         .setColor(RagiColor.mixColor(RagiColor.GOLD, RagiColor.YELLOW))
 
     val NETHER_BRICK = CompoundBuilder(216, "nether_brick", MaterialType.INGOT, mapOf(NETHERRACK to 1))
-        .setColor(RagiColor.mixColor(
-            mapOf(RagiColor.BLACK to 3,
-                RagiColor.DARK_BLUE to 1,
-                RagiColor.DARK_RED to 3
-            )))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    RagiColor.BLACK to 3,
+                    RagiColor.DARK_BLUE to 1,
+                    RagiColor.DARK_RED to 3
+                )
+            )
+        )
 
-    val END_STONE = CompoundBuilder(217, "end_stone", MaterialType.DUST, mapOf(STONE.addBracket() to 1, HELIUM to 1, TUNGSTEN to 1))
-        .setColor(PALLADIUM.color)
+    val END_STONE =
+        CompoundBuilder(217, "end_stone", MaterialType.DUST, mapOf(STONE.addBracket() to 1, HELIUM to 1, TUNGSTEN to 1))
+            .setColor(PALLADIUM.color)
 
-    val EMERALD = CrystalBuilder(218, "emerald", mapOf(
-        BERYLLIUM to 3,
-        ALUMINIUM to 2,
-        SILICON to 6,
-        OXYGEN to 18
-    ), "hexagonal").setColor(RagiColor.GREEN)
+    val EMERALD = CrystalBuilder(
+        218, "emerald", mapOf(
+            BERYLLIUM to 3,
+            ALUMINIUM to 2,
+            SILICON to 6,
+            OXYGEN to 18
+        ), "hexagonal"
+    ).setColor(RagiColor.GREEN)
 
     val QUARTZ = CrystalBuilder(219, "quartz", mapOf(STONE to 1), "trigonal")
         .setColor(RagiColor.WHITE)
@@ -372,8 +406,9 @@ object MaterialRegistry {
     val NITER = CrystalBuilder(222, "niter", mapOf(POTASSIUM to 1, NITRATE to 1), "orthorhombic")
         .setColor(RagiColor.WHITE)
 
-    val GUNPOWDER = CompoundBuilder(223, "gunpowder", MaterialType.DUST, mapOf(NITER.addBracket() to 2, CARBON to 1, SULFUR to 1))
-        .setColor(RagiColor.DARK_GRAY)
+    val GUNPOWDER =
+        CompoundBuilder(223, "gunpowder", MaterialType.DUST, mapOf(NITER.addBracket() to 2, CARBON to 1, SULFUR to 1))
+            .setColor(RagiColor.DARK_GRAY)
 
     val SUGAR = CompoundBuilder(224, "sugar", MaterialType.DUST, mapOf(CARBON to 6, HYDROGEN to 12, OXYGEN to 6))
         .setColor(RagiColor.WHITE)
@@ -387,23 +422,35 @@ object MaterialRegistry {
         .setColor(RagiColor.DARK_GRAY)
 
     val ANTHRACITE = CrystalBuilder(228, "anthracite", mapOf(CARBON to 1), "coal")
-        .setColor(RagiColor.mixColor(mapOf(
-            CARBON.color to 5,
-            RagiColor.DARK_BLUE to 1
-        )))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    CARBON.color to 5,
+                    RagiColor.DARK_BLUE to 1
+                )
+            )
+        )
 
     val LIGNITE = CrystalBuilder(229, "lignite", mapOf(CARBON to 1), "coal")
-        .setColor(RagiColor.mixColor(mapOf(
-            CARBON.color to 5,
-            RagiColor.DARK_RED to 1
-        )))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    CARBON.color to 5,
+                    RagiColor.DARK_RED to 1
+                )
+            )
+        )
 
     val PEAT = CrystalBuilder(230, "peat", mapOf(CARBON to 1), "coal")
-        .setColor(RagiColor.mixColor(mapOf(
-            CARBON.color to 5,
-            RagiColor.DARK_GREEN to 1,
-            RagiColor.DARK_RED to 1
-        )))
+        .setColor(
+            RagiColor.mixColor(
+                mapOf(
+                    CARBON.color to 5,
+                    RagiColor.DARK_GREEN to 1,
+                    RagiColor.DARK_RED to 1
+                )
+            )
+        )
 
     /*
     //200 ~ 299: Gem

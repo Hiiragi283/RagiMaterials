@@ -9,8 +9,8 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var map
 
     init {
         this.setColor(RagiColor.mixColor(getColorMap()))
-            formula = MaterialUtils.calcFormula(mapComponents)
-            molar = setMolar()
+        formula = MaterialUtils.calcFormula(mapComponents)
+        molar = setMolar()
     }
 
     private fun getColorMap(): MutableMap<Color, Int> {

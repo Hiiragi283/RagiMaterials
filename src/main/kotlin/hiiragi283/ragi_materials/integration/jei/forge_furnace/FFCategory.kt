@@ -60,7 +60,9 @@ class FFCategory(guiHelper: IGuiHelper) : IRecipeCategory<FFWrapper> {
         recipeLayout.itemStacks.init(1, false, 36, 0)
         when (recipeWrapper.type) {
             FFRecipe.EnumFire.BURNING -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.BlockForgeFurnace)
-            FFRecipe.EnumFire.BOOSTED -> recipeLayout.itemStacks[1] = listOf(ItemStack(RagiInit.BlockForgeFurnace), ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 0))
+            FFRecipe.EnumFire.BOOSTED -> recipeLayout.itemStacks[1] =
+                listOf(ItemStack(RagiInit.BlockForgeFurnace), ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 0))
+
             FFRecipe.EnumFire.HELLRISE -> recipeLayout.itemStacks[1] = ItemStack(RagiInit.ItemBlockBlazeHeater, 1, 1)
         }
         //outputのスロットを登録

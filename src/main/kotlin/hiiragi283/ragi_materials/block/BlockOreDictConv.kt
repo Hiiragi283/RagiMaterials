@@ -27,7 +27,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockOreDictConv: Block(Material.WOOD) {
+class BlockOreDictConv : Block(Material.WOOD) {
 
     private val registryName = "oredict_converter"
     private val box = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)

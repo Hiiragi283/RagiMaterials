@@ -28,7 +28,7 @@ open class MaterialType(val name: String) {
         val WILDCARD = MaterialType("wildcard")
             .addTypeBase(DUST, FLUID, LIQUID, METAL) //デバッグ用
 
-        val list =listOf(
+        val list = listOf(
             CRYSTAL,
             DUST,
             FLUID,

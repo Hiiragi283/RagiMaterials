@@ -13,7 +13,8 @@ object ModelStack {
     fun init() {
 
         //ItemGem
-        ModelBakery.registerItemVariants(RagiInit.ItemCrystal,
+        ModelBakery.registerItemVariants(
+            RagiInit.ItemCrystal,
             ModelResourceLocation("${Reference.MOD_ID}:crystal_amorphous", "inventory"),
             ModelResourceLocation("${Reference.MOD_ID}:crystal_coal", "inventory"),
             ModelResourceLocation("${Reference.MOD_ID}:crystal_cubic", "inventory"),

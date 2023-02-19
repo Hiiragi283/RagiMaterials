@@ -52,7 +52,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
 
     //stackの燃焼時間を返すメソッド
     override fun getItemBurnTime(stack: ItemStack): Int {
-        var time: Int = when(stack.metadata) {
+        var time: Int = when (stack.metadata) {
             225 -> 200 * 8 //Coal
             226 -> 200 * 8 //Charcoal
             227 -> 200 * 16 //Coke

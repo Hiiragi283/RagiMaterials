@@ -19,9 +19,9 @@ class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecip
         var hasWritableBook = false
         var hasEnchantedBook = false
         //クラフトグリッド内の各スロットに対して実行
-        for (i in 0 .. inv.sizeInventory) {
+        for (i in 0..inv.sizeInventory) {
             //そのスロットに本と羽ペンが入っている場合
-            if(inv.getStackInSlot(i).item == Items.WRITABLE_BOOK && !hasWritableBook) {
+            if (inv.getStackInSlot(i).item == Items.WRITABLE_BOOK && !hasWritableBook) {
                 hasWritableBook = true
             }
             //そのスロットにエンチャント本が入っている場合
@@ -39,9 +39,9 @@ class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecip
         var amountWritableBook = 1
         var bookEnchanted = ItemStack.EMPTY
         //クラフトグリッド内の各スロットに対して実行
-        for (i in 0 .. inv.sizeInventory) {
+        for (i in 0..inv.sizeInventory) {
             //そのスロットに本と羽ペンが入っている場合
-            if(inv.getStackInSlot(i).item == Items.WRITABLE_BOOK) {
+            if (inv.getStackInSlot(i).item == Items.WRITABLE_BOOK) {
                 amountWritableBook++
             }
             //そのスロットにエンチャント本が入っている場合

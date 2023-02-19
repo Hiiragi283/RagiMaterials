@@ -61,9 +61,11 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
     }
 
     //コンパレーター出力を上書きするメソッド
-    @Deprecated("Deprecated in Java", ReplaceWith(
-        "state.getValue(FUEL)",
-        "hiiragi283.ragi_materials.block.BlockForgeFurnace.Companion.FUEL")
+    @Deprecated(
+        "Deprecated in Java", ReplaceWith(
+            "state.getValue(FUEL)",
+            "hiiragi283.ragi_materials.block.BlockForgeFurnace.Companion.FUEL"
+        )
     )
     override fun getComparatorInputOverride(state: IBlockState, world: World, pos: BlockPos): Int {
         return state.getValue(FUEL) //燃料の量を返す

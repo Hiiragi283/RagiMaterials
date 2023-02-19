@@ -22,7 +22,7 @@ class ItemTooltip {
                     val nameFluid = fluidItem.tankProperties[0].contents?.fluid?.name
                     val material = MaterialManager.getMaterial(nameFluid!!)
                     //tooltipの追加
-                    if(material != MaterialRegistry.WILDCARD) MaterialUtils.materialInfo(material, event.toolTip)
+                    if (material != MaterialRegistry.WILDCARD) MaterialUtils.materialInfo(material, event.toolTip)
                 }
             }
         }

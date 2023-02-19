@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemFullBottle: ItemBase(Reference.MOD_ID, "fullbottle", 0) {
+class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
 
     //stackの表示名を上書きするメソッド
     @SideOnly(Side.CLIENT)
@@ -35,16 +35,19 @@ class ItemFullBottle: ItemBase(Reference.MOD_ID, "fullbottle", 0) {
         return CellProvider(stack)
     }
 
-   private class CellProvider(val stack: ItemStack) : ICapabilityProvider {
+    private class CellProvider(val stack: ItemStack) : ICapabilityProvider {
 
-       //capabilityを持っているか判別するメソッド
-       override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-           return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY
-       }
+        //capabilityを持っているか判別するメソッド
+        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
+            return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY
+        }
 
-       //capabilityを取得するメソッド
-       override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-           return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FluidHandlerItemStack(stack, 1000) as T else null
-       }
-   }
+        //capabilityを取得するメソッド
+        override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
+            return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FluidHandlerItemStack(
+                stack,
+                1000
+            ) as T else null
+        }
+    }
 }

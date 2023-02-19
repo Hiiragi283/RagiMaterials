@@ -18,14 +18,14 @@ object RagiConfig {
     @Config.Name("Custom Material Registry")
     @Config.Comment(
         "Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
-        "\nindex: Int ... used for metadata, limited in 1023 <= index <= maxMaterials" +
-        "\nname: String ... used for translation key and ore dictionary" +
-        "\ntype: Enum ... only available: dust, fluid, liquid, metal, gas, metal_radio, semimetal" +
-        "\ncolor: Int ... use color code" +
-        "\nformula: String ... show its chemical formula" +
-        "\nmolar_mass: Float ... show its molar mass [g/mol]" +
-        "\nmelting: Int ... show its melting point [°C]" +
-        "\nboiling: Int ... show its boiling point [°C]"
+                "\nindex: Int ... used for metadata, limited in 1023 <= index <= maxMaterials" +
+                "\nname: String ... used for translation key and ore dictionary" +
+                "\ntype: Enum ... only available: dust, fluid, liquid, metal, gas, metal_radio, semimetal" +
+                "\ncolor: Int ... use color code" +
+                "\nformula: String ... show its chemical formula" +
+                "\nmolar_mass: Float ... show its molar mass [g/mol]" +
+                "\nmelting: Int ... show its melting point [°C]" +
+                "\nboiling: Int ... show its boiling point [°C]"
     )
     @Config.LangKey(Material.prefix)
     @JvmField

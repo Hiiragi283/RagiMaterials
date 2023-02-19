@@ -16,7 +16,7 @@ import net.minecraft.world.World
 
 //Forge Furnaceの機能をオブジェクト化することで他クラスからも参照できるようにした
 object FFHelper {
-    
+
     //燃料を投入するメソッド
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //stateから状態を取得
@@ -72,11 +72,13 @@ object FFHelper {
                 //燃料が入っているならtrue
                 type == FFRecipe.EnumFire.BURNING && fuel > 0
             }
+
             is BlockLitForgeFurnace -> type == FFRecipe.EnumFire.BOOSTED
             is BlockBlazeHeater -> {
                 if (state.getValue(BlockBlazeHeater.HELL)) type == FFRecipe.EnumFire.HELLRISE
                 else type == FFRecipe.EnumFire.BOOSTED
             }
+
             else -> false
         }
     }
@@ -115,12 +117,22 @@ object FFHelper {
             is BlockBlazeHeater -> {
                 if (state.getValue(BlockBlazeHeater.HELL)) {
                     world.playSound(
-                        null, pos, RagiUtils.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f
+                        null,
+                        pos,
+                        RagiUtils.getSound("minecraft:entity.endermen.hurt"),
+                        SoundCategory.BLOCKS,
+                        1.0f,
+                        0.5f
                     ) //SEを再生
                     RagiLogger.infoDebug("The state of Hellrise Heater was updated!")
                 } else {
                     world.playSound(
-                        null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                        null,
+                        pos,
+                        RagiUtils.getSound("minecraft:block.fire.extinguish"),
+                        SoundCategory.BLOCKS,
+                        1.0f,
+                        1.0f
                     ) //SEを再生
                     RagiLogger.infoDebug("The state of Blaze Heater was updated!")
                 }

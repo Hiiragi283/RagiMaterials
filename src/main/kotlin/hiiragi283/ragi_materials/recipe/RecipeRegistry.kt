@@ -96,6 +96,18 @@ object RecipeRegistry {
             'B',
             "sand"
         )
+        RagiRecipe.addShaped(
+            RagiUtils.getStack("${Reference.MOD_ID}:seed_peat", 1, 0),
+            "ABA",
+            "BCB",
+            "ABA",
+            'A',
+            "dirt",
+            'B',
+            "gemCharcoal",
+            'C',
+            RagiUtils.getStack("minecraft:wheat_seeds", 1, 0)
+        )
     }
 
     private fun addCraftingMaterial() {

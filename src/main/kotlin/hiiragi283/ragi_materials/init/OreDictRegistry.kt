@@ -53,6 +53,8 @@ object OreDictRegistry {
         RagiUtils.setOreDict("gunpowder", RagiUtils.getStack("${Reference.MOD_ID}:dust", 1, 223))
         RagiUtils.setOreDict("dustSugar", RagiUtils.getStack("minecraft:sugar", 1, 0))
         RagiUtils.setOreDict("sugar", RagiUtils.getStack("${Reference.MOD_ID}:dust", 1, 224))
+        RagiUtils.setOreDict("gemCharcoal", RagiUtils.getStack("minecraft:coal", 1, 1))
+        RagiUtils.setOreDict("charcoal", RagiUtils.getStack("${Reference.MOD_ID}:crystal", 1, 226))
     }
 
     class OreDictHandler(val type: MaterialType, val prefix: String, val ID: String)

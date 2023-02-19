@@ -38,7 +38,7 @@ open class MaterialBuilder(
 
     //化学式を取得するメソッド（デフォルトはH.T.）
     open fun getFormula(isNull: Boolean): String? {
-        return if(formula !== null) formula!! else {
+        return if (formula !== null) formula!! else {
             //返り値にnullを使わない場合
             if (!isNull) {
                 RagiLogger.warn("The material <material:${this.name}> does not have the Chemical Formula!")

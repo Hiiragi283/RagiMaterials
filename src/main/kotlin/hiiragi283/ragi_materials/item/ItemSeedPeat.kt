@@ -14,7 +14,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.EnumPlantType
 import net.minecraftforge.common.IPlantable
 
-open class ItemSeedPeat(ID: String): ItemBase(Reference.MOD_ID, ID, 0), IPlantable {
+open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlantable {
 
     //植物を取得するメソッド
     override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState {

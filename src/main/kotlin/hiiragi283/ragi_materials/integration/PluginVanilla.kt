@@ -78,7 +78,7 @@ object PluginVanilla {
                 //blockがForge Furnaceの場合
                 return if (block is BlockForgeFurnace && stack.item == Items.COAL) {
                     FFHelper.setFuel(world, pos, state, stack) //燃料を投入
-                } else if(block is BlockLitForgeFurnace) stack else super.dispenseStack(source, stack)
+                } else if (block is BlockLitForgeFurnace) stack else super.dispenseStack(source, stack)
             }
         })
     }

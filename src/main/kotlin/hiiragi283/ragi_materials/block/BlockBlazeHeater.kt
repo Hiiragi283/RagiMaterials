@@ -107,9 +107,23 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
         var isHellrise = false
         if (stack.metadata == 1) isHellrise = true
         if (isHellrise) {
-            world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.endermen.stare"), SoundCategory.BLOCKS, 1.0f, 2.0f)
+            world.playSound(
+                null,
+                pos,
+                RagiUtils.getSound("minecraft:entity.endermen.stare"),
+                SoundCategory.BLOCKS,
+                1.0f,
+                2.0f
+            )
         } else {
-            world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.blaze.ambient"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+            world.playSound(
+                null,
+                pos,
+                RagiUtils.getSound("minecraft:entity.blaze.ambient"),
+                SoundCategory.BLOCKS,
+                1.0f,
+                1.0f
+            )
         }
         return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(HELL, isHellrise)
     }

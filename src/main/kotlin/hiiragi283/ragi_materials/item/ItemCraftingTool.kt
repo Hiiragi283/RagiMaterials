@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+
 /*
 class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemBase(Reference.MOD_ID, ID, maxMeta) {
 

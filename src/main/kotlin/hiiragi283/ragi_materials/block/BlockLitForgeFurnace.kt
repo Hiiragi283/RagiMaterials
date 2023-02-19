@@ -95,7 +95,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         hitY: Float,
         hitZ: Float
     ): Boolean {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
             FFHelper.getResult(world, pos, state, player, stack) //レシピ実行
@@ -116,6 +116,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
             RagiInit.BlockForgeFurnace.defaultState
                 .withProperty(FACING, state.getValue(FACING))
                 .withProperty(BlockForgeFurnace.FUEL, 3),
-            2) //火力DOWN
+            2
+        ) //火力DOWN
     }
 }

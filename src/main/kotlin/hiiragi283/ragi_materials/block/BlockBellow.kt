@@ -108,6 +108,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
                 true -> BlockFaceShape.UNDEFINED
                 false -> BlockFaceShape.SOLID
             }
+
             EnumFacing.DOWN -> BlockFaceShape.SOLID
             else -> BlockFaceShape.UNDEFINED
         }

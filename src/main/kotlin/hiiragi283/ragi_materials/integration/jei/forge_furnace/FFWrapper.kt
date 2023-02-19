@@ -40,7 +40,7 @@ class FFWrapper(info: FFRecipe) : IRecipeWrapper {
         //ResourceLocation res = new ResourceLocation(domain, path);
         //mc.getTextureManager().bindTexture(res);
         //文字列をGUI上に描画する
-        mc.fontRenderer.drawString(type.display, 20.0f, -10.0f, 0x000000, false);
+        mc.fontRenderer.drawString(type.display, 20.0f, -10.0f, 0x000000, false)
     }
 
     //

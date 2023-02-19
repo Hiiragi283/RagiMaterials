@@ -54,7 +54,9 @@ class JEICore : IModPlugin {
     }
 
     @Deprecated("Deprecated in Java")
-    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {}
+    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
+    }
+
     override fun registerIngredients(registry: IModIngredientRegistration) {}
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {}
 }
