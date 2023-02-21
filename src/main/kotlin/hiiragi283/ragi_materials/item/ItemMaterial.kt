@@ -29,7 +29,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
         //materialの取得
         val material = MaterialManager.getMaterial(stack.metadata)
         //tooltipの追加
-        MaterialUtils.materialInfo(material, tooltip)
+        if (material !== null) MaterialUtils.materialInfo(material, tooltip)
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
@@ -38,7 +38,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //list内の各materialに対して実行
-            for (material in MaterialRegistry.list) {
+            for (material in MaterialRegistry.map.values) {
                 //typeがINTERNALでない，かつmaterialのtypeが一致する場合
                 if (material.type != MaterialType.INTERNAL && material.type.getTypeBase().contains(type.name)) {
                     //ItemStackをlistに追加
@@ -53,12 +53,12 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
     //stackの燃焼時間を返すメソッド
     override fun getItemBurnTime(stack: ItemStack): Int {
         var time: Int = when (stack.metadata) {
-            225 -> 200 * 8 //Coal
-            226 -> 200 * 8 //Charcoal
-            227 -> 200 * 16 //Coke
-            228 -> 200 * 24 //Anthracite
-            229 -> 200 * 4 //Lignite
-            230 -> 200 * 2 //Peat
+            MaterialRegistry.COAL.index -> 200 * 8
+            MaterialRegistry.CHARCOAL.index -> 200 * 8
+            MaterialRegistry.COKE.index -> 200 * 16
+            MaterialRegistry.ANTHRACITE.index -> 200 * 24
+            MaterialRegistry.LIGNITE.index -> 200 * 4
+            MaterialRegistry.PEAT.index -> 200 * 2
             else -> -1 //それ以外
         }
         //dust_tinyの場合は1/9
@@ -70,6 +70,9 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val material = MaterialManager.getMaterial(stack.metadata)
-        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
+        return if (material !== null) I18n.format(
+            "item.ragi_$ID.name",
+            I18n.format("material.${material.name}")
+        ) else super.getItemStackDisplayName(stack)
     }
 }

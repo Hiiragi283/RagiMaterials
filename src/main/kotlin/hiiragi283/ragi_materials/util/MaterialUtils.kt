@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.material.CompoundBuilder
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import net.minecraft.client.resources.I18n
 
@@ -16,27 +15,27 @@ object MaterialUtils {
             )
         )
         //モル質量
-        if (material.molar != 0.0f) tooltip.add(
+        if (material.molar !== null) tooltip.add(
             I18n.format(
                 "text.ragi_materials.property.mol", material.molar
             )
         )
         //融点
-        if (material.melt != 0) tooltip.add(
+        if (material.tempMelt !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.melt", material.melt
+                "text.ragi_materials.property.melt", material.tempMelt
             )
         )
         //沸点
-        if (material.boil != 0) tooltip.add(
+        if (material.tempBoil !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.boil", material.boil
+                "text.ragi_materials.property.boil", material.tempBoil
             )
         )
         //昇華点
-        if (material.subl != 0) tooltip.add(
+        if (material.tempSubl !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.subl", material.subl
+                "text.ragi_materials.property.subl", material.tempSubl
             )
         )
     }

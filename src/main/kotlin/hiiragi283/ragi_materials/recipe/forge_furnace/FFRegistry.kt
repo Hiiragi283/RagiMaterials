@@ -28,7 +28,7 @@ object FFRegistry {
         FFRecipe("ragi_materials:ingot:79", "ragi_materials:ingot_hot:79", burning)
         FFRecipe("ragi_materials:ingot:82", "ragi_materials:ingot_hot:82", burning)
         FFRecipe("ragi_materials:ingot:83", "ragi_materials:ingot_hot:83", burning)
-s
+
         FFRecipe("ragi_materials:ingot:4", "ragi_materials:ingot_hot:4", boosted)
         FFRecipe("ragi_materials:ingot:14", "ragi_materials:ingot_hot:14", boosted)
         FFRecipe("ragi_materials:ingot:22", "ragi_materials:ingot_hot:22", boosted)

@@ -111,7 +111,7 @@ object RecipeRegistry {
     }
 
     private fun addCraftingMaterial() {
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.map.values) {
             if (material.type.getTypeBase().contains("dust")) {
                 //dust -> tiny dustのレシピを登録
                 RagiRecipe.addShaped(

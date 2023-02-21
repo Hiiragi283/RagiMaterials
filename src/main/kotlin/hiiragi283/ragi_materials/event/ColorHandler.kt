@@ -26,9 +26,9 @@ class ColorHandler {
         blockColors.registerBlockColorHandler(
             IBlockColor { state, world, pos, tintIndex ->
                 when (state.block) {
-                    is BlockCropCoal -> MaterialRegistry.COAL.color.rgb
-                    is BlockCropLignite -> MaterialRegistry.LIGNITE.color.rgb
-                    else -> MaterialRegistry.PEAT.color.rgb
+                    is BlockCropCoal -> MaterialRegistry.COAL.color!!.rgb
+                    is BlockCropLignite -> MaterialRegistry.LIGNITE.color!!.rgb
+                    else -> MaterialRegistry.PEAT.color!!.rgb
                 }
             },
             RagiInit.BlockCropCoal,
@@ -41,7 +41,9 @@ class ColorHandler {
                 //メタデータからmaterialを取得
                 val material = MaterialManager.getMaterial(stack.metadata)
                 //tintIndexが0ならばmaterial.color，そうでないなら白を返す
-                if (tintIndex == 0) material.color.rgb else 0xFFFFFF
+                if (tintIndex == 0) {
+                    if (material !== null && material.color !== null) material.color!!.rgb else 0xFFFFFF
+                } else 0xFFFFFF
             },
             RagiInit.ItemBlockCrystal,
             RagiInit.ItemBlockMetal,
@@ -60,9 +62,11 @@ class ColorHandler {
                 if (stack.tagCompound !== null) {
                     //NBTタグからmaterialを取得
                     val tag = stack.tagCompound!!
-                    val material = MaterialManager.getMaterial(tag.getString("material"))
+                    val material = MaterialManager.getMaterial(tag.getInteger("material"))
                     //tintIndexが1ならばmaterial.color，そうでないなら白を返す
-                    if (tintIndex == 1) material.color.rgb else 0xFFFFFF
+                    if (tintIndex == 1) {
+                        if (material !== null && material.color !== null) material.color!!.rgb else 0xFFFFFF
+                    } else 0xFFFFFF
                 }
                 //NBTタグがnullの場合
                 else 0xFFFFFF //白色を返す
@@ -81,9 +85,9 @@ class ColorHandler {
         itemColors.registerItemColorHandler(
             IItemColor { stack, tintIndex ->
                 when (stack.item) {
-                    is ItemSeedCoal -> MaterialRegistry.COAL.color.rgb
-                    is ItemSeedLignite -> MaterialRegistry.LIGNITE.color.rgb
-                    is ItemSeedPeat -> MaterialRegistry.PEAT.color.rgb
+                    is ItemSeedCoal -> MaterialRegistry.COAL.color!!.rgb
+                    is ItemSeedLignite -> MaterialRegistry.LIGNITE.color!!.rgb
+                    is ItemSeedPeat -> MaterialRegistry.PEAT.color!!.rgb
                     else -> 0xFFFFFF
                 }
             },

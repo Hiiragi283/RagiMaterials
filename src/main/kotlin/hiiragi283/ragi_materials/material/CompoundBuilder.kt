@@ -4,22 +4,25 @@ import hiiragi283.ragi_materials.render.color.RagiColor
 import hiiragi283.ragi_materials.util.MaterialUtils
 import java.awt.Color
 
-open class CompoundBuilder(index: Int, name: String, type: MaterialType, var mapComponents: Map<Any, Int>) :
+open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<Any, Int>) :
     MaterialBuilder(index, name, type) {
 
     init {
-        this.setColor(RagiColor.mixColor(getColorMap()))
-        formula = MaterialUtils.calcFormula(mapComponents)
+        color = RagiColor.mixColor(getColorMap())
+        formula = MaterialUtils.calcFormula(components)
         molar = setMolar()
+        register()
     }
+
+    constructor(index: Int, material: MaterialBuilder, amount: Int): this(index, material.name, material.type, mapOf(material to amount))
 
     private fun getColorMap(): MutableMap<Color, Int> {
         //Mapの宣言
         val mapColor: MutableMap<Color, Int> = mutableMapOf()
-        //mapComponents内の各keyに対して実行
-        for (key in mapComponents.keys) {
+        //components内の各keyに対して実行
+        for (key in components.keys) {
             //ColorとIntを対応させる
-            if (key is MaterialBuilder) mapColor[key.color] = mapComponents.getValue(key)
+            if (key is MaterialBuilder && key.color !== null) mapColor[key.color!!] = components.getValue(key)
         }
         return mapColor
     }
@@ -27,12 +30,12 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var map
     private fun setMolar(): Float {
         //変数の宣言
         var molar = 0.0f
-        val mapComponents = mapComponents
-        //mapComponents内の各keyに対して実行
-        for (key in mapComponents.keys) {
+        val components = components
+        //components内の各keyに対して実行
+        for (key in components.keys) {
             //keyがMaterialBuilder型の場合
-            if (key is MaterialBuilder) {
-                molar += key.molar * mapComponents.getValue(key)
+            if (key is MaterialBuilder && key.molar !== null) {
+                molar += key.molar!! * components.getValue(key)
             }
         }
         return molar

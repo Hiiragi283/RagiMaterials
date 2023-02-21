@@ -55,8 +55,11 @@ object RagiColor {
             greenSum += key.green * colors[key]!!
             blueSum += key.blue * colors[key]!!
         }
-        //加算した各RGB値をweightの合計で割った値からColorを生成
-        return Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum)
+        //色の個数が0でない場合
+        return if (weightSum != 0) {
+            //加算した各RGB値をweightの合計で割った値からColorを生成
+            Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum)
+        } else WHITE
     }
 
     //混合色から元の色を取得するメソッド

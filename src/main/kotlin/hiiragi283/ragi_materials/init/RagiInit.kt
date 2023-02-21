@@ -96,7 +96,7 @@ object RagiInit {
         )
         //Fluidの登録
         //listの各materialに対して実行
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.map.values) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
             if (material.type != MaterialType.INTERNAL && material.type.getTypeBase().contains("fluid")) {
                 //Fluidの登録

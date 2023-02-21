@@ -22,7 +22,7 @@ object OreDictRegistry {
     //鉱石辞書を登録するメソッド
     fun init() {
         //list内の各materialに対して実行
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.map.values) {
             //listOreDict内の各OreDictHandlerに対して実行
             for (oredict in listOreDict) {
                 //materialのtypeがoredictのtypeを含む場合
