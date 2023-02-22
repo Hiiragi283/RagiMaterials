@@ -5,7 +5,8 @@ import hiiragi283.ragi_materials.render.color.RagiColor
 
 object MaterialRegistry {
 
-    val map: HashMap<Int, MaterialBuilder> = hashMapOf()
+    val mapIndex: HashMap<Int, MaterialBuilder> = hashMapOf()
+    val mapName: HashMap<String, MaterialBuilder> = hashMapOf()
 
     //1 ~ 94: Periodic Table
     //1st Period

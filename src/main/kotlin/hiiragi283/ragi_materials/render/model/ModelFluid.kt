@@ -17,7 +17,7 @@ object ModelFluid {
           Thanks to defeatedcrow!
           Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463
         */
-        for (material in MaterialRegistry.map.values) {
+        for (material in MaterialRegistry.mapIndex.values) {
             if (material.getFluid() !== null) {
                 //Fluidを取得
                 val fluid: Fluid = material.getFluid()!!

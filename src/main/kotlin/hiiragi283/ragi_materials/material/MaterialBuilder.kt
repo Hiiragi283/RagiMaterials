@@ -74,7 +74,8 @@ open class MaterialBuilder(
 
     //素材を登録するメソッド
     fun register(): MaterialBuilder {
-        MaterialRegistry.map[this.index] = this
+        MaterialRegistry.mapIndex[this.index] = this
+        MaterialRegistry.mapName[this.name] = this
         return this
     }
 }

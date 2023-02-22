@@ -34,10 +34,12 @@ class ModelRegistry {
             RagiInit.ItemBlockMetal,
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,
+            RagiInit.ItemGear,
             RagiInit.ItemIngot,
             RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,
-            RagiInit.ItemPlate
+            RagiInit.ItemPlate,
+            RagiInit.ItemStick
         )
         //アイテムの特殊なモデル登録
         ModelStack.init()

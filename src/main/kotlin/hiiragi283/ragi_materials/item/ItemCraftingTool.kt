@@ -32,7 +32,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
                     //materialの取得
                     val material = MaterialManager.getMaterial(j)
                     //materialがWILDCARDでない，かつmaterialがmapToolMaterialに含まれている場合
-                    if (material !== MaterialRegistry.WILDCARD && MaterialRegistry.mapToolMaterial.contains(material)) {
+                    if (material !== MaterialRegistry.WILDCARD && MaterialRegistry.mapIndexToolMaterial.contains(material)) {
                         //NBTタグの生成
                         val tag = RagiNBT.getTagTool(material)
                         //ItemStackの生成

@@ -7,13 +7,10 @@ import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialType
-import hiiragi283.ragi_materials.util.MaterialUtils
 import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
-import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -24,21 +21,12 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
         creativeTab = RagiInit.TabMaterials
     }
 
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        //materialの取得
-        val material = MaterialManager.getMaterial(stack.metadata)
-        //tooltipの追加
-        if (material !== null) MaterialUtils.materialInfo(material, tooltip)
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
-    }
-
     //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
     @SideOnly(Side.CLIENT) //Client側のみ
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //list内の各materialに対して実行
-            for (material in MaterialRegistry.map.values) {
+            for (material in MaterialRegistry.mapIndex.values) {
                 //typeがINTERNALでない，かつmaterialのtypeが一致する場合
                 if (material.type != MaterialType.INTERNAL && material.type.getTypeBase().contains(type.name)) {
                     //ItemStackをlistに追加

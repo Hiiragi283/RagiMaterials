@@ -289,6 +289,7 @@ text.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
 text.ragi_materials.property.formula=- 化学式: §b%s§r
 text.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
 text.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
+text.ragi_materials.property.name=- 物質名: §b%s§r§7
 text.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
 text.ragi_materials.salt_pond.0=Used for evaporating liquid
 text.ragi_materials.salt_pond.1=Right-click with §9Filled Bucket§r§7 to place liquid

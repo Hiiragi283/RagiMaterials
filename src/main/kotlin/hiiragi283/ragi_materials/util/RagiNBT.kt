@@ -30,14 +30,14 @@ object RagiNBT {
         val tag = NBTTagCompound()
         tag.setString("material", material.name)
         //materialがmapToolMaterialに含まれている場合
-        if (MaterialRegistry.mapToolMaterial.contains(material)) {
+        if (MaterialRegistry.mapIndexToolMaterial.contains(material)) {
             //mapToolMaterialから耐久値を取得する
-            tag.setInteger("durability", MaterialRegistry.mapToolMaterial[material]!!)
+            tag.setInteger("durability", MaterialRegistry.mapIndexToolMaterial[material]!!)
         }
         //materialがmapToolMaterialに含まれていない場合
         else {
             //WILDCARDの耐久値を参照
-            tag.setInteger("durability", MaterialRegistry.mapToolMaterial[MaterialRegistry.WILDCARD]!!)
+            tag.setInteger("durability", MaterialRegistry.mapIndexToolMaterial[MaterialRegistry.WILDCARD]!!)
         }
         return tag
     }*/

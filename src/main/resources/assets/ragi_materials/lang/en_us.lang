@@ -289,6 +289,7 @@ text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
 text.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 text.ragi_materials.property.melt=- Melting Point: §b%s§r§7 °C
 text.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
+text.ragi_materials.property.name=- Name: §b%s§r§7
 text.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 °C
 text.ragi_materials.salt_pond.0=Used for evaporating liquid
 text.ragi_materials.salt_pond.1=Right-click with §9Filled Bucket§r§7 to place liquid
