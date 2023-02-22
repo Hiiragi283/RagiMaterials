@@ -111,7 +111,7 @@ object RecipeRegistry {
     }
 
     private fun addCraftingMaterial() {
-        for (material in MaterialRegistry.map.values) {
+        for (material in MaterialRegistry.mapIndex.values) {
             if (material.type.getTypeBase().contains("dust")) {
                 //dust -> tiny dustのレシピを登録
                 RagiRecipe.addShaped(
@@ -131,6 +131,8 @@ object RecipeRegistry {
                     'A',
                     "dustTiny${material.getOreDict()}"
                 )
+            }
+            if (material.type.getTypeBase().contains("ingot")) {
             }
             if (material.type.getTypeBase().contains("metal")) {
                 //block -> ingotのレシピを登録
@@ -159,11 +161,34 @@ object RecipeRegistry {
                     'A',
                     "ingot${material.getOreDict()}"
                 )
+                //hot ingot -> gearのレシピを登録
+                RagiRecipe.addShaped(
+                    Reference.MOD_ID + ":hot_ingot_to_gear_" + material.index,
+                    RagiUtils.getStack("${Reference.MOD_ID}:gear", 1, material.index),
+                    " A ",
+                    "ABA",
+                    " A ",
+                    'A',
+                    "ingotHot${material.getOreDict()}",
+                    'B',
+                    RagiUtils.getStack("${Reference.MOD_ID}:forge_hammer", 1, OreDictionary.WILDCARD_VALUE)
+                )
                 //hot ingot -> plateのレシピを登録
                 RagiRecipe.addShaped(
-                    Reference.MOD_ID + ":ingot_to_plate_" + material.index,
+                    Reference.MOD_ID + ":hot_ingot_to_plate_" + material.index,
                     RagiUtils.getStack("${Reference.MOD_ID}:plate", 1, material.index),
                     "AB",
+                    'A',
+                    "ingotHot${material.getOreDict()}",
+                    'B',
+                    RagiUtils.getStack("${Reference.MOD_ID}:forge_hammer", 1, OreDictionary.WILDCARD_VALUE)
+                )
+                //hot ingot -> stickのレシピを登録
+                RagiRecipe.addShaped(
+                    Reference.MOD_ID + ":hot_ingot_to_stick_" + material.index,
+                    RagiUtils.getStack("${Reference.MOD_ID}:stick", 4, material.index),
+                    "AB",
+                    "A ",
                     'A',
                     "ingotHot${material.getOreDict()}",
                     'B',

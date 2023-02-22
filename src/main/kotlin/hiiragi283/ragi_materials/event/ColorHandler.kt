@@ -50,10 +50,12 @@ class ColorHandler {
             RagiInit.ItemDust,
             RagiInit.ItemDustTiny,
             RagiInit.ItemCrystal,
+            RagiInit.ItemGear,
             RagiInit.ItemIngot,
             RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,
-            RagiInit.ItemPlate
+            RagiInit.ItemPlate,
+            RagiInit.ItemStick
         )
 
         itemColors.registerItemColorHandler(

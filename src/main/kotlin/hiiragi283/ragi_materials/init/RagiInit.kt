@@ -48,10 +48,12 @@ object RagiInit {
     val ItemDustTiny = ItemMaterial("dust_tiny", MaterialType.DUST)
     val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
     val ItemFullBottle = ItemFullBottle()
+    val ItemGear = ItemMaterial("gear", MaterialType.METAL)
     val ItemIngot = ItemMaterial("ingot", MaterialType.INGOT)
     val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.METAL)
     val ItemNugget = ItemMaterial("nugget", MaterialType.METAL)
     val ItemPlate = ItemMaterial("plate", MaterialType.INGOT)
+    val ItemStick = ItemMaterial("stick", MaterialType.INGOT)
     val ItemSeedCoal = ItemSeedCoal().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedLignite = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedPeat: Item = ItemSeedPeat("seed_peat").setCreativeTab(CreativeTabs.MISC)
@@ -85,11 +87,13 @@ object RagiInit {
             ItemDustTiny,
             ItemForgeHammer,
             ItemFullBottle,
+            ItemGear,
             ItemCrystal,
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
             ItemPlate,
+            ItemStick,
             ItemSeedCoal,
             ItemSeedLignite,
             ItemSeedPeat

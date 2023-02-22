@@ -9,14 +9,16 @@ object OreDictRegistry {
 
     private val listOreDict = listOf(
         OreDictHandler(MaterialType.CRYSTAL, "block", "block_crystal"),
-        OreDictHandler(MaterialType.METAL, "block", "block_metal"),
+        OreDictHandler(MaterialType.CRYSTAL, "gem", "crystal"),
         OreDictHandler(MaterialType.DUST, "dust", "dust"),
         OreDictHandler(MaterialType.DUST, "dustTiny", "dust_tiny"),
-        OreDictHandler(MaterialType.CRYSTAL, "gem", "crystal"),
         OreDictHandler(MaterialType.INGOT, "ingot", "ingot"),
+        OreDictHandler(MaterialType.INGOT, "plate", "plate"),
+        OreDictHandler(MaterialType.INGOT, "stick", "stick"),
+        OreDictHandler(MaterialType.METAL, "block", "block_metal"),
+        OreDictHandler(MaterialType.METAL, "gear", "gear"),
         OreDictHandler(MaterialType.METAL, "ingotHot", "ingot_hot"),
-        OreDictHandler(MaterialType.METAL, "nugget", "nugget"),
-        OreDictHandler(MaterialType.INGOT, "plate", "plate")
+        OreDictHandler(MaterialType.METAL, "nugget", "nugget")
     )
 
     //鉱石辞書を登録するメソッド
