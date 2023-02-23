@@ -434,4 +434,12 @@ object MaterialRegistry {
     val IRIDIUM_ALLOY = AlloyBuilder(316, "iridium_alloy", mapOf(IRIDIUM to 4, ADVANCED_ALLOY to 4, CARBON to 1))
         .setColor(RagiColor.WHITE)
     */
+
+    fun addExtra() {
+        //追加の登録
+        mapName["aluminum"] = ALUMINIUM
+        mapName["chrome"] = CHROMIUM
+        //configからmaterialを追加
+        RagiConfig.registerMaterial()
+    }
 }

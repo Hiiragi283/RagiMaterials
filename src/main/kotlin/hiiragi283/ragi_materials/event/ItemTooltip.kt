@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.event
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.util.MaterialUtils
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RegexStatics.camelToSnakeCase
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
@@ -16,13 +17,13 @@ class ItemTooltip {
         "clump",
         "coin",
         "crystal",
-        "dust",
         "dustDirty",
         "dustTiny",
+        "dust",
         "gear",
         "gem",
-        "ingot",
         "ingotHot",
+        "ingot",
         "nugget",
         "ore",
         "plate",
@@ -46,6 +47,7 @@ class ItemTooltip {
                     for (prefix in listPrefix) {
                         if (oreDict.contains(prefix)) {
                             val name = oreDict.substring(prefix.length).camelToSnakeCase()
+                            //RagiLogger.infoDebug(name)
                             material = MaterialManager.getMaterial(name)
                             break
                         }
