@@ -1,6 +1,8 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "ragi_materials:items/ingot_hot"
-  }
+	"credit": "Tweaked by Hiiragi Russell Tsubasa",
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "ragi_materials:items/ingot",
+		"layer1": "ragi_materials:items/ingot_hot"
+	}
 }
