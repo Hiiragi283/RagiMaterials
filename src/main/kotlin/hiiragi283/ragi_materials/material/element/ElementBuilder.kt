@@ -6,7 +6,7 @@ import java.awt.Color
 
 open class ElementBuilder(
     name: String,
-    type: MaterialType,
+    type: MaterialType.TypeHandler,
     override var color: Color?,
     override var molar: Float?,
     override var formula: String?,

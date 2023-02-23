@@ -4,8 +4,8 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) :
     CompoundBuilder(index, name, MaterialType.METAL, components) {
 
     init {
-        tempMelt = setMelt()
         tempBoil = setBoil()
+        tempMelt = setMelt()
     }
 
     private fun setMelt(): Int {

@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.recipe
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary

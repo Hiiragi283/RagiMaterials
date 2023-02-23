@@ -6,17 +6,18 @@ import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 
 open class MaterialBuilder(
-    open val index: Int, open val name: String, open val type: MaterialType
+    open val index: Int, open val name: String, open val type: MaterialType.TypeHandler
 ) {
 
     //private変数の宣言
+    open var burnTime = -1
     open var color: Color? = null
-    open var molar: Float? = null
-    open var tempMelt: Int? = null
-    open var tempBoil: Int? = null
-    open var tempSubl: Int? = null
     open var formula: String? = null
     open var hasBracket = false
+    open var molar: Float? = null
+    open var tempBoil: Int? = null
+    open var tempMelt: Int? = null
+    open var tempSubl: Int? = null
 
     //化学式に()をつけるメソッド
     fun addBracket(): MaterialBuilder {
@@ -34,6 +35,12 @@ open class MaterialBuilder(
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String {
         return this.name.snakeToUpperCamelCase()
+    }
+
+    //燃焼時間を設定するメソッド
+    fun setBurnTime(time: Int): MaterialBuilder {
+        this.burnTime = time
+        return this
     }
 
     //色を設定するメソッド

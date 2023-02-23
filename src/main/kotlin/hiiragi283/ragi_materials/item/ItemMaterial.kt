@@ -14,7 +14,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterial(private val ID: String, private val type: MaterialType) :
+class ItemMaterial(private val ID: String, private val type: MaterialType.TypeHandler) :
     ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {
@@ -32,7 +32,13 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)
-                    //RagiLogger.infoDebug("The stack ${stack.toBracket()} has been added creative tab !")
+                    //gearの例外パターン
+                    if (this.ID == "gear") {
+                        subItems.add(ItemStack(this, 1, MaterialRegistry.STONE.index))
+                        subItems.add(ItemStack(this, 1, MaterialRegistry.WOOD.index))
+                    } else if (this.ID == "stick") {
+                        subItems.add(ItemStack(this, 1, MaterialRegistry.STONE.index))
+                    }
                 }
             }
         }
@@ -40,18 +46,13 @@ class ItemMaterial(private val ID: String, private val type: MaterialType) :
 
     //stackの燃焼時間を返すメソッド
     override fun getItemBurnTime(stack: ItemStack): Int {
-        var time: Int = when (stack.metadata) {
-            MaterialRegistry.COAL.index -> 200 * 8
-            MaterialRegistry.CHARCOAL.index -> 200 * 8
-            MaterialRegistry.COKE.index -> 200 * 16
-            MaterialRegistry.ANTHRACITE.index -> 200 * 24
-            MaterialRegistry.LIGNITE.index -> 200 * 4
-            MaterialRegistry.PEAT.index -> 200 * 2
-            else -> -1 //それ以外
-        }
-        //dust_tinyの場合は1/9
-        if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
-        return time
+        return if (MaterialManager.getMaterial(stack.metadata) !== null) {
+            //素材に紐づいた燃焼時間を取得
+            var time = MaterialManager.getMaterial(stack.metadata)!!.burnTime
+                //dust_tinyの場合は1/9
+                if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
+            time
+        } else -1
     }
 
     //stackの表示名を上書きするメソッド

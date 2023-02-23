@@ -18,7 +18,7 @@ object ElementRegistry {
 
     val BORON = ElementBuilder("boron", MaterialType.DUST, RagiColor.DARK_GRAY, 10.8f, "B", 2075, 4000)
 
-    val CARBON = ElementBuilder("carbon", MaterialType.SEMIMETAL, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 12.0f, "C", 4400, 4400)
+    val CARBON = ElementBuilder("carbon", MaterialType.METALLOID, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 12.0f, "C", 4400, 4400)
 
     val NITROGEN =
         ElementBuilder("nitrogen", MaterialType.GAS,RagiColor.AQUA,14.0f,"N",-210,-196)
@@ -69,7 +69,7 @@ object ElementRegistry {
 
     val GALLIUM = ElementBuilder( "gallium", MaterialType.METAL, RagiColor.WHITE,69.7f,"Ga",30,2204)
 
-    val ARSENIC = ElementBuilder( "arsenic", MaterialType.SEMIMETAL,RagiColor.DARK_GRAY,74.9f,"As", 603, 603)
+    val ARSENIC = ElementBuilder( "arsenic", MaterialType.METALLOID,RagiColor.DARK_GRAY,74.9f,"As", 603, 603)
 
     //5th Period
     val STRONTIUM = ElementBuilder( "strontium", MaterialType.INTERNAL, RagiColor.WHITE,87.6f,"Sr",777, 1377)
@@ -125,11 +125,11 @@ object ElementRegistry {
     val BISMUTH = ElementBuilder( "bismuth", MaterialType.METAL,RagiColor.DARK_AQUA,209.0f,"Bi",271,1564)
 
     //7th Period
-    val THORIUM = ElementBuilder( "thorium", MaterialType.METAL_RADIO, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GREEN),232.0f,"Th",1750,4788)
+    val THORIUM = ElementBuilder( "thorium", MaterialType.METAL, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GREEN),232.0f,"Th",1750,4788)
 
-    val URANIUM_238 = ElementBuilder( "uranium", MaterialType.METAL_RADIO,RagiColor.GREEN,238.0f,"U",1135,4131)
+    val URANIUM_238 = ElementBuilder( "uranium", MaterialType.METAL,RagiColor.GREEN,238.0f,"U",1135,4131)
 
-    val PLUTONIUM_239 = ElementBuilder( "plutonium", MaterialType.METAL_RADIO,RagiColor.RED,239.0f,"Pu",640,3228)
+    val PLUTONIUM_239 = ElementBuilder( "plutonium", MaterialType.METAL,RagiColor.RED,239.0f,"Pu",640,3228)
 
     //95 ~ 99: Isotope
     val DEUTERIUM = IsotopeBuilder( "deuterium", HYDROGEN, 2.0f,"D")

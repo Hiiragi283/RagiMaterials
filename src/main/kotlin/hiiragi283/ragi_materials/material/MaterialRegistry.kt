@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.material
 
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.material.element.ElementRegistry
 import hiiragi283.ragi_materials.render.color.RagiColor
 
@@ -161,7 +162,7 @@ object MaterialRegistry {
         .setColor(RagiColor.GRAY)
 
     val WOOD = MixtureBuilder(201, "wood", MaterialType.DUST, listOf(ElementRegistry.CARBON, ElementRegistry.HYDROGEN, ElementRegistry.OXYGEN))
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1)))
+        .setColor(RagiColor.mixColor(mapOf(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1))).setBurnTime(200 * 1)
 
     val WATER = CompoundBuilder(202, "water", MaterialType.INTERNAL, mapOf(ElementRegistry.HYDROGEN to 2, ElementRegistry.OXYGEN to 1))
         .setColor(RagiColor.BLUE)
@@ -185,7 +186,6 @@ object MaterialRegistry {
                 )
             )
         )
-        .setFormula("?")
 
     val BRICK = CompoundBuilder(207, "brick", MaterialType.INGOT, mapOf(CLAY to 1))
         .setColor(
@@ -198,7 +198,6 @@ object MaterialRegistry {
                 )
             )
         )
-        .setFormula("?")
 
     val OBSIDIAN = CompoundBuilder(208, "obsidian", MaterialType.DUST, mapOf(STONE to 1))
         .setColor(
@@ -277,15 +276,15 @@ object MaterialRegistry {
             .setColor(RagiColor.DARK_GRAY)
 
     val SUGAR = CompoundBuilder(224, "sugar", MaterialType.DUST, mapOf(ElementRegistry.CARBON to 6, ElementRegistry.HYDROGEN to 12, ElementRegistry.OXYGEN to 6))
-        .setColor(RagiColor.WHITE)
+        .setColor(RagiColor.WHITE).setBurnTime(200 * 1)
 
     //Fossil Fuels
-    val COAL = CrystalBuilder(225, "coal", mapOf(ElementRegistry.CARBON to 1), "coal")
+    val COAL = CrystalBuilder(225, "coal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8)
 
-    val CHARCOAL = CrystalBuilder(226, "charcoal", mapOf(ElementRegistry.CARBON to 1), "coal")
+    val CHARCOAL = CrystalBuilder(226, "charcoal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8)
 
     val COKE = CrystalBuilder(227, "coke", mapOf(ElementRegistry.CARBON to 1), "coal")
-        .setColor(RagiColor.DARK_GRAY)
+        .setColor(RagiColor.DARK_GRAY).setBurnTime(200 * 16)
 
     val ANTHRACITE = CrystalBuilder(228, "anthracite", mapOf(ElementRegistry.CARBON to 1), "coal")
         .setColor(
@@ -295,7 +294,7 @@ object MaterialRegistry {
                     RagiColor.DARK_BLUE to 1
                 )
             )
-        )
+        ).setBurnTime(200 * 24)
 
     val LIGNITE = CrystalBuilder(229, "lignite", mapOf(ElementRegistry.CARBON to 1), "coal")
         .setColor(
@@ -305,7 +304,7 @@ object MaterialRegistry {
                     RagiColor.DARK_RED to 1
                 )
             )
-        )
+        ).setBurnTime(200 * 4)
 
     val PEAT = CrystalBuilder(230, "peat", mapOf(ElementRegistry.CARBON to 1), "coal")
         .setColor(
@@ -316,7 +315,7 @@ object MaterialRegistry {
                     RagiColor.DARK_RED to 1
                 )
             )
-        )
+        ).setBurnTime(200 * 2)
 
     /*
     //200 ~ 299: Gem

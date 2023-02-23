@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.render.color.RagiColor
 import hiiragi283.ragi_materials.util.MaterialUtils
 import java.awt.Color
 
-open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<Any, Int>) :
+open class CompoundBuilder(index: Int, name: String, type: MaterialType.TypeHandler, var components: Map<Any, Int>) :
     MaterialBuilder(index, name, type) {
 
     init {
@@ -27,7 +27,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
         return mapColor
     }
 
-    private fun setMolar(): Float {
+    private fun setMolar(): Float? {
         //変数の宣言
         var molar = 0.0f
         val components = components
@@ -38,6 +38,6 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
                 molar += key.molar!! * components.getValue(key)
             }
         }
-        return molar
+        return if (molar == 0.0f) null else molar
     }
 }

@@ -5,6 +5,7 @@ import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.OreDictRegistry
 import hiiragi283.ragi_materials.integration.IntegrationCore
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.RecipeRegistry
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
@@ -44,8 +45,8 @@ class RagiMaterials {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         if (!isLoadedGT) {
-            //configからmaterialを追加
-            RagiConfig.registerMaterial()
+            //素材の一覧の登録
+            MaterialRegistry.addExtra()
             //Block, Itemの登録
             RagiInit.init()
             //Eventの登録
