@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.item.ItemFullBottle
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
@@ -196,11 +197,10 @@ class BlockSaltPond : Block(Material.WOOD) {
     //液体を設置した際の挙動をまとめたメソッド
     private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem) {
         world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
-        fluidItem.drain(1000, true) //液体を1000 mb汲み取る
+        if (fluidItem !is ItemFullBottle.FullBottleFluidHandler) fluidItem.drain(1000, true) //液体を1000 mb汲み取る
         world.playSound(
             null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
         ) //SEを再生
-
     }
 
     //ドロップする確率を得るメソッド

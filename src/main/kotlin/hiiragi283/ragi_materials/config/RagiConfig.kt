@@ -120,7 +120,7 @@ object RagiConfig {
         @Config.RequiresMcRestart
         @JvmField
         var listMaxStack = arrayOf(
-            "forge:bucketfilled",
+            //"forge:bucketfilled",
             "minecraft:bed",
             "minecraft:beetroot_soup",
             "minecraft:birch_boat",

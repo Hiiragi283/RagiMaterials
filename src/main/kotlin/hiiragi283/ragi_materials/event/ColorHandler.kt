@@ -30,10 +30,7 @@ class ColorHandler {
                     is BlockCropLignite -> MaterialRegistry.LIGNITE.color!!.rgb
                     else -> MaterialRegistry.PEAT.color!!.rgb
                 }
-            },
-            RagiInit.BlockCropCoal,
-            RagiInit.BlockCropLignite,
-            RagiInit.BlockCropPeat
+            }, RagiInit.BlockCropCoal, RagiInit.BlockCropLignite, RagiInit.BlockCropPeat
         )
 
         itemColors.registerItemColorHandler(
@@ -78,8 +75,15 @@ class ColorHandler {
         itemColors.registerItemColorHandler(
             IItemColor { stack, tintIndex ->
                 val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-                if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid !== null)) {
-                    if (tintIndex == 0) fluidItem.tankProperties[0].contents?.fluid?.color!! else 0xFFFFFF
+                if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid !== null) && tintIndex == 0) {
+                    when (fluidItem.tankProperties[0].contents!!.fluid!!.name) {
+                        "coal" -> MaterialRegistry.COAL.color!!.rgb
+                        "glowstone" -> MaterialRegistry.GLOWSTONE.color!!.rgb
+                        "lava" -> MaterialRegistry.LAVA.color!!.rgb
+                        "redstone" -> MaterialRegistry.REDSTONE.color!!.rgb
+                        "water" -> MaterialRegistry.WATER.color!!.rgb
+                        else -> fluidItem.tankProperties[0].contents?.fluid?.color!!
+                    }
                 } else 0xFFFFFF
             }, RagiInit.ItemFullBottle
         )
@@ -92,10 +96,7 @@ class ColorHandler {
                     is ItemSeedPeat -> MaterialRegistry.PEAT.color!!.rgb
                     else -> 0xFFFFFF
                 }
-            },
-            RagiInit.ItemSeedCoal,
-            RagiInit.ItemSeedLignite,
-            RagiInit.ItemSeedPeat
+            }, RagiInit.ItemSeedCoal, RagiInit.ItemSeedLignite, RagiInit.ItemSeedPeat
         )
     }
 }

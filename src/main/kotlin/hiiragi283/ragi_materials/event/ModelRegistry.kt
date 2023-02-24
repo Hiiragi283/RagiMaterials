@@ -1,10 +1,7 @@
 package hiiragi283.ragi_materials.event
 
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.render.model.ModelFluid
-import hiiragi283.ragi_materials.render.model.ModelStack
-import hiiragi283.ragi_materials.render.model.ModelState
-import hiiragi283.ragi_materials.render.model.RagiModel
+import hiiragi283.ragi_materials.render.model.*
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
@@ -41,12 +38,11 @@ class ModelRegistry {
             RagiInit.ItemPlate,
             RagiInit.ItemStick
         )
-        //アイテムの特殊なモデル登録
+        //ItemStackを用いたモデル登録
         ModelStack.init()
-        //ブロックの特殊なモデル登録
+        //IBlockStateを用いたモデル登録
         ModelState.init()
         //液体ブロックのモデル登録
         ModelFluid.init()
     }
-
 }

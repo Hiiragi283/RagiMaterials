@@ -19,6 +19,7 @@ object RagiInit {
 
     //Creative Tabの定義
     val TabBlocks: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Blocks() else CreativeTabs.MISC
+    val TabFullBottle: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
@@ -133,5 +134,13 @@ object RagiInit {
                 return ItemStack(ItemBlockForgeFurnace)
             }
         }
+
+        class FullBottles : CreativeTabs("ragi_materials.fullbottles") {
+
+            override fun getTabIconItem(): ItemStack {
+                return ItemStack(ItemFullBottle)
+            }
+        }
+
     }
 }
