@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.event
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.util.MaterialUtils
-import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RegexStatics.camelToSnakeCase
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
@@ -48,7 +47,7 @@ class ItemTooltip {
                         if (oreDict.contains(prefix)) {
                             val name = oreDict.substring(prefix.length).camelToSnakeCase()
                             //RagiLogger.infoDebug(name)
-                            material = MaterialManager.getMaterial(name)
+                            if (MaterialManager.getMaterial(name) !== null) material = MaterialManager.getMaterial(name)
                             break
                         }
                     }
@@ -56,8 +55,8 @@ class ItemTooltip {
                 //液体アイテム用
                 val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.name !== null)) {
-                    val nameFluid = fluidItem.tankProperties[0].contents?.fluid?.name!!
-                    material = MaterialManager.getMaterial(nameFluid)
+                    val name = fluidItem.tankProperties[0].contents?.fluid?.name!!
+                    if (MaterialManager.getMaterial(name) !== null) material = MaterialManager.getMaterial(name)
                 }
                 //tooltipの追加
                 if (material !== null) {

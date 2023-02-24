@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.event.RightClickBlock
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.OreDictRegistry
 import hiiragi283.ragi_materials.integration.IntegrationCore
@@ -9,7 +8,6 @@ import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.RecipeRegistry
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
-import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
@@ -46,11 +44,10 @@ class RagiMaterials {
     fun preInit(event: FMLPreInitializationEvent?) {
         if (!isLoadedGT) {
             //素材の一覧の登録
-            MaterialRegistry.addExtra()
+            MaterialRegistry.init()
             //Block, Itemの登録
             RagiInit.init()
             //Eventの登録
-            MinecraftForge.EVENT_BUS.register(RightClickBlock())
             //proxyの読み込み
             proxy!!.loadPreInit()
         }

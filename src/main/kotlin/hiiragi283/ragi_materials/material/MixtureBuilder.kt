@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-class MixtureBuilder(index: Int, name: String, type: MaterialType.TypeHandler, private val list: List<Any>): MaterialBuilder(index, name, type) {
+class MixtureBuilder(index: Int, name: String, type: List<MaterialType.EnumMaterialType>, private val list: List<Any>): MaterialBuilder(index, name, type) {
 
     init {
         color = null

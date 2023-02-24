@@ -8,17 +8,17 @@ import hiiragi283.ragi_materials.util.RagiUtils
 object OreDictRegistry {
 
     private val listOreDict = listOf(
-        OreDictHandler(MaterialType.CRYSTAL, "block", "block_crystal"),
-        OreDictHandler(MaterialType.CRYSTAL, "gem", "crystal"),
-        OreDictHandler(MaterialType.DUST, "dust", "dust"),
-        OreDictHandler(MaterialType.DUST, "dustTiny", "dust_tiny"),
-        OreDictHandler(MaterialType.INGOT, "ingot", "ingot"),
-        OreDictHandler(MaterialType.INGOT, "plate", "plate"),
-        OreDictHandler(MaterialType.INGOT, "stick", "stick"),
-        OreDictHandler(MaterialType.METAL, "block", "block_metal"),
-        OreDictHandler(MaterialType.METAL, "gear", "gear"),
-        OreDictHandler(MaterialType.METAL, "ingotHot", "ingot_hot"),
-        OreDictHandler(MaterialType.METAL, "nugget", "nugget")
+        OreDictHandler(MaterialType.EnumMaterialType.BLOCK_CRYSTAL, "block", "block_crystal"),
+        OreDictHandler(MaterialType.EnumMaterialType.CRYSTAL, "gem", "crystal"),
+        OreDictHandler(MaterialType.EnumMaterialType.DUST, "dust", "dust"),
+        OreDictHandler(MaterialType.EnumMaterialType.DUST, "dustTiny", "dust_tiny"),
+        OreDictHandler(MaterialType.EnumMaterialType.INGOT, "ingot", "ingot"),
+        OreDictHandler(MaterialType.EnumMaterialType.PLATE, "plate", "plate"),
+        OreDictHandler(MaterialType.EnumMaterialType.STICK, "stick", "stick"),
+        OreDictHandler(MaterialType.EnumMaterialType.BLOCK_METAL, "block", "block_metal"),
+        OreDictHandler(MaterialType.EnumMaterialType.GEAR, "gear", "gear"),
+        OreDictHandler(MaterialType.EnumMaterialType.INGOT_HOT, "ingotHot", "ingot_hot"),
+        OreDictHandler(MaterialType.EnumMaterialType.NUGGET, "nugget", "nugget")
     )
 
     //鉱石辞書を登録するメソッド
@@ -28,7 +28,7 @@ object OreDictRegistry {
             //listOreDict内の各OreDictHandlerに対して実行
             for (oredict in listOreDict) {
                 //materialのtypeがoredictのtypeを含む場合
-                if (material.type.getTypeBase().contains(oredict.type.name)) {
+                if (material.type.contains(oredict.type)) {
                     RagiUtils.setOreDict(
                         oredict.prefix + material.getOreDict(),
                         RagiUtils.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, material.index)
@@ -63,5 +63,5 @@ object OreDictRegistry {
         RagiUtils.setOreDict("charcoal", RagiUtils.getStack("${Reference.MOD_ID}:crystal", 1, MaterialRegistry.CHARCOAL.index))
     }
 
-    class OreDictHandler(val type: MaterialType.TypeHandler, val prefix: String, val ID: String)
+    class OreDictHandler(val type: MaterialType.EnumMaterialType, val prefix: String, val ID: String)
 }

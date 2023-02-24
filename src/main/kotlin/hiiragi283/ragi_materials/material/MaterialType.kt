@@ -2,41 +2,97 @@ package hiiragi283.ragi_materials.material
 
 object MaterialType {
 
-    val map: HashMap<String, TypeHandler> = hashMapOf()
+    val CRYSTALLINE = listOf(
+        EnumMaterialType.BLOCK_CRYSTAL,
+        EnumMaterialType.CRYSTAL,
+        EnumMaterialType.DUST,
+        EnumMaterialType.PLATE
+    ) //宝石類
 
-    val DUST = TypeHandler("dust").register() //個体全般
-    val FLUID = TypeHandler("fluid").register() //流体全般 (流体ブロックなし)
-    val INTERNAL = TypeHandler("internal").register() //内部データ
+    val DUST = listOf(EnumMaterialType.DUST) //個体全般
 
-    val CRYSTAL = TypeHandler("crystal").addTypeBase(DUST).register() //宝石類
-    val INGOT = TypeHandler("ingot").addTypeBase(DUST).register() //インゴット全般
-    val LIQUID = TypeHandler("liquid").addTypeBase(FLUID).register() //液体 (液体ブロックあり)
+    val GAS = listOf(EnumMaterialType.LIQUID) //気体全般
 
-    val GAS = TypeHandler("gas").addTypeBase(FLUID, LIQUID).register() //気体全般 (液体ブロックあり)
-    val METAL = TypeHandler("metal").addTypeBase(DUST, FLUID, INGOT).register() //金属全般
-    val METALLOID = TypeHandler("metalloid").addTypeBase(DUST, INGOT).register() //半金属
+    val INGOT = listOf(
+        EnumMaterialType.DUST,
+        EnumMaterialType.INGOT,
+        EnumMaterialType.PLATE,
+        EnumMaterialType.STICK
+    ) //インゴット全般
 
-    val WILDCARD = TypeHandler("wildcard").addTypeBase(DUST, FLUID, LIQUID, METAL).register() //デバッグ用
+    val INTERNAL = listOf(EnumMaterialType.INTERNAL) //内部データ
 
-    class TypeHandler(val name: String) {
+    val LIQUID = listOf(EnumMaterialType.LIQUID) //流体全般 (流体ブロックなし)
 
-        private val typeBase: MutableList<String> = mutableListOf()
+    val METAL = listOf(
+        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.DUST,
+        EnumMaterialType.GEAR,
+        EnumMaterialType.INGOT,
+        EnumMaterialType.INGOT_HOT,
+        EnumMaterialType.LIQUID,
+        EnumMaterialType.NUGGET,
+        EnumMaterialType.PLATE,
+        EnumMaterialType.STICK
+    ) //金属全般
 
-        fun addTypeBase(vararg types: TypeHandler): TypeHandler {
-            for (type in types) {
-                typeBase.add(type.name)
-            }
-            return this
-        }
+    val METALLOID = listOf(
+        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.DUST,
+        EnumMaterialType.INGOT,
+        EnumMaterialType.PLATE
+    ) //半金属
 
-        fun getTypeBase(): List<String> {
-            typeBase.add(this.name) //自分自身のtypeも含む
-            return typeBase
-        }
+    val STONE = listOf(
+        EnumMaterialType.DUST,
+        EnumMaterialType.GEAR,
+        EnumMaterialType.PLATE,
+        EnumMaterialType.STICK
+    ) //石材用
 
-        fun register(): TypeHandler {
-            map[this.name] = this
-            return this
-        }
+    val WILDCARD = listOf(
+        EnumMaterialType.BLOCK_CRYSTAL,
+        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.DUST,
+        EnumMaterialType.GEAR,
+        EnumMaterialType.INGOT,
+        EnumMaterialType.LIQUID,
+        EnumMaterialType.NUGGET,
+        EnumMaterialType.PLATE,
+        EnumMaterialType.STICK
+    ) //デバッグ用
+
+    val WOOD = listOf(
+        EnumMaterialType.DUST,
+        EnumMaterialType.GEAR,
+        EnumMaterialType.PLATE
+    ) //木材専用
+
+    val map = hashMapOf(
+        "crystalline" to CRYSTALLINE,
+        "dust" to DUST,
+        "gas" to GAS,
+        "ingot" to INGOT,
+        "internal" to INTERNAL,
+        "liquid" to LIQUID,
+        "metal" to METAL,
+        "metalloid" to METALLOID,
+        "wildcard" to WILDCARD,
+        "wood" to WOOD
+    )
+
+    enum class EnumMaterialType {
+        BLOCK_CRYSTAL,
+        BLOCK_METAL,
+        CRYSTAL,
+        DUST,
+        GEAR,
+        INGOT,
+        INGOT_HOT,
+        INTERNAL,
+        LIQUID,
+        NUGGET,
+        PLATE,
+        STICK;
     }
 }

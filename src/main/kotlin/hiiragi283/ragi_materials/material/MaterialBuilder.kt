@@ -6,7 +6,7 @@ import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 
 open class MaterialBuilder(
-    open val index: Int, open val name: String, open val type: MaterialType.TypeHandler
+    open val index: Int, open val name: String, open val type: List<MaterialType.EnumMaterialType>
 ) {
 
     //private変数の宣言
@@ -44,37 +44,37 @@ open class MaterialBuilder(
     }
 
     //色を設定するメソッド
-    fun setColor(color: Color): MaterialBuilder {
+    fun setColor(color: Color?): MaterialBuilder {
         this.color = color
         return this
     }
 
     //化学式を設定するメソッド
-    fun setFormula(formula: String): MaterialBuilder {
+    fun setFormula(formula: String?): MaterialBuilder {
         this.formula = formula
         return this
     }
 
     //モル質量を設定するメソッド
-    fun setMolarMass(molar: Float): MaterialBuilder {
+    fun setMolarMass(molar: Float?): MaterialBuilder {
         this.molar = molar
         return this
     }
 
     //融点を設定するメソッド
-    fun setTempMelt(melt: Int): MaterialBuilder {
+    fun setTempMelt(melt: Int?): MaterialBuilder {
         this.tempMelt = melt
         return this
     }
 
     //沸点を設定するメソッド
-    fun setTempBoil(boil: Int): MaterialBuilder {
+    fun setTempBoil(boil: Int?): MaterialBuilder {
         this.tempBoil = boil
         return this
     }
 
     //昇華点を設定するメソッド
-    fun setTempSubl(subl: Int): MaterialBuilder {
+    fun setTempSubl(subl: Int?): MaterialBuilder {
         this.tempSubl = subl
         return this
     }

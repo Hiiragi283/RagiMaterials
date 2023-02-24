@@ -1,10 +1,8 @@
 package hiiragi283.ragi_materials.material.element
 
-import hiiragi283.ragi_materials.material.MaterialBuilder
-
 class IsotopeBuilder(name: String,
-                     material: MaterialBuilder,
+                     material: ElementBuilder,
                      override var molar: Float?,
                      override var formula: String?
                      ) :
-    ElementBuilder(name, material.type, material.color, molar, formula, material.tempMelt, material.tempBoil)
+    ElementBuilder(name, material.type, material.color!!, material.molar!!, material.formula!!, material.tempMelt!!, material.tempBoil!!)

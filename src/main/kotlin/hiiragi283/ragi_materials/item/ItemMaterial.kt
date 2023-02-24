@@ -14,7 +14,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterial(private val ID: String, private val type: MaterialType.TypeHandler) :
+class ItemMaterial(private val ID: String, private val type: MaterialType.EnumMaterialType) :
     ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {
@@ -28,17 +28,10 @@ class ItemMaterial(private val ID: String, private val type: MaterialType.TypeHa
             //list内の各materialに対して実行
             for (material in MaterialRegistry.mapIndex.values) {
                 //typeがINTERNALでない，かつmaterialのtypeが一致する場合
-                if (material.type != MaterialType.INTERNAL && material.type.getTypeBase().contains(type.name)) {
+                if (material.type != MaterialType.INTERNAL && material.type.contains(type)) {
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)
-                    //gearの例外パターン
-                    if (this.ID == "gear") {
-                        subItems.add(ItemStack(this, 1, MaterialRegistry.STONE.index))
-                        subItems.add(ItemStack(this, 1, MaterialRegistry.WOOD.index))
-                    } else if (this.ID == "stick") {
-                        subItems.add(ItemStack(this, 1, MaterialRegistry.STONE.index))
-                    }
                 }
             }
         }

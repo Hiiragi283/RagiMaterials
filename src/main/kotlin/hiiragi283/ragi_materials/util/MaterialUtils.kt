@@ -17,31 +17,31 @@ object MaterialUtils {
         //化学式
         if (material.formula !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.formula", material.formula
+                "text.ragi_materials.property.formula", material.formula!!
             )
         )
         //モル質量
         if (material.molar !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.mol", material.molar
+                "text.ragi_materials.property.mol", material.molar!!
             )
         )
         //融点
         if (material.tempMelt !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.melt", material.tempMelt
+                "text.ragi_materials.property.melt", material.tempMelt!!
             )
         )
         //沸点
         if (material.tempBoil !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.boil", material.tempBoil
+                "text.ragi_materials.property.boil", material.tempBoil!!
             )
         )
         //昇華点
         if (material.tempSubl !== null) tooltip.add(
             I18n.format(
-                "text.ragi_materials.property.subl", material.tempSubl
+                "text.ragi_materials.property.subl", material.tempSubl!!
             )
         )
     }

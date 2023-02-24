@@ -18,7 +18,8 @@ object ElementRegistry {
 
     val BORON = ElementBuilder("boron", MaterialType.DUST, RagiColor.DARK_GRAY, 10.8f, "B", 2075, 4000)
 
-    val CARBON = ElementBuilder("carbon", MaterialType.METALLOID, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 12.0f, "C", 4400, 4400)
+    val CARBON = ElementBuilder("carbon", MaterialType.METALLOID, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 12.0f, "C", null, null)
+        .setTempSubl(4400) as ElementBuilder
 
     val NITROGEN =
         ElementBuilder("nitrogen", MaterialType.GAS,RagiColor.AQUA,14.0f,"N",-210,-196)
@@ -69,7 +70,8 @@ object ElementRegistry {
 
     val GALLIUM = ElementBuilder( "gallium", MaterialType.METAL, RagiColor.WHITE,69.7f,"Ga",30,2204)
 
-    val ARSENIC = ElementBuilder( "arsenic", MaterialType.METALLOID,RagiColor.DARK_GRAY,74.9f,"As", 603, 603)
+    val ARSENIC = ElementBuilder( "arsenic", MaterialType.METALLOID,RagiColor.DARK_GRAY,74.9f,"As", null, null)
+        .setTempSubl(603) as ElementBuilder
 
     //5th Period
     val STRONTIUM = ElementBuilder( "strontium", MaterialType.INTERNAL, RagiColor.WHITE,87.6f,"Sr",777, 1377)
