@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.recipe
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialType
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
@@ -112,7 +112,7 @@ object RecipeRegistry {
 
     private fun addCraftingMaterial() {
         for (material in MaterialRegistry.mapIndex.values) {
-            if (material.type.contains(MaterialType.EnumMaterialType.DUST)) {
+            if (material.type.parts.contains(EnumMaterialType.DUST)) {
                 //dust -> tiny dustのレシピを登録
                 RagiRecipe.addShaped(
                     Reference.MOD_ID + ":dust_to_tiny_" + material.index,
@@ -133,7 +133,7 @@ object RecipeRegistry {
                 )
             }
 
-            if (material.type.containsAll(listOf(MaterialType.EnumMaterialType.BLOCK_CRYSTAL, MaterialType.EnumMaterialType.CRYSTAL))) {
+            if (material.type.parts.containsAll(listOf(EnumMaterialType.BLOCK_CRYSTAL, EnumMaterialType.CRYSTAL))) {
                 //block -> ingotのレシピを登録
                 RagiRecipe.addShaped(
                     Reference.MOD_ID + ":block_to_crystal_" + material.index,
@@ -154,7 +154,7 @@ object RecipeRegistry {
                 )
             }
 
-            if (material.type.containsAll(listOf(MaterialType.EnumMaterialType.BLOCK_METAL, MaterialType.EnumMaterialType.INGOT))) {
+            if (material.type.parts.containsAll(listOf(EnumMaterialType.BLOCK_METAL, EnumMaterialType.INGOT))) {
                 //block -> ingotのレシピを登録
                 RagiRecipe.addShaped(
                     Reference.MOD_ID + ":block_to_ingot_" + material.index,
@@ -175,7 +175,7 @@ object RecipeRegistry {
                 )
             }
 
-            if (material.type.containsAll(listOf(MaterialType.EnumMaterialType.INGOT, MaterialType.EnumMaterialType.NUGGET))){
+            if (material.type.parts.containsAll(listOf(EnumMaterialType.INGOT, EnumMaterialType.NUGGET))){
                 //ingot -> nuggetのレシピを登録
                 RagiRecipe.addShaped(
                     Reference.MOD_ID + ":ingot_to_nugget_" + material.index,
@@ -196,7 +196,7 @@ object RecipeRegistry {
                 )
             }
 
-            if (material.type.contains(MaterialType.EnumMaterialType.INGOT_HOT)) {
+            if (material.type.parts.contains(EnumMaterialType.INGOT_HOT)) {
                 //hot ingot -> gearのレシピを登録
                 RagiRecipe.addShaped(
                     Reference.MOD_ID + ":hot_ingot_to_gear_" + material.index,

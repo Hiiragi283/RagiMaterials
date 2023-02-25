@@ -6,7 +6,8 @@ import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialType
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.material.type.TypeRegistry
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -14,7 +15,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterial(private val ID: String, private val type: MaterialType.EnumMaterialType) :
+class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
     ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {
@@ -28,7 +29,7 @@ class ItemMaterial(private val ID: String, private val type: MaterialType.EnumMa
             //list内の各materialに対して実行
             for (material in MaterialRegistry.mapIndex.values) {
                 //typeがINTERNALでない，かつmaterialのtypeが一致する場合
-                if (material.type != MaterialType.INTERNAL && material.type.contains(type)) {
+                if (material.type != TypeRegistry.INTERNAL && material.type.parts.contains(type)) {
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)

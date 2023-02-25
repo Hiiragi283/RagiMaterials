@@ -1,10 +1,11 @@
 package hiiragi283.ragi_materials.material
 
+import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.render.color.RagiColor
 import hiiragi283.ragi_materials.util.MaterialUtils
 import java.awt.Color
 
-open class CompoundBuilder(index: Int, name: String, type: List<MaterialType.EnumMaterialType>, var components: Map<Any, Int>) :
+open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<Any, Int>) :
     MaterialBuilder(index, name, type) {
 
     init {

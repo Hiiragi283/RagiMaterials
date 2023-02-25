@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.material.element
 
 import hiiragi283.ragi_materials.material.MaterialBuilder
-import hiiragi283.ragi_materials.material.MaterialType
+import hiiragi283.ragi_materials.material.type.MaterialType
 import java.awt.Color
 
 open class ElementBuilder(
     name: String,
-    type: List<MaterialType.EnumMaterialType>,
+    type: MaterialType,
     override var color: Color?,
     override var molar: Float?,
     override var formula: String?,

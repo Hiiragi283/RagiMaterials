@@ -1,12 +1,13 @@
 package hiiragi283.ragi_materials.material
 
+import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 
 open class MaterialBuilder(
-    open val index: Int, open val name: String, open val type: List<MaterialType.EnumMaterialType>
+    open val index: Int, open val name: String, open val type: MaterialType
 ) {
 
     //private変数の宣言
@@ -15,6 +16,7 @@ open class MaterialBuilder(
     open var formula: String? = null
     open var hasBracket = false
     open var molar: Float? = null
+    open var oredictAlias: String? = null
     open var tempBoil: Int? = null
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
@@ -58,6 +60,12 @@ open class MaterialBuilder(
     //モル質量を設定するメソッド
     fun setMolarMass(molar: Float?): MaterialBuilder {
         this.molar = molar
+        return this
+    }
+
+    //モル質量を設定するメソッド
+    fun setOreDictAlias(name: String?): MaterialBuilder {
+        this.oredictAlias = name
         return this
     }
 

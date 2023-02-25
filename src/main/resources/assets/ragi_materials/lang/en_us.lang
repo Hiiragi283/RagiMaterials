@@ -215,6 +215,8 @@ material.plutonium241=Plutonium 241
 material.wildcard=INVALID
 material.hiiragi_tsubasa=EXAMPLE
 
+material.quartz=Quartz
+
 material.stone=Stone
 material.wood=Wood
 material.water=Water
@@ -234,7 +236,7 @@ material.glowstone=Glowstone
 material.nether_brick=Nether Brick
 material.end_stone=End Stone
 material.emerald=Emerald
-material.quartz=Quartz
+material.ender=Ender Pearl
 material.prismarine=Prismarine
 material.bone=Bone
 material.niter=Niter
@@ -248,23 +250,21 @@ material.anthracite=Anthracite
 material.lignite=Lignite
 material.peat=Peat
 
-material.titanium_alloy=Titanium Alloy
-material.advanced_alloy=Advanced Alloy
 material.invar=Invar
-material.kanthal=Kanthal
 material.magnet=Magnet
-material.mangalloy=Mangalloy
 material.stainless_steel=Stainless Steel
 material.steel=Steel
 material.tool_steel=Tool Steel
 material.constantan=Constantan
-material.nichrome=Nichrome
 material.brass=Brass
 material.bronze=Bronze
-material.nickelsilver=Nickel Silver
 material.electrum=Electrum
 material.tungsten_steel=Tungsten Steel
-material.iridium_alloy=Iridium Alloy
+
+material.mithril=Mithril
+material.signalum=Signalum
+material.lumium=Lumium
+material.enderium=Enderium
 
 # GUI
 gui.ragi_materials.forge_furnace=Forge Furnace

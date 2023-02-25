@@ -35,6 +35,9 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
     @SideOnly(Side.CLIENT) //Client側のみ
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
+            //空のフルボトル
+            subItems.add(ItemStack(this))
+            //液体の名前から素材が取得できる場合のみ登録
             for (fluid in FluidRegistry.getRegisteredFluids().values) {
                 if (MaterialManager.getMaterial(fluid.name) !== null) {
                     val stack = ItemStack(this)
@@ -44,7 +47,6 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
                     subItems.add(stackFilled)
                 }
             }
-            subItems.add(ItemStack(this))
         }
     }
 

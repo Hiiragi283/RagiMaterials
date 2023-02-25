@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialBuilder
-import hiiragi283.ragi_materials.material.MaterialType
+import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import net.minecraftforge.common.config.Config
 import java.awt.Color
@@ -14,6 +14,11 @@ object RagiConfig {
     @Config.LangKey(DebugMode.prefix)
     @JvmField
     var debugMode = DebugMode()
+
+    @Config.Name("Integration")
+    @Config.LangKey(Integration.prefix)
+    @JvmField
+    var integration = Integration()
 
     @Config.Name("Custom Material Registry")
     @Config.Comment(
@@ -55,6 +60,33 @@ object RagiConfig {
         @JvmField
         var isDebug = false
 
+    }
+
+    class Integration {
+
+        companion object {
+            const val prefix = "config.${Reference.MOD_ID}.integration"
+        }
+
+        @Config.LangKey("${Integration.prefix}.enableEIO")
+        @Config.Comment("Enable integration for Ender IO")
+        @JvmField
+        var enableEIO = true
+
+        @Config.LangKey("${Integration.prefix}.enableMek")
+        @Config.Comment("Enable integration for Mekanism")
+        @JvmField
+        var enableMek = true
+
+        @Config.LangKey("${Integration.prefix}.enableTE")
+        @Config.Comment("Enable integration for Thermal Expansion")
+        @JvmField
+        var enableTE = true
+
+        @Config.LangKey("${Integration.prefix}.enableTF")
+        @Config.Comment("Enable integration for Thermal Foundation")
+        @JvmField
+        var enableTF = true
     }
 
     class Material {
@@ -173,18 +205,18 @@ object RagiConfig {
             val index = listProperty[0].toInt()
             val name = listProperty[1]
             val typeRaw = listProperty[2]
-            var type = MaterialType.WILDCARD
+            var type = TypeRegistry.WILDCARD
             val color = Color(listProperty[3].toIntOrNull(16)!!)
             val formula = listProperty[4]
             val molar = listProperty[5].toFloat()
             val melt = listProperty[6].toInt()
             val boil = listProperty[7].toInt()
             //MaterialTypeの確認
-            if (MaterialType.map[typeRaw] !== null) {
-                type = MaterialType.map[typeRaw]!!
+            if (TypeRegistry.map[typeRaw] !== null) {
+                type = TypeRegistry.map[typeRaw]!!
             }
             //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，materialを登録する
-            if (index in 1023..material.maxMaterials && type != MaterialType.WILDCARD) {
+            if (index in 1023..material.maxMaterials && type != TypeRegistry.WILDCARD) {
                 val material = MaterialBuilder(index, name, type)
                 material.color = color
                 material.formula = formula

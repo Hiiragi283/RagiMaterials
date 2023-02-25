@@ -215,6 +215,8 @@ material.plutonium241=プルトニウム241
 material.wildcard=無効な
 material.hiiragi_tsubasa=らぎマテリアル
 
+material.quartz=水晶
+
 material.stone=石
 material.wood=木材
 material.water=水
@@ -234,7 +236,7 @@ material.glowstone=グローストーン
 material.nether_brick=ネザーレンガ
 material.end_stone=エンドストーン
 material.emerald=エメラルド
-material.quartz=水晶
+material.ender=エンダーパール
 material.prismarine=プリズマリン
 material.bone=骨
 material.niter=硝石
@@ -248,23 +250,21 @@ material.anthracite=無煙炭
 material.lignite=褐炭
 material.peat=泥炭
 
-material.titanium_alloy=チタン合金
-material.advanced_alloy=発展合金
 material.invar=インバー
-material.kanthal=カンタル
 material.magnet=磁石
-material.mangalloy=高マンガン鋼
 material.stainless_steel=ステンレス鋼
 material.steel=鋼
 material.tool_steel=道具鋼
 material.constantan=コンスタンタン
-material.nichrome=ニクロム
 material.brass=黄銅
 material.bronze=青銅
-material.nickelsilver=洋白
 material.electrum=エレクトラム
 material.tungsten_steel=タングステン鋼
-material.iridium_alloy=イリジウム合金
+
+material.mithril=ミスリル
+material.signalum=シグナルム
+material.lumium=ルミウム
+material.enderium=エンダリウム
 
 # GUI
 gui.ragi_materials.forge_furnace=鍛造炉

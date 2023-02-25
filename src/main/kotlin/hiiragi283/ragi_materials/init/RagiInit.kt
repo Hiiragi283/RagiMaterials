@@ -8,7 +8,8 @@ import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialType
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.material.type.TypeRegistry
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -48,17 +49,17 @@ object RagiInit {
     val ItemSeedLignite: Item = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedPeat: Item = ItemSeedPeat("seed_peat").setCreativeTab(CreativeTabs.MISC)
 
-    val ItemBlockCrystal = ItemMaterial("block_crystal", MaterialType.EnumMaterialType.BLOCK_CRYSTAL)
-    val ItemBlockMetal = ItemMaterial("block_metal", MaterialType.EnumMaterialType.BLOCK_METAL)
-    val ItemCrystal = ItemMaterial("crystal", MaterialType.EnumMaterialType.CRYSTAL)
-    val ItemDust = ItemMaterial("dust", MaterialType.EnumMaterialType.DUST)
-    val ItemDustTiny = ItemMaterial("dust_tiny", MaterialType.EnumMaterialType.DUST)
-    val ItemGear = ItemMaterial("gear", MaterialType.EnumMaterialType.GEAR)
-    val ItemIngot = ItemMaterial("ingot", MaterialType.EnumMaterialType.INGOT)
-    val ItemIngotHot = ItemMaterial("ingot_hot", MaterialType.EnumMaterialType.INGOT_HOT)
-    val ItemNugget = ItemMaterial("nugget", MaterialType.EnumMaterialType.NUGGET)
-    val ItemPlate = ItemMaterial("plate", MaterialType.EnumMaterialType.PLATE)
-    val ItemStick = ItemMaterial("stick", MaterialType.EnumMaterialType.STICK)
+    val ItemBlockCrystal = ItemMaterial("block_crystal", EnumMaterialType.BLOCK_CRYSTAL)
+    val ItemBlockMetal = ItemMaterial("block_metal", EnumMaterialType.BLOCK_METAL)
+    val ItemCrystal = ItemMaterial("crystal", EnumMaterialType.CRYSTAL)
+    val ItemDust = ItemMaterial("dust", EnumMaterialType.DUST)
+    val ItemDustTiny = ItemMaterial("dust_tiny", EnumMaterialType.DUST)
+    val ItemGear = ItemMaterial("gear", EnumMaterialType.GEAR)
+    val ItemIngot = ItemMaterial("ingot", EnumMaterialType.INGOT)
+    val ItemIngotHot = ItemMaterial("ingot_hot", EnumMaterialType.INGOT_HOT)
+    val ItemNugget = ItemMaterial("nugget", EnumMaterialType.NUGGET)
+    val ItemPlate = ItemMaterial("plate", EnumMaterialType.PLATE)
+    val ItemStick = ItemMaterial("stick", EnumMaterialType.STICK)
 
     fun init() {
         //Blockの登録
@@ -104,12 +105,12 @@ object RagiInit {
         //listの各materialに対して実行
         for (material in MaterialRegistry.mapIndex.values) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != MaterialType.INTERNAL && material.type.contains(MaterialType.EnumMaterialType.LIQUID)) {
+            if (material.type != TypeRegistry.INTERNAL && material.type.parts.contains(EnumMaterialType.LIQUID)) {
                 //Fluidの登録
                 val fluid = FluidBase(material.name)
                 fluid.setColor(material.color)
                 //MaterialTypesがGASの場合
-                if (material.type == MaterialType.GAS) {
+                if (material.type == TypeRegistry.GAS) {
                     fluid.isGaseous = true
                     fluid.density = fluid.density * -1
                 }

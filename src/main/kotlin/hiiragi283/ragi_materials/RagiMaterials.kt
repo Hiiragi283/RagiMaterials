@@ -47,9 +47,10 @@ class RagiMaterials {
             MaterialRegistry.init()
             //Block, Itemの登録
             RagiInit.init()
-            //Eventの登録
             //proxyの読み込み
             proxy!!.loadPreInit()
+            //連携要素の登録
+            IntegrationCore.loadPreInit()
         }
     }
 
@@ -63,6 +64,8 @@ class RagiMaterials {
             RecipeRegistry.init()
             //proxyの読み込み
             proxy!!.loadInit()
+            //連携要素の登録
+            IntegrationCore.loadInit()
         }
     }
 
@@ -70,14 +73,14 @@ class RagiMaterials {
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent?) {
         if (!isLoadedGT) {
-            //連携要素の登録
-            IntegrationCore.init()
             //コンフィグからレシピを追加
             RagiConfig.registerRecipe()
             //Forge Furnaceのレシピの登録
             FFRegistry.init()
             //proxyの読み込み
             proxy!!.loadPostInit()
+            //連携要素の登録
+            IntegrationCore.loadPostInit()
         }
     }
 }
