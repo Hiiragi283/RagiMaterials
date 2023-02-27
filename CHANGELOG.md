@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## v0.2.2
+
+  - Added integration option for config
+  - Added Logo and its license
+  - Fixed the fluid model bug when playing with Thermal Foundation
+  - Fixed the tooltips about elemental materials were not shown
+  - Removed the item forge:bucketfilled from config list
+
+### Full Bottle
+
+  - Added new creative tab for Full Bottle
+  - Now only accepts material fluids
+  - Salt Pond no longer accepts Full Bottle
+
+
+### **MATERIAL SYSTEM**
+
+  - Added alloy materials
+    - Invar
+    - Magnet
+    - Stainless Steel
+    - Steel
+    - Tool Steel
+    - Constantan
+    - Brass
+    - Bronze
+    - Electrum
+    - Tungsten Steel
+  - Added integration materials for Thermal Foundation
+    - Mithril
+    - Signalum
+    - Lumium
+    - Enderium
+  - Added new fields for:
+    - Alternative Ore Dictionary Name
+    - Burn Time
+    - Decayed Material
+  - Added radioactive decay system (Configurable)
+    - Renamed some radioactive materials
+  - Made MaterialType more flexible
+  - Reworked the model for Hot Ingot
+
 ## v0.2.1
 
   - Updated CHANGELOG
