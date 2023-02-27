@@ -17,8 +17,19 @@ config.ragi_materials.debug.tooltip=警告、警告。これは試験ではな�
 config.ragi_materials.debug.debug=デバッグモードを有効にする
 config.ragi_materials.debug.debug.tooltip=trueにするとデバッグアイテムが使えるようになりますが, 大量のログが出力されます……
 
-config.ragi_materials.material=カスタム素材の登録
-config.ragi_materials.material.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
+config.ragi_materials.integration=連携設定
+config.ragi_materials.integration.tooltip=
+config.ragi_materials.integration.ender_io=Ender IO
+config.ragi_materials.integration.ender_io.tooltip=
+config.ragi_materials.integration.expansion=Thermal Expansion
+config.ragi_materials.integration.expansion.tooltip=
+config.ragi_materials.integration.foundation=Thermal Foundation
+config.ragi_materials.integration.foundation.tooltip=
+config.ragi_materials.integration.mekanism=Mekanism
+config.ragi_materials.integration.mekanism.tooltip=
+
+config.ragi_materials.material=素材設定
+config.ragi_materials.material.tooltip=高品質。
 config.ragi_materials.material.custom=カスタム素材の一覧
 config.ragi_materials.material.custom.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
 config.ragi_materials.material.enable_decay=放射性崩壊を有効にする
@@ -27,6 +38,7 @@ config.ragi_materials.material.max=素材の最大数
 config.ragi_materials.material.max.tooltip=登録される素材の最大数 (メタデータの上限) を設定してください
 
 config.ragi_materials.recipe_map=カスタムレシピの登録
+config.ragi_materials.recipe_map.tooltip=
 config.ragi_materials.recipe_map.forge_burning=鍛造炉 - Tier: バーニング
 config.ragi_materials.recipe_map.forge_burning.tooltip=§o地獄の焔を齎す最強の翼。
 config.ragi_materials.recipe_map.forge_boosted=鍛造炉 - Tier: ブースト
@@ -36,7 +48,7 @@ config.ragi_materials.recipe_map.forge_hellrise.tooltip=§o天国も地獄も関
 
 config.ragi_materials.utility=便利機能
 config.ragi_materials.utility.tooltip=ExtraじゃないけどBeneficial
-config.ragi_materials.utility.max_stack=最大スタック数を変えるアイテムの一覧
+config.ragi_materials.utility.max_stack=最大スタック数の上書き
 config.ragi_materials.utility.max_stack.tooltip=このリストに追加されたアイテムは, 最大スタック数が自動的に64へ変更されます
 
 # Fluid

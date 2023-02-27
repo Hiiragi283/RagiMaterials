@@ -68,22 +68,22 @@ object RagiConfig {
             const val prefix = "config.${Reference.MOD_ID}.integration"
         }
 
-        @Config.LangKey("${Integration.prefix}.enableEIO")
+        @Config.LangKey("${Integration.prefix}.ender_io")
         @Config.Comment("Enable integration for Ender IO")
         @JvmField
         var enableEIO = true
 
-        @Config.LangKey("${Integration.prefix}.enableMek")
+        @Config.LangKey("${Integration.prefix}.mekanism")
         @Config.Comment("Enable integration for Mekanism")
         @JvmField
         var enableMek = true
 
-        @Config.LangKey("${Integration.prefix}.enableTE")
+        @Config.LangKey("${Integration.prefix}.expansion")
         @Config.Comment("Enable integration for Thermal Expansion")
         @JvmField
         var enableTE = true
 
-        @Config.LangKey("${Integration.prefix}.enableTF")
+        @Config.LangKey("${Integration.prefix}.foundation")
         @Config.Comment("Enable integration for Thermal Foundation")
         @JvmField
         var enableTF = true
