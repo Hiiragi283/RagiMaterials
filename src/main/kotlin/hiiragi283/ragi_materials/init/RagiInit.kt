@@ -59,6 +59,9 @@ object RagiInit {
     val ItemIngot = ItemMaterial("ingot", EnumMaterialType.INGOT)
     val ItemIngotHot = ItemMaterial("ingot_hot", EnumMaterialType.INGOT_HOT)
     val ItemNugget = ItemMaterial("nugget", EnumMaterialType.NUGGET)
+    val ItemOre = ItemMaterialOre("ore")
+    val ItemOreNether = ItemMaterialOre("ore_nether")
+    val ItemOreEnd = ItemMaterialOre("ore_end")
     val ItemPlate = ItemMaterial("plate", EnumMaterialType.PLATE)
     val ItemStick = ItemMaterial("stick", EnumMaterialType.STICK)
 
@@ -100,6 +103,9 @@ object RagiInit {
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
+            ItemOre,
+            ItemOreNether,
+            ItemOreEnd,
             ItemPlate,
             ItemStick
         )

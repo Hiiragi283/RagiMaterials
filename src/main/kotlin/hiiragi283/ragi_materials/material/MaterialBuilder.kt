@@ -13,6 +13,7 @@ open class MaterialBuilder(
     //private変数の宣言
     open var burnTime = -1
     open var color: Color? = null
+    open var decayed: MaterialBuilder? = null
     open var formula: String? = null
     open var hasBracket = false
     open var molar: Float? = null
@@ -20,7 +21,7 @@ open class MaterialBuilder(
     open var tempBoil: Int? = null
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
-    open var decayed: MaterialBuilder? = null
+    open var hasOre = false
 
     //化学式に()をつけるメソッド
     fun addBracket(): MaterialBuilder {
@@ -67,6 +68,12 @@ open class MaterialBuilder(
     //モル質量を設定するメソッド
     fun setMolarMass(molar: Float?): MaterialBuilder {
         this.molar = molar
+        return this
+    }
+
+    //鉱石を追加するメソッド
+    fun setOre(): MaterialBuilder {
+        this.hasOre = true
         return this
     }
 

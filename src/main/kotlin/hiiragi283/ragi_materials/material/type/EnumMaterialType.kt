@@ -5,6 +5,7 @@ enum class EnumMaterialType {
     BLOCK_METAL,
     CRYSTAL,
     DUST,
+    DUMMY,
     GEAR,
     INGOT,
     INGOT_HOT,

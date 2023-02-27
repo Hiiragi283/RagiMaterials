@@ -39,32 +39,32 @@ object ElementRegistry {
 
     val SILICON = ElementBuilder(14, "silicon", TypeRegistry.METAL,RagiColor.DARK_GRAY,28.1f,"Si",1414,3265)
 
-    val PHOSPHORUS = ElementBuilder(15, "phosphorus", TypeRegistry.DUST,RagiColor.YELLOW,31.0f,"P",44,281)
+    val PHOSPHORUS = ElementBuilder(15, "phosphorus", TypeRegistry.DUST, RagiColor.YELLOW,31.0f,"P",44,281)
 
-    val SULFUR = ElementBuilder(16, "sulfur", TypeRegistry.DUST,RagiColor.mixColor(RagiColor.GOLD, RagiColor.YELLOW),32.1f,"S",120,445)
+    val SULFUR = ElementBuilder(16, "sulfur", TypeRegistry.DUST, RagiColor.mixColor(RagiColor.GOLD, RagiColor.YELLOW),32.1f,"S",120,445)
 
-    val CHLORINE = ElementBuilder(17, "chlorine", TypeRegistry.GAS,RagiColor.YELLOW,35.5f,"Cl", -102,-34)
+    val CHLORINE = ElementBuilder(17, "chlorine", TypeRegistry.GAS, RagiColor.YELLOW,35.5f,"Cl", -102,-34)
 
-    val ARGON = ElementBuilder(18, "argon", TypeRegistry.GAS,RagiColor.LIGHT_PURPLE,40.0f,"Ar",-189,-186)
+    val ARGON = ElementBuilder(18, "argon", TypeRegistry.GAS, RagiColor.LIGHT_PURPLE,40.0f,"Ar",-189,-186)
 
     //4th Period
     val POTASSIUM = ElementBuilder(19, "potassium", TypeRegistry.INTERNAL, RagiColor.WHITE,39.1f,"K",64,759)
 
     val CALCIUM = ElementBuilder(20, "calcium", TypeRegistry.INTERNAL, RagiColor.WHITE,40.1f,"Ca",842,1484)
 
-    val TITANIUM = ElementBuilder(22, "titanium", TypeRegistry.METAL, RagiColor.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2)),47.9f,"Ti",1668,3287)
+    val TITANIUM = ElementBuilder(22, "titanium", TypeRegistry.METAL,  RagiColor.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2)),47.9f,"Ti",1668,3287)
 
-    val CHROMIUM = ElementBuilder(24, "chromium", TypeRegistry.METAL,RagiColor.GREEN,52.0f,"Cr",1907,2671)
+    val CHROMIUM = ElementBuilder(24, "chromium", TypeRegistry.METAL, RagiColor.GREEN,52.0f,"Cr",1907,2671)
 
-    val MANGANESE = ElementBuilder(25, "manganese", TypeRegistry.METAL,RagiColor.mixColor(RagiColor.RED, RagiColor.WHITE),54.9f,"Mn",1246,2061)
+    val MANGANESE = ElementBuilder(25, "manganese", TypeRegistry.METAL, RagiColor.mixColor(RagiColor.RED, RagiColor.WHITE),54.9f,"Mn",1246,2061)
 
-    val IRON = ElementBuilder(26, "iron", TypeRegistry.METAL, RagiColor.WHITE,55.8f,"Fe",1538, 2861)
+    val IRON = ElementBuilder(26, "iron", TypeRegistry.METAL,  RagiColor.WHITE,55.8f,"Fe",1538, 2861)
 
-    val COBALT = ElementBuilder(27, "cobalt", TypeRegistry.METAL,RagiColor.BLUE,58.9f,"Co", 1495,2927)
+    val COBALT = ElementBuilder(27, "cobalt", TypeRegistry.METAL, RagiColor.BLUE,58.9f,"Co", 1495,2927)
 
-    val NICKEL = ElementBuilder(28, "nickel", TypeRegistry.METAL,RagiColor.mixColor(RagiColor.GOLD, RagiColor.WHITE),58.7f,"Ni",1455,2913)
+    val NICKEL = ElementBuilder(28, "nickel", TypeRegistry.METAL, RagiColor.mixColor(RagiColor.GOLD, RagiColor.WHITE),58.7f,"Ni",1455,2913)
 
-    val COPPER = ElementBuilder(29, "copper", TypeRegistry.METAL,RagiColor.mixColor(RagiColor.GOLD, RagiColor.RED),63.5f,"Cu",1085,2562)
+    val COPPER = ElementBuilder(29, "copper", TypeRegistry.METAL, RagiColor.mixColor(RagiColor.GOLD, RagiColor.RED),63.5f,"Cu",1085,2562)
 
     val ZINC = ElementBuilder(30, "zinc", TypeRegistry.METAL, RagiColor.WHITE,65.4f,"Zn",420,907)
 
@@ -128,9 +128,9 @@ object ElementRegistry {
     //7th Period
     val THORIUM = ElementBuilder(90, "thorium", TypeRegistry.METAL_RADIO, RagiColor.mixColor(RagiColor.BLACK, RagiColor.DARK_GREEN),232.0f,"Th",1750,4788)
 
-    val URANIUM_238 = ElementBuilder(92, "uranium", TypeRegistry.METAL_RADIO,RagiColor.GREEN,238.0f,"U",1135,4131)
+    val URANIUM_238 = ElementBuilder(92, "uranium", TypeRegistry.METAL_RADIO, RagiColor.GREEN,238.0f,"U",1135,4131)
 
-    val PLUTONIUM_244 = ElementBuilder(94, "plutonium", TypeRegistry.METAL_RADIO,RagiColor.RED,244.0f,"Pu",640,3228)
+    val PLUTONIUM_244 = ElementBuilder(94, "plutonium", TypeRegistry.METAL_RADIO, RagiColor.RED,244.0f,"Pu",640,3228)
 
     //Isotope
     val DEUTERIUM = IsotopeBuilder(95, "deuterium", HYDROGEN, 2.0f,"D")

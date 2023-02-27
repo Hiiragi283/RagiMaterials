@@ -1,9 +1,12 @@
 package hiiragi283.ragi_materials.render.model
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.CrystalBuilder
 import hiiragi283.ragi_materials.material.MaterialManager
+import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 
@@ -32,6 +35,33 @@ object ModelStack {
                 //gemTypeに応じたモデルを割り当てる
                 ModelResourceLocation("${Reference.MOD_ID}:crystal_${material.system}", "inventory")
             } else ModelResourceLocation("${Reference.MOD_ID}:crystal_cubic", "inventory")
+        }
+
+        /*
+          Thanks to kojin15!
+          Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865
+        */
+
+        //Ore
+        for (material in MaterialRegistry.mapIndex.values) {
+            //hasOre==trueの場合
+            if (material.hasOre) {
+                ModelLoader.setCustomModelResourceLocation(
+                    RagiInit.ItemOre,
+                    material.index,
+                    ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
+                )
+                ModelLoader.setCustomModelResourceLocation(
+                    RagiInit.ItemOreNether,
+                    material.index,
+                    ModelResourceLocation("${Reference.MOD_ID}:ore", "nether")
+                )
+                ModelLoader.setCustomModelResourceLocation(
+                    RagiInit.ItemOreEnd,
+                    material.index,
+                    ModelResourceLocation("${Reference.MOD_ID}:ore", "end")
+                )
+            }
         }
     }
 }

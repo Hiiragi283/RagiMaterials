@@ -32,7 +32,7 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
             //Spawn用
             if (stack.metadata == 0) {
                 //各値の取得
-                val spawnPoint: BlockPos = world.spawnPoint
+                val spawnPoint = world.spawnPoint
                 val spawnX = spawnPoint.x + 0.5 //ブロックの中心に来るよう調整
                 val spawnY = 128.0 //高度チェックが面倒なのでy=128に固定
                 val spawnZ = spawnPoint.z + 0.5 //ブロックの中心に来るよう調整

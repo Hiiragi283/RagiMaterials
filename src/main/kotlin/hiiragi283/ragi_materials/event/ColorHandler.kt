@@ -51,6 +51,9 @@ class ColorHandler {
             RagiInit.ItemIngot,
             RagiInit.ItemIngotHot,
             RagiInit.ItemNugget,
+            RagiInit.ItemOre,
+            RagiInit.ItemOreNether,
+            RagiInit.ItemOreEnd,
             RagiInit.ItemPlate,
             RagiInit.ItemStick
         )

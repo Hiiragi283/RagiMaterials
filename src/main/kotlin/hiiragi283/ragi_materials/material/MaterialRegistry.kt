@@ -40,13 +40,13 @@ object MaterialRegistry {
 
     val MAGNESIUM = SimpleBuilder(ElementRegistry.MAGNESIUM, 1)
 
-    val ALUMINIUM = SimpleBuilder(ElementRegistry.ALUMINIUM, 1).setOreDictAlias("Aluminum")
+    val ALUMINIUM = SimpleBuilder(ElementRegistry.ALUMINIUM, 1).setOreDictAlias("Aluminum").setOre()
 
     val SILICON = SimpleBuilder(ElementRegistry.SILICON, 1)
 
-    val PHOSPHORUS = SimpleBuilder(ElementRegistry.PHOSPHORUS, 1)
+    val PHOSPHORUS = SimpleBuilder(ElementRegistry.PHOSPHORUS, 1).setOre()
 
-    val SULFUR = SimpleBuilder(ElementRegistry.SULFUR, 8)
+    val SULFUR = SimpleBuilder(ElementRegistry.SULFUR, 8).setOre()
 
     val CHLORINE = SimpleBuilder(ElementRegistry.CHLORINE, 2)
 
@@ -69,7 +69,7 @@ object MaterialRegistry {
 
     val NICKEL = SimpleBuilder(ElementRegistry.NICKEL, 1)
 
-    val COPPER = SimpleBuilder(ElementRegistry.COPPER, 1)
+    val COPPER = SimpleBuilder(ElementRegistry.COPPER, 1).setOre()
 
     val ZINC = SimpleBuilder(ElementRegistry.ZINC, 1)
 
@@ -92,11 +92,11 @@ object MaterialRegistry {
 
     val PALLADIUM = SimpleBuilder(ElementRegistry.PALLADIUM, 1)
 
-    val SILVER = SimpleBuilder(ElementRegistry.SILVER, 1)
+    val SILVER = SimpleBuilder(ElementRegistry.SILVER, 1).setOre()
 
     val INDIUM = SimpleBuilder(ElementRegistry.INDIUM, 1)
 
-    val TIN = SimpleBuilder(ElementRegistry.TIN, 1)
+    val TIN = SimpleBuilder(ElementRegistry.TIN, 1).setOre()
 
     val ANTIMONY = SimpleBuilder(ElementRegistry.ANTIMONY, 1)
 
@@ -113,26 +113,26 @@ object MaterialRegistry {
 
     val TANTALUM = SimpleBuilder(ElementRegistry.TANTALUM, 1)
 
-    val TUNGSTEN = SimpleBuilder(ElementRegistry.TUNGSTEN, 1)
+    val TUNGSTEN = SimpleBuilder(ElementRegistry.TUNGSTEN, 1).setOre()
 
     val OSMIUM = SimpleBuilder(ElementRegistry.OSMIUM, 1)
 
     val IRIDIUM = SimpleBuilder(ElementRegistry.IRIDIUM, 1)
 
-    val PLATINUM = SimpleBuilder(ElementRegistry.PLATINUM, 1)
+    val PLATINUM = SimpleBuilder(ElementRegistry.PLATINUM, 1).setOre()
 
-    val GOLD = SimpleBuilder(ElementRegistry.GOLD, 1)
+    val GOLD = SimpleBuilder(ElementRegistry.GOLD, 1).setOre()
 
     val MERCURY = SimpleBuilder(ElementRegistry.MERCURY, 1)
 
-    val LEAD = SimpleBuilder(ElementRegistry.LEAD, 1)
+    val LEAD = SimpleBuilder(ElementRegistry.LEAD, 1).setOre()
 
     val BISMUTH = SimpleBuilder(ElementRegistry.BISMUTH, 1)
 
     //7th Period
-    val THORIUM = SimpleBuilder(ElementRegistry.THORIUM, 1).setDecayed(LEAD)
+    val THORIUM = SimpleBuilder(ElementRegistry.THORIUM, 1).setDecayed(LEAD).setOre()
 
-    val URANIUM_238 = SimpleBuilder(ElementRegistry.URANIUM_238, 1).setDecayed(LEAD)
+    val URANIUM_238 = SimpleBuilder(ElementRegistry.URANIUM_238, 1).setDecayed(LEAD).setOre()
 
     val PLUTONIUM_244 = SimpleBuilder(ElementRegistry.PLUTONIUM_244, 1).setDecayed(LEAD)
 
@@ -161,7 +161,7 @@ object MaterialRegistry {
     val SULFATE = CompoundBuilder(106, "sulfate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.SULFUR to 1, ElementRegistry.OXYGEN to 4))
 
     val QUARTZ = CrystalBuilder(219, "quartz", mapOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 2), "trigonal")
-        .setColor(RagiColor.WHITE)
+        .setColor(RagiColor.WHITE).setOre()
 
     //200 ~ 299: Vanilla
     val STONE = CompoundBuilder(200, "stone", TypeRegistry.STONE, mapOf(QUARTZ to 1))
@@ -182,7 +182,7 @@ object MaterialRegistry {
         .setColor(RagiColor.WHITE)
 
     val LAPIS = MixtureBuilder(205, "lapis", TypeRegistry.DUST, listOf("?"))
-        .setColor(RagiColor.BLUE)
+        .setColor(RagiColor.BLUE).setOre()
 
     val CLAY = MixtureBuilder(206, "clay", TypeRegistry.DUST, listOf("?"))
         .setColor(
@@ -218,16 +218,16 @@ object MaterialRegistry {
             )
         )
 
-    val REDSTONE = SimpleBuilder(ElementRegistry.REDSTONE, 1)
+    val REDSTONE = SimpleBuilder(ElementRegistry.REDSTONE, 1).setOre()
 
     val DIAMOND = CrystalBuilder(210, "diamond", mapOf(ElementRegistry.CARBON to 1), "diamond")
-        .setColor(ElementRegistry.ALUMINIUM.color!!)
+        .setColor(ElementRegistry.ALUMINIUM.color!!).setOre()
 
     val SNOW = CompoundBuilder(211, "snow", TypeRegistry.INGOT, mapOf(WATER to 1))
         .setColor(RagiColor.WHITE)
 
     val ICE = CompoundBuilder(212, "ice", TypeRegistry.INGOT, mapOf(WATER to 1))
-        .setColor(ElementRegistry.ALUMINIUM.color!!)
+        .setColor(ElementRegistry.ALUMINIUM.color!!).setOre()
 
     val NETHERRACK = CompoundBuilder(
         213,
@@ -263,7 +263,7 @@ object MaterialRegistry {
             ElementRegistry.SILICON to 6,
             ElementRegistry.OXYGEN to 18
         ), "hexagonal"
-    ).setColor(RagiColor.GREEN)
+    ).setColor(RagiColor.GREEN).setOre()
 
     val ENDER = SimpleBuilder(ElementRegistry.ENDER,1).setOreDictAlias("EnderPearl")
 
@@ -271,10 +271,10 @@ object MaterialRegistry {
         .setColor(ElementRegistry.ALUMINIUM.color!!)
 
     val BONE = CompoundBuilder(221, "bone", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 3, PHOSPHATE.addBracket() to 2))
-        .setColor(RagiColor.WHITE)
+        .setColor(RagiColor.WHITE).setOre()
 
     val NITER = CrystalBuilder(222, "niter", mapOf(ElementRegistry.POTASSIUM to 1, NITRATE to 1), "orthorhombic")
-        .setColor(RagiColor.WHITE).setOreDictAlias("Saltpeter")
+        .setColor(RagiColor.WHITE).setOreDictAlias("Saltpeter").setOre()
 
     val GUNPOWDER =
         CompoundBuilder(223, "gunpowder", TypeRegistry.DUST, mapOf(NITER.addBracket() to 2, ElementRegistry.CARBON to 1, ElementRegistry.SULFUR to 1))
@@ -284,7 +284,7 @@ object MaterialRegistry {
         .setColor(RagiColor.WHITE).setBurnTime(200 * 1)
 
     //Fossil Fuels
-    val COAL = CrystalBuilder(225, "coal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8)
+    val COAL = CrystalBuilder(225, "coal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8).setOre()
 
     val CHARCOAL = CrystalBuilder(226, "charcoal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8)
 
@@ -299,7 +299,7 @@ object MaterialRegistry {
                     RagiColor.DARK_BLUE to 1
                 )
             )
-        ).setBurnTime(200 * 24)
+        ).setBurnTime(200 * 24).setOre()
 
     val LIGNITE = CrystalBuilder(229, "lignite", mapOf(ElementRegistry.CARBON to 1), "coal")
         .setColor(
@@ -309,7 +309,7 @@ object MaterialRegistry {
                     RagiColor.DARK_RED to 1
                 )
             )
-        ).setBurnTime(200 * 4)
+        ).setBurnTime(200 * 4).setOre()
 
     val PEAT = CrystalBuilder(230, "peat", mapOf(ElementRegistry.CARBON to 1), "coal")
         .setColor(

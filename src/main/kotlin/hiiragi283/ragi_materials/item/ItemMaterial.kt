@@ -19,7 +19,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
+open class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
     ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {

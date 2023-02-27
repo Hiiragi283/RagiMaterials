@@ -1,0 +1,26 @@
+{
+  "forge_marker": 1,
+  "comment0": "Thanks to kojin15!",
+  "comment1": "Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865",
+  "defaults": {
+    "model": "ragi_materials:ore",
+    "uvlock": true
+  },
+  "variants": {
+    "stone": [{
+      "textures": {
+        "stone": "blocks/stone"
+      }
+    }],
+    "nether": [{
+      "textures": {
+        "stone": "blocks/netherrack"
+      }
+    }],
+    "end": [{
+      "textures": {
+        "stone": "blocks/end_stone"
+      }
+    }]
+  }
+}
