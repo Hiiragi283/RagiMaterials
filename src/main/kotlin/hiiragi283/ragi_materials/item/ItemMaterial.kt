@@ -8,10 +8,14 @@ import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
+import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.entity.Entity
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
+import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -43,8 +47,8 @@ class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
         return if (MaterialManager.getMaterial(stack.metadata) !== null) {
             //素材に紐づいた燃焼時間を取得
             var time = MaterialManager.getMaterial(stack.metadata)!!.burnTime
-                //dust_tinyの場合は1/9
-                if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
+            //dust_tinyの場合は1/9
+            if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
             time
         } else -1
     }
@@ -57,5 +61,31 @@ class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
             "item.ragi_$ID.name",
             I18n.format("material.${material.name}")
         ) else super.getItemStackDisplayName(stack)
+    }
+
+    //毎tick呼ばれるメソッド
+    override fun onUpdate(stack: ItemStack, world: World, entity: Entity, slot: Int, isSelected: Boolean) {
+        //enableDecay==trueの場合
+        if (RagiConfig.material.enableDecay) {
+            //サーバー側の場合，かつ5秒ごと
+            if (!world.isRemote && world.worldInfo.worldTime % 100 == 0L) {
+                //entityがplayerの場合
+                if (entity is EntityPlayer) {
+                    val material = MaterialManager.getMaterial(stack.metadata)
+                    //取得した素材が放射性の場合
+                    if ((material !== null) && material.type.parts.contains(EnumMaterialType.RADIOACTIVE)) {
+                        val stackRadio = stack.copy()
+                        stackRadio.shrink(1) //1つ減らす
+                        entity.inventory.setInventorySlotContents(slot, stackRadio)
+                        //崩壊後の素材を取得
+                        val materialDecayed = material.decayed
+                        if (materialDecayed !== null) {
+                            val stackDecayed = ItemStack(this, 1, materialDecayed.index)
+                            RagiUtils.spawnItemAtPlayer(world, entity, stackDecayed) //プレイヤーの足元にドロップ
+                        }
+                    }
+                }
+            }
+        }
     }
 }

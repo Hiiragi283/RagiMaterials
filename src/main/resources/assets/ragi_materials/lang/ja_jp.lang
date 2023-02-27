@@ -21,6 +21,8 @@ config.ragi_materials.material=カスタム素材の登録
 config.ragi_materials.material.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
 config.ragi_materials.material.custom=カスタム素材の一覧
 config.ragi_materials.material.custom.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
+config.ragi_materials.material.enable_decay=放射性崩壊を有効にする
+config.ragi_materials.material.enable_decay.tooltip=全てを破壊し, 全てを繋げ。
 config.ragi_materials.material.max=素材の最大数
 config.ragi_materials.material.max.tooltip=登録される素材の最大数 (メタデータの上限) を設定してください
 
@@ -94,34 +96,27 @@ fluid.mercury=水銀
 fluid.lead=溶融鉛
 fluid.bismuth=溶融ビスマス
 fluid.thorium=溶融トリウム
-fluid.uranium=溶融ウラニウム
-fluid.plutonium=溶融プルトニウム
+fluid.uranium=溶融ウラニウム238
+fluid.plutonium=溶融プルトニウム244
 
 fluid.deuterium=重水素
 fluid.tritium=三重水素
 fluid.uranium235=溶融ウラニウム235
-fluid.plutonium241=溶融プルトニウム241
+fluid.plutonium239=溶融プルトニウム239
 
 fluid.wildcard=無効な
 fluid.hiiragi_tsubasa=使用例
 
-fluid.titanium_alloy=溶融チタン合金
-fluid.advanced_alloy=溶融発展合金
 fluid.invar=溶融インバー
-fluid.kanthal=溶融カンタル
 fluid.magnet=溶融磁石
-fluid.mangalloy=溶融高マンガン鋼
 fluid.stainless_steel=溶融ステンレス鋼
 fluid.steel=溶融鋼
 fluid.tool_steel=溶融道具鋼
 fluid.constantan=溶融コンスタンタン
-fluid.nichrome=溶融ニクロム
 fluid.brass=溶融黄銅
 fluid.bronze=溶融青銅
-fluid.nickelsilver=溶融洋白
 fluid.electrum=溶融エレクトラム
 fluid.tungsten_steel=溶融タングステン鋼
-fluid.iridium_alloy=溶融イリジウム合金
 
 # Item
 item.blazing_cube.name=燃え盛るキューブ
@@ -204,13 +199,13 @@ material.mercury=水銀
 material.lead=鉛
 material.bismuth=ビスマス
 material.thorium=トリウム
-material.uranium=ウラニウム
-material.plutonium=プルトニウム
+material.uranium=ウラニウム238
+material.plutonium=プルトニウム244
 
 material.deuterium=重水素
 material.tritium=三重水素
 material.uranium235=ウラニウム235
-material.plutonium241=プルトニウム241
+material.plutonium239=プルトニウム239
 
 material.wildcard=無効な
 material.hiiragi_tsubasa=らぎマテリアル

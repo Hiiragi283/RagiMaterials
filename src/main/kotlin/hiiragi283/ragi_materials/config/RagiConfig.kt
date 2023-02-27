@@ -95,6 +95,12 @@ object RagiConfig {
             const val prefix = "config.${Reference.MOD_ID}.material"
         }
 
+        @Config.Name("Enable radioactive decay")
+        @Config.LangKey("$prefix.enable_decay")
+        @JvmField
+        var enableDecay = false
+
+
         @Config.Name("List for Custom Material")
         @Config.Comment("Register your custom materials in above format")
         @Config.LangKey("$prefix.custom")

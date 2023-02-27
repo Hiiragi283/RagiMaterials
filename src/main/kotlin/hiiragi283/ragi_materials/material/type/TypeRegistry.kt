@@ -11,7 +11,12 @@ object TypeRegistry {
         EnumMaterialType.PLATE
     )) //宝石類
 
-    val DUST = MaterialType("dust", listOf(EnumMaterialType.DUST)) //個体全般
+    val DUST = MaterialType("dust", listOf(EnumMaterialType.DUST)) //固体全般
+
+    val DUST_RADIO = MaterialType("dust", listOf(
+        EnumMaterialType.DUST,
+        EnumMaterialType.RADIOACTIVE
+    )) //放射性固体
 
     val GAS = MaterialType("gas", listOf(EnumMaterialType.LIQUID)) //気体全般
 
@@ -37,6 +42,16 @@ object TypeRegistry {
         EnumMaterialType.PLATE,
         EnumMaterialType.STICK
     )) //金属全般
+
+    val METAL_RADIO = MaterialType("dust_radio", listOf(
+        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.DUST,
+        EnumMaterialType.INGOT,
+        EnumMaterialType.INGOT_HOT,
+        EnumMaterialType.LIQUID,
+        EnumMaterialType.NUGGET,
+        EnumMaterialType.RADIOACTIVE
+    )) //放射性金属用
 
     val METALLOID = MaterialType("metalloid", listOf(
         EnumMaterialType.BLOCK_METAL,

@@ -5,6 +5,7 @@ import hiiragi283.ragi_materials.material.type.MaterialType
 import java.awt.Color
 
 open class ElementBuilder(
+    index: Int,
     name: String,
     type: MaterialType,
     override var color: Color?,
@@ -12,4 +13,4 @@ open class ElementBuilder(
     override var formula: String?,
     override var tempMelt: Int?,
     override var tempBoil: Int?
-) : MaterialBuilder(-1, name, type)
+) : MaterialBuilder(index, name, type)

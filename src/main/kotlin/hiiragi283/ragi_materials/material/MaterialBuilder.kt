@@ -20,6 +20,7 @@ open class MaterialBuilder(
     open var tempBoil: Int? = null
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
+    open var decayed: MaterialBuilder? = null
 
     //化学式に()をつけるメソッド
     fun addBracket(): MaterialBuilder {
@@ -48,6 +49,12 @@ open class MaterialBuilder(
     //色を設定するメソッド
     fun setColor(color: Color?): MaterialBuilder {
         this.color = color
+        return this
+    }
+
+    //崩壊後の素材を設定するメソッド
+    fun setDecayed(decayed: MaterialBuilder): MaterialBuilder {
+        this.decayed = decayed
         return this
     }
 

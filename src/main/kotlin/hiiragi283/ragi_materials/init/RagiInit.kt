@@ -20,7 +20,8 @@ object RagiInit {
 
     //Creative Tabの定義
     val TabBlocks: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Blocks() else CreativeTabs.MISC
-    val TabFullBottle: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
+    val TabFullBottle: CreativeTabs =
+        if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
@@ -83,23 +84,24 @@ object RagiInit {
             ItemBlockSaltPond,
 
             ItemBlazingCube,
-            ItemBlockCrystal,
-            ItemBlockMetal,
             ItemBookDebug,
-            ItemDust,
-            ItemDustTiny,
             ItemForgeHammer,
             ItemFullBottle,
+            ItemSeedCoal,
+            ItemSeedLignite,
+            ItemSeedPeat,
+
+            ItemBlockCrystal,
+            ItemBlockMetal,
+            ItemDust,
+            ItemDustTiny,
             ItemGear,
             ItemCrystal,
             ItemIngot,
             ItemIngotHot,
             ItemNugget,
             ItemPlate,
-            ItemStick,
-            ItemSeedCoal,
-            ItemSeedLignite,
-            ItemSeedPeat
+            ItemStick
         )
         //Fluidの登録
         //listの各materialに対して実行

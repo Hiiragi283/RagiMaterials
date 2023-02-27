@@ -21,6 +21,8 @@ config.ragi_materials.material=Custom Material Registry
 config.ragi_materials.material.tooltip=Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048\nname: String ... used for translation key and ore dictionary\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... use color code\nformula: String ... show its chemical formula\nmolar_mass: Float ... show its molar mass [g/mol]\nmelting: Int ... show its melting point [°C]\nboiling: Int ... show its boiling point [°C]
 config.ragi_materials.material.custom=List for Custom Material
 config.ragi_materials.material.custom.tooltip=Register your custom materials in above format
+config.ragi_materials.material.enable_decay=Enable radioactive decay
+config.ragi_materials.material.enable_decay.tooltip=Destroy everything, connect everything.
 config.ragi_materials.material.max=Max Materials
 config.ragi_materials.material.max.tooltip=Set max number/metadata of materials registered
 
@@ -94,34 +96,27 @@ fluid.mercury=Mercury
 fluid.lead=Molten Lead
 fluid.bismuth=Molten Bismuth
 fluid.thorium=Molten Thorium
-fluid.uranium=Molten Uranium
-fluid.plutonium=Molten Plutonium
+fluid.uranium=Molten Uranium-238
+fluid.plutonium=Molten Plutonium-244
 
 fluid.deuterium=Deuterium
 fluid.tritium=Tritium
-fluid.uranium235=Molten Uranium 235
-fluid.plutonium241=Molten Plutonium 241
+fluid.uranium235=Molten Uranium-235
+fluid.plutonium239=Molten Plutonium-239
 
 fluid.wildcard=INVALID
 fluid.hiiragi_tsubasa=EXAMPLE
 
-fluid.titanium_alloy=Molten Titanium Alloy
-fluid.advanced_alloy=Molten Advanced Alloy
 fluid.invar=Molten Invar
-fluid.kanthal=Molten Kanthal
 fluid.magnet=Molten Magnet
-fluid.mangalloy=Molten Mangalloy
 fluid.stainless_steel=Molten Stainless Steel
 fluid.steel=Molten Steel
 fluid.tool_steel=Molten Tool Steel
 fluid.constantan=Molten Constantan
-fluid.nichrome=Molten Nichrome
 fluid.brass=Molten Brass
 fluid.bronze=Molten Bronze
-fluid.nickelsilver=Molten Nickel Silver
 fluid.electrum=Molten Electrum
 fluid.tungsten_steel=Molten Tungsten Steel
-fluid.iridium_alloy=Molten Iridium Alloy
 
 # Item
 item.blazing_cube.name=Blazing Cube
@@ -204,13 +199,13 @@ material.mercury=Mercury
 material.lead=Lead
 material.bismuth=Bismuth
 material.thorium=Thorium
-material.uranium=Uranium
-material.plutonium=Plutonium
+material.uranium=Uranium-238
+material.plutonium=Plutonium-244
 
 material.deuterium=Deuterium
 material.tritium=Tritium
-material.uranium235=Uranium 235
-material.plutonium241=Plutonium 241
+material.uranium235=Uranium-235
+material.plutonium239=Plutonium-239
 
 material.wildcard=INVALID
 material.hiiragi_tsubasa=EXAMPLE

@@ -12,5 +12,6 @@ enum class EnumMaterialType {
     LIQUID,
     NUGGET,
     PLATE,
-    STICK;
+    RADIOACTIVE,
+    STICK
 }

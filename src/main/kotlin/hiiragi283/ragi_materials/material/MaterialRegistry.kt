@@ -14,136 +14,136 @@ object MaterialRegistry {
 
     //1 ~ 94: Periodic Table
     //1st Period
-    val HYDROGEN = SimpleBuilder(1, ElementRegistry.HYDROGEN, 2)
+    val HYDROGEN = SimpleBuilder(ElementRegistry.HYDROGEN, 2)
 
-    val HELIUM = SimpleBuilder(2, ElementRegistry.HELIUM, 1)
+    val HELIUM = SimpleBuilder(ElementRegistry.HELIUM, 1)
 
     //2nd Period
-    val LITHIUM = SimpleBuilder(3, ElementRegistry.LITHIUM, 1)
+    val LITHIUM = SimpleBuilder(ElementRegistry.LITHIUM, 1)
 
-    val BERYLLIUM = SimpleBuilder(4, ElementRegistry.BERYLLIUM, 1)
+    val BERYLLIUM = SimpleBuilder(ElementRegistry.BERYLLIUM, 1)
 
-    val BORON = SimpleBuilder(5, ElementRegistry.BORON, 1)
+    val BORON = SimpleBuilder(ElementRegistry.BORON, 1)
 
-    val CARBON = SimpleBuilder(6, ElementRegistry.CARBON, 1)
+    val CARBON = SimpleBuilder(ElementRegistry.CARBON, 1)
 
-    val NITROGEN = SimpleBuilder(7, ElementRegistry.NITROGEN, 2)
+    val NITROGEN = SimpleBuilder(ElementRegistry.NITROGEN, 2)
 
-    val OXYGEN = SimpleBuilder(8, ElementRegistry.OXYGEN, 2)
+    val OXYGEN = SimpleBuilder(ElementRegistry.OXYGEN, 2)
 
-    val FLUORINE = SimpleBuilder(9, ElementRegistry.FLUORINE, 2)
+    val FLUORINE = SimpleBuilder(ElementRegistry.FLUORINE, 2)
 
-    val NEON = SimpleBuilder(10, ElementRegistry.NEON, 1)
+    val NEON = SimpleBuilder(ElementRegistry.NEON, 1)
 
     //3rd Period
-    val SODIUM = SimpleBuilder(11, ElementRegistry.SODIUM, 1)
+    val SODIUM = SimpleBuilder(ElementRegistry.SODIUM, 1)
 
-    val MAGNESIUM = SimpleBuilder(12, ElementRegistry.MAGNESIUM, 1)
+    val MAGNESIUM = SimpleBuilder(ElementRegistry.MAGNESIUM, 1)
 
-    val ALUMINIUM = SimpleBuilder(13, ElementRegistry.ALUMINIUM, 1).setOreDictAlias("Aluminum")
+    val ALUMINIUM = SimpleBuilder(ElementRegistry.ALUMINIUM, 1).setOreDictAlias("Aluminum")
 
-    val SILICON = SimpleBuilder(14, ElementRegistry.SILICON, 1)
+    val SILICON = SimpleBuilder(ElementRegistry.SILICON, 1)
 
-    val PHOSPHORUS = SimpleBuilder(15, ElementRegistry.PHOSPHORUS, 1)
+    val PHOSPHORUS = SimpleBuilder(ElementRegistry.PHOSPHORUS, 1)
 
-    val SULFUR = SimpleBuilder(16, ElementRegistry.SULFUR, 8)
+    val SULFUR = SimpleBuilder(ElementRegistry.SULFUR, 8)
 
-    val CHLORINE = SimpleBuilder(17, ElementRegistry.CHLORINE, 2)
+    val CHLORINE = SimpleBuilder(ElementRegistry.CHLORINE, 2)
 
-    val ARGON = SimpleBuilder(18, ElementRegistry.ARGON, 1)
+    val ARGON = SimpleBuilder(ElementRegistry.ARGON, 1)
 
     //4th Period
-    val POTASSIUM = SimpleBuilder(19, ElementRegistry.POTASSIUM, 1)
+    val POTASSIUM = SimpleBuilder(ElementRegistry.POTASSIUM, 1)
 
-    val CALCIUM = SimpleBuilder(20, ElementRegistry.CALCIUM, 1)
+    val CALCIUM = SimpleBuilder(ElementRegistry.CALCIUM, 1)
 
-    val TITANIUM = SimpleBuilder(22, ElementRegistry.TITANIUM, 1)
+    val TITANIUM = SimpleBuilder(ElementRegistry.TITANIUM, 1)
 
-    val CHROMIUM = SimpleBuilder(24, ElementRegistry.CHROMIUM, 1).setOreDictAlias("Chrome")
+    val CHROMIUM = SimpleBuilder(ElementRegistry.CHROMIUM, 1).setOreDictAlias("Chrome")
 
-    val MANGANESE = SimpleBuilder(25, ElementRegistry.MANGANESE, 1)
+    val MANGANESE = SimpleBuilder(ElementRegistry.MANGANESE, 1)
 
-    val IRON = SimpleBuilder(26, ElementRegistry.IRON, 1)
+    val IRON = SimpleBuilder(ElementRegistry.IRON, 1)
 
-    val COBALT = SimpleBuilder(27, ElementRegistry.COBALT, 1)
+    val COBALT = SimpleBuilder(ElementRegistry.COBALT, 1)
 
-    val NICKEL = SimpleBuilder(28, ElementRegistry.NICKEL, 1)
+    val NICKEL = SimpleBuilder(ElementRegistry.NICKEL, 1)
 
-    val COPPER = SimpleBuilder(29, ElementRegistry.COPPER, 1)
+    val COPPER = SimpleBuilder(ElementRegistry.COPPER, 1)
 
-    val ZINC = SimpleBuilder(30, ElementRegistry.ZINC, 1)
+    val ZINC = SimpleBuilder(ElementRegistry.ZINC, 1)
 
-    val GALLIUM = SimpleBuilder(31, ElementRegistry.GALLIUM, 1)
+    val GALLIUM = SimpleBuilder(ElementRegistry.GALLIUM, 1)
 
-    val ARSENIC = SimpleBuilder(33, ElementRegistry.ARSENIC, 1)
+    val ARSENIC = SimpleBuilder(ElementRegistry.ARSENIC, 1)
 
     //5th Period
-    val STRONTIUM = SimpleBuilder(38, ElementRegistry.STRONTIUM, 1)
+    val STRONTIUM = SimpleBuilder(ElementRegistry.STRONTIUM, 1)
 
-    val ZIRCONIUM = SimpleBuilder(40, ElementRegistry.ZIRCONIUM, 1)
+    val ZIRCONIUM = SimpleBuilder(ElementRegistry.ZIRCONIUM, 1)
 
-    val NIOBIUM = SimpleBuilder(41, ElementRegistry.NIOBIUM, 1)
+    val NIOBIUM = SimpleBuilder(ElementRegistry.NIOBIUM, 1)
 
-    val MOLYBDENUM = SimpleBuilder(42, ElementRegistry.MOLYBDENUM, 1)
+    val MOLYBDENUM = SimpleBuilder(ElementRegistry.MOLYBDENUM, 1)
 
-    val RUTHENIUM = SimpleBuilder(44, ElementRegistry.RUTHENIUM, 1)
+    val RUTHENIUM = SimpleBuilder(ElementRegistry.RUTHENIUM, 1)
 
-    val RHODIUM = SimpleBuilder(45, ElementRegistry.RHODIUM, 1)
+    val RHODIUM = SimpleBuilder(ElementRegistry.RHODIUM, 1)
 
-    val PALLADIUM = SimpleBuilder(46, ElementRegistry.PALLADIUM, 1)
+    val PALLADIUM = SimpleBuilder(ElementRegistry.PALLADIUM, 1)
 
-    val SILVER = SimpleBuilder(47, ElementRegistry.SILVER, 1)
+    val SILVER = SimpleBuilder(ElementRegistry.SILVER, 1)
 
-    val INDIUM = SimpleBuilder(49, ElementRegistry.INDIUM, 1)
+    val INDIUM = SimpleBuilder(ElementRegistry.INDIUM, 1)
 
-    val TIN = SimpleBuilder(50, ElementRegistry.TIN, 1)
+    val TIN = SimpleBuilder(ElementRegistry.TIN, 1)
 
-    val ANTIMONY = SimpleBuilder(51, ElementRegistry.ANTIMONY, 1)
+    val ANTIMONY = SimpleBuilder(ElementRegistry.ANTIMONY, 1)
 
-    val IODINE = SimpleBuilder(53, ElementRegistry.IODINE, 2)
+    val IODINE = SimpleBuilder(ElementRegistry.IODINE, 2)
 
     //6th Period
-    val BARIUM = SimpleBuilder(56, ElementRegistry.BARIUM, 1)
+    val BARIUM = SimpleBuilder(ElementRegistry.BARIUM, 1)
 
-    val NEODYMIUM = SimpleBuilder(60, ElementRegistry.NEODYMIUM, 1)
+    val NEODYMIUM = SimpleBuilder(ElementRegistry.NEODYMIUM, 1)
 
-    val SAMARIUM = SimpleBuilder(62, ElementRegistry.SAMARIUM, 1)
+    val SAMARIUM = SimpleBuilder(ElementRegistry.SAMARIUM, 1)
 
-    val HAFNIUM = SimpleBuilder(72, ElementRegistry.HAFNIUM, 1)
+    val HAFNIUM = SimpleBuilder(ElementRegistry.HAFNIUM, 1)
 
-    val TANTALUM = SimpleBuilder(73, ElementRegistry.TANTALUM, 1)
+    val TANTALUM = SimpleBuilder(ElementRegistry.TANTALUM, 1)
 
-    val TUNGSTEN = SimpleBuilder(74, ElementRegistry.TUNGSTEN, 1)
+    val TUNGSTEN = SimpleBuilder(ElementRegistry.TUNGSTEN, 1)
 
-    val OSMIUM = SimpleBuilder(76, ElementRegistry.OSMIUM, 1)
+    val OSMIUM = SimpleBuilder(ElementRegistry.OSMIUM, 1)
 
-    val IRIDIUM = SimpleBuilder(77, ElementRegistry.IRIDIUM, 1)
+    val IRIDIUM = SimpleBuilder(ElementRegistry.IRIDIUM, 1)
 
-    val PLATINUM = SimpleBuilder(78, ElementRegistry.PLATINUM, 1)
+    val PLATINUM = SimpleBuilder(ElementRegistry.PLATINUM, 1)
 
-    val GOLD = SimpleBuilder(79, ElementRegistry.GOLD, 1)
+    val GOLD = SimpleBuilder(ElementRegistry.GOLD, 1)
 
-    val MERCURY = SimpleBuilder(80, ElementRegistry.MERCURY, 1)
+    val MERCURY = SimpleBuilder(ElementRegistry.MERCURY, 1)
 
-    val LEAD = SimpleBuilder(82, ElementRegistry.LEAD, 1)
+    val LEAD = SimpleBuilder(ElementRegistry.LEAD, 1)
 
-    val BISMUTH = SimpleBuilder(83, ElementRegistry.BISMUTH, 1)
+    val BISMUTH = SimpleBuilder(ElementRegistry.BISMUTH, 1)
 
     //7th Period
-    val THORIUM = SimpleBuilder(90, ElementRegistry.THORIUM, 1)
+    val THORIUM = SimpleBuilder(ElementRegistry.THORIUM, 1).setDecayed(LEAD)
 
-    val URANIUM_238 = SimpleBuilder(92, ElementRegistry.URANIUM_238, 1)
+    val URANIUM_238 = SimpleBuilder(ElementRegistry.URANIUM_238, 1).setDecayed(LEAD)
 
-    val PLUTONIUM_239 = SimpleBuilder(94, ElementRegistry.PLUTONIUM_239, 1)
+    val PLUTONIUM_244 = SimpleBuilder(ElementRegistry.PLUTONIUM_244, 1).setDecayed(LEAD)
 
     //95 ~ 99: Isotope
-    val DEUTERIUM = SimpleBuilder(95, ElementRegistry.DEUTERIUM, 2)
+    val DEUTERIUM = SimpleBuilder(ElementRegistry.DEUTERIUM, 2)
 
-    val TRITIUM = SimpleBuilder(96, ElementRegistry.TRITIUM, 2)
+    val TRITIUM = SimpleBuilder(ElementRegistry.TRITIUM, 2)
 
-    val URANIUM_235 = SimpleBuilder(97, ElementRegistry.URANIUM_235, 1)
+    val URANIUM_235 = SimpleBuilder(ElementRegistry.URANIUM_235, 1).setDecayed(LEAD)
 
-    val PLUTONIUM_241 = SimpleBuilder(98, ElementRegistry.PLUTONIUM_241, 1)
+    val PLUTONIUM_239 = SimpleBuilder(ElementRegistry.PLUTONIUM_239, 1).setDecayed(URANIUM_235)
 
     //100 ~ 199: Fundamental Compounds
     val HYDROXIDE = CompoundBuilder(100, "hydroxide", TypeRegistry.INTERNAL, mapOf(ElementRegistry.OXYGEN to 1, ElementRegistry.HYDROGEN to 1))
@@ -218,7 +218,7 @@ object MaterialRegistry {
             )
         )
 
-    val REDSTONE = SimpleBuilder(209, ElementRegistry.REDSTONE, 1)
+    val REDSTONE = SimpleBuilder(ElementRegistry.REDSTONE, 1)
 
     val DIAMOND = CrystalBuilder(210, "diamond", mapOf(ElementRegistry.CARBON to 1), "diamond")
         .setColor(ElementRegistry.ALUMINIUM.color!!)
@@ -239,7 +239,7 @@ object MaterialRegistry {
 
     val SOUL_SAND = MaterialBuilder(214, "soul_sand", TypeRegistry.DUST)
 
-    val GLOWSTONE = SimpleBuilder(215, ElementRegistry.GLOWSTONE, 1)
+    val GLOWSTONE = SimpleBuilder(ElementRegistry.GLOWSTONE, 1)
 
     val NETHER_BRICK = CompoundBuilder(216, "nether_brick", TypeRegistry.INGOT, mapOf(NETHERRACK to 1))
         .setColor(
@@ -265,7 +265,7 @@ object MaterialRegistry {
         ), "hexagonal"
     ).setColor(RagiColor.GREEN)
 
-    val ENDER = SimpleBuilder(219, ElementRegistry.ENDER,1).setOreDictAlias("EnderPearl")
+    val ENDER = SimpleBuilder(ElementRegistry.ENDER,1).setOreDictAlias("EnderPearl")
 
     val PRISMARINE = CrystalBuilder(220, "prismarine", mapOf(QUARTZ to 1, WATER.addBracket() to 1), "trigonal")
         .setColor(ElementRegistry.ALUMINIUM.color!!)
@@ -445,14 +445,15 @@ object MaterialRegistry {
 
         //600 ~ :Integration Materials
         if (IntegrationCore.enableTF) {
-            val MITHRIL = SimpleBuilder(600, ElementRegistry.MITHRIL, 1)
+            val MITHRIL = SimpleBuilder(ElementRegistry.MITHRIL, 1)
 
             val SIGNALUM = AlloyBuilder(601, "signalum", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.SILVER to 1, ElementRegistry.REDSTONE to 10))
+                .setColor(RagiColor.mixColor(ElementRegistry.COPPER.color!!, RagiColor.DARK_RED))
 
             val LUMIUM = AlloyBuilder(602, "lumium", mapOf(ElementRegistry.TIN to 3, ElementRegistry.SILVER to 1, ElementRegistry.GLOWSTONE to 4))
 
             val ENDERIUM = AlloyBuilder(603, "enderium", mapOf(ElementRegistry.LEAD to 3, ElementRegistry.PLATINUM to 1, ElementRegistry.ENDER to 4))
-                //.setColor(ElementRegistry.ENDER.color)
+                .setColor(ElementRegistry.ENDER.color)
         }
     }
 }
