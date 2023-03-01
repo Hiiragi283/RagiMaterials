@@ -160,200 +160,90 @@ object MaterialRegistry {
 
     val SULFATE = CompoundBuilder(106, "sulfate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.SULFUR to 1, ElementRegistry.OXYGEN to 4))
 
-    val QUARTZ = CrystalBuilder(219, "quartz", mapOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 2), "trigonal")
-        .setColor(RagiColor.WHITE).setOre()
+    val QUARTZ = CrystalBuilder(219, "quartz", mapOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 2), "trigonal").setColor(RagiColor.WHITE).setOre()
 
     //200 ~ 299: Vanilla
-    val STONE = CompoundBuilder(200, "stone", TypeRegistry.STONE, mapOf(QUARTZ to 1))
-        .setColor(RagiColor.GRAY)
+    val STONE = CompoundBuilder(200, "stone", TypeRegistry.STONE, mapOf(QUARTZ to 1)).setColor(RagiColor.GRAY)
 
-    val WOOD = MixtureBuilder(201, "wood", TypeRegistry.WOOD, listOf(ElementRegistry.CARBON, ElementRegistry.HYDROGEN, ElementRegistry.OXYGEN))
-        .setColor(RagiColor.mixColor(mapOf(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1))).setBurnTime(200 * 1)
+    val WOOD = MixtureBuilder(201, "wood", TypeRegistry.WOOD, listOf(ElementRegistry.CARBON, ElementRegistry.HYDROGEN, ElementRegistry.OXYGEN)).setColor(RagiColor.mixColor(mapOf(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1))).setBurnTime(200 * 1)
 
-    val WATER = CompoundBuilder(202, "water", TypeRegistry.INTERNAL, mapOf(ElementRegistry.HYDROGEN to 2, ElementRegistry.OXYGEN to 1))
-        .setColor(RagiColor.BLUE)
-        .setTempMelt(0).setTempBoil(100)
+    val WATER = CompoundBuilder(202, "water", TypeRegistry.INTERNAL, mapOf(ElementRegistry.HYDROGEN to 2, ElementRegistry.OXYGEN to 1)).setColor(RagiColor.BLUE).setTempMelt(0).setTempBoil(100)
 
-    val LAVA = CompoundBuilder(203, "lava", TypeRegistry.INTERNAL, mapOf(QUARTZ to 1))
-        .setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.GOLD))
-        .setTempMelt(FluidRegistry.LAVA.temperature)
+    val LAVA = CompoundBuilder(203, "lava", TypeRegistry.INTERNAL, mapOf(QUARTZ to 1)).setColor(RagiColor.mixColor(RagiColor.DARK_RED, RagiColor.GOLD)).setTempMelt(FluidRegistry.LAVA.temperature)
 
-    val GLASS = CompoundBuilder(204, "glass", TypeRegistry.DUST, mapOf(QUARTZ to 1))
-        .setColor(RagiColor.WHITE)
+    val GLASS = CompoundBuilder(204, "glass", TypeRegistry.DUST, mapOf(QUARTZ to 1)).setColor(RagiColor.WHITE)
 
-    val LAPIS = MixtureBuilder(205, "lapis", TypeRegistry.DUST, listOf("?"))
-        .setColor(RagiColor.BLUE).setOre()
+    val LAPIS = MixtureBuilder(205, "lapis", TypeRegistry.DUST, listOf("?")).setColor(RagiColor.BLUE).setOre()
 
-    val CLAY = MixtureBuilder(206, "clay", TypeRegistry.DUST, listOf("?"))
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    RagiColor.BLUE to 1,
-                    RagiColor.AQUA to 1,
-                    RagiColor.WHITE to 2
-                )
-            )
-        )
+    val CLAY = MixtureBuilder(206, "clay", TypeRegistry.DUST, listOf("?")).setColor(RagiColor.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.AQUA to 1, RagiColor.WHITE to 2)))
 
-    val BRICK = CompoundBuilder(207, "brick", TypeRegistry.INGOT, mapOf(CLAY to 1))
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    RagiColor.DARK_RED to 4,
-                    RagiColor.DARK_PURPLE to 1,
-                    RagiColor.GOLD to 2,
-                    RagiColor.WHITE to 3
-                )
-            )
-        )
+    val BRICK = CompoundBuilder(207, "brick", TypeRegistry.INGOT, mapOf(CLAY to 1)).setColor(RagiColor.mixColor(mapOf(RagiColor.DARK_RED to 4, RagiColor.DARK_PURPLE to 1, RagiColor.GOLD to 2, RagiColor.WHITE to 3)))
 
-    val OBSIDIAN = CompoundBuilder(208, "obsidian", TypeRegistry.DUST, mapOf(QUARTZ to 1))
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    RagiColor.BLACK to 2,
-                    RagiColor.BLUE to 1,
-                    RagiColor.RED to 1
-                )
-            )
-        )
+    val OBSIDIAN = CompoundBuilder(208, "obsidian", TypeRegistry.DUST, mapOf(QUARTZ to 1)).setColor(RagiColor.mixColor(mapOf(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1)))
 
     val REDSTONE = SimpleBuilder(ElementRegistry.REDSTONE, 1).setOre()
 
-    val DIAMOND = CrystalBuilder(210, "diamond", mapOf(ElementRegistry.CARBON to 1), "diamond")
-        .setColor(ElementRegistry.ALUMINIUM.color!!).setOre()
+    val DIAMOND = CrystalBuilder(210, "diamond", mapOf(ElementRegistry.CARBON to 1), "diamond").setColor(ElementRegistry.ALUMINIUM.color!!).setOre()
 
-    val SNOW = CompoundBuilder(211, "snow", TypeRegistry.INGOT, mapOf(WATER to 1))
-        .setColor(RagiColor.WHITE)
+    val SNOW = CompoundBuilder(211, "snow", TypeRegistry.INGOT, mapOf(WATER to 1)).setColor(RagiColor.WHITE)
 
-    val ICE = CompoundBuilder(212, "ice", TypeRegistry.INGOT, mapOf(WATER to 1))
-        .setColor(ElementRegistry.ALUMINIUM.color!!).setOre()
+    val ICE = CompoundBuilder(212, "ice", TypeRegistry.INGOT, mapOf(WATER to 1)).setColor(ElementRegistry.ALUMINIUM.color!!).setOre()
 
-    val NETHERRACK = CompoundBuilder(
-        213,
-        "netherrack",
-        TypeRegistry.DUST,
-        mapOf(STONE.addBracket() to 1, ElementRegistry.SULFUR to 1, ElementRegistry.PHOSPHORUS to 1)
-    )
-        .setColor(RagiColor.DARK_RED)
+    val NETHERRACK = CompoundBuilder(213, "netherrack", TypeRegistry.DUST, mapOf(STONE.addBracket() to 1, ElementRegistry.SULFUR to 1, ElementRegistry.PHOSPHORUS to 1)).setColor(RagiColor.DARK_RED)
 
     val SOUL_SAND = MaterialBuilder(214, "soul_sand", TypeRegistry.DUST)
 
     val GLOWSTONE = SimpleBuilder(ElementRegistry.GLOWSTONE, 1)
 
-    val NETHER_BRICK = CompoundBuilder(216, "nether_brick", TypeRegistry.INGOT, mapOf(NETHERRACK to 1))
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    RagiColor.BLACK to 3,
-                    RagiColor.DARK_BLUE to 1,
-                    RagiColor.DARK_RED to 3
-                )
-            )
-        )
+    val NETHER_BRICK = CompoundBuilder(216, "nether_brick", TypeRegistry.INGOT, mapOf(NETHERRACK to 1)).setColor(RagiColor.mixColor(mapOf(RagiColor.BLACK to 3, RagiColor.DARK_BLUE to 1, RagiColor.DARK_RED to 3)))
 
-    val END_STONE =
-        CompoundBuilder(217, "end_stone", TypeRegistry.DUST, mapOf(STONE.addBracket() to 1, ElementRegistry.HELIUM to 1, ElementRegistry.TUNGSTEN to 1))
-            .setColor(ElementRegistry.PALLADIUM.color!!)
+    val END_STONE = CompoundBuilder(217, "end_stone", TypeRegistry.DUST, mapOf(STONE.addBracket() to 1, ElementRegistry.HELIUM to 1, ElementRegistry.TUNGSTEN to 1)).setColor(ElementRegistry.PALLADIUM.color!!)
 
-    val EMERALD = CrystalBuilder(
-        218, "emerald", mapOf(
-            ElementRegistry.BERYLLIUM to 3,
-            ElementRegistry.ALUMINIUM to 2,
-            ElementRegistry.SILICON to 6,
-            ElementRegistry.OXYGEN to 18
-        ), "hexagonal"
-    ).setColor(RagiColor.GREEN).setOre()
+    val EMERALD = CrystalBuilder(218, "emerald", mapOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18), "hexagonal").setColor(RagiColor.GREEN).setOre()
 
-    val ENDER = SimpleBuilder(ElementRegistry.ENDER,1).setOreDictAlias("EnderPearl")
+    val ENDER = SimpleBuilder(ElementRegistry.ENDER, 1).setOreDictAlias("EnderPearl")
 
-    val PRISMARINE = CrystalBuilder(220, "prismarine", mapOf(QUARTZ to 1, WATER.addBracket() to 1), "trigonal")
-        .setColor(ElementRegistry.ALUMINIUM.color!!)
+    val PRISMARINE = CrystalBuilder(220, "prismarine", mapOf(QUARTZ to 1, WATER.addBracket() to 1), "trigonal").setColor(ElementRegistry.ALUMINIUM.color!!)
 
-    val BONE = CompoundBuilder(221, "bone", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 3, PHOSPHATE.addBracket() to 2))
-        .setColor(RagiColor.WHITE).setOre()
+    val BONE = CompoundBuilder(221, "bone", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 3, PHOSPHATE.addBracket() to 2)).setColor(RagiColor.WHITE).setOre()
 
-    val NITER = CrystalBuilder(222, "niter", mapOf(ElementRegistry.POTASSIUM to 1, NITRATE to 1), "orthorhombic")
-        .setColor(RagiColor.WHITE).setOreDictAlias("Saltpeter").setOre()
+    val NITER = CrystalBuilder(222, "niter", mapOf(ElementRegistry.POTASSIUM to 1, NITRATE to 1), "orthorhombic").setColor(RagiColor.WHITE).setOreDictAlias("Saltpeter").setOre()
 
-    val GUNPOWDER =
-        CompoundBuilder(223, "gunpowder", TypeRegistry.DUST, mapOf(NITER.addBracket() to 2, ElementRegistry.CARBON to 1, ElementRegistry.SULFUR to 1))
-            .setColor(RagiColor.DARK_GRAY)
+    val GUNPOWDER = CompoundBuilder(223, "gunpowder", TypeRegistry.DUST, mapOf(NITER.addBracket() to 2, ElementRegistry.CARBON to 1, ElementRegistry.SULFUR to 1)).setColor(RagiColor.DARK_GRAY)
 
-    val SUGAR = CompoundBuilder(224, "sugar", TypeRegistry.DUST, mapOf(ElementRegistry.CARBON to 6, ElementRegistry.HYDROGEN to 12, ElementRegistry.OXYGEN to 6))
-        .setColor(RagiColor.WHITE).setBurnTime(200 * 1)
+    val SUGAR = CompoundBuilder(224, "sugar", TypeRegistry.DUST, mapOf(ElementRegistry.CARBON to 6, ElementRegistry.HYDROGEN to 12, ElementRegistry.OXYGEN to 6)).setColor(RagiColor.WHITE).setBurnTime(200 * 1)
 
     //Fossil Fuels
     val COAL = CrystalBuilder(225, "coal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8).setOre()
 
     val CHARCOAL = CrystalBuilder(226, "charcoal", mapOf(ElementRegistry.CARBON to 1), "coal").setBurnTime(200 * 8)
 
-    val COKE = CrystalBuilder(227, "coke", mapOf(ElementRegistry.CARBON to 1), "coal")
-        .setColor(RagiColor.DARK_GRAY).setBurnTime(200 * 16)
+    val COKE = CrystalBuilder(227, "coke", mapOf(ElementRegistry.CARBON to 1), "coal").setColor(RagiColor.DARK_GRAY).setBurnTime(200 * 16)
 
-    val ANTHRACITE = CrystalBuilder(228, "anthracite", mapOf(ElementRegistry.CARBON to 1), "coal")
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    ElementRegistry.CARBON.color!! to 5,
-                    RagiColor.DARK_BLUE to 1
-                )
-            )
-        ).setBurnTime(200 * 24).setOre()
+    val ANTHRACITE = CrystalBuilder(228, "anthracite", mapOf(ElementRegistry.CARBON to 1), "coal").setColor(RagiColor.mixColor(mapOf(ElementRegistry.CARBON.color!! to 5, RagiColor.DARK_BLUE to 1))).setBurnTime(200 * 24).setOre()
 
-    val LIGNITE = CrystalBuilder(229, "lignite", mapOf(ElementRegistry.CARBON to 1), "coal")
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    ElementRegistry.CARBON.color!! to 5,
-                    RagiColor.DARK_RED to 1
-                )
-            )
-        ).setBurnTime(200 * 4).setOre()
+    val LIGNITE = CrystalBuilder(229, "lignite", mapOf(ElementRegistry.CARBON to 1), "coal").setColor(RagiColor.mixColor(mapOf(ElementRegistry.CARBON.color!! to 5, RagiColor.DARK_RED to 1))).setBurnTime(200 * 4).setOre()
 
-    val PEAT = CrystalBuilder(230, "peat", mapOf(ElementRegistry.CARBON to 1), "coal")
-        .setColor(
-            RagiColor.mixColor(
-                mapOf(
-                    ElementRegistry.CARBON.color!! to 5,
-                    RagiColor.DARK_GREEN to 1,
-                    RagiColor.DARK_RED to 1
-                )
-            )
-        ).setBurnTime(200 * 2)
+    val PEAT = CrystalBuilder(230, "peat", mapOf(ElementRegistry.CARBON to 1), "coal").setColor(RagiColor.mixColor(mapOf(ElementRegistry.CARBON.color!! to 5, RagiColor.DARK_GREEN to 1, RagiColor.DARK_RED to 1))).setBurnTime(200 * 2)
 
     //300 ~ 399: Alloy
     val INVAR = AlloyBuilder(300, "invar", mapOf(ElementRegistry.IRON to 2, ElementRegistry.NICKEL to 1))
 
-    val MAGNET = AlloyBuilder(301, "magnet", mapOf(ElementRegistry.IRON to 1))
-        .setColor(ElementRegistry.CARBON.color!!)
+    val MAGNET = AlloyBuilder(301, "magnet", mapOf(ElementRegistry.IRON to 1)).setColor(ElementRegistry.CARBON.color!!)
 
-    val STAINLESS_STEEL = AlloyBuilder(302, "stainless_steel", mapOf(
-        ElementRegistry.IRON to 6,
-        ElementRegistry.CHROMIUM to 1,
-        ElementRegistry.MANGANESE to 1,
-        ElementRegistry.NICKEL to 1)
-    )
-        .setColor(RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE))
+    val STAINLESS_STEEL = AlloyBuilder(302, "stainless_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).setColor(RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE))
 
     val STEEL = AlloyBuilder(303, "steel", mapOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1))
 
-    val TOOL_STEEL = AlloyBuilder(304, "tool_steel", mapOf(
-        ElementRegistry.IRON to 6,
-        ElementRegistry.CHROMIUM to 1,
-        ElementRegistry.MANGANESE to 1,
-        ElementRegistry.MOLYBDENUM to 1
-    ))
+    val TOOL_STEEL = AlloyBuilder(304, "tool_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.MOLYBDENUM to 1))
 
     val CONSTANTAN = AlloyBuilder(305, "constantan", mapOf(ElementRegistry.NICKEL to 1, ElementRegistry.COPPER to 1))
 
-    val BRASS = AlloyBuilder(306, "brass", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.ZINC to 1))
-        .setColor(RagiColor.GOLD)
+    val BRASS = AlloyBuilder(306, "brass", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.ZINC to 1)).setColor(RagiColor.GOLD)
 
     val BRONZE = AlloyBuilder(307, "bronze", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.TIN to 1))
 
-    val ELECTRUM = AlloyBuilder(308, "electrum", mapOf(ElementRegistry.SILVER to 1, ElementRegistry.GOLD to 1))
-        .setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
+    val ELECTRUM = AlloyBuilder(308, "electrum", mapOf(ElementRegistry.SILVER to 1, ElementRegistry.GOLD to 1)).setColor(RagiColor.mixColor(RagiColor.YELLOW, RagiColor.WHITE))
 
     val TUNGSTEN_STEEL = AlloyBuilder(309, "tungsten_steel", mapOf(ElementRegistry.TUNGSTEN to 1, STEEL to 1))
 
@@ -447,13 +337,11 @@ object MaterialRegistry {
         if (IntegrationCore.enableTF) {
             val MITHRIL = SimpleBuilder(ElementRegistry.MITHRIL, 1)
 
-            val SIGNALUM = AlloyBuilder(601, "signalum", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.SILVER to 1, ElementRegistry.REDSTONE to 10))
-                .setColor(RagiColor.mixColor(ElementRegistry.COPPER.color!!, RagiColor.DARK_RED))
+            val SIGNALUM = AlloyBuilder(601, "signalum", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.SILVER to 1, ElementRegistry.REDSTONE to 10)).setColor(RagiColor.mixColor(ElementRegistry.COPPER.color!!, RagiColor.DARK_RED))
 
             val LUMIUM = AlloyBuilder(602, "lumium", mapOf(ElementRegistry.TIN to 3, ElementRegistry.SILVER to 1, ElementRegistry.GLOWSTONE to 4))
 
-            val ENDERIUM = AlloyBuilder(603, "enderium", mapOf(ElementRegistry.LEAD to 3, ElementRegistry.PLATINUM to 1, ElementRegistry.ENDER to 4))
-                .setColor(ElementRegistry.ENDER.color)
+            val ENDERIUM = AlloyBuilder(603, "enderium", mapOf(ElementRegistry.LEAD to 3, ElementRegistry.PLATINUM to 1, ElementRegistry.ENDER to 4)).setColor(ElementRegistry.ENDER.color)
         }
     }
 }

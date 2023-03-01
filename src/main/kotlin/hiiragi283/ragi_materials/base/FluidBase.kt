@@ -4,8 +4,8 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 
 open class FluidBase(ID: String) :
-    Fluid(
-        ID,
-        ResourceLocation("minecraft:blocks/concrete_powder_white"),
-        ResourceLocation("minecraft:blocks/concrete_powder_white")
-    )
+        Fluid(
+                ID,
+                ResourceLocation("minecraft:blocks/concrete_powder_white"),
+                ResourceLocation("minecraft:blocks/concrete_powder_white")
+        )

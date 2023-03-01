@@ -21,7 +21,7 @@ object RagiInit {
     //Creative Tabの定義
     val TabBlocks: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Blocks() else CreativeTabs.MISC
     val TabFullBottle: CreativeTabs =
-        if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
+            if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
@@ -68,46 +68,46 @@ object RagiInit {
     fun init() {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
-            BlockBellow,
-            BlockBlazeHeater,
-            BlockCropCoal,
-            BlockCropLignite,
-            BlockCropPeat,
-            BlockForgeFurnace,
-            BlockLitForgeFurnace,
-            BlockOreDictConv,
-            BlockSaltPond
+                BlockBellow,
+                BlockBlazeHeater,
+                BlockCropCoal,
+                BlockCropLignite,
+                BlockCropPeat,
+                BlockForgeFurnace,
+                BlockLitForgeFurnace,
+                BlockOreDictConv,
+                BlockSaltPond
         )
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
-            ItemBlockBellow,
-            ItemBlockBlazeHeater,
-            ItemBlockForgeFurnace,
-            ItemBlockOreDictConv,
-            ItemBlockSaltPond,
+                ItemBlockBellow,
+                ItemBlockBlazeHeater,
+                ItemBlockForgeFurnace,
+                ItemBlockOreDictConv,
+                ItemBlockSaltPond,
 
-            ItemBlazingCube,
-            ItemBookDebug,
-            ItemForgeHammer,
-            ItemFullBottle,
-            ItemSeedCoal,
-            ItemSeedLignite,
-            ItemSeedPeat,
+                ItemBlazingCube,
+                ItemBookDebug,
+                ItemForgeHammer,
+                ItemFullBottle,
+                ItemSeedCoal,
+                ItemSeedLignite,
+                ItemSeedPeat,
 
-            ItemBlockCrystal,
-            ItemBlockMetal,
-            ItemDust,
-            ItemDustTiny,
-            ItemGear,
-            ItemCrystal,
-            ItemIngot,
-            ItemIngotHot,
-            ItemNugget,
-            ItemOre,
-            ItemOreNether,
-            ItemOreEnd,
-            ItemPlate,
-            ItemStick
+                ItemBlockCrystal,
+                ItemBlockMetal,
+                ItemDust,
+                ItemDustTiny,
+                ItemGear,
+                ItemCrystal,
+                ItemIngot,
+                ItemIngotHot,
+                ItemNugget,
+                ItemOre,
+                ItemOreNether,
+                ItemOreEnd,
+                ItemPlate,
+                ItemStick
         )
         //Fluidの登録
         //listの各materialに対して実行

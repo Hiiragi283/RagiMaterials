@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.util.MaterialUtils
 import java.awt.Color
 
 open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<Any, Int>) :
-    MaterialBuilder(index, name, type) {
+        MaterialBuilder(index, name, type) {
 
     init {
         setColor(RagiColor.mixColor(getColorMap()))

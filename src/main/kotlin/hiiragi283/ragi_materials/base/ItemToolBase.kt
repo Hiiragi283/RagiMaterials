@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: ToolMaterial, set: Set<Block>) :
-    ItemTool(material, set) {
+        ItemTool(material, set) {
 
     //コンストラクタの初期化
     init {

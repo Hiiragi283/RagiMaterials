@@ -6,9 +6,7 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 
-open class MaterialBuilder(
-    open val index: Int, open val name: String, open val type: MaterialType
-) {
+open class MaterialBuilder(open val index: Int, open val name: String, open val type: MaterialType) {
 
     //private変数の宣言
     open var burnTime = -1
@@ -17,22 +15,18 @@ open class MaterialBuilder(
     open var formula: String? = null
     open var hasBracket = false
     open var molar: Float? = null
-    open var oredictAlias: String? = null
+    open var oredictAlt: String? = null
     open var tempBoil: Int? = null
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
     open var hasOre = false
 
     //化学式に()をつけるメソッド
-    fun addBracket(): MaterialBuilder {
-        hasBracket = true
-        return this
-    }
+    fun addBracket(): MaterialBuilder = also { it.hasBracket = true }
 
     //EnumMaterialもしくはindexから液体を取得するメソッド
     fun getFluid(): Fluid? {
         val fluid = FluidRegistry.getFluid(this.name)
-        //fluidが存在しない場合は水を返す
         return if (fluid !== null) fluid else null
     }
 
@@ -42,69 +36,38 @@ open class MaterialBuilder(
     }
 
     //燃焼時間を設定するメソッド
-    fun setBurnTime(time: Int): MaterialBuilder {
-        this.burnTime = time
-        return this
-    }
+    fun setBurnTime(time: Int): MaterialBuilder = also { it.burnTime = time }
 
     //色を設定するメソッド
-    fun setColor(color: Color?): MaterialBuilder {
-        this.color = color
-        return this
-    }
+    fun setColor(color: Color?): MaterialBuilder = also { it.color = color }
 
     //崩壊後の素材を設定するメソッド
-    fun setDecayed(decayed: MaterialBuilder): MaterialBuilder {
-        this.decayed = decayed
-        return this
-    }
+    fun setDecayed(material: MaterialBuilder): MaterialBuilder = also { it.decayed = material }
 
     //化学式を設定するメソッド
-    fun setFormula(formula: String?): MaterialBuilder {
-        this.formula = formula
-        return this
-    }
+    fun setFormula(formula: String?): MaterialBuilder = also { it.formula = formula }
 
     //モル質量を設定するメソッド
-    fun setMolarMass(molar: Float?): MaterialBuilder {
-        this.molar = molar
-        return this
-    }
+    fun setMolarMass(molar: Float?): MaterialBuilder = also { it.molar = molar }
 
     //鉱石を追加するメソッド
-    fun setOre(): MaterialBuilder {
-        this.hasOre = true
-        return this
-    }
+    fun setOre(): MaterialBuilder = also { it.hasOre = true }
 
     //モル質量を設定するメソッド
-    fun setOreDictAlias(name: String?): MaterialBuilder {
-        this.oredictAlias = name
-        return this
-    }
+    fun setOreDictAlias(oredict: String?): MaterialBuilder = also { it.oredictAlt = oredict }
 
     //融点を設定するメソッド
-    fun setTempMelt(melt: Int?): MaterialBuilder {
-        this.tempMelt = melt
-        return this
-    }
+    fun setTempMelt(melt: Int?): MaterialBuilder = also { it.tempMelt = melt }
 
     //沸点を設定するメソッド
-    fun setTempBoil(boil: Int?): MaterialBuilder {
-        this.tempBoil = boil
-        return this
-    }
+    fun setTempBoil(boil: Int?): MaterialBuilder = also { it.tempBoil = boil }
 
     //昇華点を設定するメソッド
-    fun setTempSubl(subl: Int?): MaterialBuilder {
-        this.tempSubl = subl
-        return this
-    }
+    fun setTempSubl(subl: Int?): MaterialBuilder = also { it.tempSubl = subl }
 
     //素材を登録するメソッド
-    fun register(): MaterialBuilder {
-        MaterialRegistry.mapIndex[this.index] = this
-        MaterialRegistry.mapName[this.name] = this
-        return this
+    fun register(): MaterialBuilder = also {
+        MaterialRegistry.mapIndex[it.index] = it
+        MaterialRegistry.mapName[it.name] = it
     }
 }

@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 open class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
-    ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
+        ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {
         creativeTab = RagiInit.TabMaterials
@@ -58,8 +58,8 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val material = MaterialManager.getMaterial(stack.metadata)
         return if (material !== null) I18n.format(
-            "item.ragi_$ID.name",
-            I18n.format("material.${material.name}")
+                "item.ragi_$ID.name",
+                I18n.format("material.${material.name}")
         ) else super.getItemStackDisplayName(stack)
     }
 
