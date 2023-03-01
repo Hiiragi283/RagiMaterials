@@ -16,6 +16,8 @@ import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 
@@ -79,6 +81,11 @@ object RagiUtils {
         tag.setInteger("Amount", 1000)
         bucket.tagCompound = tag
         return bucket
+    }
+
+    //液体名と量からFluidStackを返すメソッド
+    fun getFluidStack(name: String, amount: Int): FluidStack {
+        return FluidStack(FluidRegistry.getFluid(name), amount)
     }
 
     //ResourceLocationなどからIBlockStateを取得するメソッド

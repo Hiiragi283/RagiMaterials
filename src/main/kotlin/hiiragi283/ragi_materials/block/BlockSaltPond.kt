@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.item.ItemFullBottle
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.block.Block
@@ -29,6 +29,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandlerItem
 import net.minecraftforge.fml.relauncher.Side
@@ -50,9 +51,7 @@ class BlockSaltPond : Block(Material.WOOD) {
     private val box = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
 
     init {
-        defaultState =
-            blockState.baseState.withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false)
-                .withProperty(WEST, false).withProperty(TYPE, EnumSalt.EMPTY)
+        defaultState = blockState.baseState.withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(TYPE, EnumSalt.EMPTY)
         setCreativeTab(RagiInit.TabBlocks)
         setHardness(2.0F)
         setHarvestLevel("axe", 0)
@@ -92,18 +91,12 @@ class BlockSaltPond : Block(Material.WOOD) {
         val connectE = canConnectTo(world, pos, EnumFacing.EAST)
         val connectS = canConnectTo(world, pos, EnumFacing.SOUTH)
         val connectW = canConnectTo(world, pos, EnumFacing.WEST)
-        return state.withProperty(NORTH, connectN).withProperty(EAST, connectE).withProperty(SOUTH, connectS)
-            .withProperty(WEST, connectW)
+        return state.withProperty(NORTH, connectN).withProperty(EAST, connectE).withProperty(SOUTH, connectS).withProperty(WEST, connectW)
     }
 
     //面の種類を取得するメソッド
     @Deprecated("Deprecated in Java")
-    override fun getBlockFaceShape(
-        worldIn: IBlockAccess,
-        state: IBlockState,
-        pos: BlockPos,
-        face: EnumFacing
-    ): BlockFaceShape {
+    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
         return when (face) {
             //下 -> SOLID
             EnumFacing.DOWN -> BlockFaceShape.SOLID
@@ -114,9 +107,7 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     //ブロックの当たり判定を取得するメソッド
     @Deprecated("Deprecated in Java")
-    override fun getBoundingBox(
-        state: IBlockState, world: IBlockAccess, pos: BlockPos
-    ): AxisAlignedBB {
+    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
         return box
     }
 
@@ -155,52 +146,43 @@ class BlockSaltPond : Block(Material.WOOD) {
         return false
     }
 
-    override fun onBlockActivated(
-        world: World,
-        pos: BlockPos,
-        state: IBlockState,
-        player: EntityPlayer,
-        hand: EnumHand,
-        facing: EnumFacing,
-        hitX: Float,
-        hitY: Float,
-        hitZ: Float
-    ): Boolean {
+    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         val stack = player.getHeldItem(hand)
         //サーバー側，かつ塩田ブロックが空の場合
         if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
             val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-            if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.name !== null)) {
-                when (fluidItem.tankProperties[0].contents!!.fluid.name) {
-                    //水バケツの場合
-                    "water" -> {
-                        placeFluid(world, pos, state, fluidItem)
-                        RagiLogger.infoDebug("Water was placed!")
+            if ((fluidItem !== null)) {
+                RagiLogger.infoDebug("The fluidItem is not null!")
+                if ((fluidItem.tankProperties[0].contents !== null)) {
+                    when (fluidItem.tankProperties[0].contents!!.fluid) {
+                        //水の場合
+                        FluidRegistry.getFluid("water") -> {
+                            placeFluid(world, pos, state, fluidItem, EnumSalt.WATER)
+                            RagiLogger.infoDebug("Water was placed!")
+                        }
+                        //Saltwaterの場合
+                        FluidRegistry.getFluid("saltwater") -> {
+                            placeFluid(world, pos, state, fluidItem, EnumSalt.SALTWATER)
+                            RagiLogger.infoDebug("Saltwater was placed!")
+                        }
+                        //Brineの場合
+                        FluidRegistry.getFluid("brine") -> {
+                            placeFluid(world, pos, state, fluidItem, EnumSalt.BRINE)
+                            RagiLogger.infoDebug("Brine was placed!")
+                        }
                     }
-                    //Saltwaterの場合
-                    "saltwater" -> {
-                        placeFluid(world, pos, state, fluidItem)
-                        RagiLogger.infoDebug("Saltwater was placed!")
-                    }
-                    //Brineの場合
-                    "brine" -> {
-                        placeFluid(world, pos, state, fluidItem)
-                        RagiLogger.infoDebug("Brine was placed!")
-                    }
-                }
+                } else RagiLogger.infoDebug("The content is null!")
             }
         }
-        world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
         return true
     }
 
     //液体を設置した際の挙動をまとめたメソッド
-    private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem) {
-        world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.WATER), 2) //stateの更新
-        if (fluidItem !is ItemFullBottle.FullBottleFluidHandler) fluidItem.drain(1000, true) //液体を1000 mb汲み取る
-        world.playSound(
-            null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f
-        ) //SEを再生
+    private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem, type: EnumSalt) {
+        fluidItem.drain(1000, true) //液体を1000 mb汲み取る
+        world.setBlockState(pos, state.withProperty(TYPE, type), 2) //stateの更新
+        world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
+        world.playSound(null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
     }
 
     //ドロップする確率を得るメソッド
@@ -215,33 +197,29 @@ class BlockSaltPond : Block(Material.WOOD) {
         if (!world.isRemote) {
             //完成品の場合分け
             val stack: ItemStack = when (state.getValue(TYPE)) {
-                EnumSalt.WATER -> ItemStack(RagiInit.ItemDust, 1, 11)
-                EnumSalt.SALTWATER -> ItemStack(RagiInit.ItemDust, 1, 12)
-                EnumSalt.BRINE -> ItemStack(RagiInit.ItemDust, 1, 3)
+                EnumSalt.WATER -> ItemStack(RagiInit.ItemDust, 1, MaterialRegistry.SALT.index)
+                EnumSalt.SALTWATER -> ItemStack(RagiInit.ItemDust, 1, MaterialRegistry.MAGNESIUM_CHLORIDE.index)
+                EnumSalt.BRINE -> ItemStack(RagiInit.ItemDust, 1, MaterialRegistry.LITHIUM_CHLORIDE.index)
                 else -> ItemStack.EMPTY
             }
             if (stack.item != Items.AIR) {
-                val drop = EntityItem(
-                    world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 0.75, pos.z.toDouble() + 0.5, stack
-                ) //完成品のEntityItem
+                val drop = EntityItem(world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 0.75, pos.z.toDouble() + 0.5, stack) //完成品のEntityItem
                 drop.setPickupDelay(0) //即座に回収できるようにする
                 drop.motionX = 0.0
                 drop.motionY = 0.0
                 drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
                 world.spawnEntity(drop) //dropをスポーン
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
-                world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
+                world.playSound(null, pos, RagiUtils.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
             }
         }
     }
 
-    enum class EnumSalt(val indexInt: Int, private val indexName: String) : IStringSerializable {
+    enum class EnumSalt(val indexInt: Int, val fluid: String) : IStringSerializable {
         EMPTY(0, "empty"), WATER(1, "water"), SALTWATER(2, "saltwater"), BRINE(3, "brine");
 
         override fun getName(): String {
-            return this.indexName
+            return this.fluid
         }
     }
 }

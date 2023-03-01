@@ -74,7 +74,24 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
         }
     }
 
-    class FullBottleFluidHandler(container: ItemStack, capacity:Int): FluidHandlerItemStackSimple(container, capacity) {
+    class FullBottleFluidHandler(val stack: ItemStack, capacity:Int): FluidHandlerItemStackSimple(stack, capacity) {
+
+        //液体を組みだすメソッド
+        override fun drain(maxDrain: Int, doDrain: Boolean): FluidStack? {
+            //stackにNBTタグがない場合, NBTタグを付与
+            if (stack.tagCompound == null) stack.tagCompound = NBTTagCompound()
+            //NBTタグからFluidStackを取得
+            val fluidstack = FluidStack.loadFluidStackFromNBT(stack.tagCompound)
+            //FluidStackがnullでない場合
+            return if (fluidstack !== null) {
+                val amount = fluidstack.amount //液体量を取得
+                //液体量が1000の場合
+                if (amount == 1000) {
+                    if (doDrain) stack.shrink(1) //doDrain==trueの場合，空のボトルを返す
+                    fluidstack.copy() //FluidStackを返す
+                } else null
+            } else null
+        }
 
         //液体を組めるか判定するメソッド
         override fun canFillFluidType(fluidStack: FluidStack): Boolean {
