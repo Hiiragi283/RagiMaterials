@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialRegistryOld
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack

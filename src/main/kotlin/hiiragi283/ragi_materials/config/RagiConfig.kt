@@ -109,7 +109,7 @@ object RagiConfig {
             "1024:hiiragi_tsubasa:metal:FF003F:H.T.:110.9f:283:1109"
         )
 
-        @Config.Name("Max Materials")
+        @Config.Name("Max MaterialRegistry")
         @Config.Comment("Set max number of materials registered")
         @Config.LangKey("$prefix.max")
         @Config.RangeInt(min = 1024, max = 32767)

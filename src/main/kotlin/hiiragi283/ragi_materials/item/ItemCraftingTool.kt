@@ -1,17 +1,5 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.util.RagiNBT
-import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.item.ItemStack
-import net.minecraft.world.World
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-
 /*
 class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemBase(Reference.MOD_ID, ID, maxMeta) {
 
@@ -32,7 +20,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
                     //materialの取得
                     val material = MaterialManager.getMaterial(j)
                     //materialがWILDCARDでない，かつmaterialがmapToolMaterialに含まれている場合
-                    if (material !== MaterialRegistry.WILDCARD && MaterialRegistry.mapIndexToolMaterial.contains(material)) {
+                    if (material !== MaterialRegistryOld.WILDCARD && MaterialRegistry.mapIndexToolMaterial.contains(material)) {
                         //NBTタグの生成
                         val tag = RagiNBT.getTagTool(material)
                         //ItemStackの生成
@@ -52,7 +40,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {
             //NBTタグを生成・代入
-            stack.tagCompound = RagiNBT.getTagTool(MaterialRegistry.WILDCARD)
+            stack.tagCompound = RagiNBT.getTagTool(MaterialRegistryOld.WILDCARD)
         }
         //NBTタグを取得
         val tag = stack.tagCompound!!
@@ -85,7 +73,7 @@ class ItemCraftingTool(private val ID: String, private val maxMeta: Int) : ItemB
         //NBTタグが存在しない場合
         if (stack.tagCompound == null) {
             //NBTタグを生成・代入
-            stack.tagCompound = RagiNBT.getTagTool(MaterialRegistry.WILDCARD)
+            stack.tagCompound = RagiNBT.getTagTool(MaterialRegistryOld.WILDCARD)
         }
         //NBTタグを取得
         val tag = stack.tagCompound!!

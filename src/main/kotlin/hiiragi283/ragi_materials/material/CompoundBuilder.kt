@@ -9,13 +9,13 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
         MaterialBuilder(index, name, type) {
 
     init {
-        setColor(RagiColor.mixColor(getColorMap()))
+        setColor()
         setFormula(MaterialUtils.calcFormula(components))
-        setMolarMass(setMolar())
+        setMolar()
         register()
     }
 
-    private fun getColorMap(): MutableMap<Color, Int> {
+    private fun setColor() {
         //Mapの宣言
         val mapColor: MutableMap<Color, Int> = mutableMapOf()
         //components内の各keyに対して実行
@@ -23,10 +23,10 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
             //ColorとIntを対応させる
             if (key is MaterialBuilder && key.color !== null) mapColor[key.color!!] = components.getValue(key)
         }
-        return mapColor
+        this.color = RagiColor.mixColor(mapColor)
     }
 
-    private fun setMolar(): Float? {
+    private fun setMolar() {
         //変数の宣言
         var molar = 0.0f
         val components = components
@@ -37,6 +37,6 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
                 molar += key.molar!! * components.getValue(key)
             }
         }
-        return if (molar == 0.0f) null else molar
+        this.molar = if (molar == 0.0f) null else molar
     }
 }

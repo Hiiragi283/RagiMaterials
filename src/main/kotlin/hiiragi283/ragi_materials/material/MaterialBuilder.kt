@@ -54,7 +54,7 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
     fun setOre(): MaterialBuilder = also { it.hasOre = true }
 
     //モル質量を設定するメソッド
-    fun setOreDictAlias(oredict: String?): MaterialBuilder = also { it.oredictAlt = oredict }
+    fun setOreDictAlt(oredict: String?): MaterialBuilder = also { it.oredictAlt = oredict }
 
     //融点を設定するメソッド
     fun setTempMelt(melt: Int?): MaterialBuilder = also { it.tempMelt = melt }
@@ -67,7 +67,7 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //素材を登録するメソッド
     fun register(): MaterialBuilder = also {
-        MaterialRegistry.mapIndex[it.index] = it
+        if(it.index >= 0) MaterialRegistry.mapIndex[it.index] = it
         MaterialRegistry.mapName[it.name] = it
     }
 }

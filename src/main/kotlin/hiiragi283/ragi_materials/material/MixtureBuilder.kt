@@ -6,12 +6,12 @@ class MixtureBuilder(index: Int, name: String, type: MaterialType, private val l
 
     init {
         color = null
-        formula = calcFormula()
         molar = null
         register()
+        setFormula()
     }
 
-    private fun calcFormula(): String {
+    private fun setFormula() {
         //変数の宣言・初期化
         var formula = ""
         //list内の各要素に対して実行
@@ -19,6 +19,6 @@ class MixtureBuilder(index: Int, name: String, type: MaterialType, private val l
             if (i is MaterialBuilder) formula += ",${i.formula}"
             else if (i is String) formula += ",$i"
         }
-        return "(${formula.substring(1)})" //化学式を整形して返す
+        this.formula = "(${formula.substring(1)})"
     }
 }

@@ -2,15 +2,14 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 
-class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) :
-        CompoundBuilder(index, name, TypeRegistry.METAL, components) {
+class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) : CompoundBuilder(index, name, TypeRegistry.METAL, components) {
 
     init {
-        tempBoil = setBoil()
-        tempMelt = setMelt()
+        setBoil()
+        setMelt()
     }
 
-    private fun setBoil(): Int {
+    private fun setBoil() {
         //変数の宣言
         var tempBoil = 0
         var divideBoil = 0
@@ -25,10 +24,10 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) :
         }
         //沸点の平均値をとる
         tempBoil /= divideBoil
-        return tempBoil
+        this.tempBoil = tempBoil
     }
 
-    private fun setMelt(): Int {
+    private fun setMelt() {
         //変数の宣言
         var tempMelt = 0
         var divideMelt = 0
@@ -43,6 +42,6 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) :
         }
         //融点の平均値をとる
         tempMelt /= divideMelt
-        return tempMelt
+        this.tempMelt = tempMelt
     }
 }

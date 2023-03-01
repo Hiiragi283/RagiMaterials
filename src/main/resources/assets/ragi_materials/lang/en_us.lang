@@ -54,22 +54,25 @@ config.ragi_materials.utility.max_stack.tooltip=The maximum stack size of items 
 # Fluid
 fluid.hydrogen=Hydrogen
 fluid.helium=Helium
-fluid.beryllium=Molten Beryllium
+fluid.neon=Neon
+fluid.argon=Argon
+
 fluid.lithium=Molten Lithium
-#fluid.boron=Molten Boron
-#fluid.carbon=Molten Carbon
+fluid.beryllium=Molten Beryllium
+fluid.carbon_dioxide=Carbon Dioxide
 fluid.nitrogen=Nitrogen
+fluid.nitric_acid=Nitric Acid
 fluid.oxygen=Oxygen
 fluid.fluorine=Fluorine
-fluid.neon=Neon
-fluid.sodium=Molten Sodium
+fluid.hydrogen_fluoride=Hydrogen Fluoride
+
 fluid.magnesium=Molten Magnesium
 fluid.aluminium=Molten Aluminium
 fluid.silicon=Molten Silicon
-#fluid.phosphorus=Molten Phosphorus
-#fluid.sulfur=Molten Sulfur
+fluid.sulfuric_acid=Sulfuric Acid
 fluid.chlorine=Chlorine
-fluid.argon=Argon
+fluid.hydrogen_chloride=Hydrogen Chloride
+
 fluid.potassium=Molten Potassium
 fluid.calcium=Molten Calcium
 fluid.titanium=Molten Titanium
@@ -81,7 +84,6 @@ fluid.nickel=Molten Nickel
 fluid.copper=Molten Copper
 fluid.zinc=Molten Zinc
 fluid.gallium=Molten Gallium
-#fluid.arsenic=Molten Arsenic
 fluid.strontium=Molten Strontium
 fluid.zirconium=Molten Zirconium
 fluid.niobium=Molten Niobium
@@ -93,7 +95,6 @@ fluid.silver=Molten Silver
 fluid.indium=Molten Indium
 fluid.tin=Molten Tin
 fluid.antimony=Molten Antimony
-#fluid.iodine=Molten iodine
 fluid.barium=Molten Barium
 fluid.neodymium=Molten Neodymium
 fluid.samarium=Molten Samarium
@@ -157,25 +158,78 @@ item.seed_lignite.name=Lignite Seed
 item.seed_peat.name=Peat Seed
 
 # Materials
-
 material.hydrogen=Hydrogen
+material.water=Water
+material.snow=Snow
+material.ice=Ice
+
 material.helium=Helium
-material.beryllium=Beryllium
-material.lithium=Lithium
-material.boron=Boron
-material.carbon=Carbon
-material.nitrogen=Nitrogen
-material.oxygen=Oxygen
-material.fluorine=Fluorine
 material.neon=Neon
-material.sodium=Sodium
-material.magnesium=Magnesium
-material.aluminium=Aluminium
-material.silicon=Silicon
-material.phosphorus=Phosphorus
-material.sulfur=Sulfur
-material.chlorine=Chlorine
 material.argon=Argon
+
+material.lithium=Lithium
+
+material.beryllium=Beryllium
+
+material.boron=Boron
+
+material.carbon=Carbon
+material.carbon_dioxide=Carbon Dioxide
+material.coal=Coal
+material.charcoal=Charcoal
+material.coke=Coke
+material.anthracite=Anthracite
+material.lignite=Lignite
+material.peat=Peat
+
+material.nitrogen=Nitrogen
+material.nitric_acid=Nitric Acid
+material.niter=Niter
+
+material.oxygen=Oxygen
+
+material.fluorine=Fluorine
+material.fluorite=Fluorite
+material.hydrogen_fluoride=Hydrogen Fluoride
+
+material.sodium=Sodium
+material.sodium_hydroxide=Sodium Hydroxide
+material.sodium_bicarbonate=Sodium Bicarbonate
+material.sodium_carbonate=Sodium Carbonate
+material.sodium_sulfide=Sodium Sulfide
+material.sodium_bisulfate=Sodium Bisulfate
+material.sodium_sulfate=Sodium Sulfate
+
+material.magnesium=Magnesium
+
+material.aluminium=Aluminium
+material.aluminium_oxide=Aluminium Oxide
+material.bauxite=Bauxite
+material.ruby=Ruby
+material.sapphire=Sapphire
+
+material.silicon=Silicon
+material.silicon_dioxide=Silicon Dioxide
+material.glass=Glass
+
+material.phosphorus=Phosphorus
+
+material.sulfur=Sulfur
+material.sulfuric_acid=Sulfuric Acid
+
+material.chlorine=Chlorine
+material.hydrogen_chloride=Hydrogen Chloride
+material.lithium_chloride=Lithium Chloride
+material.salt=Salt
+material.magnesium_chloride=Magnesium Chloride
+
+material.stone=Stone
+material.lava=Lava
+material.obsidian=Obsidian
+material.netherrack=Netherrack
+material.soul_sand=Soul Sand
+material.end_stone=End Stone
+
 material.potassium=Potassium
 material.calcium=Calcium
 material.titanium=Titanium
@@ -226,39 +280,20 @@ material.wildcard=INVALID
 material.hiiragi_tsubasa=EXAMPLE
 
 material.quartz=Quartz
-
-material.stone=Stone
 material.wood=Wood
-material.water=Water
-material.lava=Lava
-material.glass=Glass
 material.lapis=Lapis
 material.clay=Clay
 material.brick=Brick
-material.obsidian=Obsidian
 material.redstone=Redstone
 material.diamond=Diamond
-material.snow=Snow
-material.ice=Ice
-material.netherrack=Netherrack
-material.soul_sand=Soul Sand
 material.glowstone=Glowstone
 material.nether_brick=Nether Brick
-material.end_stone=End Stone
 material.emerald=Emerald
 material.ender=Ender Pearl
 material.prismarine=Prismarine
 material.bone=Bone
-material.niter=Niter
 material.gunpowder=Gunpowder
 material.sugar=Sugar
-
-material.coal=Coal
-material.charcoal=Charcoal
-material.coke=Coke
-material.anthracite=Anthracite
-material.lignite=Lignite
-material.peat=Peat
 
 material.invar=Invar
 material.magnet=Magnet

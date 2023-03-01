@@ -37,7 +37,7 @@ object RagiNBT {
         //materialがmapToolMaterialに含まれていない場合
         else {
             //WILDCARDの耐久値を参照
-            tag.setInteger("durability", MaterialRegistry.mapIndexToolMaterial[MaterialRegistry.WILDCARD]!!)
+            tag.setInteger("durability", MaterialRegistry.mapIndexToolMaterial[MaterialRegistryOld.WILDCARD]!!)
         }
         return tag
     }*/

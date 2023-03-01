@@ -6,6 +6,7 @@ import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialRegistryOld
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiUtils

@@ -1,12 +1,10 @@
 package hiiragi283.ragi_materials.render.model
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.CrystalBuilder
 import hiiragi283.ragi_materials.material.MaterialManager
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 
