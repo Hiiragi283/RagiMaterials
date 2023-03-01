@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.render.color.RagiColor
 import hiiragi283.ragi_materials.util.MaterialUtils
 import java.awt.Color
+import java.math.BigDecimal
 
 open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<Any, Int>) :
         MaterialBuilder(index, name, type) {
@@ -28,15 +29,15 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
 
     private fun setMolar() {
         //変数の宣言
-        var molar = 0.0f
+        val molar = BigDecimal.ZERO
         val components = components
         //components内の各keyに対して実行
         for (key in components.keys) {
             //keyがMaterialBuilder型の場合
             if (key is MaterialBuilder && key.molar !== null) {
-                molar += key.molar!! * components.getValue(key)
+                molar.add(key.molar!!.toBigDecimal() * components.getValue(key).toBigDecimal())
             }
         }
-        this.molar = if (molar == 0.0f) null else molar
+        this.molar = if (molar == BigDecimal.ZERO) null else molar.toFloat()
     }
 }

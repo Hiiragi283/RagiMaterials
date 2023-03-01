@@ -12,9 +12,9 @@ object OreDictRegistry {
             OreDictHandler(EnumMaterialType.CRYSTAL, "gem", "crystal"),
             OreDictHandler(EnumMaterialType.DUST, "dust", "dust"),
             OreDictHandler(EnumMaterialType.DUST, "dustTiny", "dust_tiny"),
-            OreDictHandler(EnumMaterialType.DUST, "ore", "ore"),
-            OreDictHandler(EnumMaterialType.DUST, "ore", "ore_nether"),
-            OreDictHandler(EnumMaterialType.DUST, "ore", "ore_end"),
+            OreDictHandler(EnumMaterialType.DUMMY, "ore", "ore"),
+            OreDictHandler(EnumMaterialType.DUMMY, "ore", "ore_nether"),
+            OreDictHandler(EnumMaterialType.DUMMY, "ore", "ore_end"),
             OreDictHandler(EnumMaterialType.INGOT, "ingot", "ingot"),
             OreDictHandler(EnumMaterialType.PLATE, "plate", "plate"),
             OreDictHandler(EnumMaterialType.STICK, "stick", "stick"),
@@ -42,6 +42,12 @@ object OreDictRegistry {
                                 RagiUtils.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, material.index)
                         )
                     }
+                }
+                if (material.hasOre) {
+                    RagiUtils.setOreDict(
+                            oredict.prefix + material.getOreDict(),
+                            RagiUtils.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, material.index)
+                    )
                 }
             }
         }

@@ -213,9 +213,6 @@ object MaterialRegistryOld {
         OXYGEN to 4
     ), "orthorhombic").setColor(ALUMINIUM.color)
 
-    val GYPSUM = CrystalBuilder(209, "gypsum", mapOf(CALCIUM to 1, SULFUR to 1, OXYGEN to 4), "monoclinic")
-        .setColor(RHODIUM.color)
-
     val MALACHITE = CrystalBuilder(210, "malachite", mapOf(
         COPPER to 2,
         "(CO\u2083)" to 1,
@@ -227,14 +224,7 @@ object MaterialRegistryOld {
 
     val OPAL = CrystalBuilder(212, "opal", mapOf(SILICON to 1, OXYGEN to 2), "amorphous")
 
-    val SALT = CrystalBuilder(213, "salt", mapOf(SODIUM to 1, CHLORINE to 1), "cubic")
-        .setColor(RagiColor.WHITE)
 
-    val RUBY = CrystalBuilder(214, "ruby", mapOf(CHROMIUM to 1, ALUMINIUM to 2, OXYGEN to 3), "trigonal")
-        .setColor(RagiColor.RED)
-
-    val RUTILE = CrystalBuilder(215, "rutile", mapOf(TITANIUM to 1, OXYGEN to 2), "tetragonal")
-        .setColor(TITANIUM.color)
 
     val TANZANITE = CrystalBuilder(217, "tanzanite", mapOf(
         CALCIUM to 2,
@@ -253,7 +243,6 @@ object MaterialRegistryOld {
 
     val ZIRCON = CrystalBuilder(220, "zircon", mapOf(ZIRCONIUM to 1, SILICON to 1, OXYGEN to 4), "tetragonal")
         .setColor(ZIRCONIUM.color)
-
     */
 
     fun init() {

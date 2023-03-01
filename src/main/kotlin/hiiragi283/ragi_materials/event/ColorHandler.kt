@@ -80,7 +80,8 @@ class ColorHandler {
                 val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.name !== null) && tintIndex == 0) {
                     val name = fluidItem.tankProperties[0].contents!!.fluid!!.name
-                    if (MaterialManager.getMaterial(name) !== null) MaterialManager.getMaterial(name)!!.color!!.rgb else 0xFFFFFF
+                    val material = MaterialManager.getMaterial(name)
+                    if (material !== null && material.color !== null) material.color!!.rgb else 0xFFFFFF
                 } else 0xFFFFFF
             }, RagiInit.ItemFullBottle
         )
