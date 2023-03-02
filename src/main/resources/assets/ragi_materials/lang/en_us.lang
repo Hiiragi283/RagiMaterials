@@ -72,10 +72,13 @@ fluid.silicon=Molten Silicon
 fluid.sulfuric_acid=Sulfuric Acid
 fluid.chlorine=Chlorine
 fluid.hydrogen_chloride=Hydrogen Chloride
+fluid.saltwater=Saltwater
+fluid.brine=Brine
 
 fluid.potassium=Molten Potassium
 fluid.calcium=Molten Calcium
 fluid.titanium=Molten Titanium
+fluid.titanium_tetrachloride=Titanium Tetrachloride
 fluid.chrome=Molten Chromium
 fluid.manganese=Molten Manganese
 fluid.iron=Molten Iron
@@ -84,6 +87,7 @@ fluid.nickel=Molten Nickel
 fluid.copper=Molten Copper
 fluid.zinc=Molten Zinc
 fluid.gallium=Molten Gallium
+
 fluid.strontium=Molten Strontium
 fluid.zirconium=Molten Zirconium
 fluid.niobium=Molten Niobium
@@ -170,8 +174,10 @@ material.argon=Argon
 material.lithium=Lithium
 
 material.beryllium=Beryllium
+material.emerald=Emerald
 
 material.boron=Boron
+material.borax=Borax
 
 material.carbon=Carbon
 material.carbon_dioxide=Carbon Dioxide
@@ -181,6 +187,7 @@ material.coke=Coke
 material.anthracite=Anthracite
 material.lignite=Lignite
 material.peat=Peat
+material.diamond=Diamond
 
 material.nitrogen=Nitrogen
 material.nitric_acid=Nitric Acid
@@ -222,6 +229,8 @@ material.hydrogen_chloride=Hydrogen Chloride
 material.lithium_chloride=Lithium Chloride
 material.salt=Salt
 material.magnesium_chloride=Magnesium Chloride
+material.saltwater=Saltwater
+material.brine=Brine
 
 material.stone=Stone
 material.lava=Lava
@@ -231,17 +240,53 @@ material.soul_sand=Soul Sand
 material.end_stone=End Stone
 
 material.potassium=Potassium
+
 material.calcium=Calcium
+material.calcium_hydroxide=Calcium Hydroxide
+material.calcium_carbonate=Calcium Carbonate
+material.calcium_oxide=Calcium Oxide
+material.apatite=Apatite
+material.gypsum=Gypsum
+material.calcium_chloride=Calcium Chloride
+
 material.titanium=Titanium
+material.rutile=Rutile
+material.titanium_tetrachloride=Titanium Tetrachloride
+
 material.chromium=Chromium
+material.chromite=Chromite
+material.stainless_steel=Stainless Steel
+
 material.manganese=Manganese
+material.rhodochrosite=Rhodochrosite
+material.pyrolusite=Pyrolusite
+
 material.iron=Iron
+material.hematite=Hematite
+material.magnetite=Magnetite
+material.pyrite=Pyrite
+material.steel=Steel
+material.tool_steel=Tool Steel
+
 material.cobalt=Cobalt
+material.cobaltite=Cobaltite
+
 material.nickel=Nickel
+material.nickeline=Nickeline
+material.invar=Invar
+material.constantan=Constantan
+
 material.copper=Copper
+material.chalcocite=Chalcocite
+material.chalcopyrite=Chalcopyrite
+
 material.zinc=Zinc
+material.sphalerite=Sphalerite
+material.brass=Brass
+
 material.gallium=Gallium
 material.arsenic=Arsenic
+
 material.strontium=Strontium
 material.zirconium=Zirconium
 material.niobium=Niobium
@@ -285,23 +330,15 @@ material.lapis=Lapis
 material.clay=Clay
 material.brick=Brick
 material.redstone=Redstone
-material.diamond=Diamond
 material.glowstone=Glowstone
 material.nether_brick=Nether Brick
-material.emerald=Emerald
 material.ender=Ender Pearl
 material.prismarine=Prismarine
 material.bone=Bone
 material.gunpowder=Gunpowder
 material.sugar=Sugar
 
-material.invar=Invar
 material.magnet=Magnet
-material.stainless_steel=Stainless Steel
-material.steel=Steel
-material.tool_steel=Tool Steel
-material.constantan=Constantan
-material.brass=Brass
 material.bronze=Bronze
 material.electrum=Electrum
 material.tungsten_steel=Tungsten Steel
@@ -329,6 +366,8 @@ text.ragi_materials.forge_furnace.0=Used for heating metal ingot
 text.ragi_materials.forge_furnace.1=Right-click with §bCoal§r§7 / §bCharcoal§r§7 to add fuel
 text.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §c§oboost§r§7 fire
 text.ragi_materials.forge_furnace.3=Some metals require §c§oBoost§r§7ed Forge Furnace
+text.ragi_materials.fullbottle.0=Stackable Fluid Container
+text.ragi_materials.fullbottle.1=Crafted from any other fluid container
 text.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
 text.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
 text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
@@ -338,7 +377,7 @@ text.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
 text.ragi_materials.property.name=- Name: §b%s§r§7
 text.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 °C
 text.ragi_materials.salt_pond.0=Used for evaporating liquid
-text.ragi_materials.salt_pond.1=Right-click with §9Filled Bucket§r§7 to place liquid
+text.ragi_materials.salt_pond.1=Right-click with §9Full Bottle§r§7 to place liquid
 text.ragi_materials.salt_pond.2=Waiting about §b10 seconds§r§7, the pond will drop §fSalts§r
 text.ragi_materials.spawn=§bTeleport you to the spawn point!
 text.ragi_materials.syntax=§bSyntax and Reload

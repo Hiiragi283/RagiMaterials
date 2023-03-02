@@ -64,6 +64,11 @@ object MaterialRegistry {
     //40 ~ 49: Beryllium
     val BERYLLIUM = SimpleBuilder(ElementRegistry.BERYLLIUM, 1)
 
+    val EMERALD = CrystalBuilder(41, "emerald", mapOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18), "hexagonal").apply {
+        color = RagiColor.GREEN
+        hasOre = true
+    }
+
     //50 ~ 59: Boron
     val BORON = SimpleBuilder(ElementRegistry.BORON, 1)
 

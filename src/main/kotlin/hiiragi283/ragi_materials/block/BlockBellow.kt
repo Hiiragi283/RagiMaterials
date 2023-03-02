@@ -54,7 +54,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
     //Itemにtooltipを付与するメソッド
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName.toString().split(":")[1]
+        val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..2) {
             tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))

@@ -72,10 +72,13 @@ fluid.silicon=溶融珪素
 fluid.sulfuric_acid=硫酸
 fluid.chlorine=塩素
 fluid.hydrogen_chloride=塩化水素
+fluid.saltwater=塩水
+fluid.brine=鹹水
 
 fluid.potassium=溶融カリウム
 fluid.calcium=溶融カルシウム
 fluid.titanium=溶融チタン
+fluid.titanium_tetrachloride=四塩化チタン
 fluid.chrome=溶融クロム
 fluid.manganese=溶融マンガン
 fluid.iron=溶融鉄
@@ -84,6 +87,7 @@ fluid.nickel=溶融ニッケル
 fluid.copper=溶融銅
 fluid.zinc=溶融亜鉛
 fluid.gallium=溶融ガリウム
+
 fluid.strontium=溶融ストロンチウム
 fluid.zirconium=溶融ジルコニウム
 fluid.niobium=溶融ニオブ
@@ -170,8 +174,10 @@ material.argon=アルゴン
 material.lithium=リチウム
 
 material.beryllium=ベリリウム
+material.emerald=エメラルド
 
 material.boron=硼素
+material.borax=硼砂
 
 material.carbon=炭素
 material.carbon_dioxide=二酸化炭素
@@ -181,6 +187,7 @@ material.coke=コークス
 material.anthracite=無煙炭
 material.lignite=褐炭
 material.peat=泥炭
+material.diamond=ダイヤモンド
 
 material.nitrogen=窒素
 material.nitric_acid=硝酸
@@ -222,6 +229,8 @@ material.hydrogen_chloride=塩化水素
 material.lithium_chloride=塩化リチウム
 material.salt=食塩
 material.magnesium_chloride=塩化マグネシウム
+material.saltwater=塩水
+material.brine=鹹水
 
 material.stone=石
 material.lava=溶岩
@@ -231,17 +240,53 @@ material.soul_sand=ソウルサンド
 material.end_stone=エンドストーン
 
 material.potassium=カリウム
+
 material.calcium=カルシウム
+material.calcium_hydroxide=水酸化カルシウム
+material.calcium_carbonate=炭酸カルシウム
+material.calcium_oxide=酸化カルシウム
+material.apatite=アパタイト
+material.gypsum=石膏
+material.calcium_chloride=塩化カルシウム
+
 material.titanium=チタン
+material.rutile=ルチル
+material.titanium_tetrachloride=四塩化チタン
+
 material.chromium=クロム
+material.chromite=クロム鉄鉱
+material.stainless_steel=ステンレス鋼
+
 material.manganese=マンガン
+material.rhodochrosite=菱マンガン鉱
+material.pyrolusite=軟マンガン鉱
+
 material.iron=鉄
+material.hematite=赤鉄鉱
+material.magnetite=磁鉄鉱
+material.pyrite=黄鉄鉱
+material.steel=鋼
+material.tool_steel=道具鋼
+
 material.cobalt=コバルト
+material.cobaltite=輝コバルト鉱
+
 material.nickel=ニッケル
+material.nickeline=紅砒ニッケル鉱
+material.invar=インバー
+material.constantan=コンスタンタン
+
 material.copper=銅
+material.chalcocite=輝銅鉱
+material.chalcopyrite=黄銅鉱
+
 material.zinc=亜鉛
+material.sphalerite=閃亜鉛鉱
+material.brass=黄銅
+
 material.gallium=ガリウム
 material.arsenic=砒素
+
 material.strontium=ストロンチウム
 material.zirconium=ジルコニウム
 material.niobium=ニオブ
@@ -285,23 +330,15 @@ material.lapis=ラピス
 material.clay=粘土
 material.brick=レンガ
 material.redstone=レッドストーン
-material.diamond=ダイヤモンド
 material.glowstone=グローストーン
 material.nether_brick=ネザーレンガ
-material.emerald=エメラルド
 material.ender=エンダーパール
 material.prismarine=プリズマリン
 material.bone=骨
 material.gunpowder=火薬
 material.sugar=砂糖
 
-material.invar=インバー
 material.magnet=磁石
-material.stainless_steel=ステンレス鋼
-material.steel=鋼
-material.tool_steel=道具鋼
-material.constantan=コンスタンタン
-material.brass=黄銅
 material.bronze=青銅
 material.electrum=エレクトラム
 material.tungsten_steel=タングステン鋼
@@ -329,6 +366,8 @@ text.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用し�
 text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入
 text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして火力を§c§oブースト§r
 text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要
+text.ragi_materials.fullbottle.0=スタック可能な液体コンテナ
+text.ragi_materials.fullbottle.1=他の液体コンテナをクラフトすることで入手
 text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換する
 text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換する
 text.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
