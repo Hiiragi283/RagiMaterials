@@ -73,19 +73,25 @@ object RagiUtils {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
     }
 
-    //液体入りバケツを返すメソッド
-    fun getFilledBucket(fluid: String): ItemStack {
-        val bucket = getStack("forge:bucketfilled", 1, 0)
+    //液体入りItemStackを返すメソッド
+    fun getFilledStack(stack: ItemStack, fluidStack: FluidStack): ItemStack {
         val tag = NBTTagCompound()
-        tag.setString("FluidName", fluid)
-        tag.setInteger("Amount", 1000)
-        bucket.tagCompound = tag
-        return bucket
+        fluidStack.writeToNBT(tag)
+        stack.tagCompound = tag
+        return stack
     }
 
     //液体名と量からFluidStackを返すメソッド
     fun getFluidStack(name: String, amount: Int): FluidStack {
         return FluidStack(FluidRegistry.getFluid(name), amount)
+    }
+
+    //NBTタグに液体を書き込むメソッド
+    fun setFluidToNBT(tag: NBTTagCompound, fluidStack: FluidStack): NBTTagCompound {
+        val tagFluid = NBTTagCompound()
+        fluidStack.writeToNBT(tagFluid)
+        tag.setTag("Fluid", tagFluid)
+        return tag
     }
 
     //ResourceLocationなどからIBlockStateを取得するメソッド

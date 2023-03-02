@@ -64,7 +64,7 @@ class BlockSaltPond : Block(Material.WOOD) {
     //Itemにtooltipを付与するメソッド
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName.toString().split(":")[1]
+        val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..2) {
             tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
@@ -147,13 +147,13 @@ class BlockSaltPond : Block(Material.WOOD) {
     }
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
-        val stack = player.getHeldItem(hand)
         //サーバー側，かつ塩田ブロックが空の場合
         if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
-            val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-            if ((fluidItem !== null)) {
-                RagiLogger.infoDebug("The fluidItem is not null!")
-                if ((fluidItem.tankProperties[0].contents !== null)) {
+            val stack = player.getHeldItem(hand)
+            //アイテムのIDに"bucket"が含まれない場合
+            if (!stack.item.registryName!!.resourcePath.contains("bucket")) {
+                val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+                if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents !== null)) {
                     when (fluidItem.tankProperties[0].contents!!.fluid) {
                         //水の場合
                         FluidRegistry.getFluid("water") -> {
@@ -179,10 +179,13 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     //液体を設置した際の挙動をまとめたメソッド
     private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem, type: EnumSalt) {
-        fluidItem.drain(1000, true) //液体を1000 mb汲み取る
-        world.setBlockState(pos, state.withProperty(TYPE, type), 2) //stateの更新
-        world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
-        world.playSound(null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+        //サーバー側
+        if (!world.isRemote) {
+            fluidItem.drain(1000, true) //液体を1000 mb汲み取る
+            world.setBlockState(pos, state.withProperty(TYPE, type), 2) //stateの更新
+            world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
+            world.playSound(null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+        }
     }
 
     //ドロップする確率を得るメソッド

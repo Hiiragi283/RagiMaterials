@@ -6,6 +6,7 @@ import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiUtils
 import net.minecraft.item.ItemStack
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 
 object RecipeRegistry {
@@ -13,6 +14,7 @@ object RecipeRegistry {
     fun init() {
         addCrafting()
         addCraftingMaterial()
+        ForgeRegistries.RECIPES.register(RecipeFullBottle())
     }
 
     private fun addCrafting() {
