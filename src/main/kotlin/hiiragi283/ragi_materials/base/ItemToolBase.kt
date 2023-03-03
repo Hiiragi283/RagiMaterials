@@ -9,10 +9,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: ToolMaterial, set: Set<Block>) :
-        ItemTool(material, set) {
+open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: ToolMaterial, set: Set<Block>) : ItemTool(material, set) {
 
-    //コンストラクタの初期化
     init {
         this.maxDamage = maxDamage
         creativeTab = CreativeTabs.TOOLS //表示するクリエイティブタブの設定
@@ -20,7 +18,8 @@ open class ItemToolBase(MOD: String, ID: String?, maxDamage: Int, material: Tool
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
     }
 
-    //Itemにtooltipを付与するメソッド
+    //    Client    //
+
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)

@@ -17,14 +17,17 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 
 class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
-    //Rarityを得るメソッド
+
+    //    General    //
+
     @Deprecated("Deprecated in Java", ReplaceWith("EnumRarity.EPIC", "net.minecraft.item.EnumRarity"))
     override fun getRarity(item: ItemStack): EnumRarity {
         //EPICを返す
         return EnumRarity.EPIC
     }
 
-    //アイテムを右クリックすると呼ばれるメソッド
+    //    Event    //
+
     override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val stack: ItemStack = player.getHeldItem(hand)
         //デバッグモードの場合
@@ -65,18 +68,8 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
         return ActionResult(EnumActionResult.SUCCESS, stack)
     }
 
-    //アイテムをブロックに対して右クリックすると呼ばれるメソッド
-    override fun onItemUse(
-        player: EntityPlayer,
-        world: World,
-        pos: BlockPos,
-        hand: EnumHand,
-        facing: EnumFacing,
-        hitX: Float,
-        hitY: Float,
-        hitZ: Float
-    ): EnumActionResult {
-        //サーバー側&&デバッグ状態のみで実行
+    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
+        //サーバー側，かつデバッグ状態のみで実行
         if (!world.isRemote && RagiConfig.debugMode.isDebug) {
             //Property用
             if (player.getHeldItem(hand).metadata == 2) {

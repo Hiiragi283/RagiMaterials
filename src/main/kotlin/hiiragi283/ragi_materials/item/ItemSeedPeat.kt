@@ -16,27 +16,9 @@ import net.minecraftforge.common.IPlantable
 
 open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlantable {
 
-    //植物を取得するメソッド
-    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState {
-        return RagiInit.BlockCropPeat.defaultState
-    }
+    //    Event    //
 
-    //植物の種類を取得するメソッド
-    override fun getPlantType(world: IBlockAccess, pos: BlockPos): EnumPlantType {
-        return EnumPlantType.Crop //作物
-    }
-
-    //アイテムをブロックに対して右クリックすると呼ばれるメソッド
-    override fun onItemUse(
-        player: EntityPlayer,
-        world: World,
-        pos: BlockPos,
-        hand: EnumHand,
-        facing: EnumFacing,
-        hitX: Float,
-        hitY: Float,
-        hitZ: Float
-    ): EnumActionResult {
+    override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
         //変数の宣言
         val stack = player.getHeldItem(hand)
         val state = world.getBlockState(pos)
@@ -50,4 +32,15 @@ open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlanta
             EnumActionResult.FAIL //何が間違っていたのだろうか
         }
     }
+
+    //    IPlantable    //
+
+    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState {
+        return RagiInit.BlockCropPeat.defaultState
+    }
+
+    override fun getPlantType(world: IBlockAccess, pos: BlockPos): EnumPlantType {
+        return EnumPlantType.Crop //作物
+    }
+
 }

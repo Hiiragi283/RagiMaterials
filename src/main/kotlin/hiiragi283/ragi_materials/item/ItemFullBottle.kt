@@ -23,7 +23,9 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
 
-    //Itemにtooltipを付与するメソッド
+
+    //    Client    //
+
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         val path = stack.item.registryName!!.resourcePath
@@ -34,7 +36,6 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
-    //stackの表示名を上書きするメソッド
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
@@ -44,7 +45,6 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
         } else I18n.format("item.fullbottle.name")
     }
 
-    //メタデータ付きアイテムをクリエイティブタブに登録するメソッド
     @SideOnly(Side.CLIENT) //Client側のみ
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
@@ -63,10 +63,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
         }
     }
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/Hiiragi283/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/food/item/ItemSilverCup.java#L331
-    */
+    //    Capability    //
 
     override fun initCapabilities(stack: ItemStack, nbt: NBTTagCompound?): ICapabilityProvider {
         return CellProvider(stack)
@@ -74,22 +71,19 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
 
     private class CellProvider(val stack: ItemStack) : ICapabilityProvider {
 
-        //capabilityを持っているか判別するメソッド
-        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-            return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY
-        }
-
-        //capabilityを取得するメソッド
         override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
             return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FullBottleFluidHandler(
                 stack, 1000
             ) as T else null
         }
+
+        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
+            return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY
+        }
     }
 
     class FullBottleFluidHandler(val stack: ItemStack, capacity:Int): FluidHandlerItemStackSimple(stack, capacity) {
 
-        //液体を組みだすメソッド
         override fun drain(maxDrain: Int, doDrain: Boolean): FluidStack? {
             //変数の宣言
             var result: FluidStack? = null
@@ -115,7 +109,6 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
             return result
         }
 
-        //液体を組めるか判定するメソッド
         override fun canFillFluidType(fluidStack: FluidStack): Boolean {
             val fluid = fluidStack.fluid
             //液体の名前から素材が取得できるならtrue

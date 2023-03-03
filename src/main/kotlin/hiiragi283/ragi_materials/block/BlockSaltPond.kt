@@ -19,7 +19,6 @@ import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -48,7 +47,6 @@ class BlockSaltPond : Block(Material.WOOD) {
     }
 
     private val registryName = "salt_pond"
-    private val box = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
 
     init {
         defaultState = blockState.baseState.withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(TYPE, EnumSalt.EMPTY)
@@ -61,28 +59,44 @@ class BlockSaltPond : Block(Material.WOOD) {
         unlocalizedName = registryName
     }
 
-    //Itemにtooltipを付与するメソッド
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
-        tooltip.add("§e=== Info ===")
-        for (i in 0..2) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+    //    General    //
+
+    @Deprecated("Deprecated in Java")
+    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
+        return when (face) {
+            //下 -> SOLID
+            EnumFacing.DOWN -> BlockFaceShape.SOLID
+            //それ以外 -> UNDEFINED
+            else -> BlockFaceShape.UNDEFINED
         }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
-    //あるブロックが隣接したブロックと同じかどうかを判定するメソッド
+    @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
+    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
+        return AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
+    }
+
+    @Deprecated("Deprecated in Java", ReplaceWith("false"))
+    override fun isFullCube(state: IBlockState): Boolean {
+        return false
+    }
+
+    @Deprecated("Deprecated in Java", ReplaceWith("false"))
+    override fun isOpaqueCube(state: IBlockState): Boolean {
+        return false
+    }
+
+    //    BlockState    //
+
+    override fun createBlockState(): BlockStateContainer {
+        return BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, TYPE)
+    }
+
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
         val posTo = pos.offset(facing)
         val stateTo = world.getBlockState(posTo)
         val shape = stateTo.getBlockFaceShape(world, posTo, facing)
         return stateTo.block != Blocks.AIR && (stateTo.block == this || shape == BlockFaceShape.SOLID || shape == BlockFaceShape.UNDEFINED)
-    }
-
-    //Blockstateの登録をするメソッド
-    override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, TYPE)
     }
 
     @Deprecated("Deprecated in Java")
@@ -94,36 +108,11 @@ class BlockSaltPond : Block(Material.WOOD) {
         return state.withProperty(NORTH, connectN).withProperty(EAST, connectE).withProperty(SOUTH, connectS).withProperty(WEST, connectW)
     }
 
-    //面の種類を取得するメソッド
-    @Deprecated("Deprecated in Java")
-    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
-        return when (face) {
-            //下 -> SOLID
-            EnumFacing.DOWN -> BlockFaceShape.SOLID
-            //それ以外 -> UNDEFINED
-            else -> BlockFaceShape.UNDEFINED
-        }
-    }
-
-    //ブロックの当たり判定を取得するメソッド
-    @Deprecated("Deprecated in Java")
-    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
-        return box
-    }
-
-    //ドロップするアイテムを得るメソッド
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
-        //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
-        return Item.getItemFromBlock(state.block)
-    }
-
-    //Blockstateからメタデータを得るメソッド
     override fun getMetaFromState(state: IBlockState): Int {
         val type = state.getValue(TYPE)
         return type.indexInt
     }
 
-    //メタデータからBlockstateを得るメソッド
     @Deprecated("Deprecated in Java")
     override fun getStateFromMeta(meta: Int): IBlockState {
         return when (meta % 4) {
@@ -134,17 +123,7 @@ class BlockSaltPond : Block(Material.WOOD) {
         }
     }
 
-    //ブロックがフルブロックかどうかを判定するメソッド
-    @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
-
-    //ブロックが光を透過するかを判定するメソッド
-    @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    //    Event    //
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         //サーバー側，かつ塩田ブロックが空の場合
@@ -177,7 +156,6 @@ class BlockSaltPond : Block(Material.WOOD) {
         return true
     }
 
-    //液体を設置した際の挙動をまとめたメソッド
     private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem, type: EnumSalt) {
         //サーバー側
         if (!world.isRemote) {
@@ -188,13 +166,6 @@ class BlockSaltPond : Block(Material.WOOD) {
         }
     }
 
-    //ドロップする確率を得るメソッド
-    override fun quantityDropped(random: Random): Int {
-        //常にドロップさせるので1を返す
-        return 1
-    }
-
-    //Random Tickで呼び出されるメソッド
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
         //サーバー側の場合
         if (!world.isRemote) {
@@ -217,6 +188,20 @@ class BlockSaltPond : Block(Material.WOOD) {
             }
         }
     }
+
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val path = stack.item.registryName!!.resourcePath
+        tooltip.add("§e=== Info ===")
+        for (i in 0..2) {
+            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+        }
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
+    }
+
+    //    Class    //
 
     enum class EnumSalt(val indexInt: Int, val fluid: String) : IStringSerializable {
         EMPTY(0, "empty"), WATER(1, "water"), SALTWATER(2, "saltwater"), BRINE(3, "brine");

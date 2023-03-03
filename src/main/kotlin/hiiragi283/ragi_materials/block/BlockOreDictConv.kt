@@ -18,6 +18,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary
@@ -32,7 +33,6 @@ class BlockOreDictConv : Block(Material.WOOD) {
     private val registryName = "oredict_converter"
     private val box = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)
 
-    //コンストラクタの初期化
     init {
         setCreativeTab(RagiInit.TabBlocks)
         setHardness(5.0F)
@@ -43,25 +43,10 @@ class BlockOreDictConv : Block(Material.WOOD) {
         unlocalizedName = registryName
     }
 
-    //Itemにtooltipを付与するメソッド
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
-        tooltip.add("§e=== Info ===")
-        for (i in 0..2) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
-        }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
-    }
+    //    General    //
 
-    //面の種類を取得するメソッド
     @Deprecated("Deprecated in Java")
-    override fun getBlockFaceShape(
-        worldIn: IBlockAccess,
-        state: IBlockState,
-        pos: BlockPos,
-        face: EnumFacing
-    ): BlockFaceShape {
+    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
         return when (face) {
             //下 -> SOLID
             EnumFacing.DOWN -> BlockFaceShape.SOLID
@@ -70,46 +55,24 @@ class BlockOreDictConv : Block(Material.WOOD) {
         }
     }
 
-    //ブロックの当たり判定を取得するメソッド
     @Deprecated("Deprecated in Java")
-    override fun getBoundingBox(
-        blockState: IBlockState,
-        world: IBlockAccess,
-        pos: BlockPos
-    ): AxisAlignedBB {
+    override fun getBoundingBox(blockState: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
         return box //エンチャント台と同じ
     }
 
-    //ドロップするアイテムを得るメソッド
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item {
-        //Blockstateからブロックを取得し、更にそこからアイテムを取得して返す
-        return Item.getItemFromBlock(state.block)
-    }
-
-    //ブロックがフルブロックかどうかを判定するメソッド
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isFullCube(state: IBlockState): Boolean {
         return false
     }
 
-    //ブロックが光を透過するかを判定するメソッド
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean {
         return false
     }
 
-    //ブロックを右クリックした時に呼ばれるメソッド
-    override fun onBlockActivated(
-        world: World,
-        pos: BlockPos,
-        state: IBlockState,
-        player: EntityPlayer,
-        hand: EnumHand,
-        facing: EnumFacing,
-        hitX: Float,
-        hitY: Float,
-        hitZ: Float
-    ): Boolean {
+    //    Event    //
+
+    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         if (!world.isRemote) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
@@ -146,9 +109,15 @@ class BlockOreDictConv : Block(Material.WOOD) {
         return true
     }
 
-    //ドロップする確率を得るメソッド
-    override fun quantityDropped(random: Random): Int {
-        //常にドロップさせるので1を返す
-        return 1
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val path = stack.item.registryName!!.resourcePath
+        tooltip.add("§e=== Info ===")
+        for (i in 0..2) {
+            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+        }
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 }
