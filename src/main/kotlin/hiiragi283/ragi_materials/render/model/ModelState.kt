@@ -10,7 +10,14 @@ object ModelState {
 
     //ブロックの特殊なモデル登録
     fun init() {
+
         ModelLoader.setCustomStateMapper(RagiInit.BlockSaltPond, object : StateMapperBase() {
+            override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
+                return ModelResourceLocation((state.block.registryName!!), "multipart")
+            }
+        })
+
+        ModelLoader.setCustomStateMapper(RagiInit.BlockLaboratoryTable, object : StateMapperBase() {
             override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
                 return ModelResourceLocation((state.block.registryName!!), "multipart")
             }

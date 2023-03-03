@@ -14,7 +14,9 @@ class ClientProxy : CommonProxy() {
     }
 
     //Initializationで読み込むメソッド
-    override fun loadInit() {}
+    override fun loadInit() {
+        super.registerTile()
+    }
 
     //Post-Initializationで読み込むメソッド
     override fun loadPostInit() {}

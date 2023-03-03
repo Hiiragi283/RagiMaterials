@@ -16,7 +16,7 @@ import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 
-class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
+class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
 
     //    General    //
 
@@ -93,6 +93,13 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 2) {
                 //適正レベルをチャットに表示
                 player.sendMessage(TextComponentString("  §eHarvest Level:§r§b " + block.getHarvestLevel(state)))
                 player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+            }
+            //Tile Entity用
+            else if (player.getHeldItem(hand).metadata == 3) {
+                val tile = world.getTileEntity(pos)
+                if (tile !== null) {
+                    player.sendMessage(TextComponentString("The Tile entity is here!"))
+                } else player.sendMessage(TextComponentString("The Tile entity is null!"))
             }
         }
         return EnumActionResult.SUCCESS

@@ -11,14 +11,11 @@ import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary

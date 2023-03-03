@@ -1,13 +1,11 @@
 package hiiragi283.ragi_materials.integration.jei.salt_pond
 
 import com.google.common.collect.Lists
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiUtils
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidRegistry
 
 class SaltPondWrapper(info: SaltPondRecipe) : IRecipeWrapper {
 
@@ -17,7 +15,7 @@ class SaltPondWrapper(info: SaltPondRecipe) : IRecipeWrapper {
 
     //コンストラクタの宣言
     init {
-        stackIn = RagiUtils.getFilledStack(ItemStack(RagiInit.ItemFullBottle), FluidRegistry.getFluidStack(info.stringIn, 1000)!!)
+        stackIn = RagiUtils.getFilledBottle(1, info.stringIn, 1000)
         stackOut = info.stackOut
     }
 

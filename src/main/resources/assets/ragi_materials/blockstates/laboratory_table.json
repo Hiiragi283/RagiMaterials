@@ -1,0 +1,54 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "ragi_materials:laboratory_table"
+      }
+    },
+    {
+      "when": {
+        "slot1": true
+      },
+      "apply": {
+        "model": "ragi_materials:laboratory_bottle_1",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "slot2": true
+      },
+      "apply": {
+        "model": "ragi_materials:laboratory_bottle_2",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "slot3": true
+      },
+      "apply": {
+        "model": "ragi_materials:laboratory_bottle_3",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "slot4": true
+      },
+      "apply": {
+        "model": "ragi_materials:laboratory_bottle_4",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "slot5": true
+      },
+      "apply": {
+        "model": "ragi_materials:laboratory_bottle_5",
+        "uvlock": true
+      }
+    }
+  ]
+}

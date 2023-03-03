@@ -1,0 +1,116 @@
+{
+	"credit": "Tweaked by Hiiragi Russell Tsubasa",
+	"textures": {
+		"particle": "ragi_materials:blocks/laboratory_top",
+		"top": "ragi_materials:blocks/laboratory_top",
+		"side": "ragi_materials:blocks/laboratory_side",
+		"shelf": "ragi_materials:blocks/laboratory_shelf"
+	},
+	"elements": [
+		{
+			"name": "body",
+			"from": [0, 14, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 14, 16, 16], "texture": "#top"},
+				"east": {"uv": [0, 14, 16, 16], "texture": "#top"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#top"},
+				"west": {"uv": [0, 14, 16, 16], "texture": "#top"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#top"}
+			}
+		},
+		{
+			"name": "legN",
+			"from": [0, 0, 0],
+			"to": [2, 14, 2],
+			"faces": {
+				"north": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"east": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"south": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"west": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#side"}
+			}
+		},
+		{
+			"name": "legE",
+			"from": [14, 0, 0],
+			"to": [16, 14, 2],
+			"faces": {
+				"north": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"east": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"south": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"west": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#side"}
+			}
+		},
+		{
+			"name": "legS",
+			"from": [14, 0, 14],
+			"to": [16, 14, 16],
+			"faces": {
+				"north": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"east": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"south": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"west": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#side"}
+			}
+		},
+		{
+			"name": "legW",
+			"from": [0, 0, 14],
+			"to": [2, 14, 16],
+			"faces": {
+				"north": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"east": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"south": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"west": {"uv": [0, 2, 2, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#side"}
+			}
+		},
+		{
+			"name": "shelf",
+			"from": [1, 8, 1],
+			"to": [15, 10, 15],
+			"faces": {
+				"north": {"uv": [1, 0, 15, 2], "texture": "#shelf"},
+				"east": {"uv": [1, 0, 15, 2], "texture": "#shelf"},
+				"south": {"uv": [1, 0, 15, 2], "texture": "#shelf"},
+				"west": {"uv": [1, 0, 15, 2], "texture": "#shelf"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#shelf"},
+				"down": {"uv": [1, 1, 15, 15], "texture": "#shelf"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

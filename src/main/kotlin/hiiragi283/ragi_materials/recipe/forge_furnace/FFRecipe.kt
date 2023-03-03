@@ -5,17 +5,9 @@ import net.minecraft.item.ItemStack
 
 open class FFRecipe(val input: ItemStack, val output: ItemStack, val type: EnumFire) {
 
-    constructor(input: String, output: String, type: EnumFire) : this(
-        RagiUtils.getStack(input),
-        RagiUtils.getStack(output),
-        type
-    )
+    constructor(input: String, output: String, type: EnumFire) : this(RagiUtils.getStack(input), RagiUtils.getStack(output), type)
 
-    constructor(recipe: String, type: EnumFire) : this(
-        RagiUtils.getStack(recipe.split(";")[0]),
-        RagiUtils.getStack(recipe.split(";")[1]),
-        type
-    )
+    constructor(recipe: String, type: EnumFire) : this(RagiUtils.getStack(recipe.split(";")[0]), RagiUtils.getStack(recipe.split(";")[1]), type)
 
     //コンストラクタの初期化
     init {

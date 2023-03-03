@@ -14,6 +14,7 @@ class ModelRegistry {
             RagiInit.ItemBlockBellow,
             RagiInit.ItemBlockBlazeHeater,
             RagiInit.ItemBlockForgeFurnace,
+            RagiInit.ItemBlockLaboratoryTable,
             RagiInit.ItemBlockOreDictConv,
             RagiInit.ItemBlockSaltPond,
 
