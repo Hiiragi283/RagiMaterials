@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.3.0
+
+  - **REWORKED MATERIAL REGISTRATION**
+  - Added new crafting recipe to get Full Bottle from any other fluid container
+  - Changed Full Bottle behaviour from reusable to disposable
+  - Edited translation
+  - Removed heating recipes for Forge Furnace due to rewriting material registration temporarily
+  - Removed "minecraft:lava_bucket" and "minecraft:water_bucket" from default values in config
+
+### New Blocks
+
+  - Laboratory Table: used for chemical reaction recipes
+
+### New Item
+
+  - Chemical Waste: Failure product for chemical reaction recipe
+  - Ore / Nether Ore / End Ore
+
 ## v0.2.2
 
   - Added integration option for config

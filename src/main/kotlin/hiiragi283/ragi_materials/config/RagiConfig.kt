@@ -177,7 +177,7 @@ object RagiConfig {
             "minecraft:hopper_minecart",
             "minecraft:iron_horse_armor",
             "minecraft:jungle_boat",
-            "minecraft:lava_bucket",
+            //"minecraft:lava_bucket",
             "minecraft:minecart",
             "minecraft:mushroom_stew",
             "minecraft:rabbit_stew",
@@ -198,7 +198,7 @@ object RagiConfig {
             "minecraft:snowball",
             "minecraft:spruce_boat",
             "minecraft:tnt_minecart",
-            "minecraft:water_bucket",
+            //"minecraft:water_bucket",
             "minecraft:written_book"
         )
     }
