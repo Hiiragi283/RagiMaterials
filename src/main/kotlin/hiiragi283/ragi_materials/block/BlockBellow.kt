@@ -155,7 +155,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
-        for (i in 0..2) {
+        for (i in 0..1) {
             tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)

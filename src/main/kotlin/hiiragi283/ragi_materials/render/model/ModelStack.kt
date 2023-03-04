@@ -12,9 +12,9 @@ object ModelStack {
     fun init() {
 
         /*
-  Thanks to kojin15!
-  Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865
-*/
+         Thanks to kojin15!
+          Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865
+        */
 
         //Debug Book
         ModelLoader.registerItemVariants(
@@ -88,13 +88,5 @@ object ModelStack {
         ModelLoader.setCustomMeshDefinition(RagiInit.ItemOreNether) {locationNether}
         ModelLoader.setCustomMeshDefinition(RagiInit.ItemOreEnd) {locationEnd}
 
-        /*for (material in MaterialRegistry.mapIndex.values) {
-            //hasOre==trueの場合
-            if (material.hasOre) {
-                ModelLoader.setCustomModelResourceLocation(RagiInit.ItemOre, material.index, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
-                ModelLoader.setCustomModelResourceLocation(RagiInit.ItemOreNether, material.index, ModelResourceLocation("${Reference.MOD_ID}:ore", "nether"))
-                ModelLoader.setCustomModelResourceLocation(RagiInit.ItemOreEnd, material.index, ModelResourceLocation("${Reference.MOD_ID}:ore", "end"))
-            }
-        }*/
     }
 }

@@ -5,7 +5,6 @@ import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.OreDictRegistry
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.MaterialManager
-import hiiragi283.ragi_materials.material.MaterialRegistryOld
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.RecipeRegistry
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
@@ -40,12 +39,9 @@ class RagiMaterials {
         var proxy: CommonProxy? = null
     }
 
-    //Pre-Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         if (!isLoadedGT) {
-            //素材の一覧の登録
-            //MaterialRegistryOld.init()
             //Block, Itemの登録
             RagiInit.init()
             //proxyの読み込み
@@ -55,7 +51,6 @@ class RagiMaterials {
         }
     }
 
-    //Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent?) {
         if (!isLoadedGT) {
@@ -70,20 +65,19 @@ class RagiMaterials {
         }
     }
 
-    //Post-Initializationの段階で呼ばれるevent
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent?) {
         if (!isLoadedGT) {
             //コンフィグからレシピを追加
             RagiConfig.registerRecipe()
             //Forge Furnaceのレシピの登録
-            FFRegistry.init()
+            //FFRegistry.init()
+            //デバッグ用
+            MaterialManager.printMap()
             //proxyの読み込み
             proxy!!.loadPostInit()
             //連携要素の登録
             IntegrationCore.loadPostInit()
-
-            MaterialManager.printMap()
         }
     }
 }

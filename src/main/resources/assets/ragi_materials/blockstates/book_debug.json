@@ -4,7 +4,7 @@
   "defaults": {
     "model": "ragi_materials:generated",
     "textures": {
-      "layer0": "minecraft:items/book_writable"
+      "layer0": "items/book_writable"
     },
     "uvlock": true
   },

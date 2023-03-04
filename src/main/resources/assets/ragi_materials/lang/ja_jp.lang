@@ -3,14 +3,14 @@
 tile.blaze_heater.0.name=ブレイズヒーター
 tile.blaze_heater.1.name=ヘルライズヒーター
 tile.block_bellow.name=ふいご
-tile.crop_coal.name=石炭畑
-tile.crop_lignite.name=褐炭畑
-tile.crop_peat.name=泥炭畑
+tile.crop_coal.name=[未完成] 石炭畑
+tile.crop_lignite.name=[未完成] 褐炭畑
+tile.crop_peat.name=[未完成] 泥炭畑
 tile.forge_furnace.name=鍛造炉
 tile.laboratory_table.name=実験台
 tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.oredict_converter.name=鉱石辞書変換機
-tile.salt_pond.name=[未完成] 塩田ブロック
+tile.salt_pond.name=塩田ブロック
 
 # Config
 config.ragi_materials.debug=デバッグ設定
@@ -159,9 +159,10 @@ item.ragi_ore_nether.name=ネザー%s鉱石
 item.ragi_ore_end.name=エンド%s鉱石
 item.ragi_plate.name=%s板
 item.ragi_stick.name=%s棒
-item.seed_coal.name=石炭の種
-item.seed_lignite.name=褐炭の種
-item.seed_peat.name=泥炭の種
+item.seed_coal.name=[未完成] 石炭の種
+item.seed_lignite.name=[未完成] 褐炭の種
+item.seed_peat.name=[未完成] 泥炭の種
+item.waste.name=化学廃棄物
 
 # Materials
 material.hydrogen=水素
@@ -359,6 +360,8 @@ itemGroup.ragi_materials.fullbottles=らぎマテリアルズ - フルボトル
 itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材
 
 # Text
+text.ragi_materials.block_bellow.0=§b鍛造炉§r§7を§cブースト§r§7するのに使用します
+text.ragi_materials.block_bellow.1=右クリックまたはレッドストーン信号で動かします
 text.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します
 text.ragi_materials.blaze_heater.1=燃料の消費はありません
 text.ragi_materials.blaze_heater.2=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
@@ -366,21 +369,24 @@ text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§o
 text.ragi_materials.decoration_line=§e§l========================================
 text.ragi_materials.durability=- 耐久値: §b%s§r
 text.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用します
-text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入
-text.ragi_materials.forge_furnace.2=§bふいご§r§7で右クリックして火力を§c§oブースト§r
-text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要
+text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入します
+text.ragi_materials.forge_furnace.2=§bふいご§r§7を隣接させて火力を§c§oブースト§rします
+text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要です
 text.ragi_materials.fullbottle.0=スタック可能な液体コンテナ
-text.ragi_materials.fullbottle.1=他の液体コンテナをクラフトすることで入手
-text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換する
-text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換する
+text.ragi_materials.fullbottle.1=§bどんな§r§7液体コンテナでも単体クラフトから入手できます
+text.ragi_materials.laboratory_table.0=化学反応に利用します
+text.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを投入します
+text.ragi_materials.laboratory_table.2=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
+text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
+text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換します
 text.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
 text.ragi_materials.property.formula=- 化学式: §b%s§r
 text.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
 text.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
 text.ragi_materials.property.name=- 物質名: §b%s§r§7
 text.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
-text.ragi_materials.salt_pond.0=Used for evaporating liquid
-text.ragi_materials.salt_pond.1=Right-click with §9Filled Bucket§r§7 to place liquid
-text.ragi_materials.salt_pond.2=Waiting about §b10 seconds§r§7, the pond will drop §fSalts§r
+text.ragi_materials.salt_pond.0=液体を蒸発させるのに利用します
+text.ragi_materials.salt_pond.1=§bフルボトル§r§7を持って右クリックして液体を流します
+text.ragi_materials.salt_pond.2=§b10秒§r§7ほど待つと§f塩§r§7がドロップします
 text.ragi_materials.spawn=§bスポーン地点にテレポートしました!
 text.ragi_materials.syntax=§bSyntax and Reload!
