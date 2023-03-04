@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.block.TileLaboratoryTable
+import hiiragi283.ragi_materials.tile.TileLaboratoryTable
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 

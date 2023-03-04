@@ -32,7 +32,7 @@ class FFCategory(guiHelper: IGuiHelper) : IRecipeCategory<FFWrapper> {
 
     //JEiタブの名前を取得するメソッド
     override fun getTitle(): String {
-        return I18n.format("gui.$uid")
+        return I18n.format("gui.$uid.jei")
     }
 
     //JEiタブの背景を取得するメソッド

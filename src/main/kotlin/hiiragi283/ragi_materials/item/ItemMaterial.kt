@@ -19,8 +19,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemMaterial(private val ID: String, private val type: EnumMaterialType) :
-        ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
+open class ItemMaterial(private val ID: String, private val type: EnumMaterialType) : ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials) {
 
     init {
         creativeTab = RagiInit.TabMaterials
@@ -90,5 +89,4 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
             }
         }
     }
-
 }

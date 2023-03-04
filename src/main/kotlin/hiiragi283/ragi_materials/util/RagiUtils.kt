@@ -126,7 +126,7 @@ object RagiUtils {
       Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
     */
 
-    fun isSameStack(stack1: ItemStack, stack2: ItemStack): Boolean {
+    fun isSameStack(stack1: ItemStack, stack2: ItemStack, useCount: Boolean): Boolean {
         var result = stack1.isEmpty && stack2.isEmpty
         if (!stack1.isEmpty && !stack2.isEmpty) {
             val isSameItem = stack1.item == stack2.item
@@ -135,6 +135,10 @@ object RagiUtils {
             val tag2 = stack2.tagCompound
             val isSameTag = if (tag1 == null && tag2 == null) true else tag1 == tag2
             result = isSameItem && isSameMeta && isSameTag
+            if (useCount) {
+                val isSameCount = stack1.count == stack2.count
+                result = result && isSameCount
+            }
         }
         return result
     }

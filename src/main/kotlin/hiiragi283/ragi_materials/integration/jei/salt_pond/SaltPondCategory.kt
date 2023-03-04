@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.integration.jei.salt_pond
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.integration.jei.JEICore
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
@@ -25,12 +26,12 @@ class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper>
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String {
-        return "ragi_materials.salt_pond"
+        return JEICore.SaltPond
     }
 
     //JEiタブの名前を取得するメソッド
     override fun getTitle(): String {
-        return I18n.format("gui.$uid")
+        return I18n.format("gui.$uid.jei")
     }
 
     //JEiタブの背景を取得するメソッド

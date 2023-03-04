@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.tile.TileLaboratoryTable
 import net.minecraft.block.Block
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.SoundType
@@ -11,6 +11,7 @@ import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.InventoryHelper
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
@@ -52,6 +53,13 @@ class BlockLaboratoryTable: BlockContainer(Material.IRON) {
     override fun getRenderType(state: IBlockState): EnumBlockRenderType {
         return EnumBlockRenderType.MODEL
     }
+
+    /* できなかった。
+    @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(1.0, 1.0, 1.0, 1.0, 0.875, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
+    override fun getBoundingBox(state: IBlockState, source: IBlockAccess, pos: BlockPos): AxisAlignedBB {
+        //ソウルサンドと同じ当たり判定にすることで，下からホッパーで回収できるようにする
+        return AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
+    }*/
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isFullCube(state: IBlockState): Boolean {
@@ -100,7 +108,7 @@ class BlockLaboratoryTable: BlockContainer(Material.IRON) {
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
         if (tile !== null && tile is TileLaboratoryTable) {
-            RagiUtils.dropItemFromInventory(world, pos, tile.inventory)
+            InventoryHelper.dropInventoryItems(world, pos, tile.invLaboratory)
         }
         super.breakBlock(world, pos, state)
     }

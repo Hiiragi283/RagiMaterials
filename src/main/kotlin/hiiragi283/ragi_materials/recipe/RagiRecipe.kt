@@ -45,7 +45,7 @@ object RagiRecipe {
         //イテレータの各要素について実行する
         while (iteratorFurnace.hasNext()) {
             //インプットが一致する場合
-            if (RagiUtils.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input)) {
+            if (RagiUtils.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input, true)) {
                 //レシピを削除する
                 iteratorFurnace.remove()
                 RagiLogger.infoDebug("The smelting input " + input.toBracket() + " was removed successfully!")

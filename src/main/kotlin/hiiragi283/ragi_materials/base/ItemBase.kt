@@ -9,13 +9,12 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemBase(MOD: String, ID: String?, private val maxMeta: Int) : Item() {
+open class ItemBase(MOD: String, ID: String?, val maxMeta: Int) : Item() {
 
     init {
         setRegistryName(MOD, ID)
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
         unlocalizedName = ID.toString() //翻訳キーをIDから取得する
-
     }
 
     //    General    //

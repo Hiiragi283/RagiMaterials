@@ -51,6 +51,7 @@ object RagiInit {
     val ItemSeedCoal: Item = ItemSeedCoal().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedLignite: Item = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedPeat: Item = ItemSeedPeat("seed_peat").setCreativeTab(CreativeTabs.MISC)
+    val ItemWaste = ItemWaste()
 
     val ItemBlockCrystal = ItemMaterial("block_crystal", EnumMaterialType.BLOCK_CRYSTAL)
     val ItemBlockMetal = ItemMaterial("block_metal", EnumMaterialType.BLOCK_METAL)
@@ -97,6 +98,7 @@ object RagiInit {
                 ItemSeedCoal,
                 ItemSeedLignite,
                 ItemSeedPeat,
+                ItemWaste,
 
                 ItemBlockCrystal,
                 ItemBlockMetal,

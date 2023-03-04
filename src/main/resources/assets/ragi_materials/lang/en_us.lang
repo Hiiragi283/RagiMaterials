@@ -351,8 +351,9 @@ material.lumium=Lumium
 material.enderium=Enderium
 
 # GUI
-gui.ragi_materials.forge_furnace=Forge Furnace
-gui.ragi_materials.salt_pond=Salt Evaporation Pond
+gui.ragi_materials.forge_furnace.jei=Forge Furnace
+gui.ragi_materials.laboratory_table=Laboratory Table
+gui.ragi_materials.salt_pond.jei=Salt Evaporation Pond
 itemGroup.ragi_materials.blocks=RagiMaterials - Blocks
 itemGroup.ragi_materials.fullbottles=RagiMaterials - Full Bottles
 itemGroup.ragi_materials.materials=RagiMaterials - Materials

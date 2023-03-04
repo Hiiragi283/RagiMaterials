@@ -48,7 +48,7 @@ object FFHelper {
             //mapRecipe内の各recipeに対して実行
             for (recipe in FFRegistry.list) {
                 //stackがinputと等しい，かつブロックとレシピタイプが一致する場合は対応する完成品を，そうでない場合は空のItemStackを返す
-                if (RagiUtils.isSameStack(stack, recipe.input) && canProcess(state, recipe.type)) {
+                if (RagiUtils.isSameStack(stack, recipe.input, false) && canProcess(state, recipe.type)) {
                     result = recipe.output
                     break
                 } else ItemStack.EMPTY

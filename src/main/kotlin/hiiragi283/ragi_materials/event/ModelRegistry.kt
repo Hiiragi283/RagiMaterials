@@ -24,7 +24,8 @@ class ModelRegistry {
             RagiInit.ItemFullBottle,
             RagiInit.ItemSeedCoal,
             RagiInit.ItemSeedLignite,
-            RagiInit.ItemSeedPeat
+            RagiInit.ItemSeedPeat,
+            RagiInit.ItemWaste
         )
         //アイテムのモデル登録 (メタデータ無視)
         RagiModel.setModelSame(
