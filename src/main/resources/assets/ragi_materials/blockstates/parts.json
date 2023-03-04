@@ -1,0 +1,57 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:generated",
+    "uvlock": true
+  },
+  "variants": {
+    "block_crystal": [{
+      "model": "ragi_materials:block_metal"
+    }],
+    "block_metal": [{
+      "model": "ragi_materials:block_metal"
+    }],
+    "dust": [{
+      "textures": {
+        "layer0": "ragi_materials:items/dust"
+      }
+    }],
+    "dust_tiny": [{
+      "textures": {
+        "layer0": "ragi_materials:items/dust_tiny"
+      }
+    }],
+    "gear": [{
+      "textures": {
+        "layer0": "ragi_materials:items/gear"
+      }
+    }],
+    "ingot": [{
+      "textures": {
+        "layer0": "ragi_materials:items/ingot"
+      }
+    }],
+    "ingot_hot": [{
+      "textures": {
+        "layer0": "ragi_materials:items/ingot",
+        "layer1": "ragi_materials:items/ingot_hot"
+      }
+    }],
+    "nugget": [{
+      "textures": {
+        "layer0": "ragi_materials:items/nugget"
+      }
+    }],
+    "plate": [{
+      "textures": {
+        "layer0": "ragi_materials:items/plate"
+      }
+    }],
+    "stick": [{
+      "textures": {
+        "layer0": "ragi_materials:items/stick"
+      }
+    }]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:generated",
+    "uvlock": true
+  },
+  "variants": {
+    "amorphous": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_amorphous"
+      }
+    }],
+    "coal": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_coal"
+      }
+    }],
+    "cubic": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_cubic"
+      }
+    }],
+    "diamond": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_diamond"
+      }
+    }],
+    "hexagonal": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_hexagonal"
+      }
+    }],
+    "monoclinic": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_monoclinic"
+      }
+    }],
+    "orthorhombic": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_orthorhombic"
+      }
+    }],
+    "tetragonal": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_tetragonal"
+      }
+    }],
+    "trigonal": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_trigonal"
+      }
+    }]
+  }
+}
