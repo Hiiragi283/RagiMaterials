@@ -44,7 +44,7 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
     //    General    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("BlockFaceShape.UNDEFINED", "net.minecraft.block.state.BlockFaceShape"))
-    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
+    override fun getBlockFaceShape(world: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
         return BlockFaceShape.UNDEFINED
     }
 
@@ -134,11 +134,11 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
 
     //    IGrowable    //
 
-    override fun canGrow(worldIn: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {
+    override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {
         return state.getValue(AGE) != 4 //最大まで成長していない場合はtrue
     }
 
-    override fun canUseBonemeal(worldIn: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean {
+    override fun canUseBonemeal(world: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean {
         return true
     }
 

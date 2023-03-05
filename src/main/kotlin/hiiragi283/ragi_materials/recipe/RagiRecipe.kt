@@ -67,7 +67,7 @@ object RagiRecipe {
     fun addShaped(registryName: String, output: ItemStack?, vararg inputs: Any?) {
         //レシピを上書きする
         GameRegistry.addShapedRecipe(ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs)
-        RagiLogger.infoDebug("The recipe <recipe:$registryName> was overrided successfully!")
+        RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
     }
 
     //不定型クラフトレシピを追加するメソッド
@@ -86,7 +86,7 @@ object RagiRecipe {
         GameRegistry.addShapelessRecipe(
             ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs
         )
-        RagiLogger.infoDebug("The recipe <recipe:$registryName> was overrided successfully!")
+        RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
     }
 
     //クラフトレシピを削除するメソッド

@@ -20,7 +20,7 @@ class RecipeFullBottle : net.minecraftforge.registries.IForgeRegistryEntry.Impl<
     }
 
     //レシピが一致するかどうかを判定するメソッド
-    override fun matches(inv: InventoryCrafting, worldIn: World): Boolean {
+    override fun matches(inv: InventoryCrafting, world: World): Boolean {
         //変数の宣言
         var hasBucketFilled = false
         //クラフトグリッド内の各スロットに対して実行

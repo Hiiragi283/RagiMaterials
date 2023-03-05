@@ -51,7 +51,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
     //    General    //
 
     @Deprecated("Deprecated in Java")
-    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
+    override fun getBlockFaceShape(world: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
         return when (face) {
             EnumFacing.UP -> when (state.getValue(ACTIVE)) {
                 true -> BlockFaceShape.UNDEFINED
@@ -104,7 +104,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
     //    Event    //
 
     @Deprecated("Deprecated in Java")
-    override fun neighborChanged(state: IBlockState, world: World, pos: BlockPos, blockIn: Block, fromPos: BlockPos) {
+    override fun neighborChanged(state: IBlockState, world: World, pos: BlockPos, block: Block, fromPos: BlockPos) {
         if (!world.isRemote && world.isBlockPowered(pos)) blowBellow(world, pos, state)
     }
 

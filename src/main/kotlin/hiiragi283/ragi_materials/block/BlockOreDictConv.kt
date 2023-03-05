@@ -43,7 +43,7 @@ class BlockOreDictConv : Block(Material.WOOD) {
     //    General    //
 
     @Deprecated("Deprecated in Java")
-    override fun getBlockFaceShape(worldIn: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
+    override fun getBlockFaceShape(world: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
         return when (face) {
             //下 -> SOLID
             EnumFacing.DOWN -> BlockFaceShape.SOLID

@@ -14,7 +14,7 @@ object RecipeRegistry {
     fun init() {
         addCrafting()
         addCraftingMaterial()
-        ForgeRegistries.RECIPES.register(RecipeFullBottle())
+        //ForgeRegistries.RECIPES.register(RecipeFullBottle())
     }
 
     private fun addCrafting() {
