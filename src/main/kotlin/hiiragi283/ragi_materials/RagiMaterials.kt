@@ -5,9 +5,9 @@ import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.OreDictRegistry
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.MaterialManager
+import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.RecipeRegistry
-import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
@@ -58,6 +58,8 @@ class RagiMaterials {
             OreDictRegistry.init()
             //レシピの登録
             RecipeRegistry.init()
+            //パケットの登録
+            RagiPacket.init()
             //proxyの読み込み
             proxy!!.loadInit()
             //連携要素の登録

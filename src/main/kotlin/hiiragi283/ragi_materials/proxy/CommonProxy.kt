@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.tile.TileLaboratoryTable
+import hiiragi283.ragi_materials.tile.TileLaboTable
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 
@@ -20,6 +20,6 @@ open class CommonProxy {
 
     //TileEntityを登録するメソッド
     open fun registerTile() {
-        GameRegistry.registerTileEntity(TileLaboratoryTable::class.java, ResourceLocation(Reference.MOD_ID, "te_laboratory_table"))
+        GameRegistry.registerTileEntity(TileLaboTable::class.java, ResourceLocation(Reference.MOD_ID, "te_laboratory_table"))
     }
 }

@@ -1,7 +1,10 @@
 package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.event.*
+import hiiragi283.ragi_materials.render.tile.RenderLaboratoryTable
+import hiiragi283.ragi_materials.tile.TileLaboTable
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.client.registry.ClientRegistry
 
 class ClientProxy : CommonProxy() {
 
@@ -16,6 +19,7 @@ class ClientProxy : CommonProxy() {
     //Initializationで読み込むメソッド
     override fun loadInit() {
         super.registerTile()
+        ClientRegistry.bindTileEntitySpecialRenderer(TileLaboTable::class.java, RenderLaboratoryTable())
     }
 
     //Post-Initializationで読み込むメソッド

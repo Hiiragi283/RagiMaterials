@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.block.BlockLaboratoryTable
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.packet.MessageLabo
+import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.recipe.laboratory.LTRegistry
 import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -13,6 +14,8 @@ import net.minecraft.inventory.ISidedInventory
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.network.NetworkManager
+import net.minecraft.network.play.server.SPacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -23,9 +26,9 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class TileLaboratoryTable : TileEntity(), ISidedInventory {
+class TileLaboTable : TileEntity(), ISidedInventory {
 
-    val invLaboratory = RagiInventory("gui.ragi_materials.laboratory_table", 5)
+    val invLabo = RagiInventory("gui.ragi_materials.laboratory_table", 5)
     private val handlerSide = SidedInvWrapper(this, EnumFacing.NORTH)
 
     //    NBT tag    //
@@ -37,13 +40,23 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        ItemStackHelper.saveAllItems(tag, invLaboratory.inventory) //インベントリをtagに書き込む
+        ItemStackHelper.saveAllItems(tag, invLabo.inventory) //インベントリをtagに書き込む
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        ItemStackHelper.loadAllItems(tag, invLaboratory.inventory) //tagからインベントリを読み込む
+        ItemStackHelper.loadAllItems(tag, invLabo.inventory) //tagからインベントリを読み込む
+    }
+
+    //    Packet    //
+
+    override fun getUpdatePacket(): SPacketUpdateTileEntity {
+        return SPacketUpdateTileEntity(pos, 100, this.updateTag) //NBTタグの情報を送る
+    }
+
+    override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
+        this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
     }
 
     /*
@@ -72,54 +85,33 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
     //    Event    //
 
     fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand) {
-        //サーバー側の場合
-        if (!world.isRemote) {
-            val stack = player.getHeldItem(hand)
-            //手持ちのItemStackが空の場合
-            if (stack.isEmpty) {/*for (i in 0 until inventory.slots) {
-                    val numReverse = inventory.slots - (i + 1)
-                    //スロット内のItemStackを取得 (逆順)
-                    val stackSlot = inventory.getStackInSlot(numReverse)
-                    //ItemStackが空でない場合
-                    if (!stackSlot.isEmpty) {
-                        //プレイヤーの手持ちを上書き
-                        player.setHeldItem(hand, inventory.extractItem(i, stackSlot.count, false))
-                        markDirty() //内部データの変化を送信
-                        RagiLogger.infoDebug("Stack extracted from slot$numReverse!")
-                        break
-                    } else RagiLogger.infoDebug("The slot$numReverse is empty!")
-                }*/
-            } else {
-                for (i in 0 until invLaboratory.slots) {
-                    //スロットにItemStackを入れた際の余りを取得
-                    val stackRemain = handlerSide.insertItem(i, stack, true)
-                    //投入の前後でItemStackが変化しない -> スロットは埋まっている
-                    //投入の前後でItemStackが変化した -> スロットに空きがある
-                    if (!RagiUtils.isSameStack(stack, stackRemain, true)) {
-                        player.setHeldItem(hand, handlerSide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
-                        markDirty() //内部データの変化を送信
-                        world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.itemframe.add_item"), SoundCategory.BLOCKS, 1.0f, 1.0f)
-                        RagiLogger.infoDebug("Stack Inserted to slot$i!")
-                        break
-                    } else RagiLogger.infoDebug("The slot$i is full!")
-                }
-            }
-            updateState(world, pos) //モデルの更新
-        }
-    }
-
-    private fun updateState(world: World, pos: BlockPos) {
-        if (!world.isRemote) {
-            val state = world.getBlockState(pos)
-            val block = state.block
-            if (block is BlockLaboratoryTable) {
-                val slot1 = this.invLaboratory.getStackInSlot(0).isEmpty
-                val slot2 = this.invLaboratory.getStackInSlot(1).isEmpty
-                val slot3 = this.invLaboratory.getStackInSlot(2).isEmpty
-                val slot4 = this.invLaboratory.getStackInSlot(3).isEmpty
-                val slot5 = this.invLaboratory.getStackInSlot(4).isEmpty
-                val result = state.withProperty(BlockLaboratoryTable.SLOT1, !slot1).withProperty(BlockLaboratoryTable.SLOT2, !slot2).withProperty(BlockLaboratoryTable.SLOT3, !slot3).withProperty(BlockLaboratoryTable.SLOT4, !slot4).withProperty(BlockLaboratoryTable.SLOT5, !slot5)
-                world.setBlockState(pos, result, 2)
+        val stack = player.getHeldItem(hand)
+        //手持ちのItemStackが空の場合
+        if (stack.isEmpty) {/*for (i in 0 until inventory.slots) {
+            val numReverse = inventory.slots - (i + 1)
+            //スロット内のItemStackを取得 (逆順)
+            val stackSlot = inventory.getStackInSlot(numReverse)
+            //ItemStackが空でない場合
+            if (!stackSlot.isEmpty) {
+                //プレイヤーの手持ちを上書き
+                player.setHeldItem(hand, inventory.extractItem(i, stackSlot.count, false))
+                RagiLogger.infoDebug("Stack extracted from slot$numReverse!")
+                break
+            } else RagiLogger.infoDebug("The slot$numReverse is empty!")
+        }*/
+        } else {
+            for (i in 0 until invLabo.slots) {
+                //スロットにItemStackを入れた際の余りを取得
+                val stackRemain = handlerSide.insertItem(i, stack, true)
+                //投入の前後でItemStackが変化しない -> スロットは埋まっている
+                //投入の前後でItemStackが変化した -> スロットに空きがある
+                if (!RagiUtils.isSameStack(stack, stackRemain, true)) {
+                    player.setHeldItem(hand, handlerSide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
+                    world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.itemframe.add_item"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    markDirty()
+                    RagiLogger.infoDebug("Stack Inserted to slot$i!")
+                    break
+                } else RagiLogger.infoDebug("The slot$i is full!")
             }
         }
     }
@@ -128,8 +120,8 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
 
     fun chemicalReaction(world: World, pos: BlockPos) {
         var isFailed = true
-        //インベントリが空でない場合
-        if (!this.invLaboratory.isEmpty) {
+        //サーバー側，かつインベントリが空でない場合
+        if (!world.isRemote && !this.invLabo.isEmpty) {
             //レシピチェック
             for (recipe in LTRegistry.list) {
                 if (recipe.match(this.handlerSide)) {
@@ -157,16 +149,16 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
                 world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.generic.explode"), SoundCategory.BLOCKS, 1.0f, 1.0f)
                 RagiLogger.infoDebug("Failed...!")
             }
-            this.invLaboratory.clear() //反応結果によらずインベントリを空にする
-            updateState(world, pos) //モデルの更新
+            this.invLabo.clear() //反応結果によらずインベントリを空にする
         }
+        RagiPacket.wrapper.sendToAll(MessageLabo(this.pos)) //クライアント側にパケットを送る
     }
 
     //    ISidedInventory    //
     //基本的にRagiInventoryと同じ
 
     override fun getName(): String {
-        return this.invLaboratory.title
+        return this.invLabo.title
     }
 
     override fun hasCustomName(): Boolean {
@@ -174,35 +166,35 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
     }
 
     override fun getSizeInventory(): Int {
-        return this.invLaboratory.sizeInventory
+        return this.invLabo.sizeInventory
     }
 
     override fun isEmpty(): Boolean {
-        return this.invLaboratory.isEmpty
+        return this.invLabo.isEmpty
     }
 
     override fun getStackInSlot(index: Int): ItemStack {
-        return this.invLaboratory.getStackInSlot(index)
+        return this.invLabo.getStackInSlot(index)
     }
 
     override fun decrStackSize(index: Int, count: Int): ItemStack {
-        return this.invLaboratory.decrStackSize(index, count)
+        return this.invLabo.decrStackSize(index, count)
     }
 
     override fun removeStackFromSlot(index: Int): ItemStack {
-        return this.invLaboratory.removeStackFromSlot(index)
+        return this.invLabo.removeStackFromSlot(index)
     }
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) {
-        return this.invLaboratory.setInventorySlotContents(index, stack)
+        return this.invLabo.setInventorySlotContents(index, stack)
     }
 
     override fun getInventoryStackLimit(): Int {
-        return this.invLaboratory.inventoryStackLimit
+        return this.invLabo.inventoryStackLimit
     }
 
     override fun isUsableByPlayer(player: EntityPlayer): Boolean {
-        return this.invLaboratory.isUsableByPlayer(player)
+        return this.invLabo.isUsableByPlayer(player)
     }
 
     override fun openInventory(player: EntityPlayer) {}
@@ -210,21 +202,21 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
     override fun closeInventory(player: EntityPlayer) {}
 
     override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean {
-        return this.invLaboratory.isItemValidForSlot(index, stack)
+        return this.invLabo.isItemValidForSlot(index, stack)
     }
 
     override fun getField(id: Int): Int {
-        return this.invLaboratory.getField(id)
+        return this.invLabo.getField(id)
     }
 
     override fun setField(id: Int, value: Int) {}
 
     override fun getFieldCount(): Int {
-        return this.invLaboratory.fieldCount
+        return this.invLabo.fieldCount
     }
 
     override fun clear() {
-        this.invLaboratory.clear()
+        this.invLabo.clear()
     }
 
     override fun getSlotsForFace(side: EnumFacing): IntArray {
@@ -234,7 +226,7 @@ class TileLaboratoryTable : TileEntity(), ISidedInventory {
         } else intArrayOf(0, 1, 2, 3, 4)
     }
 
-    override fun canInsertItem(index: Int, itemStackIn: ItemStack, direction: EnumFacing): Boolean {
+    override fun canInsertItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean {
         //上面または下面でない場合，搬入可能
         return direction != EnumFacing.UP && direction != EnumFacing.DOWN
     }

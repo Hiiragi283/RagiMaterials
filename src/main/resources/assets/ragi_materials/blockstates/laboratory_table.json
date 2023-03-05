@@ -1,54 +1,12 @@
 {
-  "multipart": [
-    {
-      "apply": {
-        "model": "ragi_materials:laboratory_table"
-      }
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:tesr_dummy",
+    "textures": {
+      "particle": "ragi_materials:tiles/laboratory_table"
     },
-    {
-      "when": {
-        "slot1": true
-      },
-      "apply": {
-        "model": "ragi_materials:laboratory_bottle_1",
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "slot2": true
-      },
-      "apply": {
-        "model": "ragi_materials:laboratory_bottle_2",
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "slot3": true
-      },
-      "apply": {
-        "model": "ragi_materials:laboratory_bottle_3",
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "slot4": true
-      },
-      "apply": {
-        "model": "ragi_materials:laboratory_bottle_4",
-        "uvlock": true
-      }
-    },
-    {
-      "when": {
-        "slot5": true
-      },
-      "apply": {
-        "model": "ragi_materials:laboratory_bottle_5",
-        "uvlock": true
-      }
-    }
-  ]
+    "uvlock": true
+  },
+  "variants": {}
 }
