@@ -17,6 +17,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple
 
@@ -102,8 +103,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
                     val amount = fluidStack.amount //液体量を取得
                     //液体量が1000の場合
                     if (amount == 1000) {
-                        //doDrain==true，かつstackの個数が1よりも大きい場合
-                        if (doDrain && stack.count > 1) stack.shrink(1) //stackを1つ減らす
+                        if (doDrain) stack.shrink(1) //stackを1つ減らす
                         result = fluidStack.copy() //FluidStackを代入する
                     }
                 }
@@ -112,19 +112,15 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
         }
 
         override fun canFillFluidType(fluidStack: FluidStack): Boolean {
-            val fluid = fluidStack.fluid
             //液体の名前から取得した素材が空でないならtrue
-            return !MaterialUtil.getMaterial(fluid.name).isEmpty()
+            return !MaterialUtil.getMaterial(fluidStack.fluid.name).isEmpty()
         }
     }
 
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-        return if (fluidItem !== null && fluidItem.tankProperties[0]?.contents?.fluid?.name !== null) {
-            val fluid = fluidItem.tankProperties[0]!!.contents!!.fluid!!.name
-            MaterialUtil.getMaterial(fluid)
-        } else MaterialBuilder.EMPTY
+        val fluidStack = FluidUtil.getFluidContained(stack)
+        return if (fluidStack !== null) MaterialUtil.getMaterial(fluidStack.fluid.name) else MaterialBuilder.EMPTY
     }
 }

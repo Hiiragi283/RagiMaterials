@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
@@ -15,10 +14,10 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
+import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -28,9 +27,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fluids.FluidRegistry
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler
-import net.minecraftforge.fluids.capability.IFluidHandlerItem
+import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
@@ -129,41 +126,15 @@ class BlockSaltPond : Block(Material.WOOD) {
         //サーバー側，かつ塩田ブロックが空の場合
         if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
             val stack = player.getHeldItem(hand)
-            //アイテムのIDに"bucket"が含まれない場合
-            if (!stack.item.registryName!!.resourcePath.contains("bucket")) {
-                val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-                if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents !== null)) {
-                    when (fluidItem.tankProperties[0].contents!!.fluid) {
-                        //水の場合
-                        FluidRegistry.getFluid("water") -> {
-                            placeFluid(world, pos, state, fluidItem, EnumSalt.WATER)
-                            RagiLogger.infoDebug("Water was placed!")
-                        }
-                        //Saltwaterの場合
-                        FluidRegistry.getFluid("saltwater") -> {
-                            placeFluid(world, pos, state, fluidItem, EnumSalt.SALTWATER)
-                            RagiLogger.infoDebug("Saltwater was placed!")
-                        }
-                        //Brineの場合
-                        FluidRegistry.getFluid("brine") -> {
-                            placeFluid(world, pos, state, fluidItem, EnumSalt.BRINE)
-                            RagiLogger.infoDebug("Brine was placed!")
-                        }
-                    }
-                } else RagiLogger.infoDebug("The content is null!")
+            val fluidStack = FluidUtil.getFluidContained(stack)
+            if (fluidStack !== null) {
+                FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
+                world.setBlockState(pos, world.getBlockState(pos).withProperty(TYPE, getType(fluidStack.fluid.name)), 2) //stateの更新
+                world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
+                world.playSound(null, pos, RagiUtil.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
             }
         }
         return true
-    }
-
-    private fun placeFluid(world: World, pos: BlockPos, state: IBlockState, fluidItem: IFluidHandlerItem, type: EnumSalt) {
-        //サーバー側
-        if (!world.isRemote) {
-            fluidItem.drain(1000, true) //液体を1000 mb汲み取る
-            world.setBlockState(pos, state.withProperty(TYPE, type), 2) //stateの更新
-            world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
-            world.playSound(null, pos, RagiUtil.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
-        }
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
@@ -177,12 +148,7 @@ class BlockSaltPond : Block(Material.WOOD) {
                 else -> ItemStack.EMPTY
             }
             if (stack.item != Items.AIR) {
-                val drop = EntityItem(world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 0.75, pos.z.toDouble() + 0.5, stack) //完成品のEntityItem
-                drop.setPickupDelay(0) //即座に回収できるようにする
-                drop.motionX = 0.0
-                drop.motionY = 0.0
-                drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-                world.spawnEntity(drop) //dropをスポーン
+                InventoryHelper.spawnItemStack(world, pos.x.toDouble() + 0.5, pos.y.toDouble(), pos.z.toDouble() + 0.5, stack)
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
             }
@@ -208,6 +174,16 @@ class BlockSaltPond : Block(Material.WOOD) {
 
         override fun getName(): String {
             return this.fluid
+        }
+
+    }
+
+    fun getType(fluid: String): EnumSalt {
+        return when (fluid) {
+            "water" -> EnumSalt.WATER
+            "saltwater" -> EnumSalt.SALTWATER
+            "brine" -> EnumSalt.BRINE
+            else -> EnumSalt.EMPTY
         }
     }
 }
