@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -214,17 +215,10 @@ object RagiUtil {
         }
     }
 
-    fun dropItemFromInventory(world: World, pos: BlockPos, inventory: ItemStackHandler) {
+    fun dropInventoryItems(world: World, pos: BlockPos, inventory: ItemStackHandler) {
         for (i in 0 until inventory.slots) {
             val stack = inventory.getStackInSlot(i)
-            if (!stack.isEmpty) {
-                val drop = EntityItem(world, pos.x.toDouble() + 0.5, pos.y.toDouble(), pos.z.toDouble() + 0.5, stack)
-                drop.setPickupDelay(0) //即座に回収できるようにする
-                drop.motionX = 0.0
-                drop.motionY = 0.0
-                drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-                world.spawnEntity(drop) //ドロップアイテムをスポーン
-            }
+            InventoryHelper.spawnItemStack(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), stack)
         }
     }
 }

@@ -31,6 +31,7 @@ object RagiInit {
     val BlockCropLignite = BlockCropLignite()
     val BlockCropPeat = BlockCropPeat("crop_peat")
     val BlockForgeFurnace = BlockForgeFurnace()
+    val BlockFullBottleStation = BlockFullBottleStation()
     val BlockLaboratoryTable = BlockLaboTable()
     val BlockLitForgeFurnace = BlockLitForgeFurnace()
     val BlockOreDictConv = BlockOreDictConv()
@@ -40,6 +41,7 @@ object RagiInit {
     val ItemBlockBellow = ItemBlockBase(BlockBellow, 0)
     val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1)
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
+    val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation, 0)
     val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable, 0)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0)
     val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0)
@@ -77,6 +79,7 @@ object RagiInit {
                 BlockCropLignite,
                 BlockCropPeat,
                 BlockForgeFurnace,
+                BlockFullBottleStation,
                 BlockLaboratoryTable,
                 BlockLitForgeFurnace,
                 BlockOreDictConv,
@@ -87,6 +90,7 @@ object RagiInit {
                 ItemBlockBellow,
                 ItemBlockBlazeHeater,
                 ItemBlockForgeFurnace,
+                ItemBlockFullBottleStation,
                 ItemBlockLaboratoryTable,
                 ItemBlockOreDictConv,
                 ItemBlockSaltPond,

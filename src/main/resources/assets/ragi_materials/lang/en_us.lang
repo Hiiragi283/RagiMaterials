@@ -7,6 +7,7 @@ tile.crop_coal.name=[WIP] Coal Farm
 tile.crop_lignite.name=[WIP] Lignite Farm
 tile.crop_peat.name=[WIP] Peat Farm
 tile.forge_furnace.name=Forge Furnace
+tile.fullbottle_station.name=Full Bottle Station
 tile.laboratory_table.name=Laboratory Table
 tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.oredict_converter.name=Ore Dictionary Converter
@@ -360,11 +361,11 @@ itemGroup.ragi_materials.fullbottles=RagiMaterials - Full Bottles
 itemGroup.ragi_materials.materials=RagiMaterials - Materials
 
 # Text
-text.ragi_materials.block_bellow.0=Use to §cBoost§r§7 §bForge Furnace§r§7
-text.ragi_materials.block_bellow.1=Right-click or send Redstone signal to activate
 text.ragi_materials.blaze_heater.0=Used for heating metal ingot
 text.ragi_materials.blaze_heater.1=Not consume fuels
 text.ragi_materials.blaze_heater.2=Some metals require §4Hellrise§r§7 Heater
+text.ragi_materials.block_bellow.0=Used to §cBoost§r§7 §bForge Furnace§r§7
+text.ragi_materials.block_bellow.1=Right-click or send Redstone signal to activate
 text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
 text.ragi_materials.decoration_line=§e§l========================================§r§7
 text.ragi_materials.durability=- Durability: §b%s§r
@@ -374,6 +375,9 @@ text.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §cboost
 text.ragi_materials.forge_furnace.3=Some metals require §cBoost§r§7ed Forge Furnace
 text.ragi_materials.fullbottle.0=Stackable Fluid Container
 text.ragi_materials.fullbottle.1=Crafted from §bany other§r§7 fluid container
+text.ragi_materials.fullbottle_station.0=Used to make §bFull Bottle§r§7 from fluids
+text.ragi_materials.fullbottle_station.1=Insert fluids with any fluid container or pipes
+text.ragi_materials.fullbottle_station.2=The fluids will be converted automatically in 1 second
 text.ragi_materials.laboratory_table.0=Used for chemical reaction
 text.ragi_materials.laboratory_table.1=Insert item by right-clicking or using hopper
 text.ragi_materials.laboratory_table.2=If the quantity or order is §cwrong§r§7, §bChemical Waste§r§7 is generated

@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
+import hiiragi283.ragi_materials.base.ITileBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.packet.MessageLabo
 import hiiragi283.ragi_materials.packet.RagiPacket
@@ -8,9 +9,9 @@ import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.ISidedInventory
+import net.minecraft.inventory.InventoryHelper
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -26,7 +27,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class TileLaboTable : TileEntity(), ISidedInventory {
+class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
 
     val invLabo = RagiInventory("gui.ragi_materials.laboratory_table", 5)
     private val handlerSide = SidedInvWrapper(this, EnumFacing.NORTH)
@@ -84,7 +85,7 @@ class TileLaboTable : TileEntity(), ISidedInventory {
 
     //    Event    //
 
-    fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand) {
+    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing) {
         val stack = player.getHeldItem(hand)
         //手持ちのItemStackが空の場合
         if (stack.isEmpty) {/*for (i in 0 until inventory.slots) {
@@ -126,12 +127,7 @@ class TileLaboTable : TileEntity(), ISidedInventory {
             for (recipe in LTRegistry.list) {
                 if (recipe.match(this.handlerSide)) {
                     isFailed = false
-                    val drop = EntityItem(world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 1.0, pos.z.toDouble() + 0.5, recipe.output)
-                    drop.setPickupDelay(0) //即座に回収できるようにする
-                    drop.motionX = 0.0
-                    drop.motionY = 0.25
-                    drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-                    world.spawnEntity(drop) //ドロップアイテムをスポーン
+                    InventoryHelper.spawnItemStack(world, pos.x.toDouble(), pos.y.toDouble() + 1.0f, pos.z.toDouble(), recipe.output)
                     RagiUtil.soundHypixel(world, pos)
                     RagiLogger.infoDebug("Succeeded!")
                     break
@@ -140,12 +136,7 @@ class TileLaboTable : TileEntity(), ISidedInventory {
             RagiLogger.infoDebug("$isFailed")
             //失敗時の処理
             if (isFailed) {
-                val drop = EntityItem(world, pos.x.toDouble() + 0.5, pos.y.toDouble() + 1.0, pos.z.toDouble() + 0.5, ItemStack(RagiInit.ItemWaste, 1, 0))
-                drop.setPickupDelay(0) //即座に回収できるようにする
-                drop.motionX = 0.0
-                drop.motionY = 0.25
-                drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-                world.spawnEntity(drop) //ドロップアイテムをスポーン
+                InventoryHelper.spawnItemStack(world, pos.x.toDouble(), pos.y.toDouble() + 1.0f, pos.z.toDouble(), ItemStack(RagiInit.ItemWaste, 1, 0))
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.generic.explode"), SoundCategory.BLOCKS, 1.0f, 1.0f)
                 RagiLogger.infoDebug("Failed...!")
             }
