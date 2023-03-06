@@ -12,7 +12,7 @@ class ClientProxy : CommonProxy() {
     override fun loadPreInit() {
         //Eventの登録
         MinecraftForge.EVENT_BUS.register(ColorHandler())
-        MinecraftForge.EVENT_BUS.register(ItemTooltip())
+        //MinecraftForge.EVENT_BUS.register(ItemTooltip())
         MinecraftForge.EVENT_BUS.register(ModelRegistry())
     }
 

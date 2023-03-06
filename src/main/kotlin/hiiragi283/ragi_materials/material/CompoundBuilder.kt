@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.render.color.RagiColor
-import hiiragi283.ragi_materials.util.MaterialUtils
 import java.awt.Color
 import java.math.BigDecimal
 
@@ -11,7 +10,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
 
     init {
         setColor()
-        setFormula(MaterialUtils.calcFormula(components))
+        setFormula(MaterialUtil.calcFormula(components))
         setMolar()
         register()
     }
@@ -22,7 +21,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
         //components内の各keyに対して実行
         for (key in components.keys) {
             //ColorとIntを対応させる
-            if (key is MaterialBuilder && key.color !== null) mapColor[key.color!!] = components.getValue(key)
+            if (key is MaterialBuilder) mapColor[key.color] = components.getValue(key)
         }
         this.color = RagiColor.mixColor(mapColor)
     }

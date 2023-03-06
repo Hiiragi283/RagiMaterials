@@ -3,8 +3,12 @@ package hiiragi283.ragi_materials.item
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.material.IMaterialItem
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -14,7 +18,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.EnumPlantType
 import net.minecraftforge.common.IPlantable
 
-open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlantable {
+open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlantable, IMaterialItem {
 
     //    Event    //
 
@@ -41,6 +45,12 @@ open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlanta
 
     override fun getPlantType(world: IBlockAccess, pos: BlockPos): EnumPlantType {
         return EnumPlantType.Crop //作物
+    }
+
+    //    IMaterialItem    //
+
+    override fun getMaterial(stack: ItemStack): MaterialBuilder {
+        return MaterialRegistry.PEAT
     }
 
 }

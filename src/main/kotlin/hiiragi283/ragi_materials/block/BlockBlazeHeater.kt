@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -81,9 +81,9 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
         var isHellrise = false
         if (stack.metadata == 1) isHellrise = true
         if (isHellrise) {
-            world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.endermen.stare"), SoundCategory.BLOCKS, 1.0f, 2.0f)
+            world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.endermen.stare"), SoundCategory.BLOCKS, 1.0f, 2.0f)
         } else {
-            world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.blaze.ambient"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+            world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.blaze.ambient"), SoundCategory.BLOCKS, 1.0f, 1.0f)
         }
         return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(HELL, isHellrise)
     }

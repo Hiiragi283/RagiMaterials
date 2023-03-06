@@ -2,7 +2,9 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.material.MaterialManager
+import hiiragi283.ragi_materials.material.IMaterialItem
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -21,28 +23,30 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimpl
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
+class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialItem {
 
 
     //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        //アイテムとしてのツールチップ
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..1) {
             tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
         }
+        //素材のツールチップ
+        MaterialUtil.materialInfo(getMaterial(stack), tooltip)
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
-        val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-        return if ((fluidItem !== null) && (fluidItem.tankProperties[0].contents?.fluid?.unlocalizedName !== null)) {
-            val name = fluidItem.tankProperties[0].contents?.fluid?.unlocalizedName!!
-            I18n.format("item.fullbottle_filled.name", I18n.format(name))
-        } else I18n.format("item.fullbottle.name")
+        val material = getMaterial(stack)
+        return if (material.isNotEmpty()) {
+            I18n.format("item.fullbottle_filled.name", I18n.format(material.name))
+        } else super.getItemStackDisplayName(stack)
     }
 
     @SideOnly(Side.CLIENT) //Client側のみ
@@ -52,13 +56,11 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
             subItems.add(ItemStack(this))
             //液体の名前から素材が取得できる場合のみ登録
             for (fluid in FluidRegistry.getRegisteredFluids().values) {
-                if (MaterialManager.getMaterial(fluid.name) !== null) {
-                    val stack = ItemStack(this)
-                    val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-                    fluidItem!!.fill(FluidStack(fluid, 1000), true)
-                    val stackFilled = fluidItem.container
-                    subItems.add(stackFilled)
-                }
+                val stack = ItemStack(this)
+                val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+                fluidItem!!.fill(FluidStack(fluid, 1000), true)
+                val stackFilled = fluidItem.container
+                subItems.add(stackFilled)
             }
         }
     }
@@ -111,8 +113,18 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0) {
 
         override fun canFillFluidType(fluidStack: FluidStack): Boolean {
             val fluid = fluidStack.fluid
-            //液体の名前から素材が取得できるならtrue
-            return MaterialManager.getMaterial(fluid.name) !== null
+            //液体の名前から取得した素材が空でないならtrue
+            return !MaterialUtil.getMaterial(fluid.name).isEmpty()
         }
+    }
+
+    //    IMaterialItem    //
+
+    override fun getMaterial(stack: ItemStack): MaterialBuilder {
+        val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+        return if (fluidItem !== null && fluidItem.tankProperties[0]?.contents?.fluid?.name !== null) {
+            val fluid = fluidItem.tankProperties[0]!!.contents!!.fluid!!.name
+            MaterialUtil.getMaterial(fluid)
+        } else MaterialBuilder.EMPTY
     }
 }

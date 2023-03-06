@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.render.model
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.CrystalBuilder
-import hiiragi283.ragi_materials.material.MaterialManager
+import hiiragi283.ragi_materials.material.MaterialUtil
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 
@@ -43,7 +43,7 @@ object ModelStack {
         )
         ModelLoader.setCustomMeshDefinition(RagiInit.ItemCrystal) { stack ->
             //metadataからmaterialを取得
-            val material = MaterialManager.getMaterial(stack.metadata)
+            val material = MaterialUtil.getMaterial(stack.metadata)
             //materialがGemBuilderの場合
             if (material is CrystalBuilder) {
                 //gemTypeに応じたモデルを割り当てる

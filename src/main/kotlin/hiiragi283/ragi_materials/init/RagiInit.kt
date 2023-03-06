@@ -122,7 +122,7 @@ object RagiInit {
             if (material.type != TypeRegistry.INTERNAL && material.type.parts.contains(EnumMaterialType.LIQUID)) {
                 //Fluidの登録
                 val fluid = FluidBase(material.name)
-                if (material.color !== null) fluid.setColor(material.color)
+                fluid.setColor(material.color)
                 //MaterialTypesがGASの場合
                 if (material.type == TypeRegistry.GAS) {
                     fluid.isGaseous = true

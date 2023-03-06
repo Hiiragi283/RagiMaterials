@@ -3,9 +3,7 @@ package hiiragi283.ragi_materials.material
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.element.ElementRegistry
-import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.render.color.RagiColor
-import net.minecraftforge.fluids.FluidRegistry
 
 object MaterialRegistryOld {
 
@@ -251,7 +249,7 @@ object MaterialRegistryOld {
         if (IntegrationCore.enableTF) {
             val MITHRIL = SimpleBuilder(ElementRegistry.MITHRIL, 1)
 
-            val SIGNALUM = AlloyBuilder(601, "signalum", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.SILVER to 1, ElementRegistry.REDSTONE to 10)).setColor(RagiColor.mixColor(ElementRegistry.COPPER.color!!, RagiColor.DARK_RED))
+            val SIGNALUM = AlloyBuilder(601, "signalum", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.SILVER to 1, ElementRegistry.REDSTONE to 10)).setColor(RagiColor.mixColor(ElementRegistry.COPPER.color, RagiColor.DARK_RED))
 
             val LUMIUM = AlloyBuilder(602, "lumium", mapOf(ElementRegistry.TIN to 3, ElementRegistry.SILVER to 1, ElementRegistry.GLOWSTONE to 4))
 

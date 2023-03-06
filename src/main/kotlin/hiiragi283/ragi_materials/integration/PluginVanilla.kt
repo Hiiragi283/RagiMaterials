@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.block.BlockForgeFurnace
 import hiiragi283.ragi_materials.block.BlockLitForgeFurnace
 import hiiragi283.ragi_materials.block.FFHelper
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.BlockDispenser
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem
 import net.minecraft.dispenser.IBlockSource
@@ -24,7 +24,7 @@ object PluginVanilla {
     private fun overrideMaxStack() {
         //configのlistMaxStackを参照する
         for (name in RagiConfig.utility.listMaxStack) {
-            val item = RagiUtils.getItem(name)
+            val item = RagiUtil.getItem(name)
             //itemの耐久値が0の場合、最大スタック数を64に上書きする
             if (item.maxDamage == 0) item.setMaxStackSize(64)
         }

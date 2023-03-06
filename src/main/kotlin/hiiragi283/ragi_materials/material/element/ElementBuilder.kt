@@ -8,7 +8,7 @@ open class ElementBuilder(
         index: Int,
         name: String,
         type: MaterialType,
-        override var color: Color?,
+        override var color: Color,
         override var molar: Float?,
         override var formula: String?,
         override var tempMelt: Int?,

@@ -3,7 +3,10 @@ package hiiragi283.ragi_materials.item
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.material.IMaterialItem
+import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -13,7 +16,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0) {
+class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     init {
         creativeTab = RagiInit.TabMaterials
@@ -30,7 +33,7 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0) {
             if (entity is EntityPlayer) {
                 when (stack.metadata) {
                     //化学廃棄物 -> 毒デバフ
-                    0 -> entity.addPotionEffect(RagiUtils.getPotionEffect("minecraft:poison", 110, 0))
+                    0 -> entity.addPotionEffect(RagiUtil.getPotionEffect("minecraft:poison", 110, 0))
                     else -> {}
                 }
             }
@@ -46,5 +49,11 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0) {
                 subItems.add(ItemStack(this, 1, i))
             }
         }
+    }
+
+    //    IMaterialItem    //
+
+    override fun getMaterial(stack: ItemStack): MaterialBuilder {
+        return MaterialRegistry.SOUL_SAND
     }
 }

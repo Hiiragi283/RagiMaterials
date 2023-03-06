@@ -97,19 +97,19 @@ object MaterialRegistry {
 
     val ANTHRACITE = CrystalBuilder(65, "anthracite", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
         burnTime = 200 * 24
-        color = RagiColor.mixColor(mapOf(COAL.color!! to 5, RagiColor.DARK_BLUE to 1))
+        color = RagiColor.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_BLUE to 1))
         hasOre = true
     }
 
     val LIGNITE = CrystalBuilder(66, "lignite", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
         burnTime = 200 * 4
-        color = RagiColor.mixColor(mapOf(COAL.color!! to 5, RagiColor.DARK_RED to 1))
+        color = RagiColor.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_RED to 1))
         hasOre = true
     }
 
     val PEAT = CrystalBuilder(67, "peat", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
         burnTime = 200 * 2
-        color = RagiColor.mixColor(mapOf(COAL.color!! to 5, RagiColor.DARK_GREEN to 1, RagiColor.DARK_RED to 1))
+        color = RagiColor.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_GREEN to 1, RagiColor.DARK_RED to 1))
         hasOre = true
     }
 

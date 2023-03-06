@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.material.type.MaterialType
+import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
@@ -10,7 +11,7 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //private変数の宣言
     open var burnTime = -1
-    open var color: Color? = null
+    open var color: Color = Color(0xFFFFFF)
     open var decayed: MaterialBuilder? = null
     open var formula: String? = null
     open var hasBracket = false
@@ -20,6 +21,10 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
     open var hasOre = false
+
+    companion object {
+        val EMPTY = MaterialBuilder(0, "empty", TypeRegistry.INTERNAL).apply {}
+    }
 
     //化学式に()をつけるメソッド
     fun addBracket(): MaterialBuilder = also { it.hasBracket = true }
@@ -35,11 +40,20 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
         return this.name.snakeToUpperCamelCase()
     }
 
+    //素材が空か判定するメソッド
+    fun isEmpty(): Boolean {
+        return this == EMPTY
+    }
+
+    fun isNotEmpty(): Boolean {
+        return !isEmpty()
+    }
+
     //燃焼時間を設定するメソッド
     fun setBurnTime(time: Int): MaterialBuilder = also { it.burnTime = time }
 
     //色を設定するメソッド
-    fun setColor(color: Color?): MaterialBuilder = also { it.color = color }
+    fun setColor(color: Color): MaterialBuilder = also { it.color = color }
 
     //崩壊後の素材を設定するメソッド
     fun setDecayed(material: MaterialBuilder): MaterialBuilder = also { it.decayed = material }

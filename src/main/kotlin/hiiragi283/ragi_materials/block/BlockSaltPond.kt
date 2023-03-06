@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -162,7 +162,7 @@ class BlockSaltPond : Block(Material.WOOD) {
             fluidItem.drain(1000, true) //液体を1000 mb汲み取る
             world.setBlockState(pos, state.withProperty(TYPE, type), 2) //stateの更新
             world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
-            world.playSound(null, pos, RagiUtils.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+            world.playSound(null, pos, RagiUtil.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
         }
     }
 
@@ -184,7 +184,7 @@ class BlockSaltPond : Block(Material.WOOD) {
                 drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
                 world.spawnEntity(drop) //dropをスポーン
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
-                world.playSound(null, pos, RagiUtils.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+                world.playSound(null, pos, RagiUtil.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
             }
         }
     }

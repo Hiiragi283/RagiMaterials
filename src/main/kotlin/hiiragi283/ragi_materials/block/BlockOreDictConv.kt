@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -97,8 +97,8 @@ class BlockOreDictConv : Block(Material.WOOD) {
                 //resultがEMPTYでない場合
                 if (result.item !== Items.AIR) {
                     stack.shrink(count) //stackを1つ減らす
-                    RagiUtils.spawnItemAtPlayer(world, player, result)
-                    RagiUtils.soundHypixel(world, pos) //SEを再生
+                    RagiUtil.spawnItemAtPlayer(world, player, result)
+                    RagiUtil.soundHypixel(world, pos) //SEを再生
                     RagiLogger.infoDebug("Item was converted!")
                 }
             }

@@ -3,8 +3,8 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils
-import hiiragi283.ragi_materials.util.RagiUtils.toInt
+import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.RagiUtil.toInt
 import net.minecraft.block.Block
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
@@ -131,7 +131,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
                 world.playSound(
                         null,
                         posFurnace,
-                        RagiUtils.getSound("minecraft:entity.blaze.shoot"),
+                        RagiUtil.getSound("minecraft:entity.blaze.shoot"),
                         SoundCategory.BLOCKS,
                         1.0f,
                         0.5f

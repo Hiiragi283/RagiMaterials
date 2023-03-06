@@ -2,8 +2,8 @@ package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils
-import hiiragi283.ragi_materials.util.RagiUtils.toBracket
+import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.FurnaceRecipes
@@ -45,7 +45,7 @@ object RagiRecipe {
         //イテレータの各要素について実行する
         while (iteratorFurnace.hasNext()) {
             //インプットが一致する場合
-            if (RagiUtils.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input, true)) {
+            if (RagiUtil.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input, true)) {
                 //レシピを削除する
                 iteratorFurnace.remove()
                 RagiLogger.infoDebug("The smelting input " + input.toBracket() + " was removed successfully!")
@@ -99,7 +99,7 @@ object RagiRecipe {
         if (recipeBefore !== null) {
             //レシピを置き換える
             GameRegistry.addShapedRecipe(
-                location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtils.getStack("minecraft:barrier", 1, 0)
+                location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtil.getStack("minecraft:barrier", 1, 0)
             )
             RagiLogger.infoDebug("The recipe <recipe:$registryName> was removed successfully!")
         } else {

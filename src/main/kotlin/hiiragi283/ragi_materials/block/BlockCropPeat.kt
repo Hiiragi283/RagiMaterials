@@ -2,6 +2,8 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.material.IMaterialBlock
+import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.block.Block
 import net.minecraft.block.IGrowable
@@ -26,7 +28,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlantable {
+open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlantable, IMaterialBlock {
 
     companion object {
         val AGE: PropertyInteger = PropertyInteger.create("age", 0, 3)
@@ -148,5 +150,11 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
             if (age < 3) world.setBlockState(pos, state.withProperty(AGE, age + 1), 2) //成長
 
         }
+    }
+
+    //    IMaterialBlock    //
+
+    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder {
+        return MaterialRegistry.PEAT
     }
 }

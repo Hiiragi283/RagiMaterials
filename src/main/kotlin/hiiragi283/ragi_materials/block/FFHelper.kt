@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
@@ -27,7 +27,7 @@ object FFHelper {
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
             world.playSound(
-                null, pos, RagiUtils.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
+                null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
             ) //SEを再生
             stack.shrink(1) //手持ちの燃料を1つ減らす
             RagiLogger.infoDebug("Fuel was added!")
@@ -48,7 +48,7 @@ object FFHelper {
             //mapRecipe内の各recipeに対して実行
             for (recipe in FFRegistry.list) {
                 //stackがinputと等しい，かつブロックとレシピタイプが一致する場合は対応する完成品を，そうでない場合は空のItemStackを返す
-                if (RagiUtils.isSameStack(stack, recipe.input, false) && canProcess(state, recipe.type)) {
+                if (RagiUtil.isSameStack(stack, recipe.input, false) && canProcess(state, recipe.type)) {
                     result = recipe.output
                     break
                 } else ItemStack.EMPTY
@@ -56,7 +56,7 @@ object FFHelper {
             //resultが空気でない場合
             if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす
-                RagiUtils.spawnItemAtPlayer(world, player, result)
+                RagiUtil.spawnItemAtPlayer(world, player, result)
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
                 RagiLogger.infoDebug("Heating was succeeded!")
             }
@@ -96,7 +96,7 @@ object FFHelper {
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
                 world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                    null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
                 RagiLogger.infoDebug("The state of Forge Furnace was updated!")
             }
@@ -109,7 +109,7 @@ object FFHelper {
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, result.block) //コンパレータ出力を更新
                 world.playSound(
-                    null, pos, RagiUtils.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
+                    null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
                 ) //SEを再生
                 RagiLogger.infoDebug("The state of Boosted Forge Furnace was updated!")
             }
@@ -119,7 +119,7 @@ object FFHelper {
                     world.playSound(
                         null,
                         pos,
-                        RagiUtils.getSound("minecraft:entity.endermen.hurt"),
+                        RagiUtil.getSound("minecraft:entity.endermen.hurt"),
                         SoundCategory.BLOCKS,
                         1.0f,
                         0.5f
@@ -129,7 +129,7 @@ object FFHelper {
                     world.playSound(
                         null,
                         pos,
-                        RagiUtils.getSound("minecraft:block.fire.extinguish"),
+                        RagiUtil.getSound("minecraft:block.fire.extinguish"),
                         SoundCategory.BLOCKS,
                         1.0f,
                         1.0f

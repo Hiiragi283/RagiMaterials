@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.OreDictRegistry
 import hiiragi283.ragi_materials.integration.IntegrationCore
-import hiiragi283.ragi_materials.material.MaterialManager
+import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.RecipeRegistry
@@ -75,7 +75,7 @@ class RagiMaterials {
             //Forge Furnaceのレシピの登録
             //FFRegistry.init()
             //デバッグ用
-            MaterialManager.printMap()
+            MaterialUtil.printMap()
             //proxyの読み込み
             proxy!!.loadPostInit()
             //連携要素の登録

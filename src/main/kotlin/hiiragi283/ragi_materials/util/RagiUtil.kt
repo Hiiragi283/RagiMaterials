@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.ItemStackHandler
 import net.minecraftforge.oredict.OreDictionary
 
-object RagiUtils {
+object RagiUtil {
 
     //    Block    //
 

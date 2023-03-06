@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.recipe.laboratory.LTRegistry
 import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtils
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
@@ -105,9 +105,9 @@ class TileLaboTable : TileEntity(), ISidedInventory {
                 val stackRemain = handlerSide.insertItem(i, stack, true)
                 //投入の前後でItemStackが変化しない -> スロットは埋まっている
                 //投入の前後でItemStackが変化した -> スロットに空きがある
-                if (!RagiUtils.isSameStack(stack, stackRemain, true)) {
+                if (!RagiUtil.isSameStack(stack, stackRemain, true)) {
                     player.setHeldItem(hand, handlerSide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
-                    world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.itemframe.add_item"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.itemframe.add_item"), SoundCategory.BLOCKS, 1.0f, 1.0f)
                     markDirty()
                     RagiLogger.infoDebug("Stack Inserted to slot$i!")
                     break
@@ -132,7 +132,7 @@ class TileLaboTable : TileEntity(), ISidedInventory {
                     drop.motionY = 0.25
                     drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
                     world.spawnEntity(drop) //ドロップアイテムをスポーン
-                    RagiUtils.soundHypixel(world, pos)
+                    RagiUtil.soundHypixel(world, pos)
                     RagiLogger.infoDebug("Succeeded!")
                     break
                 }
@@ -146,7 +146,7 @@ class TileLaboTable : TileEntity(), ISidedInventory {
                 drop.motionY = 0.25
                 drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
                 world.spawnEntity(drop) //ドロップアイテムをスポーン
-                world.playSound(null, pos, RagiUtils.getSound("minecraft:entity.generic.explode"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+                world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.generic.explode"), SoundCategory.BLOCKS, 1.0f, 1.0f)
                 RagiLogger.infoDebug("Failed...!")
             }
             this.invLabo.clear() //反応結果によらずインベントリを空にする
