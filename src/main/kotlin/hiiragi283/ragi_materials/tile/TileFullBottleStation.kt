@@ -103,7 +103,7 @@ class TileFullBottleStation: TileEntity(), ITileBase, ITickable {
             val amountRemain = tank.fluidAmount % 1000 //タンクに残る液体量
             val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
             //作成個数が0より多い場合
-            if (countBottle > 0 && tank.fluid !== null && !inventory.getStackInSlot(0).isEmpty) {
+            if (countBottle > 0 && tank.fluid !== null && inventory.getStackInSlot(0).isEmpty) {
                 inventory.insertItem(0, RagiUtil.getFilledBottle(countBottle, FluidStack(tank.fluid!!, 1000)), false) //フルボトルを製造
                 if (amountRemain > 0) {
                     tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き

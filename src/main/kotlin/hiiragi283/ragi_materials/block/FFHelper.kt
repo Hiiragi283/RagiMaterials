@@ -26,9 +26,7 @@ object FFHelper {
             val result = state.withProperty(BlockForgeFurnace.FUEL, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
-            world.playSound(
-                null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f
-            ) //SEを再生
+            world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
             stack.shrink(1) //手持ちの燃料を1つ減らす
             RagiLogger.infoDebug("Fuel was added!")
         }
@@ -36,13 +34,7 @@ object FFHelper {
     }
 
     //右クリックレシピを司るメソッド
-    fun getResult(
-        world: World,
-        pos: BlockPos,
-        state: IBlockState,
-        player: EntityPlayer,
-        stack: ItemStack
-    ): ItemStack {
+    fun getResult(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, stack: ItemStack): ItemStack {
         var result = ItemStack.EMPTY
         if (!world.isRemote) {
             //mapRecipe内の各recipeに対して実行
@@ -95,9 +87,7 @@ object FFHelper {
                     .withProperty(BlockForgeFurnace.FUEL, fuel - 1)
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
-                world.playSound(
-                    null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
+                world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
                 RagiLogger.infoDebug("The state of Forge Furnace was updated!")
             }
 
@@ -108,32 +98,16 @@ object FFHelper {
                     .withProperty(BlockForgeFurnace.FUEL, 2)
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, result.block) //コンパレータ出力を更新
-                world.playSound(
-                    null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f
-                ) //SEを再生
+                world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
                 RagiLogger.infoDebug("The state of Boosted Forge Furnace was updated!")
             }
 
             is BlockBlazeHeater -> {
                 if (state.getValue(BlockBlazeHeater.HELL)) {
-                    world.playSound(
-                        null,
-                        pos,
-                        RagiUtil.getSound("minecraft:entity.endermen.hurt"),
-                        SoundCategory.BLOCKS,
-                        1.0f,
-                        0.5f
-                    ) //SEを再生
+                    world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
                     RagiLogger.infoDebug("The state of Hellrise Heater was updated!")
                 } else {
-                    world.playSound(
-                        null,
-                        pos,
-                        RagiUtil.getSound("minecraft:block.fire.extinguish"),
-                        SoundCategory.BLOCKS,
-                        1.0f,
-                        1.0f
-                    ) //SEを再生
+                    world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
                     RagiLogger.infoDebug("The state of Blaze Heater was updated!")
                 }
             }

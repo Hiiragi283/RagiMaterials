@@ -127,7 +127,8 @@ class BlockSaltPond : Block(Material.WOOD) {
         if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
             val stack = player.getHeldItem(hand)
             val fluidStack = FluidUtil.getFluidContained(stack)
-            if (fluidStack !== null) {
+            //バケツ系は挙動が直らないので除外
+            if (fluidStack !== null && !stack.item.registryName!!.toString().contains("bucket")) {
                 FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
                 world.setBlockState(pos, world.getBlockState(pos).withProperty(TYPE, getType(fluidStack.fluid.name)), 2) //stateの更新
                 world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定

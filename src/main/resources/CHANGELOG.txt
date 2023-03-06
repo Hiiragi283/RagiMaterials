@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.3.1
+
+  - Added credits for model files
+  - Added new block "Full Bottle Station": making full bottle from fluids
+  - Added new interface: IMaterialItem & IMaterialBlock to handle materials more easily
+  - Removed material tooltips with Ore Dictionary or fluids
+  - Using TESR for Laboratory Table to show the contents of its inventory
+
 ## v0.3.0
 
   - **REWORKED MATERIAL REGISTRATION**
