@@ -17,7 +17,6 @@ import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
-import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -149,7 +148,7 @@ class BlockSaltPond : Block(Material.WOOD) {
                 else -> ItemStack.EMPTY
             }
             if (stack.item != Items.AIR) {
-                InventoryHelper.spawnItemStack(world, pos.x.toDouble() + 0.5, pos.y.toDouble(), pos.z.toDouble() + 0.5, stack)
+                RagiUtil.dropItem(world, pos, stack)
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
             }

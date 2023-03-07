@@ -8,10 +8,10 @@ import hiiragi283.ragi_materials.recipe.laboratory.LTRegistry
 import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.ISidedInventory
-import net.minecraft.inventory.InventoryHelper
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -127,7 +127,8 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
             for (recipe in LTRegistry.list) {
                 if (recipe.match(this.handlerSide)) {
                     isFailed = false
-                    InventoryHelper.spawnItemStack(world, pos.x.toDouble(), pos.y.toDouble() + 1.0f, pos.z.toDouble(), recipe.output)
+                    RagiUtil.dropItem(world, pos, recipe.output)
+                    RagiLogger.infoDebug("The stack is ${recipe.output.toBracket()}")
                     RagiUtil.soundHypixel(world, pos)
                     RagiLogger.infoDebug("Succeeded!")
                     break
@@ -136,7 +137,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
             RagiLogger.infoDebug("$isFailed")
             //失敗時の処理
             if (isFailed) {
-                InventoryHelper.spawnItemStack(world, pos.x.toDouble(), pos.y.toDouble() + 1.0f, pos.z.toDouble(), ItemStack(RagiInit.ItemWaste, 1, 0))
+                RagiUtil.dropItem(world, pos, ItemStack(RagiInit.ItemWaste, 1, 0))
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.generic.explode"), SoundCategory.BLOCKS, 1.0f, 1.0f)
                 RagiLogger.infoDebug("Failed...!")
             }

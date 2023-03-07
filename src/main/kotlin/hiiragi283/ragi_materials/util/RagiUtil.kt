@@ -7,7 +7,6 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -206,7 +205,7 @@ object RagiUtil {
     ) {
         if (!world.isRemote) {
             val posPlayer = player.position
-            val drop = EntityItem(world, posPlayer.x.toDouble(), posPlayer.y.toDouble(), posPlayer.z.toDouble(), stack) //空のバケツのEntityItem
+            val drop = EntityItem(world, posPlayer.x.toDouble(), posPlayer.y.toDouble(), posPlayer.z.toDouble(), stack)
             drop.setPickupDelay(0) //即座に回収できるようにする
             drop.motionX = 0.0
             drop.motionY = 0.0
@@ -218,7 +217,16 @@ object RagiUtil {
     fun dropInventoryItems(world: World, pos: BlockPos, inventory: ItemStackHandler) {
         for (i in 0 until inventory.slots) {
             val stack = inventory.getStackInSlot(i)
-            InventoryHelper.spawnItemStack(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), stack)
+            dropItem(world, pos, stack)
         }
+    }
+
+    fun dropItem(world: World, pos: BlockPos, stack: ItemStack) {
+        val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble() + 1.0f, pos.z.toDouble() + 0.5f, stack)
+        drop.setPickupDelay(0) //即座に回収できるようにする
+        drop.motionX = 0.0
+        drop.motionY = 0.25
+        drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
+        world.spawnEntity(drop) //ドロップアイテムをスポーン
     }
 }
