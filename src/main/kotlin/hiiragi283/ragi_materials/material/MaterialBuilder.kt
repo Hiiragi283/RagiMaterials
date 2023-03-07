@@ -13,14 +13,15 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
     open var burnTime = -1
     open var color: Color = Color(0xFFFFFF)
     open var decayed: MaterialBuilder? = null
+    open var durability: Int? = null
     open var formula: String? = null
     open var hasBracket = false
+    open var hasOre = false
     open var molar: Float? = null
     open var oredictAlt: String? = null
     open var tempBoil: Int? = null
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
-    open var hasOre = false
 
     companion object {
         val EMPTY = MaterialBuilder(0, "empty", TypeRegistry.INTERNAL).apply {}
@@ -57,6 +58,9 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //崩壊後の素材を設定するメソッド
     fun setDecayed(material: MaterialBuilder): MaterialBuilder = also { it.decayed = material }
+
+    //耐久値を設定するメソッド (仮実装)
+    fun setDurability(durability: Int): MaterialBuilder = also { it.durability = durability }
 
     //化学式を設定するメソッド
     fun setFormula(formula: String?): MaterialBuilder = also { it.formula = formula }

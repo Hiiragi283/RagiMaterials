@@ -18,7 +18,7 @@ class ItemMaterialOre(ID: String) : ItemMaterial(ID, EnumMaterialType.DUMMY) {
 
     //    Client    //
 
-    @SideOnly(Side.CLIENT) //Client側のみ
+    @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //list内の各materialに対して実行

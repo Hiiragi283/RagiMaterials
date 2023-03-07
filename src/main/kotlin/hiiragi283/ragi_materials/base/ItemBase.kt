@@ -42,7 +42,7 @@ open class ItemBase(MOD: String, ID: String?, val maxMeta: Int) : Item() {
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
-    @SideOnly(Side.CLIENT) //Client側のみ
+    @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す

@@ -42,7 +42,7 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     //    Client    //
 
-    @SideOnly(Side.CLIENT) //Client側のみ
+    @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             for (i in 0..this.maxMeta) {
@@ -55,5 +55,9 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     override fun getMaterial(stack: ItemStack): MaterialBuilder {
         return MaterialRegistry.SOUL_SAND
+    }
+
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
+        return stack
     }
 }

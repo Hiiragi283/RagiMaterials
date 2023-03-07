@@ -83,9 +83,7 @@ object RagiRecipe {
     //不定型クラフトレシピを名前付きで追加するメソッド
     fun addShapeless(registryName: String, output: ItemStack?, vararg inputs: Ingredient?) {
         //レシピを上書きする
-        GameRegistry.addShapelessRecipe(
-            ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs
-        )
+        GameRegistry.addShapelessRecipe(ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs)
         RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
     }
 
@@ -98,9 +96,7 @@ object RagiRecipe {
         //取得したレシピがnullでない場合
         if (recipeBefore !== null) {
             //レシピを置き換える
-            GameRegistry.addShapedRecipe(
-                location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtil.getStack("minecraft:barrier", 1, 0)
-            )
+            GameRegistry.addShapedRecipe(location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtil.getStack("minecraft:barrier", 1, 0))
             RagiLogger.infoDebug("The recipe <recipe:$registryName> was removed successfully!")
         } else {
             RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")

@@ -5,6 +5,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
+import hiiragi283.ragi_materials.base.ItemMaterialToolBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialRegistry
@@ -48,7 +49,7 @@ object RagiInit {
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
-    val ItemForgeHammer: Item = ItemForgeHammer().setCreativeTab(CreativeTabs.TOOLS)
+    val ItemForgeHammer = ItemMaterialToolBase("forge_hammer")
     val ItemFullBottle: Item = ItemFullBottle().setCreativeTab(TabFullBottle)
     val ItemSeedCoal: Item = ItemSeedCoal().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedLignite: Item = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)

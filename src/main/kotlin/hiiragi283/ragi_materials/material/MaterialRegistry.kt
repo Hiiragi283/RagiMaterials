@@ -205,7 +205,7 @@ object MaterialRegistry {
 
     val SULFURIC_ACID = CompoundBuilder(161, "sulfuric_acid", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 2, SULFATE to 1))
 
-    //170 ~ 179: Chroline
+    //170 ~ 179: Chlorine
     val CHLORINE = SimpleBuilder(ElementRegistry.CHLORINE, 2)
 
     val HYDROGEN_CHLORIDE = CompoundBuilder(171, "hydrogen_chloride", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 1, ElementRegistry.CHLORINE to 1))
@@ -279,7 +279,9 @@ object MaterialRegistry {
     val CALCIUM_CHLORIDE = CompoundBuilder(206, "calcium_chloride", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 1, ElementRegistry.CHLORINE to 2))
 
     //220 ~ 229: Titanium
-    val TITANIUM = SimpleBuilder(ElementRegistry.TITANIUM, 1)
+    val TITANIUM = SimpleBuilder(ElementRegistry.TITANIUM, 1).apply {
+        durability = 511
+    }
 
     val RUTILE = CrystalBuilder(221, "rutile", mapOf(ElementRegistry.TITANIUM to 1, ElementRegistry.OXYGEN to 2), "tetragonal").apply {
         hasOre = true
@@ -298,6 +300,7 @@ object MaterialRegistry {
 
     val STAINLESS_STEEL = AlloyBuilder(242, "stainless_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
         color = RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE)
+        durability = 511
     }
 
     //250 ~ 259: Manganese
@@ -312,7 +315,9 @@ object MaterialRegistry {
     }
 
     //260 ~ 269: Iron
-    val IRON = SimpleBuilder(ElementRegistry.IRON, 1)
+    val IRON = SimpleBuilder(ElementRegistry.IRON, 1).apply {
+        durability = 127
+    }
 
     val HEMATITE = CompoundBuilder(261, "hematite", TypeRegistry.DUST, mapOf(ElementRegistry.IRON to 2, ElementRegistry.OXYGEN to 3)).apply {
         color = RagiColor.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
@@ -330,7 +335,9 @@ object MaterialRegistry {
 
     val STEEL = AlloyBuilder(264, "steel", mapOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1))
 
-    val TOOL_STEEL = AlloyBuilder(265, "tool_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.MOLYBDENUM to 1))
+    val TOOL_STEEL = AlloyBuilder(265, "tool_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.MOLYBDENUM to 1)).apply {
+        durability = 511
+    }
 
     //270 ~ 279: Cobalt
     val COBALT = SimpleBuilder(ElementRegistry.COBALT, 1)

@@ -36,7 +36,6 @@ class ColorHandler {
                 RagiInit.ItemCrystal,
                 RagiInit.ItemDust,
                 RagiInit.ItemDustTiny,
-                RagiInit.ItemForgeHammer,
                 RagiInit.ItemFullBottle,
                 RagiInit.ItemGear,
                 RagiInit.ItemIngot,
@@ -52,6 +51,11 @@ class ColorHandler {
                 RagiInit.ItemStick,
                 RagiInit.ItemWaste
         )
+
+        itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
+            val item = stack.item
+            if (item is IMaterialItem && tintIndex == 1) item.getMaterial(stack).color.rgb else 0xFFFFFF
+        }, RagiInit.ItemForgeHammer)
 
     }
 }

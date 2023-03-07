@@ -35,7 +35,7 @@ open class ItemBlockBase(block: Block, private val maxMeta: Int) : ItemBlock(blo
 
     //    Client    //
 
-    @SideOnly(Side.CLIENT) //Client側のみ
+    @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す

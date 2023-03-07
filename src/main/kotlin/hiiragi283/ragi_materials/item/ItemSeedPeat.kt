@@ -53,4 +53,8 @@ open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlanta
         return MaterialRegistry.PEAT
     }
 
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
+        return stack
+    }
+
 }

@@ -5,6 +5,7 @@ import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.material.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -50,18 +51,17 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
         } else super.getItemStackDisplayName(stack)
     }
 
-    @SideOnly(Side.CLIENT) //Client側のみ
+    @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
-            //空のフルボトル
-            subItems.add(ItemStack(this))
-            //液体の名前から素材が取得できる場合のみ登録
+            val stack = ItemStack(this)
+            subItems.add(stack) //空のフルボトル
             for (fluid in FluidRegistry.getRegisteredFluids().values) {
-                val stack = ItemStack(this)
-                val fluidItem = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-                fluidItem!!.fill(FluidStack(fluid, 1000), true)
-                val stackFilled = fluidItem.container
-                subItems.add(stackFilled)
+                //液体の名前から素材が取得できる場合のみ登録
+                if (!MaterialUtil.getMaterial(fluid.name).isEmpty()) {
+                    val stackFilled = setFluid(stack.copy(), fluid.name, 1000)
+                    subItems.add(stackFilled)
+                }
             }
         }
     }
@@ -122,5 +122,18 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     override fun getMaterial(stack: ItemStack): MaterialBuilder {
         val fluidStack = FluidUtil.getFluidContained(stack)
         return if (fluidStack !== null) MaterialUtil.getMaterial(fluidStack.fluid.name) else MaterialBuilder.EMPTY
+    }
+
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
+        return setFluid(stack, material.name, 1000)
+    }
+
+    private fun setFluid(stack: ItemStack, fluid: String, amount: Int): ItemStack {
+        stack.tagCompound = RagiUtil.setFluidToNBT(NBTTagCompound(), RagiUtil.getFluidStack(fluid, amount))
+        return stack
+    }
+
+    private fun setFluid(stack: ItemStack, fluid: String): ItemStack{
+        return setFluid(stack, fluid, 1000)
     }
 }

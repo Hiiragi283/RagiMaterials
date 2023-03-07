@@ -77,11 +77,11 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
-        val material = MaterialUtil.getMaterial(stack.metadata)
+        val material = getMaterial(stack)
         return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
     }
 
-    @SideOnly(Side.CLIENT) //Client側のみ
+    @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //list内の各materialに対して実行
@@ -100,5 +100,10 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
 
     override fun getMaterial(stack: ItemStack): MaterialBuilder {
         return MaterialUtil.getMaterial(stack.metadata)
+    }
+
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
+        stack.itemDamage = material.index //メタデータを上書き
+        return stack
     }
 }
