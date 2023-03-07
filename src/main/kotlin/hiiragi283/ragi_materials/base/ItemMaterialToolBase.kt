@@ -15,14 +15,14 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialToolBase(val ID: String): ItemBase(Reference.MOD_ID, ID, 0), IMaterialItem {
+open class ItemMaterialToolBase(private val ID: String): ItemBase(Reference.MOD_ID, ID, 0), IMaterialItem {
 
     private val keyDurability = "durability"
     private val keyMaterial = "material"
 
     init {
         creativeTab = CreativeTabs.TOOLS
-        setMaxStackSize(1)
+        maxStackSize = 1
     }
 
     //    Crafting    //
@@ -51,6 +51,7 @@ class ItemMaterialToolBase(val ID: String): ItemBase(Reference.MOD_ID, ID, 0), I
     override fun setDamage(stack: ItemStack, damage: Int) {
         if (hasDurability(stack)) {
             stack.tagCompound!!.setInteger(keyDurability, damage.coerceAtLeast(0)) //耐久値が0未満の場合は0になる
+            //if (getDamage(stack) < 0) stack.shrink(1) //耐久値が0未満の場合消滅
         } else {
             addDurability(stack) //新規で耐久値を設定
         }
@@ -71,8 +72,6 @@ class ItemMaterialToolBase(val ID: String): ItemBase(Reference.MOD_ID, ID, 0), I
         val tag = stack.tagCompound
         return tag !== null && tag.hasKey(keyDurability) //NBTタグがnullでない，かつdurabilityを持つ場合
     }
-
-    //    Tool Type    //
 
     //    Client    //
 
