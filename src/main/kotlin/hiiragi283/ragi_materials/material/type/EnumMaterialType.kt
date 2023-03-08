@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials.material.type
 
 enum class EnumMaterialType {
-    BLOCK_CRYSTAL,
-    BLOCK_METAL,
+    BLOCK_MATERIAL,
     CRYSTAL,
     DUST,
     DUMMY,

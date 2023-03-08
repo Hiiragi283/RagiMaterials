@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.item.ItemMaterialOre
+import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.material.IMaterialItem
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -31,11 +31,12 @@ class TileForgeFurnace : TileBase(102) {
 
         override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
             val item = stack.item
-            return if (item is IMaterialItem) {
+            return if (item is IMaterialItem && item is ItemMaterial) {
                 val burnTime = item.getMaterial(stack).burnTime
+                val scale = item.part.scale
                 if (burnTime > -1) {
                     RagiLogger.infoDebug("Burn Time: $burnTime")
-                    fuel += (burnTime * stack.count) / 200 //燃焼時間を増やす
+                    fuel += (burnTime * stack.count * scale).toInt() / 200 //燃焼時間を増やす
                     RagiLogger.infoDebug("Fuel: $fuel")
                     ItemStack.EMPTY //燃料は消失する
                 } else stack //燃焼不可能な素材なら搬入不可能
@@ -85,10 +86,11 @@ class TileForgeFurnace : TileBase(102) {
 
     private fun getFuelConsumption(stack: ItemStack): Int {
         val item = stack.item
-        return if (item is IMaterialItem) {
+        return if (item is IMaterialItem && item is ItemMaterial) {
             val material = item.getMaterial(stack)
             val tempMelt = material.tempMelt
-            val fuelConsume = tempMelt?.run { 2.0.pow(this / 1000).toInt() }?:0 //2^(融点を1000で割った商)
+            val scale = item.part.scale
+            val fuelConsume = tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() }?:0 //2^(融点を1000で割った商)
             RagiLogger.infoDebug("Consume: $fuelConsume")
             return fuelConsume
         } else 0
@@ -99,7 +101,10 @@ class TileForgeFurnace : TileBase(102) {
         var result = ItemStack.EMPTY
         if (item is IMaterialItem) {
             val material = item.getMaterial(stack)
-            if (item == RagiInit.ItemIngot || item is ItemMaterialOre) result = ItemStack(RagiInit.ItemIngotHot, 1, material.index) //完成品を代入
+            if (item is ItemMaterial) {
+                val scale = item.part.scale
+                if (scale >= 1) result = ItemStack(RagiInit.ItemIngotHot, scale.toInt(), material.index) //完成品を代入
+            }
             RagiLogger.infoDebug("Result: ${result.toBracket()}")
         }
         return result

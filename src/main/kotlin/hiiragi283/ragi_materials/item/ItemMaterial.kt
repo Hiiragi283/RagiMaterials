@@ -8,6 +8,7 @@ import hiiragi283.ragi_materials.material.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -23,7 +24,7 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemMaterial(private val ID: String, private val type: EnumMaterialType) : ItemBase(Reference.MOD_ID, ID, RagiConfig.material.maxMaterials), IMaterialItem {
+open class ItemMaterial(val part: MaterialPart, private val type: EnumMaterialType) : ItemBase(Reference.MOD_ID, part.name, RagiConfig.material.maxMaterials), IMaterialItem {
 
     init {
         creativeTab = RagiInit.TabMaterials
@@ -36,11 +37,8 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
     }
 
     override fun getItemBurnTime(stack: ItemStack): Int {
-        //素材に紐づいた燃焼時間を取得
-        var time = MaterialUtil.getMaterial(stack.metadata).burnTime
-        //dust_tinyの場合は1/9
-        if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
-        return time
+        //素材に紐づいた燃焼時間*部品ごとの倍率を返す
+        return (MaterialUtil.getMaterial(stack.metadata).burnTime * part.scale).toInt()
     }
 
     //    Event    //
@@ -54,7 +52,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
                 if (entity is EntityPlayer) {
                     val material = MaterialUtil.getMaterial(stack.metadata)
                     //取得した素材が放射性の場合
-                    if (material.type.parts.contains(EnumMaterialType.RADIOACTIVE)) {
+                    if (EnumMaterialType.RADIOACTIVE in material.type.parts) {
                         val stackRadio = stack.copy()
                         stackRadio.shrink(1) //1つ減らす
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
@@ -76,7 +74,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ragi_$ID.name", I18n.format("material.${getMaterial(stack).name}"))
+    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ragi_${part.name}.name", I18n.format("material.${getMaterial(stack).name}"))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
@@ -84,7 +82,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
             //list内の各materialに対して実行
             for (material in MaterialRegistry.mapIndex.values) {
                 //typeがINTERNALでない，かつmaterialのtypeが一致する場合
-                if (material.type != TypeRegistry.INTERNAL && material.type.parts.contains(type)) {
+                if (material.type != TypeRegistry.INTERNAL && type in material.type.parts) {
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)

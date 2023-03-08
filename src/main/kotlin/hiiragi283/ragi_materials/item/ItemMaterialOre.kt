@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -8,7 +9,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemMaterialOre(ID: String) : ItemMaterial(ID, EnumMaterialType.DUMMY) {
+class ItemMaterialOre(part: MaterialPart) : ItemMaterial(part, EnumMaterialType.DUMMY) {
 
     //    General    //
 

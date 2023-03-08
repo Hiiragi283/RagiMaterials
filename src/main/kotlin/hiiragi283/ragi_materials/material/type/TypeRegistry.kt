@@ -5,7 +5,7 @@ object TypeRegistry {
     val map: HashMap<String, MaterialType> = hashMapOf()
 
     val CRYSTALLINE = MaterialType("crystalline", listOf(
-        EnumMaterialType.BLOCK_CRYSTAL,
+        EnumMaterialType.BLOCK_MATERIAL,
         EnumMaterialType.CRYSTAL,
         EnumMaterialType.DUST,
         EnumMaterialType.PLATE
@@ -32,7 +32,7 @@ object TypeRegistry {
     val LIQUID = MaterialType("liquid", listOf(EnumMaterialType.LIQUID)) //流体全般 (流体ブロックなし)
 
     val METAL = MaterialType("metal", listOf(
-        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.BLOCK_MATERIAL,
         EnumMaterialType.DUST,
         EnumMaterialType.GEAR,
         EnumMaterialType.INGOT,
@@ -44,7 +44,7 @@ object TypeRegistry {
     )) //金属全般
 
     val METAL_RADIO = MaterialType("dust_radio", listOf(
-        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.BLOCK_MATERIAL,
         EnumMaterialType.DUST,
         EnumMaterialType.INGOT,
         EnumMaterialType.INGOT_HOT,
@@ -54,7 +54,7 @@ object TypeRegistry {
     )) //放射性金属用
 
     val METALLOID = MaterialType("metalloid", listOf(
-        EnumMaterialType.BLOCK_METAL,
+        EnumMaterialType.BLOCK_MATERIAL,
         EnumMaterialType.DUST,
         EnumMaterialType.INGOT,
         EnumMaterialType.PLATE
