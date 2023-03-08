@@ -9,6 +9,6 @@ object FFMaker {
 
     fun register(registry: IModRegistry) {
         //リストをレシピ一覧に登録
-        registry.addRecipes(FFRegistry.list, JEICore.ForgeFurnace)
+        //registry.addRecipes(FFRegistry.list, JEICore.ForgeFurnace)
     }
 }

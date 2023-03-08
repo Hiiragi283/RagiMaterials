@@ -1,14 +1,10 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.ITileBase
+import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.util.RagiUtil
-import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.network.NetworkManager
-import net.minecraft.network.play.server.SPacketUpdateTileEntity
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ITickable
@@ -22,7 +18,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
-class TileFullBottleStation: TileEntity(), ITileBase, ITickable {
+class TileFullBottleStation: TileBase(101), ITickable {
 
     val inventory = ItemStackHandler(1)
     private val tank = object: FluidTank(60000) {
@@ -39,8 +35,6 @@ class TileFullBottleStation: TileEntity(), ITileBase, ITickable {
 
     //    NBT tag    //
 
-    override fun getUpdateTag(): NBTTagCompound = writeToNBT(NBTTagCompound()) //オーバーライドしないと正常に更新されない
-
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
         tag.setTag("inventory", this.inventory.serializeNBT()) //インベントリをtagに書き込む
@@ -51,16 +45,6 @@ class TileFullBottleStation: TileEntity(), ITileBase, ITickable {
         super.readFromNBT(tag)
         this.inventory.deserializeNBT(tag.getCompoundTag("inventory")) //tagからインベントリを読み込む
     }
-
-    //    Packet    //
-
-    override fun getUpdatePacket(): SPacketUpdateTileEntity = SPacketUpdateTileEntity(pos, 101, this.updateTag) //NBTタグの情報を送る
-
-    override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
-        this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
-    }
-
-    override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
     //    Capability    //
 
@@ -80,7 +64,7 @@ class TileFullBottleStation: TileEntity(), ITileBase, ITickable {
         }
     }
 
-    //    Event    //
+    //    ITileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean = FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
 

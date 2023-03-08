@@ -114,12 +114,12 @@ open class ItemMaterialToolBase(private val ID: String) : ItemBase(Reference.MOD
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        stack.tagCompound?:run {stack.tagCompound = NBTTagCompound() } //NBTタグがない場合は新規で代入
+        stack.tagCompound ?: run { stack.tagCompound = NBTTagCompound() } //NBTタグがない場合は新規で代入
         return MaterialUtil.getMaterial(stack.tagCompound!!.getString(keyMaterial))
     }
 
     override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        stack.tagCompound?:run {stack.tagCompound = NBTTagCompound() } //NBTタグがない場合は新規で代入
+        stack.tagCompound ?: run { stack.tagCompound = NBTTagCompound() } //NBTタグがない場合は新規で代入
         stack.tagCompound!!.setString(keyMaterial, material.name) //materialを代入
         addDurability(stack) //最大耐久値を設定
         return stack

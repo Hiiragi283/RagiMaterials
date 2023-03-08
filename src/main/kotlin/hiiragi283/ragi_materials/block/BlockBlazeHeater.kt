@@ -1,16 +1,13 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.BlockHorizontalBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiUtil
-import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -22,13 +19,11 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
+class BlockBlazeHeater : BlockHorizontalBase("blaze_heater", Material.ROCK, 2) {
 
     companion object {
         val HELL: PropertyBool = PropertyBool.create("hellrise")
     }
-
-    private val registryName = "blaze_heater"
 
     init {
         blockHardness = 3.5F
@@ -36,9 +31,7 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(HELL, false)
         setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 0)
-        setRegistryName(Reference.MOD_ID, registryName)
         soundType = SoundType.STONE
-        unlocalizedName = registryName
     }
 
     //    General    //
@@ -90,16 +83,6 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = FFHelper.getResult(world, pos, state, player, player.getHeldItem(hand)) //レシピ実行
 
     //    Client    //
-
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
-        tooltip.add("§e=== Info ===")
-        for (i in 0..2) {
-            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
-        }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
-    }
 
     @SideOnly(Side.CLIENT)
     override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT

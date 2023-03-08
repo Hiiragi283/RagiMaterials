@@ -1,31 +1,34 @@
 package hiiragi283.ragi_materials.base
 
+import hiiragi283.ragi_materials.Reference
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-import net.minecraft.block.properties.PropertyInteger
-import net.minecraft.block.state.BlockStateContainer
-import net.minecraft.block.state.IBlockState
-import java.util.*
+import net.minecraft.client.resources.I18n
+import net.minecraft.client.util.ITooltipFlag
+import net.minecraft.item.ItemStack
+import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-open class BlockBase(Material: Material?, MOD: String, ID: String?, val maxMeta: Int) : Block(Material!!) {
-
-    companion object {
-        private val property16 = PropertyInteger.create("property", 0, 15)
-    }
+open class BlockBase(ID: String, Material: Material, private val maxTips: Int) : Block(Material) {
 
     init {
-        defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
-        setRegistryName(MOD, ID)
-        unlocalizedName = ID.toString() //翻訳キーをIDから取得
+        setRegistryName(Reference.MOD_ID, ID)
+        unlocalizedName = ID
     }
 
-    //    BlockState    //
+    //    Client    //
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, property16)
-
-    override fun getMetaFromState(state: IBlockState): Int = if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
-
-    @Deprecated("Deprecated in Java")
-    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(property16, if (meta in 0..maxMeta) meta else maxMeta)
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        val path = stack.item.registryName!!.resourcePath
+        if (maxTips != -1) {
+            tooltip.add("§e=== Info ===")
+            for (i in 0..maxTips) {
+                tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
+            }
+        }
+        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
+    }
 
 }

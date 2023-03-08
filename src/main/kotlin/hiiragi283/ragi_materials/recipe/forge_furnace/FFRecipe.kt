@@ -15,7 +15,11 @@ open class FFRecipe(val input: ItemStack, val output: ItemStack, val type: EnumF
     }
 
     fun register() {
-        FFRegistry.list.add(this)
+        when (this.type) {
+            EnumFire.BURNING -> FFRegistry.mapBurning[this.input] = this.output
+            EnumFire.BOOSTED -> FFRegistry.mapBoosted[this.input] = this.output
+            EnumFire.HELLRISE -> FFRegistry.mapHellrise[this.input] = this.output
+        }
     }
 
     enum class EnumFire(val display: String) {

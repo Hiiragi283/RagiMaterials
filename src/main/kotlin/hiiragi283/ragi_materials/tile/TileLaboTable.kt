@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.ITileBase
+import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.packet.MessageLabo
 import hiiragi283.ragi_materials.packet.RagiPacket
@@ -9,15 +9,11 @@ import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
-import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.ISidedInventory
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.network.NetworkManager
-import net.minecraft.network.play.server.SPacketUpdateTileEntity
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.SoundCategory
@@ -27,14 +23,12 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
+class TileLaboTable : TileBase(100), ISidedInventory {
 
     val invLabo = RagiInventory("gui.ragi_materials.laboratory_table", 5)
     private val handlerSide = SidedInvWrapper(this, EnumFacing.NORTH)
 
     //    NBT tag    //
-
-    override fun getUpdateTag(): NBTTagCompound =  writeToNBT(NBTTagCompound()) //オーバーライドしないと正常に更新されない
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
@@ -46,21 +40,6 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
         super.readFromNBT(tag)
         ItemStackHelper.loadAllItems(tag, invLabo.inventory) //tagからインベントリを読み込む
     }
-
-    //    Packet    //
-
-    override fun getUpdatePacket(): SPacketUpdateTileEntity = SPacketUpdateTileEntity(pos, 100, this.updateTag) //NBTタグの情報を送る
-
-    override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
-        this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
-    }
-
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
-    */
-
-    override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
     //    Capability    //
 
@@ -76,7 +55,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
         } else false
     }
 
-    //    Event    //
+    //    ITileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         val stack = player.getHeldItem(hand)

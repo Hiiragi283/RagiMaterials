@@ -1,16 +1,14 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
-import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -19,24 +17,17 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary
-import java.util.*
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.world.IBlockAccess
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockOreDictConv : Block(Material.WOOD) {
-
-    private val registryName = "oredict_converter"
+class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
 
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
         setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("axe", 0)
-        setRegistryName(Reference.MOD_ID, registryName)
         soundType = SoundType.WOOD
-        unlocalizedName = registryName
     }
 
     //    General    //
@@ -97,17 +88,5 @@ class BlockOreDictConv : Block(Material.WOOD) {
                 } else false
             } else return false
         } else return false
-    }
-
-    //    Client    //
-
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
-        tooltip.add("§e=== Info ===")
-        for (i in 0..1) {
-            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
-        }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 }

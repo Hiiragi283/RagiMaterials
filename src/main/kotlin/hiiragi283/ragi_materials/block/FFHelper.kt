@@ -37,14 +37,14 @@ object FFHelper {
     fun getResult(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, stack: ItemStack): Boolean {
         var result = ItemStack.EMPTY
         if (!world.isRemote) {
-            //mapRecipe内の各recipeに対して実行
-            for (recipe in FFRegistry.list) {
+            /*//mapRecipe内の各recipeに対して実行
+            for (recipe in FFRegistry.mapBurning.keys) {
                 //stackがinputと等しい，かつブロックとレシピタイプが一致する場合は対応する完成品を，そうでない場合は空のItemStackを返す
                 if (RagiUtil.isSameStack(stack, recipe.input, false) && canProcess(state, recipe.type)) {
                     result = recipe.output
                     break
                 } else ItemStack.EMPTY
-            }
+            }*/
             //resultが空気でない場合
             return if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす

@@ -1,10 +1,9 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiUtil
-import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyBool
@@ -12,8 +11,6 @@ import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -27,11 +24,9 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidUtil
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-class BlockSaltPond : Block(Material.WOOD) {
+class BlockSaltPond : BlockBase("salt_pond", Material.WOOD, 2) {
 
     //private変数の宣言
     companion object {
@@ -42,17 +37,13 @@ class BlockSaltPond : Block(Material.WOOD) {
         val TYPE: PropertyEnum<EnumSalt> = PropertyEnum.create("type", EnumSalt::class.java)
     }
 
-    private val registryName = "salt_pond"
-
     init {
         blockHardness = 2.0F
         blockResistance = 3.0F
         defaultState = blockState.baseState.withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(TYPE, EnumSalt.EMPTY)
         setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("axe", 0)
-        setRegistryName(Reference.MOD_ID, registryName)
         soundType = SoundType.WOOD
-        unlocalizedName = registryName
     }
 
     //    General    //
@@ -142,18 +133,6 @@ class BlockSaltPond : Block(Material.WOOD) {
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:block.sand.break"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
             }
         }
-    }
-
-    //    Client    //
-
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
-        tooltip.add("§e=== Info ===")
-        for (i in 0..2) {
-            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
-        }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     //    Class    //

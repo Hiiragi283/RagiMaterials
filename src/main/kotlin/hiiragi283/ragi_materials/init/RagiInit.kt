@@ -21,8 +21,7 @@ object RagiInit {
 
     //Creative Tabの定義
     val TabBlocks: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Blocks() else CreativeTabs.MISC
-    val TabFullBottle: CreativeTabs =
-            if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
+    val TabFullBottle: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.FullBottles() else CreativeTabs.MISC
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
@@ -32,6 +31,7 @@ object RagiInit {
     val BlockCropLignite = BlockCropLignite()
     val BlockCropPeat = BlockCropPeat("crop_peat")
     val BlockForgeFurnace = BlockForgeFurnace()
+    val BlockForgeFurnaceNew = BlockForgeFurnaceNew()
     val BlockFullBottleStation = BlockFullBottleStation()
     val BlockLaboratoryTable = BlockLaboTable()
     val BlockLitForgeFurnace = BlockLitForgeFurnace()
@@ -42,6 +42,7 @@ object RagiInit {
     val ItemBlockBellow = ItemBlockBase(BlockBellow, 0)
     val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1)
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
+    val ItemBlockForgeFurnaceNew = ItemBlockBase(BlockForgeFurnaceNew, 0)
     val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation, 0)
     val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable, 0)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0)
@@ -80,6 +81,7 @@ object RagiInit {
                 BlockCropLignite,
                 BlockCropPeat,
                 BlockForgeFurnace,
+                BlockForgeFurnaceNew,
                 BlockFullBottleStation,
                 BlockLaboratoryTable,
                 BlockLitForgeFurnace,
@@ -91,6 +93,7 @@ object RagiInit {
                 ItemBlockBellow,
                 ItemBlockBlazeHeater,
                 ItemBlockForgeFurnace,
+                ItemBlockForgeFurnaceNew,
                 ItemBlockFullBottleStation,
                 ItemBlockLaboratoryTable,
                 ItemBlockOreDictConv,

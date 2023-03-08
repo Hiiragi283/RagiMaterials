@@ -1,8 +1,12 @@
 package hiiragi283.ragi_materials.recipe.forge_furnace
 
+import net.minecraft.item.ItemStack
+
 object FFRegistry {
 
-    val list: MutableList<FFRecipe> = mutableListOf()
+    val mapBurning: MutableMap<ItemStack, ItemStack> = mutableMapOf()
+    val mapBoosted: MutableMap<ItemStack, ItemStack> = mutableMapOf()
+    val mapHellrise: MutableMap<ItemStack, ItemStack> = mutableMapOf()
 
     fun init() {
 

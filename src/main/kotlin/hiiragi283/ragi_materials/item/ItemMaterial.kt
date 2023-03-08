@@ -60,7 +60,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
                         //崩壊後の素材を取得
                         val materialDecayed = material.decayed
-                        materialDecayed?.let{ RagiUtil.spawnItemAtPlayer(world, entity, ItemStack(this, 1, it.index)) }
+                        materialDecayed?.let { RagiUtil.spawnItemAtPlayer(world, entity, ItemStack(this, 1, it.index)) }
                     }
                 }
             }
@@ -76,7 +76,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String =I18n.format("item.ragi_$ID.name", I18n.format("material.${getMaterial(stack).name}"))
+    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ragi_$ID.name", I18n.format("material.${getMaterial(stack).name}"))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
@@ -95,8 +95,8 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder =MaterialUtil.getMaterial(stack.metadata)
+    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialUtil.getMaterial(stack.metadata)
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack.also {it.itemDamage = material.index} //メタデータを上書き
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack.also { it.itemDamage = material.index } //メタデータを上書き
 
 }
