@@ -8,7 +8,7 @@ import hiiragi283.ragi_materials.util.RagiUtil
 object OreDictRegistry {
 
     private val listOreDict = listOf(
-            OreDictHandler(EnumMaterialType.BLOCK_CRYSTAL, "block", "block_crystal"),
+            OreDictHandler(EnumMaterialType.BLOCK_MATERIAL, "block", "block_material"),
             OreDictHandler(EnumMaterialType.CRYSTAL, "gem", "crystal"),
             OreDictHandler(EnumMaterialType.DUST, "dust", "dust"),
             OreDictHandler(EnumMaterialType.DUST, "dustTiny", "dust_tiny"),
@@ -18,7 +18,6 @@ object OreDictRegistry {
             OreDictHandler(EnumMaterialType.INGOT, "ingot", "ingot"),
             OreDictHandler(EnumMaterialType.PLATE, "plate", "plate"),
             OreDictHandler(EnumMaterialType.STICK, "stick", "stick"),
-            OreDictHandler(EnumMaterialType.BLOCK_METAL, "block", "block_metal"),
             OreDictHandler(EnumMaterialType.GEAR, "gear", "gear"),
             OreDictHandler(EnumMaterialType.INGOT_HOT, "ingotHot", "ingot_hot"),
             OreDictHandler(EnumMaterialType.NUGGET, "nugget", "nugget")

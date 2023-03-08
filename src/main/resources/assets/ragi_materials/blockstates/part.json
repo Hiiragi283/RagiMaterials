@@ -7,10 +7,25 @@
   },
   "variants": {
     "block_crystal": [{
-      "model": "ragi_materials:block_metal"
+      "model": "ragi_materials:all_tintindex",
+      "textures": {
+        "particle": "ragi_materials:blocks/block_crystal",
+        "all": "ragi_materials:blocks/block_crystal"
+      }
+    }],
+    "block_material": [{
+      "model": "ragi_materials:all_tintindex",
+      "textures": {
+        "particle": "ragi_materials:blocks/block_material",
+        "all": "ragi_materials:blocks/block_material"
+      }
     }],
     "block_metal": [{
-      "model": "ragi_materials:block_metal"
+      "model": "ragi_materials:all_tintindex",
+      "textures": {
+        "particle": "ragi_materials:blocks/block_metal",
+        "all": "ragi_materials:blocks/block_metal"
+      }
     }],
     "dust": [{
       "textures": {

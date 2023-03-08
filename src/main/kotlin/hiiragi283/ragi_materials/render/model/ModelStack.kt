@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.CrystalBuilder
 import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 
@@ -26,6 +27,28 @@ object ModelStack {
         )
         ModelLoader.setCustomMeshDefinition(RagiInit.ItemBookDebug) { stack ->
             ModelResourceLocation(stack.item.registryName!!, stack.metadata.toString())
+        }
+
+        //ItemBlockMaterial
+        val blockCrystal = ModelResourceLocation("${Reference.MOD_ID}:part", "block_crystal")
+        val blockMaterial = ModelResourceLocation("${Reference.MOD_ID}:part", "block_material")
+        val blockMetal = ModelResourceLocation("${Reference.MOD_ID}:part", "block_metal")
+
+        ModelLoader.registerItemVariants(RagiInit.ItemBlockMaterial, blockCrystal, blockMaterial, blockMetal)
+
+        ModelLoader.setCustomMeshDefinition(RagiInit.ItemBlockMaterial) { stack ->
+            //metadataからmaterialを取得
+            val material = MaterialUtil.getMaterial(stack.metadata)
+            val parts = material.type.parts
+            if (EnumMaterialType.BLOCK_MATERIAL in parts) {
+                if (EnumMaterialType.CRYSTAL in parts) {
+                    if ((material as CrystalBuilder).system == "coal") {
+                        blockMaterial
+                    } else blockCrystal
+                } else if (EnumMaterialType.INGOT in parts) {
+                    blockMetal
+                } else blockMaterial
+            } else blockMaterial
         }
 
         //ItemCrystal
@@ -53,22 +76,16 @@ object ModelStack {
 
         //Part
         for (part in listOf(
-                RagiInit.ItemBlockCrystal,
-                RagiInit.ItemBlockMetal,
                 RagiInit.ItemDust,
                 RagiInit.ItemDustTiny,
                 RagiInit.ItemGear,
-                //RagiInit.ItemCrystal,
                 RagiInit.ItemIngot,
                 RagiInit.ItemIngotHot,
                 RagiInit.ItemNugget,
-                //RagiInit.ItemOre,
-                //RagiInit.ItemOreNether,
-                //RagiInit.ItemOreEnd,
                 RagiInit.ItemPlate,
                 RagiInit.ItemStick)
         ) {
-            val location = ModelResourceLocation("${Reference.MOD_ID}:parts", part.registryName!!.resourcePath)
+            val location = ModelResourceLocation("${Reference.MOD_ID}:part", part.part.name)
             //アイテムとモデルの紐づけ
             ModelLoader.registerItemVariants(part, location)
             //アイテムにモデルを登録

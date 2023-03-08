@@ -31,8 +31,7 @@ class ColorHandler {
             val item = stack.item
             if (item is IMaterialItem && tintIndex == 0) item.getMaterial(stack).color.rgb else 0xFFFFFF
         },
-                RagiInit.ItemBlockCrystal,
-                RagiInit.ItemBlockMetal,
+                RagiInit.ItemBlockMaterial,
                 RagiInit.ItemCrystal,
                 RagiInit.ItemDust,
                 RagiInit.ItemDustTiny,
