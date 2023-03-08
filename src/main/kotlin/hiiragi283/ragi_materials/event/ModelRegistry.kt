@@ -20,7 +20,6 @@ class ModelRegistry {
             RagiInit.ItemBlockSaltPond,
 
             RagiInit.ItemBlazingCube,
-            //RagiInit.ItemBookDebug,
             RagiInit.ItemForgeHammer,
             RagiInit.ItemFullBottle,
             RagiInit.ItemSeedCoal,
@@ -29,18 +28,7 @@ class ModelRegistry {
             RagiInit.ItemWaste
         )
         //アイテムのモデル登録 (メタデータ無視)
-        /*RagiModel.setModelSame(
-            RagiInit.ItemBlockCrystal,
-            RagiInit.ItemBlockMetal,
-            RagiInit.ItemDust,
-            RagiInit.ItemDustTiny,
-            RagiInit.ItemGear,
-            RagiInit.ItemIngot,
-            RagiInit.ItemIngotHot,
-            RagiInit.ItemNugget,
-            RagiInit.ItemPlate,
-            RagiInit.ItemStick
-        )*/
+        //RagiModel.setModelSame()
         //ItemStackを用いたモデル登録
         ModelStack.init()
         //IBlockStateを用いたモデル登録

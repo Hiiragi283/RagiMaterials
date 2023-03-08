@@ -11,9 +11,9 @@ class SimpleBuilder(val material: ElementBuilder, amount: Int) : CompoundBuilder
     private fun setTemp() {
         for (key in components.keys) {
             if (key is ElementBuilder) {
-                if (key.tempMelt !== null) this.tempMelt = key.tempMelt!!
-                if (key.tempBoil !== null) this.tempBoil = key.tempBoil!!
-                if (key.tempSubl !== null) this.tempSubl = key.tempSubl!!
+                key.tempMelt?.let { this.tempMelt = it }
+                key.tempBoil?.let { this.tempBoil = it }
+                key.tempSubl?.let { this.tempSubl = it }
             }
         }
     }

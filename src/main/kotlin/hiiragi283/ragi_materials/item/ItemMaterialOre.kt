@@ -12,9 +12,7 @@ class ItemMaterialOre(ID: String) : ItemMaterial(ID, EnumMaterialType.DUMMY) {
 
     //    General    //
 
-    override fun getItemBurnTime(stack: ItemStack): Int {
-        return -1
-    }
+    override fun getItemBurnTime(stack: ItemStack): Int = -1
 
     //    Client    //
 

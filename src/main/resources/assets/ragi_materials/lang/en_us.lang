@@ -13,45 +13,78 @@ tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.oredict_converter.name=Ore Dictionary Converter
 tile.salt_pond.name=Salt Evaporation Pond
 
-# Config
-config.ragi_materials.debug=Debug Option
-config.ragi_materials.debug.tooltip=Warning, warning. This is not a test!
-config.ragi_materials.debug.debug=Enable Debug Mode
-config.ragi_materials.debug.debug.tooltip=If true, you can use some debug items but Ragi Materials throws sooo many debug logs...
+# Item
+item.blazing_cube.name=Blazing Cube
+item.book_debug.0.name=Spawn Book (DEBUG)
+item.book_debug.1.name=Syntax Book (DEBUG)
+item.book_debug.2.name=Property Book (DEBUG)
+item.book_debug.3.name=Tile Entity Book (DEBUG)
+item.fullbottle.name=Blank Full Bottle
+item.fullbottle_filled.name=%s Full Bottle
+item.ragi_block_crystal.name=Block of %s
+item.ragi_block_metal.name=Block of %s
+item.ragi_crystal.name=%s
+item.ragi_dust.name=%s Dust
+item.ragi_dust_tiny.name=Tiny Pile of %s Dust
+item.ragi_forge_hammer.name=%s Forge Hammer
+item.ragi_gear.name=%s Gear
+item.ragi_ingot.name=%s Ingot
+item.ragi_ingot_hot.name=Hot %s Ingot
+item.ragi_nugget.name=%s Nugget
+item.ragi_ore.name=%s Ore
+item.ragi_ore_end.name=End %s Ore
+item.ragi_ore_nether.name=Nether %s Ore
+item.ragi_plate.name=%s Plate
+item.ragi_stick.name=%s Stick
+item.seed_coal.name=[WIP] Coal Seed
+item.seed_lignite.name=[WIP] Lignite Seed
+item.seed_peat.name=[WIP] Peat Seed
+item.waste.name=Chemical Waste
 
-config.ragi_materials.integration=Integration Option
-config.ragi_materials.integration.tooltip=
-config.ragi_materials.integration.ender_io=Ender IO
-config.ragi_materials.integration.ender_io.tooltip=
-config.ragi_materials.integration.expansion=Thermal Expansion
-config.ragi_materials.integration.expansion.tooltip=
-config.ragi_materials.integration.foundation=Thermal Foundation
-config.ragi_materials.integration.foundation.tooltip=
-config.ragi_materials.integration.mekanism=Mekanism
-config.ragi_materials.integration.mekanism.tooltip=
+# Tooltip
+tips.ragi_materials.blaze_heater.0=Used for heating metal ingot
+tips.ragi_materials.blaze_heater.1=Not consume fuels
+tips.ragi_materials.blaze_heater.2=Some metals require §4Hellrise§r§7 Heater
+tips.ragi_materials.block_bellow.0=Used to §cBoost§r§7 §bForge Furnace§r§7
+tips.ragi_materials.block_bellow.1=Right-click or send Redstone signal to activate
+tips.ragi_materials.durability=- Durability: §b%s§r
+tips.ragi_materials.forge_furnace.0=Used for heating metal ingot
+tips.ragi_materials.forge_furnace.1=Right-click with §bCoal§r§7 / §bCharcoal§r§7 to add fuel
+tips.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §cboost§r§7 fire
+tips.ragi_materials.forge_furnace.3=Some metals require §cBoost§r§7ed Forge Furnace
+tips.ragi_materials.fullbottle.0=Stackable Fluid Container
+tips.ragi_materials.fullbottle.1=Crafted from §bany other§r§7 fluid container
+tips.ragi_materials.fullbottle_station.0=Used to make §bFull Bottle§r§7 from fluids
+tips.ragi_materials.fullbottle_station.1=Insert fluids with any fluid container or pipes
+tips.ragi_materials.fullbottle_station.2=The fluids will be converted automatically in 1 second
+tips.ragi_materials.laboratory_table.0=Used for chemical reaction
+tips.ragi_materials.laboratory_table.1=Insert item by right-clicking or using hopper
+tips.ragi_materials.laboratory_table.2=If the quantity or order is §cwrong§r§7, §bChemical Waste§r§7 is generated
+tips.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
+tips.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
+tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
+tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
+tips.ragi_materials.property.melt=- Melting Point: §b%s§r§7 °C
+tips.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
+tips.ragi_materials.property.name=- Name: §b%s§r§7
+tips.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 °C
+tips.ragi_materials.salt_pond.0=Used for evaporating liquid
+tips.ragi_materials.salt_pond.1=Right-click with §bFull Bottle§r§7 to place liquid
+tips.ragi_materials.salt_pond.2=Waiting about §b10 seconds§r§7, the pond will drop §fSalts§r§7
 
-config.ragi_materials.material=Material Option
-config.ragi_materials.material.tooltip=It's high quality.
-config.ragi_materials.material.custom=List for Custom Material
-config.ragi_materials.material.custom.tooltip=Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048\nname: String ... used for translation key and ore dictionary\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... use color code\nformula: String ... show its chemical formula\nmolar_mass: Float ... show its molar mass [g/mol]\nmelting: Int ... show its melting point [°C]\nboiling: Int ... show its boiling point [°C]
-config.ragi_materials.material.enable_decay=Enable radioactive decay
-config.ragi_materials.material.enable_decay.tooltip=Destroy everything, connect everything.
-config.ragi_materials.material.max=Max Materials
-config.ragi_materials.material.max.tooltip=Set max number/metadata of materials registered
+# Text
+text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
+text.ragi_materials.decoration_line=§e§l========================================§r§7
+text.ragi_materials.spawn=§bTeleport you to the spawn point!
+text.ragi_materials.syntax=§bSyntax and Reload
 
-config.ragi_materials.recipe_map=Custom Recipe Map
-config.ragi_materials.recipe_map.tooltip=
-config.ragi_materials.recipe_map.forge_burning=Forge Furnace - Tier: Burning
-config.ragi_materials.recipe_map.forge_burning.tooltip=§oThe strongest wings bearing the fire of hell.
-config.ragi_materials.recipe_map.forge_boosted=Forge Furnace - Tier: Boosted
-config.ragi_materials.recipe_map.forge_boosted.tooltip=§oGET READY FOR BOOST
-config.ragi_materials.recipe_map.forge_hellrise=Forge Furnace - Tier: Hell-rise
-config.ragi_materials.recipe_map.forge_hellrise.tooltip=§oHEAVEN or HELL it doesn't matter.
-
-config.ragi_materials.utility=Utility
-config.ragi_materials.utility.tooltip=Not Extra but Beneficial
-config.ragi_materials.utility.max_stack=Override max stack size
-config.ragi_materials.utility.max_stack.tooltip=The maximum stack size of items added to this list will be changed to 64
+# GUI
+gui.ragi_materials.forge_furnace=Forge Furnace
+gui.ragi_materials.laboratory_table=Laboratory Table
+gui.ragi_materials.salt_pond=Salt Evaporation Pond
+itemGroup.ragi_materials.blocks=RagiMaterials - Blocks
+itemGroup.ragi_materials.fullbottles=RagiMaterials - Full Bottles
+itemGroup.ragi_materials.materials=RagiMaterials - Materials
 
 # Fluid
 fluid.hydrogen=Hydrogen
@@ -81,7 +114,7 @@ fluid.potassium=Molten Potassium
 fluid.calcium=Molten Calcium
 fluid.titanium=Molten Titanium
 fluid.titanium_tetrachloride=Titanium Tetrachloride
-fluid.chrome=Molten Chromium
+fluid.chromium=Molten Chromium
 fluid.manganese=Molten Manganese
 fluid.iron=Molten Iron
 fluid.cobalt=Molten Cobalt
@@ -136,34 +169,6 @@ fluid.brass=Molten Brass
 fluid.bronze=Molten Bronze
 fluid.electrum=Molten Electrum
 fluid.tungsten_steel=Molten Tungsten Steel
-
-# Item
-item.blazing_cube.name=Blazing Cube
-item.book_debug.0.name=Spawn Book (DEBUG)
-item.book_debug.1.name=Syntax Book (DEBUG)
-item.book_debug.2.name=Property Book (DEBUG)
-item.book_debug.3.name=Tile Entity Book (DEBUG)
-item.forge_hammer.name=%s Forge Hammer
-item.fullbottle.name=Blank Full Bottle
-item.fullbottle_filled.name=%s Full Bottle
-item.ragi_block_crystal.name=Block of %s
-item.ragi_block_metal.name=Block of %s
-item.ragi_crystal.name=%s
-item.ragi_dust.name=%s Dust
-item.ragi_dust_tiny.name=Tiny Pile of %s Dust
-item.ragi_gear.name=%s Gear
-item.ragi_ingot.name=%s Ingot
-item.ragi_ingot_hot.name=Hot %s Ingot
-item.ragi_nugget.name=%s Nugget
-item.ragi_ore.name=%s Ore
-item.ragi_ore_nether.name=Nether %s Ore
-item.ragi_ore_end.name=End %s Ore
-item.ragi_plate.name=%s Plate
-item.ragi_stick.name=%s Stick
-item.seed_coal.name=[WIP] Coal Seed
-item.seed_lignite.name=[WIP] Lignite Seed
-item.seed_peat.name=[WIP] Peat Seed
-item.waste.name=Chemical Waste
 
 # Materials
 material.hydrogen=Hydrogen
@@ -352,45 +357,42 @@ material.signalum=Signalum
 material.lumium=Lumium
 material.enderium=Enderium
 
-# GUI
-gui.ragi_materials.forge_furnace.jei=Forge Furnace
-gui.ragi_materials.laboratory_table=Laboratory Table
-gui.ragi_materials.salt_pond.jei=Salt Evaporation Pond
-itemGroup.ragi_materials.blocks=RagiMaterials - Blocks
-itemGroup.ragi_materials.fullbottles=RagiMaterials - Full Bottles
-itemGroup.ragi_materials.materials=RagiMaterials - Materials
+# Config
+config.ragi_materials.debug=Debug Option
+config.ragi_materials.debug.tooltip=Warning, warning. This is not a test!
+config.ragi_materials.debug.debug=Enable Debug Mode
+config.ragi_materials.debug.debug.tooltip=If true, you can use some debug items but Ragi Materials throws sooo many debug logs...
 
-# Text
-text.ragi_materials.blaze_heater.0=Used for heating metal ingot
-text.ragi_materials.blaze_heater.1=Not consume fuels
-text.ragi_materials.blaze_heater.2=Some metals require §4Hellrise§r§7 Heater
-text.ragi_materials.block_bellow.0=Used to §cBoost§r§7 §bForge Furnace§r§7
-text.ragi_materials.block_bellow.1=Right-click or send Redstone signal to activate
-text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
-text.ragi_materials.decoration_line=§e§l========================================§r§7
-text.ragi_materials.durability=- Durability: §b%s§r
-text.ragi_materials.forge_furnace.0=Used for heating metal ingot
-text.ragi_materials.forge_furnace.1=Right-click with §bCoal§r§7 / §bCharcoal§r§7 to add fuel
-text.ragi_materials.forge_furnace.2=Right-click with §bBellow§r§7 to §cboost§r§7 fire
-text.ragi_materials.forge_furnace.3=Some metals require §cBoost§r§7ed Forge Furnace
-text.ragi_materials.fullbottle.0=Stackable Fluid Container
-text.ragi_materials.fullbottle.1=Crafted from §bany other§r§7 fluid container
-text.ragi_materials.fullbottle_station.0=Used to make §bFull Bottle§r§7 from fluids
-text.ragi_materials.fullbottle_station.1=Insert fluids with any fluid container or pipes
-text.ragi_materials.fullbottle_station.2=The fluids will be converted automatically in 1 second
-text.ragi_materials.laboratory_table.0=Used for chemical reaction
-text.ragi_materials.laboratory_table.1=Insert item by right-clicking or using hopper
-text.ragi_materials.laboratory_table.2=If the quantity or order is §cwrong§r§7, §bChemical Waste§r§7 is generated
-text.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
-text.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
-text.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
-text.ragi_materials.property.formula=- Chemical Formula: §b%s§r
-text.ragi_materials.property.melt=- Melting Point: §b%s§r§7 °C
-text.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
-text.ragi_materials.property.name=- Name: §b%s§r§7
-text.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 °C
-text.ragi_materials.salt_pond.0=Used for evaporating liquid
-text.ragi_materials.salt_pond.1=Right-click with §bFull Bottle§r§7 to place liquid
-text.ragi_materials.salt_pond.2=Waiting about §b10 seconds§r§7, the pond will drop §fSalts§r§7
-text.ragi_materials.spawn=§bTeleport you to the spawn point!
-text.ragi_materials.syntax=§bSyntax and Reload
+config.ragi_materials.integration=Integration Option
+config.ragi_materials.integration.tooltip=
+config.ragi_materials.integration.ender_io=Ender IO
+config.ragi_materials.integration.ender_io.tooltip=
+config.ragi_materials.integration.expansion=Thermal Expansion
+config.ragi_materials.integration.expansion.tooltip=
+config.ragi_materials.integration.foundation=Thermal Foundation
+config.ragi_materials.integration.foundation.tooltip=
+config.ragi_materials.integration.mekanism=Mekanism
+config.ragi_materials.integration.mekanism.tooltip=
+
+config.ragi_materials.material=Material Option
+config.ragi_materials.material.tooltip=It's high quality.
+config.ragi_materials.material.custom=List for Custom Material
+config.ragi_materials.material.custom.tooltip=Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ... used for metadata, limited in 1025 <= index <= 2048\nname: String ... used for translation key and ore dictionary\ntype: Enum ... only available: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... use color code\nformula: String ... show its chemical formula\nmolar_mass: Float ... show its molar mass [g/mol]\nmelting: Int ... show its melting point [°C]\nboiling: Int ... show its boiling point [°C]
+config.ragi_materials.material.enable_decay=Enable radioactive decay
+config.ragi_materials.material.enable_decay.tooltip=Destroy everything, connect everything.
+config.ragi_materials.material.max=Max Materials
+config.ragi_materials.material.max.tooltip=Set max number/metadata of materials registered
+
+config.ragi_materials.recipe_map=Custom Recipe Map
+config.ragi_materials.recipe_map.tooltip=
+config.ragi_materials.recipe_map.forge_burning=Forge Furnace - Tier: Burning
+config.ragi_materials.recipe_map.forge_burning.tooltip=§oThe strongest wings bearing the fire of hell.
+config.ragi_materials.recipe_map.forge_boosted=Forge Furnace - Tier: Boosted
+config.ragi_materials.recipe_map.forge_boosted.tooltip=§oGET READY FOR BOOST
+config.ragi_materials.recipe_map.forge_hellrise=Forge Furnace - Tier: Hell-rise
+config.ragi_materials.recipe_map.forge_hellrise.tooltip=§oHEAVEN or HELL it doesn't matter.
+
+config.ragi_materials.utility=Utility
+config.ragi_materials.utility.tooltip=Not Extra but Beneficial
+config.ragi_materials.utility.max_stack=Override max stack size
+config.ragi_materials.utility.max_stack.tooltip=The maximum stack size of items added to this list will be changed to 64

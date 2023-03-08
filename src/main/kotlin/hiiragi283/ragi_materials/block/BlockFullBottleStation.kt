@@ -28,11 +28,11 @@ class BlockFullBottleStation: BlockContainer(Material.IRON) {
     private val registryName = "fullbottle_station"
 
     init {
+        blockResistance = 5.0F
+        blockResistance = 5.0F
         setCreativeTab(RagiInit.TabBlocks)
-        setHardness(5.0F)
         setHarvestLevel("pickaxe", 2)
         setRegistryName(Reference.MOD_ID, registryName)
-        setResistance(5.0F)
         soundType = SoundType.METAL
         unlocalizedName = registryName
     }
@@ -40,19 +40,13 @@ class BlockFullBottleStation: BlockContainer(Material.IRON) {
     //    General    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("EnumBlockRenderType.MODEL", "net.minecraft.util.EnumBlockRenderType"))
-    override fun getRenderType(state: IBlockState): EnumBlockRenderType {
-        return EnumBlockRenderType.MODEL
-    }
+    override fun getRenderType(state: IBlockState): EnumBlockRenderType = EnumBlockRenderType.MODEL
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    Client    //
 
@@ -61,37 +55,29 @@ class BlockFullBottleStation: BlockContainer(Material.IRON) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..2) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer {
-        return BlockRenderLayer.CUTOUT
-    }
+    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     //    Event    //
 
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is TileFullBottleStation) {
-            RagiUtil.dropInventoryItems(world, pos, tile.inventory)
-        }
+        if (tile !== null && tile is TileFullBottleStation) RagiUtil.dropInventoryItems(world, pos, tile.inventory)
         super.breakBlock(world, pos, state)
     }
 
-
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is ITileBase) tile.onTileActivated(world, pos, player, hand, facing)
-        return true
+        return if (tile !== null && tile is ITileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
     }
 
     //    Tile Entity    //
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity {
-        return TileFullBottleStation()
-    }
+    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity = TileFullBottleStation()
 
 }

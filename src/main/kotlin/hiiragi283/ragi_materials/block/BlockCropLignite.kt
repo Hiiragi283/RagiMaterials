@@ -12,22 +12,14 @@ class BlockCropLignite : BlockCropPeat("crop_lignite") {
 
     //    General    //
 
-    override fun getDropMain(): Int {
-        return MaterialRegistry.LIGNITE.index
-    }
+    override fun getDropMain(): Int = MaterialRegistry.LIGNITE.index
 
-    override fun getDropSeed(): Item {
-        return RagiInit.ItemSeedLignite
-    }
+    override fun getDropSeed(): Item = RagiInit.ItemSeedLignite
 
-    override fun getDropSub(): Int {
-        return MaterialRegistry.COAL.index
-    }
+    override fun getDropSub(): Int = MaterialRegistry.COAL.index
 
     //    IMaterialBlock    //
 
-    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder {
-        return MaterialRegistry.LIGNITE
-    }
+    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder = MaterialRegistry.LIGNITE
 
 }

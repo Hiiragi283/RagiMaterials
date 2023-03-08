@@ -25,27 +25,19 @@ class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper>
     }
 
     //JEiタブのIDを取得するメソッド
-    override fun getUid(): String {
-        return JEICore.SaltPond
-    }
+    override fun getUid(): String = JEICore.SaltPond
 
     //JEiタブの名前を取得するメソッド
-    override fun getTitle(): String {
-        return I18n.format("gui.$uid.jei")
-    }
+    override fun getTitle(): String = I18n.format("gui.$uid")
 
     //JEiタブの背景を取得するメソッド
-    override fun getBackground(): IDrawable {
-        return background
-    }
+    override fun getBackground(): IDrawable = background
 
     //なんかエクストラするメソッド
     override fun drawExtras(mc: Minecraft) {}
 
     //JEiタブのアイコンを取得するメソッド?
-    override fun getIcon(): IDrawable? {
-        return null
-    }
+    override fun getIcon(): IDrawable? = null
 
     //JEiタブにレシピを設定するメソッド
     override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: SaltPondWrapper, ingredients: IIngredients) {
@@ -64,7 +56,5 @@ class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper>
     }
 
     //JEiタブに紐づいたmod名を取得するメソッド
-    override fun getModName(): String {
-        return Reference.MOD_NAME
-    }
+    override fun getModName(): String = Reference.MOD_NAME
 }

@@ -34,10 +34,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
 
     //    NBT tag    //
 
-    override fun getUpdateTag(): NBTTagCompound {
-        //オーバーライドしないと正常に更新されない
-        return writeToNBT(NBTTagCompound())
-    }
+    override fun getUpdateTag(): NBTTagCompound =  writeToNBT(NBTTagCompound()) //オーバーライドしないと正常に更新されない
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
@@ -52,9 +49,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
 
     //    Packet    //
 
-    override fun getUpdatePacket(): SPacketUpdateTileEntity {
-        return SPacketUpdateTileEntity(pos, 100, this.updateTag) //NBTタグの情報を送る
-    }
+    override fun getUpdatePacket(): SPacketUpdateTileEntity = SPacketUpdateTileEntity(pos, 100, this.updateTag) //NBTタグの情報を送る
 
     override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
         this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
@@ -65,9 +60,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
       Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
     */
 
-    override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean {
-        return oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
-    }
+    override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
     //    Capability    //
 
@@ -85,10 +78,10 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
 
     //    Event    //
 
-    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing) {
+    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         val stack = player.getHeldItem(hand)
         //手持ちのItemStackが空の場合
-        if (stack.isEmpty) {/*for (i in 0 until inventory.slots) {
+        return if (stack.isEmpty) {/*for (i in 0 until inventory.slots) {
             val numReverse = inventory.slots - (i + 1)
             //スロット内のItemStackを取得 (逆順)
             val stackSlot = inventory.getStackInSlot(numReverse)
@@ -100,6 +93,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
                 break
             } else RagiLogger.infoDebug("The slot$numReverse is empty!")
         }*/
+            false
         } else {
             for (i in 0 until invLabo.slots) {
                 //スロットにItemStackを入れた際の余りを取得
@@ -114,6 +108,7 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
                     break
                 } else RagiLogger.infoDebug("The slot$i is full!")
             }
+            true
         }
     }
 
@@ -149,63 +144,37 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
     //    ISidedInventory    //
     //基本的にRagiInventoryと同じ
 
-    override fun getName(): String {
-        return this.invLabo.title
-    }
+    override fun getName(): String = this.invLabo.title
 
-    override fun hasCustomName(): Boolean {
-        return false
-    }
+    override fun hasCustomName(): Boolean = false
 
-    override fun getSizeInventory(): Int {
-        return this.invLabo.sizeInventory
-    }
+    override fun getSizeInventory(): Int = this.invLabo.sizeInventory
 
-    override fun isEmpty(): Boolean {
-        return this.invLabo.isEmpty
-    }
+    override fun isEmpty(): Boolean = this.invLabo.isEmpty
 
-    override fun getStackInSlot(index: Int): ItemStack {
-        return this.invLabo.getStackInSlot(index)
-    }
+    override fun getStackInSlot(index: Int): ItemStack = this.invLabo.getStackInSlot(index)
 
-    override fun decrStackSize(index: Int, count: Int): ItemStack {
-        return this.invLabo.decrStackSize(index, count)
-    }
+    override fun decrStackSize(index: Int, count: Int): ItemStack = this.invLabo.decrStackSize(index, count)
 
-    override fun removeStackFromSlot(index: Int): ItemStack {
-        return this.invLabo.removeStackFromSlot(index)
-    }
+    override fun removeStackFromSlot(index: Int): ItemStack = this.invLabo.removeStackFromSlot(index)
 
-    override fun setInventorySlotContents(index: Int, stack: ItemStack) {
-        return this.invLabo.setInventorySlotContents(index, stack)
-    }
+    override fun setInventorySlotContents(index: Int, stack: ItemStack) = this.invLabo.setInventorySlotContents(index, stack)
 
-    override fun getInventoryStackLimit(): Int {
-        return this.invLabo.inventoryStackLimit
-    }
+    override fun getInventoryStackLimit(): Int = this.invLabo.inventoryStackLimit
 
-    override fun isUsableByPlayer(player: EntityPlayer): Boolean {
-        return this.invLabo.isUsableByPlayer(player)
-    }
+    override fun isUsableByPlayer(player: EntityPlayer): Boolean = this.invLabo.isUsableByPlayer(player)
 
     override fun openInventory(player: EntityPlayer) {}
 
     override fun closeInventory(player: EntityPlayer) {}
 
-    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean {
-        return this.invLabo.isItemValidForSlot(index, stack)
-    }
+    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean = this.invLabo.isItemValidForSlot(index, stack)
 
-    override fun getField(id: Int): Int {
-        return this.invLabo.getField(id)
-    }
+    override fun getField(id: Int): Int = this.invLabo.getField(id)
 
     override fun setField(id: Int, value: Int) {}
 
-    override fun getFieldCount(): Int {
-        return this.invLabo.fieldCount
-    }
+    override fun getFieldCount(): Int = this.invLabo.fieldCount
 
     override fun clear() {
         this.invLabo.clear()
@@ -218,13 +187,8 @@ class TileLaboTable : TileEntity(), ISidedInventory, ITileBase {
         } else intArrayOf(0, 1, 2, 3, 4)
     }
 
-    override fun canInsertItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean {
-        //上面または下面でない場合，搬入可能
-        return direction != EnumFacing.UP && direction != EnumFacing.DOWN
-    }
+    override fun canInsertItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean = direction != EnumFacing.UP && direction != EnumFacing.DOWN //上面または下面でない場合，搬入可能
 
-    override fun canExtractItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean {
-        //いかなる場合でも搬出不可能
-        return false
-    }
+    override fun canExtractItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean = false //いかなる場合でも搬出不可能
+
 }

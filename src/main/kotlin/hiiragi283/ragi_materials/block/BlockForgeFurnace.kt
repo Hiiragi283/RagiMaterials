@@ -31,12 +31,12 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
     private val registryName = "forge_furnace"
 
     init {
+        blockHardness = 3.5F
+        blockResistance = 3.5F
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(FUEL, 0)
         setCreativeTab(RagiInit.TabBlocks)
-        setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
-        setResistance(3.5F)
         soundType = SoundType.STONE
         unlocalizedName = registryName
     }
@@ -45,24 +45,14 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, FACING, FUEL)
-    }
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, FACING, FUEL)
 
-    override fun getMetaFromState(state: IBlockState): Int {
-        return (state.getValue(FACING).index - 2) * 4 + state.getValue(FUEL)
-    }
+    override fun getMetaFromState(state: IBlockState): Int = (state.getValue(FACING).index - 2) * 4 + state.getValue(FUEL)
 
-    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState {
-        return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
-    }
+    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
 
-    @Deprecated("Deprecated in Java")
-    override fun getStateFromMeta(meta: Int): IBlockState {
-        val facing = EnumFacing.getFront((meta / 4) + 2)
-        val fuel = meta % 4
-        return blockState.baseState.withProperty(FACING, facing).withProperty(FUEL, fuel)
-    }
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(FUEL, meta % 4)", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing", "hiiragi283.ragi_materials.block.BlockForgeFurnace.Companion.FUEL"))
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(FUEL, meta % 4)
 
     //    Event    //
 
@@ -87,7 +77,7 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..3) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
@@ -95,13 +85,9 @@ class BlockForgeFurnace : BlockHorizontal(Material.ROCK) {
     //    Redstone    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("state.getValue(FUEL)", "hiiragi283.ragi_materials.block.BlockForgeFurnace.Companion.FUEL"))
-    override fun getComparatorInputOverride(state: IBlockState, world: World, pos: BlockPos): Int {
-        return state.getValue(FUEL) //燃料の量を返す
-    }
+    override fun getComparatorInputOverride(state: IBlockState, world: World, pos: BlockPos): Int = state.getValue(FUEL) //燃料の量を返す
 
     @Deprecated("Deprecated in Java", ReplaceWith("true"))
-    override fun hasComparatorInputOverride(state: IBlockState): Boolean {
-        return true
-    }
+    override fun hasComparatorInputOverride(state: IBlockState): Boolean = true
 
 }

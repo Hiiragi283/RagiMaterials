@@ -17,8 +17,8 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) : Compou
         //components内の各keyに対して実行
         for (key in components.keys) {
             //keyがMaterialBuilder型，かつ沸点がnullでない場合
-            if ((key is MaterialBuilder) && (key.tempBoil !== null)) {
-                tempBoil += key.tempBoil!! * components.getValue(key)
+            if (key is MaterialBuilder) key.tempBoil?.let {
+                tempBoil += it * components.getValue(key)
                 divideBoil += components.getValue(key)
             }
         }
@@ -35,8 +35,8 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) : Compou
         //components内の各keyに対して実行
         for (key in components.keys) {
             //keyがMaterialBuilder型，かつ融点がnullでない場合
-            if ((key is MaterialBuilder) && (key.tempMelt !== null)) {
-                tempMelt += key.tempMelt!! * components.getValue(key)
+            if (key is MaterialBuilder) key.tempMelt?.let {
+                tempMelt += it * components.getValue(key)
                 divideMelt += components.getValue(key)
             }
         }

@@ -6,6 +6,7 @@ import hiiragi283.ragi_materials.material.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.util.RagiUtil
+import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -14,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
+import net.minecraftforge.common.IRarity
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.fluids.FluidRegistry
@@ -27,6 +29,11 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialItem {
 
+    //    General    //
+
+    override fun getForgeRarity(stack: ItemStack): IRarity {
+        return getMaterial(stack).rarity
+    }
 
     //    Client    //
 
@@ -46,9 +53,8 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val material = getMaterial(stack)
-        return if (material.isNotEmpty()) {
-            I18n.format("item.fullbottle_filled.name", I18n.format(material.name))
-        } else super.getItemStackDisplayName(stack)
+        val fluid = material.getFluid()
+        return if (material.isNotEmpty() && fluid !== null) I18n.format("item.fullbottle_filled.name", I18n.format(fluid.unlocalizedName)) else super.getItemStackDisplayName(stack)
     }
 
     @SideOnly(Side.CLIENT)
@@ -59,7 +65,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
             for (fluid in FluidRegistry.getRegisteredFluids().values) {
                 //液体の名前から素材が取得できる場合のみ登録
                 if (!MaterialUtil.getMaterial(fluid.name).isEmpty()) {
-                    val stackFilled = setFluid(stack.copy(), fluid.name, 1000)
+                    val stackFilled = setFluid(stack.copy(), fluid.name)
                     subItems.add(stackFilled)
                 }
             }
@@ -75,9 +81,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     private class CellProvider(val stack: ItemStack) : ICapabilityProvider {
 
         override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-            return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FullBottleFluidHandler(
-                stack, 1000
-            ) as T else null
+            return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FullBottleFluidHandler(stack, 1000) as T else null
         }
 
         override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
@@ -111,10 +115,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
             return result
         }
 
-        override fun canFillFluidType(fluidStack: FluidStack): Boolean {
-            //液体の名前から取得した素材が空でないならtrue
-            return !MaterialUtil.getMaterial(fluidStack.fluid.name).isEmpty()
-        }
+        override fun canFillFluidType(fluidStack: FluidStack): Boolean = !MaterialUtil.getMaterial(fluidStack.fluid.name).isEmpty() //液体の名前から取得した素材が空でないならtrue
     }
 
     //    IMaterialItem    //
@@ -125,15 +126,12 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     }
 
     override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        return setFluid(stack, material.name, 1000)
+        return setFluid(stack, material.name)
     }
 
-    private fun setFluid(stack: ItemStack, fluid: String, amount: Int): ItemStack {
+    private fun setFluid(stack: ItemStack, fluid: String, amount: Int = 1000): ItemStack {
         stack.tagCompound = RagiUtil.setFluidToNBT(NBTTagCompound(), RagiUtil.getFluidStack(fluid, amount))
         return stack
     }
 
-    private fun setFluid(stack: ItemStack, fluid: String): ItemStack{
-        return setFluid(stack, fluid, 1000)
-    }
 }

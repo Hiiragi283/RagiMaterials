@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.IItemHandler
 
-data class LTRecipe(
+class LTRecipe(
         val input1: ItemStack,
         val input2: ItemStack,
         val input3: ItemStack,

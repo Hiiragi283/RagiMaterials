@@ -57,7 +57,6 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
                 true -> BlockFaceShape.UNDEFINED
                 false -> BlockFaceShape.SOLID
             }
-
             EnumFacing.DOWN -> BlockFaceShape.SOLID
             else -> BlockFaceShape.UNDEFINED
         }
@@ -72,34 +71,22 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, ACTIVE, FACING)
-    }
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, ACTIVE, FACING)
 
-    override fun getMetaFromState(state: IBlockState): Int {
-        return ((!state.getValue(ACTIVE)).toInt()) * 4 + (state.getValue(FACING).index - 2)
-    }
 
-    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState {
-        return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
-    }
+    override fun getMetaFromState(state: IBlockState): Int = ((!state.getValue(ACTIVE)).toInt()) * 4 + (state.getValue(FACING).index - 2)
 
-    @Deprecated("Deprecated in Java")
-    override fun getStateFromMeta(meta: Int): IBlockState {
-        val facing = EnumFacing.getFront((meta % 4) + 2)
-        return blockState.baseState.withProperty(ACTIVE, meta / 4 == 0).withProperty(FACING, facing)
-    }
+    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
+
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(ACTIVE, meta / 4 == 0).withProperty(FACING, EnumFacing.getFront((meta % 4) + 2))", "hiiragi283.ragi_materials.block.BlockBellow.Companion.ACTIVE", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing"))
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(ACTIVE, meta / 4 == 0).withProperty(FACING, EnumFacing.getFront((meta % 4) + 2))
 
     //    Event    //
 
@@ -108,12 +95,10 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
         if (!world.isRemote && world.isBlockPowered(pos)) blowBellow(world, pos, state)
     }
 
-    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
-        blowBellow(world, pos, state)
-        return true
-    }
+    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = blowBellow(world, pos, state)
 
-    private fun blowBellow(world: World, pos: BlockPos, state: IBlockState) {
+
+    private fun blowBellow(world: World, pos: BlockPos, state: IBlockState): Boolean {
         //サーバー側，かつACTIVEでない場合
         if (!world.isRemote && !state.getValue(ACTIVE)) {
             //ふいごが向いている方向，その先の座標とstateを取得
@@ -121,32 +106,22 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
             val posFurnace = pos.offset(facingBellow)
             val stateTo = world.getBlockState(posFurnace)
             //stateTo.blockがBlockForgeFurnace，かつ燃料が満タンの場合
-            if (stateTo.block is BlockForgeFurnace && stateTo.getValue(BlockForgeFurnace.FUEL) == 3) {
+            return if (stateTo.block is BlockForgeFurnace && stateTo.getValue(BlockForgeFurnace.FUEL) == 3) {
                 val facingFurnace = stateTo.getValue(FACING) //Forge Furnaceの方向
                 val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
                 world.setBlockState(posFurnace, litForgeFurnace.withProperty(FACING, facingFurnace), 2) //火力UP
                 world.scheduleUpdate(posFurnace, RagiInit.BlockLitForgeFurnace, 100) //Forge Furnaceのtick更新を100 tick後に設定
                 world.setBlockState(pos, state.withProperty(ACTIVE, true), 2) //アニメーション
                 world.scheduleUpdate(pos, this, 40) //Bellowのtick更新を20 tick後に設定
-                world.playSound(
-                        null,
-                        posFurnace,
-                        RagiUtil.getSound("minecraft:entity.blaze.shoot"),
-                        SoundCategory.BLOCKS,
-                        1.0f,
-                        0.5f
-                ) //SEを再生
+                world.playSound(null, posFurnace, RagiUtil.getSound("minecraft:entity.blaze.shoot"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
                 RagiLogger.infoDebug("Forge Furnace was boosted!")
-            }
-        }
+                true
+            } else false
+        } else return false
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if (!world.isRemote) {
-            world.setBlockState(
-                pos, state.withProperty(FACING, state.getValue(FACING)).withProperty(ACTIVE, false), 2
-            )
-        }
+        if (!world.isRemote) world.setBlockState(pos, state.withProperty(FACING, state.getValue(FACING)).withProperty(ACTIVE, false), 2)
     }
 
     //    Client    //
@@ -156,7 +131,7 @@ class BlockBellow : BlockHorizontal(Material.CLOTH) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..1) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }

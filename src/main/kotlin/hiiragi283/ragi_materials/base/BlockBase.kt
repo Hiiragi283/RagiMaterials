@@ -21,23 +21,11 @@ open class BlockBase(Material: Material?, MOD: String, ID: String?, val maxMeta:
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer {
-        //property16を使用すると、Blockstateは"type=0"から"type=15"までが登録される
-        return BlockStateContainer(this, property16)
-    }
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, property16)
 
-    override fun getMetaFromState(state: IBlockState): Int {
-        //stateから得られたmetadataが0以上maxMeta以下の場合，そのまま返す
-        //そうでない場合はmaxMetaを返す
-        return if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
-    }
+    override fun getMetaFromState(state: IBlockState): Int = if (state.getValue(property16) in 0..maxMeta) state.getValue(property16) else maxMeta
 
     @Deprecated("Deprecated in Java")
-    override fun getStateFromMeta(meta: Int): IBlockState {
-        //代入した値が0以上maxMeta以下の場合，そのまま返す
-        //そうでない場合はmaxMetaを返す
-        val metadata = if (meta in 0..maxMeta) meta else maxMeta
-        //property16をもとに指定したメタデータからBlockstateを返す
-        return defaultState.withProperty(property16, metadata)
-    }
+    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(property16, if (meta in 0..maxMeta) meta else maxMeta)
+
 }

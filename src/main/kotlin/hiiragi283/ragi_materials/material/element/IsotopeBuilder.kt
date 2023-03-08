@@ -5,5 +5,4 @@ class IsotopeBuilder(index: Int,
                      material: ElementBuilder,
                      override var molar: Float?,
                      override var formula: String?
-) :
-        ElementBuilder(index, name, material.type, material.color, material.molar!!, material.formula!!, material.tempMelt!!, material.tempBoil!!)
+) : ElementBuilder(index, name, material.type, material.color, material.molar!!, material.formula!!, material.tempMelt!!, material.tempBoil!!)

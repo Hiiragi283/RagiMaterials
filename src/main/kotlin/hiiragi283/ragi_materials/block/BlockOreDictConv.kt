@@ -28,14 +28,13 @@ import net.minecraftforge.fml.relauncher.SideOnly
 class BlockOreDictConv : Block(Material.WOOD) {
 
     private val registryName = "oredict_converter"
-    private val box = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)
 
     init {
+        blockHardness = 5.0F
+        blockResistance = 5.0F
         setCreativeTab(RagiInit.TabBlocks)
-        setHardness(5.0F)
         setHarvestLevel("axe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
-        setResistance(5.0F)
         soundType = SoundType.WOOD
         unlocalizedName = registryName
     }
@@ -52,20 +51,14 @@ class BlockOreDictConv : Block(Material.WOOD) {
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun getBoundingBox(blockState: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
-        return box //エンチャント台と同じ
-    }
+    @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
+    override fun getBoundingBox(blockState: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    Event    //
 
@@ -95,15 +88,15 @@ class BlockOreDictConv : Block(Material.WOOD) {
                     }
                 }
                 //resultがEMPTYでない場合
-                if (result.item !== Items.AIR) {
+                return if (result.item !== Items.AIR) {
                     stack.shrink(count) //stackを1つ減らす
                     RagiUtil.spawnItemAtPlayer(world, player, result)
                     RagiUtil.soundHypixel(world, pos) //SEを再生
                     RagiLogger.infoDebug("Item was converted!")
-                }
-            }
-        }
-        return true
+                    true
+                } else false
+            } else return false
+        } else return false
     }
 
     //    Client    //
@@ -113,7 +106,7 @@ class BlockOreDictConv : Block(Material.WOOD) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..1) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }

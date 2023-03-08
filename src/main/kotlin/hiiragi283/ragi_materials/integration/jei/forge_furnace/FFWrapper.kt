@@ -44,7 +44,5 @@ class FFWrapper(info: FFRecipe) : IRecipeWrapper {
     }
 
     //
-    override fun handleClick(minecraft: Minecraft, mouseX: Int, mouseY: Int, mouseButton: Int): Boolean {
-        return false
-    }
+    override fun handleClick(minecraft: Minecraft, mouseX: Int, mouseY: Int, mouseButton: Int): Boolean = false
 }

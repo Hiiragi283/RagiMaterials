@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -20,6 +21,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.registry.ForgeRegistries
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.ItemStackHandler
 import net.minecraftforge.oredict.OreDictionary
 
@@ -28,28 +31,16 @@ object RagiUtil {
     //    Block    //
 
     fun getBlock(registryName: String): Block {
-        val block = ForgeRegistries.BLOCKS.getValue(ResourceLocation(registryName))
-        return if (block !== null) block else {
-            RagiLogger.warnDebug("The block <$registryName> was not found...")
-            ForgeRegistries.BLOCKS.getValue(ResourceLocation("minecraft:barrier"))!!
-        }
+        return ForgeRegistries.BLOCKS.getValue(ResourceLocation(registryName))?: Blocks.BARRIER
     }
 
     fun getState(registryName: String, meta: Int): IBlockState {
         val block = getBlock(registryName)
-        val state= block.getStateFromMeta(meta)
-        return if (block !== getBlock("minecraft:barrier")) state else {
-            RagiLogger.warnDebug("The blockstate <blockstate:$block:$meta> was not found...")
-            getBlock("minecraft:barrier").defaultState
-        }
+        return block.getStateFromMeta(meta)
     }
 
     fun getState(block: Block, meta: Int): IBlockState {
-        val state = block.getStateFromMeta(meta)
-        return if (block !== getBlock("minecraft:barrier")) state else {
-            RagiLogger.warnDebug("The blockstate <blockstate:$block:$meta> was not found...")
-            getBlock("minecraft:barrier").defaultState
-        }
+        return block.getStateFromMeta(meta)
     }
 
     //    Command    //
@@ -85,30 +76,16 @@ object RagiUtil {
     //    Item    //
 
     fun getItem(registryName: String): Item {
-        val item= ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))
-        return if (item !== null) item else {
-            RagiLogger.warnDebug("The item <$registryName> was not found...")
-            ForgeRegistries.ITEMS.getValue(ResourceLocation("minecraft:barrier"))!!
-        }
+        return ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))?: Item.getItemFromBlock(Blocks.BARRIER)
     }
 
     fun getStack(registryName: String, amount: Int, meta: Int): ItemStack {
-        val item= ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))
-        return if (item !== null) ItemStack(item, amount, meta) else {
-            RagiLogger.warnDebug("The item stack <$registryName:$meta> * $amount was not found...")
-            ItemStack(getItem("minecraft:barrier"), amount, 0)
-        }
+        val item = getItem(registryName)
+        return ItemStack(item, amount, meta)
     }
 
     fun getStack(id: String): ItemStack {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
-    }
-
-    fun getFilledBucket(stack: ItemStack, fluidStack: FluidStack): ItemStack {
-        val tag = NBTTagCompound()
-        fluidStack.writeToNBT(tag)
-        stack.tagCompound = tag
-        return stack
     }
 
     fun getFilledBottle(count: Int, fluidStack: FluidStack): ItemStack {
@@ -154,25 +131,18 @@ object RagiUtil {
     //    Potion    //
 
     fun getPotion(registryName: String): Potion {
-        val potion= ForgeRegistries.POTIONS.getValue(ResourceLocation(registryName))
-        return if (potion !== null) potion else {
-            RagiLogger.warnDebug("The potion <potion:$registryName> was not found...")
-            ForgeRegistries.POTIONS.getValue(ResourceLocation("minecraft:unluck"))!!
-        }
+        return ForgeRegistries.POTIONS.getValue(ResourceLocation(registryName))?: Potion.getPotionById(1)!!
     }
 
     fun getPotionEffect(registryName: String, time: Int, level: Int): PotionEffect {
-        return PotionEffect(getPotion(registryName), time, level)
+        return getPotion(registryName).let { PotionEffect(it, time, level) }
     }
 
     //    Sound    //
 
+    @SideOnly(Side.CLIENT)
     fun getSound(registryName: String): SoundEvent {
-        val sound= ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation(registryName))
-        return if (sound !== null) sound else {
-            RagiLogger.warnDebug("The sound <soundevent:$registryName> was not found...")
-            ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("minecraft:entity.player.levelup"))!!
-        }
+        return ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation(registryName))?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
     }
 
     fun soundHypixel(world: World, pos: BlockPos) {
@@ -198,19 +168,10 @@ object RagiUtil {
         return if (this) 1 else 0
     }
 
-    fun spawnItemAtPlayer(
-        world: World,
-        player: EntityPlayer,
-        stack: ItemStack
-    ) {
+    fun spawnItemAtPlayer(world: World, player: EntityPlayer, stack: ItemStack) {
         if (!world.isRemote) {
             val posPlayer = player.position
-            val drop = EntityItem(world, posPlayer.x.toDouble(), posPlayer.y.toDouble(), posPlayer.z.toDouble(), stack)
-            drop.setPickupDelay(0) //即座に回収できるようにする
-            drop.motionX = 0.0
-            drop.motionY = 0.0
-            drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-            world.spawnEntity(drop) //ドロップアイテムをスポーン
+            dropItem(world, posPlayer, stack)
         }
     }
 

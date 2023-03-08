@@ -53,11 +53,8 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        return MaterialRegistry.SOUL_SAND
-    }
+    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialRegistry.SOUL_SAND
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        return stack
-    }
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack
+
 }

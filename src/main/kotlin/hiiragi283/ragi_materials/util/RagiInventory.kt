@@ -12,21 +12,13 @@ class RagiInventory(val title: String, val slots: Int) : IInventory {
 
     val inventory: NonNullList<ItemStack> = NonNullList.withSize(slots, ItemStack.EMPTY)
 
-    override fun getName(): String {
-        return this.title
-    }
+    override fun getName(): String = this.title
 
-    override fun hasCustomName(): Boolean {
-        return false
-    }
+    override fun hasCustomName(): Boolean = false
 
-    override fun getDisplayName(): ITextComponent {
-        return TextComponentString(this.name)
-    }
+    override fun getDisplayName(): ITextComponent = TextComponentString(this.name)
 
-    override fun getSizeInventory(): Int {
-        return this.slots
-    }
+    override fun getSizeInventory(): Int = this.slots
 
     override fun isEmpty(): Boolean {
         for (stack in this.inventory) {
@@ -60,33 +52,23 @@ class RagiInventory(val title: String, val slots: Int) : IInventory {
         markDirty()
     }
 
-    override fun getInventoryStackLimit(): Int {
-        return 64
-    }
+    override fun getInventoryStackLimit(): Int = 64
 
     override fun markDirty() {}
 
-    override fun isUsableByPlayer(player: EntityPlayer): Boolean {
-        return true
-    }
+    override fun isUsableByPlayer(player: EntityPlayer): Boolean = true
 
     override fun openInventory(player: EntityPlayer) {}
 
     override fun closeInventory(player: EntityPlayer) {}
 
-    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean {
-        return true
-    }
+    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean = true
 
-    override fun getField(id: Int): Int {
-        return 0
-    }
+    override fun getField(id: Int): Int = 0
 
     override fun setField(id: Int, value: Int) {}
 
-    override fun getFieldCount(): Int {
-        return 0
-    }
+    override fun getFieldCount(): Int = 0
 
     override fun clear() {
         this.inventory.clear()

@@ -45,12 +45,12 @@ class BlockSaltPond : Block(Material.WOOD) {
     private val registryName = "salt_pond"
 
     init {
+        blockHardness = 2.0F
+        blockResistance = 3.0F
         defaultState = blockState.baseState.withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(TYPE, EnumSalt.EMPTY)
         setCreativeTab(RagiInit.TabBlocks)
-        setHardness(2.0F)
         setHarvestLevel("axe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
-        setResistance(3.0F)
         soundType = SoundType.WOOD
         unlocalizedName = registryName
     }
@@ -68,25 +68,17 @@ class BlockSaltPond : Block(Material.WOOD) {
     }
 
     @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
-    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
-        return AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
-    }
+    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, TYPE)
-    }
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, NORTH, EAST, SOUTH, WEST, TYPE)
 
     private fun canConnectTo(world: IBlockAccess, pos: BlockPos, facing: EnumFacing): Boolean {
         val posTo = pos.offset(facing)
@@ -104,10 +96,7 @@ class BlockSaltPond : Block(Material.WOOD) {
         return state.withProperty(NORTH, connectN).withProperty(EAST, connectE).withProperty(SOUTH, connectS).withProperty(WEST, connectW)
     }
 
-    override fun getMetaFromState(state: IBlockState): Int {
-        val type = state.getValue(TYPE)
-        return type.indexInt
-    }
+    override fun getMetaFromState(state: IBlockState): Int = state.getValue(TYPE).indexInt
 
     @Deprecated("Deprecated in Java")
     override fun getStateFromMeta(meta: Int): IBlockState {
@@ -123,7 +112,7 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         //サーバー側，かつ塩田ブロックが空の場合
-        if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
+        return if (!world.isRemote && state.getValue(TYPE) == EnumSalt.EMPTY) {
             val stack = player.getHeldItem(hand)
             val fluidStack = FluidUtil.getFluidContained(stack)
             //バケツ系は挙動が直らないので除外
@@ -132,9 +121,9 @@ class BlockSaltPond : Block(Material.WOOD) {
                 world.setBlockState(pos, world.getBlockState(pos).withProperty(TYPE, getType(fluidStack.fluid.name)), 2) //stateの更新
                 world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:item.bucket.empty"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
-            }
-        }
-        return true
+                true
+            } else false
+        } else false
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
@@ -162,7 +151,7 @@ class BlockSaltPond : Block(Material.WOOD) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..2) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
@@ -178,7 +167,7 @@ class BlockSaltPond : Block(Material.WOOD) {
 
     }
 
-    fun getType(fluid: String): EnumSalt {
+    private fun getType(fluid: String): EnumSalt {
         return when (fluid) {
             "water" -> EnumSalt.WATER
             "saltwater" -> EnumSalt.SALTWATER

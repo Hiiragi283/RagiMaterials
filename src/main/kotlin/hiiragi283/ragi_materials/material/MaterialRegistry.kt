@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.material
 import hiiragi283.ragi_materials.material.element.ElementRegistry
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.render.color.RagiColor
+import net.minecraft.item.EnumRarity
 import net.minecraftforge.fluids.FluidRegistry
 
 object MaterialRegistry {
@@ -47,16 +48,26 @@ object MaterialRegistry {
         hasOre = true
     }
 
-    val DEUTERIUM = SimpleBuilder(ElementRegistry.DEUTERIUM, 2)
+    val DEUTERIUM = SimpleBuilder(ElementRegistry.DEUTERIUM, 2).apply {
+        rarity = EnumRarity.EPIC
+    }
 
-    val TRITIUM = SimpleBuilder(ElementRegistry.TRITIUM, 2)
+    val TRITIUM = SimpleBuilder(ElementRegistry.TRITIUM, 2).apply {
+        rarity = EnumRarity.EPIC
+    }
 
     //20 ~ 29: Helium, Neon, Argon
-    val HELIUM = SimpleBuilder(ElementRegistry.HELIUM, 1)
+    val HELIUM = SimpleBuilder(ElementRegistry.HELIUM, 1).apply {
+        rarity = EnumRarity.RARE
+    }
 
-    val NEON = SimpleBuilder(ElementRegistry.NEON, 1) //21
+    val NEON = SimpleBuilder(ElementRegistry.NEON, 1).apply {
+        rarity = EnumRarity.RARE
+    } //21
 
-    val ARGON = SimpleBuilder(ElementRegistry.ARGON, 1) //22
+    val ARGON = SimpleBuilder(ElementRegistry.ARGON, 1).apply {
+        rarity = EnumRarity.RARE
+    } //22
 
     //30 ~ 39: Lithium
     val LITHIUM = SimpleBuilder(ElementRegistry.LITHIUM, 1)
@@ -116,6 +127,7 @@ object MaterialRegistry {
     val DIAMOND = CrystalBuilder(68, "diamond", mapOf(ElementRegistry.CARBON to 1), "diamond").apply {
         color = RagiColor.mixColor(RagiColor.AQUA, RagiColor.WHITE)
         hasOre = true
+        rarity = EnumRarity.RARE
     }
 
     //70 ~ 79: Nitrogen
@@ -281,6 +293,7 @@ object MaterialRegistry {
     //220 ~ 229: Titanium
     val TITANIUM = SimpleBuilder(ElementRegistry.TITANIUM, 1).apply {
         durability = 511
+        rarity = EnumRarity.RARE
     }
 
     val RUTILE = CrystalBuilder(221, "rutile", mapOf(ElementRegistry.TITANIUM to 1, ElementRegistry.OXYGEN to 2), "tetragonal").apply {
@@ -301,6 +314,7 @@ object MaterialRegistry {
     val STAINLESS_STEEL = AlloyBuilder(242, "stainless_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
         color = RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE)
         durability = 511
+        rarity = EnumRarity.RARE
     }
 
     //250 ~ 259: Manganese
@@ -333,10 +347,13 @@ object MaterialRegistry {
         hasOre = true
     }
 
-    val STEEL = AlloyBuilder(264, "steel", mapOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1))
+    val STEEL = AlloyBuilder(264, "steel", mapOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).apply {
+        rarity = EnumRarity.UNCOMMON
+    }
 
     val TOOL_STEEL = AlloyBuilder(265, "tool_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.MOLYBDENUM to 1)).apply {
         durability = 511
+        rarity = EnumRarity.RARE
     }
 
     //270 ~ 279: Cobalt

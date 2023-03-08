@@ -28,11 +28,11 @@ class BlockLaboTable: BlockContainer(Material.IRON) {
     private val registryName = "laboratory_table"
 
     init {
+        blockHardness = 5.0F
+        blockResistance = 5.0F
         setCreativeTab(RagiInit.TabBlocks)
-        setHardness(5.0F)
         setHarvestLevel("pickaxe", 2)
         setRegistryName(Reference.MOD_ID, registryName)
-        setResistance(5.0F)
         soundType = SoundType.METAL
         unlocalizedName = registryName
     }
@@ -40,9 +40,7 @@ class BlockLaboTable: BlockContainer(Material.IRON) {
     //    General    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("EnumBlockRenderType.MODEL", "net.minecraft.util.EnumBlockRenderType"))
-    override fun getRenderType(state: IBlockState): EnumBlockRenderType {
-        return EnumBlockRenderType.MODEL
-    }
+    override fun getRenderType(state: IBlockState): EnumBlockRenderType = EnumBlockRenderType.MODEL
 
     /* できなかった。
     @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(1.0, 1.0, 1.0, 1.0, 0.875, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
@@ -52,14 +50,10 @@ class BlockLaboTable: BlockContainer(Material.IRON) {
     }*/
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    Event    //
 
@@ -81,10 +75,8 @@ class BlockLaboTable: BlockContainer(Material.IRON) {
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is ITileBase) tile.onTileActivated(world, pos, player, hand, facing)
-        return true
+        return if (tile !== null && tile is ITileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
     }
-
 
     //    Client    //
 
@@ -93,14 +85,12 @@ class BlockLaboTable: BlockContainer(Material.IRON) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..2) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     //    Tile Entity    //
 
-    override fun createNewTileEntity(world: World, meta: Int): TileEntity {
-        return TileLaboTable()
-    }
+    override fun createNewTileEntity(world: World, meta: Int): TileEntity = TileLaboTable()
 }

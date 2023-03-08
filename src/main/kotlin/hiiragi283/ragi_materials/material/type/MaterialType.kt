@@ -6,8 +6,5 @@ class MaterialType(val name: String, val parts: List<EnumMaterialType>) {
         register()
     }
 
-    fun register(): MaterialType {
-        TypeRegistry.map[this.name] = this
-        return this
-    }
+    fun register(): MaterialType = also{ TypeRegistry.map[it.name] = it }
 }

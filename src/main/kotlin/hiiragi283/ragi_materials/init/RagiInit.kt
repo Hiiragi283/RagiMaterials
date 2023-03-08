@@ -143,25 +143,15 @@ object RagiInit {
     class RagiCreativeTabs {
 
         class Materials : CreativeTabs("ragi_materials.materials") {
-
-            override fun getTabIconItem(): ItemStack {
-                return ItemStack(ItemIngot, 1, 26)
-            }
+            override fun getTabIconItem(): ItemStack = ItemStack(ItemIngot, 1, 26)
         }
 
         class Blocks : CreativeTabs("ragi_materials.blocks") {
-
-            override fun getTabIconItem(): ItemStack {
-                return ItemStack(ItemBlockForgeFurnace)
-            }
+            override fun getTabIconItem(): ItemStack = ItemStack(ItemBlockForgeFurnace)
         }
 
         class FullBottles : CreativeTabs("ragi_materials.fullbottles") {
-
-            override fun getTabIconItem(): ItemStack {
-                return ItemStack(ItemFullBottle)
-            }
+            override fun getTabIconItem(): ItemStack = ItemStack(ItemFullBottle)
         }
-
     }
 }

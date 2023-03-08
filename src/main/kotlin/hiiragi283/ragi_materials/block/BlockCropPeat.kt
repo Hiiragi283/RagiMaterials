@@ -36,7 +36,7 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
 
     init {
         defaultState = blockState.baseState.withProperty(AGE, 0)
-        setHardness(0.0f)
+        blockHardness = 0.0f
         setRegistryName(Reference.MOD_ID, ID)
         soundType = SoundType.PLANT
         tickRandomly = true
@@ -46,14 +46,10 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
     //    General    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("BlockFaceShape.UNDEFINED", "net.minecraft.block.state.BlockFaceShape"))
-    override fun getBlockFaceShape(world: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape {
-        return BlockFaceShape.UNDEFINED
-    }
+    override fun getBlockFaceShape(world: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing): BlockFaceShape = BlockFaceShape.UNDEFINED
 
     @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
-    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB {
-        return AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
-    }
+    override fun getBoundingBox(state: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.25, 1.0)
 
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         //サーバー側の場合
@@ -73,42 +69,26 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
         }
     }
 
-    open fun getDropMain(): Int {
-        return MaterialRegistry.PEAT.index
-    }
+    open fun getDropMain(): Int = MaterialRegistry.PEAT.index
 
-    open fun getDropSeed(): Item {
-        return RagiInit.ItemSeedPeat
-    }
+    open fun getDropSeed(): Item = RagiInit.ItemSeedPeat
 
-    open fun getDropSub(): Int {
-        return MaterialRegistry.LIGNITE.index
-    }
+    open fun getDropSub(): Int = MaterialRegistry.LIGNITE.index
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, AGE)
-    }
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, AGE)
 
-    override fun getMetaFromState(state: IBlockState): Int {
-        return state.getValue(AGE)
-    }
+    override fun getMetaFromState(state: IBlockState): Int = state.getValue(AGE)
 
     @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(AGE, meta)", "hiiragi283.ragi_materials.block.BlockCropPeat.Companion.AGE"))
-    override fun getStateFromMeta(meta: Int): IBlockState {
-        return blockState.baseState.withProperty(AGE, meta % 4)
-    }
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(AGE, meta % 4)
 
     //    Event    //
 
@@ -119,9 +99,7 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer {
-        return BlockRenderLayer.CUTOUT
-    }
+    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     //    IPlantable    //
 
@@ -130,31 +108,22 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
         return if (state.block !== this) defaultState else state
     }
 
-    override fun getPlantType(world: IBlockAccess?, pos: BlockPos?): EnumPlantType {
-        return EnumPlantType.Crop //作物
-    }
+    override fun getPlantType(world: IBlockAccess?, pos: BlockPos?): EnumPlantType = EnumPlantType.Crop //作物
 
     //    IGrowable    //
 
-    override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean {
-        return state.getValue(AGE) != 4 //最大まで成長していない場合はtrue
-    }
+    override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean): Boolean = state.getValue(AGE) != 4 //最大まで成長していない場合はtrue
 
-    override fun canUseBonemeal(world: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean {
-        return true
-    }
+    override fun canUseBonemeal(world: World, rand: Random, pos: BlockPos, state: IBlockState): Boolean = true
 
     override fun grow(world: World, rand: Random, pos: BlockPos, state: IBlockState) {
         if (!world.isRemote) {
             val age = state.getValue(AGE)
             if (age < 3) world.setBlockState(pos, state.withProperty(AGE, age + 1), 2) //成長
-
         }
     }
 
     //    IMaterialBlock    //
 
-    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder {
-        return MaterialRegistry.PEAT
-    }
+    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder = MaterialRegistry.PEAT
 }

@@ -27,34 +27,24 @@ open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlanta
         val stack = player.getHeldItem(hand)
         val state = world.getBlockState(pos)
         //クリックしたブロックが植物を維持可能，かつそのブロックの上が空気の場合
-        return if (state.block.canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())
-        ) {
+        return if (state.block.canSustainPlant(state, world, pos, EnumFacing.UP, this) && world.isAirBlock(pos.up())) {
             world.setBlockState(pos.up(), getPlant(world, pos)) //植える
             stack.shrink(1) //アイテムを1つ減らす
             EnumActionResult.SUCCESS //実験は成功だ!
-        } else {
-            EnumActionResult.FAIL //何が間違っていたのだろうか
-        }
+        } else EnumActionResult.FAIL //何が間違っていたのだろうか
+
     }
 
     //    IPlantable    //
 
-    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState {
-        return RagiInit.BlockCropPeat.defaultState
-    }
+    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState = RagiInit.BlockCropPeat.defaultState
 
-    override fun getPlantType(world: IBlockAccess, pos: BlockPos): EnumPlantType {
-        return EnumPlantType.Crop //作物
-    }
+    override fun getPlantType(world: IBlockAccess, pos: BlockPos): EnumPlantType = EnumPlantType.Crop //作物
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        return MaterialRegistry.PEAT
-    }
+    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialRegistry.PEAT
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        return stack
-    }
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack
 
 }

@@ -31,9 +31,7 @@ object RagiRecipe {
     //かまどレシピを追加するメソッド
     fun addFurnace(output: ItemStack, input: ItemStack) {
         GameRegistry.addSmelting(input, output, 0f)
-        val bracketIn = input.toBracket()
-        val bracketOut = output.toBracket()
-        RagiLogger.infoDebug("The smelting recipe $bracketIn -> $bracketOut was added successfully!")
+        RagiLogger.infoDebug("The smelting recipe $input.toBracket() -> $output.toBracket() was added successfully!")
     }
 
     //かまどレシピを削除するメソッド
@@ -98,8 +96,6 @@ object RagiRecipe {
             //レシピを置き換える
             GameRegistry.addShapedRecipe(location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtil.getStack("minecraft:barrier", 1, 0))
             RagiLogger.infoDebug("The recipe <recipe:$registryName> was removed successfully!")
-        } else {
-            RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")
-        }
+        } else RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")
     }
 }

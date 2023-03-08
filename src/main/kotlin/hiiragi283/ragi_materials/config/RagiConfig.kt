@@ -68,22 +68,22 @@ object RagiConfig {
             const val prefix = "config.${Reference.MOD_ID}.integration"
         }
 
-        @Config.LangKey("${Integration.prefix}.ender_io")
+        @Config.LangKey("${prefix}.ender_io")
         @Config.Comment("Enable integration for Ender IO")
         @JvmField
         var enableEIO = true
 
-        @Config.LangKey("${Integration.prefix}.mekanism")
+        @Config.LangKey("${prefix}.mekanism")
         @Config.Comment("Enable integration for Mekanism")
         @JvmField
         var enableMek = true
 
-        @Config.LangKey("${Integration.prefix}.expansion")
+        @Config.LangKey("${prefix}.expansion")
         @Config.Comment("Enable integration for Thermal Expansion")
         @JvmField
         var enableTE = true
 
-        @Config.LangKey("${Integration.prefix}.foundation")
+        @Config.LangKey("${prefix}.foundation")
         @Config.Comment("Enable integration for Thermal Foundation")
         @JvmField
         var enableTF = true
@@ -215,21 +215,21 @@ object RagiConfig {
             val color = Color(listProperty[3].toIntOrNull(16)!!)
             val formula = listProperty[4]
             val molar = listProperty[5].toFloat()
-            val melt = listProperty[6].toInt()
-            val boil = listProperty[7].toInt()
+            val tempMelt = listProperty[6].toInt()
+            val tempBoil = listProperty[7].toInt()
             //MaterialTypeの確認
             if (TypeRegistry.map[typeRaw] !== null) {
                 type = TypeRegistry.map[typeRaw]!!
             }
             //indexが1023以上maxMaterials以下，かつtypeがWILDCARDでない場合，materialを登録する
             if (index in 1023..material.maxMaterials && type != TypeRegistry.WILDCARD) {
-                val material = MaterialBuilder(index, name, type)
-                material.color = color
-                material.formula = formula
-                material.molar = molar
-                material.tempMelt = melt
-                material.tempBoil = boil
-                material.register()
+                val material = MaterialBuilder(index, name, type).apply {
+                    this.color = color
+                    this.formula = formula
+                    this.molar = molar
+                    this.tempMelt = tempMelt
+                    this.tempBoil = tempBoil
+                }.register()
             }
         }
     }

@@ -12,22 +12,14 @@ class BlockCropCoal : BlockCropPeat("crop_coal") {
 
     //    General    //
 
-    override fun getDropMain(): Int {
-        return MaterialRegistry.COAL.index
-    }
+    override fun getDropMain(): Int = MaterialRegistry.COAL.index
 
-    override fun getDropSeed(): Item {
-        return RagiInit.ItemSeedCoal
-    }
+    override fun getDropSeed(): Item = RagiInit.ItemSeedCoal
 
-    override fun getDropSub(): Int {
-        return MaterialRegistry.ANTHRACITE.index
-    }
+    override fun getDropSub(): Int = MaterialRegistry.ANTHRACITE.index
 
     //    IMaterialBlock    //
 
-    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder {
-        return MaterialRegistry.COAL
-    }
+    override fun getMaterialBlock(world: World, pos: BlockPos, state: IBlockState): MaterialBuilder = MaterialRegistry.COAL
 
 }

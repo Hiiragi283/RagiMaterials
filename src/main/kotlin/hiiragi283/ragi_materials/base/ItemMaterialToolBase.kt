@@ -12,10 +12,11 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
+import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemMaterialToolBase(private val ID: String): ItemBase(Reference.MOD_ID, ID, 0), IMaterialItem {
+open class ItemMaterialToolBase(private val ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IMaterialItem {
 
     private val keyDurability = "durability"
     private val keyMaterial = "material"
@@ -23,6 +24,12 @@ open class ItemMaterialToolBase(private val ID: String): ItemBase(Reference.MOD_
     init {
         creativeTab = CreativeTabs.TOOLS
         maxStackSize = 1
+    }
+
+    //    General    //
+
+    override fun getForgeRarity(stack: ItemStack): IRarity {
+        return getMaterial(stack).rarity
     }
 
     //    Crafting    //
@@ -39,32 +46,21 @@ open class ItemMaterialToolBase(private val ID: String): ItemBase(Reference.MOD_
 
     //    Durability    //
 
-    override fun getDamage(stack: ItemStack): Int {
-        return if (hasDurability(stack)) stack.tagCompound!!.getInteger(keyDurability) else 0
-    }
+    fun decrDamage(stack: ItemStack, damage: Int) = setDamage(stack, getDamage(stack) - damage) //damageの分だけ耐久地を減らす
 
-    override fun getMaxDamage(stack: ItemStack): Int {
-        val material = getMaterial(stack)
-        return if (material.durability !== null) material.durability!! else 1 //ゼロ除算回避
-    }
+    override fun getDamage(stack: ItemStack): Int = if (hasDurability(stack)) stack.tagCompound!!.getInteger(keyDurability) else 0
+
+    override fun getMaxDamage(stack: ItemStack): Int = getMaterial(stack).durability ?: 1 //ゼロ除算回避
 
     override fun setDamage(stack: ItemStack, damage: Int) {
-        if (hasDurability(stack)) {
-            stack.tagCompound!!.setInteger(keyDurability, damage.coerceAtLeast(0)) //耐久値が0未満の場合は0になる
-            //if (getDamage(stack) < 0) stack.shrink(1) //耐久値が0未満の場合消滅
-        } else {
-            addDurability(stack) //新規で耐久値を設定
-        }
+        if (hasDurability(stack)) stack.tagCompound!!.setInteger(keyDurability, damage.coerceAtLeast(0)) //耐久値が0未満の場合は0になる
+        else addDurability(stack) //新規で耐久値を設定
     }
 
     private fun addDurability(stack: ItemStack) {
-        val tag = stack.tagCompound
         if (!hasDurability(stack)) {
-            if (tag == null) {
-                stack.tagCompound = NBTTagCompound() //NBTタグがない場合，新規で代入
-            }
             val durability = getMaterial(stack).durability
-            if (durability !== null) stack.tagCompound!!.setInteger(keyDurability, durability) //耐久値を設定
+            durability?.run { stack.tagCompound!!.setInteger(keyDurability, durability) }//耐久値を設定
         }
     }
 
@@ -118,18 +114,12 @@ open class ItemMaterialToolBase(private val ID: String): ItemBase(Reference.MOD_
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        return if (stack.tagCompound !== null) {
-            //NBTタグからmaterialを取得
-            val tag = stack.tagCompound!!
-            MaterialUtil.getMaterial(tag.getString(keyMaterial))
-        } else MaterialBuilder.EMPTY
+        stack.tagCompound?:run {stack.tagCompound = NBTTagCompound() } //NBTタグがない場合は新規で代入
+        return MaterialUtil.getMaterial(stack.tagCompound!!.getString(keyMaterial))
     }
 
     override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        val tag = stack.tagCompound
-        if (tag == null) {
-            stack.tagCompound = NBTTagCompound() //NBTタグがない場合，新規で代入
-        }
+        stack.tagCompound?:run {stack.tagCompound = NBTTagCompound() } //NBTタグがない場合は新規で代入
         stack.tagCompound!!.setString(keyMaterial, material.name) //materialを代入
         addDurability(stack) //最大耐久値を設定
         return stack

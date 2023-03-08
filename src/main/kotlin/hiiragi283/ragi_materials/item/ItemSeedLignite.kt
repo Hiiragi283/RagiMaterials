@@ -12,13 +12,9 @@ class ItemSeedLignite : ItemSeedPeat("seed_lignite") {
 
     //    IPlantable    //
 
-    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState {
-        return RagiInit.BlockCropLignite.defaultState
-    }
+    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState = RagiInit.BlockCropLignite.defaultState
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        return MaterialRegistry.LIGNITE
-    }
+    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialRegistry.LIGNITE
 }

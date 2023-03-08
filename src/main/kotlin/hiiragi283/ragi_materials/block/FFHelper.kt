@@ -34,7 +34,7 @@ object FFHelper {
     }
 
     //右クリックレシピを司るメソッド
-    fun getResult(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, stack: ItemStack): ItemStack {
+    fun getResult(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, stack: ItemStack): Boolean {
         var result = ItemStack.EMPTY
         if (!world.isRemote) {
             //mapRecipe内の各recipeに対して実行
@@ -46,14 +46,14 @@ object FFHelper {
                 } else ItemStack.EMPTY
             }
             //resultが空気でない場合
-            if (result.item !== Items.AIR) {
+            return if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす
                 RagiUtil.spawnItemAtPlayer(world, player, result)
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
                 RagiLogger.infoDebug("Heating was succeeded!")
-            }
-        }
-        return stack
+                true
+            } else false
+        } else return false
     }
 
     //レシピが実行できるかどうか
@@ -64,13 +64,11 @@ object FFHelper {
                 //燃料が入っているならtrue
                 type == FFRecipe.EnumFire.BURNING && fuel > 0
             }
-
             is BlockLitForgeFurnace -> type == FFRecipe.EnumFire.BOOSTED
             is BlockBlazeHeater -> {
                 if (state.getValue(BlockBlazeHeater.HELL)) type == FFRecipe.EnumFire.HELLRISE
                 else type == FFRecipe.EnumFire.BOOSTED
             }
-
             else -> false
         }
     }

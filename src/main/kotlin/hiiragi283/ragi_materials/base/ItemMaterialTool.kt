@@ -6,11 +6,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class ItemMaterialTool(
-        ID: String,
-        private val toolClass: String,
-        private var efficiency: Float = 4.0f
-        ): ItemMaterialToolBase(ID) {
+class ItemMaterialTool(ID: String, private val toolClass: String, private var efficiency: Float = 4.0f) : ItemMaterialToolBase(ID) {
 
     //    Efficiency    //
 
@@ -27,16 +23,11 @@ class ItemMaterialTool(
         return if (this.toolClass == toolClass) efficiency else 1.0f
     }
 
-    override fun getToolClasses(stack: ItemStack): MutableSet<String> {
-        return mutableSetOf(toolClass)
-    }
+    override fun getToolClasses(stack: ItemStack): MutableSet<String> = mutableSetOf(toolClass)
 
-    override fun onBlockDestroyed(stack: ItemStack, world: World, state: IBlockState, pos: BlockPos, entityLiving: EntityLivingBase): Boolean {
+    override fun onBlockDestroyed(stack: ItemStack, world: World, state: IBlockState, pos: BlockPos, entityLiving: EntityLivingBase) = run {
         //サーバー側，かつ破壊後のブロックが空気の場合
-        if (!world.isRemote && state.block.isAir(state, world, pos)) {
-            setDamage(stack, getDamage(stack) - 1) //耐久値を1つ減らす
-        }
-        return true
+        if (!world.isRemote && state.block.isAir(state, world, pos)) setDamage(stack, getDamage(stack) - 1) //耐久値を1つ減らす
+        true
     }
-
 }

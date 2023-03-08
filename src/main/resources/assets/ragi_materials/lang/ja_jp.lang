@@ -13,45 +13,78 @@ tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=塩田ブロック
 
-# Config
-config.ragi_materials.debug=デバッグ設定
-config.ragi_materials.debug.tooltip=警告、警告。これは試験ではない!
-config.ragi_materials.debug.debug=デバッグモードを有効にする
-config.ragi_materials.debug.debug.tooltip=trueにするとデバッグアイテムが使えるようになりますが, 大量のログが出力されます……
+# Item
+item.blazing_cube.name=燃え盛るキューブ
+item.book_debug.0.name=Spawn Book (DEBUG)
+item.book_debug.1.name=Syntax Book (DEBUG)
+item.book_debug.2.name=Property Book (DEBUG)
+item.book_debug.3.name=Tile Entity Book (DEBUG)
+item.fullbottle.name=空のフルボトル
+item.fullbottle_filled.name=%sフルボトル
+item.ragi_block_crystal.name=%sブロック
+item.ragi_block_metal.name=%sブロック
+item.ragi_crystal.name=%s
+item.ragi_dust.name=%s粉末
+item.ragi_dust_tiny.name=%sの1/9粉末
+item.ragi_forge_hammer.name=%s製鍛造ハンマー
+item.ragi_gear.name=%sの歯車
+item.ragi_ingot.name=%sインゴット
+item.ragi_ingot_hot.name=加熱した%sインゴット
+item.ragi_nugget.name=%sナゲット
+item.ragi_ore.name=%s鉱石
+item.ragi_ore_end.name=エンド%s鉱石
+item.ragi_ore_nether.name=ネザー%s鉱石
+item.ragi_plate.name=%s板
+item.ragi_stick.name=%s棒
+item.seed_coal.name=[未完成] 石炭の種
+item.seed_lignite.name=[未完成] 褐炭の種
+item.seed_peat.name=[未完成] 泥炭の種
+item.waste.name=化学廃棄物
 
-config.ragi_materials.integration=連携設定
-config.ragi_materials.integration.tooltip=
-config.ragi_materials.integration.ender_io=Ender IO
-config.ragi_materials.integration.ender_io.tooltip=
-config.ragi_materials.integration.expansion=Thermal Expansion
-config.ragi_materials.integration.expansion.tooltip=
-config.ragi_materials.integration.foundation=Thermal Foundation
-config.ragi_materials.integration.foundation.tooltip=
-config.ragi_materials.integration.mekanism=Mekanism
-config.ragi_materials.integration.mekanism.tooltip=
+# Tooltip
+tips.ragi_materials.block_bellow.0=§b鍛造炉§r§7を§cブースト§r§7するのに使用します
+tips.ragi_materials.block_bellow.1=右クリックまたはレッドストーン信号で動かします
+tips.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します
+tips.ragi_materials.blaze_heater.1=燃料の消費はありません
+tips.ragi_materials.blaze_heater.2=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
+tips.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用します
+tips.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入します
+tips.ragi_materials.forge_furnace.2=§bふいご§r§7を隣接させて火力を§c§oブースト§rします
+tips.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要です
+tips.ragi_materials.fullbottle.0=スタック可能な液体コンテナ
+tips.ragi_materials.fullbottle.1=§bどんな§r§7液体コンテナでも単体クラフトから入手できます
+tips.ragi_materials.fullbottle_station.0=液体から§bフルボトル§r§7を作るのに使用します
+tips.ragi_materials.fullbottle_station.1=液体コンテナやパイプを用いて液体を搬入します
+tips.ragi_materials.fullbottle_station.2=液体は1秒でフルボトルへと変換されます
+tips.ragi_materials.laboratory_table.0=化学反応に利用します
+tips.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを搬入します
+tips.ragi_materials.laboratory_table.2=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
+tips.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
+tips.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換します
+tips.ragi_materials.salt_pond.0=液体を蒸発させるのに使用します
+tips.ragi_materials.salt_pond.1=§bフルボトル§r§7を持って右クリックして液体を流します
+tips.ragi_materials.salt_pond.2=§b10秒§r§7ほど待つと§f塩§r§7がドロップします
+tips.ragi_materials.durability=- 耐久値: §b%s§r
+tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
+tips.ragi_materials.property.formula=- 化学式: §b%s§r
+tips.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
+tips.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
+tips.ragi_materials.property.name=- 物質名: §b%s§r§7
+tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
 
-config.ragi_materials.material=素材設定
-config.ragi_materials.material.tooltip=高品質。
-config.ragi_materials.material.custom=カスタム素材の一覧
-config.ragi_materials.material.custom.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
-config.ragi_materials.material.enable_decay=放射性崩壊を有効にする
-config.ragi_materials.material.enable_decay.tooltip=全てを破壊し, 全てを繋げ。
-config.ragi_materials.material.max=素材の最大数
-config.ragi_materials.material.max.tooltip=登録される素材の最大数 (メタデータの上限) を設定してください
+# Text
+text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
+text.ragi_materials.decoration_line=§e§l========================================
+text.ragi_materials.spawn=§bスポーン地点にテレポートしました!
+text.ragi_materials.syntax=§bSyntax and Reload!
 
-config.ragi_materials.recipe_map=カスタムレシピの登録
-config.ragi_materials.recipe_map.tooltip=
-config.ragi_materials.recipe_map.forge_burning=鍛造炉 - Tier: バーニング
-config.ragi_materials.recipe_map.forge_burning.tooltip=§o地獄の焔を齎す最強の翼。
-config.ragi_materials.recipe_map.forge_boosted=鍛造炉 - Tier: ブースト
-config.ragi_materials.recipe_map.forge_boosted.tooltip=§oGET READY FOR BOOST
-config.ragi_materials.recipe_map.forge_hellrise=鍛造炉 - Tier: ヘルライズ
-config.ragi_materials.recipe_map.forge_hellrise.tooltip=§o天国も地獄も関係ない。
-
-config.ragi_materials.utility=便利機能
-config.ragi_materials.utility.tooltip=ExtraじゃないけどBeneficial
-config.ragi_materials.utility.max_stack=最大スタック数の上書き
-config.ragi_materials.utility.max_stack.tooltip=このリストに追加されたアイテムは, 最大スタック数が自動的に64へ変更されます
+# GUI
+gui.ragi_materials.forge_furnace=鍛造炉
+gui.ragi_materials.laboratory_table=実験台
+gui.ragi_materials.salt_pond=塩田
+itemGroup.ragi_materials.blocks=らぎマテリアルズ - ブロック
+itemGroup.ragi_materials.fullbottles=らぎマテリアルズ - フルボトル
+itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材
 
 # Fluid
 fluid.hydrogen=水素
@@ -81,7 +114,7 @@ fluid.potassium=溶融カリウム
 fluid.calcium=溶融カルシウム
 fluid.titanium=溶融チタン
 fluid.titanium_tetrachloride=四塩化チタン
-fluid.chrome=溶融クロム
+fluid.chromium=溶融クロム
 fluid.manganese=溶融マンガン
 fluid.iron=溶融鉄
 fluid.cobalt=溶融コバルト
@@ -136,34 +169,6 @@ fluid.brass=溶融黄銅
 fluid.bronze=溶融青銅
 fluid.electrum=溶融エレクトラム
 fluid.tungsten_steel=溶融タングステン鋼
-
-# Item
-item.blazing_cube.name=燃え盛るキューブ
-item.book_debug.0.name=Spawn Book (DEBUG)
-item.book_debug.1.name=Syntax Book (DEBUG)
-item.book_debug.2.name=Property Book (DEBUG)
-item.book_debug.3.name=Tile Entity Book (DEBUG)
-item.forge_hammer.name=%s製鍛造ハンマー
-item.fullbottle.name=空のフルボトル
-item.fullbottle_filled.name=%sフルボトル
-item.ragi_block_crystal.name=%sブロック
-item.ragi_block_metal.name=%sブロック
-item.ragi_crystal.name=%s
-item.ragi_dust.name=%s粉末
-item.ragi_dust_tiny.name=%sの1/9粉末
-item.ragi_gear.name=%sの歯車
-item.ragi_ingot.name=%sインゴット
-item.ragi_ingot_hot.name=加熱した%sインゴット
-item.ragi_nugget.name=%sナゲット
-item.ragi_ore.name=%s鉱石
-item.ragi_ore_nether.name=ネザー%s鉱石
-item.ragi_ore_end.name=エンド%s鉱石
-item.ragi_plate.name=%s板
-item.ragi_stick.name=%s棒
-item.seed_coal.name=[未完成] 石炭の種
-item.seed_lignite.name=[未完成] 褐炭の種
-item.seed_peat.name=[未完成] 泥炭の種
-item.waste.name=化学廃棄物
 
 # Materials
 material.hydrogen=水素
@@ -352,45 +357,42 @@ material.signalum=シグナルム
 material.lumium=ルミウム
 material.enderium=エンダリウム
 
-# GUI
-gui.ragi_materials.forge_furnace.jei=鍛造炉
-gui.ragi_materials.laboratory_table=実験台
-gui.ragi_materials.salt_pond.jei=塩田
-itemGroup.ragi_materials.blocks=らぎマテリアルズ - ブロック
-itemGroup.ragi_materials.fullbottles=らぎマテリアルズ - フルボトル
-itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材
+# Config
+config.ragi_materials.debug=デバッグ設定
+config.ragi_materials.debug.tooltip=警告、警告。これは試験ではない!
+config.ragi_materials.debug.debug=デバッグモードを有効にする
+config.ragi_materials.debug.debug.tooltip=trueにするとデバッグアイテムが使えるようになりますが, 大量のログが出力されます……
 
-# Text
-text.ragi_materials.block_bellow.0=§b鍛造炉§r§7を§cブースト§r§7するのに使用します
-text.ragi_materials.block_bellow.1=右クリックまたはレッドストーン信号で動かします
-text.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します
-text.ragi_materials.blaze_heater.1=燃料の消費はありません
-text.ragi_materials.blaze_heater.2=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
-text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
-text.ragi_materials.decoration_line=§e§l========================================
-text.ragi_materials.durability=- 耐久値: §b%s§r
-text.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用します
-text.ragi_materials.forge_furnace.1=§b石炭§r§7か§b木炭§r§7で右クリックして燃料を投入します
-text.ragi_materials.forge_furnace.2=§bふいご§r§7を隣接させて火力を§c§oブースト§rします
-text.ragi_materials.forge_furnace.3=金属の種類によっては§c§oブースト§r§7した火力が必要です
-text.ragi_materials.fullbottle.0=スタック可能な液体コンテナ
-text.ragi_materials.fullbottle.1=§bどんな§r§7液体コンテナでも単体クラフトから入手できます
-text.ragi_materials.fullbottle_station.0=液体から§bフルボトル§r§7を作るのに使用します
-text.ragi_materials.fullbottle_station.1=液体コンテナやパイプを用いて液体を搬入します
-text.ragi_materials.fullbottle_station.2=液体は1秒でフルボトルへと変換されます
-text.ragi_materials.laboratory_table.0=化学反応に利用します
-text.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを搬入します
-text.ragi_materials.laboratory_table.2=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
-text.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
-text.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換します
-text.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
-text.ragi_materials.property.formula=- 化学式: §b%s§r
-text.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
-text.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
-text.ragi_materials.property.name=- 物質名: §b%s§r§7
-text.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
-text.ragi_materials.salt_pond.0=液体を蒸発させるのに使用します
-text.ragi_materials.salt_pond.1=§bフルボトル§r§7を持って右クリックして液体を流します
-text.ragi_materials.salt_pond.2=§b10秒§r§7ほど待つと§f塩§r§7がドロップします
-text.ragi_materials.spawn=§bスポーン地点にテレポートしました!
-text.ragi_materials.syntax=§bSyntax and Reload!
+config.ragi_materials.integration=連携設定
+config.ragi_materials.integration.tooltip=
+config.ragi_materials.integration.ender_io=Ender IO
+config.ragi_materials.integration.ender_io.tooltip=
+config.ragi_materials.integration.expansion=Thermal Expansion
+config.ragi_materials.integration.expansion.tooltip=
+config.ragi_materials.integration.foundation=Thermal Foundation
+config.ragi_materials.integration.foundation.tooltip=
+config.ragi_materials.integration.mekanism=Mekanism
+config.ragi_materials.integration.mekanism.tooltip=
+
+config.ragi_materials.material=素材設定
+config.ragi_materials.material.tooltip=高品質。
+config.ragi_materials.material.custom=カスタム素材の一覧
+config.ragi_materials.material.custom.tooltip=次のフォーマットにしたがって素材を追加してください: index:name:type:color:formula:molar_mass:melting:boiling\nindex: Int ...メタデータに使用, 1025 <= index <= 2048の範囲に限り有効\nname: String ... 翻訳キーと鉱石辞書に使用\ntype: Enum ... 次の一覧から選択: CARBON, DUST, GAS, INTERNAl, LIQUID, METAL, WILDCARD\ncolor: Int ... カラーコードで指定\nformula: String ... 化学式を記入\nmolar_mass: Float ... モル質量[g/mol]を記入\nmelting: Int ... 融点[°C]を記入\nboiling: Int ... 沸点[°C]を記入
+config.ragi_materials.material.enable_decay=放射性崩壊を有効にする
+config.ragi_materials.material.enable_decay.tooltip=全てを破壊し, 全てを繋げ。
+config.ragi_materials.material.max=素材の最大数
+config.ragi_materials.material.max.tooltip=登録される素材の最大数 (メタデータの上限) を設定してください
+
+config.ragi_materials.recipe_map=カスタムレシピの登録
+config.ragi_materials.recipe_map.tooltip=
+config.ragi_materials.recipe_map.forge_burning=鍛造炉 - Tier: バーニング
+config.ragi_materials.recipe_map.forge_burning.tooltip=§o地獄の焔を齎す最強の翼。
+config.ragi_materials.recipe_map.forge_boosted=鍛造炉 - Tier: ブースト
+config.ragi_materials.recipe_map.forge_boosted.tooltip=§oGET READY FOR BOOST
+config.ragi_materials.recipe_map.forge_hellrise=鍛造炉 - Tier: ヘルライズ
+config.ragi_materials.recipe_map.forge_hellrise.tooltip=§o天国も地獄も関係ない。
+
+config.ragi_materials.utility=便利機能
+config.ragi_materials.utility.tooltip=ExtraじゃないけどBeneficial
+config.ragi_materials.utility.max_stack=最大スタック数の上書き
+config.ragi_materials.utility.max_stack.tooltip=このリストに追加されたアイテムは, 最大スタック数が自動的に64へ変更されます

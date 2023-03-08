@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
+import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -30,14 +31,16 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
 
     //    General    //
 
+    override fun getForgeRarity(stack: ItemStack): IRarity {
+        return getMaterial(stack).rarity
+    }
+
     override fun getItemBurnTime(stack: ItemStack): Int {
-        return run {
-            //素材に紐づいた燃焼時間を取得
-            var time = MaterialUtil.getMaterial(stack.metadata).burnTime
-            //dust_tinyの場合は1/9
-            if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
-            time
-        }
+        //素材に紐づいた燃焼時間を取得
+        var time = MaterialUtil.getMaterial(stack.metadata).burnTime
+        //dust_tinyの場合は1/9
+        if (stack.item.registryName!!.resourcePath == "dust_tiny") time /= 9
+        return time
     }
 
     //    Event    //
@@ -57,10 +60,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
                         //崩壊後の素材を取得
                         val materialDecayed = material.decayed
-                        if (materialDecayed !== null) {
-                            val stackDecayed = ItemStack(this, 1, materialDecayed.index)
-                            RagiUtil.spawnItemAtPlayer(world, entity, stackDecayed) //プレイヤーの足元にドロップ
-                        }
+                        materialDecayed?.let{ RagiUtil.spawnItemAtPlayer(world, entity, ItemStack(this, 1, it.index)) }
                     }
                 }
             }
@@ -76,10 +76,7 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String {
-        val material = getMaterial(stack)
-        return I18n.format("item.ragi_$ID.name", I18n.format("material.${material.name}"))
-    }
+    override fun getItemStackDisplayName(stack: ItemStack): String =I18n.format("item.ragi_$ID.name", I18n.format("material.${getMaterial(stack).name}"))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
@@ -98,12 +95,8 @@ open class ItemMaterial(private val ID: String, private val type: EnumMaterialTy
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        return MaterialUtil.getMaterial(stack.metadata)
-    }
+    override fun getMaterial(stack: ItemStack): MaterialBuilder =MaterialUtil.getMaterial(stack.metadata)
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        stack.itemDamage = material.index //メタデータを上書き
-        return stack
-    }
+    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack.also {it.itemDamage = material.index} //メタデータを上書き
+
 }

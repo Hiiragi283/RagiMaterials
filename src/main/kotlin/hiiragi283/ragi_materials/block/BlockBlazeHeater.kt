@@ -31,12 +31,12 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
     private val registryName = "blaze_heater"
 
     init {
+        blockHardness = 3.5F
+        blockResistance = 3.5F
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(HELL, false)
         setCreativeTab(RagiInit.TabBlocks)
-        setHardness(3.5F)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
-        setResistance(3.5F)
         soundType = SoundType.STONE
         unlocalizedName = registryName
     }
@@ -44,14 +44,10 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
     //    General    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isOpaqueCube(state: IBlockState): Boolean {
-        return false
-    }
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         when (state.getValue(HELL)) {
@@ -62,9 +58,7 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer {
-        return BlockStateContainer(this, FACING, HELL)
-    }
+    override fun createBlockState(): BlockStateContainer  = BlockStateContainer(this, FACING, HELL)
 
     override fun getMetaFromState(state: IBlockState): Int {
         return when (state.getValue(FACING)) {
@@ -88,29 +82,12 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
         return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(HELL, isHellrise)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun getStateFromMeta(meta: Int): IBlockState {
-        val facing = EnumFacing.getFront((meta / 4) + 2)
-        val hell = meta % 4
-        return blockState.baseState.withProperty(FACING, facing).withProperty(
-            HELL, hell == 1
-        )
-    }
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(HELL, meta % 4 == 1)", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing", "hiiragi283.ragi_materials.block.BlockBlazeHeater.Companion.HELL"))
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(HELL, meta % 4 == 1)
 
     //    Event    //
 
-    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
-        if (!world.isRemote) {
-            //プレイヤーが利き手に持っているアイテムを取得
-            val stack = player.getHeldItem(hand)
-            if (state.getValue(HELL)) {
-                FFHelper.getResult(world, pos, state, player, stack) //レシピ実行
-            } else {
-                FFHelper.getResult(world, pos, state, player, stack) //レシピ実行
-            }
-        }
-        return true
-    }
+    override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean = FFHelper.getResult(world, pos, state, player, player.getHeldItem(hand)) //レシピ実行
 
     //    Client    //
 
@@ -119,13 +96,12 @@ class BlockBlazeHeater : BlockHorizontal(Material.ROCK) {
         val path = stack.item.registryName!!.resourcePath
         tooltip.add("§e=== Info ===")
         for (i in 0..2) {
-            tooltip.add(I18n.format("text.ragi_materials.${path}.$i"))
+            tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer {
-        return BlockRenderLayer.CUTOUT
-    }
+    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
 }

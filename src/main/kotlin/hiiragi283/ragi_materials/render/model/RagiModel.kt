@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.render.model
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -13,7 +14,7 @@ object RagiModel {
     fun setModel(vararg items: Item) {
         for (item in items) {
             //itemが耐久値を使用しない，かつhasSubtypesがtrueの場合
-            if (item.maxDamage == 0 && item.hasSubtypes) {
+            if (item.getMaxDamage(ItemStack(item)) == 0 && item.hasSubtypes) {
                 //メタデータが最大値になるまで処理を繰り返す
                 for (i in 0..item.getMetadata(32768)) {
                     val location = ModelResourceLocation(item.registryName.toString() + "_" + i, "inventory")

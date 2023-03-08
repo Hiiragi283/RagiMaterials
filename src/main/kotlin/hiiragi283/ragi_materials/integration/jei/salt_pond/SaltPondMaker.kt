@@ -6,14 +6,7 @@ import mezz.jei.api.IModRegistry
 object SaltPondMaker {
 
     fun register(registry: IModRegistry) {
-
         //リストをレシピ一覧に登録
-        registry.addRecipes(
-            listOf(
-                SaltPondRecipe("water"),
-                SaltPondRecipe("saltwater"),
-                SaltPondRecipe("brine")
-            ), JEICore.SaltPond
-        )
+        registry.addRecipes(listOf(SaltPondRecipe("water"), SaltPondRecipe("saltwater"), SaltPondRecipe("brine")), JEICore.SaltPond)
     }
 }

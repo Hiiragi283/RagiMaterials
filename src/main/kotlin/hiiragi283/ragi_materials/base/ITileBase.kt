@@ -8,6 +8,6 @@ import net.minecraft.world.World
 
 interface ITileBase {
 
-    fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing)
+    fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
 
 }

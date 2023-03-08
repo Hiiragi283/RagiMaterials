@@ -12,13 +12,9 @@ class ItemSeedCoal : ItemSeedPeat("seed_coal") {
 
     //    IPlantable    //
 
-    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState {
-        return RagiInit.BlockCropCoal.defaultState
-    }
+    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState = RagiInit.BlockCropCoal.defaultState
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder {
-        return MaterialRegistry.COAL
-    }
+    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialRegistry.COAL
 }

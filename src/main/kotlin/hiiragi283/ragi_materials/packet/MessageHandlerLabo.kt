@@ -18,8 +18,8 @@ class MessageHandlerLabo: IMessageHandler<MessageLabo, IMessage> {
         //クライアント側のプレイヤーを取得
         val player = Minecraft.getMinecraft().player
         //messageがnullでない場合，座標を取得する
-        if (message !== null) {
-            val pos = BlockPos(message.x, message.y, message.z)
+        message?.let {
+            val pos = BlockPos(it.x, it.y, it.z)
             val tile = player.world.getTileEntity(pos)
             if (tile !== null && tile is TileLaboTable) {
                 tile.invLabo.clear() //インベントリを空にする

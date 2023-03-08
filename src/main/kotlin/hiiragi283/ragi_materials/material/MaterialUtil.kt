@@ -29,12 +29,12 @@ object MaterialUtil {
     //materialのツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("text.ragi_materials.property.name", I18n.format("material.${material.name}"))) //名称
-        if (material.formula !== null) tooltip.add(I18n.format("text.ragi_materials.property.formula", material.formula!!)) //化学式
-        if (material.molar !== null) tooltip.add(I18n.format("text.ragi_materials.property.mol", material.molar!!)) //モル質量
-        if (material.tempMelt !== null) tooltip.add(I18n.format("text.ragi_materials.property.melt", material.tempMelt!!)) //融点
-        if (material.tempBoil !== null) tooltip.add(I18n.format("text.ragi_materials.property.boil", material.tempBoil!!)) //沸点
-        if (material.tempSubl !== null) tooltip.add(I18n.format("text.ragi_materials.property.subl", material.tempSubl!!)) //昇華点
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.${material.name}"))) //名称
+        if (material.formula !== null) tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula!!)) //化学式
+        if (material.molar !== null) tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar!!)) //モル質量
+        if (material.tempMelt !== null) tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt!!)) //融点
+        if (material.tempBoil !== null) tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.tempBoil!!)) //沸点
+        if (material.tempSubl !== null) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl!!)) //昇華点
     }
 
     //代入されたMapから化学式を生成するメソッド

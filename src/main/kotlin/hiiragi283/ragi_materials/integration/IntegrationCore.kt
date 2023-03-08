@@ -11,13 +11,9 @@ object IntegrationCore {
     val enableTE = Loader.isModLoaded("thermalexpansion") && RagiConfig.integration.enableTE
     val enableTF = Loader.isModLoaded("thermalfoundation") && RagiConfig.integration.enableTF
 
-    fun loadPreInit() {
+    fun loadPreInit() {}
 
-    }
-
-    fun loadInit() {
-
-    }
+    fun loadInit() {}
 
     fun loadPostInit() {
         PluginVanilla.loadPostInit()

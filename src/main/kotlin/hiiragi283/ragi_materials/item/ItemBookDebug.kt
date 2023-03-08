@@ -15,16 +15,13 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
+import net.minecraftforge.common.IRarity
 
 class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
 
     //    General    //
 
-    @Deprecated("Deprecated in Java", ReplaceWith("EnumRarity.EPIC", "net.minecraft.item.EnumRarity"))
-    override fun getRarity(item: ItemStack): EnumRarity {
-        //EPICを返す
-        return EnumRarity.EPIC
-    }
+    override fun getForgeRarity(stack: ItemStack): IRarity = EnumRarity.EPIC
 
     //    Event    //
 
@@ -72,36 +69,43 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
         //サーバー側，かつデバッグ状態のみで実行
         if (!world.isRemote && RagiConfig.debugMode.isDebug) {
             //Property用
-            if (player.getHeldItem(hand).metadata == 2) {
-                //各値の取得
-                val state = world.getBlockState(pos)
-                val block = state.block
-                val meta = block.getMetaFromState(state)
-                player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
-                //ブロックの翻訳名をチャットに表示
-                player.sendMessage(TextComponentString("  §eName:§r§b " + ItemStack(block, 1, meta).displayName))
-                //ブロックのIDをチャットに表示
-                player.sendMessage(TextComponentString("  §eID:§r§b " + block.registryName))
-                //ブロックのBlockstateをチャットに表示
-                player.sendMessage(TextComponentString("  §eBlockstate:§r§b $state"))
-                //ブロックのHardnessをチャットに表示
-                player.sendMessage(TextComponentString("  §eHardness:§r§b " + state.getBlockHardness(world, pos)))
-                //ブロックのResistanceをチャットに表示
-                player.sendMessage(TextComponentString("  §eResistance:§r§b " + block.getExplosionResistance(player)))
-                //適正ツールをチャットに表示
-                player.sendMessage(TextComponentString("  §eHarvest Tool:§r§b " + block.getHarvestTool(state)))
-                //適正レベルをチャットに表示
-                player.sendMessage(TextComponentString("  §eHarvest Level:§r§b " + block.getHarvestLevel(state)))
-                player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+            when (player.getHeldItem(hand).metadata) {
+                2 -> {
+                    //各値の取得
+                    val state = world.getBlockState(pos)
+                    val block = state.block
+                    val meta = block.getMetaFromState(state)
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+                    //ブロックの翻訳名をチャットに表示
+                    player.sendMessage(TextComponentString("  §eName:§r§b " + ItemStack(block, 1, meta).displayName))
+                    //ブロックのIDをチャットに表示
+                    player.sendMessage(TextComponentString("  §eID:§r§b " + block.registryName))
+                    //ブロックのBlockstateをチャットに表示
+                    player.sendMessage(TextComponentString("  §eBlockstate:§r§b $state"))
+                    //ブロックのHardnessをチャットに表示
+                    player.sendMessage(TextComponentString("  §eHardness:§r§b " + state.getBlockHardness(world, pos)))
+                    //ブロックのResistanceをチャットに表示
+                    player.sendMessage(TextComponentString("  §eResistance:§r§b " + block.getExplosionResistance(player)))
+                    //適正ツールをチャットに表示
+                    player.sendMessage(TextComponentString("  §eHarvest Tool:§r§b " + block.getHarvestTool(state)))
+                    //適正レベルをチャットに表示
+                    player.sendMessage(TextComponentString("  §eHarvest Level:§r§b " + block.getHarvestLevel(state)))
+                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+                    return EnumActionResult.SUCCESS
+                }
+                //Tile Entity用
+                3 -> {
+                    val tile = world.getTileEntity(pos)
+                    return if (tile !== null) {
+                        player.sendMessage(TextComponentString("The Tile entity is here!"))
+                        EnumActionResult.SUCCESS
+                    } else {
+                        player.sendMessage(TextComponentString("The Tile entity is null!"))
+                        EnumActionResult.FAIL
+                    }
+                }
+                else -> return EnumActionResult.FAIL
             }
-            //Tile Entity用
-            else if (player.getHeldItem(hand).metadata == 3) {
-                val tile = world.getTileEntity(pos)
-                if (tile !== null) {
-                    player.sendMessage(TextComponentString("The Tile entity is here!"))
-                } else player.sendMessage(TextComponentString("The Tile entity is null!"))
-            }
-        }
-        return EnumActionResult.SUCCESS
+        } else return EnumActionResult.SUCCESS
     }
 }

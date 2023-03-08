@@ -3,6 +3,8 @@ package hiiragi283.ragi_materials.material
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
+import net.minecraft.item.EnumRarity
+import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
@@ -19,6 +21,7 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
     open var hasOre = false
     open var molar: Float? = null
     open var oredictAlt: String? = null
+    open var rarity: IRarity = EnumRarity.COMMON
     open var tempBoil: Int? = null
     open var tempMelt: Int? = null
     open var tempSubl: Int? = null
@@ -30,25 +33,16 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
     //化学式に()をつけるメソッド
     fun addBracket(): MaterialBuilder = also { it.hasBracket = true }
 
-    //EnumMaterialもしくはindexから液体を取得するメソッド
-    fun getFluid(): Fluid? {
-        val fluid = FluidRegistry.getFluid(this.name)
-        return if (fluid !== null) fluid else null
-    }
+    //nameから液体を取得するメソッド
+    fun getFluid(): Fluid? = FluidRegistry.getFluid(this.name)
 
     //registryNameからUCC型のStringを取得するメソッド
-    fun getOreDict(): String {
-        return this.name.snakeToUpperCamelCase()
-    }
+    fun getOreDict(): String = this.name.snakeToUpperCamelCase()
 
     //素材が空か判定するメソッド
-    fun isEmpty(): Boolean {
-        return this == EMPTY
-    }
+    fun isEmpty(): Boolean = this == EMPTY
 
-    fun isNotEmpty(): Boolean {
-        return !isEmpty()
-    }
+    fun isNotEmpty(): Boolean = !isEmpty()
 
     //燃焼時間を設定するメソッド
     fun setBurnTime(time: Int): MaterialBuilder = also { it.burnTime = time }
@@ -73,6 +67,9 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //モル質量を設定するメソッド
     fun setOreDictAlt(oredict: String?): MaterialBuilder = also { it.oredictAlt = oredict }
+
+    //レア度を設定するメソッド
+    fun setRarity(rarity: IRarity): MaterialBuilder = also { it.rarity = rarity }
 
     //融点を設定するメソッド
     fun setTempMelt(melt: Int?): MaterialBuilder = also { it.tempMelt = melt }
