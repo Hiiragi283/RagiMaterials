@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 
-class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) : CompoundBuilder(index, name, TypeRegistry.METAL, components) {
+class AlloyBuilder(index: Int, name: String, components: Map<MaterialBuilder, Int>) : CompoundBuilder(index, name, TypeRegistry.METAL, components) {
 
     init {
         setBoil()
@@ -16,8 +16,8 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) : Compou
         val components = this.components
         //components内の各keyに対して実行
         for (key in components.keys) {
-            //keyがMaterialBuilder型，かつ沸点がnullでない場合
-            if (key is MaterialBuilder) key.tempBoil?.let {
+            //沸点がnullでない場合
+            key.tempBoil?.let {
                 tempBoil += it * components.getValue(key)
                 divideBoil += components.getValue(key)
             }
@@ -34,8 +34,8 @@ class AlloyBuilder(index: Int, name: String, components: Map<Any, Int>) : Compou
         val components = this.components
         //components内の各keyに対して実行
         for (key in components.keys) {
-            //keyがMaterialBuilder型，かつ融点がnullでない場合
-            if (key is MaterialBuilder) key.tempMelt?.let {
+            //融点がnullでない場合
+            key.tempMelt?.let {
                 tempMelt += it * components.getValue(key)
                 divideMelt += components.getValue(key)
             }

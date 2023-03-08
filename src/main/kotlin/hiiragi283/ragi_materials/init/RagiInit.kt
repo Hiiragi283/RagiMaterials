@@ -127,7 +127,7 @@ object RagiInit {
         //listの各materialに対して実行
         for (material in MaterialRegistry.mapIndex.values) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != TypeRegistry.INTERNAL && material.type.parts.contains(EnumMaterialType.LIQUID)) {
+            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.parts) {
                 //Fluidの登録
                 val fluid = FluidBase(material.name)
                 fluid.setColor(material.color)

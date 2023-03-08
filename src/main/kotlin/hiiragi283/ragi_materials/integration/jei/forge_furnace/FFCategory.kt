@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.integration.jei.JEICategoryBase
 import hiiragi283.ragi_materials.integration.jei.JEICore
 import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import mezz.jei.api.IGuiHelper
@@ -9,15 +10,13 @@ import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
-import mezz.jei.api.recipe.IRecipeCategory
 import net.minecraft.client.Minecraft
-import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 
-class FFCategory(guiHelper: IGuiHelper) : IRecipeCategory<FFWrapper> {
+class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFWrapper>(guiHelper) {
 
-    private val background: IDrawableStatic
+    var background: IDrawableStatic
 
     //JEIタブの背景を設定するメソッド
     init {
@@ -27,9 +26,6 @@ class FFCategory(guiHelper: IGuiHelper) : IRecipeCategory<FFWrapper> {
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.ForgeFurnace
-
-    //JEiタブの名前を取得するメソッド
-    override fun getTitle(): String = I18n.format("gui.$uid")
 
     //JEiタブの背景を取得するメソッド
     override fun getBackground(): IDrawable = background
@@ -61,7 +57,4 @@ class FFCategory(guiHelper: IGuiHelper) : IRecipeCategory<FFWrapper> {
         recipeLayout.itemStacks.init(2, false, 72, 0)
         recipeLayout.itemStacks[2] = output
     }
-
-    //JEiタブに紐づいたmod名を取得するメソッド
-    override fun getModName(): String = Reference.MOD_NAME
 }

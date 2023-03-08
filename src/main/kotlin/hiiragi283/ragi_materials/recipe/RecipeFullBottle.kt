@@ -80,7 +80,7 @@ class RecipeFullBottle : net.minecraftforge.registries.IForgeRegistryEntry.Impl<
                     break
                 }
                 //アイテムのIDが"bucket"の文字列を含んでいる場合
-                if (stack.item.registryName!!.resourcePath.contains("bucket")) {
+                if ("bucket" in stack.item.registryName!!.resourcePath) {
                     list[i] = ItemStack(Items.BUCKET) //空のバケツを追加
                 }
             }

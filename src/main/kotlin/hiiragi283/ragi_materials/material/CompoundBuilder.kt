@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.render.color.RagiColor
 import java.awt.Color
 import java.math.BigDecimal
 
-open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<Any, Int>) : MaterialBuilder(index, name, type) {
+open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<MaterialBuilder, Int>) : MaterialBuilder(index, name, type) {
 
     init {
         setColor()
@@ -20,7 +20,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
         //components内の各keyに対して実行
         for (key in components.keys) {
             //ColorとIntを対応させる
-            if (key is MaterialBuilder) mapColor[key.color] = components.getValue(key)
+            if (key !is FormulaString) mapColor[key.color] = components.getValue(key)
         }
         this.color = RagiColor.mixColor(mapColor)
     }
@@ -31,8 +31,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
         val components = components
         //components内の各keyに対して実行
         for (key in components.keys) {
-            //keyがMaterialBuilder型の場合
-            if (key is MaterialBuilder) key.molar?.let { molar.add(it.toBigDecimal() * components.getValue(key).toBigDecimal()) }
+            key.molar?.let { molar.add(it.toBigDecimal() * components.getValue(key).toBigDecimal()) }
         }
         this.molar = if (molar == BigDecimal.ZERO) null else molar.toFloat()
     }

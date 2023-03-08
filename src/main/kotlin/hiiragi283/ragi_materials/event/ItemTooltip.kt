@@ -43,7 +43,7 @@ class ItemTooltip {
                 for (id in arrayID) {
                     val oreDict = OreDictionary.getOreName(id)
                     for (prefix in listPrefix) {
-                        if (oreDict.contains(prefix)) {
+                        if (prefix in oreDict) {
                             val name = oreDict.substring(prefix.length).camelToSnakeCase()
                             //RagiLogger.infoDebug(name)
                             material = MaterialUtil.getMaterial(name)

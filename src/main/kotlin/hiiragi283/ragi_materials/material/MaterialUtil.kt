@@ -38,7 +38,7 @@ object MaterialUtil {
     }
 
     //代入されたMapから化学式を生成するメソッド
-    fun calcFormula(mapComponents: Map<Any, Int>): String {
+    fun  calcFormula(mapComponents: Map<MaterialBuilder, Int>): String {
         //変数の宣言・初期化
         var formula = ""
         var subscript: String
@@ -54,19 +54,11 @@ object MaterialUtil {
             }
             //2桁目が0でない場合，下付き数字を2桁にする
             subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
-            //keyがMaterialBuilder型の場合
-            if (key is MaterialBuilder) {
-                var formulaRaw = key.formula
-                //hasBracketがtrueの場合，化学式の前後を()で囲む
-                if (key.hasBracket) formulaRaw = "(${formulaRaw})"
-                formula += formulaRaw
-                if (mapComponents.getValue(key) > 1) formula += subscript
-            }
-            //keyがString型の場合
-            else if (key is String) {
-                formula += key
-                if (mapComponents.getValue(key) > 1) formula += subscript
-            }
+            var formulaRaw = key.formula
+            //hasBracketがtrueの場合，化学式の前後を()で囲む
+            if (key.hasBracket) formulaRaw = "(${formulaRaw})"
+            formula += formulaRaw
+            if (mapComponents.getValue(key) > 1) formula += subscript
         }
         //化学式を返す
         return formula

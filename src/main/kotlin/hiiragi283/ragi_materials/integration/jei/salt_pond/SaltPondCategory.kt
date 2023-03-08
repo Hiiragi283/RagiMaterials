@@ -2,19 +2,18 @@ package hiiragi283.ragi_materials.integration.jei.salt_pond
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.integration.jei.JEICategoryBase
 import hiiragi283.ragi_materials.integration.jei.JEICore
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
-import mezz.jei.api.recipe.IRecipeCategory
 import net.minecraft.client.Minecraft
-import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 
-class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper> {
+class SaltPondCategory(guiHelper: IGuiHelper) : JEICategoryBase<SaltPondWrapper>(guiHelper) {
 
     private val background: IDrawableStatic
 
@@ -27,8 +26,6 @@ class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper>
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.SaltPond
 
-    //JEiタブの名前を取得するメソッド
-    override fun getTitle(): String = I18n.format("gui.$uid")
 
     //JEiタブの背景を取得するメソッド
     override fun getBackground(): IDrawable = background
@@ -54,7 +51,4 @@ class SaltPondCategory(guiHelper: IGuiHelper) : IRecipeCategory<SaltPondWrapper>
         recipeLayout.itemStacks.init(2, false, 72, 0)
         recipeLayout.itemStacks[2] = output
     }
-
-    //JEiタブに紐づいたmod名を取得するメソッド
-    override fun getModName(): String = Reference.MOD_NAME
 }

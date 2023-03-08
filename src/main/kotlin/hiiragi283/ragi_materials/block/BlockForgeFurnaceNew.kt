@@ -15,7 +15,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class BlockForgeFurnaceNew: RagiBlockContainer<TileForgeFurnace>("forge_furnace_new", Material.ROCK, 3) {
+class BlockForgeFurnaceNew: RagiBlockContainer("forge_furnace_new", Material.ROCK, 3) {
 
     companion object {
         val FACING: PropertyDirection = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL)
