@@ -11,10 +11,7 @@ class ModelRegistry {
     fun modelRegistry(event: ModelRegistryEvent) {
         //アイテムのモデル登録
         RagiModel.setModel(
-            RagiInit.ItemBlockBellow,
-            RagiInit.ItemBlockBlazeHeater,
             RagiInit.ItemBlockForgeFurnace,
-            RagiInit.ItemBlockForgeFurnaceNew,
             RagiInit.ItemBlockFullBottleStation,
             RagiInit.ItemBlockLaboratoryTable,
             RagiInit.ItemBlockOreDictConv,

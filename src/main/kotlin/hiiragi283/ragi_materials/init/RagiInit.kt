@@ -26,24 +26,17 @@ object RagiInit {
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
-    val BlockBellow = BlockBellow()
-    val BlockBlazeHeater = BlockBlazeHeater()
     val BlockCropCoal = BlockCropCoal()
     val BlockCropLignite = BlockCropLignite()
     val BlockCropPeat = BlockCropPeat("crop_peat")
-    val BlockForgeFurnace = BlockForgeFurnace()
-    val BlockForgeFurnaceNew = BlockForgeFurnaceNew()
+    val BlockForgeFurnace = BlockForgeFurnaceNew()
     val BlockFullBottleStation = BlockFullBottleStation()
     val BlockLaboratoryTable = BlockLaboTable()
-    val BlockLitForgeFurnace = BlockLitForgeFurnace()
     val BlockOreDictConv = BlockOreDictConv()
     val BlockSaltPond = BlockSaltPond()
 
-    //Itemの定義
-    val ItemBlockBellow = ItemBlockBase(BlockBellow, 0)
-    val ItemBlockBlazeHeater = ItemBlockBase(BlockBlazeHeater, 1)
+    //Itemの定
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
-    val ItemBlockForgeFurnaceNew = ItemBlockBase(BlockForgeFurnaceNew, 0)
     val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation, 0)
     val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable, 0)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0)
@@ -75,25 +68,18 @@ object RagiInit {
     fun init() {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
-                BlockBellow,
-                BlockBlazeHeater,
                 BlockCropCoal,
                 BlockCropLignite,
                 BlockCropPeat,
                 BlockForgeFurnace,
-                BlockForgeFurnaceNew,
                 BlockFullBottleStation,
                 BlockLaboratoryTable,
-                BlockLitForgeFurnace,
                 BlockOreDictConv,
                 BlockSaltPond
         )
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
-                ItemBlockBellow,
-                ItemBlockBlazeHeater,
                 ItemBlockForgeFurnace,
-                ItemBlockForgeFurnaceNew,
                 ItemBlockFullBottleStation,
                 ItemBlockLaboratoryTable,
                 ItemBlockOreDictConv,

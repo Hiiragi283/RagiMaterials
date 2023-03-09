@@ -9,7 +9,6 @@ import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
-import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 
@@ -19,7 +18,7 @@ class SaltPondCategory(guiHelper: IGuiHelper) : JEICategoryBase<SaltPondWrapper>
 
     //JEIタブの背景を設定するメソッド
     init {
-        val location = ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png")
+        val location = ResourceLocation(Reference.MOD_ID, "textures/gui/jei/salt_pond.png")
         background = guiHelper.createDrawable(location, 1, 1, 90, 18)
     }
 
@@ -30,17 +29,11 @@ class SaltPondCategory(guiHelper: IGuiHelper) : JEICategoryBase<SaltPondWrapper>
     //JEiタブの背景を取得するメソッド
     override fun getBackground(): IDrawable = background
 
-    //なんかエクストラするメソッド
-    override fun drawExtras(mc: Minecraft) {}
-
-    //JEiタブのアイコンを取得するメソッド?
-    override fun getIcon(): IDrawable? = null
-
     //JEiタブにレシピを設定するメソッド
     override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: SaltPondWrapper, ingredients: IIngredients) {
         //変化前と変化後のアイテムをwrapperから取得
-        val input: ItemStack = recipeWrapper.stackIn
-        val output: ItemStack = recipeWrapper.stackOut
+        val input = recipeWrapper.stackIn
+        val output = recipeWrapper.stackOut
         //inputのスロットを登録
         recipeLayout.itemStacks.init(0, true, 0, 0)
         recipeLayout.itemStacks[0] = input

@@ -85,7 +85,7 @@ class BlockBellow : BlockHorizontalBase("block_bellow", Material.CLOTH, 1) {
 
     private fun blowBellow(world: World, pos: BlockPos, state: IBlockState): Boolean {
         //サーバー側，かつACTIVEでない場合
-        if (!world.isRemote && !state.getValue(ACTIVE)) {
+        /*if (!world.isRemote && !state.getValue(ACTIVE)) {
             //ふいごが向いている方向，その先の座標とstateを取得
             val facingBellow = state.getValue(FACING)
             val posFurnace = pos.offset(facingBellow)
@@ -102,7 +102,7 @@ class BlockBellow : BlockHorizontalBase("block_bellow", Material.CLOTH, 1) {
                 RagiLogger.infoDebug("Forge Furnace was boosted!")
                 true
             } else false
-        } else return false
+        } else */return false
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {

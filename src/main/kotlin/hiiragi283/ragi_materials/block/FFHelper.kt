@@ -1,8 +1,5 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
-import hiiragi283.ragi_materials.recipe.forge_furnace.FFRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.BlockHorizontal
@@ -57,7 +54,7 @@ object FFHelper {
     }
 
     //レシピが実行できるかどうか
-    private fun canProcess(state: IBlockState, type: FFRecipe.EnumFire): Boolean {
+    /*private fun canProcess(state: IBlockState, type: FFRecipe.EnumFire): Boolean {
         return when (state.block) {
             is BlockForgeFurnace -> {
                 val fuel = state.getValue(BlockForgeFurnace.FUEL)
@@ -71,7 +68,7 @@ object FFHelper {
             }
             else -> false
         }
-    }
+    }*/
 
     //レシピ実行後にblockstateを上書きするメソッド
     private fun setState(world: World, pos: BlockPos, state: IBlockState) {
@@ -90,14 +87,14 @@ object FFHelper {
             }
 
             is BlockLitForgeFurnace -> {
-                val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
+                /*val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
                 val result = forgeFurnace
                     .withProperty(BlockHorizontal.FACING, facing)
                     .withProperty(BlockForgeFurnace.FUEL, 2)
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, result.block) //コンパレータ出力を更新
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
-                RagiLogger.infoDebug("The state of Boosted Forge Furnace was updated!")
+                RagiLogger.infoDebug("The state of Boosted Forge Furnace was updated!")*/
             }
 
             is BlockBlazeHeater -> {

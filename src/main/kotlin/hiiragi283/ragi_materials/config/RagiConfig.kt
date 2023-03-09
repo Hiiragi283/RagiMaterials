@@ -235,17 +235,5 @@ object RagiConfig {
     }
 
     //configからレシピを登録するメソッド
-    fun registerRecipe() {
-        //Forge Furnace
-        for (recipe in recipeMap.listForgeBurning) {
-            FFRecipe(recipe, FFRecipe.EnumFire.BURNING)
-        }
-        for (recipe in recipeMap.listForgeBoosted) {
-            FFRecipe(recipe, FFRecipe.EnumFire.BOOSTED)
-        }
-        for (recipe in recipeMap.listForgeHellrise) {
-            FFRecipe(recipe, FFRecipe.EnumFire.HELLRISE)
-        }
-    }
-
+    fun registerRecipe() {}
 }

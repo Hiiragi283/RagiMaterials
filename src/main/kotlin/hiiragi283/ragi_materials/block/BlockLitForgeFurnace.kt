@@ -35,9 +35,9 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
 
     //    General    //
 
-    override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
+    /*override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         drops.add(ItemStack(RagiInit.BlockForgeFurnace))
-    }
+    }*/
 
     //    BlockState    //
 
@@ -58,7 +58,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if (!world.isRemote) world.setBlockState(pos, RagiInit.BlockForgeFurnace.defaultState.withProperty(FACING, state.getValue(FACING)).withProperty(BlockForgeFurnace.FUEL, 3), 2) //火力DOWN
+        //if (!world.isRemote) world.setBlockState(pos, RagiInit.BlockForgeFurnace.defaultState.withProperty(FACING, state.getValue(FACING)).withProperty(BlockForgeFurnace.FUEL, 3), 2) //火力DOWN
     }
 
     //    Redstone    //
