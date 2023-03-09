@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.util.RagiTank
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.fluids.FluidStack
-import net.minecraftforge.fluids.FluidTank
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
@@ -21,12 +20,7 @@ import net.minecraftforge.items.ItemStackHandler
 class TileFullBottleStation: TileBase(101), ITickable {
 
     val inventory = ItemStackHandler(1)
-    private val tank = object: FluidTank(60000) {
-
-        //液体の名前から取得した素材が空でないならtrue
-        override fun canFillFluidType(fluid: FluidStack?): Boolean = if (fluid !== null) !MaterialUtil.getMaterial(fluid.fluid.name).isEmpty() else false
-
-    }
+    private val tank =RagiTank(60000)
     private var count = 0
 
     init {
@@ -38,12 +32,14 @@ class TileFullBottleStation: TileBase(101), ITickable {
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
         tag.setTag("inventory", this.inventory.serializeNBT()) //インベントリをtagに書き込む
+        tag.setTag("tank", this.tank.serializeNBT())
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
         this.inventory.deserializeNBT(tag.getCompoundTag("inventory")) //tagからインベントリを読み込む
+        this.tank.deserializeNBT(tag.getCompoundTag("tank")) //tagから液体タンクを読み込む
     }
 
     //    Capability    //
@@ -73,12 +69,11 @@ class TileFullBottleStation: TileBase(101), ITickable {
     override fun update() {
         //countが20以上の場合
         if (count >= 20) {
-            val amount = tank.fluidAmount //タンク内の液体量
             val amountRemain = tank.fluidAmount % 1000 //タンクに残る液体量
             val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
             //作成個数が0より多い場合
             if (countBottle > 0 && tank.fluid !== null && inventory.getStackInSlot(0).isEmpty) {
-                inventory.insertItem(0, RagiUtil.getFilledBottle(countBottle, FluidStack(tank.fluid!!, 1000)), false) //フルボトルを製造
+                inventory.insertItem(0, RagiUtil.getFilledBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
                 if (amountRemain > 0) {
                     tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き
                 } else {

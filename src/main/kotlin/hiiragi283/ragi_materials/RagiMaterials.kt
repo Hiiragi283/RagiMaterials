@@ -8,7 +8,7 @@ import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.RecipeRegistry
-import hiiragi283.ragi_materials.recipe.laboratory.LTRegistry
+import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
@@ -75,7 +75,7 @@ class RagiMaterials {
             RagiConfig.registerRecipe()
             //各種装置のレシピ登録
             //FFRegistry.init()
-            LTRegistry.init()
+            LaboRecipeRegistry.init()
             //デバッグ用
             MaterialUtil.printMap()
             //proxyの読み込み

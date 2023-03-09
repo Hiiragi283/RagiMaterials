@@ -9,8 +9,8 @@
 	"elements": [
 		{
 			"name": "blaze",
-			"from": [4, 3, 4],
-			"to": [12, 11, 12],
+			"from": [2, 2, 2],
+			"to": [14, 14, 14],
 			"faces": {
 				"north": {"uv": [4, 4, 8, 8], "texture": "#blaze"},
 				"east": {"uv": [0, 4, 4, 8], "texture": "#blaze"},

@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.material.MaterialBuilder
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
@@ -88,15 +89,15 @@ object RagiUtil {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
     }
 
-    fun getFilledBottle(count: Int, fluidStack: FluidStack): ItemStack {
+    fun getFilledBottle(fluidStack: FluidStack, count: Int = 1): ItemStack {
         val stack = ItemStack(RagiInit.ItemFullBottle, count, 0)
         stack.tagCompound = setFluidToNBT(NBTTagCompound(), fluidStack)
         return stack
     }
 
-    fun getFilledBottle(count: Int, name: String, amount: Int): ItemStack {
-        return getFilledBottle(count, getFluidStack(name, amount))
-    }
+    fun getFilledBottle(name: String, amount: Int = 1000, count: Int = 1): ItemStack = getFilledBottle(getFluidStack(name, amount), count)
+
+    fun getFilledBottle(material: MaterialBuilder, amount: Int = 1000, count: Int = 1): ItemStack = getFilledBottle(material.name, amount, count)
 
     /*
       Thanks to defeatedcrow!
@@ -161,7 +162,7 @@ object RagiUtil {
 
     fun setOreDict(oreDict: String, stack: ItemStack) {
         OreDictionary.registerOre(oreDict, stack)
-        RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.toBracket())
+        //RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.toBracket())
     }
 
     fun Boolean.toInt(): Int {

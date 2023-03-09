@@ -4,18 +4,27 @@ import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.IItemHandler
 
-class LTRecipe(
-        val input1: ItemStack,
-        val input2: ItemStack,
-        val input3: ItemStack,
-        val input4: ItemStack,
-        val input5: ItemStack,
-        val output: ItemStack
-        ) {
+class LaboRecipeBuilder(
+        val input1: ItemStack = ItemStack.EMPTY,
+        val input2: ItemStack = ItemStack.EMPTY,
+        val input3: ItemStack = ItemStack.EMPTY,
+        val input4: ItemStack = ItemStack.EMPTY,
+        val input5: ItemStack = ItemStack.EMPTY,
+        val outputs: List<ItemStack>
+    ) {
 
     init {
         register()
     }
+
+    constructor(
+            input1: ItemStack = ItemStack.EMPTY,
+            input2: ItemStack = ItemStack.EMPTY,
+            input3: ItemStack = ItemStack.EMPTY,
+            input4: ItemStack = ItemStack.EMPTY,
+            input5: ItemStack = ItemStack.EMPTY,
+            output: ItemStack
+    ) : this(input1, input2, input3, input4, input5, listOf(output))
 
     fun match(inventory: IItemHandler): Boolean {
         var result = false
@@ -30,5 +39,5 @@ class LTRecipe(
         return result
     }
 
-    fun register(): LTRecipe = also { LTRegistry.list.add(it) }
+    fun register(): LaboRecipeBuilder = also { LaboRecipeRegistry.list.add(it) }
 }

@@ -87,6 +87,8 @@ object MaterialRegistry {
         hasOre = true
     }
 
+    val BORON_OXIDE = CompoundBuilder(52, "boron_oxide", TypeRegistry.DUST, mapOf(ElementRegistry.BORON to 2, ElementRegistry.OXYGEN to 3))
+
     //60 ~ 69: Carbon
     val CARBON = SimpleBuilder(ElementRegistry.CARBON, 1)
 
@@ -174,6 +176,10 @@ object MaterialRegistry {
     //120 ~ 129: Magnesium
     val MAGNESIUM = SimpleBuilder(ElementRegistry.MAGNESIUM, 1)
 
+    val MAGNESIUM_CARBONATE = CompoundBuilder(121, "magnesium_carbonate", TypeRegistry.DUST, mapOf(ElementRegistry.MAGNESIUM to 1, CARBONATE to 1)).apply {
+        hasOre = true
+    }
+
     //130 ~ 139: Aluminium
     val ALUMINIUM = SimpleBuilder(ElementRegistry.ALUMINIUM, 1).apply {
         oredictAlt = "Aluminum"
@@ -196,6 +202,14 @@ object MaterialRegistry {
         hasOre = true
     }
 
+    val ALUMINA_SOLUTION = CompoundBuilder(135, "alumina_solution", TypeRegistry.LIQUID, mapOf(
+            ElementRegistry.SODIUM to 1,
+            FormulaString("[") to 1,
+            ElementRegistry.ALUMINIUM to 1,
+            HYDROXIDE.addBracket() to 4,
+            FormulaString("]") to 1
+    ))
+
     //140 ~ 149: Silicon
     val SILICON = SimpleBuilder(ElementRegistry.SILICON, 1)
 
@@ -215,7 +229,9 @@ object MaterialRegistry {
         hasOre = true
     }
 
-    val SULFURIC_ACID = CompoundBuilder(161, "sulfuric_acid", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 2, SULFATE to 1))
+    val SULFURIC_ACID = CompoundBuilder(161, "sulfuric_acid", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 2, SULFATE to 1)).apply {
+        color = RagiColor.mixColor(RagiColor.GOLD, RagiColor.YELLOW)
+    }
 
     //170 ~ 179: Chlorine
     val CHLORINE = SimpleBuilder(ElementRegistry.CHLORINE, 2)
@@ -231,7 +247,7 @@ object MaterialRegistry {
         hasOre = true
     }
 
-    val MAGNESIUM_CHLORIDE = CompoundBuilder(174, "magnesium_chloride", TypeRegistry.DUST, mapOf(ElementRegistry.MAGNESIUM to 1, ElementRegistry.CHLORINE to 1)).apply {
+    val MAGNESIUM_CHLORIDE = CompoundBuilder(174, "magnesium_chloride", TypeRegistry.DUST, mapOf(ElementRegistry.MAGNESIUM to 1, ElementRegistry.CHLORINE to 2)).apply {
         color = RagiColor.YELLOW
     }
 

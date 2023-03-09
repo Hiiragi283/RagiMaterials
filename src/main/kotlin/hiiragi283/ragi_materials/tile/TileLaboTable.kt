@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.packet.MessageLabo
 import hiiragi283.ragi_materials.packet.RagiPacket
-import hiiragi283.ragi_materials.recipe.laboratory.LTRegistry
+import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
 import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -59,21 +59,9 @@ class TileLaboTable : TileBase(100), ISidedInventory {
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         val stack = player.getHeldItem(hand)
+        var result = false
         //手持ちのItemStackが空の場合
-        return if (stack.isEmpty) {/*for (i in 0 until inventory.slots) {
-            val numReverse = inventory.slots - (i + 1)
-            //スロット内のItemStackを取得 (逆順)
-            val stackSlot = inventory.getStackInSlot(numReverse)
-            //ItemStackが空でない場合
-            if (!stackSlot.isEmpty) {
-                //プレイヤーの手持ちを上書き
-                player.setHeldItem(hand, inventory.extractItem(i, stackSlot.count, false))
-                RagiLogger.infoDebug("Stack extracted from slot$numReverse!")
-                break
-            } else RagiLogger.infoDebug("The slot$numReverse is empty!")
-        }*/
-            false
-        } else {
+        if (!stack.isEmpty) {
             for (i in 0 until invLabo.slots) {
                 //スロットにItemStackを入れた際の余りを取得
                 val stackRemain = handlerSide.insertItem(i, stack, true)
@@ -87,8 +75,9 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                     break
                 } else RagiLogger.infoDebug("The slot$i is full!")
             }
-            true
+            result = true
         }
+        return result
     }
 
     //    Recipe    //
@@ -98,11 +87,13 @@ class TileLaboTable : TileBase(100), ISidedInventory {
         //サーバー側，かつインベントリが空でない場合
         if (!world.isRemote && !this.invLabo.isEmpty) {
             //レシピチェック
-            for (recipe in LTRegistry.list) {
+            for (recipe in LaboRecipeRegistry.list) {
                 if (recipe.match(this.handlerSide)) {
                     isFailed = false
-                    RagiUtil.dropItem(world, pos, recipe.output)
-                    RagiLogger.infoDebug("The stack is ${recipe.output.toBracket()}")
+                    for (output in recipe.outputs) {
+                        RagiUtil.dropItem(world, pos, output)
+                        RagiLogger.infoDebug("The stack is ${output.toBracket()}")
+                    }
                     RagiUtil.soundHypixel(world, pos)
                     RagiLogger.infoDebug("Succeeded!")
                     break
