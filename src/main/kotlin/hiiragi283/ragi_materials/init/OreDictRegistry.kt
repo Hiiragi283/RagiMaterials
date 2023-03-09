@@ -30,7 +30,7 @@ object OreDictRegistry {
             //listOreDict内の各OreDictHandlerに対して実行
             for (oredict in listOreDict) {
                 //materialのtypeがoredictのtypeを含む場合
-                if (oredict.type in material.type.parts) {
+                if (oredict.type in material.type.list) {
                     RagiUtil.setOreDict(
                             oredict.prefix + material.getOreDict(),
                             RagiUtil.getStack("${Reference.MOD_ID}:${oredict.ID}", 1, material.index)

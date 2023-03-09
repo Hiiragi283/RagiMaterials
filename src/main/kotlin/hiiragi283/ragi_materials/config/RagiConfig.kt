@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.config
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-import hiiragi283.ragi_materials.recipe.forge_furnace.FFRecipe
 import net.minecraftforge.common.config.Config
 import java.awt.Color
 
@@ -170,7 +169,7 @@ object RagiConfig {
             "minecraft:dark_oak_boat",
             "minecraft:diamond_horse_armor",
             "minecraft:egg",
-            "minecraft:enchanted_book",
+            //"minecraft:enchanted_book",
             "minecraft:ender_pearl",
             "minecraft:furnace_minecart",
             "minecraft:golden_horse_armor",

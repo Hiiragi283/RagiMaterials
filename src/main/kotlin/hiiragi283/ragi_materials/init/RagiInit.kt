@@ -51,19 +51,19 @@ object RagiInit {
     val ItemSeedPeat: Item = ItemSeedPeat("seed_peat").setCreativeTab(CreativeTabs.MISC)
     val ItemWaste = ItemWaste()
 
-    val ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK, EnumMaterialType.BLOCK_MATERIAL)
-    val ItemCrystal = ItemMaterial(PartRegistry.CRYSTAL, EnumMaterialType.CRYSTAL)
-    val ItemDust = ItemMaterial(PartRegistry.DUST, EnumMaterialType.DUST)
-    val ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY, EnumMaterialType.DUST)
-    val ItemGear = ItemMaterial(PartRegistry.GEAR, EnumMaterialType.GEAR)
-    val ItemIngot = ItemMaterial(PartRegistry.INGOT, EnumMaterialType.INGOT)
-    val ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT, EnumMaterialType.INGOT_HOT)
-    val ItemNugget = ItemMaterial(PartRegistry.NUGGET, EnumMaterialType.NUGGET)
+    val ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)
+    val ItemCrystal = ItemMaterial(PartRegistry.CRYSTAL)
+    val ItemDust = ItemMaterial(PartRegistry.DUST)
+    val ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY)
+    val ItemGear = ItemMaterial(PartRegistry.GEAR)
+    val ItemIngot = ItemMaterial(PartRegistry.INGOT)
+    val ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
+    val ItemNugget = ItemMaterial(PartRegistry.NUGGET)
     val ItemOre = ItemMaterialOre(PartRegistry.ORE)
     val ItemOreNether = ItemMaterialOre(PartRegistry.ORE_NETHER)
     val ItemOreEnd = ItemMaterialOre(PartRegistry.ORE_END)
-    val ItemPlate = ItemMaterial(PartRegistry.PLATE, EnumMaterialType.PLATE)
-    val ItemStick = ItemMaterial(PartRegistry.STICK, EnumMaterialType.STICK)
+    val ItemPlate = ItemMaterial(PartRegistry.PLATE)
+    val ItemStick = ItemMaterial(PartRegistry.STICK)
 
     fun init() {
         //Blockの登録
@@ -114,7 +114,7 @@ object RagiInit {
         //listの各materialに対して実行
         for (material in MaterialRegistry.mapIndex.values) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.parts) {
+            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
                 //Fluidの登録
                 val fluid = FluidBase(material.name)
                 fluid.setColor(material.color)

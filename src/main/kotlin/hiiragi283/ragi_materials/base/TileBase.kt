@@ -11,7 +11,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileBase(val type: Int): TileEntity() {
+abstract class TileBase(val type: Int) : TileEntity() {
 
     //    NBT tag    //
 

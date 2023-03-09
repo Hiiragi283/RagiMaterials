@@ -9,7 +9,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
 
     init {
         setColor()
-        setFormula(MaterialUtil.calcFormula(components))
+        setFormula(MaterialUtil.getFormula(components))
         setMolar()
         register()
     }

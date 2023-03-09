@@ -39,7 +39,7 @@ object ModelStack {
         ModelLoader.setCustomMeshDefinition(RagiInit.ItemBlockMaterial) { stack ->
             //metadataからmaterialを取得
             val material = MaterialUtil.getMaterial(stack.metadata)
-            val parts = material.type.parts
+            val parts = material.type.list
             if (EnumMaterialType.BLOCK_MATERIAL in parts) {
                 if (EnumMaterialType.CRYSTAL in parts) {
                     if ((material as CrystalBuilder).system == "coal") {

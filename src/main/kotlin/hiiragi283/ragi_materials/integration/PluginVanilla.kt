@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack
 object PluginVanilla {
 
     fun loadPostInit() {
-        overrideMaxStack()
+        //overrideMaxStack()
         overrideProperty()
         registerDispenser()
     }

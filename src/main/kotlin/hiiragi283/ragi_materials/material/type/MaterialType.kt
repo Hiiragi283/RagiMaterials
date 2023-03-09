@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material.type
 
-class MaterialType(val name: String, val parts: List<EnumMaterialType>) {
+class MaterialType(val name: String, val list: List<EnumMaterialType>) {
 
     init {
         register()

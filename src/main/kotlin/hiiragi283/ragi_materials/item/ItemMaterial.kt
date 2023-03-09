@@ -24,7 +24,7 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemMaterial(val part: MaterialPart, private val type: EnumMaterialType) : ItemBase(Reference.MOD_ID, part.name, RagiConfig.material.maxMaterials), IMaterialItem {
+open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, RagiConfig.material.maxMaterials), IMaterialItem {
 
     init {
         creativeTab = RagiInit.TabMaterials
@@ -52,7 +52,7 @@ open class ItemMaterial(val part: MaterialPart, private val type: EnumMaterialTy
                 if (entity is EntityPlayer) {
                     val material = MaterialUtil.getMaterial(stack.metadata)
                     //取得した素材が放射性の場合
-                    if (EnumMaterialType.RADIOACTIVE in material.type.parts) {
+                    if (EnumMaterialType.RADIOACTIVE in material.type.list) {
                         val stackRadio = stack.copy()
                         stackRadio.shrink(1) //1つ減らす
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
@@ -82,7 +82,7 @@ open class ItemMaterial(val part: MaterialPart, private val type: EnumMaterialTy
             //list内の各materialに対して実行
             for (material in MaterialRegistry.mapIndex.values) {
                 //typeがINTERNALでない，かつmaterialのtypeが一致する場合
-                if (material.type != TypeRegistry.INTERNAL && type in material.type.parts) {
+                if (material.type != TypeRegistry.INTERNAL && part.type in material.type.list) {
                     //ItemStackをlistに追加
                     val stack = ItemStack(this, 1, material.index)
                     subItems.add(stack)

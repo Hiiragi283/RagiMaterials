@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.material.part
 
-class MaterialPart(val name: String, val part: EnumMaterialPart, val scale: Float) {
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
+
+class MaterialPart(val name: String, val type: EnumMaterialType, val scale: Float) {
 
     init {
         register()
