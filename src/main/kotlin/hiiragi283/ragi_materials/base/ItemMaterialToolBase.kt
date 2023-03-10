@@ -74,7 +74,7 @@ open class ItemMaterialToolBase(private val ID: String) : ItemBase(Reference.MOD
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         MaterialUtil.materialInfo(getMaterial(stack), tooltip)
-        tooltip.add(I18n.format("tips.ragi_materials.durability", getDamage(stack))) //耐久値
+        tooltip.add(I18n.format("tips.ragi_materials.property.durability", getDamage(stack))) //耐久値
         super.addInformation(stack, world, tooltip, flag)
     }
 
