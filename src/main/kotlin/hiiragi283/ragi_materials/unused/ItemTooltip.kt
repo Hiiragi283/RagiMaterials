@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.event
+package hiiragi283.ragi_materials.unused
 
 import hiiragi283.ragi_materials.material.MaterialBuilder
 import hiiragi283.ragi_materials.material.MaterialUtil

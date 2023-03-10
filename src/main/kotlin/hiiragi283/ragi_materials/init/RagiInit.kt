@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.base.ItemMaterialToolBase
+import hiiragi283.ragi_materials.base.ItemToolBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialRegistry
@@ -15,6 +15,7 @@ import hiiragi283.ragi_materials.material.type.TypeRegistry
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.common.util.EnumHelper
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 
@@ -35,7 +36,10 @@ object RagiInit {
     val BlockOreDictConv = BlockOreDictConv()
     val BlockSaltPond = BlockSaltPond()
 
-    //Itemの定
+    //ToolMaterialの宣言
+    val ToolTitanium = EnumHelper.addToolMaterial("RM_TITANIUM", 3, 511, 8.0f, 3.0f, 10)!!
+
+    //Itemの定義
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
     val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation, 0)
     val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable, 0)
@@ -44,7 +48,6 @@ object RagiInit {
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
-    val ItemForgeHammer = ItemMaterialToolBase("forge_hammer")
     val ItemFullBottle: Item = ItemFullBottle().setCreativeTab(TabFullBottle)
     val ItemSeedCoal: Item = ItemSeedCoal().setCreativeTab(CreativeTabs.MISC)
     val ItemSeedLignite: Item = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)
@@ -65,7 +68,23 @@ object RagiInit {
     val ItemPlate = ItemMaterial(PartRegistry.PLATE)
     val ItemStick = ItemMaterial(PartRegistry.STICK)
 
-    fun init() {
+    val ItemsAxe = arrayOf(
+            ItemToolBase.AXE(MaterialRegistry.TITANIUM, ToolTitanium)
+    )
+    val ItemsHammer = arrayOf(
+            ItemToolBase("hammer", MaterialRegistry.TITANIUM, ToolTitanium)
+    )
+    val ItemsPickaxe = arrayOf(
+            ItemToolBase.PICKAXE(MaterialRegistry.TITANIUM, ToolTitanium)
+    )
+    val ItemsSpade = arrayOf(
+            ItemToolBase.SPADE(MaterialRegistry.TITANIUM, ToolTitanium)
+    )
+    val ItemsSword = arrayOf(
+            ItemToolBase.SWORD(MaterialRegistry.TITANIUM, ToolTitanium)
+    )
+
+    init {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
                 BlockCropCoal,
@@ -77,6 +96,7 @@ object RagiInit {
                 BlockOreDictConv,
                 BlockSaltPond
         )
+
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
                 ItemBlockForgeFurnace,
@@ -87,15 +107,12 @@ object RagiInit {
 
                 ItemBlazingCube,
                 ItemBookDebug,
-                ItemForgeHammer,
                 ItemFullBottle,
                 ItemSeedCoal,
                 ItemSeedLignite,
                 ItemSeedPeat,
                 ItemWaste,
 
-                //ItemBlockCrystal,
-                //ItemBlockMetal,
                 ItemBlockMaterial,
                 ItemDust,
                 ItemDustTiny,
@@ -108,8 +125,15 @@ object RagiInit {
                 ItemOreNether,
                 ItemOreEnd,
                 ItemPlate,
-                ItemStick
+                ItemStick,
+
+                *ItemsAxe,
+                *ItemsHammer,
+                *ItemsPickaxe,
+                *ItemsSpade,
+                *ItemsSword
         )
+
         //Fluidの登録
         //listの各materialに対して実行
         for (material in MaterialRegistry.mapIndex.values) {

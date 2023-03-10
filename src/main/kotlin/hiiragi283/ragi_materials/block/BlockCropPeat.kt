@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.IMaterialBlock
 import hiiragi283.ragi_materials.material.MaterialBuilder
@@ -28,7 +29,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlantable, IMaterialBlock {
+open class BlockCropPeat(ID: String) : BlockBase(ID, Material.PLANTS, -1), IGrowable, IPlantable, IMaterialBlock {
 
     companion object {
         val AGE: PropertyInteger = PropertyInteger.create("age", 0, 3)
@@ -37,10 +38,8 @@ open class BlockCropPeat(ID: String) : Block(Material.PLANTS), IGrowable, IPlant
     init {
         defaultState = blockState.baseState.withProperty(AGE, 0)
         blockHardness = 0.0f
-        setRegistryName(Reference.MOD_ID, ID)
         soundType = SoundType.PLANT
         tickRandomly = true
-        unlocalizedName = ID
     }
 
     //    General    //

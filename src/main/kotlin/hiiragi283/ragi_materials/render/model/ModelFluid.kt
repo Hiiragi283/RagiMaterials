@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.Fluid
 object ModelFluid {
 
     //液体ブロックのモデル登録
-    fun init() {
+    init {
         /*
           Thanks to defeatedcrow!
           Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463

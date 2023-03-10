@@ -11,7 +11,7 @@ object LaboRecipeRegistry {
 
     val map: LinkedHashMap<String, LaboRecipe> = linkedMapOf()
 
-    fun init() {
+    init {
 
         //Hydrogen
         LaboRecipe.Builder(MaterialRegistry.WATER.name).apply {

@@ -10,7 +10,7 @@ import net.minecraftforge.client.model.ModelLoader
 
 object ModelStack {
 
-    fun init() {
+    init {
 
         /*
          Thanks to kojin15!

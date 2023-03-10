@@ -1,23 +1,22 @@
-package hiiragi283.ragi_materials.event
+package hiiragi283.ragi_materials.render.color
 
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.material.IMaterialBlock
 import hiiragi283.ragi_materials.material.IMaterialItem
+import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
+import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.world.World
-import net.minecraftforge.client.event.ColorHandlerEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
-class ColorHandler {
+object ColorRegistry {
 
-    @SubscribeEvent
-    fun colorHandler(event: ColorHandlerEvent.Item) {
-        //変数の宣言
-        val blockColors = event.blockColors
-        val itemColors = event.itemColors
+    private val blockColors: BlockColors = Minecraft.getMinecraft().blockColors
+    private val itemColors: ItemColors = Minecraft.getMinecraft().itemColors
 
-        //BlockとItemの着色
+    init {
+
         blockColors.registerBlockColorHandler(IBlockColor { state, world, pos, tintIndex ->
             val block = state.block
             if (block is IMaterialBlock) block.getMaterialBlock(world as World, pos!!, state).color.rgb else 0xFFFFFF
@@ -54,7 +53,13 @@ class ColorHandler {
         itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
             val item = stack.item
             if (item is IMaterialItem && tintIndex == 1) item.getMaterial(stack).color.rgb else 0xFFFFFF
-        }, RagiInit.ItemForgeHammer)
+        },
+                *RagiInit.ItemsAxe,
+                *RagiInit.ItemsHammer,
+                *RagiInit.ItemsPickaxe,
+                *RagiInit.ItemsSpade,
+                *RagiInit.ItemsSword
+        )
 
     }
 }

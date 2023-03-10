@@ -24,7 +24,7 @@ object OreDictRegistry {
     )
 
     //鉱石辞書を登録するメソッド
-    fun init() {
+    init {
         //list内の各materialに対して実行
         for (material in MaterialRegistry.mapIndex.values) {
             //listOreDict内の各OreDictHandlerに対して実行

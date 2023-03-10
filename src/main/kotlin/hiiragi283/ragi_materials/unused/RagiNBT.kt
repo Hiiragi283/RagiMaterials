@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.util
+package hiiragi283.ragi_materials.unused
 
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound

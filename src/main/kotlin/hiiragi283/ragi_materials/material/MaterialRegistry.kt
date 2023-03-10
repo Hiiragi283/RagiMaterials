@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.material.element.ElementRegistry
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.render.color.RagiColor
 import net.minecraft.item.EnumRarity
+import net.minecraft.item.Item
 import net.minecraftforge.fluids.FluidRegistry
 
 object MaterialRegistry {
@@ -308,7 +309,6 @@ object MaterialRegistry {
 
     //220 ~ 229: Titanium
     val TITANIUM = SimpleBuilder(ElementRegistry.TITANIUM, 1).apply {
-        durability = 511
         rarity = EnumRarity.RARE
     }
 
@@ -329,7 +329,6 @@ object MaterialRegistry {
 
     val STAINLESS_STEEL = AlloyBuilder(242, "stainless_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
         color = RagiColor.mixColor(RagiColor.GRAY, RagiColor.WHITE)
-        durability = 511
         rarity = EnumRarity.RARE
     }
 
@@ -345,9 +344,7 @@ object MaterialRegistry {
     }
 
     //260 ~ 269: Iron
-    val IRON = SimpleBuilder(ElementRegistry.IRON, 1).apply {
-        durability = 127
-    }
+    val IRON = SimpleBuilder(ElementRegistry.IRON, 1)
 
     val HEMATITE = CompoundBuilder(261, "hematite", TypeRegistry.DUST, mapOf(ElementRegistry.IRON to 2, ElementRegistry.OXYGEN to 3)).apply {
         color = RagiColor.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
@@ -368,7 +365,6 @@ object MaterialRegistry {
     }
 
     val TOOL_STEEL = AlloyBuilder(265, "tool_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.MOLYBDENUM to 1)).apply {
-        durability = 511
         rarity = EnumRarity.RARE
     }
 

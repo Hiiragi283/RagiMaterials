@@ -5,11 +5,11 @@ import hiiragi283.ragi_materials.util.RagiUtil
 
 object RecipeRegistry {
 
-    fun init() {
+    init {
         addCrafting()
 
         RecipeMaterial.init()
-        RecipeMaterialTool.init()
+        //RecipeMaterialTool.init()
     }
 
     private fun addCrafting() {

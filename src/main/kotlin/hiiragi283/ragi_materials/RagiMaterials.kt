@@ -44,7 +44,7 @@ class RagiMaterials {
     fun preInit(event: FMLPreInitializationEvent?) {
         if (!isLoadedGT) {
             //Block, Itemの登録
-            RagiInit.init()
+            RagiInit
             //proxyの読み込み
             proxy!!.loadPreInit()
             //連携要素の登録
@@ -56,11 +56,11 @@ class RagiMaterials {
     fun init(event: FMLInitializationEvent?) {
         if (!isLoadedGT) {
             //鉱石辞書の登録
-            OreDictRegistry.init()
+            OreDictRegistry
             //レシピの登録
-            RecipeRegistry.init()
+            RecipeRegistry
             //パケットの登録
-            RagiPacket.init()
+            RagiPacket
             //proxyの読み込み
             proxy!!.loadInit()
             //連携要素の登録
@@ -74,8 +74,7 @@ class RagiMaterials {
             //コンフィグからレシピを追加
             RagiConfig.registerRecipe()
             //各種装置のレシピ登録
-            //FFRegistry.init()
-            LaboRecipeRegistry.init()
+            LaboRecipeRegistry
             //デバッグ用
             MaterialUtil.printMap()
             //proxyの読み込み
