@@ -2,12 +2,17 @@ package hiiragi283.ragi_materials.material.part
 
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 
-class MaterialPart(val name: String, val type: EnumMaterialType, val scale: Float) {
+class MaterialPart private constructor(val name: String, val type: EnumMaterialType, val scale: Float) {
 
-    init {
-        register()
+    class Builder(val name: String) {
+
+        var scale = 1.0f
+        var type = EnumMaterialType.DUMMY
+
+        fun build(): MaterialPart {
+            val part = MaterialPart(name, type, scale)
+            PartRegistry.map[part.name] = part
+            return part
+        }
     }
-
-    fun register(): MaterialPart = also{ PartRegistry.map[it.name] = it }
-
 }

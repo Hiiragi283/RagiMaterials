@@ -87,8 +87,8 @@ class TileLaboTable : TileBase(100), ISidedInventory {
         //サーバー側，かつインベントリが空でない場合
         if (!world.isRemote && !this.invLabo.isEmpty) {
             //レシピチェック
-            for (recipe in LaboRecipeRegistry.list) {
-                if (recipe.match(this.handlerSide)) {
+            for (recipe in LaboRecipeRegistry.map.values) {
+                if (recipe.match(this.handlerSide, true)) {
                     isFailed = false
                     for (output in recipe.outputs) {
                         RagiUtil.dropItem(world, pos, output)

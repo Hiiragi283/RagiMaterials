@@ -9,71 +9,58 @@ import net.minecraft.item.ItemStack
 
 object LaboRecipeRegistry {
 
-    val list: MutableList<LaboRecipeBuilder> = mutableListOf()
+    val map: LinkedHashMap<String, LaboRecipe> = linkedMapOf()
 
     fun init() {
 
         //Hydrogen
-        LaboRecipeBuilder(
-                RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN, count = 2),
-                RagiUtil.getFilledBottle(material = MaterialRegistry.OXYGEN),
-                output = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 2)
-        )
+        LaboRecipe.Builder(MaterialRegistry.WATER.name).apply {
+            inputs[0] = RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN, count = 2)
+            inputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.OXYGEN)
+            outputs[0] = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 2)
+        }.build()
 
         //Boron
-        LaboRecipeBuilder(
-                MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BORAX),
-                RagiUtil.getFilledBottle(material = MaterialRegistry.SULFURIC_ACID),
-                outputs = listOf(
-                        MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_SULFATE),
-                        MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BORON_OXIDE, 2),
-                        RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN, count = 11)
-                )
-        )
+        LaboRecipe.Builder(MaterialRegistry.BORON_OXIDE.name).apply {
+            inputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BORAX)
+            inputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.SULFURIC_ACID)
+            outputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BORON_OXIDE, 2)
+            outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_SULFATE)
+            outputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN, count = 11)
+        }.build()
 
         //Fluorine
-        LaboRecipeBuilder(
-                MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.FLUORITE),
-                RagiUtil.getFilledBottle(material = MaterialRegistry.SULFURIC_ACID),
-                outputs = listOf(
-                        MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.GYPSUM),
-                        RagiUtil.getFilledBottle(material = MaterialRegistry.HYDROGEN_FLUORIDE)
-                )
-        )
+        LaboRecipe.Builder(MaterialRegistry.HYDROGEN_FLUORIDE.name).apply {
+            inputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.FLUORITE)
+            inputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.SULFURIC_ACID)
+            outputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.GYPSUM)
+            outputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.HYDROGEN_FLUORIDE)
+        }.build()
 
         //Magnesium
-        LaboRecipeBuilder(
-                MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.MAGNESIUM_CARBONATE),
-                RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN_CHLORIDE, count = 2),
-                outputs = listOf(
-                        MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.MAGNESIUM_CHLORIDE),
-                        RagiUtil.getFilledBottle(material = MaterialRegistry.WATER),
-                        RagiUtil.getFilledBottle(material = MaterialRegistry.CARBON_DIOXIDE)
-                )
-        )
+        LaboRecipe.Builder(MaterialRegistry.HYDROGEN_FLUORIDE.name).apply {
+            inputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.MAGNESIUM_CARBONATE)
+            inputs[0] = RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN_CHLORIDE, count = 2)
+            outputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.MAGNESIUM_CHLORIDE)
+            outputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.WATER)
+            outputs[2] = RagiUtil.getFilledBottle(material = MaterialRegistry.CARBON_DIOXIDE)
+        }.build()
 
         //Aluminium
-        LaboRecipeBuilder(
-                MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BAUXITE),
-                MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2),
-                RagiUtil.getFilledBottle(MaterialRegistry.WATER ,count = 3),
-                outputs = listOf(
-                        MaterialUtil.getPart(PartRegistry.DUST_TINY, MaterialRegistry.RUTILE, 3),
-                        MaterialUtil.getPart(PartRegistry.DUST_TINY, MaterialRegistry.GALLIUM, 1),
-                        RagiUtil.getFilledBottle(MaterialRegistry.ALUMINA_SOLUTION, count = 2)
-                )
-        )
+        LaboRecipe.Builder(MaterialRegistry.ALUMINA_SOLUTION.name).apply {
+            inputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BAUXITE)
+            inputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
+            inputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.WATER ,count = 3)
+            outputs[0] = MaterialUtil.getPart(PartRegistry.DUST_TINY, MaterialRegistry.RUTILE, 3)
+            outputs[1] = MaterialUtil.getPart(PartRegistry.DUST_TINY, MaterialRegistry.GALLIUM, 1)
+            outputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.ALUMINA_SOLUTION, count = 2)
+        }.build()
 
-        LaboRecipeBuilder(
-                RagiUtil.getFilledBottle(MaterialRegistry.ALUMINA_SOLUTION, count = 2),
-                ItemStack(RagiInit.ItemBlazingCube),
-                outputs = listOf(
-                        MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.ALUMINIUM_OXIDE),
-                        MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2),
-                        RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 3),
-                        ItemStack(RagiInit.ItemBlazingCube)
-                )
-        )
-
+        LaboRecipe.Builder(MaterialRegistry.ALUMINIUM_OXIDE.name).apply{
+            inputs[1] = RagiUtil.getFilledBottle(MaterialRegistry.ALUMINA_SOLUTION, count = 2)
+            outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.ALUMINIUM_OXIDE)
+            outputs[2] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
+            outputs[3] = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 3)
+        }.setCatalyst(0, ItemStack(RagiInit.ItemBlazingCube)).build()
     }
 }

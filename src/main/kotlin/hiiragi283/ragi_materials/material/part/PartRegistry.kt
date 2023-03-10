@@ -6,30 +6,55 @@ object PartRegistry {
 
     val map: HashMap<String, MaterialPart> = hashMapOf()
 
-    val BLOCK = MaterialPart("block_material", EnumMaterialType.BLOCK_MATERIAL, 9.0f)
+    val BLOCK = MaterialPart.Builder("block_material").apply{
+        scale = 9.0f
+        type = EnumMaterialType.BLOCK_MATERIAL
+    }.build()
 
-    val CRYSTAL = MaterialPart("crystal", EnumMaterialType.CRYSTAL, 1.0f)
+    val CRYSTAL = MaterialPart.Builder("crystal").apply{
+        type = EnumMaterialType.CRYSTAL
+    }.build()
 
-    val DUST = MaterialPart("dust", EnumMaterialType.DUST, 1.0f)
+    val DUST = MaterialPart.Builder("dust").apply{
+        type = EnumMaterialType.DUST
+    }.build()
 
-    val DUST_TINY = MaterialPart("dust_tiny", EnumMaterialType.DUST, 0.1f)
+    val DUST_TINY = MaterialPart.Builder("dust_tiny").apply{
+        scale = 0.1f
+        type = EnumMaterialType.DUST
+    }.build()
 
-    val GEAR = MaterialPart("gear", EnumMaterialType.GEAR, 4.0f)
+    val GEAR = MaterialPart.Builder("gear").apply{
+        scale = 4.0f
+        type = EnumMaterialType.GEAR
+    }.build()
 
-    val INGOT = MaterialPart("ingot", EnumMaterialType.INGOT, 1.0f)
+    val INGOT = MaterialPart.Builder("ingot").apply{
+        type = EnumMaterialType.INGOT
+    }.build()
 
-    val INGOT_HOT = MaterialPart("ingot_hot", EnumMaterialType.INGOT_HOT, 1.0f)
+    val INGOT_HOT = MaterialPart.Builder("ingot_hot").apply{
+        type = EnumMaterialType.INGOT_HOT
+    }.build()
 
-    val NUGGET = MaterialPart("nugget", EnumMaterialType.NUGGET, 0.1f)
+    val NUGGET = MaterialPart.Builder("nugget").apply{
+        scale = 0.1f
+        type = EnumMaterialType.NUGGET
+    }.build()
 
-    val ORE = MaterialPart("ore", EnumMaterialType.DUMMY, 1.0f)
+    val ORE = MaterialPart.Builder("ore").build()
 
-    val ORE_NETHER = MaterialPart("ore_nether", EnumMaterialType.DUMMY, 1.0f)
+    val ORE_NETHER = MaterialPart.Builder("ore_nether").build()
 
-    val ORE_END = MaterialPart("ore_end", EnumMaterialType.DUMMY, 1.0f)
+    val ORE_END = MaterialPart.Builder("ore_end").build()
 
-    val PLATE = MaterialPart("plate", EnumMaterialType.PLATE, 1.0f)
+    val PLATE = MaterialPart.Builder("plate").apply{
+        type = EnumMaterialType.PLATE
+    }.build()
 
-    val STICK = MaterialPart("stick", EnumMaterialType.STICK, 0.5f)
+    val STICK = MaterialPart.Builder("stick").apply{
+        scale = 0.5f
+        type = EnumMaterialType.STICK
+    }.build()
 
 }

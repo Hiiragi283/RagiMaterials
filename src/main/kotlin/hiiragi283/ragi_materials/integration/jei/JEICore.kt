@@ -12,7 +12,7 @@ import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondCategory
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondMaker
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondRecipe
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondWrapper
-import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeBuilder
+import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
@@ -41,7 +41,7 @@ class JEICore : IModPlugin {
     override fun register(registry: IModRegistry) {
 
         registry.handleRecipes(FFRecipe::class.java, { FFWrapper(it) }, ForgeFurnace)
-        registry.handleRecipes(LaboRecipeBuilder::class.java, { LaboWrapper(it) }, LaboTable)
+        registry.handleRecipes(LaboRecipe::class.java, { LaboWrapper(it) }, LaboTable)
         registry.handleRecipes(SaltPondRecipe::class.java, { SaltPondWrapper(it) }, SaltPond)
 
         FFMaker.register(registry)

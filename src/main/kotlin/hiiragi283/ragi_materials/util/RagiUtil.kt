@@ -184,11 +184,13 @@ object RagiUtil {
     }
 
     fun dropItem(world: World, pos: BlockPos, stack: ItemStack) {
-        val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble() + 1.0f, pos.z.toDouble() + 0.5f, stack)
-        drop.setPickupDelay(0) //即座に回収できるようにする
-        drop.motionX = 0.0
-        drop.motionY = 0.25
-        drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
-        world.spawnEntity(drop) //ドロップアイテムをスポーン
+        if (!stack.isEmpty) {
+            val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble() + 1.0f, pos.z.toDouble() + 0.5f, stack)
+            drop.setPickupDelay(0) //即座に回収できるようにする
+            drop.motionX = 0.0
+            drop.motionY = 0.25
+            drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
+            world.spawnEntity(drop) //ドロップアイテムをスポーン
+        }
     }
 }

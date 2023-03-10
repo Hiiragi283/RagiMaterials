@@ -1,13 +1,13 @@
 package hiiragi283.ragi_materials.integration.jei.laboratory_table
 
-import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeBuilder
+import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipe
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 
-class LaboWrapper(info: LaboRecipeBuilder) : IRecipeWrapper {
+class LaboWrapper(info: LaboRecipe) : IRecipeWrapper {
 
-    val inputs = listOf(info.input1, info.input2, info.input3, info.input4, info.input5)
+    val inputs = info.inputs
     val output = info.outputs
 
     override fun getIngredients(ing: IIngredients) {
