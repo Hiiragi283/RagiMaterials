@@ -1,0 +1,58 @@
+{
+  "pools": [
+    {
+      "name": "iron",
+      "rolls": 1,
+      "entries": [
+        {
+          "entryName": "chromite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 1,
+          "functions": [
+            {
+              "data": 241,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "hematite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "data": 261,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "magnetite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "data": 262,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "pyrite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "data": 263,
+              "function": "set_data"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

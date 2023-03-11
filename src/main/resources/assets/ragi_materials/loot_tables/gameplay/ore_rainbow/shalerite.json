@@ -1,0 +1,22 @@
+{
+  "pools": [
+    {
+      "name": "sphalerite",
+      "rolls": 1,
+      "entries": [
+        {
+          "entryName": "sphalerite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "data": 301,
+              "function": "set_data"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

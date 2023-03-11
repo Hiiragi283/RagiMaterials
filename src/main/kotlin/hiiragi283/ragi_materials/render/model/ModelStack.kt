@@ -93,17 +93,11 @@ object ModelStack {
         }
 
         //Ore
-        val locationOverworld = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
-        val locationNether = ModelResourceLocation("${Reference.MOD_ID}:ore", "nether")
-        val locationEnd = ModelResourceLocation("${Reference.MOD_ID}:ore", "end")
+        RagiModel.setModelAlt(RagiInit.ItemOre, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
+        RagiModel.setModelAlt(RagiInit.ItemOreNether, ModelResourceLocation("${Reference.MOD_ID}:ore", "nether"))
+        RagiModel.setModelAlt(RagiInit.ItemOreEnd, ModelResourceLocation("${Reference.MOD_ID}:ore", "end"))
 
-        ModelLoader.registerItemVariants(RagiInit.ItemOre, locationOverworld)
-        ModelLoader.registerItemVariants(RagiInit.ItemOreNether, locationNether)
-        ModelLoader.registerItemVariants(RagiInit.ItemOreEnd, locationEnd)
-
-        ModelLoader.setCustomMeshDefinition(RagiInit.ItemOre) {locationOverworld}
-        ModelLoader.setCustomMeshDefinition(RagiInit.ItemOreNether) {locationNether}
-        ModelLoader.setCustomMeshDefinition(RagiInit.ItemOreEnd) {locationEnd}
+        RagiModel.setModelAlt(RagiInit.ItemBlockOreRainbow, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone_rainbow"))
 
     }
 }

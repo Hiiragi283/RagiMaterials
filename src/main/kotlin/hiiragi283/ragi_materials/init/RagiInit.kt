@@ -34,6 +34,7 @@ object RagiInit {
     val BlockFullBottleStation = BlockFullBottleStation()
     val BlockLaboratoryTable = BlockLaboTable()
     val BlockOreDictConv = BlockOreDictConv()
+    val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
     val BlockSaltPond = BlockSaltPond()
 
     //ToolMaterialの宣言
@@ -44,6 +45,7 @@ object RagiInit {
     val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation, 0)
     val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable, 0)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0)
+    val ItemBlockOreRainbow = ItemBlockBase(BlockOreRainbow, 0)
     val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
@@ -94,6 +96,7 @@ object RagiInit {
                 BlockFullBottleStation,
                 BlockLaboratoryTable,
                 BlockOreDictConv,
+                BlockOreRainbow,
                 BlockSaltPond
         )
 
@@ -103,6 +106,7 @@ object RagiInit {
                 ItemBlockFullBottleStation,
                 ItemBlockLaboratoryTable,
                 ItemBlockOreDictConv,
+                ItemBlockOreRainbow,
                 ItemBlockSaltPond,
 
                 ItemBlazingCube,

@@ -1,0 +1,46 @@
+{
+  "pools": [
+    {
+      "name": "laterite",
+      "rolls": 1,
+      "entries": [
+        {
+          "entryName": "magnesite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "data": 121,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "salt",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 1,
+          "functions": [
+            {
+              "data": 173,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "apatite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "data": 204,
+              "function": "set_data"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

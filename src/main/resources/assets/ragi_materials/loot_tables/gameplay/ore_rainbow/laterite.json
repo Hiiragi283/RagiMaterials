@@ -1,0 +1,46 @@
+{
+  "pools": [
+    {
+      "name": "laterite",
+      "rolls": 1,
+      "entries": [
+        {
+          "entryName": "bauxite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "data": 132,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "rutile",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 1,
+          "functions": [
+            {
+              "data": 221,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "hematite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "data": 261,
+              "function": "set_data"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "pools": [
+    {
+      "name": "copper",
+      "rolls": 1,
+      "entries": [
+        {
+          "entryName": "copper",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 4,
+          "functions": [
+            {
+              "data": 290,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "chalcocite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 2,
+          "functions": [
+            {
+              "data": 291,
+              "function": "set_data"
+            }
+          ]
+        },
+        {
+          "entryName": "chalcopyrite",
+          "name": "ragi_materials:ore",
+          "type": "item",
+          "weight": 1,
+          "functions": [
+            {
+              "data": 293,
+              "function": "set_data"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

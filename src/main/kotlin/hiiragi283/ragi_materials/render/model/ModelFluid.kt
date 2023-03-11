@@ -12,8 +12,7 @@ import net.minecraftforge.fluids.Fluid
 object ModelFluid {
 
     //液体ブロックのモデル登録
-    init {
-        /*
+    init {/*
           Thanks to defeatedcrow!
           Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463
         */
@@ -27,9 +26,7 @@ object ModelFluid {
                 //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
                 if (fluid.block !== null) {
                     ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
-                        override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation {
-                            return model
-                        }
+                        override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = model
                     })
                 }
             }

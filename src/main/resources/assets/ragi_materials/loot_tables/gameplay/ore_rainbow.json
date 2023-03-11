@@ -1,0 +1,73 @@
+{
+  "pools": [
+    {
+      "name": "ore_rainbow",
+      "rolls": 1,
+      "entries": [
+        {
+          "entryName": "fossil",
+          "name": "ragi_materials:gameplay/ore_rainbow/fossil",
+          "quality": -2,
+          "type": "loot_table",
+          "weight": 4
+        },
+        {
+          "entryName": "laterite",
+          "name": "ragi_materials:gameplay/ore_rainbow/laterite",
+          "quality": 0,
+          "type": "loot_table",
+          "weight": 4
+        },
+        {
+          "entryName": "alumina",
+          "name": "ragi_materials:gameplay/ore_rainbow/alumina",
+          "quality": 1,
+          "type": "loot_table",
+          "weight": 2
+        },
+        {
+          "entryName": "ocean",
+          "name": "ragi_materials:gameplay/ore_rainbow/ocean",
+          "quality": 0,
+          "type": "loot_table",
+          "weight": 2
+        },
+        {
+          "entryName": "manganese",
+          "name": "ragi_materials:gameplay/ore_rainbow/manganese",
+          "quality": 0,
+          "type": "loot_table",
+          "weight": 2
+        },
+        {
+          "entryName": "iron",
+          "name": "ragi_materials:gameplay/ore_rainbow/iron",
+          "quality": 0,
+          "type": "loot_table",
+          "weight": 6
+        },
+        {
+          "entryName": "arsenic",
+          "name": "ragi_materials:gameplay/ore_rainbow/arsenic",
+          "quality": 1,
+          "type": "loot_table",
+          "weight": 2
+        },
+        {
+          "entryName": "copper",
+          "name": "ragi_materials:gameplay/ore_rainbow/copper",
+          "quality": 0,
+          "type": "loot_table",
+          "weight": 6
+        },
+        {
+          "entryName": "sphalerite",
+          "name": "ragi_materials:gameplay/ore_rainbow/sphalerite",
+          "quality": 2,
+          "type": "loot_table",
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

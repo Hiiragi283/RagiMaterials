@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.init.LootTableRegistry
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.OreDictRegistry
 import hiiragi283.ragi_materials.integration.IntegrationCore
@@ -59,6 +60,8 @@ class RagiMaterials {
             OreDictRegistry
             //レシピの登録
             RecipeRegistry
+            //LootTableの登録
+            LootTableRegistry
             //パケットの登録
             RagiPacket
             //proxyの読み込み

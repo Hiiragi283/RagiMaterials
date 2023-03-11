@@ -10,6 +10,7 @@ tile.forge_furnace.name=Forge Furnace
 tile.fullbottle_station.name=Full Bottle Station
 tile.laboratory_table.name=Laboratory Table
 #tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
+tile.ore_rainbow.name=§cR§6a§ei§an§bb§9o§dw§r Ore
 tile.oredict_converter.name=Ore Dictionary Converter
 tile.salt_pond.name=Salt Evaporation Pond
 
@@ -62,6 +63,8 @@ tips.ragi_materials.fullbottle_station.2=The fluids will be converted automatica
 tips.ragi_materials.laboratory_table.0=Used for chemical reaction
 tips.ragi_materials.laboratory_table.1=Insert item by right-clicking or using hopper
 tips.ragi_materials.laboratory_table.2=If the quantity or order is §cwrong§r§7, §bChemical Waste§r§7 is generated
+tips.ragi_materials.ore_rainbow.0=When mined, drops various ores
+tips.ragi_materials.ore_rainbow.1=Shift right-click with empty hand to collect
 tips.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
 tips.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
@@ -140,7 +143,7 @@ material.sodium_bisulfate=Sodium Bisulfate
 material.sodium_sulfate=Sodium Sulfate
 
 material.magnesium=Magnesium
-material.magnesium_carbonate=Magnesium Carbonate
+material.magnesium_carbonate=Magnesite
 
 material.aluminium=Aluminium
 material.aluminium_oxide=Aluminium Oxide

@@ -13,6 +13,13 @@
         "stone": "blocks/stone"
       }
     }],
+    "stone_rainbow": [{
+      "textures": {
+        "stone": "blocks/stone",
+        "ore": "ragi_materials:blocks/ore_rainbow",
+        "particle": "ragi_materials:blocks/ore_rainbow"
+      }
+    }],
     "nether": [{
       "textures": {
         "stone": "blocks/netherrack"

@@ -10,6 +10,7 @@ tile.forge_furnace.name=鍛造炉
 tile.fullbottle_station.name=フルボトルメーカー
 tile.laboratory_table.name=実験台
 #tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
+tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=塩田ブロック
 
@@ -62,6 +63,8 @@ tips.ragi_materials.fullbottle_station.2=液体は1秒でフルボトルへと�
 tips.ragi_materials.laboratory_table.0=化学反応に利用します
 tips.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを搬入します
 tips.ragi_materials.laboratory_table.2=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
+tips.ragi_materials.ore_rainbow.0=採掘時にさまざまな鉱石をドロップします
+tips.ragi_materials.ore_rainbow.1=素手でシフト右クリックですることで回収できます
 tips.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
 tips.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換します
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
@@ -140,7 +143,7 @@ material.sodium_bisulfate=硫酸水素ナトリウム
 material.sodium_sulfate=硫酸ナトリウム
 
 material.magnesium=マグネシウム
-material.magnesium_carbonate=炭酸マグネシウム
+material.magnesium_carbonate=マグネサイト
 
 material.aluminium=アルミニウム
 material.aluminium_oxide=酸化アルミニウム

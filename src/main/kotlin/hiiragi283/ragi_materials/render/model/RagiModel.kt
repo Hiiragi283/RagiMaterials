@@ -2,8 +2,6 @@ package hiiragi283.ragi_materials.render.model
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.IMaterialTool
-import hiiragi283.ragi_materials.base.ItemToolBase
-import hiiragi283.ragi_materials.material.IMaterialItem
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -41,23 +39,23 @@ object RagiModel {
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    fun setModelTool(vararg tools: ItemToolBase) {
-        for (tool in tools) {
-            val model = ModelResourceLocation("${Reference.MOD_ID}:${tool.ID}", tool.material.name)
-            ModelLoader.registerItemVariants(tool, model)
-            ModelLoader.setCustomMeshDefinition(tool) { model }
-        }
-    }
-
+    //道具用のモデル登録メソッド
     @SideOnly(Side.CLIENT)
     fun setModelTool(vararg tools: Item) {
         for (tool in tools) {
             if (tool is IMaterialTool) {
-                val model = ModelResourceLocation("${Reference.MOD_ID}:${tool.getToolID()}", tool.getToolMaterial().name)
+                val model = ModelResourceLocation("${Reference.MOD_ID}:tools", tool.getToolID())
                 ModelLoader.registerItemVariants(tool, model)
                 ModelLoader.setCustomMeshDefinition(tool) { model }
             }
         }
     }
+
+    //新規でモデルのパスを紐づけてモデルを登録するメソッド
+    @SideOnly(Side.CLIENT)
+    fun setModelAlt(item: Item, location: ModelResourceLocation) {
+        ModelLoader.registerItemVariants(item, location)
+        ModelLoader.setCustomMeshDefinition(item) { location }
+    }
+
 }
