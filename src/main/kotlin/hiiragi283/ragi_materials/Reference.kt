@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials
 
 import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
+import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.server.MinecraftServer
 
 object Reference {
@@ -25,6 +27,10 @@ object Reference {
     //Server側のProxyの定義
     const val SERVER_PROXY_CLASS = "hiiragi283.ragi_materials.proxy.CommonProxy"
 
-    //Serverの定義 (コマンド実行用)
-    val SERVER: MinecraftServer? = Minecraft.getMinecraft().integratedServer
+    //各種変数の宣言
+    val SERVER = Minecraft.getMinecraft().integratedServer?.server
+
+    val WORLD_CLIENT: WorldClient = Minecraft.getMinecraft().world
+
+    val PLAYER_CLIENT: EntityPlayerSP = Minecraft.getMinecraft().player
 }

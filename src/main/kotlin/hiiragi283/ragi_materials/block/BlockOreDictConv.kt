@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -81,8 +82,8 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
                 //resultがEMPTYでない場合
                 return if (result.item !== Items.AIR) {
                     stack.shrink(count) //stackを1つ減らす
-                    RagiUtil.spawnItemAtPlayer(world, player, result)
-                    RagiUtil.soundHypixel(world, pos) //SEを再生
+                    RagiUtil.dropItemAtPlayer(player, result)
+                    RagiSoundEvent.playSoundHypixel(world, pos)
                     RagiLogger.infoDebug("Item was converted!")
                     true
                 } else false

@@ -7,6 +7,7 @@ import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
 import hiiragi283.ragi_materials.util.RagiInventory
 import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -16,7 +17,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
@@ -69,7 +69,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                 //投入の前後でItemStackが変化した -> スロットに空きがある
                 if (!RagiUtil.isSameStack(stack, stackRemain, true)) {
                     player.setHeldItem(hand, handlerSide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
-                    world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.itemframe.add_item"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+                    RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.itemframe.add_item"))
                     markDirty()
                     RagiLogger.infoDebug("Stack Inserted to slot$i!")
                     break
@@ -94,7 +94,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                         RagiUtil.dropItem(world, pos, output)
                         RagiLogger.infoDebug("The stack is ${output.toBracket()}")
                     }
-                    RagiUtil.soundHypixel(world, pos)
+                    RagiSoundEvent.playSoundHypixel(this)
                     RagiLogger.infoDebug("Succeeded!")
                     break
                 }
@@ -103,7 +103,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
             //失敗時の処理
             if (isFailed) {
                 RagiUtil.dropItem(world, pos, ItemStack(RagiInit.ItemWaste, 1, 0))
-                world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.generic.explode"), SoundCategory.BLOCKS, 1.0f, 1.0f)
+                RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.generic.explode"))
                 RagiLogger.infoDebug("Failed...!")
             }
             this.invLabo.clear() //反応結果によらずインベントリを空にする

@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.material.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntityFurnace
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
@@ -32,7 +31,8 @@ class TileForgeFurnace : TileBase(102) {
             return if (isFuel(stack)) {
                 RagiLogger.infoDebug("Burn Time: ${TileEntityFurnace.getItemBurnTime(stack)}")
                 fuel += (TileEntityFurnace.getItemBurnTime(stack) * stack.count) / 200
-                world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
+                playSoundFuel()
+                //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
                 RagiLogger.infoDebug("Fuel: $fuel")
                 ItemStack.EMPTY //燃料は消失する
             } else stack //燃焼不可能な素材なら搬入不可能
@@ -69,7 +69,7 @@ class TileForgeFurnace : TileBase(102) {
         return if (isFuel(stack)) {
             player.setHeldItem(hand, this.inventory.insertItem(0, stack, false)) //燃料を搬入
             true
-        } else doProcess(world, pos, player, hand) //レシピを実行
+        } else doProcess(world, player, hand) //レシピを実行
     }
 
     //    Recipe    //
@@ -104,7 +104,7 @@ class TileForgeFurnace : TileBase(102) {
         return result
     }
 
-    private fun doProcess(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand): Boolean {
+    private fun doProcess(world: World, player: EntityPlayer, hand: EnumHand): Boolean {
         val stack = player.getHeldItem(hand)
         val stackResult = getResult(stack)
         var result = false
@@ -118,9 +118,9 @@ class TileForgeFurnace : TileBase(102) {
                 RagiLogger.infoDebug("Fuel: ${this.fuel}")
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
-                RagiUtil.spawnItemAtPlayer(world, player, stackResult) //完成品をプレイヤーに渡す
+                RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
 
-                world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+                RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.fire.extinguish"))
                 result = true
             }
         }
@@ -129,5 +129,9 @@ class TileForgeFurnace : TileBase(102) {
 
     //かまどのタイルエンティティから燃焼時間を取得
     private fun isFuel(stack: ItemStack): Boolean = TileEntityFurnace.getItemBurnTime(stack) > 0
+
+    fun playSoundFuel() {
+        RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
+    }
 
 }

@@ -7,7 +7,6 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
@@ -23,7 +22,7 @@ object FFHelper {
             val result = state.withProperty(BlockForgeFurnace.FUEL, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
-            world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
+            //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
             stack.shrink(1) //手持ちの燃料を1つ減らす
             RagiLogger.infoDebug("Fuel was added!")
         }
@@ -45,7 +44,7 @@ object FFHelper {
             //resultが空気でない場合
             return if (result.item !== Items.AIR) {
                 stack.shrink(1) //stackを1つ減らす
-                RagiUtil.spawnItemAtPlayer(world, player, result)
+                RagiUtil.dropItemAtPlayer(player, result)
                 setState(world, pos, state) //Forge Furnaceの状態を上書き
                 RagiLogger.infoDebug("Heating was succeeded!")
                 true
@@ -82,7 +81,7 @@ object FFHelper {
                     .withProperty(BlockForgeFurnace.FUEL, fuel - 1)
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
-                world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+                //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
                 RagiLogger.infoDebug("The state of Forge Furnace was updated!")
             }
 
@@ -99,10 +98,10 @@ object FFHelper {
 
             is BlockBlazeHeater -> {
                 if (state.getValue(BlockBlazeHeater.HELL)) {
-                    world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
+                    //world.playSound(null, pos, RagiUtil.getSound("minecraft:entity.endermen.hurt"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
                     RagiLogger.infoDebug("The state of Hellrise Heater was updated!")
                 } else {
-                    world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
+                    //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
                     RagiLogger.infoDebug("The state of Blaze Heater was updated!")
                 }
             }

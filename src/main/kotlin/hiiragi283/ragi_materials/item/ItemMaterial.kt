@@ -58,7 +58,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
                         //崩壊後の素材を取得
                         val materialDecayed = material.decayed
-                        materialDecayed?.let { RagiUtil.spawnItemAtPlayer(world, entity, ItemStack(this, 1, it.index)) }
+                        materialDecayed?.let { RagiUtil.dropItemAtPlayer(entity, ItemStack(this, 1, it.index)) }
                     }
                 }
             }

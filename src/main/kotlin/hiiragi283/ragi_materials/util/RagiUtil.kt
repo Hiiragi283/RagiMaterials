@@ -15,15 +15,11 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.SoundCategory
-import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.registry.ForgeRegistries
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.items.ItemStackHandler
 import net.minecraftforge.oredict.OreDictionary
 
@@ -46,13 +42,11 @@ object RagiUtil {
 
     //    Command    //
 
-    fun executeCommand(sender: ICommandSender?, command: String) {
-        if (Reference.SERVER !== null && sender !== null) {
-            Reference.SERVER.getCommandManager().executeCommand(sender, command)
-        }
+    fun executeCommand(sender: ICommandSender, command: String) {
+        Reference.SERVER?.getCommandManager()?.executeCommand(sender, command)
     }
 
-    fun setTitle(player: EntityPlayer?, title: String, subtitle: String) {
+    fun setTitle(player: EntityPlayer, title: String, subtitle: String) {
         //コマンドの実行結果を出力しないようにする
         executeCommand(player, "gamerule sendCommandFeedback false")
         //titleの設定
@@ -136,18 +130,7 @@ object RagiUtil {
     }
 
     fun getPotionEffect(registryName: String, time: Int, level: Int): PotionEffect {
-        return getPotion(registryName).let { PotionEffect(it, time, level) }
-    }
-
-    //    Sound    //
-
-    @SideOnly(Side.CLIENT)
-    fun getSound(registryName: String): SoundEvent {
-        return ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation(registryName))?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
-    }
-
-    fun soundHypixel(world: World, pos: BlockPos) {
-        world.playSound(null, pos, getSound("minecraft:entity.player.levelup"), SoundCategory.BLOCKS, 1.0f, 0.5f)
+        return PotionEffect(getPotion(registryName), time, level)
     }
 
     //    Other    //
@@ -169,7 +152,8 @@ object RagiUtil {
         return if (this) 1 else 0
     }
 
-    fun spawnItemAtPlayer(world: World, player: EntityPlayer, stack: ItemStack) {
+    fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack) {
+        val world = player.world
         if (!world.isRemote) {
             val posPlayer = player.position
             dropItem(world, posPlayer, stack)
