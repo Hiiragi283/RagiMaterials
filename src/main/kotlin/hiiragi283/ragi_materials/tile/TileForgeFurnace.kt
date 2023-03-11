@@ -32,7 +32,6 @@ class TileForgeFurnace : TileBase(102) {
                 RagiLogger.infoDebug("Burn Time: ${TileEntityFurnace.getItemBurnTime(stack)}")
                 fuel += (TileEntityFurnace.getItemBurnTime(stack) * stack.count) / 200
                 playSoundFuel()
-                //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
                 RagiLogger.infoDebug("Fuel: $fuel")
                 ItemStack.EMPTY //燃料は消失する
             } else stack //燃焼不可能な素材なら搬入不可能
@@ -69,7 +68,7 @@ class TileForgeFurnace : TileBase(102) {
         return if (isFuel(stack)) {
             player.setHeldItem(hand, this.inventory.insertItem(0, stack, false)) //燃料を搬入
             true
-        } else doProcess(world, player, hand) //レシピを実行
+        } else doProcess(player, hand) //レシピを実行
     }
 
     //    Recipe    //
@@ -77,6 +76,7 @@ class TileForgeFurnace : TileBase(102) {
     private fun canProcess(stack: ItemStack): Boolean = this.fuel >= getFuelConsumption(stack) //入っている燃料が消費量より多いなら実行可能
 
     companion object {
+
         fun getFuelConsumption(stack: ItemStack): Int {
             val item = stack.item
             return if (item is IMaterialItem && item is ItemMaterial) {
@@ -88,23 +88,23 @@ class TileForgeFurnace : TileBase(102) {
                 return fuelConsume
             } else 0
         }
-    }
 
-    private fun getResult(stack: ItemStack): ItemStack {
-        val item = stack.item
-        var result = ItemStack.EMPTY
-        if (item is IMaterialItem) {
-            val material = item.getMaterial(stack)
-            if (item is ItemMaterial) {
-                val scale = item.part.scale
-                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, scale.toInt()) //完成品を代入
+        fun getResult(stack: ItemStack): ItemStack {
+            val item = stack.item
+            var result = ItemStack.EMPTY
+            if (item is IMaterialItem) {
+                val material = item.getMaterial(stack)
+                if (item is ItemMaterial) {
+                    val scale = item.part.scale
+                    if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, scale.toInt()) //完成品を代入
+                }
+                RagiLogger.infoDebug("Result: ${result.toBracket()}")
             }
-            RagiLogger.infoDebug("Result: ${result.toBracket()}")
+            return result
         }
-        return result
     }
 
-    private fun doProcess(world: World, player: EntityPlayer, hand: EnumHand): Boolean {
+    private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         val stack = player.getHeldItem(hand)
         val stackResult = getResult(stack)
         var result = false

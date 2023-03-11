@@ -27,6 +27,7 @@ object RagiInit {
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
+    val BlockBlazingMelter = BlockBlazingMelter()
     val BlockCropCoal = BlockCropCoal()
     val BlockCropLignite = BlockCropLignite()
     val BlockCropPeat = BlockCropPeat("crop_peat")
@@ -41,12 +42,13 @@ object RagiInit {
     val ToolTitanium = EnumHelper.addToolMaterial("RM_TITANIUM", 3, 511, 8.0f, 3.0f, 10)!!
 
     //Itemの定義
-    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace, 0)
-    val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation, 0)
-    val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable, 0)
-    val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv, 0)
-    val ItemBlockOreRainbow = ItemBlockBase(BlockOreRainbow, 0)
-    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond, 0)
+    val ItemBlockBlazingMelter = ItemBlockBase(BlockBlazingMelter)
+    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace)
+    val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation)
+    val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable)
+    val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv)
+    val ItemBlockOreRainbow = ItemBlockBase(BlockOreRainbow)
+    val ItemBlockSaltPond = ItemBlockBase(BlockSaltPond)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
@@ -89,6 +91,7 @@ object RagiInit {
     init {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
+                BlockBlazingMelter,
                 BlockCropCoal,
                 BlockCropLignite,
                 BlockCropPeat,
@@ -102,6 +105,7 @@ object RagiInit {
 
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
+                ItemBlockBlazingMelter,
                 ItemBlockForgeFurnace,
                 ItemBlockFullBottleStation,
                 ItemBlockLaboratoryTable,

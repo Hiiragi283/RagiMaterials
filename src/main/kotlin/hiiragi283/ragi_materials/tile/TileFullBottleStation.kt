@@ -20,7 +20,7 @@ import net.minecraftforge.items.ItemStackHandler
 class TileFullBottleStation : TileBase(101), ITickable {
 
     val inventory = ItemStackHandler(1)
-    private val tank = RagiTank(60000)
+    private val tank = RagiTank(64000)
     private var count = 0
 
     init {
@@ -31,15 +31,15 @@ class TileFullBottleStation : TileBase(101), ITickable {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setTag("inventory", this.inventory.serializeNBT()) //インベントリをtagに書き込む
-        tag.setTag("tank", this.tank.serializeNBT())
+        tag.setTag(keyInventory, this.inventory.serializeNBT()) //インベントリをtagに書き込む
+        tag.setTag(keyTank, this.tank.serializeNBT())
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        this.inventory.deserializeNBT(tag.getCompoundTag("inventory")) //tagからインベントリを読み込む
-        this.tank.deserializeNBT(tag.getCompoundTag("tank")) //tagから液体タンクを読み込む
+        this.inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //tagからインベントリを読み込む
+        this.tank.deserializeNBT(tag.getCompoundTag(keyTank)) //tagから液体タンクを読み込む
     }
 
     //    Capability    //

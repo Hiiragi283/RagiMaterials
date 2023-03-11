@@ -13,6 +13,9 @@ import net.minecraft.world.World
 
 abstract class TileBase(val type: Int) : TileEntity() {
 
+    val keyInventory = "inventory"
+    val keyTank = "tank"
+
     //    NBT tag    //
 
     override fun getUpdateTag(): NBTTagCompound = writeToNBT(NBTTagCompound()) //オーバーライドしないと正常に更新されない

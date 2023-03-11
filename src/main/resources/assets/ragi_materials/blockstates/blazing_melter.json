@@ -2,17 +2,10 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "forge_marker": 1,
   "defaults": {
+    "model": "ragi_materials:blazing_melter",
     "uvlock": true
   },
   "variants": {
-    "hellrise": {
-      "true": {
-        "model": "ragi_materials:hellrise_heater"
-      },
-      "false": {
-        "model": "ragi_materials:blaze_heater"
-      }
-    },
     "facing": {
       "north": {},
       "east": {

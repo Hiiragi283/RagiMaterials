@@ -8,7 +8,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemBlockBase(block: Block, private val maxMeta: Int) : ItemBlock(block) {
+open class ItemBlockBase(block: Block, private val maxMeta: Int = 0) : ItemBlock(block) {
 
     init {
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
