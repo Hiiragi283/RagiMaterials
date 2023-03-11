@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.block
+package hiiragi283.ragi_materials.unused
 
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -16,10 +16,10 @@ object FFHelper {
     //燃料を投入するメソッド
     fun setFuel(world: World, pos: BlockPos, state: IBlockState, stack: ItemStack): ItemStack {
         //stateから状態を取得
-        val fuel = state.getValue(BlockForgeFurnace.FUEL)
+        val fuel = state.getValue(BlockForgeFurnaceOld.FUEL)
         //サーバー側，かつブロックに蓄えられた燃料が3未満の場合
         if (!world.isRemote && fuel < 3) {
-            val result = state.withProperty(BlockForgeFurnace.FUEL, fuel + 1)
+            val result = state.withProperty(BlockForgeFurnaceOld.FUEL, fuel + 1)
             world.setBlockState(pos, result, 2) //燃料を投入する
             world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
             //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.gravel.place"), SoundCategory.BLOCKS, 1.0f, 0.5f) //SEを再生
@@ -55,8 +55,8 @@ object FFHelper {
     //レシピが実行できるかどうか
     /*private fun canProcess(state: IBlockState, type: FFRecipe.EnumFire): Boolean {
         return when (state.block) {
-            is BlockForgeFurnace -> {
-                val fuel = state.getValue(BlockForgeFurnace.FUEL)
+            is BlockForgeFurnaceOld -> {
+                val fuel = state.getValue(BlockForgeFurnaceOld.FUEL)
                 //燃料が入っているならtrue
                 type == FFRecipe.EnumFire.BURNING && fuel > 0
             }
@@ -73,12 +73,12 @@ object FFHelper {
     private fun setState(world: World, pos: BlockPos, state: IBlockState) {
         val facing = state.getValue(BlockHorizontal.FACING)
         when (state.block) {
-            is BlockForgeFurnace -> {
+            is BlockForgeFurnaceOld -> {
                 //stateから状態を取得
-                val fuel = state.getValue(BlockForgeFurnace.FUEL)
+                val fuel = state.getValue(BlockForgeFurnaceOld.FUEL)
                 val result = state
-                    .withProperty(BlockHorizontal.FACING, facing)
-                    .withProperty(BlockForgeFurnace.FUEL, fuel - 1)
+                        .withProperty(BlockHorizontal.FACING, facing)
+                        .withProperty(BlockForgeFurnaceOld.FUEL, fuel - 1)
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, state.block) //コンパレータ出力を更新
                 //world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生
@@ -86,10 +86,10 @@ object FFHelper {
             }
 
             is BlockLitForgeFurnace -> {
-                /*val forgeFurnace = RagiInit.BlockForgeFurnace.defaultState
+                /*val forgeFurnace = RagiInit.BlockForgeFurnaceOld.defaultState
                 val result = forgeFurnace
                     .withProperty(BlockHorizontal.FACING, facing)
-                    .withProperty(BlockForgeFurnace.FUEL, 2)
+                    .withProperty(BlockForgeFurnaceOld.FUEL, 2)
                 world.setBlockState(pos, result, 2)
                 world.updateComparatorOutputLevel(pos, result.block) //コンパレータ出力を更新
                 world.playSound(null, pos, RagiUtil.getSound("minecraft:block.fire.extinguish"), SoundCategory.BLOCKS, 1.0f, 1.0f) //SEを再生

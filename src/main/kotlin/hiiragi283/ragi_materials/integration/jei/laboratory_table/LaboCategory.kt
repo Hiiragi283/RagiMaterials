@@ -19,7 +19,7 @@ class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboWrapper>(guiHelp
         background = guiHelper.createDrawable(location, 1, 1, 90, 54)
     }
 
-    override fun getUid(): String  = JEICore.LaboTable
+    override fun getUid(): String = JEICore.LaboTable
 
     override fun getBackground(): IDrawable = background
 
@@ -28,7 +28,7 @@ class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboWrapper>(guiHelp
         val inputs = recipeWrapper.inputs
         val outputs = recipeWrapper.output
 
-        for (i in 0 .. 4) {
+        for (i in 0..4) {
             recipeLayout.itemStacks.init(i, true, i * 18, 0)
             recipeLayout.itemStacks[i] = inputs[i]
         }

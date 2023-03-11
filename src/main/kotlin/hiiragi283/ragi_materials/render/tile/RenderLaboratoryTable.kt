@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 */
 
 @SideOnly(Side.CLIENT)
-class RenderLaboratoryTable: TileEntitySpecialRenderer<TileLaboTable>() {
+class RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
 
     private val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/laboratory_table.png")
 

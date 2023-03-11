@@ -10,9 +10,9 @@ class LaboRecipe private constructor(location: ResourceLocation, val inputs: Mut
 
     class Builder(private val location: ResourceLocation) {
 
-        constructor(domain: String, path: String): this(ResourceLocation(domain, path))
+        constructor(domain: String, path: String) : this(ResourceLocation(domain, path))
 
-        constructor(path: String): this(ResourceLocation(Reference.MOD_ID, path))
+        constructor(path: String) : this(ResourceLocation(Reference.MOD_ID, path))
 
         var inputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
         var outputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)

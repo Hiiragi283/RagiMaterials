@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-class BlockOreRainbow(ID: String): BlockBase(ID, Material.ROCK, 1) {
+class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
 
     init {
         blockHardness = 3.0f

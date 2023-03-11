@@ -28,7 +28,7 @@ object RagiUtil {
     //    Block    //
 
     fun getBlock(registryName: String): Block {
-        return ForgeRegistries.BLOCKS.getValue(ResourceLocation(registryName))?: Blocks.BARRIER
+        return ForgeRegistries.BLOCKS.getValue(ResourceLocation(registryName)) ?: Blocks.BARRIER
     }
 
     fun getState(registryName: String, meta: Int): IBlockState {
@@ -71,7 +71,7 @@ object RagiUtil {
     //    Item    //
 
     fun getItem(registryName: String): Item {
-        return ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))?: Item.getItemFromBlock(Blocks.BARRIER)
+        return ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName)) ?: Item.getItemFromBlock(Blocks.BARRIER)
     }
 
     fun getStack(registryName: String, amount: Int, meta: Int): ItemStack {
@@ -126,7 +126,7 @@ object RagiUtil {
     //    Potion    //
 
     fun getPotion(registryName: String): Potion {
-        return ForgeRegistries.POTIONS.getValue(ResourceLocation(registryName))?: Potion.getPotionById(1)!!
+        return ForgeRegistries.POTIONS.getValue(ResourceLocation(registryName)) ?: Potion.getPotionById(1)!!
     }
 
     fun getPotionEffect(registryName: String, time: Int, level: Int): PotionEffect {

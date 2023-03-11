@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-class BlockFullBottleStation: RagiBlockContainer("fullbottle_station" ,Material.IRON, 2) {
+class BlockFullBottleStation : RagiBlockContainer("fullbottle_station", Material.IRON, 2) {
 
     init {
         blockHardness = 5.0F

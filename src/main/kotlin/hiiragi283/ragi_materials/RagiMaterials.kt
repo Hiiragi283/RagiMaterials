@@ -20,11 +20,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 //Modの定義
 @Mod(
-    modid = Reference.MOD_ID,
-    name = Reference.MOD_NAME,
-    version = Reference.VERSION,
-    dependencies = Reference.DEPENDENCIES,
-    acceptedMinecraftVersions = Reference.MC_VERSIONS
+        modid = Reference.MOD_ID,
+        name = Reference.MOD_NAME,
+        version = Reference.VERSION,
+        dependencies = Reference.DEPENDENCIES,
+        acceptedMinecraftVersions = Reference.MC_VERSIONS
 )
 class RagiMaterials {
 

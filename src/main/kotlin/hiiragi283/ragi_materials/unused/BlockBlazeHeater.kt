@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.block
+package hiiragi283.ragi_materials.unused
 
 import hiiragi283.ragi_materials.base.BlockHorizontalBase
 import hiiragi283.ragi_materials.init.RagiInit
@@ -51,7 +51,7 @@ class BlockBlazeHeater : BlockHorizontalBase("blaze_heater", Material.ROCK, 2) {
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer  = BlockStateContainer(this, FACING, HELL)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, FACING, HELL)
 
     override fun getMetaFromState(state: IBlockState): Int {
         return when (state.getValue(FACING)) {
@@ -75,7 +75,7 @@ class BlockBlazeHeater : BlockHorizontalBase("blaze_heater", Material.ROCK, 2) {
         return this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(HELL, isHellrise)
     }
 
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(HELL, meta % 4 == 1)", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing", "hiiragi283.ragi_materials.block.BlockBlazeHeater.Companion.HELL"))
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(HELL, meta % 4 == 1)", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing", "hiiragi283.ragi_materials.unused.BlockBlazeHeater.Companion.HELL"))
     override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2)).withProperty(HELL, meta % 4 == 1)
 
     //    Event    //

@@ -1,9 +1,7 @@
-package hiiragi283.ragi_materials.block
+package hiiragi283.ragi_materials.unused
 
 import hiiragi283.ragi_materials.base.BlockHorizontalBase
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toInt
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
@@ -15,7 +13,6 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.SoundCategory
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
@@ -46,6 +43,7 @@ class BlockBellow : BlockHorizontalBase("block_bellow", Material.CLOTH, 1) {
                 true -> BlockFaceShape.UNDEFINED
                 false -> BlockFaceShape.SOLID
             }
+
             EnumFacing.DOWN -> BlockFaceShape.SOLID
             else -> BlockFaceShape.UNDEFINED
         }
@@ -71,7 +69,7 @@ class BlockBellow : BlockHorizontalBase("block_bellow", Material.CLOTH, 1) {
 
     override fun getMetaFromState(state: IBlockState): Int = ((!state.getValue(ACTIVE)).toInt()) * 4 + (state.getValue(FACING).index - 2)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(ACTIVE, meta / 4 == 0).withProperty(FACING, EnumFacing.getFront((meta % 4) + 2))", "hiiragi283.ragi_materials.block.BlockBellow.Companion.ACTIVE", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing"))
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(ACTIVE, meta / 4 == 0).withProperty(FACING, EnumFacing.getFront((meta % 4) + 2))", "hiiragi283.ragi_materials.unused.BlockBellow.Companion.ACTIVE", "net.minecraft.block.BlockHorizontal.FACING", "net.minecraft.util.EnumFacing"))
     override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(ACTIVE, meta / 4 == 0).withProperty(FACING, EnumFacing.getFront((meta % 4) + 2))
 
     //    Event    //
@@ -91,7 +89,7 @@ class BlockBellow : BlockHorizontalBase("block_bellow", Material.CLOTH, 1) {
             val posFurnace = pos.offset(facingBellow)
             val stateTo = world.getBlockState(posFurnace)
             //stateTo.blockがBlockForgeFurnace，かつ燃料が満タンの場合
-            return if (stateTo.block is BlockForgeFurnace && stateTo.getValue(BlockForgeFurnace.FUEL) == 3) {
+            return if (stateTo.block is BlockForgeFurnaceOld && stateTo.getValue(BlockForgeFurnaceOld.FUEL) == 3) {
                 val facingFurnace = stateTo.getValue(FACING) //Forge Furnaceの方向
                 val litForgeFurnace = RagiInit.BlockLitForgeFurnace.defaultState
                 world.setBlockState(posFurnace, litForgeFurnace.withProperty(FACING, facingFurnace), 2) //火力UP

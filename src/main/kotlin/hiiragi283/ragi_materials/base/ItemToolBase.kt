@@ -11,7 +11,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemToolBase(val ID: String, val material: MaterialBuilder, materialTool: ToolMaterial): ItemTool(materialTool.attackDamage, -3.0f, materialTool, setOf()), IMaterialItem, IMaterialTool {
+class ItemToolBase(val ID: String, val material: MaterialBuilder, materialTool: ToolMaterial) : ItemTool(materialTool.attackDamage, -3.0f, materialTool, setOf()), IMaterialItem, IMaterialTool {
 
     init {
         val name = "${ID}_${material.name}"
@@ -42,7 +42,7 @@ class ItemToolBase(val ID: String, val material: MaterialBuilder, materialTool: 
 
     override fun getToolMaterial(): MaterialBuilder = material
 
-    class AXE(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "axe"): ItemAxe(materialTool, 6.0f + materialTool.attackDamage, 3.0f), IMaterialItem, IMaterialTool {
+    class AXE(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "axe") : ItemAxe(materialTool, 6.0f + materialTool.attackDamage, 3.0f), IMaterialItem, IMaterialTool {
 
         init {
             val name = "${ID}_${material.name}"
@@ -75,7 +75,7 @@ class ItemToolBase(val ID: String, val material: MaterialBuilder, materialTool: 
 
     }
 
-    class PICKAXE(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "pickaxe"): ItemPickaxe(materialTool), IMaterialItem, IMaterialTool {
+    class PICKAXE(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "pickaxe") : ItemPickaxe(materialTool), IMaterialItem, IMaterialTool {
 
         init {
             val name = "${ID}_${material.name}"
@@ -108,7 +108,7 @@ class ItemToolBase(val ID: String, val material: MaterialBuilder, materialTool: 
 
     }
 
-    class SPADE(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "spade"): ItemSpade(materialTool), IMaterialItem, IMaterialTool {
+    class SPADE(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "spade") : ItemSpade(materialTool), IMaterialItem, IMaterialTool {
 
         init {
             val name = "${ID}_${material.name}"
@@ -141,7 +141,7 @@ class ItemToolBase(val ID: String, val material: MaterialBuilder, materialTool: 
 
     }
 
-    class SWORD(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "sword"): ItemSword(materialTool), IMaterialItem, IMaterialTool {
+    class SWORD(val material: MaterialBuilder, materialTool: ToolMaterial, val ID: String = "sword") : ItemSword(materialTool), IMaterialItem, IMaterialTool {
 
         init {
             val name = "${ID}_${material.name}"

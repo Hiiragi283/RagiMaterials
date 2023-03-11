@@ -16,7 +16,7 @@ object MaterialUtil {
     }
 
     //代入されたMapから化学式を生成するメソッド
-    fun  getFormula(mapComponents: Map<MaterialBuilder, Int>): String {
+    fun getFormula(mapComponents: Map<MaterialBuilder, Int>): String {
         //変数の宣言・初期化
         var formula = ""
         var subscript: String

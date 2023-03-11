@@ -50,13 +50,13 @@ object LaboRecipeRegistry {
         LaboRecipe.Builder(MaterialRegistry.ALUMINA_SOLUTION.name).apply {
             inputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BAUXITE)
             inputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
-            inputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.WATER ,count = 3)
+            inputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 3)
             outputs[0] = MaterialUtil.getPart(PartRegistry.DUST_TINY, MaterialRegistry.RUTILE, 3)
             outputs[1] = MaterialUtil.getPart(PartRegistry.DUST_TINY, MaterialRegistry.GALLIUM, 1)
             outputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.ALUMINA_SOLUTION, count = 2)
         }.build()
 
-        LaboRecipe.Builder(MaterialRegistry.ALUMINIUM_OXIDE.name).apply{
+        LaboRecipe.Builder(MaterialRegistry.ALUMINIUM_OXIDE.name).apply {
             inputs[1] = RagiUtil.getFilledBottle(MaterialRegistry.ALUMINA_SOLUTION, count = 2)
             outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.ALUMINIUM_OXIDE)
             outputs[2] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)

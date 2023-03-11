@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.integration
 
-import hiiragi283.ragi_materials.block.BlockForgeFurnace
-import hiiragi283.ragi_materials.block.BlockLitForgeFurnace
-import hiiragi283.ragi_materials.block.FFHelper
+import hiiragi283.ragi_materials.unused.BlockForgeFurnaceOld
+import hiiragi283.ragi_materials.unused.BlockLitForgeFurnace
+import hiiragi283.ragi_materials.unused.FFHelper
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.BlockDispenser
@@ -76,7 +76,7 @@ object PluginVanilla {
                 val state = world.getBlockState(pos)
                 val block = state.block
                 //blockがForge Furnaceの場合
-                return if (block is BlockForgeFurnace && stack.item == Items.COAL) {
+                return if (block is BlockForgeFurnaceOld && stack.item == Items.COAL) {
                     FFHelper.setFuel(world, pos, state, stack) //燃料を投入
                 } else if (block is BlockLitForgeFurnace) stack else super.dispenseStack(source, stack)
             }

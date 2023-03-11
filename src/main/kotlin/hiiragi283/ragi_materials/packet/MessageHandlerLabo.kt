@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
   Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/packet/MessageHandlerIBC.java
 */
 
-class MessageHandlerLabo: IMessageHandler<MessageLabo, IMessage> {
+class MessageHandlerLabo : IMessageHandler<MessageLabo, IMessage> {
 
     override fun onMessage(message: MessageLabo?, ctx: MessageContext?): IMessage? {
         //messageがnullでない場合，座標を取得する

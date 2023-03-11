@@ -21,15 +21,15 @@ object RagiConfig {
 
     @Config.Name("Custom Material Registry")
     @Config.Comment(
-        "Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
-                "\nindex: Int ... used for metadata, limited in 1023 <= index <= maxMaterials" +
-                "\nname: String ... used for translation key and ore dictionary" +
-                "\ntype: Enum ... only available: dust, fluid, liquid, metal, gas, metal_radio, semimetal" +
-                "\ncolor: Int ... use color code" +
-                "\nformula: String ... show its chemical formula" +
-                "\nmolar_mass: Float ... show its molar mass [g/mol]" +
-                "\nmelting: Int ... show its melting point [°C]" +
-                "\nboiling: Int ... show its boiling point [°C]"
+            "Add your custom materials in this format: index:name:type:color:formula:molar_mass:melting:boiling" +
+                    "\nindex: Int ... used for metadata, limited in 1023 <= index <= maxMaterials" +
+                    "\nname: String ... used for translation key and ore dictionary" +
+                    "\ntype: Enum ... only available: dust, fluid, liquid, metal, gas, metal_radio, semimetal" +
+                    "\ncolor: Int ... use color code" +
+                    "\nformula: String ... show its chemical formula" +
+                    "\nmolar_mass: Float ... show its molar mass [g/mol]" +
+                    "\nmelting: Int ... show its melting point [°C]" +
+                    "\nboiling: Int ... show its boiling point [°C]"
     )
     @Config.LangKey(Material.prefix)
     @JvmField
@@ -37,7 +37,7 @@ object RagiConfig {
 
     @Config.Name("Recipe Map")
     @Config.Comment(
-        "Add your custom recipes in this format: input;output\nThe stack format: mod:id:meta"
+            "Add your custom recipes in this format: input;output\nThe stack format: mod:id:meta"
     )
     @Config.LangKey(RecipeMap.prefix)
     @JvmField
@@ -105,7 +105,7 @@ object RagiConfig {
         @Config.LangKey("$prefix.custom")
         @JvmField
         var listMaterials = arrayOf(
-            "1024:hiiragi_tsubasa:metal:FF003F:H.T.:110.9f:283:1109"
+                "1024:hiiragi_tsubasa:metal:FF003F:H.T.:110.9f:283:1109"
         )
 
         @Config.Name("Max MaterialRegistry")
@@ -128,7 +128,7 @@ object RagiConfig {
         @Config.RequiresMcRestart
         @JvmField
         var listForgeBurning = arrayOf(
-            "minecraft:cobblestone:0;minecraft:magma:32767"
+                "minecraft:cobblestone:0;minecraft:magma:32767"
         )
 
         @Config.Name("Forge Furnace - Tier: Boosted")
@@ -157,48 +157,48 @@ object RagiConfig {
         @Config.RequiresMcRestart
         @JvmField
         var listMaxStack = arrayOf(
-            //"forge:bucketfilled",
-            "minecraft:bed",
-            "minecraft:beetroot_soup",
-            "minecraft:birch_boat",
-            "minecraft:boat",
-            "minecraft:bucket",
-            "minecraft:cake",
-            "minecraft:chest_minecart",
-            "minecraft:command_block_minecart",
-            "minecraft:dark_oak_boat",
-            "minecraft:diamond_horse_armor",
-            "minecraft:egg",
-            //"minecraft:enchanted_book",
-            "minecraft:ender_pearl",
-            "minecraft:furnace_minecart",
-            "minecraft:golden_horse_armor",
-            "minecraft:hopper_minecart",
-            "minecraft:iron_horse_armor",
-            "minecraft:jungle_boat",
-            //"minecraft:lava_bucket",
-            "minecraft:minecart",
-            "minecraft:mushroom_stew",
-            "minecraft:rabbit_stew",
-            "minecraft:record_11",
-            "minecraft:record_13",
-            "minecraft:record_blocks",
-            "minecraft:record_cat",
-            "minecraft:record_chirp",
-            "minecraft:record_far",
-            "minecraft:record_mall",
-            "minecraft:record_mellohi",
-            "minecraft:record_stal",
-            "minecraft:record_strad",
-            "minecraft:record_wait",
-            "minecraft:record_ward",
-            "minecraft:saddle",
-            "minecraft:sign",
-            "minecraft:snowball",
-            "minecraft:spruce_boat",
-            "minecraft:tnt_minecart",
-            //"minecraft:water_bucket",
-            "minecraft:written_book"
+                //"forge:bucketfilled",
+                "minecraft:bed",
+                "minecraft:beetroot_soup",
+                "minecraft:birch_boat",
+                "minecraft:boat",
+                "minecraft:bucket",
+                "minecraft:cake",
+                "minecraft:chest_minecart",
+                "minecraft:command_block_minecart",
+                "minecraft:dark_oak_boat",
+                "minecraft:diamond_horse_armor",
+                "minecraft:egg",
+                //"minecraft:enchanted_book",
+                "minecraft:ender_pearl",
+                "minecraft:furnace_minecart",
+                "minecraft:golden_horse_armor",
+                "minecraft:hopper_minecart",
+                "minecraft:iron_horse_armor",
+                "minecraft:jungle_boat",
+                //"minecraft:lava_bucket",
+                "minecraft:minecart",
+                "minecraft:mushroom_stew",
+                "minecraft:rabbit_stew",
+                "minecraft:record_11",
+                "minecraft:record_13",
+                "minecraft:record_blocks",
+                "minecraft:record_cat",
+                "minecraft:record_chirp",
+                "minecraft:record_far",
+                "minecraft:record_mall",
+                "minecraft:record_mellohi",
+                "minecraft:record_stal",
+                "minecraft:record_strad",
+                "minecraft:record_wait",
+                "minecraft:record_ward",
+                "minecraft:saddle",
+                "minecraft:sign",
+                "minecraft:snowball",
+                "minecraft:spruce_boat",
+                "minecraft:tnt_minecart",
+                //"minecraft:water_bucket",
+                "minecraft:written_book"
         )
     }
 

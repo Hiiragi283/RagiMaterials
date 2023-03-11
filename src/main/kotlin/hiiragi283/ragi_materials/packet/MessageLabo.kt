@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage
   Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/packet/MessageIBC.java
 */
 
-class MessageLabo(var x :Int = 0, var y :Int = 0, var z :Int = 0): IMessage {
+class MessageLabo(var x: Int = 0, var y: Int = 0, var z: Int = 0) : IMessage {
 
     constructor(pos: BlockPos) : this(pos.x, pos.y, pos.z)
 

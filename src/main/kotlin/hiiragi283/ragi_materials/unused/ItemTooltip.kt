@@ -11,22 +11,22 @@ import net.minecraftforge.oredict.OreDictionary
 class ItemTooltip {
 
     private val listPrefix = listOf(
-        "block",
-        "clump",
-        "coin",
-        "crystal",
-        "dustDirty",
-        "dustTiny",
-        "dust",
-        "gear",
-        "gem",
-        "ingotHot",
-        "ingot",
-        "nugget",
-        "ore",
-        "plate",
-        "shard",
-        "stick"
+            "block",
+            "clump",
+            "coin",
+            "crystal",
+            "dustDirty",
+            "dustTiny",
+            "dust",
+            "gear",
+            "gem",
+            "ingotHot",
+            "ingot",
+            "nugget",
+            "ore",
+            "plate",
+            "shard",
+            "stick"
     )
 
     @SubscribeEvent

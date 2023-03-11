@@ -78,7 +78,7 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //素材を登録するメソッド
     fun register(): MaterialBuilder = also {
-        if(it.index >= 0) MaterialRegistry.mapIndex[it.index] = it
+        if (it.index >= 0) MaterialRegistry.mapIndex[it.index] = it
         MaterialRegistry.mapName[it.name] = it
     }
 }

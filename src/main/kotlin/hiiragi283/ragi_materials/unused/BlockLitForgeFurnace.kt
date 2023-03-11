@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.block
+package hiiragi283.ragi_materials.unused
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
@@ -9,12 +9,9 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import java.util.*
 
@@ -36,7 +33,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
     //    General    //
 
     /*override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
-        drops.add(ItemStack(RagiInit.BlockForgeFurnace))
+        drops.add(ItemStack(RagiInit.BlockForgeFurnaceOld))
     }*/
 
     //    BlockState    //
@@ -58,7 +55,7 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
     }
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        //if (!world.isRemote) world.setBlockState(pos, RagiInit.BlockForgeFurnace.defaultState.withProperty(FACING, state.getValue(FACING)).withProperty(BlockForgeFurnace.FUEL, 3), 2) //火力DOWN
+        //if (!world.isRemote) world.setBlockState(pos, RagiInit.BlockForgeFurnaceOld.defaultState.withProperty(FACING, state.getValue(FACING)).withProperty(BlockForgeFurnaceOld.FUEL, 3), 2) //火力DOWN
     }
 
     //    Redstone    //

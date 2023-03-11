@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class BlockLaboTable: BlockContainerBase("laboratory_table", Material.IRON, 2) {
+class BlockLaboTable : BlockContainerBase("laboratory_table", Material.IRON, 2) {
 
     init {
         blockHardness = 5.0F

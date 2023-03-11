@@ -17,10 +17,10 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
-class TileFullBottleStation: TileBase(101), ITickable {
+class TileFullBottleStation : TileBase(101), ITickable {
 
     val inventory = ItemStackHandler(1)
-    private val tank =RagiTank(60000)
+    private val tank = RagiTank(60000)
     private var count = 0
 
     init {

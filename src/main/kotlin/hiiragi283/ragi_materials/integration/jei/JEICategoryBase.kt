@@ -6,7 +6,7 @@ import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.resources.I18n
 
-abstract class JEICategoryBase<T: IRecipeWrapper>(guiHelper: IGuiHelper): IRecipeCategory<T> {
+abstract class JEICategoryBase<T : IRecipeWrapper>(guiHelper: IGuiHelper) : IRecipeCategory<T> {
 
     //JEiタブの名前を取得するメソッド
     override fun getTitle(): String = I18n.format("gui.$uid")

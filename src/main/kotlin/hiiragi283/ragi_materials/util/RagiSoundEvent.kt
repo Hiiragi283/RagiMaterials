@@ -12,7 +12,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 object RagiSoundEvent {
 
     fun getSound(location: ResourceLocation): SoundEvent {
-        return ForgeRegistries.SOUND_EVENTS.getValue(location)?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
+        return ForgeRegistries.SOUND_EVENTS.getValue(location)
+                ?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
     }
 
     fun getSound(registryName: String): SoundEvent {

@@ -89,7 +89,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
         }
     }
 
-    class FullBottleFluidHandler(val stack: ItemStack, capacity:Int): FluidHandlerItemStackSimple(stack, capacity) {
+    class FullBottleFluidHandler(val stack: ItemStack, capacity: Int) : FluidHandlerItemStackSimple(stack, capacity) {
 
         override fun drain(maxDrain: Int, doDrain: Boolean): FluidStack? {
             //変数の宣言

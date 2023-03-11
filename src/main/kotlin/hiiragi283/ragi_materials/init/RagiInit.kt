@@ -30,7 +30,7 @@ object RagiInit {
     val BlockCropCoal = BlockCropCoal()
     val BlockCropLignite = BlockCropLignite()
     val BlockCropPeat = BlockCropPeat("crop_peat")
-    val BlockForgeFurnace = BlockForgeFurnaceNew()
+    val BlockForgeFurnace = BlockForgeFurnace()
     val BlockFullBottleStation = BlockFullBottleStation()
     val BlockLaboratoryTable = BlockLaboTable()
     val BlockOreDictConv = BlockOreDictConv()

@@ -104,6 +104,7 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
                         EnumActionResult.FAIL
                     }
                 }
+
                 else -> return EnumActionResult.FAIL
             }
         } else return EnumActionResult.SUCCESS
