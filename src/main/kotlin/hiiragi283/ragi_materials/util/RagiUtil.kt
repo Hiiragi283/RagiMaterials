@@ -135,13 +135,7 @@ object RagiUtil {
 
     //    Other    //
 
-    fun convertListToMap(list: Array<String>, map: MutableMap<String, String>): MutableMap<String, String> {
-        for (key in list) {
-            map[key.split(";")[0]] = key.split(";")[1]
-            RagiLogger.infoDebug("${key.split(";")[0]} to ${map[key.split(";")[0]]}")
-        }
-        return map
-    }
+    fun convertArrayTomMap(array: Array<String>): Map<String, String> = array.associate { it.split(";")[0] to it.split(";")[1] }
 
     fun setOreDict(oreDict: String, stack: ItemStack) {
         OreDictionary.registerOre(oreDict, stack)

@@ -49,7 +49,10 @@ class JEICore : IModPlugin {
         SaltPondMaker.register(registry)
 
         registry.addRecipeCatalyst(ItemStack(RagiInit.BlockForgeFurnace), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiInit.BlockBlazingForge), ForgeFurnace)
+
         registry.addRecipeCatalyst(ItemStack(RagiInit.BlockLaboratoryTable), LaboTable)
+
         registry.addRecipeCatalyst(ItemStack(RagiInit.BlockSaltPond), SaltPond)
 
         RagiLogger.info("The integration for JEI/HEI has loaded!")

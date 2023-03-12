@@ -83,21 +83,17 @@ class TileForgeFurnace : TileBase(102) {
                 val material = item.getMaterial(stack)
                 val tempMelt = material.tempMelt
                 val scale = item.part.scale
-                val fuelConsume = tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() } ?: 0 //2^(融点を1000で割った商)
-                RagiLogger.infoDebug("Consume: $fuelConsume")
-                return fuelConsume
+                return tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() } ?: 0
             } else 0
         }
 
         fun getResult(stack: ItemStack): ItemStack {
             val item = stack.item
             var result = ItemStack.EMPTY
-            if (item is IMaterialItem) {
+            if (item is IMaterialItem && item is ItemMaterial) {
                 val material = item.getMaterial(stack)
-                if (item is ItemMaterial) {
-                    val scale = item.part.scale
-                    if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, scale.toInt()) //完成品を代入
-                }
+                val scale = item.part.scale
+                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, scale.toInt()) //完成品を代入
                 RagiLogger.infoDebug("Result: ${result.toBracket()}")
             }
             return result

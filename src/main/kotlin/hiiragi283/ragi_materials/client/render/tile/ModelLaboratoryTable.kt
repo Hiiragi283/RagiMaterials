@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.render.tile
+package hiiragi283.ragi_materials.client.render.tile
 
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox

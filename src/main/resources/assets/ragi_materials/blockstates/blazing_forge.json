@@ -2,7 +2,7 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "forge_marker": 1,
   "defaults": {
-    "model": "ragi_materials:blazing_melter",
+    "model": "ragi_materials:blazing_forge",
     "uvlock": true
   },
   "variants": {

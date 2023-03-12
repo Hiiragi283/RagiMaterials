@@ -32,13 +32,21 @@ class LaboRecipe private constructor(location: ResourceLocation, val inputs: Mut
 
     fun match(inventory: IItemHandler, useCount: Boolean): Boolean {
         var result = false
-        if (inventory.slots == 5) {
+        if (inventory.slots >= 5) {
             val matchSlot0 = RagiUtil.isSameStack(this.inputs[0], inventory.getStackInSlot(0), useCount)
             val matchSlot1 = RagiUtil.isSameStack(this.inputs[1], inventory.getStackInSlot(1), useCount)
             val matchSlot2 = RagiUtil.isSameStack(this.inputs[2], inventory.getStackInSlot(2), useCount)
             val matchSlot3 = RagiUtil.isSameStack(this.inputs[3], inventory.getStackInSlot(3), useCount)
             val matchSlot4 = RagiUtil.isSameStack(this.inputs[4], inventory.getStackInSlot(4), useCount)
             result = matchSlot0 && matchSlot1 && matchSlot2 && matchSlot3 && matchSlot4
+            if (!useCount) {
+                val amountSlot0 = matchSlot0 && (inventory.getStackInSlot(0).count >= this.inputs[0].count)
+                val amountSlot1 = matchSlot1 && (inventory.getStackInSlot(1).count >= this.inputs[1].count)
+                val amountSlot2 = matchSlot2 && (inventory.getStackInSlot(2).count >= this.inputs[2].count)
+                val amountSlot3 = matchSlot3 && (inventory.getStackInSlot(3).count >= this.inputs[3].count)
+                val amountSlot4 = matchSlot4 && (inventory.getStackInSlot(4).count >= this.inputs[4].count)
+                result = amountSlot0 && amountSlot1 && amountSlot2 && amountSlot3 && amountSlot4
+            }
         }
         return result
     }

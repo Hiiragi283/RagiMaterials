@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.network.NetworkRegistry
 
 //Modの定義
 @Mod(
@@ -64,6 +65,8 @@ class RagiMaterials {
             LootTableRegistry
             //パケットの登録
             RagiPacket
+            //GUI描画の登録
+            NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy!!)
             //proxyの読み込み
             proxy!!.loadInit()
             //連携要素の登録

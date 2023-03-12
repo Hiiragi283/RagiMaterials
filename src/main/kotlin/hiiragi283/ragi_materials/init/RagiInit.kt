@@ -27,12 +27,13 @@ object RagiInit {
     val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs.Materials() else CreativeTabs.MISC
 
     //Blockの定義
-    val BlockBlazingMelter = BlockBlazingMelter()
+    val BlockBlazingForge = BlockBlazingForge()
     val BlockCropCoal = BlockCropCoal()
     val BlockCropLignite = BlockCropLignite()
     val BlockCropPeat = BlockCropPeat("crop_peat")
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockFullBottleStation = BlockFullBottleStation()
+    val BlockIndustrialLabo = BlockIndustrialLabo()
     val BlockLaboratoryTable = BlockLaboTable()
     val BlockOreDictConv = BlockOreDictConv()
     val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
@@ -42,9 +43,10 @@ object RagiInit {
     val ToolTitanium = EnumHelper.addToolMaterial("RM_TITANIUM", 3, 511, 8.0f, 3.0f, 10)!!
 
     //Itemの定義
-    val ItemBlockBlazingMelter = ItemBlockBase(BlockBlazingMelter)
+    val ItemBlockBlazingForge = ItemBlockBase(BlockBlazingForge)
     val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace)
     val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation)
+    val ItemBlockIndustrialLabo = ItemBlockBase(BlockIndustrialLabo)
     val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable)
     val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv)
     val ItemBlockOreRainbow = ItemBlockBase(BlockOreRainbow)
@@ -91,12 +93,13 @@ object RagiInit {
     init {
         //Blockの登録
         ForgeRegistries.BLOCKS.registerAll(
-                BlockBlazingMelter,
+                BlockBlazingForge,
                 BlockCropCoal,
                 BlockCropLignite,
                 BlockCropPeat,
                 BlockForgeFurnace,
                 BlockFullBottleStation,
+                BlockIndustrialLabo,
                 BlockLaboratoryTable,
                 BlockOreDictConv,
                 BlockOreRainbow,
@@ -105,9 +108,10 @@ object RagiInit {
 
         //Itemの登録
         ForgeRegistries.ITEMS.registerAll(
-                ItemBlockBlazingMelter,
+                ItemBlockBlazingForge,
                 ItemBlockForgeFurnace,
                 ItemBlockFullBottleStation,
+                ItemBlockIndustrialLabo,
                 ItemBlockLaboratoryTable,
                 ItemBlockOreDictConv,
                 ItemBlockOreRainbow,

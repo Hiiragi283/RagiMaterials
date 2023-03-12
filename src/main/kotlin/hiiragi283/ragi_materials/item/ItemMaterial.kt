@@ -24,7 +24,7 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, RagiConfig.material.maxMaterials), IMaterialItem {
+open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, 32767), IMaterialItem {
 
     init {
         creativeTab = RagiInit.TabMaterials

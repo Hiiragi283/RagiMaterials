@@ -1,25 +1,25 @@
-package hiiragi283.ragi_materials.render.tile
+package hiiragi283.ragi_materials.client.render.tile
 
-import hiiragi283.ragi_materials.block.BlockBlazingMelter
-import hiiragi283.ragi_materials.tile.TileBlazingMelter
+import hiiragi283.ragi_materials.block.BlockBlazingForge
+import hiiragi283.ragi_materials.tile.TileBlazingForge
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 
-class RenderBlazingMelter: TileEntitySpecialRenderer<TileBlazingMelter>() {
+class RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
 
     private val location = ResourceLocation("minecraft", "textures/entity/blaze.png")
 
-    val model = ModelBlazingMelter()
+    val model = ModelBlazingForge()
 
-    override fun render(te: TileBlazingMelter, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
+    override fun render(te: TileBlazingForge, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
 
         if (te.hasWorld()) {
 
             val state = te.world.getBlockState(te.pos)
-            if (state.block is BlockBlazingMelter) {
-                val rotate = when (state.getValue(BlockBlazingMelter.FACING)) {
+            if (state.block is BlockBlazingForge) {
+                val rotate = when (state.getValue(BlockBlazingForge.FACING)) {
                     EnumFacing.EAST -> -90.0f
                     EnumFacing.SOUTH -> 0.0f
                     EnumFacing.WEST -> 90.0f

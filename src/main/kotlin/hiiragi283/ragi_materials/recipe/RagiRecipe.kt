@@ -31,7 +31,7 @@ object RagiRecipe {
     //かまどレシピを追加するメソッド
     fun addFurnace(output: ItemStack, input: ItemStack) {
         GameRegistry.addSmelting(input, output, 0f)
-        RagiLogger.infoDebug("The smelting recipe $input.toBracket() -> $output.toBracket() was added successfully!")
+        //RagiLogger.infoDebug("The smelting recipe $input.toBracket() -> $output.toBracket() was added successfully!")
     }
 
     //かまどレシピを削除するメソッド
@@ -46,7 +46,7 @@ object RagiRecipe {
             if (RagiUtil.isSameStack(mapFurnace[iteratorFurnace.next()]!!, input, true)) {
                 //レシピを削除する
                 iteratorFurnace.remove()
-                RagiLogger.infoDebug("The smelting input " + input.toBracket() + " was removed successfully!")
+                //RagiLogger.infoDebug("The smelting input " + input.toBracket() + " was removed successfully!")
             }
         }
     }
@@ -58,14 +58,14 @@ object RagiRecipe {
         val location = ResourceLocation(Reference.MOD_ID, path)
         //レシピを追加する
         GameRegistry.addShapedRecipe(location, location, output, *inputs)
-        RagiLogger.infoDebug("The recipe <recipe:$location> was added successfully!")
+        //RagiLogger.infoDebug("The recipe <recipe:$location> was added successfully!")
     }
 
     //定型クラフトレシピを名前付きで追加するメソッド
     fun addShaped(registryName: String, output: ItemStack?, vararg inputs: Any?) {
         //レシピを上書きする
         GameRegistry.addShapedRecipe(ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs)
-        RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
+        //RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
     }
 
     //不定型クラフトレシピを追加するメソッド
@@ -75,14 +75,14 @@ object RagiRecipe {
         val location = ResourceLocation(Reference.MOD_ID, path)
         //レシピを追加する
         GameRegistry.addShapelessRecipe(location, location, output, *inputs)
-        RagiLogger.infoDebug("The recipe <recipe:$location> was added successfully!")
+        //RagiLogger.infoDebug("The recipe <recipe:$location> was added successfully!")
     }
 
     //不定型クラフトレシピを名前付きで追加するメソッド
     fun addShapeless(registryName: String, output: ItemStack?, vararg inputs: Ingredient?) {
         //レシピを上書きする
         GameRegistry.addShapelessRecipe(ResourceLocation(registryName), ResourceLocation(registryName), output!!, *inputs)
-        RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
+        //RagiLogger.infoDebug("The recipe <recipe:$registryName> was added successfully!")
     }
 
     //クラフトレシピを削除するメソッド
@@ -95,7 +95,7 @@ object RagiRecipe {
         if (recipeBefore !== null) {
             //レシピを置き換える
             GameRegistry.addShapedRecipe(location, location, recipeBefore.recipeOutput, "A", 'A', RagiUtil.getStack("minecraft:barrier", 1, 0))
-            RagiLogger.infoDebug("The recipe <recipe:$registryName> was removed successfully!")
-        } else RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")
+            //RagiLogger.infoDebug("The recipe <recipe:$registryName> was removed successfully!")
+        } //else RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")
     }
 }

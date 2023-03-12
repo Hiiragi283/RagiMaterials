@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.material.type.MaterialType
-import hiiragi283.ragi_materials.render.color.RagiColor
+import hiiragi283.ragi_materials.client.render.color.RagiColor
 import java.awt.Color
 import java.math.BigDecimal
 

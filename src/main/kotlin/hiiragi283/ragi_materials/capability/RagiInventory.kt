@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.util
+package hiiragi283.ragi_materials.capability
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
@@ -6,7 +6,7 @@ import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.text.TextComponentString
+import net.minecraft.util.text.TextComponentTranslation
 
 class RagiInventory(val title: String, val slots: Int) : IInventory {
 
@@ -16,7 +16,7 @@ class RagiInventory(val title: String, val slots: Int) : IInventory {
 
     override fun hasCustomName(): Boolean = false
 
-    override fun getDisplayName(): ITextComponent = TextComponentString(this.name)
+    override fun getDisplayName(): ITextComponent = TextComponentTranslation(this.name)
 
     override fun getSizeInventory(): Int = this.slots
 

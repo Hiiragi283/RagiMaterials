@@ -20,7 +20,7 @@ class MessageHandlerLabo : IMessageHandler<MessageLabo, IMessage> {
             val pos = BlockPos(it.x, it.y, it.z)
             val tile = Reference.PLAYER_CLIENT.world.getTileEntity(pos)
             if (tile !== null && tile is TileLaboTable) {
-                tile.invLabo.clear() //インベントリを空にする
+                tile.inventory.clear() //インベントリを空にする
             }
         }
         return null

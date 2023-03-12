@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.RagiBlockContainer
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.tile.TileBlazingMelter
+import hiiragi283.ragi_materials.tile.TileBlazingForge
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyDirection
@@ -18,7 +18,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockBlazingMelter: RagiBlockContainer("blazing_melter", Material.IRON, 1) {
+class BlockBlazingForge : RagiBlockContainer("blazing_forge", Material.IRON, 3) {
 
     companion object {
         val FACING: PropertyDirection = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL)
@@ -31,12 +31,10 @@ class BlockBlazingMelter: RagiBlockContainer("blazing_melter", Material.IRON, 1)
         setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
+
     }
 
     //    General    //
-
-    @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
@@ -45,12 +43,12 @@ class BlockBlazingMelter: RagiBlockContainer("blazing_melter", Material.IRON, 1)
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, FACING)
 
-    override fun getMetaFromState(state: IBlockState): Int = state.getValue(FACING).index - 2
+    override fun getMetaFromState(state: IBlockState): Int = state.getValue(FACING).horizontalIndex
 
     override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(FACING, placer.horizontalFacing.opposite)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2))", "hiiragi283.ragi_materials.block.BlockBlazingMelter.Companion.FACING", "net.minecraft.util.EnumFacing"))
-    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2))
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getHorizontal(meta / 4))", "hiiragi283.ragi_materials.block.BlockBlazingForge.Companion.FACING", "net.minecraft.util.EnumFacing"))
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(FACING, EnumFacing.getHorizontal(meta / 4))
 
     //    Client    //
 
@@ -59,5 +57,5 @@ class BlockBlazingMelter: RagiBlockContainer("blazing_melter", Material.IRON, 1)
 
     //    Tile Entity    //
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity = TileBlazingMelter()
+    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity = TileBlazingForge()
 }

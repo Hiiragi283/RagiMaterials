@@ -13,12 +13,6 @@ object RecipeRegistry {
     }
 
     private fun addCrafting() {
-        RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:block_bellow", 1, 0),
-                "AAA", "BCB", "AAA",
-                'A', "logWood",
-                'B', "leather",
-                'C', RagiUtil.getStack("minecraft:piston", 1, 0)
-        )
         RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:blazing_cube", 1, 0),
                 "ABA", "CDC", "ABA",
                 'A', RagiUtil.getStack("minecraft:blaze_powder", 1, 0),
@@ -26,7 +20,11 @@ object RecipeRegistry {
                 'C', "dustSulfur",
                 'D', "blockCoal"
         )
-        //RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:blaze_heater", 1, 0), "A A", "ABA", "CCC", 'A', RagiUtil.getStack("minecraft:iron_bars", 1, 0), 'B', ItemStack(RagiInit.ItemBlazingCube, 1, 0), 'C', RagiUtil.getStack("minecraft:nether_brick", 1, 0))
+        RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:blazing_forge", 1, 0),
+                "A A", "ABA", "CCC",
+                'A', RagiUtil.getStack("minecraft:iron_bars", 1, 0),
+                'B', RagiUtil.getStack("${Reference.MOD_ID}:blazing_cube", 1, 0),
+                'C', RagiUtil.getStack("minecraft:nether_brick", 1, 0))
         RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:forge_furnace", 1, 0),
                 "A A", "A A", "BCB",
                 'A', "cobblestone",

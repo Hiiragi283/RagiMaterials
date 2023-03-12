@@ -1,9 +1,8 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.element.ElementRegistry
-import hiiragi283.ragi_materials.render.color.RagiColor
+import hiiragi283.ragi_materials.client.render.color.RagiColor
 
 object MaterialRegistryOld {
 
@@ -257,6 +256,6 @@ object MaterialRegistryOld {
         }
 
         //configからmaterialを追加
-        RagiConfig.registerMaterial()
+        //RagiConfig.registerMaterial()
     }
 }

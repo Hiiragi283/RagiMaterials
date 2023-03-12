@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.render.tile
+package hiiragi283.ragi_materials.client.render.tile
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.tile.TileLaboTable
@@ -53,9 +53,9 @@ class RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
     }
 
     private fun renderStack(te: TileLaboTable, x: Double, y: Double, z: Double, slot: Int) {
-        if (!te.invLabo.getStackInSlot(slot).isEmpty) {
+        if (!te.inventory.getStackInSlot(slot).isEmpty) {
             //スロット内のItemStackを取得
-            val stack = te.invLabo.getStackInSlot(slot)
+            val stack = te.inventory.getStackInSlot(slot)
             GlStateManager.pushMatrix()
             GlStateManager.translate(x.toFloat() + listSlot[slot].first, y.toFloat() + 1.0f, z.toFloat() + listSlot[slot].second)
             GlStateManager.scale(0.8f, 0.8f, 0.8f)

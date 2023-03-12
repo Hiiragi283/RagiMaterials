@@ -3,8 +3,6 @@ package hiiragi283.ragi_materials.integration
 import hiiragi283.ragi_materials.unused.BlockForgeFurnaceOld
 import hiiragi283.ragi_materials.unused.BlockLitForgeFurnace
 import hiiragi283.ragi_materials.unused.FFHelper
-import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.BlockDispenser
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem
 import net.minecraft.dispenser.IBlockSource
@@ -15,19 +13,8 @@ import net.minecraft.item.ItemStack
 object PluginVanilla {
 
     fun loadPostInit() {
-        //overrideMaxStack()
         overrideProperty()
         registerDispenser()
-    }
-
-    //アイテムの最大スタック数を上書きするメソッド
-    private fun overrideMaxStack() {
-        //configのlistMaxStackを参照する
-        for (name in RagiConfig.utility.listMaxStack) {
-            val item = RagiUtil.getItem(name)
-            //itemの耐久値が0の場合、最大スタック数を64に上書きする
-            if (item.maxDamage == 0) item.setMaxStackSize(64)
-        }
     }
 
     //バニラのブロックの様々な情報を上書きするメソッド

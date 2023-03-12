@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.material.element
 
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-import hiiragi283.ragi_materials.render.color.RagiColor
+import hiiragi283.ragi_materials.client.render.color.RagiColor
 
 object ElementRegistry {
 

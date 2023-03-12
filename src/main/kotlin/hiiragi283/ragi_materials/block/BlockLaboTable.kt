@@ -34,7 +34,7 @@ class BlockLaboTable : BlockContainerBase("laboratory_table", Material.IRON, 2) 
 
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is TileLaboTable) InventoryHelper.dropInventoryItems(world, pos, tile.invLabo)
+        if (tile !== null && tile is TileLaboTable) InventoryHelper.dropInventoryItems(world, pos, tile.inventory)
         super.breakBlock(world, pos, state)
     }
 

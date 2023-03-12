@@ -26,9 +26,6 @@ class BlockFullBottleStation : RagiBlockContainer("fullbottle_station", Material
     //    General    //
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
-    override fun isFullCube(state: IBlockState): Boolean = false
-
-    @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    Client    //

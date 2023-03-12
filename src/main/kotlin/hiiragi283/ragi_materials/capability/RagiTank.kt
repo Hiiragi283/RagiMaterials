@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.util
+package hiiragi283.ragi_materials.capability
 
 import hiiragi283.ragi_materials.material.MaterialUtil
 import net.minecraft.nbt.NBTTagCompound

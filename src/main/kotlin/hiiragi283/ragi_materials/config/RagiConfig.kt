@@ -1,10 +1,8 @@
 package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.material.MaterialBuilder
-import hiiragi283.ragi_materials.material.type.TypeRegistry
+import net.minecraft.item.ItemStack
 import net.minecraftforge.common.config.Config
-import java.awt.Color
 
 @Config(modid = Reference.MOD_ID, category = "")
 object RagiConfig {
@@ -99,22 +97,6 @@ object RagiConfig {
         @JvmField
         var enableDecay = false
 
-
-        @Config.Name("List for Custom Material")
-        @Config.Comment("Register your custom materials in above format")
-        @Config.LangKey("$prefix.custom")
-        @JvmField
-        var listMaterials = arrayOf(
-                "1024:hiiragi_tsubasa:metal:FF003F:H.T.:110.9f:283:1109"
-        )
-
-        @Config.Name("Max MaterialRegistry")
-        @Config.Comment("Set max number of materials registered")
-        @Config.LangKey("$prefix.max")
-        @Config.RangeInt(min = 1024, max = 32767)
-        @JvmField
-        var maxMaterials = 1024
-
     }
 
     class RecipeMap {
@@ -123,25 +105,14 @@ object RagiConfig {
             const val prefix = "config.${Reference.MOD_ID}.recipe_map"
         }
 
-        @Config.Name("Forge Furnace - Tier: Burning")
-        @Config.LangKey("${prefix}.forge_burning")
+        @Config.Name("Blazing Forge - Fuel Map")
+        @Config.LangKey("${prefix}.blazing_forge")
         @Config.RequiresMcRestart
         @JvmField
-        var listForgeBurning = arrayOf(
-                "minecraft:cobblestone:0;minecraft:magma:32767"
+        var fuelBlazingForge = arrayOf(
+                "lava;100",
+                "pyrotheum;10"
         )
-
-        @Config.Name("Forge Furnace - Tier: Boosted")
-        @Config.LangKey("${prefix}.forge_boosted")
-        @Config.RequiresMcRestart
-        @JvmField
-        var listForgeBoosted: Array<String> = arrayOf()
-
-        @Config.Name("Forge Furnace - Tier: Hell-rise")
-        @Config.LangKey("${prefix}.forge_hellrise")
-        @Config.RequiresMcRestart
-        @JvmField
-        var listForgeHellrise: Array<String> = arrayOf()
 
     }
 
@@ -151,59 +122,10 @@ object RagiConfig {
             const val prefix = "config.${Reference.MOD_ID}.utility"
         }
 
-        @Config.Name("Override Max Stack Size")
-        @Config.Comment("The maximum stack size of items added to this list will be changed to 64")
-        @Config.LangKey("${prefix}.max_stack")
-        @Config.RequiresMcRestart
-        @JvmField
-        var listMaxStack = arrayOf(
-                //"forge:bucketfilled",
-                "minecraft:bed",
-                "minecraft:beetroot_soup",
-                "minecraft:birch_boat",
-                "minecraft:boat",
-                "minecraft:bucket",
-                "minecraft:cake",
-                "minecraft:chest_minecart",
-                "minecraft:command_block_minecart",
-                "minecraft:dark_oak_boat",
-                "minecraft:diamond_horse_armor",
-                "minecraft:egg",
-                //"minecraft:enchanted_book",
-                "minecraft:ender_pearl",
-                "minecraft:furnace_minecart",
-                "minecraft:golden_horse_armor",
-                "minecraft:hopper_minecart",
-                "minecraft:iron_horse_armor",
-                "minecraft:jungle_boat",
-                //"minecraft:lava_bucket",
-                "minecraft:minecart",
-                "minecraft:mushroom_stew",
-                "minecraft:rabbit_stew",
-                "minecraft:record_11",
-                "minecraft:record_13",
-                "minecraft:record_blocks",
-                "minecraft:record_cat",
-                "minecraft:record_chirp",
-                "minecraft:record_far",
-                "minecraft:record_mall",
-                "minecraft:record_mellohi",
-                "minecraft:record_stal",
-                "minecraft:record_strad",
-                "minecraft:record_wait",
-                "minecraft:record_ward",
-                "minecraft:saddle",
-                "minecraft:sign",
-                "minecraft:snowball",
-                "minecraft:spruce_boat",
-                "minecraft:tnt_minecart",
-                //"minecraft:water_bucket",
-                "minecraft:written_book"
-        )
     }
 
     //configからmaterialを登録するメソッド
-    fun registerMaterial() {
+    /*fun registerMaterial() {
         for (value in material.listMaterials) {
             //valueをばらしてプロパティを得る
             val listProperty = value.split(":")
@@ -231,7 +153,7 @@ object RagiConfig {
                 }.register()
             }
         }
-    }
+    }*/
 
     //configからレシピを登録するメソッド
     fun registerRecipe() {}

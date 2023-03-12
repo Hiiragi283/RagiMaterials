@@ -15,6 +15,7 @@ abstract class TileBase(val type: Int) : TileEntity() {
 
     val keyInventory = "inventory"
     val keyTank = "tank"
+    val keyBattery = "energy"
 
     //    NBT tag    //
 
@@ -35,10 +36,8 @@ abstract class TileBase(val type: Int) : TileEntity() {
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-
     //    TileBase    //
 
     abstract fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
-
 
 }

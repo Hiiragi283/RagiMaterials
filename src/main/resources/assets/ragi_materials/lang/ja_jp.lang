@@ -1,15 +1,12 @@
 
 # Block
-#tile.blaze_heater.0.name=ブレイズヒーター
-#tile.blaze_heater.1.name=ヘルライズヒーター
-#tile.block_bellow.name=ふいご
+tile.blazing_forge.name=燃え盛る鍛造炉
 tile.crop_coal.name=[未完成] 石炭畑
 tile.crop_lignite.name=[未完成] 褐炭畑
 tile.crop_peat.name=[未完成] 泥炭畑
 tile.forge_furnace.name=鍛造炉
 tile.fullbottle_station.name=フルボトルメーカー
 tile.laboratory_table.name=実験台
-#tile.lit_forge_furnace.name=鍛造炉 (§c§oブースト§r)
 tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=塩田ブロック
@@ -46,11 +43,10 @@ item.seed_peat.name=[未完成] 泥炭の種
 item.waste.name=化学廃棄物
 
 # Tooltip
-#tips.ragi_materials.block_bellow.0=§b鍛造炉§r§7を§cブースト§r§7するのに使用します
-#tips.ragi_materials.block_bellow.1=右クリックまたはレッドストーン信号で動かします
-#tips.ragi_materials.blaze_heater.0=金属インゴットの加熱に使用します
-#tips.ragi_materials.blaze_heater.1=燃料の消費はありません
-#tips.ragi_materials.blaze_heater.2=金属の種類によっては§4§lヘルライズ§r§7ヒーターが必要
+tips.ragi_materials.blazing_forge.0=金属インゴットの加熱に使用します
+tips.ragi_materials.blazing_forge.1=§b液体燃料§r§7を持って右クリックすることで燃料を追加します
+tips.ragi_materials.blazing_forge.2=§b金属製の部品§r§7を持って右クリックすることでそれを加熱します
+tips.ragi_materials.blazing_forge.3=燃料の消費量は§bコンフィグの値§r§7に依存します
 tips.ragi_materials.forge_furnace.0=金属インゴットの加熱に使用します
 tips.ragi_materials.forge_furnace.1=§bかまど燃料§r§7を持って右クリックすることで燃料ポイントを追加します
 tips.ragi_materials.forge_furnace.2=§b金属製の部品§r§7を持って右クリックすることでそれを加熱します

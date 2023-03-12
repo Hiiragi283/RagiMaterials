@@ -1,0 +1,11 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:laboratory_table",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [{}]
+  }
+}

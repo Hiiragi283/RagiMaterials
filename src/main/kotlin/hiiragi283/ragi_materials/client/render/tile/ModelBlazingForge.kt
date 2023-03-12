@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.render.tile
+package hiiragi283.ragi_materials.client.render.tile
 
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox
@@ -8,7 +8,7 @@ import net.minecraft.client.model.ModelRenderer
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
-class ModelBlazingMelter : ModelBase() {
+class ModelBlazingForge : ModelBase() {
 
     private val head: ModelRenderer
     private val pillarW: ModelRenderer

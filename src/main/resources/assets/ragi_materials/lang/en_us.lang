@@ -1,15 +1,12 @@
 
 # Block
-#tile.blaze_heater.0.name=Blaze Heater
-#tile.blaze_heater.1.name=Hellrise Heater
-#tile.block_bellow.name=Bellow
+tile.blazing_forge.name=Blazing Forge
 tile.crop_coal.name=[WIP] Coal Farm
 tile.crop_lignite.name=[WIP] Lignite Farm
 tile.crop_peat.name=[WIP] Peat Farm
 tile.forge_furnace.name=Forge Furnace
 tile.fullbottle_station.name=Full Bottle Station
 tile.laboratory_table.name=Laboratory Table
-#tile.lit_forge_furnace.name=Forge Furnace (§c§oBoost§r)
 tile.ore_rainbow.name=§cR§6a§ei§an§bb§9o§dw§r Ore
 tile.oredict_converter.name=Ore Dictionary Converter
 tile.salt_pond.name=Salt Evaporation Pond
@@ -46,11 +43,10 @@ item.seed_peat.name=[WIP] Peat Seed
 item.waste.name=Chemical Waste
 
 # Tooltip
-#tips.ragi_materials.blaze_heater.0=Used for heating metal ingot
-#tips.ragi_materials.blaze_heater.1=Not consume fuels
-#tips.ragi_materials.blaze_heater.2=Some metals require §4Hellrise§r§7 Heater
-#tips.ragi_materials.block_bellow.0=Used to §cBoost§r§7 §bForge Furnace§r§7
-#tips.ragi_materials.block_bellow.1=Right-click or send Redstone signal to activate
+tips.ragi_materials.blazing_forge.0=Used for heating metal ingot
+tips.ragi_materials.blazing_forge.1=Right-click with §bLiquid Fuel§r§7 to add Fuel
+tips.ragi_materials.blazing_forge.2=Right-click with §bMetal Parts§r§7 to heat it
+tips.ragi_materials.blazing_forge.3=The consumption of Fuel depends on §bConfig Value§r§7
 tips.ragi_materials.forge_furnace.0=Used for heating metal ingot
 tips.ragi_materials.forge_furnace.1=Right-click with §bFurnace Fuel§r§7 to add Fuel Point
 tips.ragi_materials.forge_furnace.2=Right-click with §bMetal Parts§r§7 to heat it

@@ -1,11 +1,9 @@
 package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.render.color.ColorRegistry
-import hiiragi283.ragi_materials.render.model.*
-import hiiragi283.ragi_materials.render.tile.RenderBlazingMelter
-import hiiragi283.ragi_materials.render.tile.RenderLaboratoryTable
-import hiiragi283.ragi_materials.tile.TileBlazingMelter
+import hiiragi283.ragi_materials.client.render.color.ColorRegistry
+import hiiragi283.ragi_materials.client.render.model.*
+import hiiragi283.ragi_materials.client.render.tile.RenderLaboratoryTable
 import hiiragi283.ragi_materials.tile.TileLaboTable
 import net.minecraftforge.fml.client.registry.ClientRegistry
 
@@ -15,9 +13,10 @@ class ClientProxy : CommonProxy() {
     override fun loadPreInit() {
         //アイテムのモデル登録
         RagiModel.setModel(
-                RagiInit.ItemBlockBlazingMelter,
+                RagiInit.ItemBlockBlazingForge,
                 RagiInit.ItemBlockForgeFurnace,
                 RagiInit.ItemBlockFullBottleStation,
+                RagiInit.ItemBlockIndustrialLabo,
                 RagiInit.ItemBlockLaboratoryTable,
                 RagiInit.ItemBlockOreDictConv,
                 RagiInit.ItemBlockSaltPond,
@@ -55,7 +54,6 @@ class ClientProxy : CommonProxy() {
         super.registerTile()
         //TESRの登録
         ClientRegistry.bindTileEntitySpecialRenderer(TileLaboTable::class.java, RenderLaboratoryTable())
-        ClientRegistry.bindTileEntitySpecialRenderer(TileBlazingMelter::class.java, RenderBlazingMelter())
     }
 
     //Post-Initializationで読み込むメソッド
