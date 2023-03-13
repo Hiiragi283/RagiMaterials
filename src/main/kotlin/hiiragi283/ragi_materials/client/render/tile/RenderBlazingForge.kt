@@ -1,12 +1,16 @@
 package hiiragi283.ragi_materials.client.render.tile
 
+import hiiragi283.ragi_materials.base.RagiFacing
 import hiiragi283.ragi_materials.block.BlockBlazingForge
 import hiiragi283.ragi_materials.tile.TileBlazingForge
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
+@SideOnly(Side.CLIENT)
 class RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
 
     private val location = ResourceLocation("minecraft", "textures/entity/blaze.png")
@@ -19,7 +23,7 @@ class RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
 
             val state = te.world.getBlockState(te.pos)
             if (state.block is BlockBlazingForge) {
-                val rotate = when (state.getValue(BlockBlazingForge.FACING)) {
+                val rotate = when (state.getValue(RagiFacing.HORIZONTAL)) {
                     EnumFacing.EAST -> -90.0f
                     EnumFacing.SOUTH -> 0.0f
                     EnumFacing.WEST -> 90.0f

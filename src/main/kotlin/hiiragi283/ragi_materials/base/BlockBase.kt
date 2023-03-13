@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.base
 
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiInit
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.client.resources.I18n

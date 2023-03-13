@@ -5,9 +5,7 @@ import hiiragi283.ragi_materials.block.*
 object RagiBlock {
 
     val BlockBlazingForge = BlockBlazingForge()
-    val BlockCropCoal = BlockCropCoal()
-    val BlockCropLignite = BlockCropLignite()
-    val BlockCropPeat = BlockCropPeat("crop_peat")
+    val BlockSoilPeat = BlockSoilPeat()
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockFullBottleStation = BlockFullBottleStation()
     val BlockIndustrialLabo = BlockIndustrialLabo()

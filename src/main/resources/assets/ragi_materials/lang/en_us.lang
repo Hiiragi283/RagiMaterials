@@ -1,15 +1,13 @@
 
 # Block
 tile.blazing_forge.name=Blazing Forge
-tile.crop_coal.name=[WIP] Coal Farm
-tile.crop_lignite.name=[WIP] Lignite Farm
-tile.crop_peat.name=[WIP] Peat Farm
 tile.forge_furnace.name=Forge Furnace
 tile.fullbottle_station.name=Full Bottle Station
 tile.laboratory_table.name=Laboratory Table
 tile.ore_rainbow.name=§cR§6a§ei§an§bb§9o§dw§r Ore
 tile.oredict_converter.name=Ore Dictionary Converter
 tile.salt_pond.name=Salt Evaporation Pond
+tile.soil_peat.name=Peat Soil
 
 # Item
 item.blazing_cube.name=Blazing Cube
@@ -37,9 +35,6 @@ item.ragi_plate.name=%s Plate
 item.ragi_spade.name=%s Shovel
 item.ragi_stick.name=%s Stick
 item.ragi_sword.name=%s Sword
-item.seed_coal.name=[WIP] Coal Seed
-item.seed_lignite.name=[WIP] Lignite Seed
-item.seed_peat.name=[WIP] Peat Seed
 item.waste.name=Chemical Waste
 
 # Tooltip

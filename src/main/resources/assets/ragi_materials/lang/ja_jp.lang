@@ -1,15 +1,13 @@
 
 # Block
 tile.blazing_forge.name=燃え盛る鍛造炉
-tile.crop_coal.name=[未完成] 石炭畑
-tile.crop_lignite.name=[未完成] 褐炭畑
-tile.crop_peat.name=[未完成] 泥炭畑
 tile.forge_furnace.name=鍛造炉
 tile.fullbottle_station.name=フルボトルメーカー
 tile.laboratory_table.name=実験台
 tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=塩田ブロック
+tile.soil_peat.name=泥炭質の土
 
 # Item
 item.blazing_cube.name=燃え盛るキューブ
@@ -37,9 +35,6 @@ item.ragi_plate.name=%s板
 item.ragi_spade.name=%sのシャベル
 item.ragi_stick.name=%s棒
 item.ragi_sword.name=%sの剣
-item.seed_coal.name=[未完成] 石炭の種
-item.seed_lignite.name=[未完成] 褐炭の種
-item.seed_peat.name=[未完成] 泥炭の種
 item.waste.name=化学廃棄物
 
 # Tooltip

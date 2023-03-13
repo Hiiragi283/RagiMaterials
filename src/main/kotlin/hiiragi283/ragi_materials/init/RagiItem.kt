@@ -19,13 +19,11 @@ object RagiItem {
     val ItemBlockOreDictConv = ItemBlockBase(RagiBlock.BlockOreDictConv)
     val ItemBlockOreRainbow = ItemBlockBase(RagiBlock.BlockOreRainbow)
     val ItemBlockSaltPond = ItemBlockBase(RagiBlock.BlockSaltPond)
+    val ItemBlockSoilPeat = ItemBlockBase(RagiBlock.BlockSoilPeat)
 
     val ItemBlazingCube: Item = ItemBase(Reference.MOD_ID, "blazing_cube", 0).setCreativeTab(CreativeTabs.MISC)
     val ItemBookDebug: Item = ItemBookDebug().setCreativeTab(CreativeTabs.MISC)
     val ItemFullBottle: Item = ItemFullBottle().setCreativeTab(RagiRegistry.TabFullBottle)
-    val ItemSeedCoal: Item = ItemSeedCoal().setCreativeTab(CreativeTabs.MISC)
-    val ItemSeedLignite: Item = ItemSeedLignite().setCreativeTab(CreativeTabs.MISC)
-    val ItemSeedPeat: Item = ItemSeedPeat("seed_peat").setCreativeTab(CreativeTabs.MISC)
     val ItemWaste = ItemWaste()
 
     val ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)

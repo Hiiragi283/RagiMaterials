@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil

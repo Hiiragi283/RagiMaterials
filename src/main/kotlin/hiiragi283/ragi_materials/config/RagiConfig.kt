@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.config
 
 import hiiragi283.ragi_materials.Reference
-import net.minecraft.item.ItemStack
 import net.minecraftforge.common.config.Config
 
 @Config(modid = Reference.MOD_ID, category = "")

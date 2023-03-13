@@ -4,8 +4,6 @@ import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.init.RagiInit
-
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.builder.MaterialBuilder

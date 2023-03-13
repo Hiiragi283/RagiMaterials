@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.base.RagiBlockContainer
 import hiiragi283.ragi_materials.tile.TileFullBottleStation
 import net.minecraft.block.SoundType

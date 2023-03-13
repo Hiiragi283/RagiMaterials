@@ -9,31 +9,34 @@ import java.math.BigDecimal
 open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<MaterialBuilder, Int>) : MaterialBuilder(index, name, type) {
 
     init {
-        setColor()
-        setFormula(MaterialUtil.getFormula(components))
-        setMolar()
+        initColor()
+        initFormula()
+        initMolar()
         register()
     }
 
-    private fun setColor() {
-        //Mapの宣言
+    private fun initColor() {
         val mapColor: MutableMap<Color, Int> = mutableMapOf()
-        //components内の各keyに対して実行
-        for (key in components.keys) {
-            //ColorとIntを対応させる
-            if (key !is FormulaString) mapColor[key.color] = components.getValue(key)
+        //ColorとIntを対応させる
+        for (pair in components.toList()) {
+            val material = pair.first
+            if (material !is FormulaString) mapColor[material.color] = pair.second
         }
         this.color = RagiColorManager.mixColor(mapColor)
     }
 
-    private fun setMolar() {
-        //変数の宣言
-        val molar = BigDecimal.ZERO
-        val components = components
-        //components内の各keyに対して実行
-        for (key in components.keys) {
-            key.molar?.let { molar.add(it.toBigDecimal() * components.getValue(key).toBigDecimal()) }
+    private fun initFormula() {
+        this.formula = MaterialUtil.getFormula(components)
+    }
+
+    private fun initMolar() {
+        var molar = BigDecimal.ZERO
+        for (pair in components.toList()) {
+            pair.first.molar?.let {
+                molar = molar.add(it.toBigDecimal() * pair.second.toBigDecimal())
+            }
         }
         this.molar = if (molar == BigDecimal.ZERO) null else molar.toFloat()
     }
+
 }

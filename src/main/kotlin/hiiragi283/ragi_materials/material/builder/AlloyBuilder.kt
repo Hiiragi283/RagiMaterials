@@ -5,43 +5,35 @@ import hiiragi283.ragi_materials.material.type.TypeRegistry
 class AlloyBuilder(index: Int, name: String, components: Map<MaterialBuilder, Int>) : CompoundBuilder(index, name, TypeRegistry.METAL, components) {
 
     init {
-        setBoil()
-        setMelt()
+        initBoil()
+        initMelt()
     }
 
-    private fun setBoil() {
-        //変数の宣言
+    private fun initBoil() {
         var tempBoil = 0
         var divideBoil = 0
-        val components = this.components
-        //components内の各keyに対して実行
-        for (key in components.keys) {
+        for (pair in this.components.toList()) {
             //沸点がnullでない場合
-            key.tempBoil?.let {
-                tempBoil += it * components.getValue(key)
-                divideBoil += components.getValue(key)
+            pair.first.tempBoil?.let {
+                tempBoil += it * pair.second
+                divideBoil += pair.second
             }
         }
         //沸点の平均値をとる
-        tempBoil /= divideBoil
-        this.tempBoil = tempBoil
+        this.tempBoil = tempBoil / divideBoil
     }
 
-    private fun setMelt() {
-        //変数の宣言
+    private fun initMelt() {
         var tempMelt = 0
         var divideMelt = 0
-        val components = this.components
-        //components内の各keyに対して実行
-        for (key in components.keys) {
+        for (pair in this.components.toList()) {
             //融点がnullでない場合
-            key.tempMelt?.let {
-                tempMelt += it * components.getValue(key)
-                divideMelt += components.getValue(key)
+            pair.first.tempMelt?.let {
+                tempMelt += it * pair.second
+                divideMelt += pair.second
             }
         }
         //融点の平均値をとる
-        tempMelt /= divideMelt
-        this.tempMelt = tempMelt
+        this.tempMelt = tempMelt / divideMelt
     }
 }

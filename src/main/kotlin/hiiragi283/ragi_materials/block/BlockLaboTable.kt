@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockContainerBase
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.tile.TileLaboTable
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType

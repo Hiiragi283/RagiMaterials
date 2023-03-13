@@ -3,6 +3,8 @@ package hiiragi283.ragi_materials.client.render.tile
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox
 import net.minecraft.client.model.ModelRenderer
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 // Made with Blockbench 4.6.4
 // Exported for Minecraft version 1.7 - 1.12
@@ -13,6 +15,7 @@ import net.minecraft.client.model.ModelRenderer
   Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/ModelIBC.java
 */
 
+@SideOnly(Side.CLIENT)
 class ModelLaboratoryTable : ModelBase() {
 
     private val cube: ModelRenderer

@@ -1,10 +1,8 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.builder.MaterialBuilder
-
+import hiiragi283.ragi_materials.Reference
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
@@ -16,8 +14,8 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack

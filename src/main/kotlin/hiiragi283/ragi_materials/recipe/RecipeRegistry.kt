@@ -25,7 +25,8 @@ object RecipeRegistry {
                 "A A", "ABA", "CCC",
                 'A', RagiUtil.getStack("minecraft:iron_bars", 1, 0),
                 'B', RagiUtil.getStack("${Reference.MOD_ID}:blazing_cube", 1, 0),
-                'C', RagiUtil.getStack("minecraft:nether_brick", 1, 0))
+                'C', RagiUtil.getStack("minecraft:nether_brick", 1, 0)
+        )
         RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:forge_furnace", 1, 0),
                 "A A", "A A", "BCB",
                 'A', "cobblestone",
@@ -55,11 +56,11 @@ object RecipeRegistry {
                 'A', "slabWood",
                 'B', "sand"
         )
-        RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:seed_peat", 1, 0),
+        RagiRecipe.addShaped(RagiUtil.getStack("${Reference.MOD_ID}:soil_peat", 1, 0),
                 "ABA", "BCB", "ABA",
                 'A', "dirt",
                 'B', "gemCharcoal",
-                'C', RagiUtil.getStack("minecraft:wheat_seeds", 1, 0)
+                'C', RagiUtil.getFilledBottle("water")
         )
     }
 }

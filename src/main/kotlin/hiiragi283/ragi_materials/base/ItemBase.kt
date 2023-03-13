@@ -42,5 +42,4 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
             }
         }
     }
-
 }

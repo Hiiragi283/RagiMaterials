@@ -3,8 +3,6 @@ package hiiragi283.ragi_materials.item
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.init.RagiInit
-
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.util.RagiUtil

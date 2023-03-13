@@ -7,15 +7,13 @@ class MixtureBuilder(index: Int, name: String, type: MaterialType, private val l
 
     init {
         color = Color(0xFFFFFF)
+        initFormula()
         molar = null
         register()
-        setFormula()
     }
 
-    private fun setFormula() {
-        //変数の宣言・初期化
+    private fun initFormula() {
         var formula = ""
-        //list内の各要素に対して実行
         for (i in list) {
             if (i is MaterialBuilder) formula += ",${i.formula}"
             else if (i is String) formula += ",$i"
