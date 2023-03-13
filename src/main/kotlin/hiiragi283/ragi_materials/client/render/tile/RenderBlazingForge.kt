@@ -34,7 +34,7 @@ class RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
                 GlStateManager.pushMatrix()
                 GlStateManager.enableRescaleNormal()
                 GlStateManager.translate(x.toFloat() + 0.5f, y.toFloat(), z.toFloat() + 0.5f)
-                GlStateManager.scale(1.0f, -1.0f, -1.0f)
+                GlStateManager.scale(1.2f, -1.2f, -1.2f)
                 GlStateManager.rotate(rotate, 0.0f, 1.0f, 0.0f)
                 model.render()
                 GlStateManager.disableRescaleNormal()
