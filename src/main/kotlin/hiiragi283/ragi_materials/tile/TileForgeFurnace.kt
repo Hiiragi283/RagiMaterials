@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.material.IMaterialItem
+import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiLogger

@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.recipe.laboratory
 
-import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -61,6 +61,6 @@ object LaboRecipeRegistry {
             outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.ALUMINIUM_OXIDE)
             outputs[2] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
             outputs[3] = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 3)
-        }.setCatalyst(0, ItemStack(RagiInit.ItemBlazingCube)).build()
+        }.setCatalyst(0, ItemStack(RagiItem.ItemBlazingCube)).build()
     }
 }

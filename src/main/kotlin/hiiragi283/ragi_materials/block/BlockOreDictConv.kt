@@ -26,7 +26,6 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("axe", 0)
         soundType = SoundType.WOOD
     }

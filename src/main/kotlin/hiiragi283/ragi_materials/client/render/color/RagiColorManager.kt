@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.client.render.color
 
 import java.awt.Color
 
-object RagiColor {
+object RagiColorManager {
     //ひいらぎさんのテーマカラー
     val RAGI_RED = Color(255, 0, 31)
 

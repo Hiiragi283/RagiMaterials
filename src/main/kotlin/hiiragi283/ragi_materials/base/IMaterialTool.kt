@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.base
 
-import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 
 interface IMaterialTool {
 

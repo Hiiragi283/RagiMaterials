@@ -1,12 +1,9 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.material.IMaterialBlock
-import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import net.minecraft.block.Block
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -59,18 +56,18 @@ open class BlockCropPeat(ID: String) : BlockBase(ID, Material.PLANTS, -1), IGrow
             drops.add(ItemStack(getDropSeed(), random.nextInt(3), 0))
             //最大まで成長している場合，泥炭をドロップ
             if (age == 3) {
-                drops.add(ItemStack(RagiInit.ItemCrystal, fortune + 1, getDropMain()))
+                drops.add(ItemStack(RagiItem.ItemCrystal, fortune + 1, getDropMain()))
             }
             //fortune/8の確率で褐炭がドロップ
             if (random.nextInt(7) < fortune) {
-                drops.add(ItemStack(RagiInit.ItemCrystal, 1, getDropSub()))
+                drops.add(ItemStack(RagiItem.ItemCrystal, 1, getDropSub()))
             }
         }
     }
 
     open fun getDropMain(): Int = MaterialRegistry.PEAT.index
 
-    open fun getDropSeed(): Item = RagiInit.ItemSeedPeat
+    open fun getDropSeed(): Item = RagiItem.ItemSeedPeat
 
     open fun getDropSub(): Int = MaterialRegistry.LIGNITE.index
 

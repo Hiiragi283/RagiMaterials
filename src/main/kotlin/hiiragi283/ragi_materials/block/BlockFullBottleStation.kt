@@ -18,7 +18,6 @@ class BlockFullBottleStation : RagiBlockContainer("fullbottle_station", Material
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 2)
         soundType = SoundType.METAL
     }

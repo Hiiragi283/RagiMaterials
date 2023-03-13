@@ -1,5 +1,6 @@
-package hiiragi283.ragi_materials.material
+package hiiragi283.ragi_materials.material.builder
 
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase

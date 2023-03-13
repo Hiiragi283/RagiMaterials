@@ -26,7 +26,6 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
     init {
         blockHardness = 3.0f
         blockResistance = 3.0f
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
     }

@@ -28,7 +28,6 @@ class BlockBlazingForge : RagiBlockContainer("blazing_forge", Material.IRON, 3) 
         blockHardness = 5.0F
         blockResistance = 5.0F
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
 

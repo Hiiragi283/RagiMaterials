@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.proxy
+package hiiragi283.ragi_materials.init.proxy
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.client.gui.ContainerIndustrialLabo

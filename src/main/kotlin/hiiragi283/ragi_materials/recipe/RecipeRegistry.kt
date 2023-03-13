@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.recipe.crafting.RecipeMaterial
 import hiiragi283.ragi_materials.util.RagiUtil
 
 object RecipeRegistry {

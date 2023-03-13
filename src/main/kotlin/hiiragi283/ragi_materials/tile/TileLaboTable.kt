@@ -1,11 +1,11 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.init.RagiInit
 import hiiragi283.ragi_materials.packet.MessageLabo
 import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
 import hiiragi283.ragi_materials.capability.RagiInventory
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -102,7 +102,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
             RagiLogger.infoDebug("$isFailed")
             //失敗時の処理
             if (isFailed) {
-                RagiUtil.dropItem(world, pos, ItemStack(RagiInit.ItemWaste, 1, 0))
+                RagiUtil.dropItem(world, pos, ItemStack(RagiItem.ItemWaste, 1, 0))
                 RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.generic.explode"))
                 RagiLogger.infoDebug("Failed...!")
             }

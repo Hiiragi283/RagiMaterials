@@ -23,7 +23,6 @@ class BlockLitForgeFurnace : BlockHorizontal(Material.ROCK) {
         blockHardness = 3.5F
         blockResistance = 3.5F
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 0)
         setRegistryName(Reference.MOD_ID, registryName)
         soundType = SoundType.STONE

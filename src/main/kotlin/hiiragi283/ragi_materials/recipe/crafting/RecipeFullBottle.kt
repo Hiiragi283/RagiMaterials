@@ -1,7 +1,7 @@
-package hiiragi283.ragi_materials.recipe
+package hiiragi283.ragi_materials.recipe.crafting
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.init.Items
 import net.minecraft.inventory.InventoryCrafting
@@ -52,7 +52,7 @@ class RecipeFullBottle : net.minecraftforge.registries.IForgeRegistryEntry.Impl<
         return if (fluidStack !== null && fluidStack.amount >= 1000) {
             val count = fluidStack.amount / 1000
             fluidStack.amount = 1000
-            val result = ItemStack(RagiInit.ItemFullBottle, count, 0)
+            val result = ItemStack(RagiItem.ItemFullBottle, count, 0)
             result.tagCompound = RagiUtil.setFluidToNBT(NBTTagCompound(), fluidStack)
             result
         } else ItemStack.EMPTY

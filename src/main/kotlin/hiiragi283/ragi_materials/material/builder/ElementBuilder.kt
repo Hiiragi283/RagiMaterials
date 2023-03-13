@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.material.element
+package hiiragi283.ragi_materials.material.builder
 
-import hiiragi283.ragi_materials.material.MaterialBuilder
+
 import hiiragi283.ragi_materials.material.type.MaterialType
 import java.awt.Color
 

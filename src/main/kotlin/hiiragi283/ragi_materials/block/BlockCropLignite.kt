@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.Item
 import net.minecraft.util.math.BlockPos
@@ -14,7 +14,7 @@ class BlockCropLignite : BlockCropPeat("crop_lignite") {
 
     override fun getDropMain(): Int = MaterialRegistry.LIGNITE.index
 
-    override fun getDropSeed(): Item = RagiInit.ItemSeedLignite
+    override fun getDropSeed(): Item = RagiItem.ItemSeedLignite
 
     override fun getDropSub(): Int = MaterialRegistry.COAL.index
 

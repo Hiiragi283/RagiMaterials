@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.recipe
+package hiiragi283.ragi_materials.recipe.crafting
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry

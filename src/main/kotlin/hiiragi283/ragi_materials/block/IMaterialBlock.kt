@@ -1,5 +1,6 @@
-package hiiragi283.ragi_materials.material
+package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World

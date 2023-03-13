@@ -1,5 +1,6 @@
-package hiiragi283.ragi_materials.material
+package hiiragi283.ragi_materials.item
 
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import net.minecraft.item.ItemStack
 
 interface IMaterialItem {

@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.material.element
+package hiiragi283.ragi_materials.material.builder
 
 class IsotopeBuilder(index: Int,
                      name: String,

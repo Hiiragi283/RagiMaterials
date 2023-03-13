@@ -1,8 +1,9 @@
-package hiiragi283.ragi_materials.recipe
+package hiiragi283.ragi_materials.recipe.crafting
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.recipe.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraftforge.oredict.OreDictionary
 

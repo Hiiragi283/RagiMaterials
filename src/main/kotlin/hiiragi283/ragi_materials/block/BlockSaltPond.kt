@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -41,7 +42,6 @@ class BlockSaltPond : BlockBase("salt_pond", Material.WOOD, 2) {
         blockHardness = 2.0F
         blockResistance = 3.0F
         defaultState = blockState.baseState.withProperty(NORTH, false).withProperty(EAST, false).withProperty(SOUTH, false).withProperty(WEST, false).withProperty(TYPE, EnumSalt.EMPTY)
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("axe", 0)
         soundType = SoundType.WOOD
     }
@@ -122,9 +122,9 @@ class BlockSaltPond : BlockBase("salt_pond", Material.WOOD, 2) {
         if (!world.isRemote) {
             //完成品の場合分け
             val stack: ItemStack = when (state.getValue(TYPE)) {
-                EnumSalt.WATER -> ItemStack(RagiInit.ItemDust, 1, MaterialRegistry.SALT.index)
-                EnumSalt.SALTWATER -> ItemStack(RagiInit.ItemDust, 1, MaterialRegistry.MAGNESIUM_CHLORIDE.index)
-                EnumSalt.BRINE -> ItemStack(RagiInit.ItemDust, 1, MaterialRegistry.LITHIUM_CHLORIDE.index)
+                EnumSalt.WATER -> ItemStack(RagiItem.ItemDust, 1, MaterialRegistry.SALT.index)
+                EnumSalt.SALTWATER -> ItemStack(RagiItem.ItemDust, 1, MaterialRegistry.MAGNESIUM_CHLORIDE.index)
+                EnumSalt.BRINE -> ItemStack(RagiItem.ItemDust, 1, MaterialRegistry.LITHIUM_CHLORIDE.index)
                 else -> ItemStack.EMPTY
             }
             if (stack.item != Items.AIR) {

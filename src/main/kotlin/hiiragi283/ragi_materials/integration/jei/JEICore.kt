@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFCategory
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFMaker
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFRecipe
@@ -48,12 +48,12 @@ class JEICore : IModPlugin {
         LaboMaker.register(registry)
         SaltPondMaker.register(registry)
 
-        registry.addRecipeCatalyst(ItemStack(RagiInit.BlockForgeFurnace), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiInit.BlockBlazingForge), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockForgeFurnace), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockBlazingForge), ForgeFurnace)
 
-        registry.addRecipeCatalyst(ItemStack(RagiInit.BlockLaboratoryTable), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockLaboratoryTable), LaboTable)
 
-        registry.addRecipeCatalyst(ItemStack(RagiInit.BlockSaltPond), SaltPond)
+        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockSaltPond), SaltPond)
 
         RagiLogger.info("The integration for JEI/HEI has loaded!")
     }

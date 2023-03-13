@@ -2,10 +2,9 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.material.IMaterialItem
-import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -37,7 +36,7 @@ open class ItemSeedPeat(ID: String) : ItemBase(Reference.MOD_ID, ID, 0), IPlanta
 
     //    IPlantable    //
 
-    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState = RagiInit.BlockCropPeat.defaultState
+    override fun getPlant(world: IBlockAccess, pos: BlockPos): IBlockState = RagiBlock.BlockCropPeat.defaultState
 
     override fun getPlantType(world: IBlockAccess, pos: BlockPos): EnumPlantType = EnumPlantType.Crop //作物
 

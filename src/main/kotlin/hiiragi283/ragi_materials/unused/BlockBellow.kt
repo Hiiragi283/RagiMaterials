@@ -27,7 +27,6 @@ class BlockBellow : BlockHorizontalBase("block_bellow", Material.CLOTH, 1) {
 
     init {
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(ACTIVE, false)
-        setCreativeTab(RagiInit.TabBlocks)
         setHardness(3.5F)
         setHarvestLevel("axe", 0)
         setResistance(3.5F)

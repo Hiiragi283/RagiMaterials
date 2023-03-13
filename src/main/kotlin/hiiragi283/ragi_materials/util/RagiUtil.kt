@@ -2,7 +2,9 @@ package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiInit
-import hiiragi283.ragi_materials.material.MaterialBuilder
+import hiiragi283.ragi_materials.init.RagiItem
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.command.ICommandSender
@@ -84,7 +86,7 @@ object RagiUtil {
     }
 
     fun getFilledBottle(fluidStack: FluidStack, count: Int = 1): ItemStack {
-        val stack = ItemStack(RagiInit.ItemFullBottle, count, 0)
+        val stack = ItemStack(RagiItem.ItemFullBottle, count, 0)
         stack.tagCompound = setFluidToNBT(NBTTagCompound(), fluidStack)
         return stack
     }

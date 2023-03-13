@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.material.part.MaterialPart
-import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.resources.I18n

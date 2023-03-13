@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.integration.jei.salt_pond
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiInit
+import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.integration.jei.JEICategoryBase
 import hiiragi283.ragi_materials.integration.jei.JEICore
 import mezz.jei.api.IGuiHelper
@@ -39,7 +39,7 @@ class SaltPondCategory(guiHelper: IGuiHelper) : JEICategoryBase<SaltPondWrapper>
         recipeLayout.itemStacks[0] = input
         //Salt Pondのスロットを登録
         recipeLayout.itemStacks.init(1, false, 36, 0)
-        recipeLayout.itemStacks[1] = ItemStack(RagiInit.ItemBlockSaltPond)
+        recipeLayout.itemStacks[1] = ItemStack(RagiBlock.BlockSaltPond)
         //outputのスロットを登録
         recipeLayout.itemStacks.init(2, false, 72, 0)
         recipeLayout.itemStacks[2] = output

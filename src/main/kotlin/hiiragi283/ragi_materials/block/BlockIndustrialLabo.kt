@@ -21,7 +21,6 @@ class BlockIndustrialLabo : BlockContainerBase("industrial_labo", Material.IRON,
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 3)
         soundType = SoundType.METAL
     }

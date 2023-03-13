@@ -1,6 +1,4 @@
-package hiiragi283.ragi_materials.material
-
-import hiiragi283.ragi_materials.material.element.ElementBuilder
+package hiiragi283.ragi_materials.material.builder
 
 class SimpleBuilder(val material: ElementBuilder, amount: Int) : CompoundBuilder(material.index, material.name, material.type, mapOf(material to amount)) {
 

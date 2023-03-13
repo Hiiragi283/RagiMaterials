@@ -29,7 +29,6 @@ class BlockBlazeHeater : BlockHorizontalBase("blaze_heater", Material.ROCK, 2) {
         blockHardness = 3.5F
         blockResistance = 3.5F
         defaultState = blockState.baseState.withProperty(FACING, EnumFacing.NORTH).withProperty(HELL, false)
-        setCreativeTab(RagiInit.TabBlocks)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
     }
