@@ -1,4 +1,5 @@
 name: クラッシュ報告（日本語）
+description: クラッシュバグの報告
 #labels: [ "", "" ]
 body:
   - type: input
