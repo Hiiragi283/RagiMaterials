@@ -1,0 +1,54 @@
+name: クラッシュ報告（日本語）
+#labels: [ "", "" ]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: RagiMaterialsのバージョン
+      description: クラッシュが発生した時にプレイしていたRagiMaterialsのバージョンを記入してください。バージョンはmodsフォルダ内のjarファイルか，ゲーム内の「mods」オプションから探せます.
+      placeholder: "例: v0.5.0b"
+    validations:
+      required: true
+  - type: input
+    id: modpack
+    attributes:
+      label: プレイしていたmodpack
+      description: クラッシュが発生した時にプレイしていたmodpackの名前とバージョンを記入してください (modpackで遊んでいない場合は空欄)。
+      placeholder: "例: "
+    validations:
+      required: false
+  - type: input
+    id: is_client
+    attributes:
+      label: サーバー/クライアント
+      description: サーバー側 (マルチプレイ) かクライアント側 (シングルプレイ) のどちらかでクラッシュが発生したか記入してください。
+      placeholder: "例: クライアント側"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: クラッシュの再現方法
+      description: そのクラッシュを再現する方法を**段階ごとに**記入してください。
+      placeholder: "例: (1) まず...をします。"
+    validations:
+      required: true
+  - type: textarea
+    id: crash-report
+    attributes:
+      label: クラッシュレポートの貼り付け場所
+      description: クラッシュレポートは"instance/crash-reports/"配下にあります。 もしあるのなら"instance/logs/latest.log"の添付もお願いします。 もし両方とも欠けていると手助けできないのでご注意ください。これらの中身を貼り付けた外部のペーストサイト (GitHub GistsやPastebinなど) のリンクを載せてください。**決してファイルの中身を直接載せないでください!! (クソ見づらい)**
+      placeholder: ""
+    validations:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: 追加の説明
+      description: その他伝えたいことはこちらに記入してください。
+      placeholder: ""
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: ご報告ありがとうございます!
