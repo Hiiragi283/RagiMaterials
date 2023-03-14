@@ -38,7 +38,6 @@ body:
     attributes:
       label: Crash Report
       description: The crash report will exist in "instance/crash-reports/". If it exists, attach "instance/logs/latest.log". If both files do not exist, I can't help you. Please link to a paste site with their content, such as GitHub Gists or Pastebin. **Do not paste the contents of either these files directly into the text box.**
-      placeholder: ""
     validations:
       required: true
   - type: textarea
@@ -46,7 +45,6 @@ body:
     attributes:
       label: Additional Information
       description: Any additional information you want to tell.
-      placeholder: ""
     validations:
       required: false
   - type: markdown
