@@ -1,5 +1,57 @@
 # CHANGELOG
 
+## v0.4.0a
+
+  - Added new JEI tab for Laboratory Table
+  - The name of fluid uses material name instead of its own name
+
+### Config values
+
+  - Changing max stack size: causing many problems
+  - Custom Material Registry: this will be registered by using Crafttweaker in the future
+  - Custom recipe for Forge Furnace: due to redesign of Forge Furnace
+  - Max Materials: expanded to 32767
+
+### Blocks
+
+  - Bellow Block: removed due to redesign of Forge Furnace
+  - Blaze Heater: replaced with Blazing Forge
+  - Blazing Forge: upgrade version of Forge Furnace, using lava or other fluids for fuel
+  - Coal/Lignite/Peat Crop: replaced with Peat Soil
+  - Forge Furnace: redesigned for using tile entity
+  - Full Bottle Station: holding internal data when harvested or placed
+  - [WIP] Industrial Chemical Reaction Chamber (ICRC): processing chemical reaction recipes automatically
+  - Peat Soil: used for cultivating peat
+  - Rainbow Ore: drops various ores when mined
+
+### Items
+
+  - Coal/Lignite/Peat Seed: removed due to redesign of Fossil Crops
+  - Forge Hammer: removed due to redesign of Material Tool System
+
+### Materials
+
+  - Added new materials
+    - Magnesium Carbonate
+    - Alumina Solution
+  - Added new textures for material block
+  - Added rarity system
+    - EPIC
+      - Deuterium
+      - Tritium
+    - RARE
+      - Helium
+      - Neon
+      - Argon
+      - Titanium
+      - Stainless Steel
+      - Tool Steel
+    - UNCOMMON
+      - Steel
+  - Fix the bug that the molar mass of all materials is not calculated correctly
+  - Fix the incorrect weight of chlorine for Magnesium Chloride
+  - Unified metal blocks and crystal blocks into "material block"
+
 ## v0.3.1
 
   - Added credits for model files
