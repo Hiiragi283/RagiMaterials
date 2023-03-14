@@ -38,6 +38,7 @@ body:
     attributes:
       label: クラッシュレポートの貼り付け場所
       description: クラッシュレポートは"instance/crash-reports/"配下にあります。 もしあるのなら"instance/logs/latest.log"の添付もお願いします。 もし両方とも欠けていると手助けできないのでご注意ください。これらの中身を貼り付けた外部のペーストサイト (GitHub GistsやPastebinなど) のリンクを載せてください。**決してファイルの中身を直接載せないでください!! (クソ見づらい)**
+      placeholder: "例: "
     validations:
       required: true
   - type: textarea
@@ -45,6 +46,7 @@ body:
     attributes:
       label: 追加の説明
       description: その他伝えたいことはこちらに記入してください。
+      placeholder: "例: "
     validations:
       required: false
   - type: markdown
