@@ -8,6 +8,7 @@ tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=塩田ブロック
 tile.soil_peat.name=泥炭質の土
+tile.stone_mill.name=石臼
 
 # Item
 item.blazing_cube.name=燃え盛るキューブ
@@ -53,7 +54,8 @@ tips.ragi_materials.fullbottle_station.1=液体コンテナやパイプを用い
 tips.ragi_materials.fullbottle_station.2=液体は1秒でフルボトルへと変換されます
 tips.ragi_materials.laboratory_table.0=化学反応に利用します
 tips.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを搬入します
-tips.ragi_materials.laboratory_table.2=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
+tips.ragi_materials.laboratory_table.2=§bレッドストーン信号§r§7で稼働します
+tips.ragi_materials.laboratory_table.3=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
 tips.ragi_materials.ore_rainbow.0=採掘時にさまざまな鉱石をドロップします
 tips.ragi_materials.ore_rainbow.1=素手でシフト右クリックすることで回収できます
 tips.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
@@ -68,17 +70,27 @@ tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
 tips.ragi_materials.salt_pond.0=液体を蒸発させるのに使用します
 tips.ragi_materials.salt_pond.1=§bフルボトル§r§7を持って右クリックして液体を流します
 tips.ragi_materials.salt_pond.2=§b10秒§r§7ほど待つと§f塩§r§7がドロップします
+tips.ragi_materials.soil_peat.0=§b泥炭§r§7を育てるのに使用します
+tips.ragi_materials.soil_peat.1=空気に触れさせないことで成長します
+tips.ragi_materials.soil_peat.2=§b湿ったバイオーム§r§7に設置すると隣接した§b土/草ブロック§r§7を置き換えます
+tips.ragi_materials.stone_mill.0=アイテムを粉砕するのに使用します
+tips.ragi_materials.stone_mill.1=§b素材アイテム§r§7を持って右クリックすることでセットします
+tips.ragi_materials.stone_mill.2=§b素手で§r§7右クリックすることで石臼を回します
+tips.ragi_materials.stone_mill.3=8回回すたびに石臼は§b粉末sr§7を生成しようとします
 
 # Text
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
 text.ragi_materials.decoration_line=§e§l========================================
+text.ragi_materials.failed=[%s] §c失敗...
 text.ragi_materials.spawn=§bスポーン地点にテレポートしました!
+text.ragi_materials.succeeded=[%s] §a成功!
 text.ragi_materials.syntax=§bSyntax and Reload!
 
 # GUI
 gui.ragi_materials.forge_furnace=鍛造炉
 gui.ragi_materials.labo_table=実験台
 gui.ragi_materials.salt_pond=塩田
+gui.ragi_materials.stone_mill=石臼
 itemGroup.ragi_materials.blocks=らぎマテリアルズ - ブロック
 itemGroup.ragi_materials.fullbottles=らぎマテリアルズ - フルボトル
 itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材

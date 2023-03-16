@@ -7,6 +7,7 @@ import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
 import hiiragi283.ragi_materials.capability.RagiInventory
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
@@ -55,7 +56,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
         } else false
     }
 
-    //    ITileBase    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         val stack = player.getHeldItem(hand)
@@ -95,7 +96,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                         RagiLogger.infoDebug("The output is ${output.toBracket()}")
                     }
                     RagiSoundEvent.playSoundHypixel(this)
-                    RagiLogger.infoDebug("Succeeded!")
+                    RagiResult.succeeded(this)
                     break
                 }
             }
@@ -104,7 +105,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
             if (isFailed) {
                 RagiUtil.dropItem(world, pos, ItemStack(RagiItem.ItemWaste, 1, 0))
                 RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.generic.explode"))
-                RagiLogger.infoDebug("Failed...!")
+                RagiResult.failed(this)
             }
             this.inventory.clear() //反応結果によらずインベントリを空にする
         }

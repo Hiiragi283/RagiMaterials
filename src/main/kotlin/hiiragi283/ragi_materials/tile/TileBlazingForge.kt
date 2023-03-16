@@ -51,10 +51,14 @@ class TileBlazingForge : TileBase(103) {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        val stack = player.getHeldItem(hand)
-        return if (FluidUtil.getFluidHandler(stack) !== null) {
-            FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
-        } else doProcess(player, hand)
+        var result = false
+        if (!world.isRemote) {
+            val stack = player.getHeldItem(hand)
+            result = if (FluidUtil.getFluidHandler(stack) !== null) {
+                FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
+            } else doProcess(player, hand)
+        }
+        return result
     }
 
     //    Recipe    //
@@ -72,17 +76,14 @@ class TileBlazingForge : TileBase(103) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         val stack = player.getHeldItem(hand)
         val stackResult = TileForgeFurnace.getResult(stack)
-        var result = false
-        if (canProcess() && !stackResult.isEmpty) {
+        return if (canProcess() && !stackResult.isEmpty) {
             this.tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 
             stack.shrink(1) //手持ちのアイテムを1つ減らす
             RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
 
             RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.fire.extinguish"))
-            result = true
-        }
-        return result
+            true
+        } else false
     }
-
 }

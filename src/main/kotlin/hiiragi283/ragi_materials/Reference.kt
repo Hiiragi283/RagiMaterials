@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials
 import net.minecraft.client.Minecraft
 import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.multiplayer.WorldClient
-import net.minecraft.server.MinecraftServer
 
 object Reference {
     //MOD IDの定義

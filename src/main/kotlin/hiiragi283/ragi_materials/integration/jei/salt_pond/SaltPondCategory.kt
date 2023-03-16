@@ -30,18 +30,18 @@ class SaltPondCategory(guiHelper: IGuiHelper) : JEICategoryBase<SaltPondWrapper>
     override fun getBackground(): IDrawable = background
 
     //JEiタブにレシピを設定するメソッド
-    override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: SaltPondWrapper, ingredients: IIngredients) {
+    override fun setRecipe(layout: IRecipeLayout, wrapper: SaltPondWrapper, ingredients: IIngredients) {
         //変化前と変化後のアイテムをwrapperから取得
-        val input = recipeWrapper.stackIn
-        val output = recipeWrapper.stackOut
+        val input = wrapper.input
+        val output = wrapper.output
         //inputのスロットを登録
-        recipeLayout.itemStacks.init(0, true, 0, 0)
-        recipeLayout.itemStacks[0] = input
+        layout.itemStacks.init(0, true, 0, 0)
+        layout.itemStacks[0] = input
         //Salt Pondのスロットを登録
-        recipeLayout.itemStacks.init(1, false, 36, 0)
-        recipeLayout.itemStacks[1] = ItemStack(RagiBlock.BlockSaltPond)
+        layout.itemStacks.init(1, false, 36, 0)
+        layout.itemStacks[1] = ItemStack(RagiBlock.BlockSaltPond)
         //outputのスロットを登録
-        recipeLayout.itemStacks.init(2, false, 72, 0)
-        recipeLayout.itemStacks[2] = output
+        layout.itemStacks.init(2, false, 72, 0)
+        layout.itemStacks[2] = output
     }
 }

@@ -13,5 +13,6 @@ object RagiBlock {
     val BlockOreDictConv = BlockOreDictConv()
     val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
     val BlockSaltPond = BlockSaltPond()
+    val BlockStoneMill = BlockStoneMill()
 
 }

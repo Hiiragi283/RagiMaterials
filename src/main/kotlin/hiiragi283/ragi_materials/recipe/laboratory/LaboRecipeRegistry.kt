@@ -40,7 +40,7 @@ object LaboRecipeRegistry {
         //Magnesium
         LaboRecipe.Builder(MaterialRegistry.HYDROGEN_FLUORIDE.name).apply {
             inputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.MAGNESIUM_CARBONATE)
-            inputs[0] = RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN_CHLORIDE, count = 2)
+            inputs[1] = RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN_CHLORIDE, count = 2)
             outputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.MAGNESIUM_CHLORIDE)
             outputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.WATER)
             outputs[2] = RagiUtil.getFilledBottle(material = MaterialRegistry.CARBON_DIOXIDE)

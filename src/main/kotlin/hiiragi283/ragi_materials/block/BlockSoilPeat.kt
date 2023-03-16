@@ -21,7 +21,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.BiomeDictionary
 import java.util.*
 
-class BlockSoilPeat: BlockBase("soil_peat", Material.GROUND, -1), IGrowable, IMaterialBlock, IMaterialItem {
+class BlockSoilPeat: BlockBase("soil_peat", Material.GROUND, 2), IGrowable, IMaterialBlock, IMaterialItem {
 
     companion object {
         val AGE: PropertyInteger = PropertyInteger.create("age", 0, 3)

@@ -13,10 +13,10 @@ class FFWrapper(info: FFRecipe) : IRecipeWrapper {
     private val fuel = info.fuel
 
     //スロットにはめるIIngredientsを定義するメソッド
-    override fun getIngredients(ing: IIngredients) {
+    override fun getIngredients(ingredients: IIngredients) {
         //各listをIIngredientsに設定
-        ing.setInputs(VanillaTypes.ITEM, mutableListOf(inputs))
-        ing.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
+        ingredients.setInputs(VanillaTypes.ITEM, mutableListOf(inputs))
+        ingredients.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
     }
 
     override fun drawInfo(mc: Minecraft, wid: Int, hei: Int, mouseX: Int, mouseY: Int) {

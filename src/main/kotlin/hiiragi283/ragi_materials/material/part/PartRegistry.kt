@@ -42,11 +42,17 @@ object PartRegistry {
         type = EnumMaterialType.NUGGET
     }.build()
 
-    val ORE = MaterialPart.Builder("ore").build()
+    val ORE = MaterialPart.Builder("ore").apply {
+        scale = 2.0f
+    }.build()
 
-    val ORE_NETHER = MaterialPart.Builder("ore_nether").build()
+    val ORE_NETHER = MaterialPart.Builder("ore_nether").apply {
+        scale = 2.0f
+    }.build()
 
-    val ORE_END = MaterialPart.Builder("ore_end").build()
+    val ORE_END = MaterialPart.Builder("ore_end").apply {
+        scale = 2.0f
+    }.build()
 
     val PLATE = MaterialPart.Builder("plate").apply {
         type = EnumMaterialType.PLATE

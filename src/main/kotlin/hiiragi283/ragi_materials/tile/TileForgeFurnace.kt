@@ -64,11 +64,15 @@ class TileForgeFurnace : TileBase(102) {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        val stack = player.getHeldItem(hand)
-        return if (isFuel(stack)) {
-            player.setHeldItem(hand, this.inventory.insertItem(0, stack, false)) //燃料を搬入
-            true
-        } else doProcess(player, hand) //レシピを実行
+        var result = false
+        if (!world.isRemote) {
+            val stack = player.getHeldItem(hand)
+            result = if (isFuel(stack)) {
+                player.setHeldItem(hand, this.inventory.insertItem(0, stack, false)) //燃料を搬入
+                true
+            } else doProcess(player, hand) //レシピを実行
+        }
+        return result
     }
 
     //    Recipe    //
@@ -91,9 +95,8 @@ class TileForgeFurnace : TileBase(102) {
             val item = stack.item
             var result = ItemStack.EMPTY
             if (item is IMaterialItem && item is ItemMaterial) {
-                val material = item.getMaterial(stack)
                 val scale = item.part.scale
-                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, scale.toInt()) //完成品を代入
+                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, item.getMaterial(stack), scale.toInt()) //完成品を代入
                 RagiLogger.infoDebug("Result: ${result.toBracket()}")
             }
             return result
@@ -103,10 +106,8 @@ class TileForgeFurnace : TileBase(102) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         val stack = player.getHeldItem(hand)
         val stackResult = getResult(stack)
-        var result = false
-        if (canProcess(stack) && !stackResult.isEmpty) {
+        return if (canProcess(stack) && !stackResult.isEmpty) {
             RagiLogger.infoDebug("Can process!")
-
             val fuelConsumption = getFuelConsumption(stack)
             //燃料消費が0より多い場合
             if (fuelConsumption > 0) {
@@ -117,10 +118,9 @@ class TileForgeFurnace : TileBase(102) {
                 RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
 
                 RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.fire.extinguish"))
-                result = true
-            }
-        }
-        return result
+                true
+            } else false
+        } else false
     }
 
     //かまどのタイルエンティティから燃焼時間を取得

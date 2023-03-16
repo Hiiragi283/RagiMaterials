@@ -60,7 +60,7 @@ class TileFullBottleStation : TileBase(101), ITickable {
         }
     }
 
-    //    ITileBase    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean = FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
 

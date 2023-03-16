@@ -76,7 +76,7 @@ class TileIndustrialLabo : TileBase(104), ILockableContainer, ISidedInventory, I
         }
     }
 
-    //    ITileBase    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean = false
 

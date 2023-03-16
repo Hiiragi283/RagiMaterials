@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
@@ -10,7 +9,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -21,6 +19,8 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.world.IBlockAccess
 
 class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
+
+    var countSent = 0
 
     init {
         blockHardness = 5.0F
@@ -53,13 +53,14 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
     //    Event    //
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
+        var result = false
         if (!world.isRemote) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
             val count = stack.count
-            var result = ItemStack.EMPTY
+            var stackResult = ItemStack.EMPTY
             //stackががEMPTYでない場合
-            if (stack.item != Items.AIR) {
+            if (!stack.isEmpty) {
                 //鉱石辞書の数値IDの配列を取得
                 val arrayIDs = OreDictionary.getOreIDs(stack)
                 //配列内の各IDに対して実行
@@ -72,20 +73,20 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
                     for (stackOre in listStacks) {
                         //stackOreのmodidがragi_materialsの場合
                         if (stackOre.item.registryName.toString().split(":")[0] == Reference.MOD_ID) {
-                            result = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
+                            stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
                             break
                         }
                     }
                 }
                 //resultがEMPTYでない場合
-                return if (result.item !== Items.AIR) {
+                if (!stackResult.isEmpty) {
                     stack.shrink(count) //stackを1つ減らす
-                    RagiUtil.dropItemAtPlayer(player, result)
+                    RagiUtil.dropItemAtPlayer(player, stackResult)
                     RagiSoundEvent.playSoundHypixel(world, pos)
-                    RagiLogger.infoDebug("Item was converted!")
-                    true
-                } else false
-            } else return false
-        } else return false
+                    result = true
+                }
+            }
+        }
+        return result
     }
 }

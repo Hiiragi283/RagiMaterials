@@ -162,7 +162,7 @@ object RagiUtil {
     }
 
     fun dropItem(world: World, pos: BlockPos, stack: ItemStack) {
-        if (!stack.isEmpty) {
+        if (!world.isRemote && !stack.isEmpty) {
             val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble() + 1.0f, pos.z.toDouble() + 0.5f, stack)
             drop.setPickupDelay(0) //即座に回収できるようにする
             drop.motionX = 0.0

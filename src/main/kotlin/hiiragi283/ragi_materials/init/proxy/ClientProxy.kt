@@ -14,7 +14,7 @@ class ClientProxy : CommonProxy() {
     //Initializationで読み込むメソッド
     override fun loadInit() {
         //タイルエンティティの登録
-        super.registerTile()
+        super.registerTiles()
         //TESRの登録
         ClientRegistry.bindTileEntitySpecialRenderer(TileBlazingForge::class.java, RenderBlazingForge())
         ClientRegistry.bindTileEntitySpecialRenderer(TileLaboTable::class.java, RenderLaboratoryTable())

@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.material
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.material.part.MaterialPart
+import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.resources.I18n
@@ -53,9 +54,11 @@ object MaterialUtil {
     }
 
     fun getPart(part: MaterialPart, material: MaterialBuilder, amount: Int = 1): ItemStack {
-        return if (part.type in material.type.list) {
-            RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
-        } else ItemStack.EMPTY
+        return when (part.type) {
+            in material.type.list -> RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
+            EnumMaterialType.DUMMY -> RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
+            else -> ItemStack.EMPTY
+        }
     }
 
     //materialのツールチップを生成するメソッド

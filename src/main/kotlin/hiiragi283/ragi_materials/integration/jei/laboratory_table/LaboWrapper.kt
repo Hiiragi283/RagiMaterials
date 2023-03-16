@@ -10,8 +10,8 @@ class LaboWrapper(info: LaboRecipe) : IRecipeWrapper {
     val inputs = info.inputs
     val output = info.outputs
 
-    override fun getIngredients(ing: IIngredients) {
-        ing.setInputLists(VanillaTypes.ITEM, mutableListOf(inputs))
-        ing.setOutputLists(VanillaTypes.ITEM, mutableListOf(output))
+    override fun getIngredients(ingredients: IIngredients) {
+        ingredients.setInputLists(VanillaTypes.ITEM, mutableListOf(inputs))
+        ingredients.setOutputLists(VanillaTypes.ITEM, mutableListOf(output))
     }
 }

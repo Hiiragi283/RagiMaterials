@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.util.RagiUtil
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
@@ -18,6 +19,10 @@ import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 
 class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
+
+    init {
+        creativeTab = CreativeTabs.MISC
+    }
 
     //    General    //
 

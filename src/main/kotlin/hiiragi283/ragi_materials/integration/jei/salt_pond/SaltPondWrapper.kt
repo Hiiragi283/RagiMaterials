@@ -8,13 +8,13 @@ import mezz.jei.api.recipe.IRecipeWrapper
 class SaltPondWrapper(info: SaltPondRecipe) : IRecipeWrapper {
 
     //private変数の宣言
-    val stackIn = RagiUtil.getFilledBottle(name = info.stringIn)
-    val stackOut = info.stackOut
+    val input = RagiUtil.getFilledBottle(name = info.stringIn)
+    val output = info.stackOut
 
     //スロットにはめるIIngredientsを定義するメソッド
-    override fun getIngredients(ing: IIngredients) {
+    override fun getIngredients(ingredients: IIngredients) {
         //各listをIIngredientsに設定
-        ing.setInputs(VanillaTypes.ITEM, mutableListOf(stackIn))
-        ing.setOutputs(VanillaTypes.ITEM, mutableListOf(stackOut))
+        ingredients.setInputs(VanillaTypes.ITEM, mutableListOf(input))
+        ingredients.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
     }
 }

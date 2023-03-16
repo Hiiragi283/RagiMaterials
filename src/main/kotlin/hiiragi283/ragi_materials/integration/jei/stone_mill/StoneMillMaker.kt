@@ -1,36 +1,34 @@
-package hiiragi283.ragi_materials.integration.jei.forge_furnace
+package hiiragi283.ragi_materials.integration.jei.stone_mill
 
 import hiiragi283.ragi_materials.integration.jei.JEICore
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-
 import mezz.jei.api.IModRegistry
 
-object FFMaker {
+object StoneMillMaker {
 
     fun register(registry: IModRegistry) {
-        val list: MutableList<FFRecipe> = mutableListOf()
+        val list: MutableList<StoneMillRecipe> = mutableListOf()
         for (material in MaterialRegistry.mapIndex.values) {
-            if (material.type == TypeRegistry.METAL) {
+            if (material.type != TypeRegistry.DUST) {
                 for (part in PartRegistry.map.values) {
                     val type = part.type
                     val scale = part.scale
                     //素材が部品に対して有効，かつ倍率が1.0f以上の場合
-                    if (type in material.type.list && type != EnumMaterialType.INGOT_HOT && scale >= 1.0f) {
-                        list.add(FFRecipe(part, material)) //リストにレシピを追加
+                    if (type in material.type.list && scale >= 1.0f) {
+                        list.add(StoneMillRecipe(part, material)) //リストにレシピを追加
                     }
                 }
                 //鉱石がある場合
                 if (material.hasOre) {
                     //リストにレシピを追加
-                    list.add(FFRecipe(PartRegistry.ORE, material))
-                    list.add(FFRecipe(PartRegistry.ORE_NETHER, material))
-                    list.add(FFRecipe(PartRegistry.ORE_END, material))
+                    list.add(StoneMillRecipe(PartRegistry.ORE, material))
+                    list.add(StoneMillRecipe(PartRegistry.ORE_NETHER, material))
+                    list.add(StoneMillRecipe(PartRegistry.ORE_END, material))
                 }
             }
         }
-        registry.addRecipes(list, JEICore.ForgeFurnace)
+        registry.addRecipes(list, JEICore.StoneMill)
     }
 }
