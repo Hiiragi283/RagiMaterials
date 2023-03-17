@@ -1,15 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.integration.IntegrationCore
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
-import hiiragi283.ragi_materials.material.builder.AlloyBuilder
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
-import hiiragi283.ragi_materials.material.builder.SimpleBuilder
-
-object MaterialRegistryOld {
-
-    val mapIndex: LinkedHashMap<Int, MaterialBuilder> = linkedMapOf()
-    val mapName: LinkedHashMap<String, MaterialBuilder> = linkedMapOf()
+object MaterialRegistryOlder {
 
     //1 ~ 94: Periodic Table
     //1st Period
@@ -242,7 +233,7 @@ object MaterialRegistryOld {
 
     val ZIRCON = CrystalBuilder(220, "zircon", mapOf(ZIRCONIUM to 1, SILICON to 1, OXYGEN to 4), "tetragonal")
         .setColor(ZIRCONIUM.color)
-    */
+
 
     fun init() {
 
@@ -259,5 +250,5 @@ object MaterialRegistryOld {
 
         //configからmaterialを追加
         //RagiConfig.registerMaterial()
-    }
+    }*/
 }

@@ -20,13 +20,8 @@ object FFMaker {
             val material = pair.second
             val type = part.type
             val scale = part.scale
-            if (material.type == TypeRegistry.METAL && type != EnumMaterialType.INGOT_HOT && scale >= 1.0f) list.add(Recipe(part, pair.second)) //リストにレシピを追加
-            //鉱石がある場合
-            if (material.hasOre) {
-                //リストにレシピを追加
-                list.add(Recipe(PartRegistry.ORE, material))
-                list.add(Recipe(PartRegistry.ORE_NETHER, material))
-                list.add(Recipe(PartRegistry.ORE_END, material))
+            if (material.type == TypeRegistry.METAL && scale >= 1.0f && type != EnumMaterialType.INGOT_HOT) {
+                list.add(Recipe(part, pair.second)) //リストにレシピを追加
             }
         }
         registry.addRecipes(list, JEICore.ForgeFurnace)

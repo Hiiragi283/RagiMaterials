@@ -15,11 +15,17 @@ object MaterialUtil {
     //部品と素材の組み合わせが有効か判定するメソッド
     fun isValidPart(part: MaterialPart, material: MaterialBuilder): Boolean = part.type in material.type.list
 
+    fun isValidPart(part: MaterialPart, material: RagiMaterial): Boolean = part.type in material.type.list
+
     //部品を取得するメソッド
     fun getPart(part: MaterialPart, material: MaterialBuilder, amount: Int = 1): ItemStack {
-        return if (isValidPart(part, material) || part.type == EnumMaterialType.DUMMY) {
-            RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
-        } else ItemStack.EMPTY
+        var result = ItemStack.EMPTY
+        if (part.type == EnumMaterialType.DUMMY) {
+            if (material.hasOre) result = RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
+        } else if (isValidPart(part, material)) {
+            result = RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
+        }
+        return result
     }
 
     fun getFluid(index: Int): Fluid? {
@@ -53,15 +59,41 @@ object MaterialUtil {
         return formula
     }
 
+    fun getFormula(components: List<Pair<RagiMaterial, Int>>): String {
+        //変数の宣言・初期化
+        var formula = ""
+        var subscript: String
+        var subscript1 = '\u2080'
+        var subscript10 = '\u2080'
+        components.forEach {
+            val weight = it.second
+            //化学式の下付き数字の桁数調整
+            if (weight in 2..9) subscript1 = '\u2080' + weight
+            else if (weight in 10..99) {
+                subscript1 = '\u2080' + (weight % 10)
+                subscript10 = '\u2080' + (weight / 10)
+            }
+            //2桁目が0でない場合，下付き数字を2桁にする
+            subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
+            if (weight > 1) formula += subscript
+        }
+        //化学式を返す
+        return formula
+    }
+
     //代入したindexと一致するMaterialBuilderを返すメソッド
     fun getMaterial(index: Int): MaterialBuilder {
         return if (MaterialRegistry.mapIndex[index] !== null) MaterialRegistry.mapIndex[index]!! else MaterialBuilder.EMPTY
     }
 
+    fun getMaterialA(index: Int): RagiMaterial = MaterialRegistryNew.mapIndex[index] ?: RagiMaterial.EMPTY
+
     //代入したnameと一致するmaterialを返すメソッド
     fun getMaterial(name: String): MaterialBuilder {
         return if (MaterialRegistry.mapName[name] !== null) MaterialRegistry.mapName[name]!! else MaterialBuilder.EMPTY
     }
+
+    fun getMaterialA(name: String): RagiMaterial = MaterialRegistryNew.mapName[name] ?: RagiMaterial.EMPTY
 
     //materialのツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
@@ -74,9 +106,20 @@ object MaterialUtil {
         if (material.tempSubl !== null) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl!!)) //昇華点
     }
 
-    fun printMap() {
-        for (material in MaterialRegistry.list) {
-            RagiLogger.infoDebug("Index: ${material.index}, <material:${material.name}>")
+    fun materialInfo(material: RagiMaterial, tooltip: MutableList<String>) {
+        tooltip.add("§e=== Property ===")
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.${material.name}"))) //名称
+        material.formula?.let { tooltip.add(I18n.format("tips.ragi_materials.property.formula", it)) } //化学式
+        material.molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
+        if (material.tempMelt == material.tempBoil) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempMelt!!)) //昇華点
+        else {
+            material.tempMelt?.let { tooltip.add(I18n.format("tips.ragi_materials.property.melt", it)) } //融点
+            material.tempBoil?.let { tooltip.add(I18n.format("tips.ragi_materials.property.boil", it)) } //沸点
         }
+    }
+
+    fun printMap() {
+        MaterialRegistry.list.forEach { RagiLogger.infoDebug("Index: ${it.index}, <material:${it.name}>") }
+        MaterialRegistryNew.list.forEach { RagiLogger.infoDebug("New Index: ${it.index}, <material:${it.name}>") }
     }
 }

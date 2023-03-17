@@ -16,13 +16,6 @@ object StoneMillMaker {
             val part = pair.first
             val material = pair.second
             if (part.scale >= 1.0f) list.add(Recipe(part, material)) //リストにレシピを追加
-            //鉱石がある場合
-            if (material.hasOre) {
-                //リストにレシピを追加
-                list.add(Recipe(PartRegistry.ORE, material))
-                list.add(Recipe(PartRegistry.ORE_NETHER, material))
-                list.add(Recipe(PartRegistry.ORE_END, material))
-            }
         }
         registry.addRecipes(list, JEICore.StoneMill)
     }
