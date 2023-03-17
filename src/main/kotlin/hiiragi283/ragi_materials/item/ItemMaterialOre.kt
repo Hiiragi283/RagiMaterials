@@ -18,7 +18,7 @@ class ItemMaterialOre(part: MaterialPart) : ItemMaterial(part) {
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
+        if (this.isInCreativeTab(tab)) {
             //list内の各materialに対して実行
             for (material in MaterialRegistry.list) {
                 //hasOre==trueの場合

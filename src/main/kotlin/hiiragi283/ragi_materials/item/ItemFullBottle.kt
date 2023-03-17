@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.material.MaterialUtil
@@ -26,10 +25,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialItem {
-
-    init {
-        creativeTab = RagiRegistry.TabFullBottle
-    }
 
     //    General    //
 
@@ -61,7 +56,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
+        if (this.isInCreativeTab(tab)) {
             val stack = ItemStack(this)
             subItems.add(stack) //空のフルボトル
             for (fluid in FluidRegistry.getRegisteredFluids().values) {

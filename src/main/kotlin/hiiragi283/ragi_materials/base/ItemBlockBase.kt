@@ -27,7 +27,7 @@ open class ItemBlockBase(block: Block, private val maxMeta: Int = 0) : ItemBlock
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
+        if (this.isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
             for (i in 0..maxMeta) {
                 subItems.add(ItemStack(this, 1, i))

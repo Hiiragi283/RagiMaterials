@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.material.MaterialRegistry
@@ -18,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     init {
-        creativeTab = RagiRegistry.TabMaterials
+        creativeTab = CreativeTabs.MISC
     }
 
     //    General    //
@@ -43,7 +42,7 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
+        if (this.isInCreativeTab(tab)) {
             for (i in 0..this.maxMeta) {
                 subItems.add(ItemStack(this, 1, i))
             }

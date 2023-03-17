@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.config.RagiConfig
@@ -23,10 +22,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, 32767), IMaterialItem {
-
-    init {
-        creativeTab = RagiRegistry.TabMaterials
-    }
 
     //    General    //
 
@@ -76,10 +71,10 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
+        if (this.isInCreativeTab(tab)) {
             for (material in MaterialRegistry.list) {
                 if (MaterialUtil.isValidPart(part, material)) {
-                    subItems.add(ItemStack(this, 1, material.index))
+                    subItems.add(MaterialUtil.getPart(part, material))
                 }
             }
         }

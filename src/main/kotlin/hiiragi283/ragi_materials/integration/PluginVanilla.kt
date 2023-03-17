@@ -1,20 +1,11 @@
 package hiiragi283.ragi_materials.integration
 
-import hiiragi283.ragi_materials.unused.BlockForgeFurnaceOld
-import hiiragi283.ragi_materials.unused.BlockLitForgeFurnace
-import hiiragi283.ragi_materials.unused.FFHelper
-import net.minecraft.block.BlockDispenser
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem
-import net.minecraft.dispenser.IBlockSource
 import net.minecraft.init.Blocks
-import net.minecraft.init.Items
-import net.minecraft.item.ItemStack
 
 object PluginVanilla {
 
     fun loadPostInit() {
         overrideProperty()
-        registerDispenser()
     }
 
     //バニラのブロックの様々な情報を上書きするメソッド
@@ -50,23 +41,5 @@ object PluginVanilla {
         Blocks.STAINED_GLASS.setHarvestLevel("pickaxe", 0)
         Blocks.STAINED_GLASS_PANE.setHarvestLevel("pickaxe", 0)
         Blocks.STICKY_PISTON.setHarvestLevel("pickaxe", 0)
-    }
-
-    //ディスペンサーに機能を登録するメソッド
-    private fun registerDispenser() {
-        //燃料を投入
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.COAL, object : BehaviorDefaultDispenseItem() {
-            override fun dispenseStack(source: IBlockSource, stack: ItemStack): ItemStack {
-                //各値の取得
-                val world = source.world
-                val pos = source.blockPos.offset(source.blockState.getValue(BlockDispenser.FACING))
-                val state = world.getBlockState(pos)
-                val block = state.block
-                //blockがForge Furnaceの場合
-                return if (block is BlockForgeFurnaceOld && stack.item == Items.COAL) {
-                    FFHelper.setFuel(world, pos, state, stack) //燃料を投入
-                } else if (block is BlockLitForgeFurnace) stack else super.dispenseStack(source, stack)
-            }
-        })
     }
 }

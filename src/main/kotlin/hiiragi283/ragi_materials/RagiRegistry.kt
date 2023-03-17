@@ -12,6 +12,7 @@ import hiiragi283.ragi_materials.init.RagiCreativeTabs
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.item.ItemBookDebug
+import hiiragi283.ragi_materials.item.ItemFullBottle
 import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
@@ -20,10 +21,8 @@ import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
-import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
@@ -36,13 +35,6 @@ class RagiRegistry {
         registerFluid()
     }
 
-    companion object {
-        //Creative Tabの定義
-        val TabBlocks: CreativeTabs = if (!RagiMaterialsMod.isLoadedGT) RagiCreativeTabs("blocks", ItemStack(RagiItem.ItemBlockForgeFurnace)) else CreativeTabs.MISC
-        val TabFullBottle: CreativeTabs = if (!RagiMaterialsMod.isLoadedGT) RagiCreativeTabs("fullbottles", ItemStack(RagiItem.ItemFullBottle)) else CreativeTabs.MISC
-        val TabMaterials: CreativeTabs = if (!RagiMaterialsMod.isLoadedGT) RagiCreativeTabs("materials", ItemStack(RagiItem.ItemIngot, 1, 26)) else CreativeTabs.MISC
-    }
-
     @SubscribeEvent
     fun registerBlock(event: RegistryEvent.Register<Block>) {
         //Blockの自動登録
@@ -53,6 +45,7 @@ class RagiRegistry {
             try {
                 val block = field.get(this)
                 if (block is Block) {
+                    block.setCreativeTab(RagiCreativeTabs.BLOCK)
                     event.registry.register(block)
                     RagiLogger.infoDebug("The block ${block.registryName} is registered!")
                 }
@@ -92,6 +85,8 @@ class RagiRegistry {
             try {
                 val item = field.get(this)
                 if (item is Item) {
+                    if (item is ItemFullBottle) item.setCreativeTab(RagiCreativeTabs.FULLBOTTLE)
+                    if (item is ItemMaterial) item.setCreativeTab(RagiCreativeTabs.MATERIAL)
                     event.registry.register(item)
                     RagiLogger.infoDebug("The item ${item.registryName} is registered!")
                 }
