@@ -1,0 +1,7 @@
+{
+  "parent": "ragi_materials:block/all_tintindex",
+  "textures": {
+    "all": "blocks/soul_sand",
+    "particle": "blocks/soul_sand"
+  }
+}

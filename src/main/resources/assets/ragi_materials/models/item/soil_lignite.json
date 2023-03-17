@@ -1,0 +1,7 @@
+{
+  "parent": "ragi_materials:block/all_tintindex",
+  "textures": {
+    "all": "blocks/gravel",
+    "particle": "blocks/gravel"
+  }
+}

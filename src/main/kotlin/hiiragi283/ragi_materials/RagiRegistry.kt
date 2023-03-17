@@ -64,7 +64,7 @@ class RagiRegistry {
 
     private fun registerFluid() {
         //Fluidの登録
-        for (material in MaterialRegistry.mapIndex.values) {
+        for (material in MaterialRegistry.list) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
             if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
                 //Fluidの登録
@@ -139,6 +139,20 @@ class RagiRegistry {
             val block = state.block
             if (world !== null && block is IMaterialBlock) block.getMaterialBlock(world, pos!!, state).color.rgb else 0xFFFFFF
         },
+                RagiBlock.BlockOre1
+        )
+
+        blockColors.registerBlockColorHandler(IBlockColor { state, world, pos, tintIndex ->
+            val block = state.block
+            if (world !== null && pos !== null && block is BlockSoilFuel) {
+                val color = block.getMaterialBlock(world, pos, state).color
+                val age = block.getAge(state)
+                val ageMax = block.getAgeMax(state)
+                RagiColorManager.mixColor(color to age, RagiColorManager.WHITE to (ageMax - age)).rgb
+            } else 0xFFFFFF
+        },
+                RagiBlock.BlockSoilCoal,
+                RagiBlock.BlockSoilLignite,
                 RagiBlock.BlockSoilPeat
         )
 
@@ -155,6 +169,8 @@ class RagiRegistry {
         },
                 RagiItem.ItemBlockMaterial,
                 RagiItem.ItemBlockOre1,
+                RagiItem.ItemBlockSoilCoal,
+                RagiItem.ItemBlockSoilLignite,
                 RagiItem.ItemBlockSoilPeat,
                 RagiItem.ItemCrystal,
                 RagiItem.ItemDust,

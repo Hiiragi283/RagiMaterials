@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry
         dependencies = Reference.DEPENDENCIES,
         acceptedMinecraftVersions = Reference.MC_VERSIONS
 )
-class RagiMaterials {
+class RagiMaterialsMod {
 
     companion object {
         val isLoadedGT = Loader.isModLoaded("gregtech")
@@ -68,7 +68,7 @@ class RagiMaterials {
             //パケットの登録
             RagiPacket
             //GUI描画の登録
-            NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy!!)
+            NetworkRegistry.INSTANCE.registerGuiHandler(this, RagiGuiHandler())
             //proxyの読み込み
             proxy!!.loadInit()
             //連携要素の登録

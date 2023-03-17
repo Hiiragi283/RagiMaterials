@@ -5,7 +5,7 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 
-class SaltPondWrapper(info: SaltPondRecipe) : IRecipeWrapper {
+class SaltPondWrapper(info: SaltPondMaker.Recipe) : IRecipeWrapper {
 
     //private変数の宣言
     val input = RagiUtil.getFilledBottle(name = info.stringIn)

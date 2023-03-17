@@ -5,7 +5,7 @@ import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 
-class FFWrapper(info: FFRecipe) : IRecipeWrapper {
+class FFWrapper(info: FFMaker.Recipe) : IRecipeWrapper {
 
     //private変数の宣言
     val inputs = info.input

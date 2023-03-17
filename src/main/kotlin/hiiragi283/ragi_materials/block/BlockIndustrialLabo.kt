@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiMaterialsMod
 import hiiragi283.ragi_materials.base.BlockContainerBase
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -40,7 +40,7 @@ class BlockIndustrialLabo : BlockContainerBase("industrial_labo", Material.IRON,
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         if (!world.isRemote) {
-            player.openGui(RagiMaterials, 0, world, pos.x, pos.y, pos.z)
+            player.openGui(RagiMaterialsMod, 0, world, pos.x, pos.y, pos.z)
             RagiLogger.infoDebug("GUI opened!")
         }
         return true

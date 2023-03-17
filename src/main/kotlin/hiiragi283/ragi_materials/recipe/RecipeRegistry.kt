@@ -4,7 +4,8 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.recipe.crafting.RecipeMaterial
-import hiiragi283.ragi_materials.util.RagiUtil
+import net.minecraft.init.Blocks
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
 object RecipeRegistry {
@@ -18,33 +19,33 @@ object RecipeRegistry {
     private fun addCrafting() {
         RagiRecipe.addShaped(ItemStack(RagiItem.ItemBlazingCube, 1, 0),
                 "ABA", "CDC", "ABA",
-                'A', RagiUtil.getStack("minecraft:blaze_powder", 1, 0),
+                'A', ItemStack(Items.BLAZE_POWDER),
                 'B', "dustPhosphorus",
                 'C', "dustSulfur",
                 'D', "blockCoal"
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockBlazingForge, 1, 0),
                 "A A", "ABA", "CCC",
-                'A', RagiUtil.getStack("minecraft:iron_bars", 1, 0),
-                'B', RagiUtil.getStack("${Reference.MOD_ID}:blazing_cube", 1, 0),
-                'C', RagiUtil.getStack("minecraft:nether_brick", 1, 0)
+                'A', ItemStack(Blocks.IRON_BARS),
+                'B', ItemStack(RagiItem.ItemBlazingCube),
+                'C', ItemStack(Blocks.NETHER_BRICK)
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockForgeFurnace, 1, 0),
                 "A A", "A A", "BCB",
                 'A', "cobblestone",
                 'B', "stone",
-                'C', RagiUtil.getStack("minecraft:furnace", 1, 0)
+                'C', ItemStack(Blocks.FURNACE)
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockFullBottleStation, 1, 0),
                 "AAA", "BCB", "AAA",
-                'A', RagiUtil.getStack("minecraft:stone_slab", 1, 0),
+                'A', ItemStack(Blocks.STONE_SLAB),
                 'B', "blockGlass",
-                'C', RagiUtil.getStack("minecraft:bucket", 1, 0)
+                'C', ItemStack(Items.BUCKET)
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockOreDictConv, 1, 0),
                 "ABA", "ACA",
                 'A', "logWood",
-                'B', RagiUtil.getStack("minecraft:bookshelf", 1, 0),
+                'B', ItemStack(Blocks.BOOKSHELF),
                 'C', "chest"
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockOreRainbow, 1, 0),
@@ -64,16 +65,34 @@ object RecipeRegistry {
                 'A', "slabWood",
                 'B', "sand"
         )
+        RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSoilCoal, 1, 0),
+                "ABA",
+                'A', "gemLignite",
+                'B', ItemStack(Blocks.SOUL_SAND)
+        )
+        RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSoilLignite, 1, 0),
+                "ABA",
+                'A', "gemPeat",
+                'B', "gravel"
+        )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSoilPeat, 1, 0),
-                "ABA", "BCB", "ABA",
-                'A', "dirt",
-                'B', "gemCharcoal",
-                'C', RagiUtil.getFilledBottle("water")
+                "AAA", "ABA", "AAA",
+                'A', ItemStack(Blocks.TALLGRASS),
+                'B', "dirt"
+        )
+        RagiRecipe.addShaped("${Reference.MOD_ID}:soil_peat_1", ItemStack(RagiBlock.BlockSoilPeat, 1, 0),
+                " A ", "ABA", " A ",
+                'A', "treeLeaves",
+                'B', "dirt"
+        )
+        RagiRecipe.addShapeless("${Reference.MOD_ID}:soil_peat_2", ItemStack(RagiBlock.BlockSoilPeat, 1, 0),
+                RagiRecipe.setOreDict("vine"),
+                RagiRecipe.setOreDict("dirt")
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockStoneMill, 1, 0),
                 "A", "B", "B",
                 'A', "stickWood",
-                'B', RagiUtil.getStack("minecraft:stone_slab", 1, 0)
+                'B', ItemStack(Blocks.STONE_SLAB)
         )
     }
 }

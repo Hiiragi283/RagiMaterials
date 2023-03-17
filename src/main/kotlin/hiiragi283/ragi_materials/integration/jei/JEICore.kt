@@ -3,18 +3,15 @@ package hiiragi283.ragi_materials.integration.jei
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFCategory
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFMaker
-import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFRecipe
 import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFWrapper
 import hiiragi283.ragi_materials.integration.jei.laboratory_table.LaboCategory
 import hiiragi283.ragi_materials.integration.jei.laboratory_table.LaboMaker
 import hiiragi283.ragi_materials.integration.jei.laboratory_table.LaboWrapper
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondCategory
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondMaker
-import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondRecipe
 import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondWrapper
 import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillCategory
 import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillMaker
-import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillRecipe
 import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillWrapper
 import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -45,10 +42,10 @@ class JEICore : IModPlugin {
 
     override fun register(registry: IModRegistry) {
 
-        registry.handleRecipes(FFRecipe::class.java, { FFWrapper(it) }, ForgeFurnace)
+        registry.handleRecipes(FFMaker.Recipe::class.java, { FFWrapper(it) }, ForgeFurnace)
         registry.handleRecipes(LaboRecipe::class.java, { LaboWrapper(it) }, LaboTable)
-        registry.handleRecipes(SaltPondRecipe::class.java, { SaltPondWrapper(it) }, SaltPond)
-        registry.handleRecipes(StoneMillRecipe::class.java, { StoneMillWrapper(it) }, StoneMill)
+        registry.handleRecipes(SaltPondMaker.Recipe::class.java, { SaltPondWrapper(it) }, SaltPond)
+        registry.handleRecipes(StoneMillMaker.Recipe::class.java, { StoneMillWrapper(it) }, StoneMill)
 
         FFMaker.register(registry)
         LaboMaker.register(registry)

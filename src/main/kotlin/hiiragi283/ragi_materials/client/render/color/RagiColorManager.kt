@@ -42,6 +42,29 @@ object RagiColorManager {
     }
 
     //複数の色を比率を指定して混合するメソッド
+    fun mixColor(vararg colors: Pair<Color, Int>): Color {
+        //変数の宣言・初期化
+        var redSum = 0
+        var greenSum = 0
+        var blueSum = 0
+        var weightSum = 0
+        //colorsの各keyに対して実行
+        for (pair in colors) {
+            val color = pair.first
+            val weight = pair.second
+            //RGB値にweightをかけた値を加算していく
+            redSum += color.red * weight
+            greenSum += color.green * weight
+            blueSum += color.blue * weight
+            weightSum += weight
+        }
+        //色の個数が0でない場合
+        return if (weightSum != 0) {
+            //加算した各RGB値をweightの合計で割った値からColorを生成
+            Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum)
+        } else WHITE
+    }
+
     fun mixColor(colors: Map<Color, Int>): Color {
         //変数の宣言・初期化
         var redSum = 0

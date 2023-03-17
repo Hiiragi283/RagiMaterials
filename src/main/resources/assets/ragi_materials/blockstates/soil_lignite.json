@@ -4,8 +4,8 @@
   "defaults": {
     "model": "ragi_materials:all_tintindex",
     "textures": {
-      "all": "blocks/concrete_powder_green",
-      "particle": "blocks/concrete_powder_green"
+      "all": "blocks/gravel",
+      "particle": "blocks/gravel"
     },
     "uvlock": true
   },
@@ -14,7 +14,9 @@
       "0": {},
       "1": {},
       "2": {},
-      "3": {}
+      "3": {},
+      "4": {},
+      "5": {}
     }
   }
 }
