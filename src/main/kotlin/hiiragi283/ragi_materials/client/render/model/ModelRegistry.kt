@@ -96,15 +96,17 @@ object ModelRegistry {
         //ItemCrystal
         ModelLoader.registerItemVariants(
                 RagiItem.ItemCrystal,
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", "amorphous"),
+                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "amorphous"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "coal"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "cubic"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "diamond"),
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", "hexagonal"),
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", "monoclinic"),
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", "orthorhombic"),
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", "tetragonal"),
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", "trigonal")
+                ModelResourceLocation("${Reference.MOD_ID}:crystal", "emerald"),
+                ModelResourceLocation("${Reference.MOD_ID}:crystal", "lapis"),
+                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "monoclinic"),
+                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "orthorhombic"),
+                ModelResourceLocation("${Reference.MOD_ID}:crystal", "quartz"),
+                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "tetragonal"),
+                ModelResourceLocation("${Reference.MOD_ID}:crystal", "ruby")
         )
         ModelLoader.setCustomMeshDefinition(RagiItem.ItemCrystal) { stack ->
             //metadataからmaterialを取得

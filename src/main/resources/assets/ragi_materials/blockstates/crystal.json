@@ -26,9 +26,14 @@
         "layer0": "ragi_materials:items/crystal_diamond"
       }
     }],
-    "hexagonal": [{
+    "emerald": [{
       "textures": {
-        "layer0": "ragi_materials:items/crystal_hexagonal"
+        "layer0": "ragi_materials:items/crystal_emerald"
+      }
+    }],
+    "lapis": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_lapis"
       }
     }],
     "monoclinic": [{
@@ -41,14 +46,19 @@
         "layer0": "ragi_materials:items/crystal_orthorhombic"
       }
     }],
+    "quartz": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_quartz"
+      }
+    }],
     "tetragonal": [{
       "textures": {
         "layer0": "ragi_materials:items/crystal_tetragonal"
       }
     }],
-    "trigonal": [{
+    "ruby": [{
       "textures": {
-        "layer0": "ragi_materials:items/crystal_trigonal"
+        "layer0": "ragi_materials:items/crystal_ruby"
       }
     }]
   }
