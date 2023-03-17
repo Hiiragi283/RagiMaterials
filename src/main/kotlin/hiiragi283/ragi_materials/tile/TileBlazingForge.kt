@@ -74,16 +74,18 @@ class TileBlazingForge : TileBase(103) {
     } //入っている燃料がコンフィグで指定された量より多いなら実行可能
 
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
+        var result = false
         val stack = player.getHeldItem(hand)
         val stackResult = TileForgeFurnace.getResult(stack)
-        return if (canProcess() && !stackResult.isEmpty) {
+        if (canProcess() && !stackResult.isEmpty) {
             this.tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 
             stack.shrink(1) //手持ちのアイテムを1つ減らす
             RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
 
             RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.fire.extinguish"))
-            true
-        } else false
+            result = true
+        }
+        return result
     }
 }

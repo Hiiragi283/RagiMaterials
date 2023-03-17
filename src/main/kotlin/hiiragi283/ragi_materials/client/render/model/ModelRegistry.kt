@@ -24,6 +24,11 @@ object ModelRegistry {
 
     fun blocks() {
 
+        //Ore
+        ModelLoader.setCustomStateMapper(RagiBlock.BlockOre1, object : StateMapperBase() {
+            override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
+        })
+
         ModelLoader.setCustomStateMapper(RagiBlock.BlockOreRainbow, object : StateMapperBase() {
             override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone_rainbow")
         })
@@ -35,7 +40,7 @@ object ModelRegistry {
           Thanks to defeatedcrow!
           Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463
         */
-        for (material in MaterialRegistry.mapIndex.values) {
+        for (material in MaterialRegistry.list) {
             if (material.getFluid() !== null) {
                 //Fluidを取得
                 val fluid: Fluid = material.getFluid()!!
@@ -140,7 +145,7 @@ object ModelRegistry {
         RagiModelManager.setModelAlt(RagiItem.ItemOre, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
         RagiModelManager.setModelAlt(RagiItem.ItemOreNether, ModelResourceLocation("${Reference.MOD_ID}:ore", "nether"))
         RagiModelManager.setModelAlt(RagiItem.ItemOreEnd, ModelResourceLocation("${Reference.MOD_ID}:ore", "end"))
+
+        RagiModelManager.setModelAlt(RagiItem.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
     }
-
-
 }

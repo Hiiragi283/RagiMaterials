@@ -37,8 +37,7 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
         if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
             for (i in 0..maxMeta) {
-                val stack = ItemStack(this, 1, i)
-                subItems.add(stack)
+                subItems.add(ItemStack(this, 1, i))
             }
         }
     }

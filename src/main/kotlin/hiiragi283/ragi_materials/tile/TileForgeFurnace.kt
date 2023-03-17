@@ -104,9 +104,10 @@ class TileForgeFurnace : TileBase(102) {
     }
 
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
+        var result = false
         val stack = player.getHeldItem(hand)
         val stackResult = getResult(stack)
-        return if (canProcess(stack) && !stackResult.isEmpty) {
+        if (canProcess(stack) && !stackResult.isEmpty) {
             RagiLogger.infoDebug("Can process!")
             val fuelConsumption = getFuelConsumption(stack)
             //燃料消費が0より多い場合
@@ -118,9 +119,10 @@ class TileForgeFurnace : TileBase(102) {
                 RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
 
                 RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.fire.extinguish"))
-                true
-            } else false
-        } else false
+                result = true
+            }
+        }
+        return result
     }
 
     //かまどのタイルエンティティから燃焼時間を取得

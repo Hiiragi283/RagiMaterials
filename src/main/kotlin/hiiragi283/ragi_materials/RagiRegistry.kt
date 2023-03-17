@@ -1,7 +1,10 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.base.FluidBase
+import hiiragi283.ragi_materials.block.BlockOreMaterial
+import hiiragi283.ragi_materials.block.BlockSoilFuel
 import hiiragi283.ragi_materials.block.IMaterialBlock
+import hiiragi283.ragi_materials.client.render.color.RagiColorManager
 import hiiragi283.ragi_materials.client.render.model.ModelRegistry
 import hiiragi283.ragi_materials.client.render.model.RagiModelManager
 import hiiragi283.ragi_materials.init.RagiBlock
@@ -35,9 +38,9 @@ class RagiRegistry {
 
     companion object {
         //Creative Tabの定義
-        val TabBlocks: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs("blocks", ItemStack(RagiItem.ItemBlockForgeFurnace)) else CreativeTabs.MISC
-        val TabFullBottle: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs("fullbottles", ItemStack(RagiItem.ItemFullBottle)) else CreativeTabs.MISC
-        val TabMaterials: CreativeTabs = if (!RagiMaterials.isLoadedGT) RagiCreativeTabs("materials", ItemStack(RagiItem.ItemIngot, 1, 26)) else CreativeTabs.MISC
+        val TabBlocks: CreativeTabs = if (!RagiMaterialsMod.isLoadedGT) RagiCreativeTabs("blocks", ItemStack(RagiItem.ItemBlockForgeFurnace)) else CreativeTabs.MISC
+        val TabFullBottle: CreativeTabs = if (!RagiMaterialsMod.isLoadedGT) RagiCreativeTabs("fullbottles", ItemStack(RagiItem.ItemFullBottle)) else CreativeTabs.MISC
+        val TabMaterials: CreativeTabs = if (!RagiMaterialsMod.isLoadedGT) RagiCreativeTabs("materials", ItemStack(RagiItem.ItemIngot, 1, 26)) else CreativeTabs.MISC
     }
 
     @SubscribeEvent
@@ -107,10 +110,16 @@ class RagiRegistry {
             RagiLogger.infoDebug(field.name)
             try {
                 val item = field.get(this)
-                //ItemMaterialとDebug Book以外は自動的にモデルを割り当てる
-                if (item is Item && item !is ItemMaterial && item !is ItemBookDebug) {
-                    RagiModelManager.setModel(item)
-                    RagiLogger.infoDebug("The model for item ${item.registryName} is registered!")
+                if (item is ItemBlock) {
+                    if (item.block !is BlockOreMaterial) {
+                        RagiModelManager.setModel(item)
+                        RagiLogger.infoDebug("The model for item block ${item.registryName} is registered!")
+                    }
+                } else if (item is Item) {
+                    if (item !is ItemMaterial && item !is ItemBookDebug) {
+                        RagiModelManager.setModel(item)
+                        RagiLogger.infoDebug("The model for item ${item.registryName} is registered!")
+                    }
                 }
             } catch (e: Exception) {
                 RagiLogger.error(e)
@@ -145,6 +154,7 @@ class RagiRegistry {
 
         },
                 RagiItem.ItemBlockMaterial,
+                RagiItem.ItemBlockOre1,
                 RagiItem.ItemBlockSoilPeat,
                 RagiItem.ItemCrystal,
                 RagiItem.ItemDust,

@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.material.type.EnumMaterialType
 
 object PartRegistry {
 
+    val list: MutableList<MaterialPart> = mutableListOf()
     val map: HashMap<String, MaterialPart> = hashMapOf()
 
     val BLOCK = MaterialPart.Builder("block_material").apply {

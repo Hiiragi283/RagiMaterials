@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.material.builder
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
@@ -31,10 +33,28 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
     }
 
     //化学式に()をつけるメソッド
-    fun addBracket(): MaterialBuilder = also { it.hasBracket = true }
+    fun addBracket(): MaterialBuilder = copy().also { it.hasBracket = true }
 
     //nameから液体を取得するメソッド
     fun getFluid(): Fluid? = FluidRegistry.getFluid(this.name)
+
+    //コピーを返すメソッド
+    open fun copy(): MaterialBuilder {
+        return MaterialBuilder(this.index, this.name, this.type).also {
+            it.burnTime = this.burnTime
+            it.color = this.color
+            it.decayed = this.decayed
+            it.formula = this.formula
+            it.hasBracket = this.hasBracket
+            it.hasOre = this.hasOre
+            it.molar = this.molar
+            it.oredictAlt = this.oredictAlt
+            it.rarity = this.rarity
+            it.tempBoil = this.tempBoil
+            it.tempMelt = this.tempMelt
+            it.tempSubl = this.tempSubl
+        }
+    }
 
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String = this.name.snakeToUpperCamelCase()
@@ -79,7 +99,14 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //素材を登録するメソッド
     fun register(): MaterialBuilder = also {
-        if (it.index >= 0) MaterialRegistry.mapIndex[it.index] = it
-        MaterialRegistry.mapName[it.name] = it
+        if (it.index >= 0) {
+            MaterialRegistry.list.add(it)
+            MaterialRegistry.mapIndex[it.index] = it
+            MaterialRegistry.mapName[it.name] = it
+            //有効な部品の組み合わせを登録
+            for (part in PartRegistry.list) {
+                if(MaterialUtil.isValidPart(part, it)) MaterialRegistry.validPair.add(part to it)
+            }
+        }
     }
 }

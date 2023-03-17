@@ -7,7 +7,7 @@ import hiiragi283.ragi_materials.util.RagiUtil
 object RecipeMaterialTool {
 
     /*fun init() {
-        for (material in MaterialRegistry.mapIndex.values) {
+        for (material in MaterialRegistry.list) {
             if (material.toolProperty !== null) {
                 //Forge Hammer
                 val forgeHammer = RagiUtil.getStack("${Reference.MOD_ID}:forge_hammer", 1, 0)

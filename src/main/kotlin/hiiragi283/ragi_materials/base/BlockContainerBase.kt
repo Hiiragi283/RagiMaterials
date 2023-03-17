@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.base
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.util.RagiResult
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -31,8 +32,13 @@ abstract class BlockContainerBase(id: String, material: Material, val maxTips: I
     //    Event    //
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
-        val tile = world.getTileEntity(pos)
-        return if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
+        var result = false
+        if (hand == EnumHand.MAIN_HAND && !world.isRemote) {
+            val tile = world.getTileEntity(pos)
+            result = if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
+            if (result) RagiResult.succeeded(world, pos) else RagiResult.failed(world, pos)
+        }
+        return result
     }
 
     //    Client    //

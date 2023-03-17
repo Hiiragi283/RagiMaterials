@@ -12,6 +12,16 @@ import net.minecraftforge.fluids.Fluid
 
 object MaterialUtil {
 
+    //部品と素材の組み合わせが有効か判定するメソッド
+    fun isValidPart(part: MaterialPart, material: MaterialBuilder): Boolean = part.type in material.type.list
+
+    //部品を取得するメソッド
+    fun getPart(part: MaterialPart, material: MaterialBuilder, amount: Int = 1): ItemStack {
+        return if (isValidPart(part, material) || part.type == EnumMaterialType.DUMMY) {
+            RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
+        } else ItemStack.EMPTY
+    }
+
     fun getFluid(index: Int): Fluid? {
         return getMaterial(index).getFluid()
     }
@@ -53,14 +63,6 @@ object MaterialUtil {
         return if (MaterialRegistry.mapName[name] !== null) MaterialRegistry.mapName[name]!! else MaterialBuilder.EMPTY
     }
 
-    fun getPart(part: MaterialPart, material: MaterialBuilder, amount: Int = 1): ItemStack {
-        return when (part.type) {
-            in material.type.list -> RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
-            EnumMaterialType.DUMMY -> RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)
-            else -> ItemStack.EMPTY
-        }
-    }
-
     //materialのツールチップを生成するメソッド
     fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
@@ -73,7 +75,7 @@ object MaterialUtil {
     }
 
     fun printMap() {
-        for (material in MaterialRegistry.mapIndex.values) {
+        for (material in MaterialRegistry.list) {
             RagiLogger.infoDebug("Index: ${material.index}, <material:${material.name}>")
         }
     }

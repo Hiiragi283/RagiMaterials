@@ -14,6 +14,7 @@ object RagiItem {
     val ItemBlockFullBottleStation = ItemBlockBase(RagiBlock.BlockFullBottleStation)
     val ItemBlockIndustrialLabo = ItemBlockBase(RagiBlock.BlockIndustrialLabo)
     val ItemBlockLaboratoryTable = ItemBlockBase(RagiBlock.BlockLaboratoryTable)
+    val ItemBlockOre1 = ItemBlockBase(RagiBlock.BlockOre1, 13)
     val ItemBlockOreDictConv = ItemBlockBase(RagiBlock.BlockOreDictConv)
     val ItemBlockOreRainbow = ItemBlockBase(RagiBlock.BlockOreRainbow)
     val ItemBlockSaltPond = ItemBlockBase(RagiBlock.BlockSaltPond)

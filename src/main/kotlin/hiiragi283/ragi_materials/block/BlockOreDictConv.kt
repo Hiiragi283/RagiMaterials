@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
+import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
@@ -54,7 +55,7 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         var result = false
-        if (!world.isRemote) {
+        if (hand == EnumHand.MAIN_HAND && !world.isRemote) {
             //プレイヤーが利き手に持っているアイテムを取得
             val stack = player.getHeldItem(hand)
             val count = stack.count
@@ -86,6 +87,7 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
                     result = true
                 }
             }
+            if (result) RagiResult.succeeded(world, pos) else RagiResult.failed(world, pos)
         }
         return result
     }

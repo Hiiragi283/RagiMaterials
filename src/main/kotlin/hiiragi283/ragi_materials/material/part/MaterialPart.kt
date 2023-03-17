@@ -11,6 +11,7 @@ class MaterialPart private constructor(val name: String, val type: EnumMaterialT
 
         fun build(): MaterialPart {
             val part = MaterialPart(name, type, scale)
+            PartRegistry.list.add(part)
             PartRegistry.map[part.name] = part
             return part
         }

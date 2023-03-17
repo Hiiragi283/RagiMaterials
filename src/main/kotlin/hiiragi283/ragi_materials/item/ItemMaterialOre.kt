@@ -20,7 +20,7 @@ class ItemMaterialOre(part: MaterialPart) : ItemMaterial(part) {
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
             //list内の各materialに対して実行
-            for (material in MaterialRegistry.mapIndex.values) {
+            for (material in MaterialRegistry.list) {
                 //hasOre==trueの場合
                 if (material.hasOre) {
                     //ItemStackをlistに追加

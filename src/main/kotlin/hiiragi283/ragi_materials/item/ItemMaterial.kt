@@ -9,7 +9,6 @@ import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
-import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
@@ -78,13 +77,9 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
-            //list内の各materialに対して実行
-            for (material in MaterialRegistry.mapIndex.values) {
-                //typeがINTERNALでない，かつmaterialのtypeが一致する場合
-                if (material.type != TypeRegistry.INTERNAL && part.type in material.type.list) {
-                    //ItemStackをlistに追加
-                    val stack = ItemStack(this, 1, material.index)
-                    subItems.add(stack)
+            for (material in MaterialRegistry.list) {
+                if (MaterialUtil.isValidPart(part, material)) {
+                    subItems.add(ItemStack(this, 1, material.index))
                 }
             }
         }

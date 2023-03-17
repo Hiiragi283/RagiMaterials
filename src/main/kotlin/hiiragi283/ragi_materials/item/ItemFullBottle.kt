@@ -67,8 +67,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
             for (fluid in FluidRegistry.getRegisteredFluids().values) {
                 //液体の名前から素材が取得できる場合のみ登録
                 if (!MaterialUtil.getMaterial(fluid.name).isEmpty()) {
-                    val stackFilled = setFluid(stack.copy(), fluid.name)
-                    subItems.add(stackFilled)
+                    subItems.add(setFluid(stack.copy(), fluid.name))
                 }
             }
         }

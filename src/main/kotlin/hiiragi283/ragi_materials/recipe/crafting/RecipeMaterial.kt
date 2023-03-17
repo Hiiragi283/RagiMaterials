@@ -10,7 +10,7 @@ import net.minecraftforge.oredict.OreDictionary
 object RecipeMaterial {
 
     fun init() {
-        for (material in MaterialRegistry.mapIndex.values) {
+        for (material in MaterialRegistry.list) {
             if (EnumMaterialType.DUST in material.type.list) {
                 //dust -> tiny dustのレシピを登録
                 RagiRecipe.addShaped(Reference.MOD_ID + ":dust_to_tiny_" + material.index, RagiUtil.getStack("${Reference.MOD_ID}:dust_tiny", 9, material.index), "A", 'A', "dust${material.getOreDict()}")
