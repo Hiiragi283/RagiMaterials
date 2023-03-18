@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## v0.4.1a
+
+  - Added issue templates for crash report
+  - Fixed the bug that blocks and items were incorrectly registered in creative tabs
+  - Removed unused model files
+
+### Blocks
+
+  - [WIP] Ore Block: placable.
+  - Coal/Lignite Soil: Upgraded version of Peat Soil
+  - Stone Mill: obtain dusts from material parts
+
+  - Improved the behavior of Industrial Chemical Reaction Chamber
+  - Some functional blocks shows the result of actions
+
+### Materials
+
+  - [WIP] NEW MATERIAL SYSTEM _RagiMaterial_ IS COMING SOON... 
+  - Added new materials
+    - Graphite
+    - Nitratine
+  - Redesigned the textures for Crystals
+
 ## v0.4.0a
 
   - Added new JEI tab for Laboratory Table
