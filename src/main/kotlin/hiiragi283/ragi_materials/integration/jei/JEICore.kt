@@ -56,6 +56,7 @@ class JEICore : IModPlugin {
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockBlazingForge), ForgeFurnace)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockLaboratoryTable), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockIndustrialLabo), LaboTable)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockSaltPond), SaltPond)
 

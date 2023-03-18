@@ -8,27 +8,6 @@ import net.minecraftforge.items.IItemHandler
 
 class LaboRecipe private constructor(location: ResourceLocation, val inputs: MutableList<ItemStack>, val outputs: MutableList<ItemStack>) {
 
-    class Builder(private val location: ResourceLocation) {
-
-        constructor(domain: String, path: String) : this(ResourceLocation(domain, path))
-
-        constructor(path: String) : this(ResourceLocation(Reference.MOD_ID, path))
-
-        var inputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
-        var outputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
-
-        fun setCatalyst(slot: Int, stack: ItemStack): Builder = also {
-            it.inputs[slot] = stack
-            it.outputs[slot] = stack
-        }
-
-        fun build(): LaboRecipe {
-            val recipe = LaboRecipe(location, inputs, outputs)
-            LaboRecipeRegistry.map[location.toString()] = recipe
-            return recipe
-        }
-    }
-
     fun match(inventory: IItemHandler, useCount: Boolean): Boolean {
         var result = false
         if (inventory.slots >= 5) {
@@ -48,5 +27,27 @@ class LaboRecipe private constructor(location: ResourceLocation, val inputs: Mut
             }
         }
         return result
+    }
+
+    class Builder(private val location: ResourceLocation) {
+
+        constructor(domain: String, path: String) : this(ResourceLocation(domain, path))
+
+        constructor(path: String) : this(ResourceLocation(Reference.MOD_ID, path))
+
+        var inputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
+        var outputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
+
+        fun setCatalyst(slot: Int, stack: ItemStack): Builder = also {
+            it.inputs[slot] = stack
+            it.outputs[slot] = stack
+        }
+
+        fun build(): LaboRecipe {
+            return LaboRecipe(location, inputs, outputs).also {
+                LaboRecipeRegistry.list.add(it)
+                LaboRecipeRegistry.map[location.toString()] = it
+            }
+        }
     }
 }

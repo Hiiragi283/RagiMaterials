@@ -88,7 +88,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
         //サーバー側，かつインベントリが空でない場合
         if (!world.isRemote && !inventory.isEmpty) {
             //レシピチェック
-            for (recipe in LaboRecipeRegistry.map.values) {
+            for (recipe in LaboRecipeRegistry.list) {
                 if (recipe.match(inventorySide, true)) {
                     isFailed = false
                     for (output in recipe.outputs) {

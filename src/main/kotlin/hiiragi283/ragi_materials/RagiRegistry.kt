@@ -28,6 +28,8 @@ import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 class RagiRegistry {
 
@@ -97,6 +99,7 @@ class RagiRegistry {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     fun registerModel(event: ModelRegistryEvent) {
         //モデルの自動登録
         val fields = RagiItem::class.java.declaredFields
@@ -125,6 +128,7 @@ class RagiRegistry {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     fun registerColor(event: ColorHandlerEvent.Item) {
 
         val blockColors = event.blockColors

@@ -84,7 +84,10 @@ class RagiMaterialsMod {
             //各種装置のレシピ登録
             LaboRecipeRegistry
             //デバッグ用
-            MaterialUtil.printMap()
+            if (RagiConfig.debugMode.isDebug) {
+                MaterialUtil.printMap()
+                LaboRecipeRegistry.printMap()
+            }
             //proxyの読み込み
             proxy!!.loadPostInit()
             //連携要素の登録

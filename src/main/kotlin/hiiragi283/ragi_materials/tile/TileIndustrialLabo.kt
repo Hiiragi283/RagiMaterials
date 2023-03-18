@@ -75,15 +75,15 @@ class TileIndustrialLabo : TileBase(104), ITickable {
             //サーバー側，かつインベントリが空でない場合
             if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
                 //レシピチェック
-                for (recipe in LaboRecipeRegistry.map.values) {
+                for (recipe in LaboRecipeRegistry.list) {
                     if (recipe.match(inventory, false)) {
-                        for (i in 0 until inventory.slots) {
-                            if (!inventory.getStackInSlot(i).isEmpty && !recipe.inputs[i].isEmpty) {
-                                inventory.extractItem(i, recipe.inputs[i].count, false) //入力スロットからアイテムを減らす
+                        for (i in 0 .. 4) {
+                            val input = recipe.inputs[i]
+                            val output = recipe.outputs[i]
+                            if (!inventory.getStackInSlot(i).isEmpty && !input.isEmpty) {
+                                inventory.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
                                 RagiLogger.infoDebug("The slot$i is decreased!")
                             }
-                        }
-                        for (output in recipe.outputs) {
                             RagiUtil.dropItem(world, pos.offset(front), output)
                             RagiLogger.infoDebug("The output is ${output.toBracket()}")
                         }

@@ -7,6 +7,6 @@ import mezz.jei.api.IModRegistry
 object LaboMaker {
 
     fun register(registry: IModRegistry) {
-        registry.addRecipes(LaboRecipeRegistry.map.values, JEICore.LaboTable)
+        registry.addRecipes(LaboRecipeRegistry.list, JEICore.LaboTable)
     }
 }

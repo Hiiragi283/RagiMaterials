@@ -4,11 +4,13 @@ import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.item.ItemStack
 
 object LaboRecipeRegistry {
 
+    val list: MutableList<LaboRecipe> = mutableListOf()
     val map: LinkedHashMap<String, LaboRecipe> = linkedMapOf()
 
     init {
@@ -26,7 +28,7 @@ object LaboRecipeRegistry {
             inputs[1] = RagiUtil.getFilledBottle(material = MaterialRegistry.SULFURIC_ACID)
             outputs[0] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.BORON_OXIDE, 2)
             outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_SULFATE)
-            outputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.HYDROGEN, count = 11)
+            outputs[2] = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 11)
         }.build()
 
         //Fluorine
@@ -62,5 +64,9 @@ object LaboRecipeRegistry {
             outputs[2] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
             outputs[3] = RagiUtil.getFilledBottle(MaterialRegistry.WATER, count = 3)
         }.setCatalyst(0, ItemStack(RagiItem.ItemBlazingCube)).build()
+    }
+
+    fun printMap() {
+        map.forEach { RagiLogger.infoDebug("CR recipe: ${it.key}>") }
     }
 }
