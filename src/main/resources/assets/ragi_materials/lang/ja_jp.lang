@@ -3,6 +3,7 @@
 tile.blazing_forge.name=燃え盛る鍛造炉
 tile.forge_furnace.name=鍛造炉
 tile.fullbottle_station.name=フルボトルメーカー
+tile.industrial_labo.name=工業用化学反応室
 tile.laboratory_table.name=実験台
 tile.ore_block.0.name=緑柱石
 tile.ore_block.1.name=岩塩
@@ -68,7 +69,11 @@ tips.ragi_materials.fullbottle.1=§bフルボトルメーカー§r§7で作成�
 tips.ragi_materials.fullbottle_station.0=液体から§bフルボトル§r§7を作るのに使用します
 tips.ragi_materials.fullbottle_station.1=液体コンテナやパイプを用いて液体を搬入します
 tips.ragi_materials.fullbottle_station.2=液体は1秒でフルボトルへと変換されます
-tips.ragi_materials.laboratory_table.0=化学反応に利用します
+tips.ragi_materials.industrial_labo.0=化学反応の自動化に使用します
+tips.ragi_materials.industrial_labo.1=ホッパーやパイプを用いてアイテムを搬入します
+tips.ragi_materials.industrial_labo.2=§b1秒§r§7ごとにレシピを実行します
+tips.ragi_materials.industrial_labo.3=§b1,000 RF§r§7と§b必要な量の素材だけ§r§7を消費します
+tips.ragi_materials.laboratory_table.0=化学反応に使用します
 tips.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを搬入します
 tips.ragi_materials.laboratory_table.2=§bレッドストーン信号§r§7で稼働します
 tips.ragi_materials.laboratory_table.3=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
@@ -102,11 +107,8 @@ tips.ragi_materials.stone_mill.3=8回回すたびに石臼は§b粉末sr§7を�
 
 # Text
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
-text.ragi_materials.decoration_line=§e§l========================================
 text.ragi_materials.failed=[%s] §c失敗...
-text.ragi_materials.spawn=§bスポーン地点にテレポートしました!
 text.ragi_materials.succeeded=[%s] §a成功!
-text.ragi_materials.syntax=§bSyntax and Reload!
 
 # GUI
 gui.ragi_materials.forge_furnace=鍛造炉

@@ -28,19 +28,19 @@ class TileStoneMill: TileBase(105) {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setTag(keyInventory, this.inventory.serializeNBT())
+        tag.setTag(keyInventory, inventory.serializeNBT())
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        this.inventory.deserializeNBT(tag.getCompoundTag(keyInventory))
+        inventory.deserializeNBT(tag.getCompoundTag(keyInventory))
     }
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, facing)) this.inventory as T else super.getCapability(capability, facing)
+        return if (hasCapability(capability, facing)) inventory as T else super.getCapability(capability, facing)
     }
 
     //上面からの干渉は不可能 (完成品をドロップするため)
@@ -52,7 +52,7 @@ class TileStoneMill: TileBase(105) {
         if (!world.isRemote) {
             val stack = player.getHeldItem(hand)
             if (!stack.isEmpty) {
-                player.setHeldItem(hand, this.inventory.insertItem(0, stack, false)) //アイテムを搬入
+                player.setHeldItem(hand, inventory.insertItem(0, stack, false)) //アイテムを搬入
                 markDirty()
             } else {
                 val state = world.getBlockState(pos)
@@ -67,10 +67,10 @@ class TileStoneMill: TileBase(105) {
     //    Recipe    //
 
     private fun doProcess() {
-        val stack = this.inventory.getStackInSlot(0)
+        val stack = inventory.getStackInSlot(0)
         val result = getResult(stack)
         if (!result.isEmpty) {
-            this.inventory.extractItem(0, 1, false)
+            inventory.extractItem(0, 1, false)
             markDirty()
             RagiUtil.dropItem(world, pos.add(0, 1, 0), result)
             RagiResult.succeeded(this)

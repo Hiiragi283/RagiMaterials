@@ -1,4 +1,7 @@
 {
 	"credit": "Tweaked by Hiiragi Russell Tsubasa",
+	"textures": {
+		"particle": "blocks/bedrock"
+	},
 	"elements": []
 }

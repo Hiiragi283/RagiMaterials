@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.base
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.util.RagiResult
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -17,7 +16,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-abstract class BlockContainerBase(id: String, material: Material, val maxTips: Int) : BlockContainer(material) {
+abstract class BlockContainerBase(id: String, material: Material, private val maxTips: Int) : BlockContainer(material) {
 
     init {
         setRegistryName(Reference.MOD_ID, id)
@@ -33,10 +32,9 @@ abstract class BlockContainerBase(id: String, material: Material, val maxTips: I
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         var result = false
-        if (hand == EnumHand.MAIN_HAND && !world.isRemote) {
+        if (hand == EnumHand.MAIN_HAND) {
             val tile = world.getTileEntity(pos)
             result = if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
-            if (result) RagiResult.succeeded(world, pos) else RagiResult.failed(world, pos)
         }
         return result
     }

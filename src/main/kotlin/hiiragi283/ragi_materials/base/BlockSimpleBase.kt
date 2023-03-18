@@ -16,6 +16,10 @@ open class BlockSimpleBase(ID: String, Material: Material, private val maxMeta: 
         defaultState = blockState.baseState.withProperty(property16, 0) //デフォルトのBlockstateをpropertyの0番に設定
     }
 
+    //    General    //
+
+    override fun damageDropped(state: IBlockState): Int = state.getValue(property16)
+
     //    BlockState    //
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, property16)

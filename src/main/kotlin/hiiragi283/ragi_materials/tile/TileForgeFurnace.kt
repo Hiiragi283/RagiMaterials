@@ -6,6 +6,7 @@ import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
@@ -42,19 +43,19 @@ class TileForgeFurnace : TileBase(102) {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setInteger("fuel", this.fuel) //燃料をtagに書き込む
+        tag.setInteger("fuel", fuel) //燃料をtagに書き込む
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        this.fuel = tag.getInteger("fuel") //tagから燃料を読み込む
+        fuel = tag.getInteger("fuel") //tagから燃料を読み込む
     }
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, null)) this.inventory as T else null
+        return if (hasCapability(capability, null)) inventory as T else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
@@ -68,16 +69,17 @@ class TileForgeFurnace : TileBase(102) {
         if (!world.isRemote) {
             val stack = player.getHeldItem(hand)
             result = if (isFuel(stack)) {
-                player.setHeldItem(hand, this.inventory.insertItem(0, stack, false)) //燃料を搬入
+                player.setHeldItem(hand, inventory.insertItem(0, stack, false)) //燃料を搬入
                 true
             } else doProcess(player, hand) //レシピを実行
+            if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
         }
         return result
     }
 
     //    Recipe    //
 
-    private fun canProcess(stack: ItemStack): Boolean = this.fuel >= getFuelConsumption(stack) //入っている燃料が消費量より多いなら実行可能
+    private fun canProcess(stack: ItemStack): Boolean = fuel >= getFuelConsumption(stack) //入っている燃料が消費量より多いなら実行可能
 
     companion object {
 
@@ -112,8 +114,8 @@ class TileForgeFurnace : TileBase(102) {
             val fuelConsumption = getFuelConsumption(stack)
             //燃料消費が0より多い場合
             if (fuelConsumption > 0) {
-                this.fuel -= fuelConsumption //燃料を減らす
-                RagiLogger.infoDebug("Fuel: ${this.fuel}")
+                fuel -= fuelConsumption //燃料を減らす
+                RagiLogger.infoDebug("Fuel: $fuel")
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す

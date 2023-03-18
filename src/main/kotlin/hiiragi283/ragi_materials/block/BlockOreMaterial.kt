@@ -49,6 +49,8 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialB
 
     //    General    //
 
+    override fun damageDropped(state: IBlockState): Int = state.getValue(TYPE)
+
     fun getMaterialList(): List<MaterialBuilder> = list
 
     //    BlockState    //

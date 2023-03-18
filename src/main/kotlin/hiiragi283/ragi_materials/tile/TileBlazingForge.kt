@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.capability.RagiTank
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundEvent
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
@@ -29,19 +30,19 @@ class TileBlazingForge : TileBase(103) {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setTag(keyTank, this.tank.serializeNBT()) //燃料をNBTタグに書き込む
+        tag.setTag(keyTank, tank.serializeNBT()) //燃料をNBTタグに書き込む
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        this.tank.deserializeNBT(tag.getCompoundTag(keyTank))  //NBTタグから燃料を読み込む
+        tank.deserializeNBT(tag.getCompoundTag(keyTank))  //NBTタグから燃料を読み込む
     }
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, null)) this.tank as T else null
+        return if (hasCapability(capability, null)) tank as T else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
@@ -57,6 +58,7 @@ class TileBlazingForge : TileBase(103) {
             result = if (FluidUtil.getFluidHandler(stack) !== null) {
                 FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
             } else doProcess(player, hand)
+            if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
         }
         return result
     }
@@ -64,12 +66,12 @@ class TileBlazingForge : TileBase(103) {
     //    Recipe    //
 
     private fun getFuelConsumption(): Int? {
-        val name = this.tank.fluid?.fluid?.name
+        val name = tank.fluid?.fluid?.name
         return mapFuel[name]?.toInt()
     }
 
     private fun canProcess(): Boolean {
-        val amount = this.tank.fluid?.amount
+        val amount = tank.fluid?.amount
         return amount !== null && getFuelConsumption() !== null && amount >= getFuelConsumption()!!
     } //入っている燃料がコンフィグで指定された量より多いなら実行可能
 
@@ -78,7 +80,7 @@ class TileBlazingForge : TileBase(103) {
         val stack = player.getHeldItem(hand)
         val stackResult = TileForgeFurnace.getResult(stack)
         if (canProcess() && !stackResult.isEmpty) {
-            this.tank.drain(getFuelConsumption()!!, true) //燃料を消費する
+            tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 
             stack.shrink(1) //手持ちのアイテムを1つ減らす
             RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す

@@ -7,6 +7,7 @@ import hiiragi283.ragi_materials.recipe.crafting.RecipeMaterial
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
+import net.minecraftforge.oredict.OreDictionary
 
 object RecipeRegistry {
 
@@ -77,7 +78,7 @@ object RecipeRegistry {
         )
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSoilPeat, 1, 0),
                 "AAA", "ABA", "AAA",
-                'A', ItemStack(Blocks.TALLGRASS),
+                'A', ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE),
                 'B', "dirt"
         )
         RagiRecipe.addShaped("${Reference.MOD_ID}:soil_peat_1", ItemStack(RagiBlock.BlockSoilPeat, 1, 0),

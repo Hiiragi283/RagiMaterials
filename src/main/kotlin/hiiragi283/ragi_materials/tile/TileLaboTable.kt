@@ -46,7 +46,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         return if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            if (facing !== null && facing != EnumFacing.UP && facing != EnumFacing.DOWN) this.inventorySide as T else super.getCapability(capability, facing)
+            if (facing !== null && facing != EnumFacing.UP && facing != EnumFacing.DOWN) inventorySide as T else super.getCapability(capability, facing)
         } else super.getCapability(capability, facing)
     }
 
@@ -70,8 +70,8 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                 //投入の前後でItemStackが変化した -> スロットに空きがある
                 if (!RagiUtil.isSameStack(stack, stackRemain, true)) {
                     player.setHeldItem(hand, inventorySide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
-                    RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.itemframe.add_item"))
                     markDirty()
+                    RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.itemframe.add_item"))
                     RagiLogger.infoDebug("Stack Inserted to slot$i!")
                     break
                 } else RagiLogger.infoDebug("The slot$i is full!")
@@ -86,13 +86,13 @@ class TileLaboTable : TileBase(100), ISidedInventory {
     fun chemicalReaction(world: World, pos: BlockPos) {
         var isFailed = true
         //サーバー側，かつインベントリが空でない場合
-        if (!world.isRemote && !this.inventory.isEmpty) {
+        if (!world.isRemote && !inventory.isEmpty) {
             //レシピチェック
             for (recipe in LaboRecipeRegistry.map.values) {
-                if (recipe.match(this.inventorySide, true)) {
+                if (recipe.match(inventorySide, true)) {
                     isFailed = false
                     for (output in recipe.outputs) {
-                        RagiUtil.dropItem(world, pos, output)
+                        RagiUtil.dropItem(world, pos.add(0, 1, 0), output)
                         RagiLogger.infoDebug("The output is ${output.toBracket()}")
                     }
                     RagiSoundEvent.playSoundHypixel(this)
@@ -103,52 +103,52 @@ class TileLaboTable : TileBase(100), ISidedInventory {
             RagiLogger.infoDebug("$isFailed")
             //失敗時の処理
             if (isFailed) {
-                RagiUtil.dropItem(world, pos, ItemStack(RagiItem.ItemWaste, 1, 0))
+                RagiUtil.dropItem(world, pos.add(0, 1, 0), ItemStack(RagiItem.ItemWaste, 1, 0))
                 RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.generic.explode"))
                 RagiResult.failed(this)
             }
-            this.inventory.clear() //反応結果によらずインベントリを空にする
+            inventory.clear() //反応結果によらずインベントリを空にする
         }
-        RagiPacket.wrapper.sendToAll(MessageLabo(this.pos)) //クライアント側にパケットを送る
+        RagiPacket.wrapper.sendToAll(MessageLabo(this.pos, updateTag)) //クライアント側にパケットを送る
     }
 
     //    ISidedInventory    //
     //基本的にRagiInventoryと同じ
 
-    override fun getName(): String = this.inventory.title
+    override fun getName(): String = inventory.title
 
     override fun hasCustomName(): Boolean = false
 
-    override fun getSizeInventory(): Int = this.inventory.sizeInventory
+    override fun getSizeInventory(): Int = inventory.sizeInventory
 
-    override fun isEmpty(): Boolean = this.inventory.isEmpty
+    override fun isEmpty(): Boolean = inventory.isEmpty
 
-    override fun getStackInSlot(index: Int): ItemStack = this.inventory.getStackInSlot(index)
+    override fun getStackInSlot(index: Int): ItemStack = inventory.getStackInSlot(index)
 
-    override fun decrStackSize(index: Int, count: Int): ItemStack = this.inventory.decrStackSize(index, count)
+    override fun decrStackSize(index: Int, count: Int): ItemStack = inventory.decrStackSize(index, count)
 
-    override fun removeStackFromSlot(index: Int): ItemStack = this.inventory.removeStackFromSlot(index)
+    override fun removeStackFromSlot(index: Int): ItemStack = inventory.removeStackFromSlot(index)
 
-    override fun setInventorySlotContents(index: Int, stack: ItemStack) = this.inventory.setInventorySlotContents(index, stack)
+    override fun setInventorySlotContents(index: Int, stack: ItemStack) = inventory.setInventorySlotContents(index, stack)
 
-    override fun getInventoryStackLimit(): Int = this.inventory.inventoryStackLimit
+    override fun getInventoryStackLimit(): Int = inventory.inventoryStackLimit
 
-    override fun isUsableByPlayer(player: EntityPlayer): Boolean = this.inventory.isUsableByPlayer(player)
+    override fun isUsableByPlayer(player: EntityPlayer): Boolean = inventory.isUsableByPlayer(player)
 
     override fun openInventory(player: EntityPlayer) {}
 
     override fun closeInventory(player: EntityPlayer) {}
 
-    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean = this.inventory.isItemValidForSlot(index, stack)
+    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean = inventory.isItemValidForSlot(index, stack)
 
-    override fun getField(id: Int): Int = this.inventory.getField(id)
+    override fun getField(id: Int): Int = inventory.getField(id)
 
     override fun setField(id: Int, value: Int) {}
 
-    override fun getFieldCount(): Int = this.inventory.fieldCount
+    override fun getFieldCount(): Int = inventory.fieldCount
 
     override fun clear() {
-        this.inventory.clear()
+        inventory.clear()
     }
 
     override fun getSlotsForFace(side: EnumFacing): IntArray {

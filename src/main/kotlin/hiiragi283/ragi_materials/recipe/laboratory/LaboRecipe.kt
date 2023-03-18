@@ -27,7 +27,6 @@ class LaboRecipe private constructor(location: ResourceLocation, val inputs: Mut
             LaboRecipeRegistry.map[location.toString()] = recipe
             return recipe
         }
-
     }
 
     fun match(inventory: IItemHandler, useCount: Boolean): Boolean {

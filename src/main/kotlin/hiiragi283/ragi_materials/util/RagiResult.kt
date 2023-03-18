@@ -14,9 +14,10 @@ object RagiResult {
         player.sendMessage(TextComponentTranslation("text.ragi_materials.succeeded", block.localizedName))
     }
 
-    fun succeeded(world: IBlockAccess, pos: BlockPos, player: ICommandSender = Reference.PLAYER_CLIENT) {
+    fun succeeded(world: IBlockAccess = Reference.WORLD_CLIENT, pos: BlockPos, player: ICommandSender = Reference.PLAYER_CLIENT) {
         succeeded(world.getBlockState(pos).block, player)
     }
+
     fun succeeded(tile: TileEntity, player: ICommandSender = Reference.PLAYER_CLIENT) {
         succeeded(tile.world, tile.pos, player)
     }
@@ -25,7 +26,7 @@ object RagiResult {
         player.sendMessage(TextComponentTranslation("text.ragi_materials.failed", block.localizedName))
     }
 
-    fun failed(world: IBlockAccess, pos: BlockPos, player: ICommandSender = Reference.PLAYER_CLIENT) {
+    fun failed(world: IBlockAccess = Reference.WORLD_CLIENT, pos: BlockPos, player: ICommandSender = Reference.PLAYER_CLIENT) {
         failed(world.getBlockState(pos).block, player)
     }
     fun failed(tile: TileEntity, player: ICommandSender = Reference.PLAYER_CLIENT) {

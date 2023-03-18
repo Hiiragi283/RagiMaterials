@@ -31,23 +31,23 @@ class TileFullBottleStation : TileBase(101), ITickable {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setTag(keyInventory, this.inventory.serializeNBT()) //インベントリをtagに書き込む
-        tag.setTag(keyTank, this.tank.serializeNBT())
+        tag.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
+        tag.setTag(keyTank, tank.serializeNBT())
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        this.inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //tagからインベントリを読み込む
-        this.tank.deserializeNBT(tag.getCompoundTag(keyTank)) //tagから液体タンクを読み込む
+        inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //tagからインベントリを読み込む
+        tank.deserializeNBT(tag.getCompoundTag(keyTank)) //tagから液体タンクを読み込む
     }
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         return when (capability) {
-            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY -> this.inventory as T
-            CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY -> this.tank as T
+            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY -> inventory as T
+            CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY -> tank as T
             else -> super.getCapability(capability, facing)
         }
     }

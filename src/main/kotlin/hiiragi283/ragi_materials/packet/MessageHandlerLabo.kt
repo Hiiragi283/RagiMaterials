@@ -17,10 +17,10 @@ class MessageHandlerLabo : IMessageHandler<MessageLabo, IMessage> {
     override fun onMessage(message: MessageLabo?, ctx: MessageContext?): IMessage? {
         //messageがnullでない場合，座標を取得する
         message?.let {
-            val pos = BlockPos(it.x, it.y, it.z)
-            val tile = Reference.PLAYER_CLIENT.world.getTileEntity(pos)
+            val tile = Reference.PLAYER_CLIENT.world.getTileEntity(BlockPos(it.x, it.y, it.z))
             if (tile !== null && tile is TileLaboTable) {
-                tile.inventory.clear() //インベントリを空にする
+                //tagから読み込んだインベントリを書き込む
+                tile.readFromNBT(it.tag)
             }
         }
         return null

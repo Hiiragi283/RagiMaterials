@@ -1,7 +1,5 @@
 package hiiragi283.ragi_materials.init
 
-import hiiragi283.ragi_materials.client.gui.ContainerIndustrialLabo
-import hiiragi283.ragi_materials.client.gui.GuiIndustrialLabo
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.entity.player.EntityPlayer
@@ -21,7 +19,7 @@ class RagiGuiHandler : IGuiHandler {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
-                    is TileIndustrialLabo -> result = ContainerIndustrialLabo(tile, player)
+                    is TileIndustrialLabo -> result = null
                     else -> {}
                 }
             }
@@ -35,7 +33,7 @@ class RagiGuiHandler : IGuiHandler {
         val tile = world.getTileEntity(BlockPos(x, y, z))
         if (tile !== null) {
             when (tile) {
-                is TileIndustrialLabo -> result = GuiIndustrialLabo(tile, player)
+                is TileIndustrialLabo -> result = null
                 else -> {}
             }
         }

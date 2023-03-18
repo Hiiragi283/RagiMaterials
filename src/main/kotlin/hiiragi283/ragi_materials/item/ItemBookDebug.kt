@@ -34,6 +34,8 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
         val stack: ItemStack = player.getHeldItem(hand)
         //デバッグモードの場合
         if (RagiConfig.debugMode.isDebug) {
+            //落下死防止やコマンド権限のためクリエモードに切り替え
+            RagiUtil.executeCommand(player, "gamemode 1")
             //Spawn用
             if (stack.metadata == 0) {
                 //各値の取得
@@ -43,30 +45,16 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
                 val spawnZ = spawnPoint.z + 0.5 //ブロックの中心に来るよう調整
                 //プレイヤーを指定した座標にテレポート
                 player.setLocationAndAngles(spawnX, spawnY, spawnZ, 0f, 0f)
-                //サーバー側のみで実行
-                if (!world.isRemote) {
-                    //チャットにテキストを流す
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.spawn"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
-                }
             }
             //Syntax用
             else if (stack.metadata == 1) {
-                //サーバー側のみで実行
                 if (!world.isRemote) {
                     //コマンドを実行
                     RagiUtil.executeCommand(player, "ct syntax")
                     RagiUtil.executeCommand(player, "ct reload")
-                    //チャットにテキストを流す
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.syntax"))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
                 }
             }
-            //落下死防止やコマンド権限のためクリエモードに切り替え
-            if (!world.isRemote) RagiUtil.executeCommand(player, "gamemode 1")
-        } else if (!world.isRemote) player.sendMessage(TextComponentTranslation("text.ragi_materials.debug_disabled"))
+        } else player.sendMessage(TextComponentTranslation("text.ragi_materials.debug_disabled"))
         return ActionResult(EnumActionResult.SUCCESS, stack)
     }
 
@@ -80,7 +68,7 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
                     val state = world.getBlockState(pos)
                     val block = state.block
                     val meta = block.getMetaFromState(state)
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+                    player.sendMessage(TextComponentTranslation("§e=== Block Property ==="))
                     //ブロックの翻訳名をチャットに表示
                     player.sendMessage(TextComponentString("  §eName:§r§b " + ItemStack(block, 1, meta).displayName))
                     //ブロックのIDをチャットに表示
@@ -95,7 +83,7 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
                     player.sendMessage(TextComponentString("  §eHarvest Tool:§r§b " + block.getHarvestTool(state)))
                     //適正レベルをチャットに表示
                     player.sendMessage(TextComponentString("  §eHarvest Level:§r§b " + block.getHarvestLevel(state)))
-                    player.sendMessage(TextComponentTranslation("text.ragi_materials.decoration_line"))
+                    player.sendMessage(TextComponentTranslation("§e=== Block Property ==="))
                     return EnumActionResult.SUCCESS
                 }
                 //Tile Entity用
