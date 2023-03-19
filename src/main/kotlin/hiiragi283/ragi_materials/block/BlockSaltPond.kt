@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.util.RagiSoundEvent
+import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -110,7 +110,7 @@ class BlockSaltPond : BlockBase("salt_pond", Material.WOOD, 2) {
                 FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
                 world.setBlockState(pos, world.getBlockState(pos).withProperty(TYPE, getType(fluidStack.fluid.name)), 2) //stateの更新
                 world.scheduleUpdate(pos, this, 200) //tick更新を200 tick後に設定
-                RagiSoundEvent.playSound(world, pos, RagiSoundEvent.getSound("minecraft:item.bucket.empty"))
+                RagiSoundUtil.playSound(world, pos, RagiSoundUtil.getSound("minecraft:item.bucket.empty"))
                 true
             } else false
         } else false
@@ -129,7 +129,7 @@ class BlockSaltPond : BlockBase("salt_pond", Material.WOOD, 2) {
             if (stack.item != Items.AIR) {
                 RagiUtil.dropItem(world, pos, stack)
                 world.setBlockState(pos, state.withProperty(TYPE, EnumSalt.EMPTY), 2) //stateの更新
-                RagiSoundEvent.playSound(world, pos, RagiSoundEvent.getSound("minecraft:block.sand.break"))
+                RagiSoundUtil.playSound(world, pos, RagiSoundUtil.getSound("minecraft:block.sand.break"))
             }
         }
     }

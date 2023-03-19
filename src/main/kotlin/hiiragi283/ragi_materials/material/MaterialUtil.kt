@@ -8,7 +8,6 @@ import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.Fluid
 
 object MaterialUtil {
 
@@ -28,8 +27,8 @@ object MaterialUtil {
         return result
     }
 
-    fun getFluid(index: Int): Fluid? {
-        return getMaterial(index).getFluid()
+    fun getPartNew(part: MaterialPart, material: RagiMaterial, amount: Int = 1): ItemStack {
+        return if (isValidPart(part, material)) RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)else ItemStack.EMPTY
     }
 
     //代入されたMapから化学式を生成するメソッド
@@ -86,32 +85,22 @@ object MaterialUtil {
         return if (MaterialRegistry.mapIndex[index] !== null) MaterialRegistry.mapIndex[index]!! else MaterialBuilder.EMPTY
     }
 
-    fun getMaterialA(index: Int): RagiMaterial = MaterialRegistryNew.mapIndex[index] ?: RagiMaterial.EMPTY
+    fun getMaterialNew(index: Int): RagiMaterial = RagiMaterial.mapIndex[index] ?: RagiMaterial.EMPTY
 
     //代入したnameと一致するmaterialを返すメソッド
     fun getMaterial(name: String): MaterialBuilder {
         return if (MaterialRegistry.mapName[name] !== null) MaterialRegistry.mapName[name]!! else MaterialBuilder.EMPTY
     }
 
-    fun getMaterialA(name: String): RagiMaterial = MaterialRegistryNew.mapName[name] ?: RagiMaterial.EMPTY
+    fun getMaterialNew(name: String): RagiMaterial = RagiMaterial.mapName[name] ?: RagiMaterial.EMPTY
 
     //materialのツールチップを生成するメソッド
-    fun materialInfo(material: MaterialBuilder, tooltip: MutableList<String>) {
-        tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.${material.name}"))) //名称
-        if (material.formula !== null) tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula!!)) //化学式
-        if (material.molar !== null) tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar!!)) //モル質量
-        if (material.tempMelt !== null) tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt!!)) //融点
-        if (material.tempBoil !== null) tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.tempBoil!!)) //沸点
-        if (material.tempSubl !== null) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl!!)) //昇華点
-    }
-
     fun materialInfo(material: RagiMaterial, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.${material.name}"))) //名称
         material.formula?.let { tooltip.add(I18n.format("tips.ragi_materials.property.formula", it)) } //化学式
         material.molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
-        if (material.tempMelt == material.tempBoil) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempMelt!!)) //昇華点
+        if (material.tempMelt?.equals(material.tempBoil) == true) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempMelt!!)) //昇華点
         else {
             material.tempMelt?.let { tooltip.add(I18n.format("tips.ragi_materials.property.melt", it)) } //融点
             material.tempBoil?.let { tooltip.add(I18n.format("tips.ragi_materials.property.boil", it)) } //沸点
@@ -120,6 +109,6 @@ object MaterialUtil {
 
     fun printMap() {
         MaterialRegistry.list.forEach { RagiLogger.infoDebug("Index: ${it.index}, <material:${it.name}>") }
-        MaterialRegistryNew.list.forEach { RagiLogger.infoDebug("New Index: ${it.index}, <material:${it.name}>") }
+        RagiMaterial.list.forEach { RagiLogger.infoDebug("New Index: ${it.index}, <material:${it.name}>") }
     }
 }

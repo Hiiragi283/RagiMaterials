@@ -85,7 +85,7 @@ class TileStoneMill: TileBase(105) {
             //粉末素材は粉砕不可能
             if (part.type != EnumMaterialType.DUST) {
                 val scale = part.scale
-                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.DUST, item.getMaterial(stack), scale.toInt())
+                if (scale >= 1) result = MaterialUtil.getPartNew(PartRegistry.DUST, item.getMaterial(stack), scale.toInt())
             }
         }
         return result

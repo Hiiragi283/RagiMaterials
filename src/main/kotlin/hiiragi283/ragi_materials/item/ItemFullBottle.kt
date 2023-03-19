@@ -3,8 +3,8 @@ package hiiragi283.ragi_materials.item
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.util.RagiFluidUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -16,7 +16,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
-import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
@@ -49,9 +48,8 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
-        val material = getMaterial(stack)
-        val fluid = material.getFluid()
-        return if (material.isNotEmpty() && fluid !== null) I18n.format("item.fullbottle_filled.name", I18n.format(fluid.getLocalizedName(FluidStack(fluid, 1000)))) else super.getItemStackDisplayName(stack)
+        val fluid = getMaterial(stack).getFluid()
+        return fluid?.let{ I18n.format("item.fullbottle_filled.name", I18n.format(it.getLocalizedName(FluidStack(fluid , 1000))))} ?: super.getItemStackDisplayName(stack)
     }
 
     @SideOnly(Side.CLIENT)
@@ -59,10 +57,10 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
         if (this.isInCreativeTab(tab)) {
             val stack = ItemStack(this)
             subItems.add(stack) //空のフルボトル
-            for (fluid in FluidRegistry.getRegisteredFluids().values) {
-                //液体の名前から素材が取得できる場合のみ登録
-                if (!MaterialUtil.getMaterial(fluid.name).isEmpty()) {
-                    subItems.add(setFluid(stack.copy(), fluid.name))
+            //素材の一覧から液体が取得できるならクリエタブに登録する
+            for (material in RagiMaterial.list) {
+                material.getFluid()?.let {
+                    subItems.add(RagiFluidUtil.getBottle(FluidStack(it, 1000)))
                 }
             }
         }
@@ -116,18 +114,12 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder {
+    override fun getMaterial(stack: ItemStack): RagiMaterial {
         val fluidStack = FluidUtil.getFluidContained(stack)
-        return if (fluidStack !== null) MaterialUtil.getMaterial(fluidStack.fluid.name) else MaterialBuilder.EMPTY
+        return if (fluidStack !== null) MaterialUtil.getMaterialNew(fluidStack.fluid.name) else RagiMaterial.EMPTY
     }
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack {
-        return setFluid(stack, material.name)
+    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack {
+        return RagiFluidUtil.getBottle(material, count = stack.count)
     }
-
-    private fun setFluid(stack: ItemStack, fluid: String, amount: Int = 1000): ItemStack {
-        stack.tagCompound = RagiUtil.setFluidToNBT(NBTTagCompound(), RagiUtil.getFluidStack(fluid, amount))
-        return stack
-    }
-
 }

@@ -7,7 +7,7 @@ import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiSoundEvent
+import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -98,7 +98,7 @@ class TileForgeFurnace : TileBase(102) {
             var result = ItemStack.EMPTY
             if (item is IMaterialItem && item is ItemMaterial) {
                 val scale = item.part.scale
-                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, item.getMaterial(stack), scale.toInt()) //完成品を代入
+                if (scale >= 1) result = MaterialUtil.getPartNew(PartRegistry.INGOT_HOT, item.getMaterial(stack), scale.toInt()) //完成品を代入
                 RagiLogger.infoDebug("Result: ${result.toBracket()}")
             }
             return result
@@ -120,7 +120,7 @@ class TileForgeFurnace : TileBase(102) {
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
 
-                RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.fire.extinguish"))
+                RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
                 result = true
             }
         }
@@ -131,7 +131,7 @@ class TileForgeFurnace : TileBase(102) {
     private fun isFuel(stack: ItemStack): Boolean = TileEntityFurnace.getItemBurnTime(stack) > 0
 
     fun playSoundFuel() {
-        RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
+        RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
     }
 
 }

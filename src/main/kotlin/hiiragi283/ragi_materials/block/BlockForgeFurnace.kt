@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.RagiBlockContainer
-import hiiragi283.ragi_materials.base.RagiFacing
+import hiiragi283.ragi_materials.util.RagiFacing
 import hiiragi283.ragi_materials.tile.TileForgeFurnace
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -32,7 +32,7 @@ class BlockForgeFurnace : RagiBlockContainer("forge_furnace", Material.ROCK, 3) 
 
     override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(RagiFacing.HORIZONTAL, placer.horizontalFacing.opposite)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getState(meta))", "hiiragi283.ragi_materials.base.RagiFacing", "hiiragi283.ragi_materials.base.RagiFacing"))
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getState(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
     override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getState(meta))
 
     //    Tile Entity    //

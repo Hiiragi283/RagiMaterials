@@ -3,7 +3,10 @@ package hiiragi283.ragi_materials.init
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.item.*
+import hiiragi283.ragi_materials.item.ItemBookDebug
+import hiiragi283.ragi_materials.item.ItemFullBottle
+import hiiragi283.ragi_materials.item.ItemMaterial
+import hiiragi283.ragi_materials.item.ItemWaste
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import net.minecraft.creativetab.CreativeTabs
 
@@ -36,9 +39,10 @@ object RagiItem {
     val ItemIngot = ItemMaterial(PartRegistry.INGOT)
     val ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
     val ItemNugget = ItemMaterial(PartRegistry.NUGGET)
-    val ItemOre = ItemMaterialOre(PartRegistry.ORE)
-    val ItemOreNether = ItemMaterialOre(PartRegistry.ORE_NETHER)
-    val ItemOreEnd = ItemMaterialOre(PartRegistry.ORE_END)
+
+    //val ItemOre = ItemMaterialOre(PartRegistry.ORE)
+    //val ItemOreNether = ItemMaterialOre(PartRegistry.ORE_NETHER)
+    //val ItemOreEnd = ItemMaterialOre(PartRegistry.ORE_END)
     val ItemPlate = ItemMaterial(PartRegistry.PLATE)
     val ItemStick = ItemMaterial(PartRegistry.STICK)
 

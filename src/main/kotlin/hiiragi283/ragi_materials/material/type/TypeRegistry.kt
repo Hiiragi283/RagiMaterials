@@ -4,7 +4,7 @@ object TypeRegistry {
 
     val map: HashMap<String, MaterialType> = hashMapOf()
 
-    val CRYSTALLINE = MaterialType.Builder("crystalline")
+    val CRYSTAL = MaterialType.Builder("crystalline")
             .addTypes(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.CRYSTAL,
@@ -21,6 +21,13 @@ object TypeRegistry {
                     EnumMaterialType.DUST,
                     EnumMaterialType.RADIOACTIVE
             ).build() //放射性固体
+
+    val FUEL = MaterialType.Builder("fuel")
+            .addTypes(
+                    EnumMaterialType.BLOCK_MATERIAL,
+                    EnumMaterialType.CRYSTAL,
+                    EnumMaterialType.DUST
+            ).build() //化石燃料
 
     val GAS = MaterialType.Builder("gas")
             .addType(EnumMaterialType.LIQUID)

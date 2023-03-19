@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.client.render.tile
 
-import hiiragi283.ragi_materials.base.RagiFacing
+import hiiragi283.ragi_materials.util.RagiFacing
 import hiiragi283.ragi_materials.block.BlockBlazingForge
 import hiiragi283.ragi_materials.tile.TileBlazingForge
 import net.minecraft.client.renderer.GlStateManager

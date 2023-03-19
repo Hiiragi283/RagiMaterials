@@ -3,26 +3,6 @@ package hiiragi283.ragi_materials.client.render.color
 import java.awt.Color
 
 object RagiColorManager {
-    //ひいらぎさんのテーマカラー
-    val RAGI_RED = Color(255, 0, 31)
-
-    //Minecraftのカラーコードと同じ色
-    val BLACK = Color(0x00, 0x00, 0x00)
-    val DARK_BLUE = Color(0x00, 0x00, 0xAA)
-    val DARK_GREEN = Color(0x00, 0xAA, 0x00)
-    val DARK_AQUA = Color(0x00, 0xAA, 0xAA)
-    val DARK_RED = Color(0xAA, 0x00, 0x00)
-    val DARK_PURPLE = Color(0xAA, 0x00, 0xAA)
-    val GOLD = Color(0xFF, 0xAA, 0x00)
-    val GRAY = Color(0xAA, 0xAA, 0xAA)
-    val DARK_GRAY = Color(0x55, 0x55, 0x55)
-    val BLUE = Color(0x55, 0x55, 0xFF)
-    val GREEN = Color(0x55, 0xFF, 0x55)
-    val AQUA = Color(0x55, 0xFF, 0xFF)
-    val RED = Color(0xFF, 0x55, 0x55)
-    val LIGHT_PURPLE = Color(0xFF, 0x55, 0xFF)
-    val YELLOW = Color(0xFF, 0xFF, 0x55)
-    val WHITE = Color(0xFF, 0xFF, 0xFF)
 
     //複数の色を混合するメソッド
     fun mixColor(vararg colors: Color): Color {
@@ -62,7 +42,7 @@ object RagiColorManager {
         return if (weightSum != 0) {
             //加算した各RGB値をweightの合計で割った値からColorを生成
             Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum)
-        } else WHITE
+        } else RagiColor.WHITE
     }
 
     fun mixColor(colors: Map<Color, Int>): Color {
@@ -82,7 +62,7 @@ object RagiColorManager {
         return if (weightSum != 0) {
             //加算した各RGB値をweightの合計で割った値からColorを生成
             Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum)
-        } else WHITE
+        } else RagiColor.WHITE
     }
 
     //混合色から元の色を取得するメソッド

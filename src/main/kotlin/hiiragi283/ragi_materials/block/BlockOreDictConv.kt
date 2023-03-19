@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiSoundEvent
+import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -83,7 +83,7 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
                 if (!stackResult.isEmpty) {
                     stack.shrink(count) //stackを1つ減らす
                     RagiUtil.dropItemAtPlayer(player, stackResult)
-                    RagiSoundEvent.playSoundHypixel(world, pos)
+                    RagiSoundUtil.playSoundHypixel(world, pos)
                     result = true
                 }
             }

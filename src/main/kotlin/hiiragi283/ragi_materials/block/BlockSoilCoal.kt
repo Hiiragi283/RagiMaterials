@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistryNew
+import hiiragi283.ragi_materials.material.RagiMaterial
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
@@ -32,10 +33,10 @@ class BlockSoilCoal: BlockSoilFuel("soil_coal") {
 
     //    IMaterialBLock    //
 
-    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): MaterialBuilder = MaterialRegistry.COAL
+    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = MaterialRegistryNew.COAL
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialRegistry.COAL
+    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistryNew.COAL
 
 }

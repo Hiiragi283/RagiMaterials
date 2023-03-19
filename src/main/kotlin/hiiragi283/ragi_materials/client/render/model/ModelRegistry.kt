@@ -3,16 +3,15 @@ package hiiragi283.ragi_materials.client.render.model
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiItem
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.builder.CrystalBuilder
+import hiiragi283.ragi_materials.item.IMaterialItem
+import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.block.statemap.StateMapperBase
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fluids.Fluid
 
 object ModelRegistry {
 
@@ -36,20 +35,14 @@ object ModelRegistry {
     }
 
     fun fluids() {
-        /*
-          Thanks to defeatedcrow!
-          Source: https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/main/client/JsonRegister.java#L463
-        */
-        for (material in MaterialRegistry.list) {
-            if (material.getFluid() !== null) {
-                //Fluidを取得
-                val fluid: Fluid = material.getFluid()!!
-                val model = ModelResourceLocation(("${Reference.MOD_ID}:${fluid.name}"), "fluid")
+        for (material in RagiMaterial.list) {
+            material.getFluid()?.let {
+                val model = ModelResourceLocation(("${Reference.MOD_ID}:${it.name}"), "fluid")
                 //アイテムとしての描画処理
-                ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(fluid.block)) { model }
+                ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(it.block)) { model }
                 //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
-                if (fluid.block !== null) {
-                    ModelLoader.setCustomStateMapper(fluid.block, object : StateMapperBase() {
+                if (it.block !== null) {
+                    ModelLoader.setCustomStateMapper(it.block, object : StateMapperBase() {
                         override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = model
                     })
                 }
@@ -84,43 +77,36 @@ object ModelRegistry {
         ModelLoader.registerItemVariants(RagiItem.ItemBlockMaterial, blockCrystal, blockMaterial, blockMetal)
 
         ModelLoader.setCustomMeshDefinition(RagiItem.ItemBlockMaterial) { stack ->
-            //metadataからmaterialを取得
-            val material = MaterialUtil.getMaterial(stack.metadata)
-            val parts = material.type.list
-            if (EnumMaterialType.BLOCK_MATERIAL in parts) {
-                if (EnumMaterialType.CRYSTAL in parts) {
-                    if ((material as CrystalBuilder).system == "coal") {
-                        blockMaterial
-                    } else blockCrystal
-                } else if (EnumMaterialType.INGOT in parts) {
-                    blockMetal
-                } else blockMaterial
-            } else blockMaterial
+            var result = blockMaterial
+            val item = stack.item
+            if (item is IMaterialItem) {
+                val material = item.getMaterial(stack)
+                if (material.crystalType != EnumCrystalType.NONE) {
+                    if (material.crystalType != EnumCrystalType.COAL) result = blockCrystal
+                } else if (EnumMaterialType.INGOT in material.type.list) result = blockMetal
+            }
+            result
         }
 
         //ItemCrystal
         ModelLoader.registerItemVariants(
                 RagiItem.ItemCrystal,
-                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "amorphous"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "coal"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "cubic"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "diamond"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "emerald"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "lapis"),
-                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "monoclinic"),
-                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "orthorhombic"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "quartz"),
-                //ModelResourceLocation("${Reference.MOD_ID}:crystal", "tetragonal"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "ruby")
         )
         ModelLoader.setCustomMeshDefinition(RagiItem.ItemCrystal) { stack ->
-            //metadataからmaterialを取得
-            val material = MaterialUtil.getMaterial(stack.metadata)
-            //materialがGemBuilderの場合
-            if (material is CrystalBuilder) {
-                //gemTypeに応じたモデルを割り当てる
-                ModelResourceLocation("${Reference.MOD_ID}:crystal", material.system)
-            } else ModelResourceLocation("${Reference.MOD_ID}:crystal", "cubic")
+            var result = ModelResourceLocation("${Reference.MOD_ID}:crystal", EnumCrystalType.CUBIC.texture)
+            val item = stack.item
+            if (item is IMaterialItem) {
+                val material = item.getMaterial(stack)
+                if (material.crystalType != EnumCrystalType.NONE) result = ModelResourceLocation("${Reference.MOD_ID}:crystal", material.crystalType.texture)
+            }
+            result
         }
 
         //Part
@@ -142,9 +128,9 @@ object ModelRegistry {
         }
 
         //Ore
-        RagiModelManager.setModelAlt(RagiItem.ItemOre, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
-        RagiModelManager.setModelAlt(RagiItem.ItemOreNether, ModelResourceLocation("${Reference.MOD_ID}:ore", "nether"))
-        RagiModelManager.setModelAlt(RagiItem.ItemOreEnd, ModelResourceLocation("${Reference.MOD_ID}:ore", "end"))
+        //RagiModelManager.setModelAlt(RagiItem.ItemOre, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
+        //RagiModelManager.setModelAlt(RagiItem.ItemOreNether, ModelResourceLocation("${Reference.MOD_ID}:ore", "nether"))
+        //RagiModelManager.setModelAlt(RagiItem.ItemOreEnd, ModelResourceLocation("${Reference.MOD_ID}:ore", "end"))
 
         RagiModelManager.setModelAlt(RagiItem.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
     }

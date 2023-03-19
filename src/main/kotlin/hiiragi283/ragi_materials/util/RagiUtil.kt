@@ -1,7 +1,5 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.init.RagiItem
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.Reference
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
@@ -11,14 +9,11 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
-import net.minecraftforge.fluids.FluidRegistry
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.ItemStackHandler
 import net.minecraftforge.oredict.OreDictionary
@@ -55,19 +50,6 @@ object RagiUtil {
         executeCommand(player, "title @p subtitle {\"translate\":\"$subtitle\"}")
     }
 
-    //    Fluid    //
-
-    fun getFluidStack(name: String, amount: Int): FluidStack {
-        return FluidStack(FluidRegistry.getFluid(name), amount)
-    }
-
-    fun setFluidToNBT(tag: NBTTagCompound, fluidStack: FluidStack): NBTTagCompound {
-        val tagFluid = NBTTagCompound()
-        fluidStack.writeToNBT(tagFluid)
-        tag.setTag("Fluid", tagFluid)
-        return tag
-    }
-
     //    Item    //
 
     fun getItem(registryName: String): Item {
@@ -82,16 +64,6 @@ object RagiUtil {
     fun getStack(id: String): ItemStack {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
     }
-
-    fun getFilledBottle(fluidStack: FluidStack, count: Int = 1): ItemStack {
-        val stack = ItemStack(RagiItem.ItemFullBottle, count, 0)
-        stack.tagCompound = setFluidToNBT(NBTTagCompound(), fluidStack)
-        return stack
-    }
-
-    fun getFilledBottle(name: String, amount: Int = 1000, count: Int = 1): ItemStack = getFilledBottle(getFluidStack(name, amount), count)
-
-    fun getFilledBottle(material: MaterialBuilder, amount: Int = 1000, count: Int = 1): ItemStack = getFilledBottle(material.name, amount, count)
 
     /*
       Thanks to defeatedcrow!

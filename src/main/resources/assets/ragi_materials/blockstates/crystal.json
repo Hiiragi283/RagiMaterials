@@ -6,11 +6,6 @@
     "uvlock": true
   },
   "variants": {
-    "amorphous": [{
-      "textures": {
-        "layer0": "ragi_materials:items/crystal_amorphous"
-      }
-    }],
     "coal": [{
       "textures": {
         "layer0": "ragi_materials:items/crystal_coal"
@@ -36,24 +31,9 @@
         "layer0": "ragi_materials:items/crystal_lapis"
       }
     }],
-    "monoclinic": [{
-      "textures": {
-        "layer0": "ragi_materials:items/crystal_monoclinic"
-      }
-    }],
-    "orthorhombic": [{
-      "textures": {
-        "layer0": "ragi_materials:items/crystal_orthorhombic"
-      }
-    }],
     "quartz": [{
       "textures": {
-        "layer0": "ragi_materials:items/crystal_quartz"
-      }
-    }],
-    "tetragonal": [{
-      "textures": {
-        "layer0": "ragi_materials:items/crystal_tetragonal"
+        "layer0": "minecraft:items/quartz"
       }
     }],
     "ruby": [{

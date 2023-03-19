@@ -1,11 +1,11 @@
 package hiiragi283.ragi_materials.base
 
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+import hiiragi283.ragi_materials.material.RagiMaterial
 
 interface IMaterialTool {
 
     fun getToolID(): String
 
-    fun getToolMaterial(): MaterialBuilder
+    fun getToolMaterial(): RagiMaterial
 
 }

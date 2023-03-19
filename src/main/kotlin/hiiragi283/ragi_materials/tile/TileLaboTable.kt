@@ -8,7 +8,7 @@ import hiiragi283.ragi_materials.capability.RagiInventory
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiSoundEvent
+import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -71,7 +71,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                 if (!RagiUtil.isSameStack(stack, stackRemain, true)) {
                     player.setHeldItem(hand, inventorySide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
                     markDirty()
-                    RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.itemframe.add_item"))
+                    RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:entity.itemframe.add_item"))
                     RagiLogger.infoDebug("Stack Inserted to slot$i!")
                     break
                 } else RagiLogger.infoDebug("The slot$i is full!")
@@ -95,7 +95,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                         RagiUtil.dropItem(world, pos.add(0, 1, 0), output)
                         RagiLogger.infoDebug("The output is ${output.toBracket()}")
                     }
-                    RagiSoundEvent.playSoundHypixel(this)
+                    RagiSoundUtil.playSoundHypixel(this)
                     RagiResult.succeeded(this)
                     break
                 }
@@ -104,7 +104,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
             //失敗時の処理
             if (isFailed) {
                 RagiUtil.dropItem(world, pos.add(0, 1, 0), ItemStack(RagiItem.ItemWaste, 1, 0))
-                RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:entity.generic.explode"))
+                RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:entity.generic.explode"))
                 RagiResult.failed(this)
             }
             inventory.clear() //反応結果によらずインベントリを空にする

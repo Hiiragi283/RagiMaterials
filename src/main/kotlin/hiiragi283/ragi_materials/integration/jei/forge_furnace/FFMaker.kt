@@ -1,9 +1,8 @@
 package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
 import hiiragi283.ragi_materials.integration.jei.JEICore
-import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
@@ -15,7 +14,7 @@ object FFMaker {
 
     fun register(registry: IModRegistry) {
         val list: MutableList<Recipe> = mutableListOf()
-        for (pair in MaterialRegistry.validPair) {
+        for (pair in RagiMaterial.validPair) {
             val part = pair.first
             val material = pair.second
             val type = part.type
@@ -27,10 +26,10 @@ object FFMaker {
         registry.addRecipes(list, JEICore.ForgeFurnace)
     }
 
-    class Recipe(val part: MaterialPart, val material: MaterialBuilder) {
+    class Recipe(val part: MaterialPart, val material: RagiMaterial) {
 
-        var input = MaterialUtil.getPart(part, material)
-        var output = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, part.scale.toInt())
+        var input = MaterialUtil.getPartNew(part, material)
+        var output = MaterialUtil.getPartNew(PartRegistry.INGOT_HOT, material, part.scale.toInt())
         var fuel = TileForgeFurnace.getFuelConsumption(input)
 
     }

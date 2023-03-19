@@ -4,8 +4,7 @@ import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -31,7 +30,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
 
     override fun getItemBurnTime(stack: ItemStack): Int {
         //素材に紐づいた燃焼時間*部品ごとの倍率を返す
-        return (MaterialUtil.getMaterial(stack.metadata).burnTime * part.scale).toInt()
+        return (getMaterial(stack).burnTime * part.scale).toInt()
     }
 
     //    Event    //
@@ -43,7 +42,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
             if (!world.isRemote && world.worldInfo.worldTime % 100 == 0L) {
                 //entityがplayerの場合
                 if (entity is EntityPlayer) {
-                    val material = MaterialUtil.getMaterial(stack.metadata)
+                    val material = getMaterial(stack)
                     //取得した素材が放射性の場合
                     if (EnumMaterialType.RADIOACTIVE in material.type.list) {
                         val stackRadio = stack.copy()
@@ -72,9 +71,9 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (this.isInCreativeTab(tab)) {
-            for (material in MaterialRegistry.list) {
+            for (material in RagiMaterial.list) {
                 if (MaterialUtil.isValidPart(part, material)) {
-                    subItems.add(MaterialUtil.getPart(part, material))
+                    subItems.add(MaterialUtil.getPartNew(part, material))
                 }
             }
         }
@@ -82,8 +81,8 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialUtil.getMaterial(stack.metadata)
+    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialUtil.getMaterialNew(stack.metadata)
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack.also { it.itemDamage = material.index } //メタデータを上書き
+    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack.also { it.itemDamage = material.index } //メタデータを上書き
 
 }

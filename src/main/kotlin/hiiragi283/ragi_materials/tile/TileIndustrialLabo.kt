@@ -88,7 +88,7 @@ class TileIndustrialLabo : TileBase(104), ITickable {
                             RagiLogger.infoDebug("The output is ${output.toBracket()}")
                         }
                         battery.extractEnergy(1000, false)
-                        RagiSoundEvent.playSound(this, RagiSoundEvent.getSound("minecraft:block.piston.extend"))
+                        RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.piston.extend"))
                         break
                     }
                 }

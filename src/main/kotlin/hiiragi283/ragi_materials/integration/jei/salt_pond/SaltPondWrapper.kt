@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration.jei.salt_pond
 
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.RagiFluidUtil
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -8,7 +8,7 @@ import mezz.jei.api.recipe.IRecipeWrapper
 class SaltPondWrapper(info: SaltPondMaker.Recipe) : IRecipeWrapper {
 
     //private変数の宣言
-    val input = RagiUtil.getFilledBottle(name = info.stringIn)
+    val input = RagiFluidUtil.getBottle(name = info.stringIn)
     val output = info.stackOut
 
     //スロットにはめるIIngredientsを定義するメソッド

@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import net.minecraft.block.IGrowable
@@ -108,12 +109,12 @@ abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGr
 
     //    IMaterialBLock    //
 
-    abstract override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): MaterialBuilder
+    abstract override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial
 
     //    IMaterialItem    //
 
-    abstract override fun getMaterial(stack: ItemStack): MaterialBuilder
+    abstract override fun getMaterial(stack: ItemStack): RagiMaterial
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack
+    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack
 
 }

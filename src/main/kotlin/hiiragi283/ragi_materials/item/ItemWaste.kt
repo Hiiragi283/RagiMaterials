@@ -2,8 +2,8 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistryNew
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
@@ -51,8 +51,8 @@ class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder = MaterialRegistry.SOUL_SAND
+    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistryNew.PEAT
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack
+    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack
 
 }

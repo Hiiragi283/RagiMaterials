@@ -4,17 +4,15 @@ import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.block.BlockSoilFuel
 import hiiragi283.ragi_materials.block.IMaterialBlock
+import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.client.render.color.RagiColorManager
 import hiiragi283.ragi_materials.client.render.model.ModelRegistry
 import hiiragi283.ragi_materials.client.render.model.RagiModelManager
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiCreativeTabs
 import hiiragi283.ragi_materials.init.RagiItem
-import hiiragi283.ragi_materials.item.IMaterialItem
-import hiiragi283.ragi_materials.item.ItemBookDebug
-import hiiragi283.ragi_materials.item.ItemFullBottle
-import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.item.*
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -59,7 +57,7 @@ class RagiRegistry {
 
     private fun registerFluid() {
         //Fluidの登録
-        for (material in MaterialRegistry.list) {
+        for (material in RagiMaterial.list) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
             if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
                 //Fluidの登録
@@ -147,7 +145,7 @@ class RagiRegistry {
                 val color = block.getMaterialBlock(world, pos, state).color
                 val age = block.getAge(state)
                 val ageMax = block.getAgeMax(state)
-                RagiColorManager.mixColor(color to age, RagiColorManager.WHITE to (ageMax - age)).rgb
+                RagiColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age)).rgb
             } else 0xFFFFFF
         },
                 RagiBlock.BlockSoilCoal,
@@ -156,14 +154,14 @@ class RagiRegistry {
         )
 
         itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
-            var color: IMaterialItem? = null
+            var itemColored: IMaterialItem? = null
             val item = stack.item
             if (item is IMaterialItem && tintIndex == 0) {
-                color = item
+                itemColored = item
             } else if (item is ItemBlock && item.block is IMaterialItem) {
-                color = item.block as IMaterialItem
+                itemColored = item.block as IMaterialItem
             }
-            color?.getMaterial(stack)?.color?.rgb ?: 0xFFFFFF
+            itemColored?.getMaterial(stack)?.color?.rgb ?: 0xFFFFFF
 
         },
                 RagiItem.ItemBlockMaterial,
@@ -179,25 +177,12 @@ class RagiRegistry {
                 RagiItem.ItemIngot,
                 RagiItem.ItemIngotHot,
                 RagiItem.ItemNugget,
-                RagiItem.ItemOre,
-                RagiItem.ItemOreEnd,
-                RagiItem.ItemOreNether,
+                //RagiItem.ItemOre,
+                //RagiItem.ItemOreEnd,
+                //RagiItem.ItemOreNether,
                 RagiItem.ItemPlate,
                 RagiItem.ItemStick,
                 RagiItem.ItemWaste
         )
-
-        /*itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
-            val item = stack.item
-            if (item is IMaterialItem && tintIndex == 1) item.getMaterial(stack).color.rgb else 0xFFFFFF
-        },
-                *RagiInit.ItemsAxe,
-                *RagiInit.ItemsHammer,
-                *RagiInit.ItemsPickaxe,
-                *RagiInit.ItemsSpade,
-                *RagiInit.ItemsSword
-        )*/
-
     }
-
 }

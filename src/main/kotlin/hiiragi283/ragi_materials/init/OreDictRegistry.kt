@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.init
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
@@ -15,9 +16,6 @@ object OreDictRegistry {
             OreDictHandler(EnumMaterialType.CRYSTAL, "gem", PartRegistry.CRYSTAL),
             OreDictHandler(EnumMaterialType.DUST, "dust", PartRegistry.DUST),
             OreDictHandler(EnumMaterialType.DUST, "dustTiny", PartRegistry.DUST_TINY),
-            OreDictHandler(EnumMaterialType.DUMMY, "ore", PartRegistry.ORE),
-            OreDictHandler(EnumMaterialType.DUMMY, "ore", PartRegistry.ORE_NETHER),
-            OreDictHandler(EnumMaterialType.DUMMY, "ore", PartRegistry.ORE_END),
             OreDictHandler(EnumMaterialType.INGOT, "ingot", PartRegistry.INGOT),
             OreDictHandler(EnumMaterialType.PLATE, "plate", PartRegistry.PLATE),
             OreDictHandler(EnumMaterialType.STICK, "stick", PartRegistry.STICK),
@@ -29,10 +27,10 @@ object OreDictRegistry {
     //鉱石辞書を登録するメソッド
     init {
         //list内の各materialに対して実行
-        for (material in MaterialRegistry.list) {
+        for (material in RagiMaterial.list) {
             //listOreDict内の各OreDictHandlerに対して実行
             for (oredict in listOreDict) {
-                val stack = MaterialUtil.getPart(oredict.part, material)
+                val stack = MaterialUtil.getPartNew(oredict.part, material)
                 //materialのtypeがoredictのtypeを含む場合
                 if (oredict.type in material.type.list) {
                     RagiUtil.setOreDict(oredict.prefix + material.getOreDict(), stack)
@@ -40,10 +38,6 @@ object OreDictRegistry {
                     if (material.oredictAlt !== null) {
                         RagiUtil.setOreDict(oredict.prefix + material.oredictAlt, stack)
                     }
-                }
-                //鉱石専用の処理
-                if (oredict.type == EnumMaterialType.DUMMY && material.hasOre) {
-                    RagiUtil.setOreDict(oredict.prefix + material.getOreDict(), stack)
                 }
             }
         }

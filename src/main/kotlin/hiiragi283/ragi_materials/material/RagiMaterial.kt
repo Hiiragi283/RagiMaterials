@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.MaterialType
@@ -8,6 +9,8 @@ import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.common.IRarity
+import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 import java.math.BigDecimal
 
@@ -30,7 +33,16 @@ data class RagiMaterial(
 
     companion object {
         val EMPTY = RagiMaterial()
+
+        val list: MutableList<RagiMaterial> = mutableListOf()
+        val mapIndex: LinkedHashMap<Int, RagiMaterial> = linkedMapOf()
+        val mapName: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
+
+        val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
     }
+
+    //nameから液体を取得するメソッド
+    fun getFluid(): Fluid? = FluidRegistry.getFluid(this.name)
 
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String = this.name.snakeToUpperCamelCase()
@@ -154,15 +166,13 @@ data class RagiMaterial(
         //混合物用の化学式を自動で生成するメソッド
         private fun initFormulaMixture(): String {
             var formula = ""
-            components.forEach { formula += it.first.name }
+            components.forEach { formula += ",${it.first.formula}"}
             return "(${formula.substring(1)})"
         }
 
         //素材を単体に設定するメソッド
-        private fun setSimple() = also {
-            val material = components[0].first
-            it.tempBoil = material.tempBoil
-            it.tempMelt = material.tempMelt
+        fun setSimple(pair: Pair<RagiMaterial, Int>) = also {
+            setComponents(listOf(pair))
         }
 
         fun build(): RagiMaterial = RagiMaterial(
@@ -181,10 +191,12 @@ data class RagiMaterial(
                 tempBoil,
                 tempMelt
         ).also {
-            MaterialRegistryNew.list.add(it)
-            MaterialRegistryNew.mapIndex[it.index] = it
-            MaterialRegistryNew.mapName[it.name] = it
-            PartRegistry.list.forEach { part -> if (MaterialUtil.isValidPart(part, it)) MaterialRegistryNew.validPair.add(part to it) }
+            if (it.index > 0) {
+                list.add(it)
+                mapIndex[it.index] = it
+                mapName[it.name] = it
+                PartRegistry.list.forEach { part -> if (MaterialUtil.isValidPart(part, it)) validPair.add(part to it) }
+            }
         }
     }
 

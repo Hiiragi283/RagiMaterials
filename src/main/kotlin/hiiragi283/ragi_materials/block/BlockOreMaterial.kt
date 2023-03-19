@@ -2,8 +2,8 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.item.IMaterialItem
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
+import hiiragi283.ragi_materials.material.MaterialRegistryNew
+import hiiragi283.ragi_materials.material.RagiMaterial
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
@@ -18,10 +18,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialBlock, IMaterialItem {
 
-    val list: List<MaterialBuilder> = listOf(
-            MaterialRegistry.EMERALD, //Beryl
-            MaterialRegistry.SALT, //Rock Salt
-            MaterialRegistry.COAL,
+    val list: List<RagiMaterial> = listOf(
+            MaterialRegistryNew.EMERALD //Beryl
+            /*MaterialRegistry.SALT, //Rock Salt
+            MaterialRegistryNew.COAL,
             MaterialRegistry.GRAPHITE,
             MaterialRegistry.FLUORITE,
             MaterialRegistry.BAUXITE, //Laterite
@@ -32,7 +32,7 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialB
             MaterialRegistry.MAGNETITE,
             MaterialRegistry.PYROLUSITE, //Seabed Nodule
             MaterialRegistry.COPPER,
-            MaterialRegistry.SPHALERITE
+            MaterialRegistry.SPHALERITE*/
     )
 
     companion object {
@@ -51,7 +51,7 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialB
 
     override fun damageDropped(state: IBlockState): Int = state.getValue(TYPE)
 
-    fun getMaterialList(): List<MaterialBuilder> = list
+    fun getMaterialList(): List<RagiMaterial> = list
 
     //    BlockState    //
 
@@ -69,11 +69,11 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialB
 
     //    IMaterialBlock    //
 
-    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): MaterialBuilder = list[state.getValue(TYPE) % list.size]
+    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = list[state.getValue(TYPE) % list.size]
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): MaterialBuilder = list[stack.metadata % list.size]
+    override fun getMaterial(stack: ItemStack): RagiMaterial = list[stack.metadata % list.size]
 
-    override fun setMaterial(stack: ItemStack, material: MaterialBuilder): ItemStack = stack
+    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack
 }

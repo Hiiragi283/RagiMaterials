@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.capability.RagiTank
+import hiiragi283.ragi_materials.util.RagiFluidUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -73,7 +74,7 @@ class TileFullBottleStation : TileBase(101), ITickable {
             val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
             //作成個数が0より多い場合
             if (countBottle > 0 && tank.fluid !== null && inventory.getStackInSlot(0).isEmpty) {
-                inventory.insertItem(0, RagiUtil.getFilledBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
+                inventory.insertItem(0, RagiFluidUtil.getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
                 if (amountRemain > 0) {
                     tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き
                 } else {

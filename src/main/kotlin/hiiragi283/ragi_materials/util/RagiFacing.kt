@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.util
 
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.IBlockState

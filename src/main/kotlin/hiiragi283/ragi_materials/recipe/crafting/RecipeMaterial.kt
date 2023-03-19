@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.recipe.crafting
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.recipe.RagiRecipe
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -10,7 +10,7 @@ import net.minecraftforge.oredict.OreDictionary
 object RecipeMaterial {
 
     fun init() {
-        for (material in MaterialRegistry.list) {
+        for (material in RagiMaterial.list) {
             if (EnumMaterialType.DUST in material.type.list) {
                 //dust -> tiny dustのレシピを登録
                 RagiRecipe.addShaped(Reference.MOD_ID + ":dust_to_tiny_" + material.index, RagiUtil.getStack("${Reference.MOD_ID}:dust_tiny", 9, material.index), "A", 'A', "dust${material.getOreDict()}")
