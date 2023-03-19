@@ -8,7 +8,7 @@ import hiiragi283.ragi_materials.material.part.MaterialPart
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.fluids.FluidRegistry
 
-object MaterialRegistry {
+class MaterialRegistry {
 
     val list: MutableList<MaterialBuilder> = mutableListOf()
     val mapIndex: LinkedHashMap<Int, MaterialBuilder> = linkedMapOf()

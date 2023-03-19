@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.material.MaterialRegistryNew
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.MaterialPart
@@ -30,7 +30,7 @@ object OreDictRegistry {
         for (material in RagiMaterial.list) {
             //listOreDict内の各OreDictHandlerに対して実行
             for (oredict in listOreDict) {
-                val stack = MaterialUtil.getPartNew(oredict.part, material)
+                val stack = MaterialUtil.getPart(oredict.part, material)
                 //materialのtypeがoredictのtypeを含む場合
                 if (oredict.type in material.type.list) {
                     RagiUtil.setOreDict(oredict.prefix + material.getOreDict(), stack)
@@ -42,17 +42,17 @@ object OreDictRegistry {
             }
         }
 
-        RagiUtil.setOreDict("gearStone", RagiUtil.getStack("${Reference.MOD_ID}:gear", 1, MaterialRegistry.STONE.index))
-        //RagiUtil.setOreDict("gearWood", RagiUtil.getStack("${Reference.MOD_ID}:gear", 1, MaterialRegistry.WOOD.index))
-        RagiUtil.setOreDict("stickStone", RagiUtil.getStack("${Reference.MOD_ID}:stick", 1, MaterialRegistry.STONE.index))
+        RagiUtil.setOreDict("gearStone", RagiUtil.getStack("${Reference.MOD_ID}:gear", 1, MaterialRegistryNew.STONE.index))
+        RagiUtil.setOreDict("gearWood", RagiUtil.getStack("${Reference.MOD_ID}:gear", 1, MaterialRegistryNew.WOOD.index))
+        RagiUtil.setOreDict("stickStone", RagiUtil.getStack("${Reference.MOD_ID}:stick", 1, MaterialRegistryNew.STONE.index))
 
         RagiUtil.setOreDict("dustGunpowder", RagiUtil.getStack("minecraft:gunpowder", 1, 0))
-        //RagiUtil.setOreDict("gunpowder", RagiUtil.getStack("${Reference.MOD_ID}:dust", 1, MaterialRegistry.GUNPOWDER.index))
+        //RagiUtil.setOreDict("gunpowder", RagiUtil.getStack("${Reference.MOD_ID}:dust", 1, MaterialRegistryNew.GUNPOWDER.index))
         RagiUtil.setOreDict("dustSugar", RagiUtil.getStack("minecraft:sugar", 1, 0))
-        //RagiUtil.setOreDict("sugar", RagiUtil.getStack("${Reference.MOD_ID}:dust", 1, MaterialRegistry.SUGAR.index))
+        //RagiUtil.setOreDict("sugar", RagiUtil.getStack("${Reference.MOD_ID}:dust", 1, MaterialRegistryNew.SUGAR.index))
         RagiUtil.setOreDict("gemCharcoal", RagiUtil.getStack("minecraft:coal", 1, 1))
-        RagiUtil.setOreDict("charcoal", RagiUtil.getStack("${Reference.MOD_ID}:crystal", 1, MaterialRegistry.CHARCOAL.index))
-        RagiUtil.setOreDict("fuelCoke", RagiUtil.getStack("${Reference.MOD_ID}:crystal", 1, MaterialRegistry.COKE.index))
+        RagiUtil.setOreDict("charcoal", RagiUtil.getStack("${Reference.MOD_ID}:crystal", 1, MaterialRegistryNew.CHARCOAL.index))
+        RagiUtil.setOreDict("fuelCoke", RagiUtil.getStack("${Reference.MOD_ID}:crystal", 1, MaterialRegistryNew.COKE.index))
     }
 
     class OreDictHandler(val type: EnumMaterialType, val prefix: String, val part: MaterialPart)

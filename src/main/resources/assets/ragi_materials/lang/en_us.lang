@@ -142,6 +142,7 @@ material.borax=Borax
 material.boron_oxide=Boron Oxide
 
 material.carbon=Carbon
+material.carbon_monoxide=Carbon Monoxide
 material.carbon_dioxide=Carbon Dioxide
 material.coal=Coal
 material.charcoal=Charcoal
@@ -161,6 +162,8 @@ material.fluorine=Fluorine
 material.fluorite=Fluorite
 material.hydrogen_fluoride=Hydrogen Fluoride
 
+material.wood=Wood
+
 material.sodium=Sodium
 material.sodium_hydroxide=Sodium Hydroxide
 material.sodium_bicarbonate=Sodium Bicarbonate
@@ -170,10 +173,10 @@ material.sodium_bisulfate=Sodium Bisulfate
 material.sodium_sulfate=Sodium Sulfate
 
 material.magnesium=Magnesium
-material.magnesium_carbonate=Magnesite
+material.magnesite=Magnesite
 
 material.aluminium=Aluminium
-material.aluminium_oxide=Aluminium Oxide
+material.alumina=Aluminium Oxide
 material.bauxite=Bauxite
 material.ruby=Ruby
 material.sapphire=Sapphire
@@ -182,6 +185,7 @@ material.alumina_solution=Alumina Solution
 material.silicon=Silicon
 material.silicon_dioxide=Silicon Dioxide
 material.glass=Glass
+material.quartz=Quartz
 
 material.phosphorus=Phosphorus
 
@@ -287,25 +291,6 @@ material.plutonium239=Plutonium-239
 
 material.wildcard=INVALID
 material.hiiragi_tsubasa=EXAMPLE
-
-material.quartz=Quartz
-material.wood=Wood
-material.lapis=Lapis
-material.clay=Clay
-material.brick=Brick
-material.redstone=Redstone
-material.glowstone=Glowstone
-material.nether_brick=Nether Brick
-material.ender=Ender Pearl
-material.prismarine=Prismarine
-material.bone=Bone
-material.gunpowder=Gunpowder
-material.sugar=Sugar
-
-material.magnet=Magnet
-material.bronze=Bronze
-material.electrum=Electrum
-material.tungsten_steel=Tungsten Steel
 
 material.mithril=Mithril
 material.signalum=Signalum

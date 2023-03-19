@@ -116,7 +116,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
 
     override fun getMaterial(stack: ItemStack): RagiMaterial {
         val fluidStack = FluidUtil.getFluidContained(stack)
-        return if (fluidStack !== null) MaterialUtil.getMaterialNew(fluidStack.fluid.name) else RagiMaterial.EMPTY
+        return if (fluidStack !== null) MaterialUtil.getMaterial(fluidStack.fluid.name) else RagiMaterial.EMPTY
     }
 
     override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack {

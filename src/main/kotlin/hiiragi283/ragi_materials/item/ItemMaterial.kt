@@ -73,7 +73,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
         if (this.isInCreativeTab(tab)) {
             for (material in RagiMaterial.list) {
                 if (MaterialUtil.isValidPart(part, material)) {
-                    subItems.add(MaterialUtil.getPartNew(part, material))
+                    subItems.add(MaterialUtil.getPart(part, material))
                 }
             }
         }
@@ -81,7 +81,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialUtil.getMaterialNew(stack.metadata)
+    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialUtil.getMaterial(stack.metadata)
 
     override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack.also { it.itemDamage = material.index } //メタデータを上書き
 

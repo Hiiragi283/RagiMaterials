@@ -142,6 +142,7 @@ material.borax=硼砂
 material.boron_oxide=酸化硼素
 
 material.carbon=炭素
+material.carbon_monoxide=一酸化炭素
 material.carbon_dioxide=二酸化炭素
 material.coal=石炭
 material.charcoal=木炭
@@ -161,6 +162,8 @@ material.fluorine=弗素
 material.fluorite=蛍石
 material.hydrogen_fluoride=フッ化水素
 
+material.wood=木材
+
 material.sodium=ナトリウム
 material.sodium_hydroxide=水酸化ナトリウム
 material.sodium_bicarbonate=炭酸水素ナトリウム
@@ -170,10 +173,10 @@ material.sodium_bisulfate=硫酸水素ナトリウム
 material.sodium_sulfate=硫酸ナトリウム
 
 material.magnesium=マグネシウム
-material.magnesium_carbonate=マグネサイト
+material.magnesite=マグネサイト
 
 material.aluminium=アルミニウム
-material.aluminium_oxide=酸化アルミニウム
+material.alumina=酸化アルミニウム
 material.bauxite=ボーキサイト
 material.ruby=ルビー
 material.sapphire=サファイア
@@ -182,6 +185,7 @@ material.alumina_solution=アルミナ溶液
 material.silicon=珪素
 material.silicon_dioxide=二酸化珪素
 material.glass=ガラス
+material.quartz=水晶
 
 material.phosphorus=燐
 
@@ -287,25 +291,6 @@ material.plutonium239=プルトニウム239
 
 material.wildcard=無効な
 material.hiiragi_tsubasa=らぎマテリアル
-
-material.quartz=水晶
-material.wood=木材
-material.lapis=ラピス
-material.clay=粘土
-material.brick=レンガ
-material.redstone=レッドストーン
-material.glowstone=グローストーン
-material.nether_brick=ネザーレンガ
-material.ender=エンダーパール
-material.prismarine=プリズマリン
-material.bone=骨
-material.gunpowder=火薬
-material.sugar=砂糖
-
-material.magnet=磁石
-material.bronze=青銅
-material.electrum=エレクトラム
-material.tungsten_steel=タングステン鋼
 
 material.mithril=ミスリル
 material.signalum=シグナルム

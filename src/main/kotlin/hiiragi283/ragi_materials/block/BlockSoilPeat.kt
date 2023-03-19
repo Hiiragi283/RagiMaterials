@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialRegistryNew
 import hiiragi283.ragi_materials.material.RagiMaterial
 import net.minecraft.block.properties.PropertyInteger
@@ -19,9 +18,9 @@ class BlockSoilPeat: BlockSoilFuel("soil_peat") {
 
     //    General    //
 
-    override fun getDropMain() = MaterialRegistry.PEAT
+    override fun getDropMain() = MaterialRegistryNew.PEAT
 
-    override fun getDropAdd() = MaterialRegistry.LIGNITE
+    override fun getDropAdd() = MaterialRegistryNew.LIGNITE
 
     //    BlockState    //
 

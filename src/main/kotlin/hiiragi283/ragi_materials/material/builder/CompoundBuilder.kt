@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.material.builder
 
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.client.render.color.RagiColorManager
-import hiiragi283.ragi_materials.material.MaterialUtil
 import java.awt.Color
 import java.math.BigDecimal
 
@@ -26,7 +25,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
     }
 
     private fun initFormula() {
-        this.formula = MaterialUtil.getFormula(components)
+        //this.formula = MaterialUtil.getFormula(components)
     }
 
     private fun initMolar() {

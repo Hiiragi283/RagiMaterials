@@ -51,6 +51,9 @@ data class RagiMaterial(
     fun isEmpty(): Boolean = this == EMPTY
     fun isNotEmpty(): Boolean = !isEmpty()
 
+    //()つきの化学式を返すメソッド
+    fun setBracket(): RagiMaterial = Formula("(${this.formula})").build()
+
     class Builder(val index: Int, val name: String, val type: MaterialType) {
 
         var burnTime = -1
@@ -101,7 +104,7 @@ data class RagiMaterial(
             val materials = builder.components.toMap().keys
             //自動で生成
             builder.color = initColor()
-            builder.formula = initFormula()
+            builder.formula = MaterialUtil.getFormula(components)
             builder.molar = initMolar()
             //合金の場合
             if (materials.all { it.type == TypeRegistry.METAL }) {
@@ -115,11 +118,6 @@ data class RagiMaterial(
             val mapColor: MutableMap<Color, Int> = mutableMapOf()
             components.forEach { mapColor[it.first.color] = it.second }
             return RagiColorManager.mixColor(mapColor)
-        }
-
-        //化学式を自動で生成するメソッド
-        private fun initFormula(): String {
-            return MaterialUtil.getFormula(components)
         }
 
         //モル質量を自動で生成するメソッド
@@ -171,11 +169,11 @@ data class RagiMaterial(
         }
 
         //素材を単体に設定するメソッド
-        fun setSimple(pair: Pair<RagiMaterial, Int>) = also {
+        fun setSimple(pair: Pair<RagiMaterial, Int>) = run {
             setComponents(listOf(pair))
         }
 
-        fun build(): RagiMaterial = RagiMaterial(
+        fun build() = RagiMaterial(
                 index,
                 name,
                 type,
@@ -203,15 +201,14 @@ data class RagiMaterial(
     //元素用のクラス
     class Element(val name: String, val type: MaterialType, val color: Color, val molar: Float, val formula: String, val tempMelt: Int, val tempBoil: Int) {
 
-        fun build(): RagiMaterial = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil)
+        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil)
 
     }
 
     //化学式用のクラス
     class Formula(val name: String) {
 
-        fun build(): RagiMaterial {
-            return RagiMaterial(formula = name)
-        }
+        fun build() = RagiMaterial(formula = name)
+
     }
 }

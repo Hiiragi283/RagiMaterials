@@ -1,8 +1,5 @@
 package hiiragi283.ragi_materials.material.builder
 
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
@@ -99,7 +96,7 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
 
     //素材を登録するメソッド
     fun register(): MaterialBuilder = also {
-        if (it.index >= 0) {
+        /*if (it.index >= 0) {
             MaterialRegistry.list.add(it)
             MaterialRegistry.mapIndex[it.index] = it
             MaterialRegistry.mapName[it.name] = it
@@ -107,6 +104,6 @@ open class MaterialBuilder(open val index: Int, open val name: String, open val 
             for (part in PartRegistry.list) {
                 if(MaterialUtil.isValidPart(part, it)) MaterialRegistry.validPair.add(part to it)
             }
-        }
+        }*/
     }
 }

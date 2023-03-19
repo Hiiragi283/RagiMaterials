@@ -59,6 +59,8 @@ class RagiMaterialsMod {
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent?) {
         if (!isLoadedGT) {
+            //液体の登録
+            RagiRegistry.registerFluid()
             //鉱石辞書の登録
             OreDictRegistry
             //レシピの登録

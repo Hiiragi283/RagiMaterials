@@ -4,7 +4,6 @@ import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.builder.MaterialBuilder
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
@@ -50,9 +49,9 @@ abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGr
         }
     }
 
-    abstract fun getDropMain(): MaterialBuilder
+    abstract fun getDropMain(): RagiMaterial
 
-    abstract fun getDropAdd(): MaterialBuilder
+    abstract fun getDropAdd(): RagiMaterial
 
     //    BlockState    //
 
