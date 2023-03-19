@@ -7,13 +7,12 @@ import hiiragi283.ragi_materials.integration.jei.forge_furnace.FFWrapper
 import hiiragi283.ragi_materials.integration.jei.laboratory_table.LaboCategory
 import hiiragi283.ragi_materials.integration.jei.laboratory_table.LaboMaker
 import hiiragi283.ragi_materials.integration.jei.laboratory_table.LaboWrapper
-import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondCategory
-import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondMaker
-import hiiragi283.ragi_materials.integration.jei.salt_pond.SaltPondWrapper
 import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillCategory
 import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillMaker
 import hiiragi283.ragi_materials.integration.jei.stone_mill.StoneMillWrapper
-import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipe
+import hiiragi283.ragi_materials.recipe.FFRecipe
+import hiiragi283.ragi_materials.recipe.LaboRecipe
+import hiiragi283.ragi_materials.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
@@ -35,21 +34,21 @@ class JEICore : IModPlugin {
         registry.addRecipeCategories(
                 FFCategory(guiHelper),
                 LaboCategory(guiHelper),
-                SaltPondCategory(guiHelper),
+                //SaltPondCategory(guiHelper),
                 StoneMillCategory(guiHelper)
         )
     }
 
     override fun register(registry: IModRegistry) {
 
-        registry.handleRecipes(FFMaker.Recipe::class.java, { FFWrapper(it) }, ForgeFurnace)
+        registry.handleRecipes(FFRecipe::class.java, { FFWrapper(it) }, ForgeFurnace)
         registry.handleRecipes(LaboRecipe::class.java, { LaboWrapper(it) }, LaboTable)
-        registry.handleRecipes(SaltPondMaker.Recipe::class.java, { SaltPondWrapper(it) }, SaltPond)
-        registry.handleRecipes(StoneMillMaker.Recipe::class.java, { StoneMillWrapper(it) }, StoneMill)
+        //registry.handleRecipes(SaltPondMaker.Recipe::class.java, { SaltPondWrapper(it) }, SaltPond)
+        registry.handleRecipes(MillRecipe::class.java, { StoneMillWrapper(it) }, StoneMill)
 
         FFMaker.register(registry)
         LaboMaker.register(registry)
-        SaltPondMaker.register(registry)
+        //SaltPondMaker.register(registry)
         StoneMillMaker.register(registry)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockForgeFurnace), ForgeFurnace)
@@ -58,7 +57,7 @@ class JEICore : IModPlugin {
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockLaboratoryTable), LaboTable)
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockIndustrialLabo), LaboTable)
 
-        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockSaltPond), SaltPond)
+        //registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockSaltPond), SaltPond)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockStoneMill), StoneMill)
 

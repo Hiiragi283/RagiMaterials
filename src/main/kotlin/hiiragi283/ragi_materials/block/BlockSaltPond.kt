@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.init.RagiItem
-import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
@@ -121,9 +120,9 @@ class BlockSaltPond : BlockBase("salt_pond", Material.WOOD, 2) {
         if (!world.isRemote) {
             //完成品の場合分け
             val stack: ItemStack = when (state.getValue(TYPE)) {
-                EnumSalt.WATER -> ItemStack(RagiItem.ItemDust, 1, MaterialRegistry.SALT.index)
-                EnumSalt.SALTWATER -> ItemStack(RagiItem.ItemDust, 1, MaterialRegistry.MAGNESIUM_CHLORIDE.index)
-                EnumSalt.BRINE -> ItemStack(RagiItem.ItemDust, 1, MaterialRegistry.LITHIUM_CHLORIDE.index)
+                EnumSalt.WATER -> ItemStack(RagiItem.ItemDust, 1, 0)
+                EnumSalt.SALTWATER -> ItemStack(RagiItem.ItemDust, 1, 0)
+                EnumSalt.BRINE -> ItemStack(RagiItem.ItemDust, 1, 0)
                 else -> ItemStack.EMPTY
             }
             if (stack.item != Items.AIR) {

@@ -3,9 +3,9 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.packet.MessageLabo
 import hiiragi283.ragi_materials.packet.RagiPacket
-import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
 import hiiragi283.ragi_materials.capability.RagiInventory
 import hiiragi283.ragi_materials.init.RagiItem
+import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundUtil
@@ -88,7 +88,7 @@ class TileLaboTable : TileBase(100), ISidedInventory {
         //サーバー側，かつインベントリが空でない場合
         if (!world.isRemote && !inventory.isEmpty) {
             //レシピチェック
-            for (recipe in LaboRecipeRegistry.list) {
+            for (recipe in LaboRecipe.Registry.list) {
                 if (recipe.match(inventorySide, true)) {
                     isFailed = false
                     for (output in recipe.outputs) {

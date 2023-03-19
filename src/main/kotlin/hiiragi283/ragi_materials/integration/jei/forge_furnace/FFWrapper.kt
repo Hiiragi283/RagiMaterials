@@ -1,11 +1,12 @@
 package hiiragi283.ragi_materials.integration.jei.forge_furnace
 
+import hiiragi283.ragi_materials.recipe.FFRecipe
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 
-class FFWrapper(info: FFMaker.Recipe) : IRecipeWrapper {
+class FFWrapper(info: FFRecipe) : IRecipeWrapper {
 
     //private変数の宣言
     val inputs = info.input

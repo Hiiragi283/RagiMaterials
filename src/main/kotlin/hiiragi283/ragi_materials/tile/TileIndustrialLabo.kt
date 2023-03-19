@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.capability.RagiBattery
 import hiiragi283.ragi_materials.capability.RagiItemHandler
-import hiiragi283.ragi_materials.recipe.laboratory.LaboRecipeRegistry
+import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.*
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -75,7 +75,7 @@ class TileIndustrialLabo : TileBase(104), ITickable {
             //サーバー側，かつインベントリが空でない場合
             if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
                 //レシピチェック
-                for (recipe in LaboRecipeRegistry.list) {
+                for (recipe in LaboRecipe.Registry.list) {
                     if (recipe.match(inventory, false)) {
                         for (i in 0 .. 4) {
                             val input = recipe.inputs[i]

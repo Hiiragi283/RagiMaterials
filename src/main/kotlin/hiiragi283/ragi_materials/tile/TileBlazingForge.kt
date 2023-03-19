@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.capability.RagiTank
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -78,15 +79,16 @@ class TileBlazingForge : TileBase(103) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         var result = false
         val stack = player.getHeldItem(hand)
-        val stackResult = TileForgeFurnace.getResult(stack)
-        if (canProcess() && !stackResult.isEmpty) {
-            tank.drain(getFuelConsumption()!!, true) //燃料を消費する
+        for (recipe in FFRecipe.Registry.list) {
+            if (recipe.match(stack, Integer.MAX_VALUE) && canProcess()) {
+                tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 
-            stack.shrink(1) //手持ちのアイテムを1つ減らす
-            RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
+                stack.shrink(1) //手持ちのアイテムを1つ減らす
+                RagiUtil.dropItemAtPlayer(player, recipe.output) //完成品をプレイヤーに渡す
 
-            RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
-            result = true
+                RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
+                result = true
+            }
         }
         return result
     }

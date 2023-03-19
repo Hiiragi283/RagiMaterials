@@ -1,10 +1,11 @@
 package hiiragi283.ragi_materials.integration.jei.stone_mill
 
+import hiiragi283.ragi_materials.recipe.MillRecipe
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 
-class StoneMillWrapper(info: StoneMillMaker.Recipe): IRecipeWrapper {
+class StoneMillWrapper(info: MillRecipe): IRecipeWrapper {
 
     //private変数の宣言
     val input = info.input

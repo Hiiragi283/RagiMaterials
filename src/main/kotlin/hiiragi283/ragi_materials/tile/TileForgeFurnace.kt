@@ -5,6 +5,7 @@ import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
+import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundUtil
@@ -79,8 +80,6 @@ class TileForgeFurnace : TileBase(102) {
 
     //    Recipe    //
 
-    private fun canProcess(stack: ItemStack): Boolean = fuel >= getFuelConsumption(stack) //入っている燃料が消費量より多いなら実行可能
-
     companion object {
 
         fun getFuelConsumption(stack: ItemStack): Int {
@@ -98,7 +97,7 @@ class TileForgeFurnace : TileBase(102) {
             var result = ItemStack.EMPTY
             if (item is IMaterialItem && item is ItemMaterial) {
                 val scale = item.part.scale
-                if (scale >= 1) result = MaterialUtil.getPartNew(PartRegistry.INGOT_HOT, item.getMaterial(stack), scale.toInt()) //完成品を代入
+                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, item.getMaterial(stack), scale.toInt()) //完成品を代入
                 RagiLogger.infoDebug("Result: ${result.toBracket()}")
             }
             return result
@@ -108,17 +107,13 @@ class TileForgeFurnace : TileBase(102) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         var result = false
         val stack = player.getHeldItem(hand)
-        val stackResult = getResult(stack)
-        if (canProcess(stack) && !stackResult.isEmpty) {
-            RagiLogger.infoDebug("Can process!")
-            val fuelConsumption = getFuelConsumption(stack)
-            //燃料消費が0より多い場合
-            if (fuelConsumption > 0) {
-                fuel -= fuelConsumption //燃料を減らす
+        for (recipe in FFRecipe.Registry.list) {
+            if (recipe.match(stack, fuel)) {
+                fuel -= recipe.fuel //燃料を減らす
                 RagiLogger.infoDebug("Fuel: $fuel")
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
-                RagiUtil.dropItemAtPlayer(player, stackResult) //完成品をプレイヤーに渡す
+                RagiUtil.dropItemAtPlayer(player, recipe.output) //完成品をプレイヤーに渡す
 
                 RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
                 result = true
