@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation
 
 class MillRecipe private constructor(location: ResourceLocation, val input: ItemStack, val output: ItemStack) {
 
-    fun match(input: ItemStack, fuel: Int) = RagiUtil.isSameStack(this.input, input, false)
+    fun match(input: ItemStack) = RagiUtil.isSameStack(this.input, input, false)
 
     class Builder(private val location: ResourceLocation) {
 

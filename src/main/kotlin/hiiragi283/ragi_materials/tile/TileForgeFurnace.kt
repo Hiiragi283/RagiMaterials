@@ -1,16 +1,11 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.item.IMaterialItem
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -22,7 +17,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
-import kotlin.math.pow
 
 class TileForgeFurnace : TileBase(102) {
 
@@ -80,30 +74,6 @@ class TileForgeFurnace : TileBase(102) {
 
     //    Recipe    //
 
-    companion object {
-
-        fun getFuelConsumption(stack: ItemStack): Int {
-            val item = stack.item
-            return if (item is IMaterialItem && item is ItemMaterial) {
-                val material = item.getMaterial(stack)
-                val tempMelt = material.tempMelt
-                val scale = item.part.scale
-                return tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() } ?: 0
-            } else 0
-        }
-
-        fun getResult(stack: ItemStack): ItemStack {
-            val item = stack.item
-            var result = ItemStack.EMPTY
-            if (item is IMaterialItem && item is ItemMaterial) {
-                val scale = item.part.scale
-                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.INGOT_HOT, item.getMaterial(stack), scale.toInt()) //完成品を代入
-                RagiLogger.infoDebug("Result: ${result.toBracket()}")
-            }
-            return result
-        }
-    }
-
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         var result = false
         val stack = player.getHeldItem(hand)
@@ -117,6 +87,7 @@ class TileForgeFurnace : TileBase(102) {
 
                 RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
                 result = true
+                break
             }
         }
         return result

@@ -2,15 +2,10 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.block.BlockStoneMill
-import hiiragi283.ragi_materials.item.IMaterialItem
-import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -68,26 +63,16 @@ class TileStoneMill: TileBase(105) {
 
     private fun doProcess() {
         val stack = inventory.getStackInSlot(0)
-        val result = getResult(stack)
-        if (!result.isEmpty) {
-            inventory.extractItem(0, 1, false)
-            markDirty()
-            RagiUtil.dropItem(world, pos.add(0, 1, 0), result)
-            RagiResult.succeeded(this)
-        } else RagiResult.failed(this)
-    }
-
-    private fun getResult(stack: ItemStack): ItemStack {
-        val item = stack.item
-        var result = ItemStack.EMPTY
-        if (item is IMaterialItem && item is ItemMaterial) {
-            val part = item.part
-            //粉末素材は粉砕不可能
-            if (part.type != EnumMaterialType.DUST) {
-                val scale = part.scale
-                if (scale >= 1) result = MaterialUtil.getPart(PartRegistry.DUST, item.getMaterial(stack), scale.toInt())
+        var result = false
+        for (recipe in MillRecipe.Registry.list) {
+            if (recipe.match(stack)) {
+                inventory.extractItem(0, 1, false)
+                markDirty()
+                RagiUtil.dropItem(world, pos.add(0, 1, 0), recipe.output)
+                result = true
+                break
             }
         }
-        return result
+        if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
     }
 }

@@ -88,6 +88,7 @@ class TileBlazingForge : TileBase(103) {
 
                 RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
                 result = true
+                break
             }
         }
         return result
