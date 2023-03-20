@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v0.5.0b
+
+### << First Beta Release !!! >>
+
+- Added issue templates for bug report
+- Added new classes to create recipes for Forge Furnace and Stone Mill (Preparation for Crafttweaker...?)
+- Bolded textural contours
+
+### Blocks
+
+  - Coal/Lignite/Peat Soil:** **Fixed and refined behaviour
+  - Forge Furnace: multiplied Fuel Point by 200 to match the combustion time.
+  - I.C.R.C: Fix the duplicate bug
+  - Labo Table: Fix the synchronisation processing after first chemical reaction
+  - Ore Block: Harvested from Rainbow ore
+  - Salt Pond: Removed for its unstable behavior
+
+### Items
+
+  - Crushed Ore: intermediate parts
+  - Forge Hammer: Restored!
+  - Ore Item: Replaced with Ore Block
+
+### Materials
+
+  - Fix the bug that fluids were not registered
+  - **REWROTE ALL MATERIALS with RagiMaterial System**
+
 ## v0.4.1a
 
   - Added issue templates for crash report
