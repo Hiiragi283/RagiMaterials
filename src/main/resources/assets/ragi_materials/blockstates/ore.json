@@ -20,6 +20,11 @@
         "particle": "ragi_materials:blocks/ore_rainbow"
       }
     }],
+    "gravel": [{
+      "textures": {
+        "stone": "blocks/gravel"
+      }
+    }],
     "nether": [{
       "textures": {
         "stone": "blocks/netherrack"

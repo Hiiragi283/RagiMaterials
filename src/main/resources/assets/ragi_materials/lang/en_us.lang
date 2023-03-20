@@ -33,6 +33,7 @@ item.book_debug.2.name=Property Book (DEBUG)
 item.book_debug.3.name=Tile Entity Book (DEBUG)
 item.fullbottle.name=Blank Full Bottle
 item.fullbottle_filled.name=%s Full Bottle
+item.ore_crushed.name=Crushed %s
 item.ragi_axe.name=%s Axe
 item.ragi_block_material.name=Block of %s
 item.ragi_crystal.name=%s
@@ -107,6 +108,7 @@ tips.ragi_materials.stone_mill.3=Every time you rotate 8 times, the mill tries t
 text.ragi_materials.debug_disabled=§cYou need to set §oisDebug§r§c to true using debug items!
 text.ragi_materials.failed=[%s] §cFailed...
 text.ragi_materials.succeeded=[%s] §aSucceeded!
+text.ragi_materials.fuel_point=[Fuel Point] §b%s
 
 # GUI
 gui.ragi_materials.forge_furnace=Forge Furnace

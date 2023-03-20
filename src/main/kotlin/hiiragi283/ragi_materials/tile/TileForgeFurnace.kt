@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntityFurnace
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
@@ -21,15 +22,18 @@ import net.minecraftforge.items.ItemStackHandler
 class TileForgeFurnace : TileBase(102) {
 
     var fuel = 0
+    var fuelMax = 200 * 80 * 64
     val inventory = object : ItemStackHandler(1) {
 
         override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
             return if (isFuel(stack)) {
-                RagiLogger.infoDebug("Burn Time: ${TileEntityFurnace.getItemBurnTime(stack)}")
-                fuel += (TileEntityFurnace.getItemBurnTime(stack) * stack.count) / 200
-                playSoundFuel()
-                RagiLogger.infoDebug("Fuel: $fuel")
-                ItemStack.EMPTY //燃料は消失する
+                val burnTime = TileEntityFurnace.getItemBurnTime(stack) * stack.count
+                if (fuel + burnTime <= fuelMax) {
+                    fuel += burnTime //燃料を投入
+                    playSoundFuel()
+                    RagiLogger.infoDebug("Fuel: $fuel")
+                    ItemStack.EMPTY //燃料は消失する
+                } else stack //上限に達していたら搬入不可能
             } else stack //燃焼不可能な素材なら搬入不可能
         }
     }
@@ -67,7 +71,10 @@ class TileForgeFurnace : TileBase(102) {
                 player.setHeldItem(hand, inventory.insertItem(0, stack, false)) //燃料を搬入
                 true
             } else doProcess(player, hand) //レシピを実行
-            if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
+            if (result) RagiResult.succeeded(this) else {
+                player.sendMessage(TextComponentTranslation("text.ragi_materials.fuel_point", fuel)) //燃料を表示
+                RagiResult.failed(this)
+            }
         }
         return result
     }

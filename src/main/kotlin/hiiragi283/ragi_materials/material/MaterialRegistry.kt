@@ -363,7 +363,7 @@ object MaterialRegistry {
     //300 ~ 309: Zinc
     val ZINC = RagiMaterial.Builder(300, "zinc", TypeRegistry.METAL).setSimple(ElementRegistry.ZINC to 1).build()
 
-    val SPHALERITE = RagiMaterial.Builder(301, "sphalerite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ZINC to 1, ElementRegistry.SULFUR to 1)).build()
+    //val SPHALERITE = RagiMaterial.Builder(301, "sphalerite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ZINC to 1, ElementRegistry.SULFUR to 1)).build()
 
     val BRASS = RagiMaterial.Builder(302, "brass", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.COPPER to 3, ElementRegistry.ZINC to 1)).apply {
         color = RagiColor.GOLD

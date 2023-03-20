@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.init.RagiBlock
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -38,6 +40,7 @@ class MillRecipe private constructor(location: ResourceLocation, val input: Item
 
         init {
             materialRecipe()
+            oreRecipe()
         }
 
         private fun materialRecipe() {
@@ -50,6 +53,23 @@ class MillRecipe private constructor(location: ResourceLocation, val input: Item
                         output = MaterialUtil.getPart(PartRegistry.DUST, material, part.scale.toInt())
                     }.build()
                 }
+            }
+        }
+
+        private fun oreRecipe() {
+            val blockOre = RagiBlock.BlockOre1
+            val itemCrushed = RagiItem.ItemOreCrushed
+            for (i in blockOre.list.indices) {
+                Builder("${blockOre.registryName}_$i").apply {
+                    input = ItemStack(blockOre, 1, i)
+                    output = ItemStack(itemCrushed, 1, i)
+                }.build()
+            }
+            for (i in itemCrushed.list.indices) {
+                Builder("${itemCrushed.registryName}_$i").apply {
+                    input = ItemStack(itemCrushed, 1, i)
+                    output = MaterialUtil.getPart(PartRegistry.DUST, itemCrushed.list[i][0], 2)
+                }.build()
             }
         }
 

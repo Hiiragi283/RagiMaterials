@@ -33,6 +33,7 @@ item.book_debug.2.name=Property Book (DEBUG)
 item.book_debug.3.name=Tile Entity Book (DEBUG)
 item.fullbottle.name=空のフルボトル
 item.fullbottle_filled.name=%sフルボトル
+item.ore_crushed.name=砕けた%s
 item.ragi_axe.name=%sの斧
 item.ragi_block_material.name=%sブロック
 item.ragi_crystal.name=%s
@@ -107,6 +108,7 @@ tips.ragi_materials.stone_mill.3=8回回すたびに石臼は§b粉末sr§7を�
 text.ragi_materials.debug_disabled=§cデバッグアイテムを使うには§oisDebug§r§cをtrueにする必要があります!
 text.ragi_materials.failed=[%s] §c失敗...
 text.ragi_materials.succeeded=[%s] §a成功!
+text.ragi_materials.fuel_point=[Fuel Point] §b%s
 
 # GUI
 gui.ragi_materials.forge_furnace=鍛造炉

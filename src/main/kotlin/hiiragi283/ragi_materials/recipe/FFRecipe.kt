@@ -30,7 +30,7 @@ class FFRecipe private constructor(location: ResourceLocation, val input: ItemSt
                 val material = item.getMaterial(stack)
                 val tempMelt = material.tempMelt
                 val scale = item.part.scale
-                return tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() }
+                return tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() * 200 }
             } else null
         }
 

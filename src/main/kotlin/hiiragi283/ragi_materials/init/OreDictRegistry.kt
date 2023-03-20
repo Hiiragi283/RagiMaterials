@@ -24,6 +24,21 @@ object OreDictRegistry {
             OreDictHandler(EnumMaterialType.NUGGET, "nugget", PartRegistry.NUGGET)
     )
 
+    private val listOre = listOf(
+            "oreSalt",
+            "oreBeryl",
+            "oreFluorite",
+            "oreLaterite",
+            "oreCorundum",
+            "oreSulfur",
+            "oreNiter",
+            "oreLime",
+            "oreNodule",
+            "oreMagnetite",
+            "oreCopper",
+            "oreSphalerite"
+    )
+
     //鉱石辞書を登録するメソッド
     fun load() {
         //list内の各materialに対して実行
@@ -42,19 +57,12 @@ object OreDictRegistry {
             }
         }
 
-        RagiUtil.setOreDict("oreSalt", ItemStack(RagiBlock.BlockOre1, 1, 0))
-        RagiUtil.setOreDict("oreBeryl", ItemStack(RagiBlock.BlockOre1, 1, 1))
-        RagiUtil.setOreDict("oreFluorite", ItemStack(RagiBlock.BlockOre1, 1, 2))
-        RagiUtil.setOreDict("oreLaterite", ItemStack(RagiBlock.BlockOre1, 1, 3))
-        RagiUtil.setOreDict("oreCorundum", ItemStack(RagiBlock.BlockOre1, 1, 4))
-        RagiUtil.setOreDict("oreSulfur", ItemStack(RagiBlock.BlockOre1, 1, 5))
-        RagiUtil.setOreDict("oreNiter", ItemStack(RagiBlock.BlockOre1, 1, 6))
+        for (i in listOre.indices) {
+            RagiUtil.setOreDict(listOre[i], ItemStack(RagiBlock.BlockOre1, 1, i))
+            RagiUtil.setOreDict("${listOre[i]}Crushed", ItemStack(RagiItem.ItemOreCrushed, 1, i))
+        }
         RagiUtil.setOreDict("oreSaltpeter", ItemStack(RagiBlock.BlockOre1, 1, 6))
-        RagiUtil.setOreDict("oreLime", ItemStack(RagiBlock.BlockOre1, 1, 7))
-        RagiUtil.setOreDict("oreNodule", ItemStack(RagiBlock.BlockOre1, 1, 8))
-        RagiUtil.setOreDict("oreMagnetite", ItemStack(RagiBlock.BlockOre1, 1, 9))
-        RagiUtil.setOreDict("oreCopper", ItemStack(RagiBlock.BlockOre1, 1, 10))
-        RagiUtil.setOreDict("oreSphalerite", ItemStack(RagiBlock.BlockOre1, 1, 11))
+        RagiUtil.setOreDict("oreSaltpeterCrushed", ItemStack(RagiItem.ItemOreCrushed, 1, 6))
 
         RagiUtil.setOreDict("charcoal", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
         RagiUtil.setOreDict("dustGunpowder", RagiUtil.getStack("minecraft:gunpowder", 1, 0))

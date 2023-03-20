@@ -109,7 +109,7 @@ class RagiRegistry {
                         RagiLogger.infoDebug("The model for item block ${item.registryName} is registered!")
                     }
                 } else if (item is Item) {
-                    if (item !is ItemMaterial && item !is ItemBookDebug) {
+                    if (item !is ItemMaterial && item !is ItemBookDebug && item !is ItemOreCrushed) {
                         RagiModelManager.setModel(item)
                         RagiLogger.infoDebug("The model for item ${item.registryName} is registered!")
                     }
@@ -149,6 +149,13 @@ class RagiRegistry {
             color
         },
                 RagiItem.ItemBlockOre1
+        )
+
+        itemColors.registerItemColorHandler(IItemColor {stack, tintIndex ->
+            val block = RagiBlock.BlockOre1
+            block.list[stack.metadata % block.list.size].rgb
+        },
+                RagiItem.ItemOreCrushed
         )
 
         //Fuel Soil
