@@ -14,6 +14,6 @@ object RagiPacket {
     val wrapper: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("ragi_materials:laboratory_table")
 
     init {
-        wrapper.registerMessage(MessageHandlerLabo::class.java, MessageLabo::class.java, 0, Side.CLIENT)
+        wrapper.registerMessage(MessageHandlerLabo::class.java, MessageTIle::class.java, 0, Side.CLIENT)
     }
 }

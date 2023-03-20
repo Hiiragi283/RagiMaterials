@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.packet.MessageLabo
+import hiiragi283.ragi_materials.packet.MessageTIle
 import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.capability.RagiInventory
 import hiiragi283.ragi_materials.init.RagiItem
@@ -107,9 +107,9 @@ class TileLaboTable : TileBase(100), ISidedInventory {
                 RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:entity.generic.explode"))
                 RagiResult.failed(this)
             }
-            inventory.clear() //反応結果によらずインベントリを空にする
         }
-        RagiPacket.wrapper.sendToAll(MessageLabo(this.pos, updateTag)) //クライアント側にパケットを送る
+        inventory.clear() //反応結果によらずインベントリを空にする
+        RagiPacket.wrapper.sendToAll(MessageTIle(this.pos)) //クライアント側にパケットを送る
     }
 
     //    ISidedInventory    //
