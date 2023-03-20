@@ -25,6 +25,7 @@ object RagiItem {
 
     val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0).apply { creativeTab = CreativeTabs.MISC }
     val ItemBookDebug = ItemBookDebug()
+    val ItemForgeHammer = ItemForgeHammer()
     val ItemFullBottle = ItemFullBottle()
     val ItemOreCrushed = ItemOreCrushed()
     val ItemWaste = ItemWaste()

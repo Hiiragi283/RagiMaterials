@@ -1,9 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.FurnaceRecipes

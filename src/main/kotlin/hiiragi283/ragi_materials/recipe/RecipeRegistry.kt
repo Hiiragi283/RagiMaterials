@@ -18,6 +18,7 @@ object RecipeRegistry {
     }
 
     private fun addCrafting() {
+        //Blocks
         RagiRecipe.addShaped(ItemStack(RagiItem.ItemBlazingCube, 1, 0),
                 "ABA", "CDC", "ABA",
                 'A', ItemStack(Items.BLAZE_POWDER),
@@ -94,6 +95,14 @@ object RecipeRegistry {
                 "A", "B", "B",
                 'A', "stickWood",
                 'B', ItemStack(Blocks.STONE_SLAB)
+        )
+
+        //Items
+        RagiRecipe.addShaped(
+                ItemStack(RagiItem.ItemForgeHammer),
+                "AAA", "AAA", " B ",
+                'A', "ingotIron",
+                'B', ItemStack(Items.SIGN)
         )
     }
 }

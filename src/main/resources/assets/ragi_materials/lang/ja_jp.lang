@@ -31,6 +31,7 @@ item.book_debug.0.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
 item.book_debug.3.name=Tile Entity Book (DEBUG)
+item.forge_hammer.name=フォージハンマー
 item.fullbottle.name=空のフルボトル
 item.fullbottle_filled.name=%sフルボトル
 item.ore_crushed.name=砕けた%s
