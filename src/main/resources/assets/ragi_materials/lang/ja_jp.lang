@@ -5,20 +5,18 @@ tile.forge_furnace.name=鍛造炉
 tile.fullbottle_station.name=フルボトルメーカー
 tile.industrial_labo.name=工業用化学反応室
 tile.laboratory_table.name=実験台
-tile.ore_block.0.name=緑柱石
-tile.ore_block.1.name=岩塩
-tile.ore_block.2.name=石炭
-tile.ore_block.3.name=黒鉛
-tile.ore_block.4.name=蛍石
-tile.ore_block.5.name=ラテライト
-tile.ore_block.6.name=アルミナ
-tile.ore_block.7.name=硫黄
-tile.ore_block.8.name=硝石
-tile.ore_block.9.name=石灰
-tile.ore_block.10.name=磁鉄鉱
-tile.ore_block.11.name=海底団塊
-tile.ore_block.12.name=銅鉱石
-tile.ore_block.13.name=閃亜鉛鉱
+tile.ore_block.0.name=岩塩鉱石
+tile.ore_block.1.name=緑柱石鉱石
+tile.ore_block.2.name=蛍石鉱石
+tile.ore_block.3.name=ラテライト鉱石
+tile.ore_block.4.name=コランダム鉱石
+tile.ore_block.5.name=硫黄鉱石
+tile.ore_block.6.name=硝石鉱石
+tile.ore_block.7.name=石灰鉱石
+tile.ore_block.8.name=海底団塊鉱石
+tile.ore_block.9.name=磁鉄鉱石
+tile.ore_block.10.name=銅鉱石
+tile.ore_block.11.name=閃亜鉛鉱石
 tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
 tile.salt_pond.name=塩田ブロック
@@ -136,6 +134,7 @@ material.lithium=リチウム
 
 material.beryllium=ベリリウム
 material.emerald=エメラルド
+material.aquamarine=アクアマリン
 
 material.boron=硼素
 material.borax=硼砂
@@ -161,6 +160,7 @@ material.oxygen=酸素
 material.fluorine=弗素
 material.fluorite=蛍石
 material.hydrogen_fluoride=フッ化水素
+material.cryolite=氷晶石
 
 material.wood=木材
 
@@ -211,8 +211,8 @@ material.potassium=カリウム
 
 material.calcium=カルシウム
 material.calcium_hydroxide=水酸化カルシウム
-material.calcium_carbonate=炭酸カルシウム
-material.calcium_oxide=酸化カルシウム
+material.lime=炭酸カルシウム
+material.quick_lime=酸化カルシウム
 material.apatite=アパタイト
 material.gypsum=石膏
 material.calcium_chloride=塩化カルシウム
@@ -222,31 +222,24 @@ material.rutile=ルチル
 material.titanium_tetrachloride=四塩化チタン
 
 material.chromium=クロム
-material.chromite=クロム鉄鉱
 material.stainless_steel=ステンレス鋼
 
 material.manganese=マンガン
-material.rhodochrosite=菱マンガン鉱
-material.pyrolusite=軟マンガン鉱
 
 material.iron=鉄
 material.hematite=赤鉄鉱
 material.magnetite=磁鉄鉱
 material.pyrite=黄鉄鉱
+material.arsenopyrite=硫砒鉄鉱
 material.steel=鋼
-material.tool_steel=道具鋼
 
 material.cobalt=コバルト
-material.cobaltite=輝コバルト鉱
 
 material.nickel=ニッケル
-material.nickeline=紅砒ニッケル鉱
 material.invar=インバー
 material.constantan=コンスタンタン
 
 material.copper=銅
-material.chalcocite=輝銅鉱
-material.chalcopyrite=黄銅鉱
 
 material.zinc=亜鉛
 material.sphalerite=閃亜鉛鉱

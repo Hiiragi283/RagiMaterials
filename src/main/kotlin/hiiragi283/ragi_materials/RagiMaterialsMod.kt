@@ -64,11 +64,11 @@ class RagiMaterialsMod {
             //液体の登録
             RagiRegistry.registerFluid()
             //鉱石辞書の登録
-            OreDictRegistry
+            OreDictRegistry.load()
             //レシピの登録
-            RecipeRegistry
+            RecipeRegistry.load()
             //LootTableの登録
-            LootTableRegistry
+            LootTableRegistry.load()
             //パケットの登録
             RagiPacket
             //GUI描画の登録
@@ -85,8 +85,6 @@ class RagiMaterialsMod {
         if (!isLoadedGT) {
             //コンフィグからレシピを追加
             RagiConfig.registerRecipe()
-            //各種装置のレシピ登録
-            LaboRecipe.Registry
             //デバッグ用
             if (RagiConfig.debugMode.isDebug) {
                 FFRecipe.Registry.printMap()

@@ -11,7 +11,7 @@ import net.minecraftforge.oredict.OreDictionary
 
 object RecipeRegistry {
 
-    init {
+    fun load() {
         addCrafting()
 
         RecipeMaterial.init()

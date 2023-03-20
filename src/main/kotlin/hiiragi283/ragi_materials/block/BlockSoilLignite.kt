@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.material.MaterialRegistryNew
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.RagiMaterial
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState
@@ -18,9 +18,9 @@ class BlockSoilLignite: BlockSoilFuel("soil_lignite") {
 
     //    General    //
 
-    override fun getDropMain() = MaterialRegistryNew.LIGNITE
+    override fun getDropMain() = MaterialRegistry.LIGNITE
 
-    override fun getDropAdd() = MaterialRegistryNew.COAL
+    override fun getDropAdd() = MaterialRegistry.COAL
 
     //    BlockState    //
 
@@ -32,10 +32,10 @@ class BlockSoilLignite: BlockSoilFuel("soil_lignite") {
 
     //    IMaterialBLock    //
 
-    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = MaterialRegistryNew.LIGNITE
+    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = MaterialRegistry.LIGNITE
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistryNew.LIGNITE
+    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.LIGNITE
 
 }

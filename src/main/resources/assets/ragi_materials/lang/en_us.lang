@@ -5,20 +5,18 @@ tile.forge_furnace.name=Forge Furnace
 tile.fullbottle_station.name=Full Bottle Station
 tile.industrial_labo.name=Industrial Chemical Reaction Chamber
 tile.laboratory_table.name=Laboratory Table
-tile.ore_block.0.name=Beryl
-tile.ore_block.1.name=Rock Salt
-tile.ore_block.2.name=Fossil Fuel
-tile.ore_block.3.name=Graphite
-tile.ore_block.4.name=Fluorite
-tile.ore_block.5.name=Laterite
-tile.ore_block.6.name=Alumina
-tile.ore_block.7.name=Sulfur
-tile.ore_block.8.name=Niter
-tile.ore_block.9.name=Lime
-tile.ore_block.10.name=Magnetite
-tile.ore_block.11.name=Seabed Nodule
-tile.ore_block.12.name=Copper
-tile.ore_block.13.name=Sphalerite
+tile.ore_block.0.name=Rock Salt Ore
+tile.ore_block.1.name=Beryl Ore
+tile.ore_block.2.name=Fluorite Ore
+tile.ore_block.3.name=Laterite Ore
+tile.ore_block.4.name=Corundum Ore
+tile.ore_block.5.name=Sulfur Ore
+tile.ore_block.6.name=Niter Ore
+tile.ore_block.7.name=Lime Ore
+tile.ore_block.8.name=Ocean Nodule Ore
+tile.ore_block.9.name=Magnetite Ore
+tile.ore_block.10.name=Copper Ore
+tile.ore_block.11.name=Sphalerite Ore
 tile.ore_rainbow.name=§cR§6a§ei§an§bb§9o§dw§r Ore
 tile.oredict_converter.name=Ore Dictionary Converter
 tile.salt_pond.name=Salt Evaporation Pond
@@ -136,6 +134,7 @@ material.lithium=Lithium
 
 material.beryllium=Beryllium
 material.emerald=Emerald
+material.aquamarine=Aquamarine
 
 material.boron=Boron
 material.borax=Borax
@@ -161,6 +160,7 @@ material.oxygen=Oxygen
 material.fluorine=Fluorine
 material.fluorite=Fluorite
 material.hydrogen_fluoride=Hydrogen Fluoride
+material.cryolite=Cryolite
 
 material.wood=Wood
 
@@ -211,8 +211,8 @@ material.potassium=Potassium
 
 material.calcium=Calcium
 material.calcium_hydroxide=Calcium Hydroxide
-material.calcium_carbonate=Calcium Carbonate
-material.calcium_oxide=Calcium Oxide
+material.lime=Lime
+material.quick_lime=Quick Lime
 material.apatite=Apatite
 material.gypsum=Gypsum
 material.calcium_chloride=Calcium Chloride
@@ -222,31 +222,24 @@ material.rutile=Rutile
 material.titanium_tetrachloride=Titanium Tetrachloride
 
 material.chromium=Chromium
-material.chromite=Chromite
 material.stainless_steel=Stainless Steel
 
 material.manganese=Manganese
-material.rhodochrosite=Rhodochrosite
-material.pyrolusite=Pyrolusite
 
 material.iron=Iron
 material.hematite=Hematite
 material.magnetite=Magnetite
 material.pyrite=Pyrite
+material.arsenopyrite=Arsenopyrite
 material.steel=Steel
-material.tool_steel=Tool Steel
 
 material.cobalt=Cobalt
-material.cobaltite=Cobaltite
 
 material.nickel=Nickel
-material.nickeline=Nickeline
 material.invar=Invar
 material.constantan=Constantan
 
 material.copper=Copper
-material.chalcocite=Chalcocite
-material.chalcopyrite=Chalcopyrite
 
 material.zinc=Zinc
 material.sphalerite=Sphalerite

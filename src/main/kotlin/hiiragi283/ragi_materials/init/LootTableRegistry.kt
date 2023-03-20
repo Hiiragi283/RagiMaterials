@@ -8,7 +8,7 @@ object LootTableRegistry {
 
     val OreRainbow = ResourceLocation(Reference.MOD_ID, "gameplay/ore_rainbow")
 
-    init {
+    fun load() {
         LootTableList.register(OreRainbow)
     }
 

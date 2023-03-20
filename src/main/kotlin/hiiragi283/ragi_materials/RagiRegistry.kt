@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.block.BlockSoilFuel
-import hiiragi283.ragi_materials.block.IMaterialBlock
 import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.client.render.color.RagiColorManager
 import hiiragi283.ragi_materials.client.render.model.ModelRegistry
@@ -130,13 +129,29 @@ class RagiRegistry {
         val blockColors = event.blockColors
         val itemColors = event.itemColors
 
+        //Ore Block
         blockColors.registerBlockColorHandler(IBlockColor { state, world, pos, tintIndex ->
             val block = state.block
-            if (world !== null && block is IMaterialBlock) block.getMaterialBlock(world, pos!!, state).color.rgb else 0xFFFFFF
+            if (world !== null && block is BlockOreMaterial) block.list[block.getMetaFromState(state)].rgb else 0xFFFFFF
         },
                 RagiBlock.BlockOre1
         )
 
+        itemColors.registerItemColorHandler(IItemColor {stack, tintIndex ->
+            var color = 0xFFFFFF
+            val item = stack.item
+            if (item is ItemBlock) {
+                val block = item.block
+                if (block is BlockOreMaterial) {
+                    color = block.list[stack.metadata % block.list.size].rgb
+                }
+            }
+            color
+        },
+                RagiItem.ItemBlockOre1
+        )
+
+        //Fuel Soil
         blockColors.registerBlockColorHandler(IBlockColor { state, world, pos, tintIndex ->
             val block = state.block
             if (world !== null && pos !== null && block is BlockSoilFuel) {
@@ -151,6 +166,7 @@ class RagiRegistry {
                 RagiBlock.BlockSoilPeat
         )
 
+        //Material Parts
         itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
             var itemColored: IMaterialItem? = null
             val item = stack.item
@@ -163,7 +179,6 @@ class RagiRegistry {
 
         },
                 RagiItem.ItemBlockMaterial,
-                RagiItem.ItemBlockOre1,
                 RagiItem.ItemBlockSoilCoal,
                 RagiItem.ItemBlockSoilLignite,
                 RagiItem.ItemBlockSoilPeat,
@@ -175,9 +190,6 @@ class RagiRegistry {
                 RagiItem.ItemIngot,
                 RagiItem.ItemIngotHot,
                 RagiItem.ItemNugget,
-                //RagiItem.ItemOre,
-                //RagiItem.ItemOreEnd,
-                //RagiItem.ItemOreNether,
                 RagiItem.ItemPlate,
                 RagiItem.ItemStick,
                 RagiItem.ItemWaste

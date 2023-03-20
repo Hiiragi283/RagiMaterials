@@ -1,430 +1,377 @@
 package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.client.render.color.RagiColor
-import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.client.render.color.RagiColorManager
-import hiiragi283.ragi_materials.material.builder.*
-import hiiragi283.ragi_materials.material.part.MaterialPart
+import hiiragi283.ragi_materials.material.type.EnumCrystalType
+import hiiragi283.ragi_materials.material.type.TypeRegistry
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.fluids.FluidRegistry
 
-class MaterialRegistry {
-
-    val list: MutableList<MaterialBuilder> = mutableListOf()
-    val mapIndex: LinkedHashMap<Int, MaterialBuilder> = linkedMapOf()
-    val mapName: LinkedHashMap<String, MaterialBuilder> = linkedMapOf()
-
-    val validPair: MutableList<Pair<MaterialPart, MaterialBuilder>> = mutableListOf()
+object MaterialRegistry {
 
     //Pre-registration
-    val HYDROXIDE = CompoundBuilder(-1, "hydroxide", TypeRegistry.INTERNAL, mapOf(ElementRegistry.OXYGEN to 1, ElementRegistry.HYDROGEN to 1))
+    val HYDROXIDE = RagiMaterial.Builder(-1, "hydroxide", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.OXYGEN to 1, ElementRegistry.HYDROGEN to 1)).build()
 
-    val BORATE = CompoundBuilder(-1, "borate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.BORON to 1, ElementRegistry.OXYGEN to 3))
+    val CARBONATE = RagiMaterial.Builder(-1, "carbonate", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.CARBON to 1, ElementRegistry.OXYGEN to 3)).build()
 
-    val CARBONATE = CompoundBuilder(-1, "carbonate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.CARBON to 1, ElementRegistry.OXYGEN to 3))
+    val NITRATE = RagiMaterial.Builder(-1, "nitrate", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.NITROGEN to 1, ElementRegistry.OXYGEN to 3)).build()
 
-    val NITRATE = CompoundBuilder(-1, "nitrate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.NITROGEN to 1, ElementRegistry.OXYGEN to 3))
+    val PHOSPHATE = RagiMaterial.Builder(-1, "phosphate", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.PHOSPHORUS to 1, ElementRegistry.OXYGEN to 4)).build()
 
-    val SILICATE = CompoundBuilder(-1, "silicate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 4))
+    val SULFATE = RagiMaterial.Builder(-1, "sulfate", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.SULFUR to 1, ElementRegistry.OXYGEN to 4)).build()
 
-    val PHOSPHATE = CompoundBuilder(-1, "phosphate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.PHOSPHORUS to 1, ElementRegistry.OXYGEN to 4))
-
-    val SULFATE = CompoundBuilder(-1, "sulfate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.SULFUR to 1, ElementRegistry.OXYGEN to 4))
-
-    val TITANATE = CompoundBuilder(-1, "titanate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.TITANIUM to 1, ElementRegistry.OXYGEN to 4))
-
-    val TUNGSTATE = CompoundBuilder(-1, "tungstate", TypeRegistry.INTERNAL, mapOf(ElementRegistry.TUNGSTEN to 1, ElementRegistry.OXYGEN to 4))
+    val TUNGSTATE = RagiMaterial.Builder(-1, "tungstate", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.TUNGSTEN to 1, ElementRegistry.OXYGEN to 4)).build()
 
     //10 ~ 19: Hydrogen
-    val HYDROGEN = SimpleBuilder(ElementRegistry.HYDROGEN, 2)
+    val HYDROGEN = RagiMaterial.Builder(10, "hydrogen", TypeRegistry.GAS).setSimple(ElementRegistry.HYDROGEN to 2).build()
 
-    val WATER = CompoundBuilder(11, "water", TypeRegistry.INTERNAL, mapOf(ElementRegistry.HYDROGEN to 2, ElementRegistry.OXYGEN to 1)).apply {
+    val WATER = RagiMaterial.Builder(11, "water", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.HYDROGEN to 2, ElementRegistry.OXYGEN to 1)).apply {
         color = RagiColor.BLUE
         tempBoil = 100
         tempMelt = 0
-    }
+    }.build()
 
-    val SNOW = CompoundBuilder(12, "snow", TypeRegistry.INGOT, mapOf(WATER to 1)).apply {
+    val SNOW = RagiMaterial.Builder(12, "snow", TypeRegistry.INGOT).setComponents(listOf(WATER to 1)).apply {
         color = RagiColor.WHITE
-    }
+    }.build()
 
-    val ICE = CompoundBuilder(13, "ice", TypeRegistry.INGOT, mapOf(WATER to 1)).apply {
+    val ICE = RagiMaterial.Builder(13, "ice", TypeRegistry.INGOT).setComponents(listOf(WATER to 1)).apply {
         color = RagiColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
-        hasOre = true
-    }
+    }.build()
 
-    val DEUTERIUM = SimpleBuilder(ElementRegistry.DEUTERIUM, 2).apply {
+    val DEUTERIUM = RagiMaterial.Builder(14, "deuterium", TypeRegistry.GAS).setSimple(ElementRegistry.DEUTERIUM to 2).apply {
         rarity = EnumRarity.EPIC
-    }
+    }.build()
 
-    val TRITIUM = SimpleBuilder(ElementRegistry.TRITIUM, 2).apply {
+    val TRITIUM = RagiMaterial.Builder(15, "tritium", TypeRegistry.GAS).setSimple(ElementRegistry.TRITIUM to 2).apply {
         rarity = EnumRarity.EPIC
-    }
+    }.build()
 
     //20 ~ 29: Helium, Neon, Argon
-    val HELIUM = SimpleBuilder(ElementRegistry.HELIUM, 1).apply {
+    val HELIUM = RagiMaterial.Builder(20, "helium", TypeRegistry.GAS).setSimple(ElementRegistry.HELIUM to 1).apply {
         rarity = EnumRarity.RARE
-    }
+    }.build()
 
-    val NEON = SimpleBuilder(ElementRegistry.NEON, 1).apply {
+    val NEON = RagiMaterial.Builder(21, "neon", TypeRegistry.GAS).setSimple(ElementRegistry.NEON to 1).apply {
         rarity = EnumRarity.RARE
-    } //21
+    }.build()
 
-    val ARGON = SimpleBuilder(ElementRegistry.ARGON, 1).apply {
+    val ARGON = RagiMaterial.Builder(22, "argon", TypeRegistry.GAS).setSimple(ElementRegistry.ARGON to 1).apply {
         rarity = EnumRarity.RARE
-    } //22
+    }.build()
 
     //30 ~ 39: Lithium
-    val LITHIUM = SimpleBuilder(ElementRegistry.LITHIUM, 1)
+    val LITHIUM = RagiMaterial.Builder(30, "lithium", TypeRegistry.METAL).setSimple(ElementRegistry.LITHIUM to 1).apply {
+        rarity = EnumRarity.RARE
+    }.build()
+
+    val SPODUMENE = RagiMaterial.Builder(31, "spodumene", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.LITHIUM to 1, ElementRegistry.ALUMINIUM to 1, ElementRegistry.SILICON to 2, ElementRegistry.OXYGEN to 6)).apply {
+        crystalType = EnumCrystalType.LAPIS
+    }.build()
 
     //40 ~ 49: Beryllium
-    val BERYLLIUM = SimpleBuilder(ElementRegistry.BERYLLIUM, 1)
+    val BERYLLIUM = RagiMaterial.Builder(40, "beryllium", TypeRegistry.METAL).setSimple(ElementRegistry.BERYLLIUM to 1).apply {
+        rarity = EnumRarity.RARE
+    }.build()
 
-    val EMERALD = CrystalBuilder(41, "emerald", mapOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18), "emerald").apply {
+    val EMERALD = RagiMaterial.Builder(31, "emerald", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18)).apply {
         color = RagiColor.GREEN
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.EMERALD
+    }.build()
+
+    val AQUAMARINE = RagiMaterial.Builder(32, "aquamarine", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18)).apply {
+        color = RagiColor.AQUA
+        crystalType = EnumCrystalType.EMERALD
+    }.build()
 
     //50 ~ 59: Boron
-    val BORON = SimpleBuilder(ElementRegistry.BORON, 1)
+    val BORON = RagiMaterial.Builder(50, "boron", TypeRegistry.METALLOID).setSimple(ElementRegistry.BORON to 1).build()
 
-    val BORAX = CompoundBuilder(51, "borax", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 2, ElementRegistry.HYDROGEN to 20, ElementRegistry.BORON to 4, ElementRegistry.OXYGEN to 17)).apply {
-        hasOre = true
-    }
+    val BORAX = RagiMaterial.Builder(51, "borax", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SODIUM to 2, ElementRegistry.HYDROGEN to 20, ElementRegistry.BORON to 4, ElementRegistry.OXYGEN to 17)).build()
 
-    val BORON_OXIDE = CompoundBuilder(52, "boron_oxide", TypeRegistry.DUST, mapOf(ElementRegistry.BORON to 2, ElementRegistry.OXYGEN to 3))
+    val BORON_OXIDE = RagiMaterial.Builder(51, "boron_oxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.BORON to 2, ElementRegistry.OXYGEN to 3)).build()
 
     //60 ~ 69: Carbon
-    val CARBON = SimpleBuilder(ElementRegistry.CARBON, 1)
+    val CARBON = RagiMaterial.Builder(60, "carbon", TypeRegistry.METALLOID).setSimple(ElementRegistry.CARBON to 1).build()
 
-    val CARBON_DIOXIDE = CompoundBuilder(61, "carbon_dioxide", TypeRegistry.GAS, mapOf(ElementRegistry.CARBON to 1, ElementRegistry.OXYGEN to 2))
+    val CARBON_MONOXIDE = RagiMaterial.Builder(61, "carbon_monoxide", TypeRegistry.GAS).setComponents(listOf(ElementRegistry.CARBON to 1, ElementRegistry.OXYGEN to 1)).build()
 
-    val COAL = CrystalBuilder(62, "coal", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
+    val CARBON_DIOXIDE = RagiMaterial.Builder(62, "carbon_dioxide", TypeRegistry.GAS).setComponents(listOf(ElementRegistry.CARBON to 1, ElementRegistry.OXYGEN to 2)).build()
+
+    val COAL = RagiMaterial.Builder(63, "coal", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
         burnTime = 200 * 8
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.COAL
+    }.build()
 
-    val CHARCOAL = CrystalBuilder(63, "charcoal", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
+    val CHARCOAL = RagiMaterial.Builder(64, "charcoal", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
         burnTime = 200 * 8
-    }
+        crystalType = EnumCrystalType.COAL
+    }.build()
 
-    val COKE = CrystalBuilder(64, "coke", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
+    val COKE = RagiMaterial.Builder(65, "coke", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
         burnTime = 200 * 16
         color = RagiColor.DARK_GRAY
-    }
+        crystalType = EnumCrystalType.COAL
+    }.build()
 
-    val ANTHRACITE = CrystalBuilder(65, "anthracite", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
+    val ANTHRACITE = RagiMaterial.Builder(66, "anthracite", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
         burnTime = 200 * 24
-        color = RagiColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_BLUE to 1))
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.COAL
+        color = RagiColorManager.mixColor(COAL.color to 5, RagiColor.DARK_BLUE to 1)
+    }.build()
 
-    val LIGNITE = CrystalBuilder(66, "lignite", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
+    val LIGNITE = RagiMaterial.Builder(67, "lignite", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
         burnTime = 200 * 4
-        color = RagiColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_RED to 1))
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.COAL
+        color = RagiColorManager.mixColor(COAL.color to 5, RagiColor.DARK_RED to 1)
+    }.build()
 
-    val PEAT = CrystalBuilder(67, "peat", mapOf(ElementRegistry.CARBON to 1), "coal").apply {
+    val PEAT = RagiMaterial.Builder(68, "peat", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
         burnTime = 200 * 2
-        color = RagiColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_GREEN to 1, RagiColor.DARK_RED to 1))
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.COAL
+        color = RagiColorManager.mixColor(COAL.color to 5, RagiColor.DARK_GREEN to 1)
+    }.build()
 
-    val DIAMOND = CrystalBuilder(68, "diamond", mapOf(ElementRegistry.CARBON to 1), "diamond").apply {
-        color = RagiColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
-        hasOre = true
-        rarity = EnumRarity.RARE
-    }
-
-    val GRAPHITE = CompoundBuilder(69, "graphite", TypeRegistry.DUST, mapOf(ElementRegistry.CARBON to 1))
+    val DIAMOND = RagiMaterial.Builder(69, "diamond", TypeRegistry.CRYSTAL).setSimple(ElementRegistry.CARBON to 1).apply {
+        crystalType = EnumCrystalType.DIAMOND
+        color = RagiColor.AQUA
+    }.build()
 
     //70 ~ 79: Nitrogen
-    val NITROGEN = SimpleBuilder(ElementRegistry.NITROGEN, 2)
+    val NITROGEN = RagiMaterial.Builder(70, "nitrogen", TypeRegistry.GAS).setSimple(ElementRegistry.NITROGEN to 2).build()
 
-    val NITRIC_ACID = CompoundBuilder(71, "nitric_acid", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 1, NITRATE to 1))
+    val NITRIC_ACID = RagiMaterial.Builder(71, "nitric_acid", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.HYDROGEN to 1, NITRATE to 1)).build()
 
-    val NITER = CrystalBuilder(72, "niter", mapOf(ElementRegistry.POTASSIUM to 1, NITRATE to 1), "quartz").apply {
+    val NITER = RagiMaterial.Builder(72, "niter", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.POTASSIUM to 1, NITRATE to 1)).apply {
         color = RagiColor.WHITE
-        hasOre = true
         oredictAlt = "Saltpeter"
-    }
-
-    val NITRATINE = CrystalBuilder(73, "nitratine", mapOf(ElementRegistry.SODIUM to 1, NITRATE to 1), "quartz").apply {
-        color = RagiColor.WHITE
-        hasOre = true
-    }
+    }.build()
 
     //80 ~ 89: Oxygen
-    val OXYGEN = SimpleBuilder(ElementRegistry.OXYGEN, 2)
+    val OXYGEN = RagiMaterial.Builder(80, "oxygen", TypeRegistry.GAS).setSimple(ElementRegistry.OXYGEN to 2).build()
 
     //90 ~ 99: Fluorite
-    val FLUORINE = SimpleBuilder(ElementRegistry.FLUORINE, 2)
+    val FLUORINE = RagiMaterial.Builder(90, "fluorine", TypeRegistry.GAS).setSimple(ElementRegistry.FLUORINE to 2).build()
 
-    val FLUORITE = CrystalBuilder(91, "fluorite", mapOf(ElementRegistry.CALCIUM to 1, ElementRegistry.FLUORINE to 2), "cubic").apply {
+    val FLUORITE = RagiMaterial.Builder(91, "fluorite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CALCIUM to 1, ElementRegistry.FLUORINE to 2)).apply {
         color = RagiColorManager.mixColor(RagiColor.GREEN, RagiColor.AQUA)
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.DIAMOND
+    }.build()
 
-    val HYDROGEN_FLUORIDE = CompoundBuilder(92, "hydrogen_fluoride", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 1, ElementRegistry.FLUORINE to 1))
+    val HYDROGEN_FLUORIDE = RagiMaterial.Builder(92, "hydrogen_fluoride", TypeRegistry.GAS).setComponents(listOf(ElementRegistry.HYDROGEN to 1, ElementRegistry.FLUORINE to 1)).build()
 
-    //100 ~ 109:
+    val CRYOLITE = RagiMaterial.Builder(93, "cryolite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.SODIUM to 3, ElementRegistry.ALUMINIUM to 1, ElementRegistry.FLUORINE to 6)).apply {
+        color = RagiColor.WHITE
+        crystalType = EnumCrystalType.DIAMOND
+    }.build()
+
+    //100 ~ 109: Misc (1)
+    val WOOD = RagiMaterial.Builder(100, "wood", TypeRegistry.WOOD).setComponents(listOf(ElementRegistry.CARBON to 1, ElementRegistry.HYDROGEN to 1, ElementRegistry.OXYGEN to 1)).apply {
+        color = RagiColorManager.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1)
+    }.setMixture().build()
 
     //110 ~ 119: Sodium
-    val SODIUM = SimpleBuilder(ElementRegistry.SODIUM, 1)
+    val SODIUM = RagiMaterial.Builder(110, "sodium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.SODIUM to 1).build()
 
-    val SODIUM_HYDROXIDE = CompoundBuilder(111, "sodium_hydroxide", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 1, HYDROXIDE to 1))
+    val SODIUM_HYDROXIDE = RagiMaterial.Builder(111, "sodium_hydroxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SODIUM to 1, HYDROXIDE to 1)).build()
 
-    val SODIUM_BICARBONATE = CompoundBuilder(112, "sodium_bicarbonate", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 1, ElementRegistry.HYDROGEN to 1, CARBONATE to 1))
+    val SALT = RagiMaterial.Builder(112, "salt", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SODIUM to 1, ElementRegistry.CHLORINE to 1)).apply {
+        color = RagiColor.WHITE
+    }.build()
 
-    val SODIUM_CARBONATE = CompoundBuilder(113, "sodium_carbonate", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 2, CARBONATE to 1))
-
-    val SODIUM_SULFIDE = CompoundBuilder(114, "sodium_sulfide", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 2, ElementRegistry.SULFUR to 1))
-
-    val SODIUM_BISULFATE = CompoundBuilder(115, "sodium_bisulfate", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 1, ElementRegistry.HYDROGEN to 1, SULFATE to 1))
-
-    val SODIUM_SULFATE = CompoundBuilder(116, "sodium_sulfate", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 2, SULFATE to 1))
+    val SODIUM_SULFATE = RagiMaterial.Builder(113, "sodium_sulfate", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SODIUM to 2, SULFATE to 1)).build()
 
     //120 ~ 129: Magnesium
-    val MAGNESIUM = SimpleBuilder(ElementRegistry.MAGNESIUM, 1)
+    val MAGNESIUM = RagiMaterial.Builder(120, "magnesium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.MAGNESIUM to 1).build()
 
-    val MAGNESIUM_CARBONATE = CompoundBuilder(121, "magnesium_carbonate", TypeRegistry.DUST, mapOf(ElementRegistry.MAGNESIUM to 1, CARBONATE to 1)).apply {
-        hasOre = true
-    }
+    val MAGNESITE = RagiMaterial.Builder(121, "magnesite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.MAGNESIUM to 1, CARBONATE to 1)).build()
+
+    val MAGNESIUM_CHLORIDE = RagiMaterial.Builder(122, "magnesium_chloride", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.MAGNESIUM to 1, ElementRegistry.CHLORINE to 2)).build()
 
     //130 ~ 139: Aluminium
-    val ALUMINIUM = SimpleBuilder(ElementRegistry.ALUMINIUM, 1).apply {
+    val ALUMINIUM = RagiMaterial.Builder(130, "aluminium", TypeRegistry.METAL).setSimple(ElementRegistry.ALUMINIUM to 1).apply {
         oredictAlt = "Aluminum"
-    }
+    }.build()
 
-    val ALUMINIUM_OXIDE = CompoundBuilder(131, "aluminium_oxide", TypeRegistry.DUST, mapOf(ElementRegistry.ALUMINIUM to 2, ElementRegistry.OXYGEN to 3))
+    val ALUMINA = RagiMaterial.Builder(131, "alumina", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ALUMINIUM to 2, ElementRegistry.OXYGEN to 3)).build()
 
-    val BAUXITE = CompoundBuilder(132, "bauxite", TypeRegistry.DUST, mapOf(ALUMINIUM_OXIDE to 1, WATER.addBracket() to 2)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
-        hasOre = true
-    }
+    val ALUMINA_SOLUTION = RagiMaterial.Builder(132, "alumina_solution", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.SODIUM to 1, RagiMaterial.Formula("[").build() to 1, ElementRegistry.ALUMINIUM to 1, HYDROXIDE.setBracket() to 4, RagiMaterial.Formula("]").build() to 1)).build()
 
-    val RUBY = CrystalBuilder(133, "ruby", mapOf(ElementRegistry.CHROMIUM to 1, ALUMINIUM_OXIDE to 1), "ruby").apply {
+    val BAUXITE = RagiMaterial.Builder(133, "bauxite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ALUMINIUM to 2, ElementRegistry.OXYGEN to 3)).apply {
+        color = RagiColorManager.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
+    }.build()
+
+    val RUBY = RagiMaterial.Builder(134, "ruby", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CHROMIUM to 1, ALUMINA to 1)).apply {
         color = RagiColor.RED
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.RUBY
+    }.build()
 
-    val SAPPHIRE = CrystalBuilder(134, "sapphire", mapOf(ElementRegistry.IRON to 1, ALUMINIUM_OXIDE to 1), "ruby").apply {
+    val SAPPHIRE = RagiMaterial.Builder(135, "sapphire", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.IRON to 1, ALUMINA to 1)).apply {
         color = RagiColor.BLUE
-        hasOre = true
-    }
-
-    val ALUMINA_SOLUTION = CompoundBuilder(135, "alumina_solution", TypeRegistry.LIQUID, mapOf(
-            ElementRegistry.SODIUM to 1,
-            FormulaString("[") to 1,
-            ElementRegistry.ALUMINIUM to 1,
-            HYDROXIDE.addBracket() to 4,
-            FormulaString("]") to 1
-    ))
+        crystalType = EnumCrystalType.RUBY
+    }.build()
 
     //140 ~ 149: Silicon
-    val SILICON = SimpleBuilder(ElementRegistry.SILICON, 1)
+    val SILICON = RagiMaterial.Builder(140, "silicon", TypeRegistry.METALLOID).setSimple(ElementRegistry.SILICON to 1).build()
 
-    val SILICON_DIOXIDE = CrystalBuilder(141, "silicon_dioxide", mapOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 2), "ruby")
+    val SILICON_DIOXIDE = RagiMaterial.Builder(141, "silicon_dioxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 2)).build()
 
-    val GLASS = CompoundBuilder(142, "glass", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE to 1)).apply {
-        color = RagiColor.WHITE
-    }
+    val GLASS = RagiMaterial.Builder(142, "glass", TypeRegistry.CRYSTAL).setSimple(SILICON_DIOXIDE to 1).apply {
+        crystalType = EnumCrystalType.RUBY
+    }.build()
+
+    val QUARTZ = RagiMaterial.Builder(143, "quartz", TypeRegistry.CRYSTAL).setSimple(SILICON_DIOXIDE to 1).apply {
+        crystalType = EnumCrystalType.QUARTZ
+    }.build()
 
     //150 ~ 159: Phosphorus
-    val PHOSPHORUS = SimpleBuilder(ElementRegistry.PHOSPHORUS, 1).apply {
-        hasOre = true
-    }
+    val PHOSPHORUS = RagiMaterial.Builder(150, "phosphorus", TypeRegistry.DUST).setSimple(ElementRegistry.PHOSPHORUS to 1).build()
 
     //160 ~ 169: Sulfur
-    val SULFUR = SimpleBuilder(ElementRegistry.SULFUR, 8).apply {
-        hasOre = true
-    }
+    val SULFUR = RagiMaterial.Builder(160, "sulfur", TypeRegistry.DUST).setSimple(ElementRegistry.SULFUR to 8).build()
 
-    val SULFURIC_ACID = CompoundBuilder(161, "sulfuric_acid", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 2, SULFATE to 1)).apply {
+    val SULFURIC_ACID = RagiMaterial.Builder(161, "sulfuric_acid", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.HYDROGEN to 2, SULFATE to 1)).apply {
         color = RagiColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW)
-    }
+    }.build()
 
     //170 ~ 179: Chlorine
-    val CHLORINE = SimpleBuilder(ElementRegistry.CHLORINE, 2)
+    val CHLORINE = RagiMaterial.Builder(170, "chlorine", TypeRegistry.GAS).build()
 
-    val HYDROGEN_CHLORIDE = CompoundBuilder(171, "hydrogen_chloride", TypeRegistry.LIQUID, mapOf(ElementRegistry.HYDROGEN to 1, ElementRegistry.CHLORINE to 1))
-
-    val LITHIUM_CHLORIDE = CompoundBuilder(172, "lithium_chloride", TypeRegistry.DUST, mapOf(ElementRegistry.LITHIUM to 1, ElementRegistry.CHLORINE to 1)).apply {
-        color = RagiColor.GOLD
-    }
-
-    val SALT = CompoundBuilder(173, "salt", TypeRegistry.DUST, mapOf(ElementRegistry.SODIUM to 1, ElementRegistry.CHLORINE to 1)).apply {
-        color = RagiColor.WHITE
-        hasOre = true
-    }
-
-    val MAGNESIUM_CHLORIDE = CompoundBuilder(174, "magnesium_chloride", TypeRegistry.DUST, mapOf(ElementRegistry.MAGNESIUM to 1, ElementRegistry.CHLORINE to 2)).apply {
-        color = RagiColor.YELLOW
-    }
-
-    val SALTWATER = MixtureBuilder(175, "saltwater", TypeRegistry.LIQUID, listOf(WATER, SALT)).apply {
-        color = RagiColor.YELLOW
-    }
-
-    val BRINE = MixtureBuilder(176, "brine", TypeRegistry.LIQUID, listOf(WATER, MAGNESIUM_CHLORIDE)).apply {
-        color = RagiColor.GOLD
-    }
+    val HYDROGEN_CHLORIDE = RagiMaterial.Builder(171, "hydrogen_chloride", TypeRegistry.GAS).setComponents(listOf(ElementRegistry.HYDROGEN to 1, ElementRegistry.CHLORINE to 1)).build()
 
     //180 ~ 189: Stone
-    val STONE = CompoundBuilder(180, "stone", TypeRegistry.STONE, mapOf(SILICON_DIOXIDE to 1)).apply {
+    val STONE = RagiMaterial.Builder(180, "stone", TypeRegistry.STONE).setSimple(SILICON_DIOXIDE to 1).apply {
         color = RagiColor.GRAY
-    }
+    }.build()
 
-    val LAVA = CompoundBuilder(181, "lava", TypeRegistry.INTERNAL, mapOf(SILICON_DIOXIDE to 1)).apply {
+    val LAVA = RagiMaterial.Builder(181, "lava", TypeRegistry.INTERNAL).setSimple(SILICON_DIOXIDE to 1).apply {
         color = RagiColorManager.mixColor(RagiColor.DARK_RED, RagiColor.GOLD)
         tempMelt = FluidRegistry.LAVA.temperature
-    }
+    }.build()
 
-    val OBSIDIAN = CompoundBuilder(182, "obsidian", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE to 1)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1))
-    }
+    val OBSIDIAN = RagiMaterial.Builder(182, "obsidian", TypeRegistry.DUST).setSimple(SILICON_DIOXIDE to 1).apply {
+        color = RagiColorManager.mixColor(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1)
+    }.build()
 
-    val NETHERRACK = CompoundBuilder(183, "netherrack", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE.addBracket() to 1, ElementRegistry.SULFUR to 1, ElementRegistry.PHOSPHORUS to 1)).apply {
+    val NETHERRACK = RagiMaterial.Builder(183, "netherrack", TypeRegistry.DUST).setSimple(SILICON_DIOXIDE to 1).apply {
         color = RagiColor.DARK_RED
-    }
+    }.build()
 
-    val SOUL_SAND = CompoundBuilder(184, "soul_sand", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE to 1)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 5, RagiColor.GOLD to 1))
-    }
+    val SOUL_SAND = RagiMaterial.Builder(184, "soul_sand", TypeRegistry.DUST).setSimple(SILICON_DIOXIDE to 1).apply {
+        color = RagiColorManager.mixColor(RagiColor.BLACK to 5, RagiColor.GOLD to 1)
+    }.build()
 
-    val END_STONE = CompoundBuilder(185, "end_stone", TypeRegistry.DUST, mapOf(STONE.addBracket() to 1, ElementRegistry.HELIUM to 1, ElementRegistry.TUNGSTEN to 1)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3))
-    }
+    val END_STONE = RagiMaterial.Builder(185, "end_stone", TypeRegistry.DUST).setSimple(SILICON_DIOXIDE to 1).apply {
+        color = RagiColorManager.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3)
+    }.build()
 
     //190 ~ 199: Potassium
-    val POTASSIUM = SimpleBuilder(ElementRegistry.POTASSIUM, 1)
+    val POTASSIUM = RagiMaterial.Builder(190, "potassium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.POTASSIUM to 1).build()
 
     //200 ~ 209: Calcium
-    val CALCIUM = SimpleBuilder(ElementRegistry.CALCIUM, 1)
+    val CALCIUM = RagiMaterial.Builder(200, "calcium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.CALCIUM to 1).build()
 
-    val CALCIUM_HYDROXIDE = CompoundBuilder(201, "calcium_hydroxide", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 1, HYDROXIDE.addBracket() to 2))
+    val CALCIUM_HYDROXIDE = RagiMaterial.Builder(201, "calcium_hydroxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, HYDROXIDE.setBracket() to 2)).build()
 
-    val CALCIUM_CARBONATE = CompoundBuilder(202, "calcium_carbonate", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 1, CARBONATE to 1))
+    val LIME = RagiMaterial.Builder(202, "lime", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, CARBONATE to 1)).build()
 
-    val CALCIUM_OXIDE = CompoundBuilder(203, "calcium_oxide", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 1, ElementRegistry.OXYGEN to 1))
+    val QUICK_LIME = RagiMaterial.Builder(203, "quick_lime", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, ElementRegistry.OXYGEN to 1)).build()
 
-    val APATITE = CrystalBuilder(204, "apatite", mapOf(ElementRegistry.CALCIUM to 5, PHOSPHATE.addBracket() to 3, HYDROXIDE to 1), "emerald").apply {
+    val APATITE = RagiMaterial.Builder(204, "apatite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CALCIUM to 5, PHOSPHATE.setBracket() to 3, HYDROXIDE to 1)).apply {
         color = RagiColorManager.mixColor(RagiColor.YELLOW, RagiColor.WHITE)
-        hasOre = true
-    }
+        crystalType = EnumCrystalType.EMERALD
+    }.build()
 
-    val GYPSUM = CrystalBuilder(205, "gypsum", mapOf(ElementRegistry.CALCIUM to 1, SULFATE to 1), "cubic")
-
-    val CALCIUM_CHLORIDE = CompoundBuilder(206, "calcium_chloride", TypeRegistry.DUST, mapOf(ElementRegistry.CALCIUM to 1, ElementRegistry.CHLORINE to 2))
+    val GYPSUM = RagiMaterial.Builder(205, "gypsum", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CALCIUM to 1, SULFATE to 1)).build()
 
     //220 ~ 229: Titanium
-    val TITANIUM = SimpleBuilder(ElementRegistry.TITANIUM, 1).apply {
+    val TITANIUM = RagiMaterial.Builder(220, "titanium", TypeRegistry.METAL).setSimple(ElementRegistry.TITANIUM to 1).apply {
         rarity = EnumRarity.RARE
-    }
+    }.build()
 
-    val RUTILE = CrystalBuilder(221, "rutile", mapOf(ElementRegistry.TITANIUM to 1, ElementRegistry.OXYGEN to 2), "quartz").apply {
-        hasOre = true
-    }
+    val RUTILE = RagiMaterial.Builder(221, "rutile", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.TITANIUM to 1, ElementRegistry.OXYGEN to 2)).apply {
+        color = RagiColor.YELLOW
+        crystalType = EnumCrystalType.QUARTZ
+        rarity = EnumRarity.RARE
+    }.build()
 
-    val TITANIUM_TETRACHLORIDE = CompoundBuilder(222, "titanium_tetrachloride", TypeRegistry.LIQUID, mapOf(ElementRegistry.TITANIUM to 1, ElementRegistry.CHLORINE to 4))
+    val TITANIUM_TETRACHLORIDE = RagiMaterial.Builder(222, "titanium_tetrachloride", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.TITANIUM to 1, ElementRegistry.CHLORINE to 4)).apply {
+        rarity = EnumRarity.RARE
+    }.build()
 
     //240 ~ 249: Chromium
-    val CHROMIUM = SimpleBuilder(ElementRegistry.CHROMIUM, 1).apply {
+    val CHROMIUM = RagiMaterial.Builder(240, "chromium", TypeRegistry.METAL).setSimple(ElementRegistry.CHROMIUM to 1).apply {
         oredictAlt = "Chrome"
-    }
+        rarity = EnumRarity.UNCOMMON
+    }.build()
 
-    val CHROMITE = CompoundBuilder(241, "chromite", TypeRegistry.DUST, mapOf(ElementRegistry.IRON to 1, ElementRegistry.CHROMIUM to 2, ElementRegistry.OXYGEN to 4)).apply {
-        hasOre = true
-    }
-
-    val STAINLESS_STEEL = AlloyBuilder(242, "stainless_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
+    val STAINLESS_STEEL = RagiMaterial.Builder(241, "stainless_steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
         color = RagiColorManager.mixColor(RagiColor.GRAY, RagiColor.WHITE)
         rarity = EnumRarity.RARE
-    }
+    }.build()
 
     //250 ~ 259: Manganese
-    val MANGANESE = SimpleBuilder(ElementRegistry.MANGANESE, 1)
-
-    val RHODOCHROSITE = CompoundBuilder(251, "rhodochrosite", TypeRegistry.DUST, mapOf(ElementRegistry.MANGANESE to 1, CARBONATE to 1)).apply {
-        hasOre = true
-    }
-
-    val PYROLUSITE = CompoundBuilder(252, "pyrolusite", TypeRegistry.DUST, mapOf(ElementRegistry.MANGANESE to 1, ElementRegistry.OXYGEN to 2)).apply {
-        hasOre = true
-    }
+    val MANGANESE = RagiMaterial.Builder(250, "manganese", TypeRegistry.METAL).setSimple(ElementRegistry.MANGANESE to 1).apply {
+        rarity = EnumRarity.UNCOMMON
+    }.build()
 
     //260 ~ 269: Iron
-    val IRON = SimpleBuilder(ElementRegistry.IRON, 1)
+    val IRON = RagiMaterial.Builder(260, "iron", TypeRegistry.METAL).setSimple(ElementRegistry.IRON to 1).build()
 
-    val HEMATITE = CompoundBuilder(261, "hematite", TypeRegistry.DUST, mapOf(ElementRegistry.IRON to 2, ElementRegistry.OXYGEN to 3)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
-        hasOre = true
-    }
+    val HEMATITE = RagiMaterial.Builder(261, "hematite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.IRON to 2, ElementRegistry.OXYGEN to 3)).apply {
+        color = RagiColorManager.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
+    }.build()
 
-    val MAGNETITE = CompoundBuilder(262, "magnetite", TypeRegistry.DUST, mapOf(ElementRegistry.IRON to 3, ElementRegistry.OXYGEN to 4)).apply {
+    val MAGNETITE = RagiMaterial.Builder(262, "magnetite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.IRON to 3, ElementRegistry.OXYGEN to 4)).apply {
         color = RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
-        hasOre = true
-    }
+    }.build()
 
-    val PYRITE = CompoundBuilder(263, "pyrite", TypeRegistry.DUST, mapOf(ElementRegistry.IRON to 1, ElementRegistry.SULFUR to 2)).apply {
-        hasOre = true
-    }
+    val PYRITE = RagiMaterial.Builder(263, "pyrite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.SULFUR to 2)).apply {
+        color = RagiColor.YELLOW
+        crystalType = EnumCrystalType.CUBIC
+    }.build()
 
-    val STEEL = AlloyBuilder(264, "steel", mapOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).apply {
+    val ARSENOPYRITE = RagiMaterial.Builder(264, "arsenopyrite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.ARSENIC to 1, ElementRegistry.SULFUR to 1)).apply {
+        crystalType = EnumCrystalType.CUBIC
+    }.build()
+
+    val STEEL = RagiMaterial.Builder(265, "steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).apply {
         rarity = EnumRarity.UNCOMMON
-    }
-
-    val TOOL_STEEL = AlloyBuilder(265, "tool_steel", mapOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.MOLYBDENUM to 1)).apply {
-        rarity = EnumRarity.RARE
-    }
+    }.build()
 
     //270 ~ 279: Cobalt
-    val COBALT = SimpleBuilder(ElementRegistry.COBALT, 1)
-
-    val COBALTITE = CompoundBuilder(271, "cobaltite", TypeRegistry.DUST, mapOf(ElementRegistry.COBALT to 1, ElementRegistry.ARSENIC to 1, ElementRegistry.SULFUR to 1)).apply {
-        hasOre = true
-    }
+    val COBALT = RagiMaterial.Builder(270, "cobalt", TypeRegistry.METAL).setSimple(ElementRegistry.COBALT to 1).apply {
+        rarity = EnumRarity.UNCOMMON
+    }.build()
 
     //280 ~ 289: Nickel
-    val NICKEL = SimpleBuilder(ElementRegistry.NICKEL, 1)
+    val NICKEL = RagiMaterial.Builder(280, "nickel", TypeRegistry.METAL).setSimple(ElementRegistry.NICKEL to 1).apply {
+        rarity = EnumRarity.UNCOMMON
+    }.build()
 
-    val NICKELINE = CompoundBuilder(281, "nickeline", TypeRegistry.DUST, mapOf(ElementRegistry.NICKEL to 1, ElementRegistry.ARSENIC to 1)).apply {
-        hasOre = true
-    }
+    val INVAR = RagiMaterial.Builder(281, "invar", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.NICKEL to 2)).apply {
+        rarity = EnumRarity.UNCOMMON
+    }.build()
 
-    val INVAR = AlloyBuilder(282, "invar", mapOf(ElementRegistry.IRON to 2, ElementRegistry.NICKEL to 1))
-
-    val CONSTANTAN = AlloyBuilder(283, "constantan", mapOf(ElementRegistry.NICKEL to 1, ElementRegistry.COPPER to 1))
+    val CONSTANTAN = RagiMaterial.Builder(282, "constantan", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.NICKEL to 1, ElementRegistry.COPPER to 1)).apply {
+        rarity = EnumRarity.UNCOMMON
+    }.build()
 
     //290 ~ 299: Copper
-    val COPPER = SimpleBuilder(ElementRegistry.COPPER, 1).apply {
-        hasOre = true
-    }
-
-    val CHALCOCITE = CompoundBuilder(291, "chalcocite", TypeRegistry.DUST, mapOf(ElementRegistry.COPPER to 2, ElementRegistry.SULFUR to 1)).apply {
-        color = RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
-        hasOre = true
-    }
-
-    val CHALCOPYRITE = CompoundBuilder(293, "chalcopyrite", TypeRegistry.DUST, mapOf(ElementRegistry.COPPER to 1, ElementRegistry.IRON to 1, ElementRegistry.SULFUR to 2)).apply {
-        hasOre = true
-    }
+    val COPPER = RagiMaterial.Builder(290, "copper", TypeRegistry.METAL).setSimple(ElementRegistry.COPPER to 1).build()
 
     //300 ~ 309: Zinc
-    val ZINC = SimpleBuilder(ElementRegistry.ZINC, 1)
+    val ZINC = RagiMaterial.Builder(300, "zinc", TypeRegistry.METAL).setSimple(ElementRegistry.ZINC to 1).build()
 
-    val SPHALERITE = CompoundBuilder(301, "sphalerite", TypeRegistry.DUST, mapOf(ElementRegistry.ZINC to 1, ElementRegistry.SULFUR to 1)).apply {
-        hasOre = true
-    }
+    val SPHALERITE = RagiMaterial.Builder(301, "sphalerite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ZINC to 1, ElementRegistry.SULFUR to 1)).build()
 
-    val BRASS = AlloyBuilder(302, "brass", mapOf(ElementRegistry.COPPER to 3, ElementRegistry.ZINC to 1)).apply {
+    val BRASS = RagiMaterial.Builder(302, "brass", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.COPPER to 3, ElementRegistry.ZINC to 1)).apply {
         color = RagiColor.GOLD
-    }
+    }.build()
 
     //310 ~ 319: Gallium, Arsenic
-    val GALLIUM = SimpleBuilder(ElementRegistry.GALLIUM, 1)
+    val GALLIUM = RagiMaterial.Builder(310, "gallium", TypeRegistry.METAL).setSimple(ElementRegistry.GALLIUM to 1).build()
 
-    val ARSENIC = SimpleBuilder(ElementRegistry.ARSENIC, 1) //311
+    val ARSENIC = RagiMaterial.Builder(311, "arsenic", TypeRegistry.METALLOID).setSimple(ElementRegistry.ARSENIC to 1).build()
 
 }

@@ -1,38 +1,33 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.item.IMaterialItem
-import hiiragi283.ragi_materials.material.MaterialRegistryNew
-import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.material.MaterialRegistry
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import java.awt.Color
 
-class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialBlock, IMaterialItem {
+class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1) {
 
-    val list: List<RagiMaterial> = listOf(
-            MaterialRegistryNew.EMERALD //Beryl
-            /*MaterialRegistry.SALT, //Rock Salt
-            MaterialRegistryNew.COAL,
-            MaterialRegistry.GRAPHITE,
-            MaterialRegistry.FLUORITE,
-            MaterialRegistry.BAUXITE, //Laterite
-            MaterialRegistry.ALUMINIUM_OXIDE, //Alumina
-            MaterialRegistry.SULFUR,
-            MaterialRegistry.NITER,
-            MaterialRegistry.CALCIUM_CARBONATE, //Lime
-            MaterialRegistry.MAGNETITE,
-            MaterialRegistry.PYROLUSITE, //Seabed Nodule
-            MaterialRegistry.COPPER,
-            MaterialRegistry.SPHALERITE*/
+    val list: List<Color> = listOf(
+            MaterialRegistry.SALT.color, //Rock Salt
+            RagiColorManager.mixColor(MaterialRegistry.EMERALD.color, MaterialRegistry.AQUAMARINE.color), //Beryl
+            MaterialRegistry.FLUORITE.color, //Fluorite
+            MaterialRegistry.BAUXITE.color, //Laterite
+            RagiColorManager.mixColor(MaterialRegistry.RUBY.color, MaterialRegistry.SAPPHIRE.color), //Corundum
+            MaterialRegistry.SULFUR.color, //Sulfur
+            MaterialRegistry.NITER.color, //Niter
+            MaterialRegistry.LIME.color, //Lime
+            RagiColorManager.mixColor(MaterialRegistry.MANGANESE.color, MaterialRegistry.IRON.color, MaterialRegistry.COBALT.color), //Nodule
+            MaterialRegistry.MAGNETITE.color, //Magnetite
+            MaterialRegistry.COPPER.color, //Copper
+            MaterialRegistry.SPHALERITE.color //Sphalerite
     )
 
     companion object {
@@ -51,8 +46,6 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialB
 
     override fun damageDropped(state: IBlockState): Int = state.getValue(TYPE)
 
-    fun getMaterialList(): List<RagiMaterial> = list
-
     //    BlockState    //
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, TYPE)
@@ -67,13 +60,4 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), IMaterialB
     @SideOnly(Side.CLIENT)
     override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-    //    IMaterialBlock    //
-
-    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = list[state.getValue(TYPE) % list.size]
-
-    //    IMaterialItem    //
-
-    override fun getMaterial(stack: ItemStack): RagiMaterial = list[stack.metadata % list.size]
-
-    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack
 }
