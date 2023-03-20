@@ -2,12 +2,13 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.RagiMaterial
+import net.minecraft.block.BlockSoulSand
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
-import net.minecraft.world.biome.Biome
+import net.minecraft.world.World
 import net.minecraftforge.common.BiomeDictionary
 
 class BlockSoilCoal: BlockSoilFuel("soil_coal") {
@@ -28,14 +29,20 @@ class BlockSoilCoal: BlockSoilFuel("soil_coal") {
 
     //    Event    //
 
-    override fun getAllowedBiomes(): List<Biome> = BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).toMutableList()
+    override fun getAllowedBiomes() = BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).toMutableList()
+
+    override fun isAllowedBlocks(state: IBlockState) = state.block is BlockSoulSand
+
+    //    IGrowable    //
+
+    override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean) = true
 
     //    IMaterialBLock    //
 
-    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = MaterialRegistry.COAL
+    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState) = MaterialRegistry.COAL
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.COAL
+    override fun getMaterial(stack: ItemStack) = MaterialRegistry.COAL
 
 }

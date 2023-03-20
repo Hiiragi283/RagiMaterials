@@ -55,7 +55,7 @@ abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGr
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, getProperty())
+    override fun createBlockState() = BlockStateContainer(this, getProperty())
 
     override fun getMetaFromState(state: IBlockState): Int = state.getValue(getProperty())
 
@@ -66,22 +66,22 @@ abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGr
 
     fun getAge(state: IBlockState): Int = state.getValue(getProperty())
 
-    fun getAgeMax(state: IBlockState): Int = getProperty().allowedValues.last()
+    fun getAgeMax(): Int = getProperty().allowedValues.last()
 
-    private fun isMaxAge(state: IBlockState) = getAge(state) == getAgeMax(state)
+    private fun isMaxAge(state: IBlockState) = getAge(state) == getAgeMax()
 
     //    Event    //
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
-        if (canGrow(world, pos, state, false)) grow(world, rand, pos, state)
+        grow(world, rand, pos, state)
         val biome = world.getBiome(pos)
-        //バイオームが水系の場合
-        if (biome in getAllowedBiomes()) {
+        //最大まで成長，かつバイオームが水系の場合
+        if (isMaxAge(state) && biome in getAllowedBiomes()) {
             for (facing in EnumFacing.values()) {
                 val posTo = pos.offset(facing)
                 val stateTo = world.getBlockState(posTo)
-                //隣接するブロックの種類がGROUNDまたはGRASSの場合，それを侵食する
-                if (stateTo.material in listOf(Material.GROUND, Material.GRASS)) {
+                //隣接するブロックが自分自身でない場合，それを侵食する
+                if (stateTo.block != this  && isAllowedBlocks(stateTo)) {
                     world.setBlockState(posTo, this.defaultState, 2)
                 }
             }
@@ -89,6 +89,8 @@ abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGr
     }
 
     abstract fun getAllowedBiomes(): List<Biome>
+
+    abstract fun isAllowedBlocks(state: IBlockState): Boolean
 
     //    IGrowable    //
 

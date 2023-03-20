@@ -2,12 +2,13 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.RagiMaterial
+import net.minecraft.block.BlockGravel
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
-import net.minecraft.world.biome.Biome
+import net.minecraft.world.World
 import net.minecraftforge.common.BiomeDictionary
 
 class BlockSoilLignite: BlockSoilFuel("soil_lignite") {
@@ -28,14 +29,20 @@ class BlockSoilLignite: BlockSoilFuel("soil_lignite") {
 
     //    Event    //
 
-    override fun getAllowedBiomes(): List<Biome> = BiomeDictionary.getBiomes(BiomeDictionary.Type.MOUNTAIN).toMutableList()
+    override fun getAllowedBiomes() = BiomeDictionary.getBiomes(BiomeDictionary.Type.MOUNTAIN).toMutableList()
+
+    override fun isAllowedBlocks(state: IBlockState) = state.block is BlockGravel
+
+    //    IGrowable    //
+
+    override fun canGrow(world: World, pos: BlockPos, state: IBlockState, isClient: Boolean) = true
 
     //    IMaterialBLock    //
 
-    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial = MaterialRegistry.LIGNITE
+    override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState) = MaterialRegistry.LIGNITE
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.LIGNITE
+    override fun getMaterial(stack: ItemStack) = MaterialRegistry.LIGNITE
 
 }

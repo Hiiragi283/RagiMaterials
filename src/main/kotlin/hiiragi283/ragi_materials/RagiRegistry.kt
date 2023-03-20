@@ -164,7 +164,7 @@ class RagiRegistry {
             if (world !== null && pos !== null && block is BlockSoilFuel) {
                 val color = block.getMaterialBlock(world, pos, state).color
                 val age = block.getAge(state)
-                val ageMax = block.getAgeMax(state)
+                val ageMax = block.getAgeMax()
                 RagiColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age)).rgb
             } else 0xFFFFFF
         },
