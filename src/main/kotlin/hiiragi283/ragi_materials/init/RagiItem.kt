@@ -17,7 +17,7 @@ object RagiItem {
     val ItemBlockOre1 = ItemBlockBase(RagiBlock.BlockOre1, RagiBlock.BlockOre1.list.size - 1)
     val ItemBlockOreDictConv = ItemBlockBase(RagiBlock.BlockOreDictConv)
     val ItemBlockOreRainbow = ItemBlockBase(RagiBlock.BlockOreRainbow)
-    val ItemBlockSaltPond = ItemBlockBase(RagiBlock.BlockSaltPond)
+    //val ItemBlockSaltPond = ItemBlockBase(RagiBlock.BlockSaltPond)
     val ItemBlockSoilCoal = ItemBlockBase(RagiBlock.BlockSoilCoal)
     val ItemBlockSoilLignite = ItemBlockBase(RagiBlock.BlockSoilLignite)
     val ItemBlockSoilPeat = ItemBlockBase(RagiBlock.BlockSoilPeat)

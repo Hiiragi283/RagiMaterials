@@ -12,7 +12,7 @@ object RagiBlock {
     val BlockOre1 = BlockOreMaterial("ore_block")
     val BlockOreDictConv = BlockOreDictConv()
     val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
-    val BlockSaltPond = BlockSaltPond()
+    //val BlockSaltPond = BlockSaltPond()
     val BlockSoilCoal = BlockSoilCoal()
     val BlockSoilLignite = BlockSoilLignite()
     val BlockSoilPeat = BlockSoilPeat()

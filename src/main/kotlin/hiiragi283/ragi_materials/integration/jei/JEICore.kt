@@ -34,7 +34,6 @@ class JEICore : IModPlugin {
         registry.addRecipeCategories(
                 FFCategory(guiHelper),
                 LaboCategory(guiHelper),
-                //SaltPondCategory(guiHelper),
                 StoneMillCategory(guiHelper)
         )
     }
@@ -43,12 +42,10 @@ class JEICore : IModPlugin {
 
         registry.handleRecipes(FFRecipe::class.java, { FFWrapper(it) }, ForgeFurnace)
         registry.handleRecipes(LaboRecipe::class.java, { LaboWrapper(it) }, LaboTable)
-        //registry.handleRecipes(SaltPondMaker.Recipe::class.java, { SaltPondWrapper(it) }, SaltPond)
         registry.handleRecipes(MillRecipe::class.java, { StoneMillWrapper(it) }, StoneMill)
 
         FFMaker.register(registry)
         LaboMaker.register(registry)
-        //SaltPondMaker.register(registry)
         StoneMillMaker.register(registry)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockForgeFurnace), ForgeFurnace)
@@ -56,8 +53,6 @@ class JEICore : IModPlugin {
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockLaboratoryTable), LaboTable)
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockIndustrialLabo), LaboTable)
-
-        //registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockSaltPond), SaltPond)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockStoneMill), StoneMill)
 

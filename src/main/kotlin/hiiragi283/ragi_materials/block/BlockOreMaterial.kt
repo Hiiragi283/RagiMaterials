@@ -27,7 +27,7 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1) {
             RagiColorManager.mixColor(MaterialRegistry.MANGANESE.color, MaterialRegistry.IRON.color, MaterialRegistry.COBALT.color), //Nodule
             MaterialRegistry.MAGNETITE.color, //Magnetite
             MaterialRegistry.COPPER.color, //Copper
-            MaterialRegistry.SPHALERITE.color //Sphalerite
+            MaterialRegistry.ZINC.color //Sphalerite
     )
 
     companion object {

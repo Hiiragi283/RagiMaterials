@@ -61,11 +61,11 @@ object RecipeRegistry {
                 'H', "stone",
                 'I', "gemDiamond"
         )
-        RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSaltPond, 1, 0),
+        /*RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSaltPond, 1, 0),
                 "ABA", "AAA",
                 'A', "slabWood",
                 'B', "sand"
-        )
+        )*/
         RagiRecipe.addShaped(ItemStack(RagiBlock.BlockSoilCoal, 1, 0),
                 "ABA",
                 'A', "gemLignite",
