@@ -25,18 +25,18 @@ object OreDictRegistry {
     )
 
     private val listOre = listOf(
-            "oreSalt",
-            "oreBeryl",
-            "oreFluorite",
-            "oreLaterite",
-            "oreCorundum",
-            "oreSulfur",
-            "oreNiter",
-            "oreLime",
-            "oreNodule",
-            "oreMagnetite",
-            "oreCopper",
-            "oreSphalerite"
+            "Salt",
+            "Beryl",
+            "Fluorite",
+            "Laterite",
+            "Corundum",
+            "Sulfur",
+            "Niter",
+            "Lime",
+            "Nodule",
+            "Magnetite",
+            "Copper",
+            "Sphalerite"
     )
 
     //鉱石辞書を登録するメソッド
@@ -58,8 +58,8 @@ object OreDictRegistry {
         }
 
         for (i in listOre.indices) {
-            RagiUtil.setOreDict(listOre[i], ItemStack(RagiBlock.BlockOre1, 1, i))
-            RagiUtil.setOreDict("${listOre[i]}Crushed", ItemStack(RagiItem.ItemOreCrushed, 1, i))
+            RagiUtil.setOreDict("ore${listOre[i]}", ItemStack(RagiBlock.BlockOre1, 1, i))
+            RagiUtil.setOreDict("crushed${listOre[i]}", ItemStack(RagiItem.ItemOreCrushed, 1, i))
         }
         RagiUtil.setOreDict("oreSaltpeter", ItemStack(RagiBlock.BlockOre1, 1, 6))
         RagiUtil.setOreDict("oreSaltpeterCrushed", ItemStack(RagiItem.ItemOreCrushed, 1, 6))
