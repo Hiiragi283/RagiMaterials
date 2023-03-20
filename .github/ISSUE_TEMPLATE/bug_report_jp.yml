@@ -1,5 +1,5 @@
-name: クラッシュ報告 (日本語)
-description: クラッシュバグの報告
+name: バグ報告 (日本語)
+description: クラッシュを除くバグの報告
 #labels: [ "", "" ]
 body:
   - type: input
@@ -35,11 +35,19 @@ body:
     validations:
       required: true
   - type: textarea
-    id: crash-report
+    id: expected-behavior
     attributes:
-      label: クラッシュレポートの貼り付け場所
-      description: クラッシュレポートは"instance/crash-reports/"配下にあります。 もしあるのなら"instance/logs/latest.log"の添付もお願いします。 もし両方とも欠けていると手助けできないのでご注意ください。これらの中身を貼り付けた外部のペーストサイト (GitHub GistsやPastebinなど) のリンクを載せてください。**決してファイルの中身を直接載せないでください!! (クソ見づらい)**
-      placeholder: "例: "
+      label: 本来の挙動
+      description: 本来の挙動を記入してください。スクリーンショットを添付することも可能です。
+      placeholder: "例: 装置Aを用いてアイテムBからアイテムCが生産される。"
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: 実際の挙動
+      description: 実際に起こったことを記入してください。スクリーンショットを添付することも可能です。
+      placeholder: "例: 装置Aを用いたがアイテムBからアイテムCが生産されなかった。"
     validations:
       required: true
   - type: textarea

@@ -1,0 +1,63 @@
+name: Bug Report (English ver.)
+description: Report a bug excluding crash
+#labels: [ "", "" ]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version of RagiMaterials
+      description: The version of RagiMaterials you were using when this bug was happened. The version is found at jar file in mods folder or mod settings in-game.
+      placeholder: "Example: v0.5.0b"
+    validations:
+      required: true
+  - type: input
+    id: modpack
+    attributes:
+      label: Modpack Used
+      description: The modpack and its version used when this bug was happened (when you were not playing modpack, leaves this field blank).
+      placeholder: "Example: "
+    validations:
+      required: false
+  - type: input
+    id: is_client
+    attributes:
+      label: Server or Client
+      description: Which side you were playing, Client (Singpleplay) or Server (Multiplay)
+      placeholder: "Example: Client"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How to reproduce the crash.
+      placeholder: "Example: 1) I did X..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen. You can attach screenshots.
+      placeholder: "Example: Item A was produced from B by device C."
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What happened actually. You can attach screenshots.
+      placeholder: "Example: Item A was not produces from B by device C."
+    validations:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any additional information you want to tell.
+      placeholder: "Example: "
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: Thank you for reporting this bug!
