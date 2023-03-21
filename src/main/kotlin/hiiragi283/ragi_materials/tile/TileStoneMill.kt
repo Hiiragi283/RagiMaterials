@@ -68,7 +68,7 @@ class TileStoneMill: TileBase(105) {
             if (recipe.match(stack)) {
                 inventory.extractItem(0, 1, false)
                 markDirty()
-                RagiUtil.dropItem(world, pos.add(0, 1, 0), recipe.output)
+                RagiUtil.dropItem(world, pos.add(0, 1, 0), recipe.getOutput())
                 result = true
                 break
             }

@@ -78,8 +78,8 @@ class TileIndustrialLabo : TileBase(104), ITickable {
                 for (recipe in LaboRecipe.Registry.list) {
                     if (recipe.match(inventory, false)) {
                         for (i in 0 .. 4) {
-                            val input = recipe.inputs[i]
-                            val output = recipe.outputs[i]
+                            val input = recipe.getInput(i)
+                            val output = recipe.getOutput(i)
                             if (!inventory.getStackInSlot(i).isEmpty && !input.isEmpty) {
                                 inventory.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
                                 RagiLogger.infoDebug("The slot$i is decreased!")

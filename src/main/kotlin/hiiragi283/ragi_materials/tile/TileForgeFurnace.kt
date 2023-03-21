@@ -86,11 +86,11 @@ class TileForgeFurnace : TileBase(102) {
         val stack = player.getHeldItem(hand)
         for (recipe in FFRecipe.Registry.list) {
             if (recipe.match(stack, fuel)) {
-                fuel -= recipe.fuel //燃料を減らす
+                fuel -= recipe.getFuel() //燃料を減らす
                 RagiLogger.infoDebug("Fuel: $fuel")
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
-                RagiUtil.dropItemAtPlayer(player, recipe.output) //完成品をプレイヤーに渡す
+                RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
                 RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
                 result = true

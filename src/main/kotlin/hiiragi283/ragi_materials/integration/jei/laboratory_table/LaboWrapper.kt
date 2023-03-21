@@ -7,8 +7,8 @@ import mezz.jei.api.recipe.IRecipeWrapper
 
 class LaboWrapper(info: LaboRecipe) : IRecipeWrapper {
 
-    val inputs = info.inputs
-    val output = info.outputs
+    val inputs = info.getInputs()
+    val output = info.getOutputs()
 
     override fun getIngredients(ingredients: IIngredients) {
         ingredients.setInputLists(VanillaTypes.ITEM, mutableListOf(inputs))

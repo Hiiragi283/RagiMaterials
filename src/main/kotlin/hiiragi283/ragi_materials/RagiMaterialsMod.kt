@@ -7,7 +7,7 @@ import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.packet.RagiPacket
 import hiiragi283.ragi_materials.init.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.FFRecipe
-import hiiragi283.ragi_materials.recipe.RecipeRegistry
+import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
 import net.minecraftforge.common.MinecraftForge
@@ -66,7 +66,7 @@ class RagiMaterialsMod {
             //鉱石辞書の登録
             OreDictRegistry.load()
             //レシピの登録
-            RecipeRegistry.load()
+            CraftingRegistry.load()
             //LootTableの登録
             LootTableRegistry.load()
             //パケットの登録

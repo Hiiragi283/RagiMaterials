@@ -12,7 +12,17 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.items.IItemHandler
 
-class LaboRecipe private constructor(location: ResourceLocation, val inputs: MutableList<ItemStack>, val outputs: MutableList<ItemStack>) {
+class LaboRecipe private constructor(private val location: ResourceLocation, private val inputs: MutableList<ItemStack>, private val outputs: MutableList<ItemStack>) {
+
+    fun getLocation() = location
+
+    fun getInput(slot: Int): ItemStack = inputs[slot].copy()
+
+    fun getInputs() = inputs.toList()
+
+    fun getOutput(slot: Int): ItemStack = outputs[slot].copy()
+
+    fun getOutputs() = outputs.toList()
 
     fun match(inventory: IItemHandler, useCount: Boolean): Boolean {
         var result = false

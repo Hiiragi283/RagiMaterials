@@ -84,7 +84,7 @@ class TileBlazingForge : TileBase(103) {
                 tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
-                RagiUtil.dropItemAtPlayer(player, recipe.output) //完成品をプレイヤーに渡す
+                RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
                 RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
                 result = true

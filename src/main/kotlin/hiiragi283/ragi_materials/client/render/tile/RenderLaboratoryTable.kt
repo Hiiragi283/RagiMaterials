@@ -34,16 +34,7 @@ class RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
 
         //ワールド上のみで描画
         if (te.hasWorld()) {
-            /*
-            this.bindTexture(location)
-            GlStateManager.pushMatrix()
-            GlStateManager.enableRescaleNormal()
-            GlStateManager.translate(x.toFloat() + 0.5f, y.toFloat(), z.toFloat() + 0.5f)
-            GlStateManager.scale(1.0f, -1.0f, -1.0f)
-            model.render()
-            GlStateManager.disableRescaleNormal()
-            GlStateManager.popMatrix()
-            */
+
             renderStack(te, x, y, z, 0)
             renderStack(te, x, y, z, 1)
             renderStack(te, x, y, z, 2)

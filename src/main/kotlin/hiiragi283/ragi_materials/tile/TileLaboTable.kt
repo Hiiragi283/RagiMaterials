@@ -91,9 +91,9 @@ class TileLaboTable : TileBase(100), ISidedInventory {
             for (recipe in LaboRecipe.Registry.list) {
                 if (recipe.match(inventorySide, true)) {
                     isFailed = false
-                    for (output in recipe.outputs) {
-                        RagiUtil.dropItem(world, pos.add(0, 1, 0), output)
-                        RagiLogger.infoDebug("The output is ${output.toBracket()}")
+                    for (i in 0..4) {
+                        RagiUtil.dropItem(world, pos.add(0, 1, 0), recipe.getOutput(i))
+                        RagiLogger.infoDebug("The output is ${recipe.getOutput(i).toBracket()}")
                     }
                     RagiSoundUtil.playSoundHypixel(this)
                     RagiResult.succeeded(this)

@@ -9,9 +9,9 @@ import net.minecraft.client.Minecraft
 class FFWrapper(info: FFRecipe) : IRecipeWrapper {
 
     //private変数の宣言
-    val inputs = info.input
-    val output = info.output
-    private val fuel = info.fuel
+    val inputs = info.getInput()
+    val output = info.getOutput()
+    private val fuel = info.getFuel()
 
     //スロットにはめるIIngredientsを定義するメソッド
     override fun getIngredients(ingredients: IIngredients) {

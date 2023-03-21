@@ -4,15 +4,23 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
+import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 
-class MillRecipe private constructor(location: ResourceLocation, val input: ItemStack, val output: ItemStack) {
+class MillRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack) {
+
+    fun getLocation() = location
+
+    fun getInput(): ItemStack = input.copy()
+
+    fun getOutput(): ItemStack = output.copy()
 
     fun match(input: ItemStack) = RagiUtil.isSameStack(this.input, input, false)
 
@@ -39,11 +47,12 @@ class MillRecipe private constructor(location: ResourceLocation, val input: Item
         val map: LinkedHashMap<String, MillRecipe> = linkedMapOf()
 
         init {
-            materialRecipe()
-            oreRecipe()
+            recipeMaterial()
+            recipeOre()
+            recipeOreVanilla()
         }
 
-        private fun materialRecipe() {
+        private fun recipeMaterial() {
             for (pair in RagiMaterial.validPair) {
                 val part = pair.first
                 val material = pair.second
@@ -56,19 +65,43 @@ class MillRecipe private constructor(location: ResourceLocation, val input: Item
             }
         }
 
-        private fun oreRecipe() {
+        private fun recipeOre() {
             val blockOre = RagiBlock.BlockOre1
             val itemCrushed = RagiItem.ItemOreCrushed
-            for (i in blockOre.list.indices) {
+            for (i in OreProperty.listOre1.indices) {
+                //Ore -> Crushed Ore
                 Builder("${blockOre.registryName}_$i").apply {
                     input = ItemStack(blockOre, 1, i)
-                    output = ItemStack(itemCrushed, 1, i)
+                    output = ItemStack(itemCrushed, 2, i)
                 }.build()
-            }
-            for (i in itemCrushed.list.indices) {
+                //Crushed Ore -> Dust
                 Builder("${itemCrushed.registryName}_$i").apply {
                     input = ItemStack(itemCrushed, 1, i)
-                    output = MaterialUtil.getPart(PartRegistry.DUST, itemCrushed.list[i][0], 2)
+                    output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listOre1[i].second.first)
+                }.build()
+            }
+        }
+
+        private fun recipeOreVanilla() {
+            val itemCrushed = RagiItem.ItemOreCrushedVanilla
+            val list = listOf(
+                    Blocks.GOLD_ORE,
+                    Blocks.IRON_ORE,
+                    Blocks.COAL_ORE,
+                    Blocks.LAPIS_ORE,
+                    Blocks.DIAMOND_ORE,
+                    Blocks.REDSTONE_ORE,
+                    Blocks.EMERALD_ORE,
+                    Blocks.QUARTZ_ORE
+            )
+            for (i in list.indices) {
+                Builder(list[i].registryName!!).apply {
+                    input = ItemStack(list[i])
+                    output = ItemStack(itemCrushed, 2, i)
+                }.build()
+                Builder("${itemCrushed.registryName}_$i").apply {
+                    input = ItemStack(itemCrushed, 1, i)
+                    output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listVanilla[i].second.first)
                 }.build()
             }
         }

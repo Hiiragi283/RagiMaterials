@@ -8,8 +8,8 @@ import mezz.jei.api.recipe.IRecipeWrapper
 class StoneMillWrapper(info: MillRecipe): IRecipeWrapper {
 
     //private変数の宣言
-    val input = info.input
-    val output = info.output
+    val input = info.getInput()
+    val output = info.getOutput()
 
     //スロットにはめるIIngredientsを定義するメソッド
     override fun getIngredients(ing: IIngredients) {
@@ -17,5 +17,4 @@ class StoneMillWrapper(info: MillRecipe): IRecipeWrapper {
         ing.setInputs(VanillaTypes.ITEM, mutableListOf(input))
         ing.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
     }
-
 }

@@ -14,7 +14,15 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import kotlin.math.pow
 
-class FFRecipe private constructor(location: ResourceLocation, val input: ItemStack, val output: ItemStack, val fuel: Int) {
+class FFRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack, private val fuel: Int) {
+
+    fun getLocation() = location
+
+    fun getInput(): ItemStack = input.copy()
+
+    fun getOutput(): ItemStack = output.copy()
+
+    fun getFuel() = fuel
 
     fun match(input: ItemStack, fuel: Int) = RagiUtil.isSameStack(this.input, input, false) && fuel >= this.fuel
 
@@ -51,7 +59,7 @@ class FFRecipe private constructor(location: ResourceLocation, val input: ItemSt
 
     object Registry {
 
-        val list: MutableList<FFRecipe> = mutableListOf()
+        val list: LinkedHashSet<FFRecipe> = linkedSetOf()
         val map: LinkedHashMap<String, FFRecipe> = linkedMapOf()
 
         init {

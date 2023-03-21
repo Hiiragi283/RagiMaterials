@@ -5,7 +5,7 @@
 		"2": "blocks/furnace_side",
 		"3": "blocks/furnace_top",
 		"4": "blocks/stone_slab_top",
-		"5": "blocks/coal_block",
+		"5": "blocks/magma",
 		"particle": "blocks/furnace_front_off"
 	},
 	"elements": [
