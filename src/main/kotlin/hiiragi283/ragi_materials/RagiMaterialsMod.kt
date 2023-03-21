@@ -51,6 +51,8 @@ class RagiMaterialsMod {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent?) {
         if (!isLoadedGT) {
+            //鉱石生成の登録
+            //MinecraftForge.ORE_GEN_BUS.register(OreGenRegistry())
             //proxyの読み込み
             proxy!!.loadPreInit()
             //連携要素の登録
