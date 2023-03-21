@@ -80,7 +80,8 @@ tips.ragi_materials.laboratory_table.3=If the quantity or order is §cwrong§r§
 tips.ragi_materials.ore_rainbow.0=When mined, drops various ores
 tips.ragi_materials.ore_rainbow.1=Shift right-click with empty hand to collect
 tips.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
-tips.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to an item made by Ragi Materials
+tips.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to one made by Ragi Materials
+tips.ragi_materials.oredict_converter.2=If the item you holding is made by Ragi Materials, it will be converted one made by Minecraft
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
 tips.ragi_materials.property.durability=- Durability: §b%s§r
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
@@ -166,6 +167,10 @@ material.hydrogen_fluoride=Hydrogen Fluoride
 material.cryolite=Cryolite
 
 material.wood=Wood
+material.lapis=Lapis
+material.redstone=Redstone
+material.glowstone=Glowstone
+material.ender_pearl=Ender Pearl
 
 material.sodium=Sodium
 material.sodium_hydroxide=Sodium Hydroxide

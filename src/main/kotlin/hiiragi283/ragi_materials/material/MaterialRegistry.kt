@@ -170,6 +170,19 @@ object MaterialRegistry {
         color = RagiColorManager.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1)
     }.setMixture().build()
 
+    val LAPIS = RagiMaterial.Builder(101, "lapis", TypeRegistry.CRYSTAL).setComponents(listOf(RagiMaterial.Formula("?").build() to 1)).setMixture().apply {
+        color = RagiColor.BLUE
+        crystalType = EnumCrystalType.LAPIS
+    }.build()
+
+    val REDSTONE = RagiMaterial.Builder(102, "redstone", TypeRegistry.DUST).setSimple(ElementRegistry.REDSTONE to 1).build()
+
+    val GLOWSTONE = RagiMaterial.Builder(103, "glowstone", TypeRegistry.DUST).setSimple(ElementRegistry.GLOWSTONE to 1).build()
+
+    val ENDER_PEARL = RagiMaterial.Builder(104, "ender_pearl", TypeRegistry.DUST).setSimple(ElementRegistry.ENDER to 1).apply {
+        oredictAlt = "Ender"
+    }.build()
+
     //110 ~ 119: Sodium
     val SODIUM = RagiMaterial.Builder(110, "sodium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.SODIUM to 1).build()
 
@@ -217,10 +230,12 @@ object MaterialRegistry {
     val SILICON_DIOXIDE = RagiMaterial.Builder(141, "silicon_dioxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SILICON to 1, ElementRegistry.OXYGEN to 2)).build()
 
     val GLASS = RagiMaterial.Builder(142, "glass", TypeRegistry.CRYSTAL).setSimple(SILICON_DIOXIDE to 1).apply {
+        color = RagiColor.WHITE
         crystalType = EnumCrystalType.RUBY
     }.build()
 
     val QUARTZ = RagiMaterial.Builder(143, "quartz", TypeRegistry.CRYSTAL).setSimple(SILICON_DIOXIDE to 1).apply {
+        color = RagiColor.WHITE
         crystalType = EnumCrystalType.QUARTZ
     }.build()
 
@@ -370,8 +385,12 @@ object MaterialRegistry {
     }.build()
 
     //310 ~ 319: Gallium, Arsenic
-    val GALLIUM = RagiMaterial.Builder(310, "gallium", TypeRegistry.METAL).setSimple(ElementRegistry.GALLIUM to 1).build()
+    val GALLIUM = RagiMaterial.Builder(310, "gallium", TypeRegistry.METAL).setSimple(ElementRegistry.GALLIUM to 1).apply {
+        rarity = EnumRarity.RARE
+    }.build()
 
-    val ARSENIC = RagiMaterial.Builder(311, "arsenic", TypeRegistry.METALLOID).setSimple(ElementRegistry.ARSENIC to 1).build()
+    val ARSENIC = RagiMaterial.Builder(311, "arsenic", TypeRegistry.METALLOID).setSimple(ElementRegistry.ARSENIC to 1).apply {
+        rarity = EnumRarity.RARE
+    }.build()
 
 }

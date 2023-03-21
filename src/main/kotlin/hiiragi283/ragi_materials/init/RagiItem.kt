@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.item.*
+import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import net.minecraft.creativetab.CreativeTabs
 
@@ -14,9 +15,10 @@ object RagiItem {
     val ItemBlockFullBottleStation = ItemBlockBase(RagiBlock.BlockFullBottleStation)
     val ItemBlockIndustrialLabo = ItemBlockBase(RagiBlock.BlockIndustrialLabo)
     val ItemBlockLaboratoryTable = ItemBlockBase(RagiBlock.BlockLaboratoryTable)
-    val ItemBlockOre1 = ItemBlockBase(RagiBlock.BlockOre1, RagiBlock.BlockOre1.list.size - 1)
+    val ItemBlockOre1 = ItemBlockBase(RagiBlock.BlockOre1, OreProperty.mapOre1.size - 1)
     val ItemBlockOreDictConv = ItemBlockBase(RagiBlock.BlockOreDictConv)
     val ItemBlockOreRainbow = ItemBlockBase(RagiBlock.BlockOreRainbow)
+
     //val ItemBlockSaltPond = ItemBlockBase(RagiBlock.BlockSaltPond)
     val ItemBlockSoilCoal = ItemBlockBase(RagiBlock.BlockSoilCoal)
     val ItemBlockSoilLignite = ItemBlockBase(RagiBlock.BlockSoilLignite)
@@ -28,6 +30,7 @@ object RagiItem {
     val ItemForgeHammer = ItemForgeHammer()
     val ItemFullBottle = ItemFullBottle()
     val ItemOreCrushed = ItemOreCrushed()
+    val ItemOreCrushedVanilla = ItemOreCrushedVanilla()
     val ItemWaste = ItemWaste()
 
     val ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)

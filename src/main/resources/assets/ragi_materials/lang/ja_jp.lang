@@ -81,6 +81,7 @@ tips.ragi_materials.ore_rainbow.0=採掘時にさまざまな鉱石をドロッ�
 tips.ragi_materials.ore_rainbow.1=素手でシフト右クリックすることで回収できます
 tips.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
 tips.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換します
+tips.ragi_materials.oredict_converter.2=もし手に持っているアイテムがRagiMaterials製の場合，Minecraft製のものに変換します
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
 tips.ragi_materials.property.durability=- 耐久値: §b%s§r
 tips.ragi_materials.property.formula=- 化学式: §b%s§r
@@ -166,6 +167,10 @@ material.hydrogen_fluoride=フッ化水素
 material.cryolite=氷晶石
 
 material.wood=木材
+material.lapis=ラピス
+material.redstone=レッドストーン
+material.glowstone=グロウストーン
+material.ender_pearl=エンダーパール
 
 material.sodium=ナトリウム
 material.sodium_hydroxide=水酸化ナトリウム

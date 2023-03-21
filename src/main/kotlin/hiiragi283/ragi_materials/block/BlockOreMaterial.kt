@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
-import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.client.render.model.ICustomModel
+import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
@@ -11,24 +11,8 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import java.awt.Color
 
-class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1) {
-
-    val list: List<Color> = listOf(
-            MaterialRegistry.SALT.color, //Rock Salt
-            RagiColorManager.mixColor(MaterialRegistry.EMERALD.color, MaterialRegistry.AQUAMARINE.color), //Beryl
-            MaterialRegistry.FLUORITE.color, //Fluorite
-            MaterialRegistry.BAUXITE.color, //Laterite
-            RagiColorManager.mixColor(MaterialRegistry.RUBY.color, MaterialRegistry.SAPPHIRE.color), //Corundum
-            MaterialRegistry.SULFUR.color, //Sulfur
-            MaterialRegistry.NITER.color, //Niter
-            MaterialRegistry.LIME.color, //Lime
-            RagiColorManager.mixColor(MaterialRegistry.MANGANESE.color, MaterialRegistry.IRON.color, MaterialRegistry.COBALT.color), //Nodule
-            MaterialRegistry.MAGNETITE.color, //Magnetite
-            MaterialRegistry.COPPER.color, //Copper
-            MaterialRegistry.ZINC.color //Sphalerite
-    )
+class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), ICustomModel {
 
     companion object {
         val TYPE: PropertyInteger = PropertyInteger.create("type", 0, 15)
@@ -52,8 +36,7 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1) {
 
     override fun getMetaFromState(state: IBlockState): Int = state.getValue(TYPE)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(TYPE, meta % list.size)", "hiiragi283.ragi_materials.block.BlockOreMaterial.Companion.TYPE"))
-    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(TYPE, meta % list.size)
+    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(TYPE, meta % OreProperty.mapOre1.size)
 
     //    Client    //
 

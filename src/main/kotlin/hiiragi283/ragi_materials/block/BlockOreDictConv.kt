@@ -19,9 +19,7 @@ import net.minecraftforge.oredict.OreDictionary
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.world.IBlockAccess
 
-class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
-
-    var countSent = 0
+class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 2) {
 
     init {
         blockHardness = 5.0F
@@ -70,14 +68,26 @@ class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 1) {
                     val oreDict = OreDictionary.getOreName(id)
                     //鉱石辞書から紐づいたstackのNonNullListを取得
                     val listStacks = OreDictionary.getOres(oreDict)
-                    //NonNullList内の各stackOreに対して実行
-                    for (stackOre in listStacks) {
-                        //stackOreのmodidがragi_materialsの場合
-                        if (stackOre.item.registryName.toString().split(":")[0] == Reference.MOD_ID) {
-                            stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
-                            break
+                    if (stack.item.registryName.toString().split(":")[0] != Reference.MOD_ID) {
+                        //NonNullList内の各stackOreに対して実行
+                        for (stackOre in listStacks) {
+                            //他mod -> RagiMaterials
+                            if (stackOre.item.registryName.toString().split(":")[0] == Reference.MOD_ID) {
+                                stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
+                                break
+                            }
+                        }
+                    } else {
+                        for (stackOre in listStacks) {
+                            //RagiMaterials -> Minecraft
+                            if (stackOre.item.registryName.toString().split(":")[0] == "minecraft") {
+                                stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
+                                break
+                            }
                         }
                     }
+                    //resultが埋まっているならbreak
+                    if (!stackResult.isEmpty) break
                 }
                 //resultがEMPTYでない場合
                 if (!stackResult.isEmpty) {

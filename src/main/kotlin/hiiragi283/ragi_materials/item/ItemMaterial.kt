@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.client.render.model.ICustomModel
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
@@ -20,7 +21,7 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, 32767), IMaterialItem {
+open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, 32767), ICustomModel, IMaterialItem {
 
     //    General    //
 

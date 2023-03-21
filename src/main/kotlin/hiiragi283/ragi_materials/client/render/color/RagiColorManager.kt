@@ -5,7 +5,7 @@ import java.awt.Color
 object RagiColorManager {
 
     //複数の色を混合するメソッド
-    fun mixColor(vararg colors: Color): Color {
+    fun mixColor(colors: Set<Color>): Color {
         //変数の宣言・初期化
         var redAve = 0
         var greenAve = 0
@@ -19,6 +19,10 @@ object RagiColorManager {
         }
         //各RGB値の平均値からColorを生成
         return Color(redAve / colors.size, greenAve / colors.size, blueAve / colors.size)
+    }
+
+    fun mixColor(vararg colors: Color): Color {
+        return mixColor(colors.toSet())
     }
 
     //複数の色を比率を指定して混合するメソッド

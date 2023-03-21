@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.init
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
+import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -24,21 +25,6 @@ object OreDictRegistry {
             OreDictHandler(EnumMaterialType.NUGGET, "nugget", PartRegistry.NUGGET)
     )
 
-    private val listOre = listOf(
-            "Salt",
-            "Beryl",
-            "Fluorite",
-            "Laterite",
-            "Corundum",
-            "Sulfur",
-            "Niter",
-            "Lime",
-            "Nodule",
-            "Magnetite",
-            "Copper",
-            "Sphalerite"
-    )
-
     //鉱石辞書を登録するメソッド
     fun load() {
         //list内の各materialに対して実行
@@ -57,13 +43,19 @@ object OreDictRegistry {
             }
         }
 
-        for (i in listOre.indices) {
-            RagiUtil.setOreDict("ore${listOre[i]}", ItemStack(RagiBlock.BlockOre1, 1, i))
-            RagiUtil.setOreDict("crushed${listOre[i]}", ItemStack(RagiItem.ItemOreCrushed, 1, i))
+        //Ore
+        for (i in OreProperty.listOre1.indices) {
+            RagiUtil.setOreDict("ore${OreProperty.listOre1[i].first}", ItemStack(RagiBlock.BlockOre1, 1, i))
+            RagiUtil.setOreDict("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiItem.ItemOreCrushed, 1, i))
         }
         RagiUtil.setOreDict("oreSaltpeter", ItemStack(RagiBlock.BlockOre1, 1, 6))
         RagiUtil.setOreDict("oreSaltpeterCrushed", ItemStack(RagiItem.ItemOreCrushed, 1, 6))
 
+        for (i in OreProperty.listVanilla.indices) {
+            RagiUtil.setOreDict("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiItem.ItemOreCrushedVanilla, 1, i))
+        }
+
+        //Others
         RagiUtil.setOreDict("charcoal", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
         RagiUtil.setOreDict("dustGunpowder", RagiUtil.getStack("minecraft:gunpowder", 1, 0))
         RagiUtil.setOreDict("dustSugar", RagiUtil.getStack("minecraft:sugar", 1, 0))

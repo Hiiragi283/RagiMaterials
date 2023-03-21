@@ -5,12 +5,14 @@ import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.block.BlockSoilFuel
 import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.model.ICustomModel
 import hiiragi283.ragi_materials.client.render.model.ModelRegistry
 import hiiragi283.ragi_materials.client.render.model.RagiModelManager
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiCreativeTabs
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.item.*
+import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
@@ -104,12 +106,12 @@ class RagiRegistry {
             try {
                 val item = field.get(this)
                 if (item is ItemBlock) {
-                    if (item.block !is BlockOreMaterial) {
+                    if (item.block !is ICustomModel) {
                         RagiModelManager.setModel(item)
                         RagiLogger.infoDebug("The model for item block ${item.registryName} is registered!")
                     }
                 } else if (item is Item) {
-                    if (item !is ItemMaterial && item !is ItemBookDebug && item !is ItemOreCrushed) {
+                    if (item !is ICustomModel) {
                         RagiModelManager.setModel(item)
                         RagiLogger.infoDebug("The model for item ${item.registryName} is registered!")
                     }
@@ -129,33 +131,31 @@ class RagiRegistry {
         val blockColors = event.blockColors
         val itemColors = event.itemColors
 
-        //Ore Block
+        //Ore
         blockColors.registerBlockColorHandler(IBlockColor { state, world, pos, tintIndex ->
             val block = state.block
-            if (world !== null && block is BlockOreMaterial) block.list[block.getMetaFromState(state)].rgb else 0xFFFFFF
+            val list = OreProperty.listOre1
+            val index = block.getMetaFromState(state) % list.size
+            if (world !== null && block is BlockOreMaterial) list[index].second.getColor().rgb else 0xFFFFFF
         },
                 RagiBlock.BlockOre1
         )
 
         itemColors.registerItemColorHandler(IItemColor {stack, tintIndex ->
-            var color = 0xFFFFFF
-            val item = stack.item
-            if (item is ItemBlock) {
-                val block = item.block
-                if (block is BlockOreMaterial) {
-                    color = block.list[stack.metadata % block.list.size].rgb
-                }
-            }
-            color
+            val list = OreProperty.listOre1
+            val index = stack.metadata % list.size
+            list[index].second.getColor().rgb
         },
-                RagiItem.ItemBlockOre1
+                RagiItem.ItemBlockOre1,
+                RagiItem.ItemOreCrushed
         )
 
         itemColors.registerItemColorHandler(IItemColor {stack, tintIndex ->
-            val block = RagiBlock.BlockOre1
-            block.list[stack.metadata % block.list.size].rgb
+            val list = OreProperty.listVanilla
+            val index = stack.metadata % list.size
+            list[index].second.getColor().rgb
         },
-                RagiItem.ItemOreCrushed
+                RagiItem.ItemOreCrushedVanilla
         )
 
         //Fuel Soil

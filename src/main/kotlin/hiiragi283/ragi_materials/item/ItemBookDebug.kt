@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.client.render.model.ICustomModel
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.creativetab.CreativeTabs
@@ -18,7 +19,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 
-class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3) {
+class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 3), ICustomModel {
 
     init {
         creativeTab = CreativeTabs.MISC

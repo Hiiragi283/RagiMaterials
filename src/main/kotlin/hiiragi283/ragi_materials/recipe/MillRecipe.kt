@@ -101,7 +101,9 @@ class MillRecipe private constructor(private val location: ResourceLocation, pri
                 }.build()
                 Builder("${itemCrushed.registryName}_$i").apply {
                     input = ItemStack(itemCrushed, 1, i)
-                    output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listVanilla[i].second.first)
+                    //ラピスとレッドストーン用の処理
+                    var amount = if (i == 3 || i == 5) 8  else 1
+                    output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listVanilla[i].second.first, amount)
                 }.build()
             }
         }
