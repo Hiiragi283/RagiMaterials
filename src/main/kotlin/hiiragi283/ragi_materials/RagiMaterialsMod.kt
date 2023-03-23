@@ -1,13 +1,13 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.init.*
+import hiiragi283.ragi_materials.init.proxy.CommonProxy
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.packet.RagiPacket
-import hiiragi283.ragi_materials.init.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.FFRecipe
-import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
 import net.minecraftforge.common.MinecraftForge
