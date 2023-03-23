@@ -1,10 +1,13 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.TileBase
+import hiiragi283.ragi_materials.RagiMaterialsMod
+import hiiragi283.ragi_materials.base.TileLockableBase
+import hiiragi283.ragi_materials.capability.RagiInventory
+import hiiragi283.ragi_materials.container.ContainerLaboTable
+import hiiragi283.ragi_materials.init.RagiGuiHandler
+import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.packet.MessageTIle
 import hiiragi283.ragi_materials.packet.RagiPacket
-import hiiragi283.ragi_materials.capability.RagiInventory
-import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
@@ -12,6 +15,7 @@ import hiiragi283.ragi_materials.util.RagiSoundUtil
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.ISidedInventory
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
@@ -24,9 +28,9 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class TileLaboTable : TileBase(100), ISidedInventory {
+class TileLaboTable : TileLockableBase(100), ISidedInventory {
 
-    val inventory = RagiInventory("gui.ragi_materials.laboratory_table", 5)
+    override val inventory = RagiInventory("gui.ragi_materials.labo_table", 5)
     private val inventorySide = SidedInvWrapper(this, EnumFacing.NORTH)
 
     //    NBT tag    //
@@ -59,26 +63,8 @@ class TileLaboTable : TileBase(100), ISidedInventory {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        val stack = player.getHeldItem(hand)
-        var result = false
-        //手持ちのItemStackが空の場合
-        if (!stack.isEmpty) {
-            for (i in 0 until inventory.slots) {
-                //スロットにItemStackを入れた際の余りを取得
-                val stackRemain = inventorySide.insertItem(i, stack, true)
-                //投入の前後でItemStackが変化しない -> スロットは埋まっている
-                //投入の前後でItemStackが変化した -> スロットに空きがある
-                if (!RagiUtil.isSameStack(stack, stackRemain, true)) {
-                    player.setHeldItem(hand, inventorySide.insertItem(i, stack, false)) //プレイヤーの手持ちを上書き
-                    markDirty()
-                    RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:entity.itemframe.add_item"))
-                    RagiLogger.infoDebug("Stack Inserted to slot$i!")
-                    break
-                } else RagiLogger.infoDebug("The slot$i is full!")
-            }
-            result = true
-        }
-        return result
+        if (!world.isRemote) player.openGui(RagiMaterialsMod.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+        return true
     }
 
     //    Recipe    //
@@ -112,44 +98,13 @@ class TileLaboTable : TileBase(100), ISidedInventory {
         RagiPacket.wrapper.sendToAll(MessageTIle(this.pos)) //クライアント側にパケットを送る
     }
 
+    //    TileLockableBase    //
+
+    override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerLaboTable(player, this)
+
+    override fun getGuiID() = "ragi_materials:laboratory_table"
+
     //    ISidedInventory    //
-    //基本的にRagiInventoryと同じ
-
-    override fun getName(): String = inventory.title
-
-    override fun hasCustomName(): Boolean = false
-
-    override fun getSizeInventory(): Int = inventory.sizeInventory
-
-    override fun isEmpty(): Boolean = inventory.isEmpty
-
-    override fun getStackInSlot(index: Int): ItemStack = inventory.getStackInSlot(index)
-
-    override fun decrStackSize(index: Int, count: Int): ItemStack = inventory.decrStackSize(index, count)
-
-    override fun removeStackFromSlot(index: Int): ItemStack = inventory.removeStackFromSlot(index)
-
-    override fun setInventorySlotContents(index: Int, stack: ItemStack) = inventory.setInventorySlotContents(index, stack)
-
-    override fun getInventoryStackLimit(): Int = inventory.inventoryStackLimit
-
-    override fun isUsableByPlayer(player: EntityPlayer): Boolean = inventory.isUsableByPlayer(player)
-
-    override fun openInventory(player: EntityPlayer) {}
-
-    override fun closeInventory(player: EntityPlayer) {}
-
-    override fun isItemValidForSlot(index: Int, stack: ItemStack): Boolean = inventory.isItemValidForSlot(index, stack)
-
-    override fun getField(id: Int): Int = inventory.getField(id)
-
-    override fun setField(id: Int, value: Int) {}
-
-    override fun getFieldCount(): Int = inventory.fieldCount
-
-    override fun clear() {
-        inventory.clear()
-    }
 
     override fun getSlotsForFace(side: EnumFacing): IntArray {
         //上面または下面の場合，どのスロットも干渉できない

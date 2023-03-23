@@ -1,12 +1,21 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.capability.RagiBattery
-import hiiragi283.ragi_materials.capability.RagiItemHandler
+import hiiragi283.ragi_materials.RagiMaterialsMod
+import hiiragi283.ragi_materials.base.TileLockableBase
+import hiiragi283.ragi_materials.capability.RagiEnergyStorage
+import hiiragi283.ragi_materials.capability.RagiInventory
+import hiiragi283.ragi_materials.container.ContainerLaboTable
+import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.recipe.LaboRecipe
-import hiiragi283.ragi_materials.util.*
+import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.util.RagiSoundUtil
+import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.InventoryPlayer
+import net.minecraft.inventory.ISidedInventory
+import net.minecraft.inventory.ItemStackHelper
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -16,26 +25,29 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class TileIndustrialLabo : TileBase(104), ITickable {
+class TileIndustrialLabo : TileLockableBase(104), ISidedInventory, ITickable {
 
-    private val battery = RagiBattery(64000)
+    override val inventory = RagiInventory("gui.ragi_materials.industrial_labo", 5)
+    private val battery = RagiEnergyStorage(64000)
+    private val inventorySide = SidedInvWrapper(this, EnumFacing.NORTH)
+
     private var count = 0
-    val inventory = RagiItemHandler(5)
     var front = EnumFacing.NORTH
 
     //    NBT tag    //
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setTag(keyInventory, inventory.serializeNBT()) //インベントリをNBTタグに書き込む
+        ItemStackHelper.saveAllItems(tag, inventory.inventory) //インベントリをtagに書き込む
         tag.setTag(keyBattery, battery.serializeNBT()) //バッテリーをNBTタグに書き込む
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //NBTタグからインベントリを読み込む
+        ItemStackHelper.loadAllItems(tag, inventory.inventory) //tagからインベントリを読み込む
         battery.deserializeNBT(tag.getCompoundTag(keyBattery)) //NBTタグからバッテリーを読み込む
     }
 
@@ -46,9 +58,10 @@ class TileIndustrialLabo : TileBase(104), ITickable {
             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY -> {
                 when (facing) {
                     front -> super.getCapability(capability, facing)
-                    else -> inventory as T
+                    else -> inventorySide as T
                 }
             }
+
             CapabilityEnergy.ENERGY -> battery as T
             else -> super.getCapability(capability, facing)
         }
@@ -65,7 +78,10 @@ class TileIndustrialLabo : TileBase(104), ITickable {
 
     //    TileBase    //
 
-    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean = false
+    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
+        if (!world.isRemote) player.openGui(RagiMaterialsMod.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+        return true
+    }
 
     //    ITickable    //
 
@@ -73,15 +89,15 @@ class TileIndustrialLabo : TileBase(104), ITickable {
         //countが20以上の場合
         if (count >= 20) {
             //サーバー側，かつインベントリが空でない場合
-            if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
+            if (!world.isRemote && !inventory.isEmpty && battery.energyStored >= 1000) {
                 //レシピチェック
                 for (recipe in LaboRecipe.Registry.list) {
-                    if (recipe.match(inventory, false)) {
-                        for (i in 0 .. 4) {
+                    if (recipe.match(inventorySide, false)) {
+                        for (i in 0..4) {
                             val input = recipe.getInput(i)
                             val output = recipe.getOutput(i)
                             if (!inventory.getStackInSlot(i).isEmpty && !input.isEmpty) {
-                                inventory.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
+                                inventory.decrStackSize(i, input.count) //入力スロットからアイテムを減らす
                                 RagiLogger.infoDebug("The slot$i is decreased!")
                             }
                             RagiUtil.dropItem(world, pos.offset(front), output)
@@ -96,4 +112,22 @@ class TileIndustrialLabo : TileBase(104), ITickable {
             count = 0 //countをリセット
         } else count++ //countを追加
     }
+
+    //    TileLockableBase    //
+
+    override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerLaboTable(player, this)
+
+    override fun getGuiID() = "ragi_materials:industrial_labo"
+
+    //    ISidedInventory    //
+
+    override fun getSlotsForFace(side: EnumFacing): IntArray {
+        //正面の場合，どのスロットも干渉できない
+        return if (side == front) intArrayOf() else intArrayOf(0, 1, 2, 3, 4)
+    }
+
+    override fun canInsertItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean = direction != front //正面でない場合，搬入可能
+
+    override fun canExtractItem(index: Int, stack: ItemStack, direction: EnumFacing): Boolean = false //いかなる場合でも搬出不可能
+
 }

@@ -34,7 +34,7 @@ abstract class BlockContainerBase(id: String, material: Material, private val ma
         var result = false
         if (hand == EnumHand.MAIN_HAND) {
             val tile = world.getTileEntity(pos)
-            result = if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
+            result = if (tile !== null && tile is ITileActivatable) tile.onTileActivated(world, pos, player, hand, facing) else false
         }
         return result
     }

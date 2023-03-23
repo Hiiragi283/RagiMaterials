@@ -25,7 +25,6 @@ class JEICore : IModPlugin {
     companion object {
         const val ForgeFurnace = "ragi_materials.forge_furnace"
         const val LaboTable = "ragi_materials.labo_table"
-        const val SaltPond = "ragi_materials.salt_pond"
         const val StoneMill = "ragi_materials.stone_mill"
     }
 

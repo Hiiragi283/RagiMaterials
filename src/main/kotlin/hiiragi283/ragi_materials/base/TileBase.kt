@@ -11,7 +11,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileBase(val type: Int) : TileEntity() {
+abstract class TileBase(val type: Int) : TileEntity(), ITileActivatable {
 
     val keyInventory = "inventory"
     val keyTank = "tank"
@@ -36,8 +36,8 @@ abstract class TileBase(val type: Int) : TileEntity() {
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    //    TileBase    //
+    //    ITIleActivatable    //
 
-    abstract fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
+    abstract override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
 
 }

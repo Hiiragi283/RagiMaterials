@@ -29,6 +29,7 @@ class BlockForgeFurnace : RagiBlockContainer("forge_furnace", Material.ROCK, 3) 
 
     //    General    //
 
+    @Deprecated("Deprecated in Java")
     override fun addCollisionBoxToList(state: IBlockState, world: World, pos: BlockPos, entityBox: AxisAlignedBB, collidingBoxes: MutableList<AxisAlignedBB>, entity: Entity?, isActualState: Boolean) {
         Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0 / 8, 1.0)) //底面
         Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0 / 8)) //北
