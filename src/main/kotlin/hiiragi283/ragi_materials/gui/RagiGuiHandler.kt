@@ -1,13 +1,12 @@
 package hiiragi283.ragi_materials.gui
 
 import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.container.ContainerLaboTable
+import hiiragi283.ragi_materials.container.RagiContainer
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 
-abstract class RagiGuiHandler<T: TileLockableBase>(val player: EntityPlayer, val tile: T) : GuiContainer(ContainerLaboTable(player, tile)) {
+abstract class RagiGuiHandler<T: TileLockableBase>(val container: RagiContainer<T>) : GuiContainer(container) {
 
     init {
         ySize = 133
@@ -22,8 +21,8 @@ abstract class RagiGuiHandler<T: TileLockableBase>(val player: EntityPlayer, val
     }
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
-        fontRenderer.drawString(tile.displayName!!.unformattedText, 8, 6, 0x404040)
-        fontRenderer.drawString(player.inventory.displayName.unformattedText, 8, ySize - 96 + 2, 0x404040)
+        fontRenderer.drawString(container.tile.displayName!!.unformattedText, 8, 6, 0x404040)
+        fontRenderer.drawString(container.player.inventory.displayName.unformattedText, 8, ySize - 96 + 2, 0x404040)
     }
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
