@@ -15,7 +15,7 @@ object Reference {
     const val VERSION = "v0.0.1"
 
     //依存関係の定義
-    const val DEPENDENCIES = "required-after:forgelin"
+    const val DEPENDENCIES = "required-after:forgelin;required-after:jei"
 
     //対応するMCのバージョンの定義
     const val MC_VERSIONS = "[1.12,1.12.2]"

@@ -1,24 +1,39 @@
 package hiiragi283.ragi_materials.capability
 
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraftforge.common.util.INBTSerializable
-import net.minecraftforge.energy.EnergyStorage
+import net.minecraftforge.energy.IEnergyStorage
 
-class RagiBattery(capacity: Int, maxReceive: Int, maxExtract: Int, var energyNow: Int = 0) : EnergyStorage(capacity, maxReceive, maxExtract, energyNow), INBTSerializable<NBTTagCompound> {
+class RagiBattery(val stack: ItemStack, private val capacity: Int, private val maxIn: Int = capacity, private val maxOut: Int = capacity): IEnergyStorage {
 
-    constructor(capacity: Int) : this(capacity, capacity, capacity)
+    //    IEnergyStorage    //
 
     private val keyEnergy = "energy"
 
-    //    INBTSerializable    //
-
-    override fun serializeNBT(): NBTTagCompound {
-        val tag = NBTTagCompound()
-        tag.setInteger(keyEnergy, this.energyNow)
-        return tag
+    override fun receiveEnergy(maxReceive: Int, simulate: Boolean): Int {
+        if (!canReceive()) return 0
+        val energyReceived = (capacity - energyStored).coerceAtMost(maxIn.coerceAtMost(maxReceive))
+        if (!simulate) energyStored += energyReceived
+        return energyReceived
     }
 
-    override fun deserializeNBT(tag: NBTTagCompound?) {
-        this.energyNow = if (tag !== null && tag.hasKey(keyEnergy)) tag.getInteger(keyEnergy) else 0
+    override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {
+        TODO("Not yet implemented")
     }
+
+    override fun getEnergyStored(): Int {
+        val tag = stack.tagCompound?: NBTTagCompound()
+        return if (tag.hasKey(keyEnergy)) tag.getInteger(keyEnergy) else 0
+    }
+
+    fun setEnergyStored(energy: Int) {
+        if (stack.tagCompound == null) stack.tagCompound = NBTTagCompound()
+        stack.tagCompound!!.setInteger(keyEnergy, energy)
+    }
+
+    override fun getMaxEnergyStored() = capacity
+
+    override fun canExtract() = maxOut > 0
+
+    override fun canReceive() = maxIn > 0
 }

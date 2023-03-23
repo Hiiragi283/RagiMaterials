@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.base.FluidBase
+import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.block.BlockSoilFuel
 import hiiragi283.ragi_materials.client.render.color.RagiColor
@@ -21,7 +22,6 @@ import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.Item
-import net.minecraft.item.ItemBlock
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
@@ -105,7 +105,7 @@ class RagiRegistry {
             RagiLogger.infoDebug(field.name)
             try {
                 val item = field.get(this)
-                if (item is ItemBlock) {
+                if (item is ItemBlockBase) {
                     if (item.block !is ICustomModel) {
                         RagiModelManager.setModel(item)
                         RagiLogger.infoDebug("The model for item block ${item.registryName} is registered!")
@@ -179,11 +179,10 @@ class RagiRegistry {
             val item = stack.item
             if (item is IMaterialItem && tintIndex == 0) {
                 itemColored = item
-            } else if (item is ItemBlock && item.block is IMaterialItem) {
+            } else if (item is ItemBlockBase && item.block is IMaterialItem) {
                 itemColored = item.block as IMaterialItem
             }
             itemColored?.getMaterial(stack)?.color?.rgb ?: 0xFFFFFF
-
         },
                 RagiItem.ItemBlockMaterial,
                 RagiItem.ItemBlockSoilCoal,
@@ -200,6 +199,13 @@ class RagiRegistry {
                 RagiItem.ItemPlate,
                 RagiItem.ItemStick,
                 RagiItem.ItemWaste
+        )
+
+        //Debug Book
+        itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
+            if (tintIndex == 1) RagiColor.RAGI_RED.rgb else 0xFFFFFF
+        },
+                RagiItem.ItemBookDebug
         )
     }
 }

@@ -19,7 +19,6 @@ tile.ore_block.10.name=銅鉱石
 tile.ore_block.11.name=閃亜鉛鉱石
 tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
-tile.salt_pond.name=塩田ブロック
 tile.soil_coal.name=石炭質の砂
 tile.soil_lignite.name=褐炭質の砂利
 tile.soil_peat.name=泥炭質の土
@@ -27,7 +26,7 @@ tile.stone_mill.name=石臼
 
 # Item
 item.blazing_cube.name=燃え盛るキューブ
-item.book_debug.0.name=Spawn Book (DEBUG)
+item.book_debug.name=Spawn Book (DEBUG)
 item.book_debug.1.name=Syntax Book (DEBUG)
 item.book_debug.2.name=Property Book (DEBUG)
 item.book_debug.3.name=Tile Entity Book (DEBUG)
@@ -89,9 +88,6 @@ tips.ragi_materials.property.melt=- 融点: §b%s§r§7 °C
 tips.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
 tips.ragi_materials.property.name=- 物質名: §b%s§r§7
 tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 °C
-tips.ragi_materials.salt_pond.0=液体を蒸発させるのに使用します
-tips.ragi_materials.salt_pond.1=§bフルボトル§r§7を持って右クリックして液体を流します
-tips.ragi_materials.salt_pond.2=§b10秒§r§7ほど待つと§f塩§r§7がドロップします
 tips.ragi_materials.soil_coal.0=§b石炭§r§7を育てるのに使用します
 tips.ragi_materials.soil_coal.1=どんな環境でも成長します
 tips.ragi_materials.soil_coal.2=§bネザー系バイオーム§r§7に設置すると隣接した§bソウルサンド§r§7を置き換えます
@@ -114,8 +110,8 @@ text.ragi_materials.fuel_point=[Fuel Point] §b%s
 
 # GUI
 gui.ragi_materials.forge_furnace=鍛造炉
+gui.ragi_materials.industrial_labo=工業用化学反応槽
 gui.ragi_materials.labo_table=実験台
-gui.ragi_materials.salt_pond=塩田
 gui.ragi_materials.stone_mill=石臼
 itemGroup.ragi_materials.blocks=らぎマテリアルズ - ブロック
 itemGroup.ragi_materials.fullbottles=らぎマテリアルズ - フルボトル
