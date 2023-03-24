@@ -1,7 +1,7 @@
-package hiiragi283.ragi_materials.gui
+package hiiragi283.ragi_materials.client.gui
 
 import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.container.RagiContainer
+import hiiragi283.ragi_materials.client.container.RagiContainer
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation

@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.container
+package hiiragi283.ragi_materials.client.container
 
 import hiiragi283.ragi_materials.tile.TileStoneMill
 import net.minecraft.entity.player.EntityPlayer
