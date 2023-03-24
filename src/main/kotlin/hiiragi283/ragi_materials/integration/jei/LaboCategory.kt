@@ -1,8 +1,7 @@
-package hiiragi283.ragi_materials.integration.jei.laboratory_table
+package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.integration.jei.JEICategoryBase
-import hiiragi283.ragi_materials.integration.jei.JEICore
+import hiiragi283.ragi_materials.recipe.LaboRecipe
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
@@ -10,7 +9,7 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.util.ResourceLocation
 
-class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboWrapper>(guiHelper) {
+class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboRecipe.Wrapper>(guiHelper) {
 
     var background: IDrawableStatic
 
@@ -23,7 +22,7 @@ class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboWrapper>(guiHelp
 
     override fun getBackground(): IDrawable = background
 
-    override fun setRecipe(layout: IRecipeLayout, wrapper: LaboWrapper, ingredients: IIngredients) {
+    override fun setRecipe(layout: IRecipeLayout, wrapper: LaboRecipe.Wrapper, ingredients: IIngredients) {
 
         val inputs = wrapper.inputs
         val outputs = wrapper.output

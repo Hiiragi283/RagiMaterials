@@ -8,11 +8,15 @@ import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiFluidUtil
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.Optional.Interface
 import net.minecraftforge.items.IItemHandler
 
-class LaboRecipe private constructor(private val location: ResourceLocation, private val inputs: MutableList<ItemStack>, private val outputs: MutableList<ItemStack>) {
+data class LaboRecipe private constructor(private val location: ResourceLocation, private val inputs: MutableList<ItemStack>, private val outputs: MutableList<ItemStack>) {
 
     fun getLocation() = location
 
@@ -60,17 +64,16 @@ class LaboRecipe private constructor(private val location: ResourceLocation, pri
         }
 
         fun build() = LaboRecipe(location, inputs, outputs).also {
-            Registry.list.add(it)
             Registry.map[location.toString()] = it
         }
     }
 
     object Registry {
 
-        val list: MutableList<LaboRecipe> = mutableListOf()
         val map: LinkedHashMap<String, LaboRecipe> = linkedMapOf()
+        val list = map.values
 
-        init {
+        fun load() {
 
             //Hydrogen
             Builder(MaterialRegistry.WATER.name).apply {
@@ -127,4 +130,17 @@ class LaboRecipe private constructor(private val location: ResourceLocation, pri
             map.forEach { RagiLogger.infoDebug("LaboRecipe: <${it.key}>") }
         }
     }
+
+    @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+    class Wrapper(info: LaboRecipe) : IRecipeWrapper {
+
+        val inputs = info.getInputs()
+        val output = info.getOutputs()
+
+        override fun getIngredients(ingredients: IIngredients) {
+            ingredients.setInputLists(VanillaTypes.ITEM, mutableListOf(inputs))
+            ingredients.setOutputLists(VanillaTypes.ITEM, mutableListOf(output))
+        }
+    }
+
 }

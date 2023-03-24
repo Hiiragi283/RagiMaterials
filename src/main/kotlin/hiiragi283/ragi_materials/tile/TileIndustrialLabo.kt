@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.RagiMaterialsMod
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.capability.RagiEnergyStorage
 import hiiragi283.ragi_materials.capability.RagiInventory
-import hiiragi283.ragi_materials.container.ContainerLaboTable
+import hiiragi283.ragi_materials.client.container.ContainerLaboTable
 import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger

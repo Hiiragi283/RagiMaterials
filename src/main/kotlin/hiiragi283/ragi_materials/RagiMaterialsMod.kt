@@ -89,13 +89,15 @@ class RagiMaterialsMod {
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent?) {
         if (!isLoadedGT) {
-            //コンフィグからレシピを追加
-            RagiConfig.registerRecipe()
+            //レシピの登録
+            FFRecipe.Registry.load()
+            LaboRecipe.Registry.load()
+            MillRecipe.Registry.load()
             //デバッグ用
             if (RagiConfig.debugMode.isDebug) {
+                MaterialUtil.printMap()
                 FFRecipe.Registry.printMap()
                 LaboRecipe.Registry.printMap()
-                MaterialUtil.printMap()
                 MillRecipe.Registry.printMap()
             }
             //proxyの読み込み

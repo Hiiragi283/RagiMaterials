@@ -10,11 +10,15 @@ import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.Optional.Interface
 
-class MillRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack) {
+data class MillRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack) {
 
     fun getLocation() = location
 
@@ -35,7 +39,6 @@ class MillRecipe private constructor(private val location: ResourceLocation, pri
 
         fun build(): MillRecipe {
             return MillRecipe(location, input, output).also {
-                Registry.list.add(it)
                 Registry.map[location.toString()] = it
             }
         }
@@ -43,10 +46,10 @@ class MillRecipe private constructor(private val location: ResourceLocation, pri
 
     object Registry {
 
-        val list: MutableList<MillRecipe> = mutableListOf()
         val map: LinkedHashMap<String, MillRecipe> = linkedMapOf()
+        val list = map.values
 
-        init {
+        fun load() {
             recipeMaterial()
             recipeOre()
             recipeOreVanilla()
@@ -112,4 +115,20 @@ class MillRecipe private constructor(private val location: ResourceLocation, pri
             map.forEach { RagiLogger.infoDebug("MillRecipe: <${it.key}>") }
         }
     }
+
+    @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+    class Wrapper(info: MillRecipe): IRecipeWrapper {
+
+        //private変数の宣言
+        val input = info.getInput()
+        val output = info.getOutput()
+
+        //スロットにはめるIIngredientsを定義するメソッド
+        override fun getIngredients(ing: IIngredients) {
+            //各listをIIngredientsに設定
+            ing.setInputs(VanillaTypes.ITEM, mutableListOf(input))
+            ing.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
+        }
+    }
+
 }

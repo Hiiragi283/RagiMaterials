@@ -10,11 +10,16 @@ import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import mezz.jei.api.recipe.IRecipeWrapper
+import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.Optional.Interface
 import kotlin.math.pow
 
-class FFRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack, private val fuel: Int) {
+data class FFRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack, private val fuel: Int) {
 
     fun getLocation() = location
 
@@ -50,7 +55,6 @@ class FFRecipe private constructor(private val location: ResourceLocation, priva
             //inputから燃料を算出できる場合，そちらが優先される
             getFuelConsumption(input)?.let { fuel = it }
             return FFRecipe(location, input, output, fuel).also {
-                Registry.list.add(it)
                 Registry.map[location.toString()] = it
             }
         }
@@ -59,10 +63,10 @@ class FFRecipe private constructor(private val location: ResourceLocation, priva
 
     object Registry {
 
-        val list: LinkedHashSet<FFRecipe> = linkedSetOf()
         val map: LinkedHashMap<String, FFRecipe> = linkedMapOf()
+        val list = map.values
 
-        init {
+        fun load() {
             materialRecipe()
         }
 
@@ -72,7 +76,7 @@ class FFRecipe private constructor(private val location: ResourceLocation, priva
                 val material = pair.second
                 val type = part.type
                 val scale = part.scale
-                if (material.type == TypeRegistry.METAL && scale >= 1.0f && type != EnumMaterialType.INGOT_HOT) {
+                if (material.type.match(TypeRegistry.METAL) && scale >= 1.0f && type != EnumMaterialType.INGOT_HOT) {
                     Builder("${part.name}_${material.name}").apply {
                         input = MaterialUtil.getPart(part, material)
                         output = MaterialUtil.getPart(PartRegistry.INGOT_HOT, material, part.scale.toInt())
@@ -83,6 +87,30 @@ class FFRecipe private constructor(private val location: ResourceLocation, priva
 
         fun printMap() {
             map.forEach { RagiLogger.infoDebug("FFRecipe: <${it.key}>") }
+        }
+    }
+
+    @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+    class Wrapper(info: FFRecipe) : IRecipeWrapper {
+
+        //private変数の宣言
+        val inputs = info.getInput()
+        val output = info.getOutput()
+        private val fuel = info.getFuel()
+
+        //スロットにはめるIIngredientsを定義するメソッド
+        override fun getIngredients(ingredients: IIngredients) {
+            //各listをIIngredientsに設定
+            ingredients.setInputs(VanillaTypes.ITEM, mutableListOf(inputs))
+            ingredients.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
+        }
+
+        override fun drawInfo(mc: Minecraft, wid: Int, hei: Int, mouseX: Int, mouseY: Int) {
+            //テクスチャをGUI上に乗せる
+            //ResourceLocation res = new ResourceLocation(domain, path);
+            //mc.getTextureManager().bindTexture(res);
+            //文字列をGUI上に描画する
+            mc.fontRenderer.drawString("§7Fuel: $fuel", 60.0f, 4.5f, 0x000000, false)
         }
     }
 }
