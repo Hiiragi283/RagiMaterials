@@ -14,7 +14,7 @@ object MaterialUtil {
 
     //部品を取得するメソッド
     fun getPart(part: MaterialPart, material: RagiMaterial, amount: Int = 1): ItemStack {
-        return if (isValidPart(part, material)) RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index)else ItemStack.EMPTY
+        return if (isValidPart(part, material)) RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index) else ItemStack.EMPTY
     }
 
     //代入されたMapから化学式を生成するメソッド
@@ -49,6 +49,9 @@ object MaterialUtil {
     //代入したnameと一致するmaterialを返すメソッド
     fun getMaterial(name: String): RagiMaterial = RagiMaterial.mapName[name] ?: RagiMaterial.EMPTY
 
+    //代入したnameと一致するmaterialを返すメソッド (元素用)
+    fun getElement(name: String): RagiMaterial = RagiMaterial.mapElement[name] ?: RagiMaterial.EMPTY
+
     //materialのツールチップを生成するメソッド
     fun materialInfo(material: RagiMaterial, tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
@@ -63,6 +66,7 @@ object MaterialUtil {
     }
 
     fun printMap() {
+        RagiMaterial.mapElement.values.forEach { RagiLogger.infoDebug("<element:${it.name}>") }
         RagiMaterial.list.forEach { RagiLogger.infoDebug("Index: ${it.index}, <material:${it.name}>") }
     }
 }

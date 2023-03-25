@@ -13,7 +13,9 @@ object IntegrationCore {
     val enableTE = Loader.isModLoaded("thermalexpansion") && RagiConfig.integration.enableTE
     val enableTF = Loader.isModLoaded("thermalfoundation") && RagiConfig.integration.enableTF
 
-    fun loadPreInit() {}
+    fun loadPreInit() {
+        CraftTweakerCore.register()
+    }
 
     fun loadInit() {}
 

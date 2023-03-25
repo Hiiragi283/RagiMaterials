@@ -6,15 +6,17 @@ import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
+
 import java.awt.Color
 import java.math.BigDecimal
 
-data class RagiMaterial(
+data class RagiMaterial private constructor(
         val index: Int = -1,
         val name: String = "empty",
         val type: MaterialType = TypeRegistry.INTERNAL,
@@ -37,6 +39,7 @@ data class RagiMaterial(
         val list: MutableList<RagiMaterial> = mutableListOf()
         val mapIndex: LinkedHashMap<Int, RagiMaterial> = linkedMapOf()
         val mapName: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
+        val mapElement: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
 
         val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
     }
@@ -54,7 +57,7 @@ data class RagiMaterial(
     //()つきの化学式を返すメソッド
     fun setBracket(): RagiMaterial = Formula("(${this.formula})").build()
 
-    class Builder(val index: Int, val name: String, val type: MaterialType) {
+    class Builder(val index: Int = -1, val name: String = "empty", val type: MaterialType = TypeRegistry.INTERNAL) {
 
         var burnTime = -1
         var color: Color = Color(0xFFFFFF)
@@ -189,20 +192,27 @@ data class RagiMaterial(
                 tempBoil,
                 tempMelt
         ).also {
-            if (it.index > 0) {
-                list.add(it)
-                mapIndex[it.index] = it
-                mapName[it.name] = it
-                PartRegistry.list.forEach { part -> if (MaterialUtil.isValidPart(part, it)) validPair.add(part to it) }
-            }
+            //indexが負の値でない場合
+            if (it.index >= 0) {
+                //同じindex, nameで登録されていない場合
+                if (mapIndex[it.index] == null && mapName[it.name] == null) {
+                    list.add(it)
+                    mapIndex[it.index] = it
+                    mapName[it.name] = it
+                    PartRegistry.list.forEach { part -> if (MaterialUtil.isValidPart(part, it)) validPair.add(part to it) }
+                } else RagiLogger.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]}!")
+            } else RagiLogger.warn("The index ${it.index} is smaller than 0!")
         }
     }
 
     //元素用のクラス
     class Element(val name: String, val type: MaterialType, val color: Color, val molar: Float, val formula: String, val tempMelt: Int, val tempBoil: Int) {
 
-        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil)
-
+        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil).also {
+            if (mapElement[it.name] == null) {
+                mapElement[it.name] = it
+            } else RagiLogger.warn("The material ${it.name} is duplicated with ${mapElement[it.name]}!")
+        }
     }
 
     //化学式用のクラス

@@ -11,14 +11,14 @@ import stanhebben.zenscript.annotations.ZenMethod
 
 @ZenClass("mods.ragi_materials.StoneMill")
 @ZenRegister
-class CTStoneMill {
+class CTMillRecipe {
 
     companion object {
         @ZenMethod
         @JvmStatic
         fun addRecipe(name: String, output: IItemStack, input: IItemStack) {
             val location = ResourceLocation("crafttweaker", name)
-            CraftTweakerCore.listAdd.add(AddMill(location, RussellUtil.getStack(output), RussellUtil.getStack(input)))
+            CraftTweakerCore.listAdd.add(AddMill(location, HiiragiUtil.getStack(output), HiiragiUtil.getStack(input)))
         }
     }
 
@@ -35,7 +35,7 @@ class CTStoneMill {
             }
         }
 
-        override fun describe() = "Mill Recipe: <${location}> was registered!"
+        override fun describe() = "MillRecipe: <${location}> was registered!"
 
     }
 

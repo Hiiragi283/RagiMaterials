@@ -5,6 +5,11 @@
 - Minecraft MC1.12にさまざな素材とそれらの用途を追加するmod
 - _**前提modとして[Shadowfacts' Forgelin](https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)が必要です**_
 
+## Integration
+
+- [CraftTweaker](https://github.com/Hiiragi283/RagiMaterials/blob/master/crafttweaker.md)
+- Just Enough Items/Had Enough Items
+
 ## Changelog
 
 - [CHANGELOG.md](https://github.com/Hiiragi283/RagiMaterials/blob/master/CHANGELOG.md)

@@ -7,6 +7,7 @@ import net.minecraft.command.ICommandSender
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
+import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
@@ -142,5 +143,12 @@ object RagiUtil {
             drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
             world.spawnEntity(drop) //ドロップアイテムをスポーン
         }
+    }
+
+    fun getEnum(name: String): EnumRarity {
+        for (enum in EnumRarity.values()) {
+            if (name == enum.getName()) return enum
+        }
+        return EnumRarity.COMMON
     }
 }

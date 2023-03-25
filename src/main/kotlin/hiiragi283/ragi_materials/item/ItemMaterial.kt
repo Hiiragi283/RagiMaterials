@@ -20,8 +20,9 @@ import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.oredict.OreDictionary
 
-open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, 32767), ICustomModel, IMaterialItem {
+open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, OreDictionary.WILDCARD_VALUE), ICustomModel, IMaterialItem {
 
     //    General    //
 

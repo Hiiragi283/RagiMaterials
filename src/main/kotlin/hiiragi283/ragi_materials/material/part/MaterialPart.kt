@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.material.part
 
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 
-class MaterialPart private constructor(val name: String, val type: EnumMaterialType, val scale: Float) {
+data class MaterialPart private constructor(val name: String, val type: EnumMaterialType, val scale: Float) {
 
     class Builder(val name: String) {
 

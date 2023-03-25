@@ -7,6 +7,11 @@
 - Minecraft Mod adding various materials and its usage for MC1.12
 - _**Requires [Shadowfacts' Forgelin](https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)**_
 
+## Integration
+
+- [CraftTweaker](https://github.com/Hiiragi283/RagiMaterials/blob/master/crafttweaker.md)
+- Just Enough Items/Had Enough Items
+
 ## Changelog
 
 - [CHANGELOG.md](https://github.com/Hiiragi283/RagiMaterials/blob/master/CHANGELOG.md)

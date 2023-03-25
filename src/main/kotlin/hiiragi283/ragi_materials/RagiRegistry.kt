@@ -42,7 +42,7 @@ class RagiRegistry {
                     val fluid = FluidBase(material.name)
                     fluid.setColor(material.color)
                     //MaterialTypesがGASの場合
-                    if (material.type == TypeRegistry.GAS) {
+                    if (material.type.match(TypeRegistry.GAS)) {
                         fluid.isGaseous = true
                         fluid.density = fluid.density * -1
                     }

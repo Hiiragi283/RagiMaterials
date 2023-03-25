@@ -4,7 +4,9 @@ object TypeRegistry {
 
     val map: HashMap<String, MaterialType> = hashMapOf()
 
-    val CRYSTAL = MaterialType.Builder("crystalline")
+    fun getType(name: String): MaterialType = map[name]?: INTERNAL
+
+    val CRYSTAL = MaterialType.Builder("crystal")
             .addTypes(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.CRYSTAL,
@@ -16,7 +18,7 @@ object TypeRegistry {
             .addType(EnumMaterialType.DUST)
             .build() //固体全般
 
-    val DUST_RADIO = MaterialType.Builder("dust")
+    val DUST_RADIO = MaterialType.Builder("dust_radio")
             .addTypes(
                     EnumMaterialType.DUST,
                     EnumMaterialType.RADIOACTIVE
@@ -62,7 +64,7 @@ object TypeRegistry {
                     EnumMaterialType.STICK
             ).build() //金属全般
 
-    val METAL_RADIO = MaterialType.Builder("dust_radio")
+    val METAL_RADIO = MaterialType.Builder("metal_radio")
             .addTypes(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.DUST,

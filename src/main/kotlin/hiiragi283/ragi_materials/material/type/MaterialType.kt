@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.material.type
 
-class MaterialType private constructor(val name: String, val list: List<EnumMaterialType>) {
+data class MaterialType private constructor(val name: String, val list: List<EnumMaterialType>) {
+
+    fun match(type: MaterialType) = this == TypeRegistry.WILDCARD || this == type
 
     class Builder(val name: String) {
 
