@@ -250,7 +250,7 @@ object MaterialRegistry {
     }.build()
 
     //170 ~ 179: Chlorine
-    val CHLORINE = RagiMaterial.Builder(170, "chlorine", TypeRegistry.GAS).build()
+    val CHLORINE = RagiMaterial.Builder(170, "chlorine", TypeRegistry.GAS).setSimple(ElementRegistry.CHLORINE to 2).build()
 
     val HYDROGEN_CHLORIDE = RagiMaterial.Builder(171, "hydrogen_chloride", TypeRegistry.GAS).setComponents(listOf(ElementRegistry.HYDROGEN to 1, ElementRegistry.CHLORINE to 1)).build()
 
