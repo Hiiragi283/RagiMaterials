@@ -2,7 +2,6 @@ buildscript {
     ext.kotlin_version = "1.2.0"
     repositories {
         maven {
-            // url = "https://maven.cleanroommc.com"
             url = "https://maven.minecraftforge.net"
         }
         maven {

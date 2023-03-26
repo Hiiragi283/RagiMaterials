@@ -21,17 +21,13 @@ class ModelBlazingForge : ModelBase() {
         head = ModelRenderer(this)
         head.setRotationPoint(0.0f, -8.0f, 0.0f)
         cube.addChild(head)
-        setRotationAngle(head, -0.1745f, 0.0f, 0.1745f)
+        head.rotateAngleX = -0.1745f
+        head.rotateAngleY = 0.0f
+        head.rotateAngleZ = 0.1745f
         head.cubeList.add(ModelBox(head, 0, 0, -4.0f, -4.0f, -4.0f, 8, 8, 8, 0.0f, false))
     }
 
     fun render() {
         cube.render(0.0625f)
-    }
-
-    private fun setRotationAngle(modelRenderer: ModelRenderer, x: Float, y: Float, z: Float) {
-        modelRenderer.rotateAngleX = x
-        modelRenderer.rotateAngleY = y
-        modelRenderer.rotateAngleZ = z
     }
 }

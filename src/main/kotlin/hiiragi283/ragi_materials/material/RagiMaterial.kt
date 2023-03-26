@@ -60,9 +60,9 @@ data class RagiMaterial private constructor(
     class Builder(val index: Int = -1, val name: String = "empty", val type: MaterialType = TypeRegistry.INTERNAL) {
 
         var burnTime = -1
-        var color: Color = Color(0xFFFFFF)
-        var components: List<Pair<RagiMaterial, Int>> = listOf(EMPTY to 1)
-        var crystalType: EnumCrystalType = EnumCrystalType.NONE
+        var color = Color(0xFFFFFF)
+        var components = listOf(EMPTY to 1)
+        var crystalType = EnumCrystalType.NONE
         var decayed: RagiMaterial? = null
         var formula: String? = null
         var molar: Float? = null

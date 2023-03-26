@@ -15,7 +15,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileLockableBase(val type: Int): TileEntityLockable(), ITileActivatable {
+abstract class TileLockableBase(val type: Int) : TileEntityLockable(), ITileActivatable {
 
     val keyInventory = "inventory"
     val keyTank = "tank"

@@ -36,6 +36,7 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), ICustomMod
 
     override fun getMetaFromState(state: IBlockState): Int = state.getValue(TYPE)
 
+    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(TYPE, meta % OreProperty.mapOre1.size)", "hiiragi283.ragi_materials.block.BlockOreMaterial.Companion.TYPE", "hiiragi283.ragi_materials.material.OreProperty"))
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(TYPE, meta % OreProperty.mapOre1.size)
 
     //    Client    //

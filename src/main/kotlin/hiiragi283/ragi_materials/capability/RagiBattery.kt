@@ -18,7 +18,10 @@ class RagiBattery(val stack: ItemStack, private val capacity: Int, private val m
     }
 
     override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {
-        TODO("Not yet implemented")
+        if (!canExtract()) return 0
+        val energyExtracted = energyStored.coerceAtMost(maxOut.coerceAtMost(maxExtract))
+        if (!simulate) energyStored -= energyExtracted
+        return energyExtracted
     }
 
     override fun getEnergyStored(): Int {

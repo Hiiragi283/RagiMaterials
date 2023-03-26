@@ -39,12 +39,18 @@ MaterialUtil.getTempMelt(material as RagiMaterial) as Int
 MaterialUtil.getTempBoil(material as RagiMaterial) as Int
 
 # Please use stringFormula(formula as String) in setComponents()
+MaterialUtil.stringFormula(name as String) as RagiMaterial
 
 val builder = MaterialBuilder(1026, "lol", "gas");
 builder.setComponents({MaterialUtil.stringFormula("supercalifragilisticexpialidocious"): 1});
 builder.build();
 
-MaterialUtil.getformula(<material:lol>) # return "supercalifragilisticexpialidocious"
+MaterialUtil.getFormula(<material:lol>) # return "supercalifragilisticexpialidocious"
+
+# setBracket() is used to add bracket: () for existing materials
+MaterialUtil.setBracket(material as RagiMaterial) as RagiMaterial
+
+MaterialUtil.getFormula(MaterialUtil.setBracket(<material:steel>)); # return "(FeC)"
 ~~~
 
 ---

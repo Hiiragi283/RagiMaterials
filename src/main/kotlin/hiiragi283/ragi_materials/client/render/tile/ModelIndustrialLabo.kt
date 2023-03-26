@@ -27,10 +27,4 @@ class ModelIndustrialLabo : ModelBase() {
     fun render() {
         cube.render(0.0625f)
     }
-
-    fun setRotationAngle(modelRenderer: ModelRenderer, x: Float, y: Float, z: Float) {
-        modelRenderer.rotateAngleX = x
-        modelRenderer.rotateAngleY = y
-        modelRenderer.rotateAngleZ = z
-    }
 }

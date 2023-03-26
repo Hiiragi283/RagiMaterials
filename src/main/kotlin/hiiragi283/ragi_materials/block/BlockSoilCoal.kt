@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.RagiMaterial
 import net.minecraft.block.BlockSoulSand
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState

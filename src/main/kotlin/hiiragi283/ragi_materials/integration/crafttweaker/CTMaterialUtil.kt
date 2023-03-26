@@ -63,6 +63,10 @@ class CTMaterialUtil {
         @JvmStatic
         fun stringFormula(name: String) = RagiMaterial.Formula(name).build()
 
+        @ZenMethod
+        @JvmStatic
+        fun setBracket(material: RagiMaterial) = stringFormula("${material.formula}")
+
     }
 
 }

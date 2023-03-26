@@ -4,12 +4,11 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.NonNullList
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.TextComponentTranslation
 
-class RagiInventory(val title: String, val slots: Int) : IInventory {
+class RagiInventory(val title: String, private val slots: Int) : IInventory {
 
     val inventory: NonNullList<ItemStack> = NonNullList.withSize(slots, ItemStack.EMPTY)
 
@@ -74,6 +73,4 @@ class RagiInventory(val title: String, val slots: Int) : IInventory {
     override fun clear() {
         this.inventory.clear()
     }
-
-    fun toNBT(): NBTTagCompound = ItemStackHelper.saveAllItems(NBTTagCompound(), inventory)
 }

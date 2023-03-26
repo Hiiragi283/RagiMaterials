@@ -11,6 +11,6 @@ class GuiLaboTable(player: EntityPlayer, tile: TileLockableBase) : RagiGuiHandle
         ySize = 133
     }
 
-     override val background = ResourceLocation("minecraft:textures/gui/container/hopper.png")
+    override val background = ResourceLocation("minecraft:textures/gui/container/hopper.png")
 
 }

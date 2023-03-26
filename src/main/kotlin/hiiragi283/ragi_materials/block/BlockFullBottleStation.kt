@@ -10,7 +10,6 @@ import net.minecraft.util.*
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import java.util.*
 
 class BlockFullBottleStation : RagiBlockContainer("fullbottle_station", Material.IRON, 2) {
 

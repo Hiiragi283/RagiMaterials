@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.integration.crafttweaker
 import crafttweaker.IAction
 import crafttweaker.annotations.ZenRegister
 import crafttweaker.api.item.IItemStack
+import crafttweaker.api.minecraft.CraftTweakerMC
 import hiiragi283.ragi_materials.recipe.MillRecipe
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
@@ -18,7 +19,7 @@ class CTMillRecipe {
         @JvmStatic
         fun addRecipe(name: String, output: IItemStack, input: IItemStack) {
             val location = ResourceLocation("crafttweaker", name)
-            CraftTweakerCore.listAdd.add(AddMill(location, HiiragiUtil.getStack(output), HiiragiUtil.getStack(input)))
+            CraftTweakerCore.listAdd.add(AddMill(location, CraftTweakerMC.getItemStack(output), CraftTweakerMC.getItemStack(input)))
         }
     }
 

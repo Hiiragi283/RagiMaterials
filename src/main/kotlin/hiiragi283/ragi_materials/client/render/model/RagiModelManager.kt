@@ -1,7 +1,5 @@
 package hiiragi283.ragi_materials.client.render.model
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.IMaterialTool
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -41,18 +39,6 @@ object RagiModelManager {
     @SideOnly(Side.CLIENT)
     fun setModelSame(vararg items: Item) {
         items.forEach { setModelSame(it) }
-    }
-
-    //道具用のモデル登録メソッド
-    @SideOnly(Side.CLIENT)
-    fun setModelTool(vararg tools: Item) {
-        for (tool in tools) {
-            if (tool is IMaterialTool) {
-                val model = ModelResourceLocation("${Reference.MOD_ID}:tools", tool.getToolID())
-                ModelLoader.registerItemVariants(tool, model)
-                ModelLoader.setCustomMeshDefinition(tool) { model }
-            }
-        }
     }
 
     //新規でモデルのパスを紐づけてモデルを登録するメソッド

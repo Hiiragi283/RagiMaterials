@@ -57,18 +57,6 @@ object ModelRegistry {
           Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865
         */
 
-        //Debug Book
-        ModelLoader.registerItemVariants(
-                RagiItem.ItemBookDebug,
-                ModelResourceLocation(RagiItem.ItemBookDebug.registryName!!, "0"),
-                ModelResourceLocation(RagiItem.ItemBookDebug.registryName!!, "1"),
-                ModelResourceLocation(RagiItem.ItemBookDebug.registryName!!, "2"),
-                ModelResourceLocation(RagiItem.ItemBookDebug.registryName!!, "3")
-        )
-        ModelLoader.setCustomMeshDefinition(RagiItem.ItemBookDebug) { stack ->
-            ModelResourceLocation(stack.item.registryName!!, stack.metadata.toString())
-        }
-
         //ItemBlockMaterial
         val blockCrystal = ModelResourceLocation("${Reference.MOD_ID}:part", "block_crystal")
         val blockMaterial = ModelResourceLocation("${Reference.MOD_ID}:part", "block_material")
