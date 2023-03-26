@@ -22,7 +22,7 @@ val steel = <material:steel>;
 
 ## MaterialUtil
 
-`import mods.ragi_materials.MaterialRegistry`
+`import mods.ragi_materials.MaterialUtil`
 
 ~~~zenscript
 MaterialUtil.getIndex(material as RagiMaterial) as Int
@@ -51,7 +51,7 @@ MaterialUtil.getformula(<material:lol>) # return "supercalifragilisticexpialidoc
 
 ## MaterialBuilder
 
-`import mods.ragi_materials.MaterialUtil`
+`import mods.ragi_materials.MaterialBuilder`
 
 ### Constructor
 
