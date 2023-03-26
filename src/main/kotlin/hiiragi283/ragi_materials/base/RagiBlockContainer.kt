@@ -38,6 +38,6 @@ abstract class RagiBlockContainer(id: String, material: Material, maxTips: Int) 
     }
 
     private fun moveFromStack(tile: TileEntity, stack: ItemStack) {
-        if (stack.tagCompound !== null) tile.readFromNBT(stack.tagCompound!!) //NBTタグから読み込む
+        if (stack.tagCompound !== null) tile.readFromNBT(tile.writeToNBT(stack.tagCompound!!)) //NBTタグから読み込む
     }
 }
