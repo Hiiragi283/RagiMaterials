@@ -12,8 +12,7 @@ object CraftingRegistry {
 
     fun load() {
         addCrafting()
-
-        CraftingMaterial.init()
+        CraftingMaterial.load()
     }
 
     private fun addCrafting() {
