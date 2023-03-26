@@ -69,11 +69,11 @@ tips.ragi_materials.fullbottle_station.0=液体から§bフルボトル§r§7を
 tips.ragi_materials.fullbottle_station.1=液体コンテナやパイプを用いて液体を搬入します
 tips.ragi_materials.fullbottle_station.2=液体は1秒でフルボトルへと変換されます
 tips.ragi_materials.industrial_labo.0=化学反応の自動化に使用します
-tips.ragi_materials.industrial_labo.1=ホッパーやパイプを用いてアイテムを搬入します
+tips.ragi_materials.industrial_labo.1=ホッパーまたはGUIからアイテムを搬入します
 tips.ragi_materials.industrial_labo.2=§b1秒§r§7ごとにレシピを実行します
 tips.ragi_materials.industrial_labo.3=§b1,000 RF§r§7と§b必要な量の素材だけ§r§7を消費します
 tips.ragi_materials.laboratory_table.0=化学反応に使用します
-tips.ragi_materials.laboratory_table.1=右クリックやホッパーを用いてアイテムを搬入します
+tips.ragi_materials.laboratory_table.1=ホッパーまたはGUIからアイテムを搬入します
 tips.ragi_materials.laboratory_table.2=§bレッドストーン信号§r§7で稼働します
 tips.ragi_materials.laboratory_table.3=順番や量を§c間違える§r§7と§b化学廃棄物§r§7が発生します
 tips.ragi_materials.ore_rainbow.0=採掘時にさまざまな鉱石をドロップします
@@ -98,7 +98,7 @@ tips.ragi_materials.soil_peat.0=§b泥炭§r§7を育てるのに使用します
 tips.ragi_materials.soil_peat.1=空気に触れさせないことで成長します
 tips.ragi_materials.soil_peat.2=§b湿ったバイオーム§r§7に設置すると隣接した§b土/草ブロック§r§7を置き換えます
 tips.ragi_materials.stone_mill.0=アイテムを粉砕するのに使用します
-tips.ragi_materials.stone_mill.1=§b素材アイテム§r§7を持って右クリックすることでセットします
+tips.ragi_materials.stone_mill.1=ホッパーまたはGUIからアイテムを搬入します
 tips.ragi_materials.stone_mill.2=§b素手で§r§7右クリックすることで石臼を回します
 tips.ragi_materials.stone_mill.3=8回回すたびに石臼は§b粉末sr§7を生成しようとします
 
@@ -131,6 +131,7 @@ material.neon=ネオン
 material.argon=アルゴン
 
 material.lithium=リチウム
+material.spodumene=リシア輝石
 
 material.beryllium=ベリリウム
 material.emerald=エメラルド

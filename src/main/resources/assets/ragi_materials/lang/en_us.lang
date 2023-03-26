@@ -69,11 +69,11 @@ tips.ragi_materials.fullbottle_station.0=Used to make §bFull Bottle§r§7 from 
 tips.ragi_materials.fullbottle_station.1=Insert fluids with any fluid container or pipes
 tips.ragi_materials.fullbottle_station.2=The fluids will be converted automatically in 1 second
 tips.ragi_materials.industrial_labo.0=Used to automate chemical reaction
-tips.ragi_materials.industrial_labo.1=Insert item by using hopper or pipes
+tips.ragi_materials.industrial_labo.1=Insert item from GUI or by using hopper
 tips.ragi_materials.industrial_labo.2=Activated per §b1 second§r§7
 tips.ragi_materials.industrial_labo.3=Consume §b1,000 RF§r§7 and §bONLY NECESSARY amount of ingredients§r§7
 tips.ragi_materials.laboratory_table.0=Used for chemical reaction
-tips.ragi_materials.laboratory_table.1=Insert item by right-clicking or using hopper
+tips.ragi_materials.laboratory_table.1=Insert item from GUI or by using hopper
 tips.ragi_materials.laboratory_table.2=Activated by §bRedstone Signal§r§7
 tips.ragi_materials.laboratory_table.3=If the quantity or order is §cwrong§r§7, §bChemical Waste§r§7 is generated
 tips.ragi_materials.ore_rainbow.0=When mined, drops various ores
@@ -98,7 +98,7 @@ tips.ragi_materials.soil_peat.0=Used for cultivating §bPeat§r§7
 tips.ragi_materials.soil_peat.1=Grows when left out of the air
 tips.ragi_materials.soil_peat.2=When placed in §bMoist Biome§r§7, the soil will replace neighbor §bDirt/Grass Block§r§7
 tips.ragi_materials.stone_mill.0=Used for macerating items
-tips.ragi_materials.stone_mill.1=Right-click with §bMaterial Item§r§7 to set
+tips.ragi_materials.stone_mill.1=Insert item from GUI or by using hopper
 tips.ragi_materials.stone_mill.2=Right-click with §bEmpty Hand§r§7 to rotate mill
 tips.ragi_materials.stone_mill.3=Every time you rotate 8 times, the mill tries to produce §bDustsr§7
 
@@ -131,6 +131,7 @@ material.neon=Neon
 material.argon=Argon
 
 material.lithium=Lithium
+material.spodumene=Spodumene
 
 material.beryllium=Beryllium
 material.emerald=Emerald
