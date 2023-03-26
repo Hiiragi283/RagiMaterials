@@ -29,8 +29,8 @@ body:
   - type: textarea
     id: reproduction
     attributes:
-      label: クラッシュの再現方法
-      description: そのクラッシュを再現する方法を**段階ごとに**記入してください。
+      label: バグの再現方法
+      description: そのバグを再現する方法を**段階ごとに**記入してください。
       placeholder: "例: (1) まず...をします。"
     validations:
       required: true

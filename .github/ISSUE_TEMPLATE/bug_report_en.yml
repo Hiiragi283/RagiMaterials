@@ -30,7 +30,7 @@ body:
     id: reproduction
     attributes:
       label: Steps to Reproduce
-      description: How to reproduce the crash.
+      description: How to reproduce the bug.
       placeholder: "Example: 1) I did X..."
     validations:
       required: true
