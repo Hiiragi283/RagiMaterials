@@ -9,11 +9,11 @@ import net.minecraftforge.fml.relauncher.Side
   Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/packet/TutorialPacket.java
 */
 
-object RagiPacket {
+object PacketManager {
 
     val wrapper: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel("ragi_materials:laboratory_table")
 
-    init {
+    fun load() {
         wrapper.registerMessage(MessageHandlerLabo::class.java, MessageTIle::class.java, 0, Side.CLIENT)
     }
 }

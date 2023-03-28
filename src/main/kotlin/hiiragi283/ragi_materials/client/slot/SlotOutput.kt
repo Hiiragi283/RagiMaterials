@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.container
+package hiiragi283.ragi_materials.client.slot
 
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Slot

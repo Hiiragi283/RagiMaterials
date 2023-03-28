@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiSoundUtil
+import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -92,7 +92,7 @@ class TileForgeFurnace : TileBase(102) {
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
-                RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
+                SoundManager.playSound(this, SoundManager.getSound("minecraft:block.fire.extinguish"))
                 result = true
                 break
             }
@@ -104,7 +104,7 @@ class TileForgeFurnace : TileBase(102) {
     private fun isFuel(stack: ItemStack): Boolean = TileEntityFurnace.getItemBurnTime(stack) > 0
 
     fun playSoundFuel() {
-        RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
+        SoundManager.playSound(this, SoundManager.getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
     }
 
 }

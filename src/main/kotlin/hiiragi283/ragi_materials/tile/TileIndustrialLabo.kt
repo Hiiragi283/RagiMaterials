@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiMaterialsMod
+import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.capability.RagiEnergyStorage
 import hiiragi283.ragi_materials.capability.RagiInventory
@@ -8,7 +8,7 @@ import hiiragi283.ragi_materials.client.container.ContainerLaboTable
 import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiSoundUtil
+import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -79,7 +79,7 @@ class TileIndustrialLabo : TileLockableBase(104), ISidedInventory, ITickable {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        if (!world.isRemote) player.openGui(RagiMaterialsMod.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
         return true
     }
 
@@ -104,7 +104,7 @@ class TileIndustrialLabo : TileLockableBase(104), ISidedInventory, ITickable {
                             RagiLogger.infoDebug("The output is ${output.toBracket()}")
                         }
                         battery.extractEnergy(1000, false)
-                        RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.piston.extend"))
+                        SoundManager.playSound(this, SoundManager.getSound("minecraft:block.piston.extend"))
                         break
                     }
                 }

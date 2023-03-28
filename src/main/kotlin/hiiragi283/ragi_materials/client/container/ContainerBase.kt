@@ -6,7 +6,7 @@ import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.Container
 import net.minecraft.inventory.Slot
 
-abstract class RagiContainer<T : TileLockableBase>(val player: EntityPlayer, val tile: T) : Container() {
+abstract class ContainerBase<T : TileLockableBase>(val player: EntityPlayer, val tile: T) : Container() {
 
     val invPlayer: InventoryPlayer = player.inventory
     val invTile = tile.inventory

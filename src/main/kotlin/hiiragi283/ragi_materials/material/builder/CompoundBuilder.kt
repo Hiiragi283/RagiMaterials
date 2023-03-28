@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.material.builder
 
 import hiiragi283.ragi_materials.material.type.MaterialType
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.color.ColorManager
 import java.awt.Color
 import java.math.BigDecimal
 
@@ -21,7 +21,7 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
             val material = pair.first
             if (material !is FormulaString) mapColor[material.color] = pair.second
         }
-        this.color = RagiColorManager.mixColor(mapColor)
+        this.color = ColorManager.mixColor(mapColor)
     }
 
     private fun initFormula() {

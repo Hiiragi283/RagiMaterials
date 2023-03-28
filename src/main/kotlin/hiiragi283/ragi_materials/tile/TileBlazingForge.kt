@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.capability.RagiTank
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiSoundUtil
+import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -86,7 +86,7 @@ class TileBlazingForge : TileBase(103) {
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
-                RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:block.fire.extinguish"))
+                SoundManager.playSound(this, SoundManager.getSound("minecraft:block.fire.extinguish"))
                 result = true
                 break
             }

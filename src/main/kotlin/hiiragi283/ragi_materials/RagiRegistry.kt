@@ -5,10 +5,10 @@ import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.block.BlockSoilFuel
 import hiiragi283.ragi_materials.client.render.color.RagiColor
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.color.ColorManager
 import hiiragi283.ragi_materials.client.render.model.ICustomModel
 import hiiragi283.ragi_materials.client.render.model.ModelRegistry
-import hiiragi283.ragi_materials.client.render.model.RagiModelManager
+import hiiragi283.ragi_materials.client.render.model.ModelManager
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiCreativeTabs
 import hiiragi283.ragi_materials.init.RagiItem
@@ -30,26 +30,24 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class RagiRegistry {
+object RagiRegistry {
 
-    companion object {
-        fun registerFluid() {
-            //Fluidの登録
-            for (material in RagiMaterial.list) {
-                //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-                if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
-                    //Fluidの登録
-                    val fluid = FluidBase(material.name)
-                    fluid.setColor(material.color)
-                    //MaterialTypesがGASの場合
-                    if (material.type.match(TypeRegistry.GAS)) {
-                        fluid.isGaseous = true
-                        fluid.density = fluid.density * -1
-                    }
-                    FluidRegistry.registerFluid(fluid)
-                    //fluid入りバケツを登録
-                    FluidRegistry.addBucketForFluid(fluid)
+    fun registerFluid() {
+        //Fluidの登録
+        for (material in RagiMaterial.list) {
+            //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
+            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
+                //Fluidの登録
+                val fluid = FluidBase(material.name)
+                fluid.setColor(material.color)
+                //MaterialTypesがGASの場合
+                if (material.type.match(TypeRegistry.GAS)) {
+                    fluid.isGaseous = true
+                    fluid.density = fluid.density * -1
                 }
+                FluidRegistry.registerFluid(fluid)
+                //fluid入りバケツを登録
+                FluidRegistry.addBucketForFluid(fluid)
             }
         }
     }
@@ -107,12 +105,12 @@ class RagiRegistry {
                 val item = field.get(this)
                 if (item is ItemBlockBase) {
                     if (item.block !is ICustomModel) {
-                        RagiModelManager.setModel(item)
+                        ModelManager.setModel(item)
                         RagiLogger.infoDebug("The model for item block ${item.registryName} is registered!")
                     }
                 } else if (item is Item) {
                     if (item !is ICustomModel) {
-                        RagiModelManager.setModel(item)
+                        ModelManager.setModel(item)
                         RagiLogger.infoDebug("The model for item ${item.registryName} is registered!")
                     }
                 }
@@ -165,7 +163,7 @@ class RagiRegistry {
                 val color = block.getMaterialBlock(world, pos, state).color
                 val age = block.getAge(state)
                 val ageMax = block.getAgeMax()
-                RagiColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age)).rgb
+                ColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age)).rgb
             } else 0xFFFFFF
         },
                 RagiBlock.BlockSoilCoal,

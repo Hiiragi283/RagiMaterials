@@ -3,10 +3,10 @@ package hiiragi283.ragi_materials
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.init.*
-import hiiragi283.ragi_materials.init.proxy.CommonProxy
+import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.packet.RagiPacket
+import hiiragi283.ragi_materials.packet.PacketManager
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
@@ -22,19 +22,13 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 
 //Modの定義
-@Mod(
-        modid = Reference.MOD_ID,
-        name = Reference.MOD_NAME,
-        version = Reference.VERSION,
-        dependencies = Reference.DEPENDENCIES,
-        acceptedMinecraftVersions = Reference.MC_VERSIONS
-)
-class RagiMaterialsMod {
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MC_VERSIONS)
+class RagiMaterialsCore {
 
     companion object {
 
         @Mod.Instance(Reference.MOD_ID)
-        var INSTANCE: RagiMaterialsMod? = null
+        var INSTANCE: RagiMaterialsCore? = null
 
         val isLoadedGT = Loader.isModLoaded("gregtech")
 
@@ -47,7 +41,7 @@ class RagiMaterialsMod {
     fun onConstruct(event: FMLConstructionEvent) {
         if (!isLoadedGT) {
             //各種登録イベントの登録
-            MinecraftForge.EVENT_BUS.register(RagiRegistry())
+            MinecraftForge.EVENT_BUS.register(RagiRegistry::class.java)
             FluidRegistry.enableUniversalBucket()
         }
     }
@@ -78,7 +72,7 @@ class RagiMaterialsMod {
             //LootTableの登録
             LootTableRegistry.load()
             //パケットの登録
-            RagiPacket
+            PacketManager.load()
             //proxyの読み込み
             proxy!!.loadInit()
             //連携要素の登録

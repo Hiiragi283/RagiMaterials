@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.base.RagiBlockContainer
+import hiiragi283.ragi_materials.base.BlockContainerBaseHoldable
 import hiiragi283.ragi_materials.util.RagiFacing
 import hiiragi283.ragi_materials.tile.TileBlazingForge
 import net.minecraft.block.SoundType
@@ -17,7 +17,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockBlazingForge : RagiBlockContainer("blazing_forge", Material.IRON, 3) {
+class BlockBlazingForge : BlockContainerBaseHoldable("blazing_forge", Material.IRON, 3) {
 
     init {
         blockHardness = 5.0F

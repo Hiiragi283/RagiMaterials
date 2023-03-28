@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.world
 
 import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.init.RagiBlock
-import hiiragi283.ragi_materials.util.RagiStateMatcher
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
@@ -20,7 +19,7 @@ class OreGenRegistry {
 
     private fun getGenerator(meta: Int, base: IBlockState): WorldGenMinable {
         val state = RagiBlock.BlockOre1.defaultState.withProperty(BlockOreMaterial.TYPE, meta / BlockOreMaterial.TYPE.allowedValues.last())
-        return WorldGenMinable(state, 8, RagiStateMatcher(base))
+        return WorldGenMinable(state, 8)
     }
 
     private fun getGenerator(meta: Int, base: Block): WorldGenMinable = getGenerator(meta, base.defaultState)

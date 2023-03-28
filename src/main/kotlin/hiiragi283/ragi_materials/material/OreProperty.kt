@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.color.ColorManager
 
 class OreProperty(val first: RagiMaterial, val second: RagiMaterial = RagiMaterial.EMPTY, val third: RagiMaterial = RagiMaterial.EMPTY) {
 
@@ -34,6 +34,6 @@ class OreProperty(val first: RagiMaterial, val second: RagiMaterial = RagiMateri
         val listOre1 = mapOre1.toList()
     }
 
-    fun getColor() = RagiColorManager.mixColor(*arrayOf(first.color, second.color, third.color))
+    fun getColor() = ColorManager.mixColor(*arrayOf(first.color, second.color, third.color))
 
 }

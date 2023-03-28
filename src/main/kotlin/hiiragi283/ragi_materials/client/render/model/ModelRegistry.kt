@@ -116,8 +116,8 @@ object ModelRegistry {
         }
 
         //Ore
-        RagiModelManager.setModelAlt(RagiItem.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
-        RagiModelManager.setModelAlt(RagiItem.ItemOreCrushed, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
-        RagiModelManager.setModelAlt(RagiItem.ItemOreCrushedVanilla, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
+        ModelManager.setModelAlt(RagiItem.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
+        ModelManager.setModelAlt(RagiItem.ItemOreCrushed, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
+        ModelManager.setModelAlt(RagiItem.ItemOreCrushedVanilla, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
     }
 }

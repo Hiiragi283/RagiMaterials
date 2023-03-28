@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.color.ColorManager
 import hiiragi283.ragi_materials.material.builder.*
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import net.minecraft.item.EnumRarity
@@ -49,7 +49,7 @@ class MaterialRegistryOld {
     }
 
     val ICE = CompoundBuilder(13, "ice", TypeRegistry.INGOT, mapOf(WATER to 1)).apply {
-        color = RagiColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
+        color = ColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
         hasOre = true
     }
 
@@ -115,24 +115,24 @@ class MaterialRegistryOld {
 
     val ANTHRACITE = CrystalBuilder(65, "anthracite", mapOf(ElementRegistryOld.CARBON to 1), "coal").apply {
         burnTime = 200 * 24
-        color = RagiColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_BLUE to 1))
+        color = ColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_BLUE to 1))
         hasOre = true
     }
 
     val LIGNITE = CrystalBuilder(66, "lignite", mapOf(ElementRegistryOld.CARBON to 1), "coal").apply {
         burnTime = 200 * 4
-        color = RagiColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_RED to 1))
+        color = ColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_RED to 1))
         hasOre = true
     }
 
     val PEAT = CrystalBuilder(67, "peat", mapOf(ElementRegistryOld.CARBON to 1), "coal").apply {
         burnTime = 200 * 2
-        color = RagiColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_GREEN to 1, RagiColor.DARK_RED to 1))
+        color = ColorManager.mixColor(mapOf(COAL.color to 5, RagiColor.DARK_GREEN to 1, RagiColor.DARK_RED to 1))
         hasOre = true
     }
 
     val DIAMOND = CrystalBuilder(68, "diamond", mapOf(ElementRegistryOld.CARBON to 1), "diamond").apply {
-        color = RagiColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
+        color = ColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
         hasOre = true
         rarity = EnumRarity.RARE
     }
@@ -162,7 +162,7 @@ class MaterialRegistryOld {
     val FLUORINE = SimpleBuilder(ElementRegistryOld.FLUORINE, 2)
 
     val FLUORITE = CrystalBuilder(91, "fluorite", mapOf(ElementRegistryOld.CALCIUM to 1, ElementRegistryOld.FLUORINE to 2), "cubic").apply {
-        color = RagiColorManager.mixColor(RagiColor.GREEN, RagiColor.AQUA)
+        color = ColorManager.mixColor(RagiColor.GREEN, RagiColor.AQUA)
         hasOre = true
     }
 
@@ -200,7 +200,7 @@ class MaterialRegistryOld {
     val ALUMINIUM_OXIDE = CompoundBuilder(131, "aluminium_oxide", TypeRegistry.DUST, mapOf(ElementRegistryOld.ALUMINIUM to 2, ElementRegistryOld.OXYGEN to 3))
 
     val BAUXITE = CompoundBuilder(132, "bauxite", TypeRegistry.DUST, mapOf(ALUMINIUM_OXIDE to 1, WATER.addBracket() to 2)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
+        color = ColorManager.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
         hasOre = true
     }
 
@@ -242,7 +242,7 @@ class MaterialRegistryOld {
     }
 
     val SULFURIC_ACID = CompoundBuilder(161, "sulfuric_acid", TypeRegistry.LIQUID, mapOf(ElementRegistryOld.HYDROGEN to 2, SULFATE to 1)).apply {
-        color = RagiColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW)
+        color = ColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW)
     }
 
     //170 ~ 179: Chlorine
@@ -277,12 +277,12 @@ class MaterialRegistryOld {
     }
 
     val LAVA = CompoundBuilder(181, "lava", TypeRegistry.INTERNAL, mapOf(SILICON_DIOXIDE to 1)).apply {
-        color = RagiColorManager.mixColor(RagiColor.DARK_RED, RagiColor.GOLD)
+        color = ColorManager.mixColor(RagiColor.DARK_RED, RagiColor.GOLD)
         tempMelt = FluidRegistry.LAVA.temperature
     }
 
     val OBSIDIAN = CompoundBuilder(182, "obsidian", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE to 1)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1))
+        color = ColorManager.mixColor(mapOf(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1))
     }
 
     val NETHERRACK = CompoundBuilder(183, "netherrack", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE.addBracket() to 1, ElementRegistryOld.SULFUR to 1, ElementRegistryOld.PHOSPHORUS to 1)).apply {
@@ -290,11 +290,11 @@ class MaterialRegistryOld {
     }
 
     val SOUL_SAND = CompoundBuilder(184, "soul_sand", TypeRegistry.DUST, mapOf(SILICON_DIOXIDE to 1)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 5, RagiColor.GOLD to 1))
+        color = ColorManager.mixColor(mapOf(RagiColor.BLACK to 5, RagiColor.GOLD to 1))
     }
 
     val END_STONE = CompoundBuilder(185, "end_stone", TypeRegistry.DUST, mapOf(STONE.addBracket() to 1, ElementRegistryOld.HELIUM to 1, ElementRegistryOld.TUNGSTEN to 1)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3))
+        color = ColorManager.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3))
     }
 
     //190 ~ 199: Potassium
@@ -310,7 +310,7 @@ class MaterialRegistryOld {
     val CALCIUM_OXIDE = CompoundBuilder(203, "calcium_oxide", TypeRegistry.DUST, mapOf(ElementRegistryOld.CALCIUM to 1, ElementRegistryOld.OXYGEN to 1))
 
     val APATITE = CrystalBuilder(204, "apatite", mapOf(ElementRegistryOld.CALCIUM to 5, PHOSPHATE.addBracket() to 3, HYDROXIDE to 1), "emerald").apply {
-        color = RagiColorManager.mixColor(RagiColor.YELLOW, RagiColor.WHITE)
+        color = ColorManager.mixColor(RagiColor.YELLOW, RagiColor.WHITE)
         hasOre = true
     }
 
@@ -339,7 +339,7 @@ class MaterialRegistryOld {
     }
 
     val STAINLESS_STEEL = AlloyBuilder(242, "stainless_steel", mapOf(ElementRegistryOld.IRON to 6, ElementRegistryOld.CHROMIUM to 1, ElementRegistryOld.MANGANESE to 1, ElementRegistryOld.NICKEL to 1)).apply {
-        color = RagiColorManager.mixColor(RagiColor.GRAY, RagiColor.WHITE)
+        color = ColorManager.mixColor(RagiColor.GRAY, RagiColor.WHITE)
         rarity = EnumRarity.RARE
     }
 
@@ -358,12 +358,12 @@ class MaterialRegistryOld {
     val IRON = SimpleBuilder(ElementRegistryOld.IRON, 1)
 
     val HEMATITE = CompoundBuilder(261, "hematite", TypeRegistry.DUST, mapOf(ElementRegistryOld.IRON to 2, ElementRegistryOld.OXYGEN to 3)).apply {
-        color = RagiColorManager.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
+        color = ColorManager.mixColor(mapOf(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1))
         hasOre = true
     }
 
     val MAGNETITE = CompoundBuilder(262, "magnetite", TypeRegistry.DUST, mapOf(ElementRegistryOld.IRON to 3, ElementRegistryOld.OXYGEN to 4)).apply {
-        color = RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
+        color = ColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
         hasOre = true
     }
 
@@ -403,7 +403,7 @@ class MaterialRegistryOld {
     }
 
     val CHALCOCITE = CompoundBuilder(291, "chalcocite", TypeRegistry.DUST, mapOf(ElementRegistryOld.COPPER to 2, ElementRegistryOld.SULFUR to 1)).apply {
-        color = RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
+        color = ColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
         hasOre = true
     }
 

@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.client.render.color
 
 import java.awt.Color
 
-object RagiColorManager {
+object ColorManager {
 
     //複数の色を混合するメソッド
     fun mixColor(colors: Set<Color>): Color {

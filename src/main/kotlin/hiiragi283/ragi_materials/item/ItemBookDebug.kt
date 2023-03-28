@@ -50,7 +50,7 @@ class ItemBookDebug : ItemBase(Reference.MOD_ID, "book_debug", 0) {
 
     /*override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
         //サーバー側，かつデバッグ状態のみで実行
-        if (!world.isRemote && RagiConfig.debugMode.isDebug) {
+        if (!world.isRemote && RagiConfigAlt.debugMode.isDebug) {
             //Property用
             if (player.getHeldItem(hand).metadata == 2) {
                 //各値の取得

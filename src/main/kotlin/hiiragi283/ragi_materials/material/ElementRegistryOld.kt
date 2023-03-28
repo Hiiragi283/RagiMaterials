@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.material
 
 import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.color.ColorManager
 import hiiragi283.ragi_materials.material.builder.ElementBuilder
 import hiiragi283.ragi_materials.material.builder.IsotopeBuilder
 
@@ -21,7 +21,7 @@ object ElementRegistryOld {
 
     val BORON = ElementBuilder(50, "boron", TypeRegistry.DUST, RagiColor.DARK_GRAY, 10.8f, "B", 2075, 4000)
 
-    val CARBON = ElementBuilder(60, "carbon", TypeRegistry.METALLOID, RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 12.0f, "C", null, null).apply { tempSubl = 4400 }
+    val CARBON = ElementBuilder(60, "carbon", TypeRegistry.METALLOID, ColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 12.0f, "C", null, null).apply { tempSubl = 4400 }
 
     val NITROGEN = ElementBuilder(70, "nitrogen", TypeRegistry.GAS, RagiColor.AQUA, 14.0f, "N", -210, -196)
 
@@ -34,15 +34,15 @@ object ElementRegistryOld {
     //3rd Period
     val SODIUM = ElementBuilder(110, "sodium", TypeRegistry.INTERNAL, RagiColor.WHITE, 23.0f, "Na", 98, 883)
 
-    val MAGNESIUM = ElementBuilder(120, "magnesium", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE), 24.3f, "Mg", 650, 1090)
+    val MAGNESIUM = ElementBuilder(120, "magnesium", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE), 24.3f, "Mg", 650, 1090)
 
-    val ALUMINIUM = ElementBuilder(130, "aluminium", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE), 27.0f, "Al", 660, 2519)
+    val ALUMINIUM = ElementBuilder(130, "aluminium", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE), 27.0f, "Al", 660, 2519)
 
     val SILICON = ElementBuilder(140, "silicon", TypeRegistry.METAL, RagiColor.DARK_GRAY, 28.1f, "Si", 1414, 3265)
 
     val PHOSPHORUS = ElementBuilder(150, "phosphorus", TypeRegistry.DUST, RagiColor.YELLOW, 31.0f, "P", 44, 281)
 
-    val SULFUR = ElementBuilder(160, "sulfur", TypeRegistry.DUST, RagiColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW), 32.1f, "S", 120, 445)
+    val SULFUR = ElementBuilder(160, "sulfur", TypeRegistry.DUST, ColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW), 32.1f, "S", 120, 445)
 
     val CHLORINE = ElementBuilder(170, "chlorine", TypeRegistry.GAS, RagiColor.YELLOW, 35.5f, "Cl", -102, -34)
 
@@ -53,19 +53,19 @@ object ElementRegistryOld {
 
     val CALCIUM = ElementBuilder(200, "calcium", TypeRegistry.INTERNAL, RagiColor.WHITE, 40.1f, "Ca", 842, 1484)
 
-    val TITANIUM = ElementBuilder(220, "titanium", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2)), 47.9f, "Ti", 1668, 3287)
+    val TITANIUM = ElementBuilder(220, "titanium", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.GOLD to 1, RagiColor.WHITE to 2)), 47.9f, "Ti", 1668, 3287)
 
     val CHROMIUM = ElementBuilder(240, "chromium", TypeRegistry.METAL, RagiColor.GREEN, 52.0f, "Cr", 1907, 2671)
 
-    val MANGANESE = ElementBuilder(250, "manganese", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.RED, RagiColor.WHITE), 54.9f, "Mn", 1246, 2061)
+    val MANGANESE = ElementBuilder(250, "manganese", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.RED, RagiColor.WHITE), 54.9f, "Mn", 1246, 2061)
 
     val IRON = ElementBuilder(260, "iron", TypeRegistry.METAL, RagiColor.WHITE, 55.8f, "Fe", 1538, 2861)
 
     val COBALT = ElementBuilder(270, "cobalt", TypeRegistry.METAL, RagiColor.BLUE, 58.9f, "Co", 1495, 2927)
 
-    val NICKEL = ElementBuilder(280, "nickel", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.GOLD, RagiColor.WHITE), 58.7f, "Ni", 1455, 2913)
+    val NICKEL = ElementBuilder(280, "nickel", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.GOLD, RagiColor.WHITE), 58.7f, "Ni", 1455, 2913)
 
-    val COPPER = ElementBuilder(290, "copper", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.GOLD, RagiColor.RED), 63.5f, "Cu", 1085, 2562)
+    val COPPER = ElementBuilder(290, "copper", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.GOLD, RagiColor.RED), 63.5f, "Cu", 1085, 2562)
 
     val ZINC = ElementBuilder(300, "zinc", TypeRegistry.METAL, RagiColor.WHITE, 65.4f, "Zn", 420, 907)
 
@@ -76,27 +76,27 @@ object ElementRegistryOld {
     //5th Period
     val STRONTIUM = ElementBuilder(380, "strontium", TypeRegistry.INTERNAL, RagiColor.WHITE, 87.6f, "Sr", 777, 1377)
 
-    val ZIRCONIUM = ElementBuilder(400, "zirconium", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.BLUE, RagiColor.LIGHT_PURPLE), 91.2f, "Zr", 1855, 4409)
+    val ZIRCONIUM = ElementBuilder(400, "zirconium", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.BLUE, RagiColor.LIGHT_PURPLE), 91.2f, "Zr", 1855, 4409)
 
-    val NIOBIUM = ElementBuilder(410, "niobium", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.WHITE), 92.9f, "Nb", 2477, 4744)
+    val NIOBIUM = ElementBuilder(410, "niobium", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.WHITE), 92.9f, "Nb", 2477, 4744)
 
-    val MOLYBDENUM = ElementBuilder(420, "molybdenum", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.WHITE), 96.0f, "Mo", 2023, 4639)
+    val MOLYBDENUM = ElementBuilder(420, "molybdenum", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.WHITE), 96.0f, "Mo", 2023, 4639)
 
-    val RUTHENIUM = ElementBuilder(440, "ruthenium", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.LIGHT_PURPLE to 1, RagiColor.WHITE to 3)), 101.1f, "Ru", 2334, 4150)
+    val RUTHENIUM = ElementBuilder(440, "ruthenium", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.LIGHT_PURPLE to 1, RagiColor.WHITE to 3)), 101.1f, "Ru", 2334, 4150)
 
-    val RHODIUM = ElementBuilder(450, "rhodium", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.RED to 1, RagiColor.WHITE to 3)), 102.9f, "Rh", 1964, 3695)
+    val RHODIUM = ElementBuilder(450, "rhodium", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.RED to 1, RagiColor.WHITE to 3)), 102.9f, "Rh", 1964, 3695)
 
-    val PALLADIUM = ElementBuilder(460, "palladium", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3)), 106.4f, "Pa", 1555, 2963)
+    val PALLADIUM = ElementBuilder(460, "palladium", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.YELLOW to 1, RagiColor.WHITE to 3)), 106.4f, "Pa", 1555, 2963)
 
-    val SILVER = ElementBuilder(470, "silver", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 2)), 107.9f, "Ag", 962, 2162)
+    val SILVER = ElementBuilder(470, "silver", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 2)), 107.9f, "Ag", 962, 2162)
 
-    val INDIUM = ElementBuilder(490, "indium", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.RED), 114.8f, "In", 157, 2072)
+    val INDIUM = ElementBuilder(490, "indium", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.RED), 114.8f, "In", 157, 2072)
 
     val TIN = ElementBuilder(500, "tin", TypeRegistry.METAL, RagiColor.WHITE, 118.7f, "Sn", 232, 2602)
 
     val ANTIMONY = ElementBuilder(510, "antimony", TypeRegistry.METAL, RagiColor.DARK_GRAY, 121.8f, "Sb", 631, 1587)
 
-    val IODINE = ElementBuilder(530, "iodine", TypeRegistry.DUST, RagiColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_RED), 126.9f, "I", 114, 184)
+    val IODINE = ElementBuilder(530, "iodine", TypeRegistry.DUST, ColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_RED), 126.9f, "I", 114, 184)
 
     //6th Period
     val BARIUM = ElementBuilder(560, "barium", TypeRegistry.INTERNAL, RagiColor.WHITE, 137.3f, "Ba", 727, 1845)
@@ -109,24 +109,24 @@ object ElementRegistryOld {
 
     val TANTALUM = ElementBuilder(730, "tantalum", TypeRegistry.METAL, RagiColor.GRAY, 180.9f, "Ta", 3017, 5458)
 
-    val TUNGSTEN = ElementBuilder(740, "tungsten", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 183.8f, "W", 3422, 5555)
+    val TUNGSTEN = ElementBuilder(740, "tungsten", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY), 183.8f, "W", 3422, 5555)
 
-    val OSMIUM = ElementBuilder(760, "osmium", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.WHITE to 3)), 190.2f, "Os", 3033, 5012)
+    val OSMIUM = ElementBuilder(760, "osmium", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.WHITE to 3)), 190.2f, "Os", 3033, 5012)
 
-    val IRIDIUM = ElementBuilder(770, "iridium", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 3)), 192.2f, "Ir", 2446, 4428)
+    val IRIDIUM = ElementBuilder(770, "iridium", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.AQUA to 1, RagiColor.WHITE to 3)), 192.2f, "Ir", 2446, 4428)
 
-    val PLATINUM = ElementBuilder(780, "platinum", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.GREEN to 1, RagiColor.WHITE to 3)), 195.1f, "Pt", 1768, 3825)
+    val PLATINUM = ElementBuilder(780, "platinum", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.GREEN to 1, RagiColor.WHITE to 3)), 195.1f, "Pt", 1768, 3825)
 
     val GOLD = ElementBuilder(790, "gold", TypeRegistry.METAL, RagiColor.YELLOW, 197.0f, "Au", 1064, 2856)
 
     val MERCURY = ElementBuilder(800, "mercury", TypeRegistry.LIQUID, RagiColor.WHITE, 200.6f, "Hg", -39, 357)
 
-    val LEAD = ElementBuilder(820, "lead", TypeRegistry.METAL, RagiColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_GRAY, RagiColor.WHITE), 207.2f, "Pb", 327, 1749)
+    val LEAD = ElementBuilder(820, "lead", TypeRegistry.METAL, ColorManager.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_GRAY, RagiColor.WHITE), 207.2f, "Pb", 327, 1749)
 
     val BISMUTH = ElementBuilder(830, "bismuth", TypeRegistry.METAL, RagiColor.DARK_AQUA, 209.0f, "Bi", 271, 1564)
 
     //7th Period
-    val THORIUM = ElementBuilder(900, "thorium", TypeRegistry.METAL_RADIO, RagiColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GREEN), 232.0f, "Th", 1750, 4788)
+    val THORIUM = ElementBuilder(900, "thorium", TypeRegistry.METAL_RADIO, ColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GREEN), 232.0f, "Th", 1750, 4788)
 
     val URANIUM_238 = ElementBuilder(920, "uranium", TypeRegistry.METAL_RADIO, RagiColor.GREEN, 238.0f, "U", 1135, 4131)
 
@@ -144,10 +144,10 @@ object ElementRegistryOld {
     //Imaginary Elements
     val REDSTONE = ElementBuilder(209, "redstone", TypeRegistry.DUST, RagiColor.DARK_RED, 112.2f, "Rs", 1122, 1194)
 
-    val GLOWSTONE = ElementBuilder(215, "glowstone", TypeRegistry.DUST, RagiColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW), 112.2f, "Gl", 1122, 1194)
+    val GLOWSTONE = ElementBuilder(215, "glowstone", TypeRegistry.DUST, ColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW), 112.2f, "Gl", 1122, 1194)
 
-    val ENDER = ElementBuilder(219, "ender", TypeRegistry.DUST, RagiColorManager.mixColor(mapOf(RagiColor.DARK_GREEN to 1, RagiColor.BLUE to 1)), 112.2f, "En", 1122, 1194)
+    val ENDER = ElementBuilder(219, "ender", TypeRegistry.DUST, ColorManager.mixColor(mapOf(RagiColor.DARK_GREEN to 1, RagiColor.BLUE to 1)), 112.2f, "En", 1122, 1194)
 
     //Integration
-    val MITHRIL = ElementBuilder(600, "mithril", TypeRegistry.METAL, RagiColorManager.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.AQUA to 1)), 193.7f, "Mt", null, null)
+    val MITHRIL = ElementBuilder(600, "mithril", TypeRegistry.METAL, ColorManager.mixColor(mapOf(RagiColor.BLUE to 1, RagiColor.AQUA to 1)), 193.7f, "Mt", null, null)
 }

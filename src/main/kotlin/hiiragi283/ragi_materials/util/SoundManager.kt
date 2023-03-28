@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 
-object RagiSoundUtil {
+object SoundManager {
 
     fun getSound(location: ResourceLocation): SoundEvent {
         return ForgeRegistries.SOUND_EVENTS.getValue(location)

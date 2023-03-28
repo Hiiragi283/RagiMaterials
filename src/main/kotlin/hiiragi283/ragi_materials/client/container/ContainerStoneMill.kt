@@ -1,11 +1,12 @@
 package hiiragi283.ragi_materials.client.container
 
+import hiiragi283.ragi_materials.client.slot.SlotOutput
 import hiiragi283.ragi_materials.tile.TileStoneMill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
 
-class ContainerStoneMill(player: EntityPlayer, tile: TileStoneMill) : RagiContainer<TileStoneMill>(player, tile) {
+class ContainerStoneMill(player: EntityPlayer, tile: TileStoneMill) : ContainerBase<TileStoneMill>(player, tile) {
 
     init {
 

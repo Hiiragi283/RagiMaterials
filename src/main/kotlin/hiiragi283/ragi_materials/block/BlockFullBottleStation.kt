@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.base.RagiBlockContainer
+import hiiragi283.ragi_materials.base.BlockContainerBaseHoldable
 import hiiragi283.ragi_materials.tile.TileFullBottleStation
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -11,7 +11,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockFullBottleStation : RagiBlockContainer("fullbottle_station", Material.IRON, 2) {
+class BlockFullBottleStation : BlockContainerBaseHoldable("fullbottle_station", Material.IRON, 2) {
 
     init {
         blockHardness = 5.0F

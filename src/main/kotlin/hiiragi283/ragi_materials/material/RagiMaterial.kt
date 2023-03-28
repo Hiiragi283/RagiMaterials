@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.RagiColorManager
+import hiiragi283.ragi_materials.client.render.color.ColorManager
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
@@ -120,7 +120,7 @@ data class RagiMaterial private constructor(
         private fun initColor(): Color {
             val mapColor: MutableMap<Color, Int> = mutableMapOf()
             components.forEach { mapColor[it.first.color] = it.second }
-            return RagiColorManager.mixColor(mapColor)
+            return ColorManager.mixColor(mapColor)
         }
 
         //モル質量を自動で生成するメソッド

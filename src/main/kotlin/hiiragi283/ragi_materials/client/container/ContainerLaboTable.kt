@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
 
-class ContainerLaboTable(player: EntityPlayer, tile: TileLockableBase) : RagiContainer<TileLockableBase>(player, tile) {
+class ContainerLaboTable(player: EntityPlayer, tile: TileLockableBase) : ContainerBase<TileLockableBase>(player, tile) {
 
     init {
         //実験台のスロットを設定

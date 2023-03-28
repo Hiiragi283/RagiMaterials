@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.init.proxy
+package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockContainerBase

@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.base.RagiBlockContainer
+import hiiragi283.ragi_materials.base.BlockContainerBaseHoldable
 import hiiragi283.ragi_materials.tile.TileForgeFurnace
 import hiiragi283.ragi_materials.util.RagiFacing
 import net.minecraft.block.Block
@@ -17,7 +17,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class BlockForgeFurnace : RagiBlockContainer("forge_furnace", Material.ROCK, 3) {
+class BlockForgeFurnace : BlockContainerBaseHoldable("forge_furnace", Material.ROCK, 3) {
 
     init {
         blockHardness = 5.0F

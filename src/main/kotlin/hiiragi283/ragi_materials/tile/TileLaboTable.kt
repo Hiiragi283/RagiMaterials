@@ -1,17 +1,17 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiMaterialsMod
+import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.capability.RagiInventory
 import hiiragi283.ragi_materials.client.container.ContainerLaboTable
 import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.packet.MessageTIle
-import hiiragi283.ragi_materials.packet.RagiPacket
+import hiiragi283.ragi_materials.packet.PacketManager
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiSoundUtil
+import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import net.minecraft.entity.player.EntityPlayer
@@ -63,7 +63,7 @@ class TileLaboTable : TileLockableBase(100), ISidedInventory {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        if (!world.isRemote) player.openGui(RagiMaterialsMod.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
         return true
     }
 
@@ -81,7 +81,7 @@ class TileLaboTable : TileLockableBase(100), ISidedInventory {
                         RagiUtil.dropItem(world, pos.add(0, 1, 0), recipe.getOutput(i))
                         RagiLogger.infoDebug("The output is ${recipe.getOutput(i).toBracket()}")
                     }
-                    RagiSoundUtil.playSoundHypixel(this)
+                    SoundManager.playSoundHypixel(this)
                     RagiResult.succeeded(this)
                     break
                 }
@@ -90,12 +90,12 @@ class TileLaboTable : TileLockableBase(100), ISidedInventory {
             //失敗時の処理
             if (isFailed) {
                 RagiUtil.dropItem(world, pos.add(0, 1, 0), ItemStack(RagiItem.ItemWaste, 1, 0))
-                RagiSoundUtil.playSound(this, RagiSoundUtil.getSound("minecraft:entity.generic.explode"))
+                SoundManager.playSound(this, SoundManager.getSound("minecraft:entity.generic.explode"))
                 RagiResult.failed(this)
             }
         }
         inventory.clear() //反応結果によらずインベントリを空にする
-        RagiPacket.wrapper.sendToAll(MessageTIle(this.pos)) //クライアント側にパケットを送る
+        PacketManager.wrapper.sendToAll(MessageTIle(this.pos)) //クライアント側にパケットを送る
     }
 
     //    TileLockableBase    //
