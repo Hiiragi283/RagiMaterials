@@ -14,7 +14,7 @@ object IntegrationCore {
     val enableTF = Loader.isModLoaded("thermalfoundation") && RagiConfig.integration.enableTF
 
     fun loadPreInit() {
-        CraftTweakerCore.register()
+        if (enableCT) CraftTweakerCore.register()
     }
 
     fun loadInit() {}
