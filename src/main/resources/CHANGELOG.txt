@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.6.1b
+
+- Fixed [#3](https://github.com/Hiiragi283/RagiMaterials/issues/3)
+- Fixed [#4](https://github.com/Hiiragi283/RagiMaterials/issues/4)
+- Fixed incorrect text in crafttweaker.md
+
 ## v0.6.0b
 
 - Added GUI for Labo Table, I.C.R.C and Stone Mill
