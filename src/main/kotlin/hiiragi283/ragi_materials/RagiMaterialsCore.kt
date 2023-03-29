@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 
 //Modの定義
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.MC_VERSIONS)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = Reference.DEPENDENCIES, acceptedMinecraftVersions = Reference.MC_VERSIONS)
 class RagiMaterialsCore {
 
     companion object {
@@ -41,7 +41,7 @@ class RagiMaterialsCore {
     fun onConstruct(event: FMLConstructionEvent) {
         if (!isLoadedGT) {
             //各種登録イベントの登録
-            MinecraftForge.EVENT_BUS.register(RagiRegistry::class.java)
+            MinecraftForge.EVENT_BUS.register(RagiRegistry())
             FluidRegistry.enableUniversalBucket()
         }
     }
@@ -64,7 +64,7 @@ class RagiMaterialsCore {
     fun init(event: FMLInitializationEvent?) {
         if (!isLoadedGT) {
             //液体の登録
-            RagiRegistry.registerFluid()
+            registerFluid()
             //鉱石辞書の登録
             OreDictRegistry.load()
             //レシピの登録

@@ -30,27 +30,27 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object RagiRegistry {
-
-    fun registerFluid() {
-        //Fluidの登録
-        for (material in RagiMaterial.list) {
-            //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
-                //Fluidの登録
-                val fluid = FluidBase(material.name)
-                fluid.setColor(material.color)
-                //MaterialTypesがGASの場合
-                if (material.type.match(TypeRegistry.GAS)) {
-                    fluid.isGaseous = true
-                    fluid.density = fluid.density * -1
-                }
-                FluidRegistry.registerFluid(fluid)
-                //fluid入りバケツを登録
-                FluidRegistry.addBucketForFluid(fluid)
+fun registerFluid() {
+    //Fluidの登録
+    for (material in RagiMaterial.list) {
+        //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
+        if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
+            //Fluidの登録
+            val fluid = FluidBase(material.name)
+            fluid.setColor(material.color)
+            //MaterialTypesがGASの場合
+            if (material.type.match(TypeRegistry.GAS)) {
+                fluid.isGaseous = true
+                fluid.density = fluid.density * -1
             }
+            FluidRegistry.registerFluid(fluid)
+            //fluid入りバケツを登録
+            FluidRegistry.addBucketForFluid(fluid)
         }
     }
+}
+
+class RagiRegistry {
 
     @SubscribeEvent
     fun registerBlock(event: RegistryEvent.Register<Block>) {
