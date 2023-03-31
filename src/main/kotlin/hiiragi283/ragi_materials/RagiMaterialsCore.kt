@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.config.RagiConfigManager
+import hiiragi283.ragi_materials.config.RagiDirectory
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.init.*
 import hiiragi283.ragi_materials.integration.IntegrationCore
@@ -27,14 +29,16 @@ class RagiMaterialsCore {
 
     companion object {
 
+        val isLoadedGT = Loader.isModLoaded("gregtech")
+
+        //Instanceの宣言
         @Mod.Instance(Reference.MOD_ID)
         var INSTANCE: RagiMaterialsCore? = null
 
-        val isLoadedGT = Loader.isModLoaded("gregtech")
-
-        //Proxyの定義
+        //Proxyの宣言
         @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
         var proxy: CommonProxy? = null
+
     }
 
     @Mod.EventHandler
@@ -47,8 +51,14 @@ class RagiMaterialsCore {
     }
 
     @Mod.EventHandler
-    fun preInit(event: FMLPreInitializationEvent?) {
+    fun preInit(event: FMLPreInitializationEvent) {
         if (!isLoadedGT) {
+            //configのパスの取得
+            RagiDirectory.getPath(event)
+            //Json configの読み取り
+            RagiConfigManager.loadJson()
+            //Json configの生成
+            RagiConfigManager.generateJson()
             //鉱石生成の登録
             //MinecraftForge.ORE_GEN_BUS.register(OreGenRegistry())
             //GUI描画の登録
@@ -61,7 +71,7 @@ class RagiMaterialsCore {
     }
 
     @Mod.EventHandler
-    fun init(event: FMLInitializationEvent?) {
+    fun init(event: FMLInitializationEvent) {
         if (!isLoadedGT) {
             //液体の登録
             registerFluid()
@@ -81,7 +91,7 @@ class RagiMaterialsCore {
     }
 
     @Mod.EventHandler
-    fun postInit(event: FMLPostInitializationEvent?) {
+    fun postInit(event: FMLPostInitializationEvent) {
         if (!isLoadedGT) {
             //レシピの登録
             FFRecipe.Registry.load()
