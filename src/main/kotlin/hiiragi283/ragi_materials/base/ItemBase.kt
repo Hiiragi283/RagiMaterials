@@ -14,14 +14,14 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
     init {
         setRegistryName(MOD, ID)
         hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
-        unlocalizedName = ID //翻訳キーをIDから取得する
+        translationKey = ID //翻訳キーをIDから取得する
     }
 
     //    General    //
 
     override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
 
-    override fun getUnlocalizedName(stack: ItemStack): String = if (maxMeta == 0) super.getUnlocalizedName() else super.getUnlocalizedName() + "." + stack.metadata
+    override fun getTranslationKey(stack: ItemStack): String = if (maxMeta == 0) super.getTranslationKey() else super.getTranslationKey() + "." + stack.metadata
 
     private fun setHasSubtypes(maxMeta: Int): Boolean = maxMeta > 0
 

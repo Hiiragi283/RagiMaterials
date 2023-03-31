@@ -28,7 +28,7 @@ class BlockFullBottleStation : BlockContainerBaseHoldable("fullbottle_station", 
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     //    Tile Entity    //
 

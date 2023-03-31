@@ -16,11 +16,11 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-abstract class BlockContainerBase(id: String, material: Material, private val maxTips: Int) : BlockContainer(material) {
+abstract class BlockContainerBase(ID: String, material: Material, private val maxTips: Int) : BlockContainer(material) {
 
     init {
-        setRegistryName(Reference.MOD_ID, id)
-        unlocalizedName = id
+        setRegistryName(Reference.MOD_ID, ID)
+        translationKey = ID
     }
 
     //    General    //
@@ -43,7 +43,7 @@ abstract class BlockContainerBase(id: String, material: Material, private val ma
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
+        val path = stack.item.registryName!!.path
         if (maxTips != -1) {
             tooltip.add("§e=== Info ===")
             for (i in 0..maxTips) {

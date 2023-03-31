@@ -47,7 +47,7 @@ class BlockBlazingForge : BlockContainerBaseHoldable("blazing_forge", Material.I
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     //    Tile Entity    //
 

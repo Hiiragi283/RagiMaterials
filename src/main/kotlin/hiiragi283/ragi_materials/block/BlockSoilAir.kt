@@ -53,5 +53,5 @@ class BlockSoilAir : BlockBase("soil_air", Material.PLANTS, 2) {
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 }

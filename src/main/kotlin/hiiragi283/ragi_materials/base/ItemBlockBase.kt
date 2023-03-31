@@ -19,7 +19,7 @@ open class ItemBlockBase(block: Block, private val maxMeta: Int = 0) : ItemBlock
 
     override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
 
-    override fun getUnlocalizedName(stack: ItemStack): String = if (maxMeta == 0) super.getUnlocalizedName() else super.getUnlocalizedName() + "." + stack.metadata
+    override fun getTranslationKey(stack: ItemStack): String = if (maxMeta == 0) super.getTranslationKey() else super.getTranslationKey() + "." + stack.metadata
 
     private fun setHasSubtypes(maxMeta: Int): Boolean = maxMeta > 0
 
