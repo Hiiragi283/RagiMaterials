@@ -15,6 +15,6 @@ class ItemOreCrushed: ItemBase(Reference.MOD_ID, "ore_crushed", OreProperty.mapO
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiItem.ItemBlockOre1.getUnlocalizedName(stack)}.name"))
+    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiItem.ItemBlockOre1.getTranslationKey(stack)}.name"))
 
 }

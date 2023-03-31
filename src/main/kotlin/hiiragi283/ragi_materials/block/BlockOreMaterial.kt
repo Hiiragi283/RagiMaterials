@@ -42,6 +42,6 @@ class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), ICustomMod
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
 }

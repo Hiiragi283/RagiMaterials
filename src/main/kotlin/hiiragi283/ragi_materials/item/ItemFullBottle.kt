@@ -36,7 +36,7 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         //アイテムとしてのツールチップ
-        val path = stack.item.registryName!!.resourcePath
+        val path = stack.item.registryName!!.path
         tooltip.add("§e=== Info ===")
         for (i in 0..1) {
             tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))

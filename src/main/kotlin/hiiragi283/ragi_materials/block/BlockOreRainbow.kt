@@ -45,7 +45,7 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
         return result
     }
 
-    override fun onBlockDestroyedByPlayer(world: World, pos: BlockPos, state: IBlockState) {
+    override fun onPlayerDestroy(world: World, pos: BlockPos, state: IBlockState) {
         world.setBlockState(pos, state, 2) //ブロックの破壊を阻止
     }
 
@@ -63,6 +63,6 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getBlockLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
 }

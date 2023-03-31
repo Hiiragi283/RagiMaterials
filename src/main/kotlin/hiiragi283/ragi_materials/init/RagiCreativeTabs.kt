@@ -21,6 +21,6 @@ class RagiCreativeTabs(name: String, val stack: ItemStack) : CreativeTabs("${Ref
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getTabIconItem(): ItemStack = stack
+    override fun createIcon(): ItemStack = stack
 
 }

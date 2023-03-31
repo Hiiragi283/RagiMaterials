@@ -14,14 +14,14 @@ open class BlockBase(ID: String, Material: Material, private val maxTips: Int) :
 
     init {
         setRegistryName(Reference.MOD_ID, ID)
-        unlocalizedName = ID
+        translationKey = ID
     }
 
     //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        val path = stack.item.registryName!!.resourcePath
+        val path = stack.item.registryName!!.path
         if (maxTips != -1) {
             tooltip.add("§e=== Info ===")
             for (i in 0..maxTips) {

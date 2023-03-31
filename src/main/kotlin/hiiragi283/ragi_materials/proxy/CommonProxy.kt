@@ -32,6 +32,6 @@ open class CommonProxy {
     }
 
     private fun <T : TileEntity> registerTile(tile: Class<T>, block: BlockContainerBase) {
-        GameRegistry.registerTileEntity(tile, ResourceLocation(Reference.MOD_ID, "te_${block.registryName!!.resourcePath}"))
+        GameRegistry.registerTileEntity(tile, ResourceLocation(Reference.MOD_ID, "te_${block.registryName!!.path}"))
     }
 }
