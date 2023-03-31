@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.config
 import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
@@ -17,14 +18,14 @@ import java.io.*
   Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/SampleConfigMaker.java
 */
 
-object RagiConfigManager {
+object JsonConfig {
 
     var config: MaterialList? = null
 
     fun loadJson() {
         //configフォルダが取得済みの場合
-        if (RagiDirectory.config !== null) {
-            val file = File(RagiDirectory.config, "/material.json") //jsonファイルのパスを生成
+        if (RagiMaterialsCore.config !== null) {
+            val file = File(RagiMaterialsCore.config, "/material.json") //jsonファイルのパスを生成
             try {
                 //Jsonファイルが存在し，かつ読み取り可能な場合
                 if (file.exists() && file.canRead()) {
@@ -52,9 +53,9 @@ object RagiConfigManager {
 
     fun generateJson() {
         //configフォルダが取得済み，かつ既存のjsonファイルがない場合
-        if (RagiDirectory.config !== null && config == null) {
+        if (RagiMaterialsCore.config !== null && config == null) {
             config = MaterialList() //デフォルト値は[EMPTY]
-            val file = File(RagiDirectory.config, "/material.json") //jsonファイルのパスを生成
+            val file = File(RagiMaterialsCore.config, "/material.json") //jsonファイルのパスを生成
             //jsonファイルがない場合
             if (!file.exists()) {
                 //Jsonファイルの親フォルダがない場合，新たに生成する
@@ -89,44 +90,64 @@ object RagiConfigManager {
     class MaterialList(val list: List<MaterialConfig> = listOf(MaterialConfig.EMPTY))
 
     data class MaterialConfig private constructor(
-            val index: Int = -1,
-            val name: String = "example",
-            val type: String = TypeRegistry.INTERNAL.name,
-            var burnTime: Int = -1,
-            var color: Int = 0xFFFFFF,
-            var components: Map<String, Int> = mapOf("empty" to 1),
-            var crystalType: String = EnumCrystalType.NONE.texture,
-            var decayed: String? = "example",
-            var formula: String? = "EXAMPLE",
-            var molar: Float? = 0.0f,
-            var oredictAlt: String? = "sample",
-            var rarity: String = EnumRarity.COMMON.rarityName,
-            var tempBoil: Int? = 0,
-            var tempMelt: Int? = 0
+            val index: Int,
+            val name: String,
+            val type: String,
+            var burnTime: Int,
+            var color: Int?,
+            var components: Map<String, Int>,
+            var crystalType: String,
+            var decayed: String?,
+            var formula: String?,
+            var molar: Float?,
+            var oredictAlt: String?,
+            var rarity: String,
+            var tempBoil: Int?,
+            var tempMelt: Int?
     ) {
 
         companion object {
-            val EMPTY = MaterialConfig()
+            val EMPTY = MaterialConfig(
+                    -1,
+                    "example",
+                    TypeRegistry.INTERNAL.name,
+                    -1,
+                    0xFFFFFF,
+                    mapOf("empty" to 1),
+                    EnumCrystalType.NONE.texture,
+                    "example",
+                    "EXAMPLE",
+                    0.0f,
+                    "Sample",
+                    EnumRarity.COMMON.rarityName,
+                    0,
+                    0
+            )
         }
 
         fun toRagiMaterial() {
-            RagiMaterial.Builder(this.index, this.name, TypeRegistry.getType(this.type)).setComponents(convertList()).also {
-                it.burnTime = burnTime
-                it.color = Color(color)
-                it.crystalType = EnumCrystalType.getType(crystalType)
-                it.decayed = decayed?.let { it1 -> MaterialUtil.getMaterial(it1) }
-                it.formula = formula
-                it.molar = molar
-                it.oredictAlt = oredictAlt
-                it.rarity = RagiUtil.getEnum(rarity)
-                it.tempBoil = tempBoil
-                it.tempMelt = tempMelt
+            RagiMaterial.Builder(this.index, this.name, TypeRegistry.getType(this.type)).setComponents(convertList()).also { builder ->
+                builder.burnTime = burnTime
+                color?.let { builder.color = Color(it)  }
+                builder.crystalType = EnumCrystalType.getType(crystalType)
+                builder.decayed = decayed?.let { MaterialUtil.getMaterial(it) }
+                formula?.let { builder.formula = it  }
+                molar?.let { builder.molar = it  }
+                builder.oredictAlt = oredictAlt
+                builder.rarity = RagiUtil.getEnum(rarity)
+                tempBoil?.let { builder.tempBoil = it  }
+                tempMelt?.let { builder.tempMelt = it  }
             }.build()
         }
 
         private fun convertList(): List<Pair<RagiMaterial, Int>> {
             val map: MutableMap<RagiMaterial, Int> = mutableMapOf()
-            components.forEach { map[MaterialUtil.getMaterial(it.key)] = it.value }
+            components.forEach {
+                var material = MaterialUtil.getMaterial(it.key)
+                //material取得できなかった場合，化学式の文字列として認識される
+                if (material.isEmpty()) material = RagiMaterial.Formula(it.key).build()
+                map[material] = it.value
+            }
             return map.toList()
         }
     }

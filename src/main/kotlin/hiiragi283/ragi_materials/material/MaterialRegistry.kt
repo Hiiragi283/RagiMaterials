@@ -66,6 +66,7 @@ object MaterialRegistry {
     }.build()
 
     val SPODUMENE = RagiMaterial.Builder(31, "spodumene", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.LITHIUM to 1, ElementRegistry.ALUMINIUM to 1, ElementRegistry.SILICON to 2, ElementRegistry.OXYGEN to 6)).apply {
+        color = ColorManager.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE)
         crystalType = EnumCrystalType.LAPIS
     }.build()
 

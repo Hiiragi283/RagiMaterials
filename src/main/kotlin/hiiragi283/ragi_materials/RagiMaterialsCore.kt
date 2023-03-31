@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.config.RagiConfigManager
-import hiiragi283.ragi_materials.config.RagiDirectory
+import hiiragi283.ragi_materials.config.JsonConfig
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.init.*
 import hiiragi283.ragi_materials.integration.IntegrationCore
@@ -12,6 +11,7 @@ import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
+import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import java.io.File
 
 //Modの定義
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = Reference.DEPENDENCIES, acceptedMinecraftVersions = Reference.MC_VERSIONS)
@@ -30,6 +31,8 @@ class RagiMaterialsCore {
     companion object {
 
         val isLoadedGT = Loader.isModLoaded("gregtech")
+
+        var config: File? = null
 
         //Instanceの宣言
         @Mod.Instance(Reference.MOD_ID)
@@ -53,12 +56,13 @@ class RagiMaterialsCore {
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
         if (!isLoadedGT) {
-            //configのパスの取得
-            RagiDirectory.getPath(event)
-            //Json configの読み取り
-            RagiConfigManager.loadJson()
-            //Json configの生成
-            RagiConfigManager.generateJson()
+            /*
+              Thanks to defeatedcrow!
+              Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
+            */
+            //configフォルダーの取得
+            config = File(event.modConfigurationDirectory, "${Reference.MOD_ID}/")
+            RagiLogger.infoDebug(("Config path: ${config?.absolutePath}"))
             //鉱石生成の登録
             //MinecraftForge.ORE_GEN_BUS.register(OreGenRegistry())
             //GUI描画の登録
@@ -93,6 +97,10 @@ class RagiMaterialsCore {
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
         if (!isLoadedGT) {
+            //Json configの読み取り
+            JsonConfig.loadJson()
+            //Json configの生成
+            JsonConfig.generateJson()
             //レシピの登録
             FFRecipe.Registry.load()
             LaboRecipe.Registry.load()
