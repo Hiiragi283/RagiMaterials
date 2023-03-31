@@ -49,7 +49,8 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val fluid = getMaterial(stack).getFluid()
-        return fluid?.let{ I18n.format("item.fullbottle_filled.name", I18n.format(it.getLocalizedName(FluidStack(fluid , 1000))))} ?: super.getItemStackDisplayName(stack)
+        return fluid?.let { I18n.format("item.fullbottle_filled.name", I18n.format(it.getLocalizedName(FluidStack(fluid, 1000)))) }
+                ?: super.getItemStackDisplayName(stack)
     }
 
     @SideOnly(Side.CLIENT)

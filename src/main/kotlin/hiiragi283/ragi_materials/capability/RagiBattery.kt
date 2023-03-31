@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.energy.IEnergyStorage
 
-class RagiBattery(val stack: ItemStack, private val capacity: Int, private val maxIn: Int = capacity, private val maxOut: Int = capacity): IEnergyStorage {
+class RagiBattery(val stack: ItemStack, private val capacity: Int, private val maxIn: Int = capacity, private val maxOut: Int = capacity) : IEnergyStorage {
 
     //    IEnergyStorage    //
 
@@ -25,7 +25,7 @@ class RagiBattery(val stack: ItemStack, private val capacity: Int, private val m
     }
 
     override fun getEnergyStored(): Int {
-        val tag = stack.tagCompound?: NBTTagCompound()
+        val tag = stack.tagCompound ?: NBTTagCompound()
         return if (tag.hasKey(keyEnergy)) tag.getInteger(keyEnergy) else 0
     }
 

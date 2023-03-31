@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.container
+package hiiragi283.ragi_materials.inventory.container
 
 import hiiragi283.ragi_materials.base.TileLockableBase
 import net.minecraft.entity.player.EntityPlayer

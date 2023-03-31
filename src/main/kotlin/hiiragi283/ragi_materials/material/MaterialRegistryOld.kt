@@ -1,10 +1,10 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.RagiColor
-import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.client.render.color.ColorManager
+import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.material.builder.*
 import hiiragi283.ragi_materials.material.part.MaterialPart
+import hiiragi283.ragi_materials.material.type.TypeRegistry
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.fluids.FluidRegistry
 

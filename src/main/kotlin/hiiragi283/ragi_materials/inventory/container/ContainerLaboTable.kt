@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.container
+package hiiragi283.ragi_materials.inventory.container
 
 import hiiragi283.ragi_materials.base.TileLockableBase
 import net.minecraft.entity.player.EntityPlayer
@@ -28,7 +28,7 @@ class ContainerLaboTable(player: EntityPlayer, tile: TileLockableBase) : Contain
             } else if (!mergeItemStack(stack1, 0, tile.sizeInventory, false)) {
                 return ItemStack.EMPTY
             }
-            if (stack1.isEmpty) slot.putStack(ItemStack.EMPTY)else slot.onSlotChanged()
+            if (stack1.isEmpty) slot.putStack(ItemStack.EMPTY) else slot.onSlotChanged()
         }
         return stack
     }

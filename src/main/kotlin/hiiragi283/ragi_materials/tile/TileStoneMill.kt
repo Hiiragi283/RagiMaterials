@@ -3,9 +3,9 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.block.BlockStoneMill
-import hiiragi283.ragi_materials.capability.RagiInventory
-import hiiragi283.ragi_materials.client.container.ContainerStoneMill
 import hiiragi283.ragi_materials.init.RagiGuiHandler
+import hiiragi283.ragi_materials.inventory.RagiInventory
+import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill
 import hiiragi283.ragi_materials.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil

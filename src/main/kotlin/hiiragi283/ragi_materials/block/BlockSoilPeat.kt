@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.common.BiomeDictionary
 
-class BlockSoilPeat: BlockSoilFuel("soil_peat") {
+class BlockSoilPeat : BlockSoilFuel("soil_peat") {
 
     companion object {
         val AGE: PropertyInteger = PropertyInteger.create("age", 0, 3)
@@ -29,7 +29,7 @@ class BlockSoilPeat: BlockSoilFuel("soil_peat") {
 
     //    Event    //
 
-    override fun getAllowedBiomes() = BiomeDictionary.getBiomes(BiomeDictionary.Type.BEACH).toMutableList().also{
+    override fun getAllowedBiomes() = BiomeDictionary.getBiomes(BiomeDictionary.Type.BEACH).toMutableList().also {
         it.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.OCEAN))
         it.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.RIVER))
         it.addAll(BiomeDictionary.getBiomes(BiomeDictionary.Type.SWAMP))

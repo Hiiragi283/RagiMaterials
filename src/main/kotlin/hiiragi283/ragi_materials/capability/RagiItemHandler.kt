@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.capability
 
 import net.minecraftforge.items.ItemStackHandler
 
-class RagiItemHandler(slots: Int): ItemStackHandler(slots) {
+class RagiItemHandler(slots: Int) : ItemStackHandler(slots) {
 
     fun isEmpty(): Boolean {
         var count = 0

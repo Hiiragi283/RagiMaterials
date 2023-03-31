@@ -12,7 +12,7 @@ import net.minecraft.util.BlockRenderLayer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockOreMaterial(ID: String): BlockBase(ID, Material.ROCK, -1), ICustomModel {
+class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomModel {
 
     companion object {
         val TYPE: PropertyInteger = PropertyInteger.create("type", 0, 15)

@@ -1,7 +1,7 @@
-package hiiragi283.ragi_materials.client.gui
+package hiiragi283.ragi_materials.inventory.gui
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.client.container.ContainerStoneMill
+import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill
 import hiiragi283.ragi_materials.tile.TileStoneMill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation

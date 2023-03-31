@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.capability.RagiTank
 import hiiragi283.ragi_materials.util.RagiFluidUtil
-import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing

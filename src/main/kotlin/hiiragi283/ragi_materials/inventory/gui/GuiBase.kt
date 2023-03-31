@@ -1,12 +1,12 @@
-package hiiragi283.ragi_materials.client.gui
+package hiiragi283.ragi_materials.inventory.gui
 
 import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.client.container.ContainerBase
+import hiiragi283.ragi_materials.inventory.container.ContainerBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
 
-abstract class GuiBase<T: TileLockableBase>(val container: ContainerBase<T>) : GuiContainer(container) {
+abstract class GuiBase<T : TileLockableBase>(val container: ContainerBase<T>) : GuiContainer(container) {
 
     init {
         ySize = 133

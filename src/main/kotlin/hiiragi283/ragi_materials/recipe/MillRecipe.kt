@@ -105,7 +105,7 @@ data class MillRecipe private constructor(private val location: ResourceLocation
                 Builder("${itemCrushed.registryName}_$i").apply {
                     input = ItemStack(itemCrushed, 1, i)
                     //ラピスとレッドストーン用の処理
-                    var amount = if (i == 3 || i == 5) 8  else 1
+                    var amount = if (i == 3 || i == 5) 8 else 1
                     output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listVanilla[i].second.first, amount)
                 }.build()
             }
@@ -117,7 +117,7 @@ data class MillRecipe private constructor(private val location: ResourceLocation
     }
 
     @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
-    class Wrapper(info: MillRecipe): IRecipeWrapper {
+    class Wrapper(info: MillRecipe) : IRecipeWrapper {
 
         //private変数の宣言
         val input = info.getInput()

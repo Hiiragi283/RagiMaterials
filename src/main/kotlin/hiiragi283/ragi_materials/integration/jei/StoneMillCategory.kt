@@ -9,7 +9,7 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.util.ResourceLocation
 
-class StoneMillCategory(guiHelper: IGuiHelper): JEICategoryBase<MillRecipe.Wrapper>(guiHelper) {
+class StoneMillCategory(guiHelper: IGuiHelper) : JEICategoryBase<MillRecipe.Wrapper>(guiHelper) {
 
     var background: IDrawableStatic
 

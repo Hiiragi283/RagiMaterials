@@ -29,6 +29,7 @@ object RagiResult {
     fun failed(world: IBlockAccess = Reference.WORLD_CLIENT, pos: BlockPos, player: ICommandSender = Reference.PLAYER_CLIENT) {
         failed(world.getBlockState(pos).block, player)
     }
+
     fun failed(tile: TileEntity, player: ICommandSender = Reference.PLAYER_CLIENT) {
         failed(tile.world, tile.pos, player)
     }

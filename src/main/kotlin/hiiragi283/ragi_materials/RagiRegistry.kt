@@ -4,11 +4,11 @@ import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.BlockOreMaterial
 import hiiragi283.ragi_materials.block.BlockSoilFuel
-import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.client.render.color.ColorManager
+import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.client.render.model.ICustomModel
-import hiiragi283.ragi_materials.client.render.model.ModelRegistry
 import hiiragi283.ragi_materials.client.render.model.ModelManager
+import hiiragi283.ragi_materials.client.render.model.ModelRegistry
 import hiiragi283.ragi_materials.init.RagiBlock
 import hiiragi283.ragi_materials.init.RagiCreativeTabs
 import hiiragi283.ragi_materials.init.RagiItem
@@ -66,7 +66,7 @@ class RagiRegistry {
                     event.registry.register(block)
                     RagiLogger.infoDebug("The block ${block.registryName} is registered!")
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 RagiLogger.error(e)
             }
         }
@@ -87,7 +87,7 @@ class RagiRegistry {
                     event.registry.register(item)
                     RagiLogger.infoDebug("The item ${item.registryName} is registered!")
                 }
-            } catch(e: Exception) {
+            } catch (e: Exception) {
                 RagiLogger.error(e)
             }
         }
@@ -139,7 +139,7 @@ class RagiRegistry {
                 RagiBlock.BlockOre1
         )
 
-        itemColors.registerItemColorHandler(IItemColor {stack, tintIndex ->
+        itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
             val list = OreProperty.listOre1
             val index = stack.metadata % list.size
             list[index].second.getColor().rgb
@@ -148,7 +148,7 @@ class RagiRegistry {
                 RagiItem.ItemOreCrushed
         )
 
-        itemColors.registerItemColorHandler(IItemColor {stack, tintIndex ->
+        itemColors.registerItemColorHandler(IItemColor { stack, tintIndex ->
             val list = OreProperty.listVanilla
             val index = stack.metadata % list.size
             list[index].second.getColor().rgb

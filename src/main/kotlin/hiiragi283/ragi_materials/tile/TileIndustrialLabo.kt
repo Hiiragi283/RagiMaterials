@@ -3,14 +3,14 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.capability.RagiEnergyStorage
-import hiiragi283.ragi_materials.capability.RagiInventory
-import hiiragi283.ragi_materials.client.container.ContainerLaboTable
 import hiiragi283.ragi_materials.init.RagiGuiHandler
+import hiiragi283.ragi_materials.inventory.RagiInventory
+import hiiragi283.ragi_materials.inventory.container.ContainerLaboTable
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.RagiUtil.toBracket
+import hiiragi283.ragi_materials.util.SoundManager
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.ISidedInventory

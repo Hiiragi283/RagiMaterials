@@ -167,7 +167,7 @@ data class RagiMaterial private constructor(
         //混合物用の化学式を自動で生成するメソッド
         private fun initFormulaMixture(): String {
             var formula = ""
-            components.forEach { formula += ",${it.first.formula}"}
+            components.forEach { formula += ",${it.first.formula}" }
             return "(${formula.substring(1)})"
         }
 

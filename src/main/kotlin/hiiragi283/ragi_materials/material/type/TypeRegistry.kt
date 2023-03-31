@@ -4,7 +4,7 @@ object TypeRegistry {
 
     val map: HashMap<String, MaterialType> = hashMapOf()
 
-    fun getType(name: String): MaterialType = map[name]?: INTERNAL
+    fun getType(name: String): MaterialType = map[name] ?: INTERNAL
 
     val CRYSTAL = MaterialType.Builder("crystal")
             .addTypes(

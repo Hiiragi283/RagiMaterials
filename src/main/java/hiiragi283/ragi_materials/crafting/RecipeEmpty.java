@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
-public class RecipeEmpty extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe{
+public class RecipeEmpty extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
     public RecipeEmpty(ResourceLocation location) {
         this.setRegistryName(location);

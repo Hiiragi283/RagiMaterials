@@ -1,7 +1,7 @@
-package hiiragi283.ragi_materials.client.gui
+package hiiragi283.ragi_materials.inventory.gui
 
 import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.client.container.ContainerLaboTable
+import hiiragi283.ragi_materials.inventory.container.ContainerLaboTable
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 

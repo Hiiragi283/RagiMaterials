@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.client.render.tile
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.util.RagiFacing
 import hiiragi283.ragi_materials.block.BlockIndustrialLabo
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
+import hiiragi283.ragi_materials.util.RagiFacing
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.util.EnumFacing

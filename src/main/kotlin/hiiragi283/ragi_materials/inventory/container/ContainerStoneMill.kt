@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.client.container
+package hiiragi283.ragi_materials.inventory.container
 
-import hiiragi283.ragi_materials.client.slot.SlotOutput
+import hiiragi283.ragi_materials.inventory.slot.SlotOutput
 import hiiragi283.ragi_materials.tile.TileStoneMill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
@@ -41,8 +41,8 @@ class ContainerStoneMill(player: EntityPlayer, tile: TileStoneMill) : ContainerB
                 }
             }
             //Inventory -> Hotbar, Input
-            else if (index in 0 .. 26 && !mergeItemStack(stack1, 27, 37, true)) {
-                    return ItemStack.EMPTY
+            else if (index in 0..26 && !mergeItemStack(stack1, 27, 37, true)) {
+                return ItemStack.EMPTY
             }
             //Hotbar -> Inventory
             else if (!mergeItemStack(stack1, 0, 27, true)) {

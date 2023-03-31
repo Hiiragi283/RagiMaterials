@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.init
 
-import hiiragi283.ragi_materials.client.container.ContainerLaboTable
-import hiiragi283.ragi_materials.client.container.ContainerStoneMill
-import hiiragi283.ragi_materials.client.gui.GuiLaboTable
-import hiiragi283.ragi_materials.client.gui.GuiStoneMill
+import hiiragi283.ragi_materials.inventory.container.ContainerLaboTable
+import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill
+import hiiragi283.ragi_materials.inventory.gui.GuiLaboTable
+import hiiragi283.ragi_materials.inventory.gui.GuiStoneMill
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
 import hiiragi283.ragi_materials.tile.TileLaboTable
 import hiiragi283.ragi_materials.tile.TileStoneMill

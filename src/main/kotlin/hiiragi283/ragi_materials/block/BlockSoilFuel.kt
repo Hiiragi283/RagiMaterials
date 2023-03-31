@@ -20,7 +20,7 @@ import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
 import java.util.*
 
-abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGrowable, IMaterialBlock, IMaterialItem {
+abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IGrowable, IMaterialBlock, IMaterialItem {
 
     init {
         blockHardness = 0.5f
@@ -81,7 +81,7 @@ abstract class BlockSoilFuel(ID: String): BlockBase(ID, Material.GROUND, 2), IGr
                 val posTo = pos.offset(facing)
                 val stateTo = world.getBlockState(posTo)
                 //隣接するブロックが自分自身でない場合，それを侵食する
-                if (stateTo.block != this  && isAllowedBlocks(stateTo)) {
+                if (stateTo.block != this && isAllowedBlocks(stateTo)) {
                     world.setBlockState(posTo, this.defaultState, 2)
                 }
             }

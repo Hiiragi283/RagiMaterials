@@ -4,8 +4,8 @@ import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.SoundManager
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound

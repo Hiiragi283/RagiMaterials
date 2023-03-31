@@ -12,8 +12,8 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.ItemStackHandler

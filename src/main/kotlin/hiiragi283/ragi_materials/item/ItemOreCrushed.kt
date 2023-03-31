@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemOreCrushed: ItemBase(Reference.MOD_ID, "ore_crushed", OreProperty.mapOre1.size - 1), ICustomModel {
+class ItemOreCrushed : ItemBase(Reference.MOD_ID, "ore_crushed", OreProperty.mapOre1.size - 1), ICustomModel {
 
     //    Client    //
 

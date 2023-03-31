@@ -10,7 +10,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.BiomeDictionary
 
-class BlockSoilLignite: BlockSoilFuel("soil_lignite") {
+class BlockSoilLignite : BlockSoilFuel("soil_lignite") {
 
     companion object {
         val AGE: PropertyInteger = PropertyInteger.create("age", 0, 5)

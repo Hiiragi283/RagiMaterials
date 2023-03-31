@@ -3,8 +3,8 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.SoundManager
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
@@ -13,11 +13,11 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.oredict.OreDictionary
-import net.minecraft.util.math.AxisAlignedBB
-import net.minecraft.world.IBlockAccess
 
 class BlockOreDictConv : BlockBase("oredict_converter", Material.WOOD, 2) {
 
