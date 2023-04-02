@@ -125,6 +125,8 @@ material.hydrogen=水素
 material.water=水
 material.snow=雪
 material.ice=氷
+material.deuterium=重水素
+material.tritium=三重水素
 
 material.helium=ヘリウム
 material.neon=ネオン
@@ -280,11 +282,8 @@ material.lead=鉛
 material.bismuth=ビスマス
 material.thorium=トリウム
 material.uranium=ウラニウム238
-material.plutonium=プルトニウム244
-
-material.deuterium=重水素
-material.tritium=三重水素
 material.uranium235=ウラニウム235
+material.plutonium=プルトニウム244
 material.plutonium239=プルトニウム239
 
 material.wildcard=無効な

@@ -6,7 +6,7 @@ class OreProperty(val first: RagiMaterial, val second: RagiMaterial = RagiMateri
 
     companion object {
         val mapVanilla = mapOf(
-                "Gold" to OreProperty(RagiMaterial.EMPTY, RagiMaterial.EMPTY, RagiMaterial.EMPTY),
+                "Gold" to OreProperty(MaterialRegistry.GOLD, MaterialRegistry.GOLD, MaterialRegistry.GOLD),
                 "Iron" to OreProperty(MaterialRegistry.IRON, MaterialRegistry.IRON, MaterialRegistry.IRON),
                 "Coal" to OreProperty(MaterialRegistry.COAL, MaterialRegistry.COAL, MaterialRegistry.COAL),
                 "Lapis" to OreProperty(MaterialRegistry.LAPIS, MaterialRegistry.LAPIS, MaterialRegistry.LAPIS),

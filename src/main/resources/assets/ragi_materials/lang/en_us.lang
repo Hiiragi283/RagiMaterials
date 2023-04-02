@@ -125,6 +125,8 @@ material.hydrogen=Hydrogen
 material.water=Water
 material.snow=Snow
 material.ice=Ice
+material.deuterium=Deuterium
+material.tritium=Tritium
 
 material.helium=Helium
 material.neon=Neon
@@ -280,11 +282,8 @@ material.lead=Lead
 material.bismuth=Bismuth
 material.thorium=Thorium
 material.uranium=Uranium-238
-material.plutonium=Plutonium-244
-
-material.deuterium=Deuterium
-material.tritium=Tritium
 material.uranium235=Uranium-235
+material.plutonium=Plutonium-244
 material.plutonium239=Plutonium-239
 
 material.wildcard=INVALID
