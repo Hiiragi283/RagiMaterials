@@ -1,5 +1,7 @@
 package hiiragi283.ragi_materials.util
 
+import java.util.*
+
 /*
   Thanks to RechellaTek!
   Source: https://play.kotlinlang.org/embed?short=56r8wKERc&theme=darcula&readOnly=true
@@ -15,16 +17,16 @@ object RegexStatics {
     fun String.camelToSnakeCase(): String {
         return CAMEL_CASE.replace(this) {
             "_${it.value}"
-        }.toLowerCase()
+        }.lowercase(Locale.getDefault())
     }
 
     fun String.snakeToLowerCamelCase(): String {
         return SNAKE_CASE.replace(this) {
-            it.value.replace("_", "").toUpperCase()
+            it.value.replace("_", "").uppercase(Locale.getDefault())
         }
     }
 
     fun String.snakeToUpperCamelCase(): String {
-        return this.snakeToLowerCamelCase().capitalize()
+        return this.snakeToLowerCamelCase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 }

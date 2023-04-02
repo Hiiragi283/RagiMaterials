@@ -1,5 +1,6 @@
 package hiiragi283.ragi_materials.init
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.OreProperty
@@ -45,14 +46,14 @@ object OreDictRegistry {
 
         //Ore
         for (i in OreProperty.listOre1.indices) {
-            RagiUtil.setOreDict("ore${OreProperty.listOre1[i].first}", ItemStack(RagiBlock.BlockOre1, 1, i))
-            RagiUtil.setOreDict("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiItem.ItemOreCrushed, 1, i))
+            RagiUtil.setOreDict("ore${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.BLOCK.BlockOre1, 1, i))
+            RagiUtil.setOreDict("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.ITEM.ItemOreCrushed, 1, i))
         }
-        RagiUtil.setOreDict("oreSaltpeter", ItemStack(RagiBlock.BlockOre1, 1, 6))
-        RagiUtil.setOreDict("oreSaltpeterCrushed", ItemStack(RagiItem.ItemOreCrushed, 1, 6))
+        RagiUtil.setOreDict("oreSaltpeter", ItemStack(RagiRegistry.BLOCK.BlockOre1, 1, 6))
+        RagiUtil.setOreDict("oreSaltpeterCrushed", ItemStack(RagiRegistry.ITEM.ItemOreCrushed, 1, 6))
 
         for (i in OreProperty.listVanilla.indices) {
-            RagiUtil.setOreDict("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiItem.ItemOreCrushedVanilla, 1, i))
+            RagiUtil.setOreDict("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiRegistry.ITEM.ItemOreCrushedVanilla, 1, i))
         }
 
         //Others

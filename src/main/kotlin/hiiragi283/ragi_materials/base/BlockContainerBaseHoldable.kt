@@ -28,7 +28,7 @@ abstract class BlockContainerBaseHoldable(id: String, material: Material, maxTip
         val metadata = this.damageDropped(state)
         val stack = ItemStack(this, 1, metadata)
         stack.tagCompound = tile.updateTag //NBTタグを引き継ぐ
-        RagiUtil.dropItem(world, pos, stack)
+        RagiUtil.dropItem(world, pos, stack, 0.0, 0.25, 0.0)
     }
 
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {

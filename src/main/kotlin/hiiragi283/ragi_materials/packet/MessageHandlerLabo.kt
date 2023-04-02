@@ -12,9 +12,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
   Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/packet/MessageHandlerIBC.java
 */
 
-class MessageHandlerLabo : IMessageHandler<MessageTIle, IMessage> {
+class MessageHandlerLabo : IMessageHandler<MessageTile, IMessage> {
 
-    override fun onMessage(message: MessageTIle?, ctx: MessageContext?): IMessage? {
+    override fun onMessage(message: MessageTile?, ctx: MessageContext?): IMessage? {
         //messageがnullでない場合，座標を取得する
         message?.let {
             val tile = Reference.PLAYER_CLIENT.world.getTileEntity(BlockPos(it.x, it.y, it.z))

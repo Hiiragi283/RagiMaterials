@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.config.JsonConfig
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.init.*
 import hiiragi283.ragi_materials.integration.IntegrationCore
@@ -48,7 +48,7 @@ class RagiMaterialsCore {
     fun onConstruct(event: FMLConstructionEvent) {
         if (!isLoadedGT) {
             //各種登録イベントの登録
-            MinecraftForge.EVENT_BUS.register(RagiRegistry())
+            MinecraftForge.EVENT_BUS.register(RagiRegistry)
             FluidRegistry.enableUniversalBucket()
         }
     }
@@ -66,7 +66,7 @@ class RagiMaterialsCore {
             //鉱石生成の登録
             //MinecraftForge.ORE_GEN_BUS.register(OreGenRegistry())
             //GUI描画の登録
-            NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, RagiGuiHandler())
+            NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, RagiGuiHandler)
             //proxyの読み込み
             proxy!!.loadPreInit()
             //連携要素の登録
@@ -78,7 +78,7 @@ class RagiMaterialsCore {
     fun init(event: FMLInitializationEvent) {
         if (!isLoadedGT) {
             //液体の登録
-            registerFluid()
+            RagiRegistry.registerFluid()
             //鉱石辞書の登録
             OreDictRegistry.load()
             //レシピの登録

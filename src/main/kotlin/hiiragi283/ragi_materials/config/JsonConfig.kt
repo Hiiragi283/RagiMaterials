@@ -128,15 +128,15 @@ object JsonConfig {
         fun toRagiMaterial() {
             RagiMaterial.Builder(this.index, this.name, TypeRegistry.getType(this.type)).setComponents(convertList()).also { builder ->
                 builder.burnTime = burnTime
-                color?.let { builder.color = Color(it)  }
+                color?.let { builder.color = Color(it) }
                 builder.crystalType = EnumCrystalType.getType(crystalType)
                 builder.decayed = decayed?.let { MaterialUtil.getMaterial(it) }
-                formula?.let { builder.formula = it  }
-                molar?.let { builder.molar = it  }
+                formula?.let { builder.formula = it }
+                molar?.let { builder.molar = it }
                 builder.oredictAlt = oredictAlt
-                builder.rarity = RagiUtil.getEnum(rarity)
-                tempBoil?.let { builder.tempBoil = it  }
-                tempMelt?.let { builder.tempMelt = it  }
+                builder.rarity = RagiUtil.getEnumRarity(rarity)
+                tempBoil?.let { builder.tempBoil = it }
+                tempMelt?.let { builder.tempMelt = it }
             }.build()
         }
 

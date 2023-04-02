@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.world
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.block.BlockOreMaterial
-import hiiragi283.ragi_materials.init.RagiBlock
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator
 import net.minecraftforge.event.terraingen.OreGenEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
-class OreGenRegistry {
+object OreGenRegistry {
 
     @SubscribeEvent
     fun generateOrePre(event: OreGenEvent.Pre) {
@@ -18,7 +18,7 @@ class OreGenRegistry {
     }
 
     private fun getGenerator(meta: Int, base: IBlockState): WorldGenMinable {
-        val state = RagiBlock.BlockOre1.defaultState.withProperty(BlockOreMaterial.TYPE, meta / BlockOreMaterial.TYPE.allowedValues.last())
+        val state = RagiRegistry.BLOCK.BlockOre1.defaultState.withProperty(BlockOreMaterial.TYPE, meta / BlockOreMaterial.TYPE.allowedValues.last())
         return WorldGenMinable(state, 8)
     }
 

@@ -3,11 +3,14 @@ package hiiragi283.ragi_materials.client.render.tile
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox
 import net.minecraft.client.model.ModelRenderer
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 // Made with Blockbench 4.6.5
 // Exported for Minecraft version 1.7 - 1.12
 // Paste this class into your mod and generate all required imports
 
+@SideOnly(Side.CLIENT)
 class ModelIndustrialLabo : ModelBase() {
 
     private val cube: ModelRenderer

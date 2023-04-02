@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials.client.render.model
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiBlock
-import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
@@ -24,11 +23,11 @@ object ModelRegistry {
     fun blocks() {
 
         //Ore
-        ModelLoader.setCustomStateMapper(RagiBlock.BlockOre1, object : StateMapperBase() {
+        ModelLoader.setCustomStateMapper(RagiRegistry.BLOCK.BlockOre1, object : StateMapperBase() {
             override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
         })
 
-        ModelLoader.setCustomStateMapper(RagiBlock.BlockOreRainbow, object : StateMapperBase() {
+        ModelLoader.setCustomStateMapper(RagiRegistry.BLOCK.BlockOreRainbow, object : StateMapperBase() {
             override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone_rainbow")
         })
 
@@ -62,9 +61,9 @@ object ModelRegistry {
         val blockMaterial = ModelResourceLocation("${Reference.MOD_ID}:part", "block_material")
         val blockMetal = ModelResourceLocation("${Reference.MOD_ID}:part", "block_metal")
 
-        ModelLoader.registerItemVariants(RagiItem.ItemBlockMaterial, blockCrystal, blockMaterial, blockMetal)
+        ModelLoader.registerItemVariants(RagiRegistry.ITEM.ItemBlockMaterial, blockCrystal, blockMaterial, blockMetal)
 
-        ModelLoader.setCustomMeshDefinition(RagiItem.ItemBlockMaterial) { stack ->
+        ModelLoader.setCustomMeshDefinition(RagiRegistry.ITEM.ItemBlockMaterial) { stack ->
             var result = blockMaterial
             val item = stack.item
             if (item is IMaterialItem) {
@@ -78,7 +77,7 @@ object ModelRegistry {
 
         //ItemCrystal
         ModelLoader.registerItemVariants(
-                RagiItem.ItemCrystal,
+                RagiRegistry.ITEM.ItemCrystal,
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "coal"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "cubic"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "diamond"),
@@ -87,7 +86,7 @@ object ModelRegistry {
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "quartz"),
                 ModelResourceLocation("${Reference.MOD_ID}:crystal", "ruby")
         )
-        ModelLoader.setCustomMeshDefinition(RagiItem.ItemCrystal) { stack ->
+        ModelLoader.setCustomMeshDefinition(RagiRegistry.ITEM.ItemCrystal) { stack ->
             var result = ModelResourceLocation("${Reference.MOD_ID}:crystal", EnumCrystalType.CUBIC.texture)
             val item = stack.item
             if (item is IMaterialItem) {
@@ -99,14 +98,14 @@ object ModelRegistry {
 
         //Part
         for (part in listOf(
-                RagiItem.ItemDust,
-                RagiItem.ItemDustTiny,
-                RagiItem.ItemGear,
-                RagiItem.ItemIngot,
-                RagiItem.ItemIngotHot,
-                RagiItem.ItemNugget,
-                RagiItem.ItemPlate,
-                RagiItem.ItemStick)
+                RagiRegistry.ITEM.ItemDust,
+                RagiRegistry.ITEM.ItemDustTiny,
+                RagiRegistry.ITEM.ItemGear,
+                RagiRegistry.ITEM.ItemIngot,
+                RagiRegistry.ITEM.ItemIngotHot,
+                RagiRegistry.ITEM.ItemNugget,
+                RagiRegistry.ITEM.ItemPlate,
+                RagiRegistry.ITEM.ItemStick)
         ) {
             val location = ModelResourceLocation("${Reference.MOD_ID}:part", part.part.name)
             //アイテムとモデルの紐づけ
@@ -116,8 +115,8 @@ object ModelRegistry {
         }
 
         //Ore
-        ModelManager.setModelAlt(RagiItem.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
-        ModelManager.setModelAlt(RagiItem.ItemOreCrushed, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
-        ModelManager.setModelAlt(RagiItem.ItemOreCrushedVanilla, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
+        ModelManager.setModelAlt(RagiRegistry.ITEM.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
+        ModelManager.setModelAlt(RagiRegistry.ITEM.ItemOreCrushed, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
+        ModelManager.setModelAlt(RagiRegistry.ITEM.ItemOreCrushedVanilla, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
     }
 }

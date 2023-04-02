@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.item
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.client.render.model.ICustomModel
-import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
@@ -15,6 +15,6 @@ class ItemOreCrushed : ItemBase(Reference.MOD_ID, "ore_crushed", OreProperty.map
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiItem.ItemBlockOre1.getTranslationKey(stack)}.name"))
+    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiRegistry.ITEM.ItemBlockOre1.getTranslationKey(stack)}.name"))
 
 }

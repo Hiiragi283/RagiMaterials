@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.init.RagiBlock
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
@@ -38,11 +38,11 @@ class JEICore : IModPlugin {
         registry.addRecipes(LaboRecipe.Registry.list, LaboTable)
         registry.addRecipes(MillRecipe.Registry.list, StoneMill)
 
-        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockForgeFurnace), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockBlazingForge), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockLaboratoryTable), LaboTable)
-        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockIndustrialLabo), LaboTable)
-        registry.addRecipeCatalyst(ItemStack(RagiBlock.BlockStoneMill), StoneMill)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockForgeFurnace), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockBlazingForge), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockLaboratoryTable), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockIndustrialLabo), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockStoneMill), StoneMill)
 
         RagiLogger.info("The integration for JEI/HEI has loaded!")
     }

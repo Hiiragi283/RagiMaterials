@@ -14,11 +14,9 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.network.IGuiHandler
 
-class RagiGuiHandler : IGuiHandler {
+object RagiGuiHandler : IGuiHandler {
 
-    companion object {
-        const val RagiID = 0
-    }
+    const val RagiID = 0
 
     //    IGuiHandler    //
 
