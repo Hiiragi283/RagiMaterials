@@ -59,6 +59,7 @@ object TypeRegistry {
                     EnumMaterialType.INGOT,
                     EnumMaterialType.INGOT_HOT,
                     EnumMaterialType.LIQUID,
+                    EnumMaterialType.METAL,
                     EnumMaterialType.NUGGET,
                     EnumMaterialType.PLATE,
                     EnumMaterialType.STICK
@@ -69,8 +70,9 @@ object TypeRegistry {
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.DUST,
                     EnumMaterialType.INGOT,
-                    EnumMaterialType.INGOT_HOT,
+                    //EnumMaterialType.INGOT_HOT,
                     EnumMaterialType.LIQUID,
+                    EnumMaterialType.METAL,
                     EnumMaterialType.NUGGET,
                     EnumMaterialType.RADIOACTIVE
             ).build() //放射性金属用

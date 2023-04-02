@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials
 import hiiragi283.ragi_materials.config.JsonConfig
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
+import hiiragi283.ragi_materials.crafting.SmeltingRegistry
 import hiiragi283.ragi_materials.init.*
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.MaterialUtil
@@ -83,6 +84,7 @@ class RagiMaterialsCore {
             OreDictRegistry.load()
             //レシピの登録
             CraftingRegistry.load()
+            SmeltingRegistry.load()
             //LootTableの登録
             LootTableRegistry.load()
             //パケットの登録
