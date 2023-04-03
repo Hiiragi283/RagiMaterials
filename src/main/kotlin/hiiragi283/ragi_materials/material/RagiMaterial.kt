@@ -198,7 +198,11 @@ data class RagiMaterial private constructor(
                     list.add(it)
                     mapIndex[it.index] = it
                     mapName[it.name] = it
-                    PartRegistry.list.forEach { part -> if (MaterialUtil.isValidPart(part, it)) validPair.add(part to it) }
+                    PartRegistry.list.forEach { part ->
+                        if (MaterialUtil.isValidPart(part, it)) {
+                            validPair.add(part to it)
+                        }
+                    }
                 } else RagiLogger.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]}!")
             } else RagiLogger.warn("The index ${it.index} is smaller than 0!")
         }
