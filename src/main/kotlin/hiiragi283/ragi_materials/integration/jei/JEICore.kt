@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
@@ -8,15 +10,17 @@ import hiiragi283.ragi_materials.util.RagiLogger
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
 @JEIPlugin
 class JEICore : IModPlugin {
 
     companion object {
-        const val ForgeFurnace = "ragi_materials.forge_furnace"
-        const val LaboTable = "ragi_materials.labo_table"
-        const val StoneMill = "ragi_materials.stone_mill"
+        const val ForgeFurnace = "${Reference.MOD_ID}.forge_furnace"
+        const val LaboTable = "${Reference.MOD_ID}.labo_table"
+        const val StoneMill = "${Reference.MOD_ID}.stone_mill"
+        const val MaterialInfo = "${Reference.MOD_ID}.material_info"
     }
 
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
@@ -24,6 +28,7 @@ class JEICore : IModPlugin {
         registry.addRecipeCategories(
                 FFCategory(guiHelper),
                 LaboCategory(guiHelper),
+                MaterialInfoCategory(guiHelper),
                 StoneMillCategory(guiHelper)
         )
     }
@@ -32,25 +37,26 @@ class JEICore : IModPlugin {
 
         registry.handleRecipes(FFRecipe::class.java, { FFRecipe.Wrapper(it) }, ForgeFurnace)
         registry.handleRecipes(LaboRecipe::class.java, { LaboRecipe.Wrapper(it) }, LaboTable)
+        registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper (it) }, MaterialInfo)
         registry.handleRecipes(MillRecipe::class.java, { MillRecipe.Wrapper(it) }, StoneMill)
 
         registry.addRecipes(FFRecipe.Registry.list, ForgeFurnace)
         registry.addRecipes(LaboRecipe.Registry.list, LaboTable)
+        registry.addRecipes(RagiMaterial.list, MaterialInfo)
         registry.addRecipes(MillRecipe.Registry.list, StoneMill)
 
         registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockForgeFurnace), ForgeFurnace)
         registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockBlazingForge), ForgeFurnace)
         registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockLaboratoryTable), LaboTable)
         registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockIndustrialLabo), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(Items.IRON_INGOT), MaterialInfo)
         registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockStoneMill), StoneMill)
 
         RagiLogger.info("The integration for JEI/HEI has loaded!")
     }
 
     @Deprecated("Deprecated in Java")
-    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
-    }
-
+    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {}
     override fun registerIngredients(registry: IModIngredientRegistration) {}
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {}
 }

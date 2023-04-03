@@ -9,14 +9,9 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.util.ResourceLocation
 
-class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboRecipe.Wrapper>(guiHelper) {
+class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboRecipe.Wrapper>() {
 
-    var background: IDrawableStatic
-
-    init {
-        val location = ResourceLocation(Reference.MOD_ID, "textures/gui/jei/labo_table.png")
-        background = guiHelper.createDrawable(location, 1, 1, 90, 54)
-    }
+    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(Reference.MOD_ID, "textures/gui/jei/labo_table.png"), 1, 1, 90, 54)
 
     override fun getUid(): String = JEICore.LaboTable
 
