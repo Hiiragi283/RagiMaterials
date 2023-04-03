@@ -81,7 +81,7 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
     implementation fg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
-    //implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     implementation fileTree(dir: 'libs', include: '*.jar')
 }
 

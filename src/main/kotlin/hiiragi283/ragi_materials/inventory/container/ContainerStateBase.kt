@@ -1,15 +1,15 @@
 package hiiragi283.ragi_materials.inventory.container
 
-import hiiragi283.ragi_materials.base.TileLockableBase
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.Container
+import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Slot
 
-abstract class ContainerBase<T : TileLockableBase>(val player: EntityPlayer, val tile: T) : Container() {
+class ContainerStateBase(val player: EntityPlayer, val inventory: IInventory, val state: IBlockState) : Container() {
 
     val invPlayer: InventoryPlayer = player.inventory
-    val invTile = tile.inventory
 
     fun initSlotsPlayer(posY: Int) {
         //プレイヤーのインベントリのスロットを設定
@@ -24,11 +24,11 @@ abstract class ContainerBase<T : TileLockableBase>(val player: EntityPlayer, val
         }
     }
 
-    override fun canInteractWith(player: EntityPlayer) = tile.inventory.isUsableByPlayer(player)
+    override fun canInteractWith(player: EntityPlayer) = inventory.isUsableByPlayer(player)
 
     override fun onContainerClosed(player: EntityPlayer) {
         super.onContainerClosed(player)
-        tile.closeInventory(player)
+        inventory.closeInventory(player)
     }
 
 }

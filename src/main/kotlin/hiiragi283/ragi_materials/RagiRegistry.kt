@@ -93,13 +93,12 @@ object RagiRegistry {
         val ItemBlockOre1 = ItemBlockBase(BLOCK.BlockOre1, OreProperty.mapOre1.size - 1)
         val ItemBlockOreDictConv = ItemBlockBase(BLOCK.BlockOreDictConv)
         val ItemBlockOreRainbow = ItemBlockBase(BLOCK.BlockOreRainbow)
-
         val ItemBlockSoilCoal = ItemBlockBase(BLOCK.BlockSoilCoal)
         val ItemBlockSoilLignite = ItemBlockBase(BLOCK.BlockSoilLignite)
         val ItemBlockSoilPeat = ItemBlockBase(BLOCK.BlockSoilPeat)
         val ItemBlockStoneMill = ItemBlockBase(BLOCK.BlockStoneMill)
 
-        val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0).apply { creativeTab = CreativeTabs.MISC }
+        val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0)
         val ItemBookDebug = ItemBookDebug()
         val ItemForgeHammer = ItemForgeHammer()
         val ItemFullBottle = ItemFullBottle()

@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.inventory.container.ContainerLaboTable
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 
-class GuiLaboTable(player: EntityPlayer, tile: TileLockableBase) : GuiBase<TileLockableBase>(ContainerLaboTable(player, tile)) {
+class GuiLaboTable(player: EntityPlayer, tile: TileLockableBase) : GuiTileBase<TileLockableBase>(ContainerLaboTable(player, tile)) {
 
     init {
         ySize = 133
