@@ -30,9 +30,11 @@ class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capa
 
     override fun getMaxEnergyStored() = capacity
 
-    override fun canExtract() = maxOut > 0
+    override fun canExtract() = maxOut > 0 && stored in 1 .. capacity
 
-    override fun canReceive() = maxIn > 0
+    override fun canReceive() = maxIn > 0 && stored in 0 until capacity
+
+    fun getFreeCapacity() = capacity - energyStored
 
     //    INBTSerializable    //
 

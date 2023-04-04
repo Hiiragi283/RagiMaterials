@@ -4,7 +4,6 @@ import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.client.render.color.ColorManager
 import hiiragi283.ragi_materials.client.render.color.RagiColor
 import hiiragi283.ragi_materials.client.render.model.ICustomModel
 import hiiragi283.ragi_materials.client.render.model.ModelManager
@@ -60,6 +59,7 @@ object RagiRegistry {
         val BlockOre1 = BlockOreMaterial("ore_block")
         val BlockOreDictConv = BlockOreDictConv()
         val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
+        val BlockQuartzAntenna = BlockQuartzAntenna()
         val BlockSoilCoal = BlockSoilCoal()
         val BlockSoilLignite = BlockSoilLignite()
         val BlockSoilPeat = BlockSoilPeat()
@@ -67,9 +67,30 @@ object RagiRegistry {
 
         val BlockSoilAir = BlockSoilAir()
 
+        val listAll: MutableList<Block> = mutableListOf()
+        var arrayIMaterialBlock: Array<Block> = arrayOf()
+
+        init {
+            val fields = this::class.java.declaredFields
+            for (field in fields) {
+                field.isAccessible = true
+                RagiLogger.infoDebug(field.name)
+                try {
+                    val block = field.get(this)
+                    if (block is Block) listAll.add(block)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            val listBlock: MutableList<Block> = mutableListOf()
+            listAll.forEach { if (it is IMaterialBlock) listBlock.add(it) }
+            arrayIMaterialBlock = listBlock.toTypedArray()
+        }
+
     }
 
-    object CREATIVETAB {
+    object CREATIVE {
 
         val BLOCK = object : CreativeTabs("${Reference.MOD_ID}.blocks") {
             override fun createIcon() = ItemStack(ITEM.ItemBlockForgeFurnace)
@@ -93,6 +114,7 @@ object RagiRegistry {
         val ItemBlockOre1 = ItemBlockBase(BLOCK.BlockOre1, OreProperty.mapOre1.size - 1)
         val ItemBlockOreDictConv = ItemBlockBase(BLOCK.BlockOreDictConv)
         val ItemBlockOreRainbow = ItemBlockBase(BLOCK.BlockOreRainbow)
+        val ItemBlockQuartzAntenna = ItemBlockBase(BLOCK.BlockQuartzAntenna)
         val ItemBlockSoilCoal = ItemBlockBase(BLOCK.BlockSoilCoal)
         val ItemBlockSoilLignite = ItemBlockBase(BLOCK.BlockSoilLignite)
         val ItemBlockSoilPeat = ItemBlockBase(BLOCK.BlockSoilPeat)
@@ -104,6 +126,7 @@ object RagiRegistry {
         val ItemFullBottle = ItemFullBottle()
         val ItemOreCrushed = ItemOreCrushed()
         val ItemOreCrushedVanilla = ItemOreCrushedVanilla()
+        val ItemResonatingFork = ItemResonatingFork()
         val ItemWaste = ItemWaste()
 
         val ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)
@@ -117,46 +140,56 @@ object RagiRegistry {
         val ItemPlate = ItemMaterial(PartRegistry.PLATE)
         val ItemStick = ItemMaterial(PartRegistry.STICK)
 
+        val listAll: MutableList<Item> = mutableListOf()
+        var arrayIMaterialItem: Array<Item> = arrayOf()
+        var arrayIMaterialItemBlock: Array<ItemBlockBase> = arrayOf()
+
+        init {
+
+            val fields = this::class.java.declaredFields
+            for (field in fields) {
+                field.isAccessible = true
+                RagiLogger.infoDebug(field.name)
+                try {
+                    val item = field.get(this)
+                    if (item is Item) listAll.add(item)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            val listItem: MutableList<Item> = mutableListOf()
+            val listItemBlock: MutableList<ItemBlockBase> = mutableListOf()
+            for (item in listAll) {
+                if (item is IMaterialItem) listItem.add(item)
+                else if (item is ItemBlockBase) {
+                    val block = item.block
+                    if (block is IMaterialBlock) listItemBlock.add(item)
+                }
+            }
+            arrayIMaterialItem = listItem.toTypedArray()
+            arrayIMaterialItemBlock = listItemBlock.toTypedArray()
+        }
     }
 
     @SubscribeEvent
     fun registerBlock(event: RegistryEvent.Register<Block>) {
         //Blockの自動登録
-        val fields = BLOCK::class.java.declaredFields
-        for (field in fields) {
-            field.isAccessible = true
-            RagiLogger.infoDebug(field.name)
-            try {
-                val block = field.get(this)
-                if (block is Block) {
-                    block.creativeTab = CREATIVETAB.BLOCK
-                    event.registry.register(block)
-                    RagiLogger.infoDebug("The block ${block.registryName} is registered!")
-                }
-            } catch (e: Exception) {
-                RagiLogger.error(e)
-            }
+        BLOCK.listAll.forEach {
+            it.creativeTab = CREATIVE.BLOCK
+            event.registry.register(it)
+            RagiLogger.infoDebug("The block ${it.registryName} is registered!")
         }
     }
 
     @SubscribeEvent
     fun registerItem(event: RegistryEvent.Register<Item>) {
         //Itemの自動登録
-        val fields = ITEM::class.java.declaredFields
-        for (field in fields) {
-            field.isAccessible = true
-            RagiLogger.infoDebug(field.name)
-            try {
-                val item = field.get(this)
-                if (item is Item) {
-                    if (item is ItemFullBottle) item.setCreativeTab(CREATIVETAB.FULLBOTTLE)
-                    if (item is ItemMaterial) item.setCreativeTab(CREATIVETAB.MATERIAL)
-                    event.registry.register(item)
-                    RagiLogger.infoDebug("The item ${item.registryName} is registered!")
-                }
-            } catch (e: Exception) {
-                RagiLogger.error(e)
-            }
+        ITEM.listAll.forEach {
+            if (it is ItemFullBottle) it.setCreativeTab(CREATIVE.FULLBOTTLE)
+            if (it is ItemMaterial) it.setCreativeTab(CREATIVE.MATERIAL)
+            event.registry.register(it)
+            RagiLogger.infoDebug("The item ${it.registryName} is registered!")
         }
     }
 
@@ -164,25 +197,17 @@ object RagiRegistry {
     @SideOnly(Side.CLIENT)
     fun registerModel(event: ModelRegistryEvent) {
         //モデルの自動登録
-        val fields = ITEM::class.java.declaredFields
-        for (field in fields) {
-            field.isAccessible = true
-            RagiLogger.infoDebug(field.name)
-            try {
-                val item = field.get(this)
-                if (item is ItemBlockBase) {
-                    if (item.block !is ICustomModel) {
-                        ModelManager.setModel(item)
-                        RagiLogger.infoDebug("The model for item block ${item.registryName} is registered!")
-                    }
-                } else if (item is Item) {
-                    if (item !is ICustomModel) {
-                        ModelManager.setModel(item)
-                        RagiLogger.infoDebug("The model for item ${item.registryName} is registered!")
-                    }
+        ITEM.listAll.forEach {
+            if (it is ItemBlockBase) {
+                if (it.block !is ICustomModel) {
+                    ModelManager.setModel(it)
+                    RagiLogger.infoDebug("The model for item block ${it.registryName} is registered!")
                 }
-            } catch (e: Exception) {
-                RagiLogger.error(e)
+            } else {
+                if (it !is ICustomModel) {
+                    ModelManager.setModel(it)
+                    RagiLogger.infoDebug("The model for item ${it.registryName} is registered!")
+                }
             }
         }
         //それ以外のモデル登録
@@ -196,81 +221,34 @@ object RagiRegistry {
         val blockColors = event.blockColors
         val itemColors = event.itemColors
 
-        //Ore
-        blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
+        //Block
+        blockColors.registerBlockColorHandler({ state, world, pos, _ ->
             val block = state.block
-            val list = OreProperty.listOre1
-            val index = block.getMetaFromState(state) % list.size
-            if (world !== null && block is BlockOreMaterial) list[index].second.getColor().rgb else 0xFFFFFF
-        },
-                BLOCK.BlockOre1
-        )
+            if (world !== null && pos !== null && block is IMaterialBlock) block.getColor(world, pos, state).rgb else 0xFFFFFF
+        }, *BLOCK.arrayIMaterialBlock)
 
-        itemColors.registerItemColorHandler({ stack, tintIndex ->
-            val list = OreProperty.listOre1
-            val index = stack.metadata % list.size
-            list[index].second.getColor().rgb
-        },
-                ITEM.ItemBlockOre1,
-                ITEM.ItemOreCrushed
-        )
-
-        itemColors.registerItemColorHandler({ stack, tintIndex ->
-            val list = OreProperty.listVanilla
-            val index = stack.metadata % list.size
-            list[index].second.getColor().rgb
-        },
-                ITEM.ItemOreCrushedVanilla
-        )
-
-        //Fuel Soil
-        blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
-            val block = state.block
-            if (world !== null && pos !== null && block is BlockSoilFuel) {
-                val color = block.getMaterialBlock(world, pos, state).color
-                val age = block.getAge(state)
-                val ageMax = block.getAgeMax()
-                ColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age)).rgb
-            } else 0xFFFFFF
-        },
-                BLOCK.BlockSoilCoal,
-                BLOCK.BlockSoilLignite,
-                BLOCK.BlockSoilPeat
-        )
-
-        //Material Parts
-        itemColors.registerItemColorHandler({ stack, tintIndex ->
-            var itemColored: IMaterialItem? = null
+        //Item Block
+        itemColors.registerItemColorHandler({ stack, _ ->
+            var color = 0xFFFFFF
             val item = stack.item
-            if (item is IMaterialItem && tintIndex == 0) {
-                itemColored = item
-            } else if (item is ItemBlockBase && item.block is IMaterialItem) {
-                itemColored = item.block as IMaterialItem
+            if (item is ItemBlockBase) {
+                val block = item.block
+                if (block is IMaterialBlock) color = block.getColor(stack).rgb
             }
-            itemColored?.getMaterial(stack)?.color?.rgb ?: 0xFFFFFF
-        },
-                ITEM.ItemBlockMaterial,
-                ITEM.ItemBlockSoilCoal,
-                ITEM.ItemBlockSoilLignite,
-                ITEM.ItemBlockSoilPeat,
-                ITEM.ItemCrystal,
-                ITEM.ItemDust,
-                ITEM.ItemDustTiny,
-                ITEM.ItemFullBottle,
-                ITEM.ItemGear,
-                ITEM.ItemIngot,
-                ITEM.ItemIngotHot,
-                ITEM.ItemNugget,
-                ITEM.ItemPlate,
-                ITEM.ItemStick,
-                ITEM.ItemWaste
-        )
+            color
+        }, *ITEM.arrayIMaterialItemBlock)
+
+        //Item
+        itemColors.registerItemColorHandler({ stack, tintIndex ->
+            var color = 0xFFFFFF
+            val item = stack.item
+            if (item is IMaterialItem && tintIndex == 0) color = item.getColor(stack).rgb
+            color
+        }, *ITEM.arrayIMaterialItem)
 
         //Debug Book
-        itemColors.registerItemColorHandler({ stack, tintIndex ->
+        itemColors.registerItemColorHandler({ _, tintIndex ->
             if (tintIndex == 1) RagiColor.RAGI_RED.rgb else 0xFFFFFF
-        },
-                ITEM.ItemBookDebug
-        )
+        }, ITEM.ItemBookDebug)
     }
 }

@@ -16,15 +16,15 @@ class RegexStatics {
 fun String.camelToSnakeCase(): String {
     return RegexStatics.CAMEL_CASE.replace(this) {
         "_${it.value}"
-    }.lowercase()
+    }.toLowerCase()
 }
 
 fun String.snakeToLowerCamelCase(): String {
     return RegexStatics.SNAKE_CASE.replace(this) {
-        it.value.replace("_", "").uppercase()
+        it.value.replace("_", "").toUpperCase()
     }
 }
 
 fun String.snakeToUpperCamelCase(): String {
-    return this.snakeToLowerCamelCase().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+    return this.snakeToLowerCamelCase().capitalize()
 }

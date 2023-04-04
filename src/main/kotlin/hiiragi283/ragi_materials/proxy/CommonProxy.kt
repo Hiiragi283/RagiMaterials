@@ -29,6 +29,7 @@ open class CommonProxy {
         registerTile(TileBlazingForge::class.java, RagiRegistry.BLOCK.BlockBlazingForge) //103
         registerTile(TileIndustrialLabo::class.java, RagiRegistry.BLOCK.BlockIndustrialLabo) //104
         registerTile(TileStoneMill::class.java, RagiRegistry.BLOCK.BlockStoneMill) //105
+        registerTile(TileQuartzAntenna::class.java, RagiRegistry.BLOCK.BlockQuartzAntenna) //106
     }
 
     private fun <T : TileEntity> registerTile(tile: Class<T>, block: BlockContainerBase) {

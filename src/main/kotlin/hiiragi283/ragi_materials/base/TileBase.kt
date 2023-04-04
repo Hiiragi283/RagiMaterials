@@ -15,7 +15,7 @@ abstract class TileBase(val type: Int) : TileEntity(), ITileActivatable {
 
     val keyInventory = "inventory"
     val keyTank = "tank"
-    val keyBattery = "energy"
+    val keyEnergy = "energy"
 
     //    NBT tag    //
 

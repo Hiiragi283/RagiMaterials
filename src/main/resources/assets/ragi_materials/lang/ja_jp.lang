@@ -19,6 +19,7 @@ tile.ore_block.10.name=銅鉱石
 tile.ore_block.11.name=閃亜鉛鉱石
 tile.ore_rainbow.name=§cレ§6イ§eン§aボ§bー§9ー§dー§r鉱石
 tile.oredict_converter.name=鉱石辞書変換機
+tile.quartz_antenna.name=水晶アンテナ
 tile.soil_coal.name=石炭質の砂
 tile.soil_lignite.name=褐炭質の砂利
 tile.soil_peat.name=泥炭質の土

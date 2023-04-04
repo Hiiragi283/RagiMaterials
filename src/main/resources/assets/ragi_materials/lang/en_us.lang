@@ -19,6 +19,7 @@ tile.ore_block.10.name=Copper Ore
 tile.ore_block.11.name=Sphalerite Ore
 tile.ore_rainbow.name=§cR§6a§ei§an§bb§9o§dw§r Ore
 tile.oredict_converter.name=Ore Dictionary Converter
+tile.quartz_antenna.name=Quartz Antenna
 tile.soil_coal.name=Coal Sand
 tile.soil_lignite.name=Lignite Gravel
 tile.soil_peat.name=Peat Soil

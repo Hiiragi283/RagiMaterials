@@ -5,7 +5,10 @@ import net.minecraft.item.ItemStack
 
 interface IMaterialItem {
 
-    fun getMaterial(stack: ItemStack): RagiMaterial
+    fun getColor(stack: ItemStack) = getMaterial(stack).color
 
-    fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack
+    fun getMaterial(stack: ItemStack) = RagiMaterial.EMPTY
+
+    fun setMaterial(stack: ItemStack, material: RagiMaterial) = stack
+
 }
