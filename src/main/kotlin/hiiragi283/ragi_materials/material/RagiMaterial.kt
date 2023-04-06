@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.ColorManager
+import hiiragi283.ragi_materials.client.color.ColorManager
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumCrystalType

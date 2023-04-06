@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.client.render.color.ColorManager
-import hiiragi283.ragi_materials.client.render.color.RagiColor
+import hiiragi283.ragi_materials.client.color.ColorManager
+import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry

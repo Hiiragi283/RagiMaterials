@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.render.tile
+package hiiragi283.ragi_materials.client.model.tile
 
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 // Paste this class into your mod and generate all required imports
 
 @SideOnly(Side.CLIENT)
-class ModelIndustrialLabo : ModelBase() {
+object ModelIndustrialLabo : ModelBase() {
 
     private val cube: ModelRenderer
 

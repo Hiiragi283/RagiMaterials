@@ -1,12 +1,10 @@
-package hiiragi283.ragi_materials.client.render.tile
+package hiiragi283.ragi_materials.client.render
 
-import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.tile.TileLaboTable
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -16,9 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 */
 
 @SideOnly(Side.CLIENT)
-class RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
-
-    private val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/laboratory_table.png")
+object RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
 
     private val listSlot = listOf(
             0.3125f to 0.3125f,
@@ -27,8 +23,6 @@ class RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
             0.3125f to 0.6875f,
             0.5f to 0.5f
     )
-
-    //val model = ModelLaboratoryTable()
 
     override fun render(te: TileLaboTable, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
 

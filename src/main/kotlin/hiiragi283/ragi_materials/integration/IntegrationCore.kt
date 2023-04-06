@@ -10,6 +10,7 @@ object IntegrationCore {
     val enableMek = Loader.isModLoaded("mekanism") && RagiConfig.integration.enableMek
     val enableTE = Loader.isModLoaded("thermalexpansion") && RagiConfig.integration.enableTE
     val enableTF = Loader.isModLoaded("thermalfoundation") && RagiConfig.integration.enableTF
+    val enableTOP = Loader.isModLoaded("theoneprobe")
 
     fun loadPreInit() {}
 

@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.render.tile
+package hiiragi283.ragi_materials.client.model.tile
 
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox
@@ -11,27 +11,23 @@ import net.minecraftforge.fml.relauncher.SideOnly
 // Paste this class into your mod and generate all required imports
 
 @SideOnly(Side.CLIENT)
-class ModelBlazingForge : ModelBase() {
+object ModelQuartzAntenna : ModelBase() {
 
     private val cube: ModelRenderer
-    private val head: ModelRenderer
 
     init {
-        textureWidth = 64
+        textureWidth = 32
         textureHeight = 32
 
         cube = ModelRenderer(this)
-        cube.setRotationPoint(0.0f, 0.0f, 0.0f)
-        head = ModelRenderer(this)
-        head.setRotationPoint(0.0f, -8.0f, 0.0f)
-        cube.addChild(head)
-        head.rotateAngleX = -0.1745f
-        head.rotateAngleY = 0.0f
-        head.rotateAngleZ = 0.1745f
-        head.cubeList.add(ModelBox(head, 0, 0, -4.0f, -4.0f, -4.0f, 8, 8, 8, 0.0f, false))
+        cube.setRotationPoint(0.0f, 10.0f, 1.0f)
+        cube.cubeList.add(ModelBox(cube, 0, 13, -1.0f, -1.0f, -6.0f, 2, 2, 5, 0.0f, false))
+        cube.cubeList.add(ModelBox(cube, 0, 0, -6.0f, -6.0f, -1.0f, 12, 12, 1, 0.0f, false))
     }
 
-    fun render() {
+    fun render(rotateX: Float, rotateY: Float) {
+        cube.rotateAngleX = rotateX
+        cube.rotateAngleY = rotateY
         cube.render(0.0625f)
     }
 }

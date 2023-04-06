@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.client.render.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack

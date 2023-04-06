@@ -24,7 +24,7 @@ object Reference {
     const val CLIENT_PROXY_CLASS = "hiiragi283.ragi_materials.proxy.ClientProxy"
 
     //Server側のProxyの定義
-    const val SERVER_PROXY_CLASS = "hiiragi283.ragi_materials.proxy.CommonProxy"
+    const val SERVER_PROXY_CLASS = "hiiragi283.ragi_materials.proxy.ServerProxy"
 
     //各種変数の宣言
     val SERVER = Minecraft.getMinecraft().integratedServer?.server

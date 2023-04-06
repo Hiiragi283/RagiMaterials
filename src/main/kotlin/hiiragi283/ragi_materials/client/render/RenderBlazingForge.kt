@@ -1,6 +1,7 @@
-package hiiragi283.ragi_materials.client.render.tile
+package hiiragi283.ragi_materials.client.render
 
 import hiiragi283.ragi_materials.block.BlockBlazingForge
+import hiiragi283.ragi_materials.client.model.tile.ModelBlazingForge
 import hiiragi283.ragi_materials.tile.TileBlazingForge
 import hiiragi283.ragi_materials.util.RagiFacing
 import net.minecraft.client.renderer.GlStateManager
@@ -11,11 +12,11 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 @SideOnly(Side.CLIENT)
-class RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
+object RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
 
     private val location = ResourceLocation("minecraft", "textures/entity/blaze.png")
 
-    val model = ModelBlazingForge()
+    val model = ModelBlazingForge
 
     override fun render(te: TileBlazingForge, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
 
@@ -36,7 +37,7 @@ class RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
                 GlStateManager.translate(x.toFloat() + 0.5f, y.toFloat(), z.toFloat() + 0.5f)
                 GlStateManager.scale(1.2f, -1.2f, -1.2f)
                 GlStateManager.rotate(rotate, 0.0f, 1.0f, 0.0f)
-                model.render()
+                ModelBlazingForge.render()
                 GlStateManager.disableRescaleNormal()
                 GlStateManager.popMatrix()
             }

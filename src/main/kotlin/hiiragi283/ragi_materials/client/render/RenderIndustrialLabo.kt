@@ -1,7 +1,8 @@
-package hiiragi283.ragi_materials.client.render.tile
+package hiiragi283.ragi_materials.client.render
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.block.BlockIndustrialLabo
+import hiiragi283.ragi_materials.client.model.tile.ModelIndustrialLabo
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
 import hiiragi283.ragi_materials.util.RagiFacing
 import net.minecraft.client.renderer.GlStateManager
@@ -12,11 +13,11 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 @SideOnly(Side.CLIENT)
-class RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
+object RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
 
-    private val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/industrial_labo.png")
+    val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/industrial_labo.png")
 
-    val model = ModelIndustrialLabo()
+    val model = ModelIndustrialLabo
 
     override fun render(te: TileIndustrialLabo, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
 
@@ -37,7 +38,7 @@ class RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
                 GlStateManager.translate(x.toFloat() + 0.5f, y.toFloat(), z.toFloat() + 0.5f)
                 GlStateManager.scale(1.0f, -1.0f, -1.0f)
                 GlStateManager.rotate(rotate, 0.0f, 1.0f, 0.0f)
-                model.render()
+                ModelIndustrialLabo.render()
                 GlStateManager.disableRescaleNormal()
                 GlStateManager.popMatrix()
             }

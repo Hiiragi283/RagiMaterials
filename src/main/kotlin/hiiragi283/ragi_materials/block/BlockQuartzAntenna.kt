@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockContainerBase
-import hiiragi283.ragi_materials.client.render.color.RagiColor
+import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.tile.TileQuartzAntenna
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material

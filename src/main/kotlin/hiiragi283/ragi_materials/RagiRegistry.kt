@@ -1,19 +1,15 @@
 package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
 import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.client.render.color.RagiColor
-import hiiragi283.ragi_materials.client.render.model.ICustomModel
-import hiiragi283.ragi_materials.client.render.model.ModelManager
-import hiiragi283.ragi_materials.client.render.model.ModelRegistry
+import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
+import hiiragi283.ragi_materials.client.model.ModelRegistry
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.OreProperty
-import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
-import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
@@ -22,32 +18,11 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
-import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 object RagiRegistry {
-
-    fun registerFluid() {
-        //Fluidの登録
-        for (material in RagiMaterial.list) {
-            //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
-                //Fluidの登録
-                val fluid = FluidBase(material.name)
-                fluid.setColor(material.color)
-                //MaterialTypesがGASの場合
-                if (material.type.match(TypeRegistry.GAS)) {
-                    fluid.isGaseous = true
-                    fluid.density = fluid.density * -1
-                }
-                FluidRegistry.registerFluid(fluid)
-                //fluid入りバケツを登録
-                FluidRegistry.addBucketForFluid(fluid)
-            }
-        }
-    }
 
     object BLOCK {
 
@@ -58,6 +33,7 @@ object RagiRegistry {
         val BlockLaboratoryTable = BlockLaboTable()
         val BlockOre1 = BlockOreMaterial("ore_block")
         val BlockOreDictConv = BlockOreDictConv()
+        val BlockOreDictConvNew = BlockOreDictConvNew()
         val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
         val BlockQuartzAntenna = BlockQuartzAntenna()
         val BlockSoilCoal = BlockSoilCoal()
@@ -113,6 +89,7 @@ object RagiRegistry {
         val ItemBlockLaboratoryTable = ItemBlockBase(BLOCK.BlockLaboratoryTable)
         val ItemBlockOre1 = ItemBlockBase(BLOCK.BlockOre1, OreProperty.mapOre1.size - 1)
         val ItemBlockOreDictConv = ItemBlockBase(BLOCK.BlockOreDictConv)
+        val ItemBlockOreDictConvNew = ItemBlockBase(BLOCK.BlockOreDictConvNew)
         val ItemBlockOreRainbow = ItemBlockBase(BLOCK.BlockOreRainbow)
         val ItemBlockQuartzAntenna = ItemBlockBase(BLOCK.BlockQuartzAntenna)
         val ItemBlockSoilCoal = ItemBlockBase(BLOCK.BlockSoilCoal)

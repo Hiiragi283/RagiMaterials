@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.client.render.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material

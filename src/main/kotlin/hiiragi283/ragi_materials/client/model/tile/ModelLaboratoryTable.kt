@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.render.tile
+package hiiragi283.ragi_materials.client.model.tile
 
 import net.minecraft.client.model.ModelBase
 import net.minecraft.client.model.ModelBox
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 */
 
 @SideOnly(Side.CLIENT)
-class ModelLaboratoryTable : ModelBase() {
+object ModelLaboratoryTable : ModelBase() {
 
     private val cube: ModelRenderer
 

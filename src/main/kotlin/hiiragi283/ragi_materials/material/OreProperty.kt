@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.ColorManager
+import hiiragi283.ragi_materials.client.color.ColorManager
 
 class OreProperty(val first: RagiMaterial, val second: RagiMaterial = RagiMaterial.EMPTY, val third: RagiMaterial = RagiMaterial.EMPTY) {
 

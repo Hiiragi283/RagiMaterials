@@ -70,17 +70,15 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
     //    Capability    //
 
     override fun initCapabilities(stack: ItemStack, nbt: NBTTagCompound?): ICapabilityProvider {
-        return CellProvider(stack)
-    }
+        return object: ICapabilityProvider {
 
-    private class CellProvider(val stack: ItemStack) : ICapabilityProvider {
+            override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
+                return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FullBottleFluidHandler(stack, 1000) as T else null
+            }
 
-        override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-            return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FullBottleFluidHandler(stack, 1000) as T else null
-        }
-
-        override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-            return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY
+            override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
+                return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY
+            }
         }
     }
 

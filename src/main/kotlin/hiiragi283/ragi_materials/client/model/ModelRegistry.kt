@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.client.render.model
+package hiiragi283.ragi_materials.client.model
 
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
