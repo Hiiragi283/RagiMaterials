@@ -16,11 +16,11 @@ class ItemOreCrushed : ItemBase(Reference.MOD_ID, "ore_crushed", OreProperty.map
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiRegistry.ITEM.ItemBlockOre1.getTranslationKey(stack)}.name"))
+    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiRegistry.ItemBlockOre1.getTranslationKey(stack)}.name"))
 
     //    IMaterialItem    //
 
-    override fun getColor(stack: ItemStack): Color {
+    override fun getColor(stack: ItemStack, tintIndex: Int): Color {
         val list = OreProperty.listOre1
         val index = stack.metadata % list.size
         return list[index].second.getColor()

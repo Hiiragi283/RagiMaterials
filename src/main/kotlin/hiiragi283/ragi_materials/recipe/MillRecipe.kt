@@ -68,8 +68,8 @@ data class MillRecipe private constructor(private val location: ResourceLocation
         }
 
         private fun recipeOre() {
-            val blockOre = RagiRegistry.BLOCK.BlockOre1
-            val itemCrushed = RagiRegistry.ITEM.ItemOreCrushed
+            val blockOre = RagiRegistry.BlockOre1
+            val itemCrushed = RagiRegistry.ItemOreCrushed
             for (i in OreProperty.listOre1.indices) {
                 //Ore -> Crushed Ore
                 Builder("${blockOre.registryName}_$i").apply {
@@ -85,7 +85,7 @@ data class MillRecipe private constructor(private val location: ResourceLocation
         }
 
         private fun recipeOreVanilla() {
-            val itemCrushed = RagiRegistry.ITEM.ItemOreCrushedVanilla
+            val itemCrushed = RagiRegistry.ItemOreCrushedVanilla
             val list = listOf(
                     Blocks.GOLD_ORE,
                     Blocks.IRON_ORE,

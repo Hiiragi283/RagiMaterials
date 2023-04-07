@@ -3,9 +3,9 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.inventory.RagiInventory
 import hiiragi283.ragi_materials.inventory.container.ContainerOreDictConv
+import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.SoundManager
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
@@ -23,7 +23,7 @@ import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.wrapper.SidedInvWrapper
 import net.minecraftforge.oredict.OreDictionary
 
-class TileOreDictConv: TileLockableBase(107), ISidedInventory, ITickable {
+class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
 
     override val inventory = RagiInventory("gui.ragi_materials.oredict_converter", 2)
     private val invWrapperIn = SidedInvWrapper(this, EnumFacing.UP) //搬入
@@ -57,7 +57,7 @@ class TileOreDictConv: TileLockableBase(107), ISidedInventory, ITickable {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
         return true
     }
 

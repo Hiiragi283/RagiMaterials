@@ -32,7 +32,7 @@ class ItemOreCrushedVanilla : ItemBase(Reference.MOD_ID, "ore_crushed_vanilla", 
 
     //    IMaterialItem    //
 
-    override fun getColor(stack: ItemStack): Color {
+    override fun getColor(stack: ItemStack, tintIndex: Int): Color {
         val list = OreProperty.listVanilla
         val index = stack.metadata % list.size
         return list[index].second.getColor()

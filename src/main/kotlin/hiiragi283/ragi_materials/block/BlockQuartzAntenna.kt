@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockContainerBase
-import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.tile.TileQuartzAntenna
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -14,9 +13,8 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import java.awt.Color
 
-class BlockQuartzAntenna : BlockContainerBase("quartz_antenna", Material.CIRCUITS, 3), IMaterialBlock {
+class BlockQuartzAntenna : BlockContainerBase("quartz_antenna", Material.CIRCUITS, 3) {
 
     init {
         soundType = SoundType.STONE
@@ -42,10 +40,4 @@ class BlockQuartzAntenna : BlockContainerBase("quartz_antenna", Material.CIRCUIT
 
     override fun createNewTileEntity(world: World, meta: Int): TileEntity = TileQuartzAntenna()
 
-    //    IMaterialBLock    //
-
-    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState): Color {
-        val tile = world.getTileEntity(pos)
-        return if (tile !== null && tile is TileQuartzAntenna) tile.material.color else RagiColor.WHITE
-    }
 }

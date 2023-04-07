@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.inventory.gui
+package hiiragi283.ragi_materials.client.gui
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill

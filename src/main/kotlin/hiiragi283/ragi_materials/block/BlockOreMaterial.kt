@@ -50,7 +50,7 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
 
     //    IMaterialBlock    //
 
-    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState): Color {
+    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState, tintIndex: Int): Color {
         val list = OreProperty.listOre1
         val index = this.getMetaFromState(state) % list.size
         return list[index].second.getColor()
@@ -58,7 +58,7 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
 
     //    IMaterialItem    //
 
-    override fun getColor(stack: ItemStack): Color {
+    override fun getColor(stack: ItemStack, tintIndex: Int): Color {
         val list = OreProperty.listOre1
         val index = stack.metadata % list.size
         return list[index].second.getColor()

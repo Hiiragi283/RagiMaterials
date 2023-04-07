@@ -21,6 +21,16 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.ItemStackHandler
 import net.minecraftforge.oredict.OreDictionary
 
+fun ItemStack.toBracket(): String {
+    val item: Item = this.item
+    val location: ResourceLocation? = item.registryName
+    val amount: Int = this.count
+    val meta: Int = this.metadata
+    return "<$location:$meta> * $amount"
+}
+
+fun Boolean.toInt() = if (this) 1 else 0
+
 object RagiUtil {
 
     //    Block    //
@@ -90,14 +100,6 @@ object RagiUtil {
         return result
     }
 
-    fun ItemStack.toBracket(): String {
-        val item: Item = this.item
-        val location: ResourceLocation? = item.registryName
-        val amount: Int = this.count
-        val meta: Int = this.metadata
-        return "<$location:$meta> * $amount"
-    }
-
     //    Potion    //
 
     fun getPotion(registryName: String): Potion {
@@ -115,10 +117,6 @@ object RagiUtil {
     fun setOreDict(oreDict: String, stack: ItemStack) {
         OreDictionary.registerOre(oreDict, stack)
         //RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.toBracket())
-    }
-
-    fun Boolean.toInt(): Int {
-        return if (this) 1 else 0
     }
 
     fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {

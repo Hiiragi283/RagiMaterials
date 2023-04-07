@@ -1,12 +1,11 @@
-package hiiragi283.ragi_materials.inventory.gui
+package hiiragi283.ragi_materials.client.gui
 
-import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.inventory.container.ContainerTileBase
+import hiiragi283.ragi_materials.inventory.container.ContainerStateBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
 
-abstract class GuiTileBase<T : TileLockableBase>(val container: ContainerTileBase<T>) : GuiContainer(container) {
+abstract class GuiStateBase(val container: ContainerStateBase) : GuiContainer(container) {
 
     abstract val background: ResourceLocation
 
@@ -17,7 +16,7 @@ abstract class GuiTileBase<T : TileLockableBase>(val container: ContainerTileBas
     }
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
-        fontRenderer.drawString(container.tile.displayName!!.unformattedText, 8, 6, 0x404040)
+        fontRenderer.drawString(container.inventory.displayName.unformattedText, 8, 6, 0x404040)
         fontRenderer.drawString(container.player.inventory.displayName.unformattedText, 8, ySize - 96 + 2, 0x404040)
     }
 

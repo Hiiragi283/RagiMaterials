@@ -11,7 +11,11 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class ItemResonatingFork: ItemBase(Reference.MOD_ID, "resonating_fork", 0) {
+class ItemResonatingFork : ItemBase(Reference.MOD_ID, "resonating_fork", 0) {
+
+    init {
+        setMaxStackSize(1)
+    }
 
     //    Event    //
 
@@ -20,7 +24,7 @@ class ItemResonatingFork: ItemBase(Reference.MOD_ID, "resonating_fork", 0) {
         val stack = player.getHeldItem(hand)
         //プレイヤーがスニーク中の場合，座標を取得する
         if (player.isSneaking) {
-            val tag = stack.tagCompound?: NBTTagCompound()
+            val tag = stack.tagCompound ?: NBTTagCompound()
             tag.setInteger("toX", pos.x)
             tag.setInteger("toY", pos.y)
             tag.setInteger("toZ", pos.z)

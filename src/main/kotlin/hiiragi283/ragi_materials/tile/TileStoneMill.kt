@@ -3,9 +3,9 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.block.BlockStoneMill
-import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.inventory.RagiInventory
 import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill
+import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -57,7 +57,7 @@ class TileStoneMill : TileLockableBase(105), ISidedInventory {
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) {
             if (player.isSneaking) {
-                player.openGui(RagiMaterialsCore.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+                player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
             } else {
                 val state = world.getBlockState(pos)
                 val count = state.getValue(BlockStoneMill.COUNT)

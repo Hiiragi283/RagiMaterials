@@ -28,7 +28,6 @@ object RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
 
         //ワールド上のみで描画
         if (te.hasWorld()) {
-
             renderStack(te, x, y, z, 0)
             renderStack(te, x, y, z, 1)
             renderStack(te, x, y, z, 2)

@@ -123,7 +123,7 @@ data class LaboRecipe private constructor(private val location: ResourceLocation
                 outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.ALUMINA)
                 outputs[2] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
                 outputs[3] = RagiFluidUtil.getBottle(MaterialRegistry.WATER, count = 3)
-            }.setCatalyst(0, ItemStack(RagiRegistry.ITEM.ItemBlazingCube)).build()
+            }.setCatalyst(0, ItemStack(RagiRegistry.ItemBlazingCube)).build()
         }
 
         fun printMap() {

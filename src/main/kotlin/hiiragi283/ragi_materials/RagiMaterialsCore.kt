@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.proxy.CommonProxy
-import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
@@ -33,36 +32,21 @@ class RagiMaterialsCore {
 
     @Mod.EventHandler
     fun onConstruct(event: FMLConstructionEvent) {
-        if (!isLoadedGT) {
-            proxy!!.onConstruct()
-        }
+        if (!isLoadedGT) proxy!!.onConstruct(event)
     }
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        if (!isLoadedGT) {
-            /*
-              Thanks to defeatedcrow!
-              Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
-            */
-            //configフォルダーの取得
-            config = File(event.modConfigurationDirectory, "${Reference.MOD_ID}/")
-            RagiLogger.infoDebug(("Config path: ${config?.absolutePath}"))
-            proxy!!.loadPreInit()
-        }
+        if (!isLoadedGT) proxy!!.loadPreInit(event)
     }
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
-        if (!isLoadedGT) {
-            proxy!!.loadInit()
-        }
+        if (!isLoadedGT) proxy!!.loadInit(event)
     }
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
-        if (!isLoadedGT) {
-            proxy!!.loadPostInit()
-        }
+        if (!isLoadedGT) proxy!!.loadPostInit(event)
     }
 }

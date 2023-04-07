@@ -47,11 +47,11 @@ object CraftingMaterial {
 
             if (EnumMaterialType.INGOT_HOT in listType) {
                 //hot ingot -> gearのレシピを登録
-                CraftingManager.addShaped("${Reference.MOD_ID}:hot_to_gear_${material.index}", MaterialUtil.getPart(PartRegistry.GEAR, material), " A ", "ABA", " A ", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ITEM.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
+                CraftingManager.addShaped("${Reference.MOD_ID}:hot_to_gear_${material.index}", MaterialUtil.getPart(PartRegistry.GEAR, material), " A ", "ABA", " A ", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
                 //hot ingot -> plateのレシピを登録
-                CraftingManager.addShaped("${Reference.MOD_ID}:hot_to_plate_${material.index}", MaterialUtil.getPart(PartRegistry.PLATE, material), "AB", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ITEM.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
+                CraftingManager.addShaped("${Reference.MOD_ID}:hot_to_plate_${material.index}", MaterialUtil.getPart(PartRegistry.PLATE, material), "AB", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
                 //hot ingot -> stickのレシピを登録
-                CraftingManager.addShaped("${Reference.MOD_ID}:hot_to_stick_${material.index}", MaterialUtil.getPart(PartRegistry.STICK, material, 4), "AB", "A ", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ITEM.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
+                CraftingManager.addShaped("${Reference.MOD_ID}:hot_to_stick_${material.index}", MaterialUtil.getPart(PartRegistry.STICK, material, 4), "AB", "A ", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
             }
         }
     }

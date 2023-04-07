@@ -3,14 +3,14 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileLockableBase
 import hiiragi283.ragi_materials.capability.RagiEnergyStorage
-import hiiragi283.ragi_materials.init.RagiGuiHandler
 import hiiragi283.ragi_materials.inventory.RagiInventory
 import hiiragi283.ragi_materials.inventory.container.ContainerLaboTable
+import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.RagiUtil.toBracket
 import hiiragi283.ragi_materials.util.SoundManager
+import hiiragi283.ragi_materials.util.toBracket
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.ISidedInventory
@@ -79,7 +79,7 @@ class TileIndustrialLabo : TileLockableBase(104), ISidedInventory, ITickable {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, RagiGuiHandler.RagiID, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
         return true
     }
 

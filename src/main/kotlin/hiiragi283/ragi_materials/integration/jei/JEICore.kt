@@ -37,7 +37,7 @@ class JEICore : IModPlugin {
 
         registry.handleRecipes(FFRecipe::class.java, { FFRecipe.Wrapper(it) }, ForgeFurnace)
         registry.handleRecipes(LaboRecipe::class.java, { LaboRecipe.Wrapper(it) }, LaboTable)
-        registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper (it) }, MaterialInfo)
+        registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper(it) }, MaterialInfo)
         registry.handleRecipes(MillRecipe::class.java, { MillRecipe.Wrapper(it) }, StoneMill)
 
         registry.addRecipes(FFRecipe.Registry.list, ForgeFurnace)
@@ -45,18 +45,20 @@ class JEICore : IModPlugin {
         registry.addRecipes(RagiMaterial.list, MaterialInfo)
         registry.addRecipes(MillRecipe.Registry.list, StoneMill)
 
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockForgeFurnace), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockBlazingForge), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockLaboratoryTable), LaboTable)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockIndustrialLabo), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockForgeFurnace), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockBlazingForge), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockLaboratoryTable), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockIndustrialLabo), LaboTable)
         registry.addRecipeCatalyst(ItemStack(Items.IRON_INGOT), MaterialInfo)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BLOCK.BlockStoneMill), StoneMill)
+        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockStoneMill), StoneMill)
 
         RagiLogger.info("The integration for JEI/HEI has loaded!")
     }
 
     @Deprecated("Deprecated in Java")
-    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {}
+    override fun registerItemSubtypes(subtypeRegistry: ISubtypeRegistry) {
+    }
+
     override fun registerIngredients(registry: IModIngredientRegistration) {}
     override fun onRuntimeAvailable(jeiRuntime: IJeiRuntime) {}
 }

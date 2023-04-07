@@ -112,8 +112,8 @@ abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IG
 
     //    IMaterialBlock    //
 
-    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState): Color {
-        val color = super<IMaterialBlock>.getColor(world, pos, state)
+    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState, tintIndex: Int): Color {
+        val color = super.getColor(world, pos, state, tintIndex)
         val age = getAge(state)
         val ageMax = getAgeMax()
         return ColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age))

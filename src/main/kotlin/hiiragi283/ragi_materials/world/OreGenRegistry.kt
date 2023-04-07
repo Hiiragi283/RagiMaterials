@@ -18,7 +18,7 @@ object OreGenRegistry {
     }
 
     private fun getGenerator(meta: Int, base: IBlockState): WorldGenMinable {
-        val state = RagiRegistry.BLOCK.BlockOre1.defaultState.withProperty(BlockOreMaterial.TYPE, meta / BlockOreMaterial.TYPE.allowedValues.last())
+        val state = RagiRegistry.BlockOre1.defaultState.withProperty(BlockOreMaterial.TYPE, meta / BlockOreMaterial.TYPE.allowedValues.last())
         return WorldGenMinable(state, 8)
     }
 

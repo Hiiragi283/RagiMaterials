@@ -15,9 +15,9 @@ import net.minecraftforge.fml.relauncher.SideOnly
 @SideOnly(Side.CLIENT)
 object RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
 
-    val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/industrial_labo.png")
+    private val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/industrial_labo.png")
 
-    val model = ModelIndustrialLabo
+    private var rotate = 180.0f
 
     override fun render(te: TileIndustrialLabo, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
 
@@ -25,23 +25,26 @@ object RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
 
             val state = te.world.getBlockState(te.pos)
             if (state.block is BlockIndustrialLabo) {
-                val rotate = when (state.getValue(RagiFacing.HORIZONTAL)) {
+                rotate = when (state.getValue(RagiFacing.HORIZONTAL)) {
                     EnumFacing.EAST -> -90.0f
                     EnumFacing.SOUTH -> 0.0f
                     EnumFacing.WEST -> 90.0f
                     else -> 180.0f
                 }
-
-                this.bindTexture(location)
-                GlStateManager.pushMatrix()
-                GlStateManager.enableRescaleNormal()
-                GlStateManager.translate(x.toFloat() + 0.5f, y.toFloat(), z.toFloat() + 0.5f)
-                GlStateManager.scale(1.0f, -1.0f, -1.0f)
-                GlStateManager.rotate(rotate, 0.0f, 1.0f, 0.0f)
-                ModelIndustrialLabo.render()
-                GlStateManager.disableRescaleNormal()
-                GlStateManager.popMatrix()
+                render(x, y, z)
             }
         }
+    }
+
+    fun render(x: Double, y: Double, z: Double) {
+        this.bindTexture(location)
+        GlStateManager.pushMatrix()
+        GlStateManager.enableRescaleNormal()
+        GlStateManager.translate(x.toFloat() + 0.5f, y.toFloat(), z.toFloat() + 0.5f)
+        GlStateManager.scale(1.0f, -1.0f, -1.0f)
+        GlStateManager.rotate(rotate, 0.0f, 1.0f, 0.0f)
+        ModelIndustrialLabo.render()
+        GlStateManager.disableRescaleNormal()
+        GlStateManager.popMatrix()
     }
 }
