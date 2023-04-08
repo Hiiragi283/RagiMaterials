@@ -22,7 +22,6 @@ object RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
     override fun render(te: TileIndustrialLabo, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
 
         if (te.hasWorld()) {
-
             val state = te.world.getBlockState(te.pos)
             if (state.block is BlockIndustrialLabo) {
                 rotate = when (state.getValue(RagiFacing.HORIZONTAL)) {

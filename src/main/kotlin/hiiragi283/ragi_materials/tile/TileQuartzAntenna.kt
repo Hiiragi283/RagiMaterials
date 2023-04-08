@@ -76,23 +76,13 @@ class TileQuartzAntenna : TileBase(106), ITickable {
         if (count >= 20) {
             //真下の座標からcapabilityを取得する
             val tileFrom = this.world.getTileEntity(this.pos.offset(EnumFacing.DOWN))
-            if (tileFrom !== null) {
-                //真下のタイルエンティティからFEを搬入する
-                val energyStorageFrom = tileFrom.getCapability(CapabilityEnergy.ENERGY, EnumFacing.UP)
-                if (energyStorageFrom !== null && energyStorageFrom.canExtract() && energyStorage.canReceive()) {
-                    energyStorage.receiveEnergy(energyStorageFrom.extractEnergy(energyStorage.getFreeCapacity(), false), false)
-                }
-            }
+            //真下のタイルエンティティからFEを搬入する
+            if (tileFrom !== null) energyStorage.receiveEnergyFrom(tileFrom, EnumFacing.UP, false)
             //転送先の座標からcapabilityを得る
             if (posTo !== null) {
                 val tileTo = this.world.getTileEntity(posTo!!)
-                if (tileTo !== null) {
-                    //転送先のタイルエンティティにFEを搬出する
-                    val energyStorageTo = tileTo.getCapability(CapabilityEnergy.ENERGY, null)
-                    if (energyStorageTo !== null && energyStorageTo.canReceive() && energyStorage.canExtract()) {
-                        energyStorage.extractEnergy(energyStorageTo.receiveEnergy(16000, false), false)
-                    }
-                }
+                //転送先のタイルエンティティにFEを搬出する
+                if (tileTo !== null) energyStorage.extractEnergyTo(tileTo, null, false)
             }
             count = 0 //countをリセット
         } else count++ //countを追加

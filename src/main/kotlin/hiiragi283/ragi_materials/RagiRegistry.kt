@@ -77,6 +77,7 @@ object RagiRegistry {
 
     val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0)
     val ItemBookDebug = ItemBookDebug()
+    val ItemEnderTable = ItemEnderTable()
     val ItemForgeHammer = ItemForgeHammer()
     val ItemFullBottle = ItemFullBottle()
     val ItemOreCrushed = ItemOreCrushed()

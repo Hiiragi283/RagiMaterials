@@ -27,9 +27,9 @@ class ContainerOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : Contai
         if (slot.hasStack) {
             val stack1 = slot.stack
             stack = stack1.copy()
-            //Output -> Inventory, Hotbar, Input
+            //Output -> Inventory, Hotbar
             if (index == 37) {
-                if (!mergeItemStack(stack1, 0, 37, true)) {
+                if (!mergeItemStack(stack1, 0, 36, true)) {
                     return ItemStack.EMPTY
                 }
             }
@@ -39,12 +39,8 @@ class ContainerOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : Contai
                     return ItemStack.EMPTY
                 }
             }
-            //Inventory -> Hotbar, Input
-            else if (index in 0..26 && !mergeItemStack(stack1, 27, 37, true)) {
-                return ItemStack.EMPTY
-            }
-            //Hotbar -> Inventory
-            else if (!mergeItemStack(stack1, 0, 27, true)) {
+            //Inventory, Hotbar -> Input
+            else if (!mergeItemStack(stack1, 36, 37, true)) {
                 return ItemStack.EMPTY
             }
             if (stack1.isEmpty) slot.putStack(ItemStack.EMPTY) else slot.onSlotChanged()
