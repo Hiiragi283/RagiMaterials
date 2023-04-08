@@ -2,9 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.tile.TileQuartzAntenna
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -20,8 +18,7 @@ class ItemResonatingFork : ItemBase(Reference.MOD_ID, "resonating_fork", 0) {
     //    Event    //
 
     override fun onItemUse(player: EntityPlayer, world: World, pos: BlockPos, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): EnumActionResult {
-        var result = EnumActionResult.FAIL
-        val stack = player.getHeldItem(hand)
+        /*val stack = player.getHeldItem(hand)
         //プレイヤーがスニーク中の場合，座標を取得する
         if (player.isSneaking) {
             val tag = stack.tagCompound ?: NBTTagCompound()
@@ -44,8 +41,8 @@ class ItemResonatingFork : ItemBase(Reference.MOD_ID, "resonating_fork", 0) {
                     result = EnumActionResult.SUCCESS
                 }
             }
-        }
-        return result
+        }*/
+        return EnumActionResult.FAIL
     }
 
 }

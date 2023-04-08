@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.tile.TileStoneMill
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 
-class GuiStoneMill(player: EntityPlayer, tile: TileStoneMill) : GuiTileBase<TileStoneMill>(ContainerStoneMill(player, tile)) {
+class GuiStoneMill(player: EntityPlayer, tile: TileStoneMill) : GuiLockableBase<TileStoneMill>(ContainerStoneMill(player, tile)) {
 
     init {
         ySize = 133

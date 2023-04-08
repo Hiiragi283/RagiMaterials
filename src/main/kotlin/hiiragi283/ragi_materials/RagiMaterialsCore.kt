@@ -37,16 +37,16 @@ class RagiMaterialsCore {
 
     @Mod.EventHandler
     fun preInit(event: FMLPreInitializationEvent) {
-        if (!isLoadedGT) proxy!!.loadPreInit(event)
+        if (!isLoadedGT) proxy!!.onPreInit(event)
     }
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
-        if (!isLoadedGT) proxy!!.loadInit(event)
+        if (!isLoadedGT) proxy!!.onInit(event)
     }
 
     @Mod.EventHandler
     fun postInit(event: FMLPostInitializationEvent) {
-        if (!isLoadedGT) proxy!!.loadPostInit(event)
+        if (!isLoadedGT) proxy!!.onPostInit(event)
     }
 }
