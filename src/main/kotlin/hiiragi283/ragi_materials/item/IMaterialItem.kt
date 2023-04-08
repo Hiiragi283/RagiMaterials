@@ -1,11 +1,15 @@
 package hiiragi283.ragi_materials.item
 
+import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.material.RagiMaterial
 import net.minecraft.item.ItemStack
 
 interface IMaterialItem {
 
-    fun getMaterial(stack: ItemStack): RagiMaterial
+    fun getColor(stack: ItemStack, tintIndex: Int) = if (tintIndex == 0) getMaterial(stack).color else RagiColor.WHITE
 
-    fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack
+    fun getMaterial(stack: ItemStack) = RagiMaterial.EMPTY
+
+    fun setMaterial(stack: ItemStack, material: RagiMaterial) = stack
+
 }

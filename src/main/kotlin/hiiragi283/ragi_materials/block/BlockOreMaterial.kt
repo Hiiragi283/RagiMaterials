@@ -1,18 +1,22 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.client.render.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import java.awt.Color
 
-class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomModel {
+class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomModel, IMaterialBlock {
 
     companion object {
         val TYPE: PropertyInteger = PropertyInteger.create("type", 0, 15)
@@ -43,5 +47,21 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
 
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
+    //    IMaterialBlock    //
+
+    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState, tintIndex: Int): Color {
+        val list = OreProperty.listOre1
+        val index = this.getMetaFromState(state) % list.size
+        return list[index].second.getColor()
+    }
+
+    //    IMaterialItem    //
+
+    override fun getColor(stack: ItemStack, tintIndex: Int): Color {
+        val list = OreProperty.listOre1
+        val index = stack.metadata % list.size
+        return list[index].second.getColor()
+    }
 
 }

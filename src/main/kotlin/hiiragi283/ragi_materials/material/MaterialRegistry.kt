@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.ColorManager
-import hiiragi283.ragi_materials.client.render.color.RagiColor
+import hiiragi283.ragi_materials.client.color.ColorManager
+import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import net.minecraft.item.EnumRarity
@@ -393,5 +393,87 @@ object MaterialRegistry {
     val ARSENIC = RagiMaterial.Builder(311, "arsenic", TypeRegistry.METALLOID).setSimple(ElementRegistry.ARSENIC to 1).apply {
         rarity = EnumRarity.RARE
     }.build()
+
+    //380 ~ 389: Strontium
+    val STRONTIUM = RagiMaterial.Builder(380, "strontium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.STRONTIUM to 1).build()
+
+    //400 ~ 409: Zirconium
+    val ZIRCONIUM = RagiMaterial.Builder(400, "zirconium", TypeRegistry.METAL).setSimple(ElementRegistry.ZIRCONIUM to 1).build()
+
+    //410 ~ 419: Niobium
+    val NIOBIUM = RagiMaterial.Builder(410, "niobium", TypeRegistry.METAL).setSimple(ElementRegistry.NIOBIUM to 1).build()
+
+    //420 ~ 429: Molybdenum
+    val MOLYBDENUM = RagiMaterial.Builder(420, "molybdenum", TypeRegistry.METAL).setSimple(ElementRegistry.MOLYBDENUM to 1).build()
+
+    //440 ~ 449: Platinum Group Metal
+    val RUTHENIUM = RagiMaterial.Builder(440, "ruthenium", TypeRegistry.METAL).setSimple(ElementRegistry.RUTHENIUM to 1).build()
+
+    val RHODIUM = RagiMaterial.Builder(441, "rhodium", TypeRegistry.METAL).setSimple(ElementRegistry.RHODIUM to 1).build()
+
+    val PALLADIUM = RagiMaterial.Builder(442, "palladium", TypeRegistry.METAL).setSimple(ElementRegistry.PALLADIUM to 1).build()
+
+    val OSMIUM = RagiMaterial.Builder(443, "osmium", TypeRegistry.METAL).setSimple(ElementRegistry.OSMIUM to 1).build()
+
+    val IRIDIUM = RagiMaterial.Builder(444, "iridium", TypeRegistry.METAL).setSimple(ElementRegistry.IRIDIUM to 1).build()
+
+    val PLATINUM = RagiMaterial.Builder(445, "platinum", TypeRegistry.METAL).setSimple(ElementRegistry.PLATINUM to 1).build()
+
+    //470 ~ 479: Silver
+    val SILVER = RagiMaterial.Builder(470, "silver", TypeRegistry.METAL).setSimple(ElementRegistry.SILVER to 1).build()
+
+    //490 ~ 499: Indium
+    val INDIUM = RagiMaterial.Builder(490, "indium", TypeRegistry.METAL).setSimple(ElementRegistry.INDIUM to 1).build()
+
+    //500 ~ 509: Tin
+    val TIN = RagiMaterial.Builder(500, "tin", TypeRegistry.METAL).setSimple(ElementRegistry.TIN to 1).build()
+
+    //510 ~ 519: Antimony
+    val ANTIMONY = RagiMaterial.Builder(510, "antimony", TypeRegistry.METAL).setSimple(ElementRegistry.ANTIMONY to 1).build()
+
+    //530 ~ 539: Iodine
+    val IODINE = RagiMaterial.Builder(530, "iodine", TypeRegistry.METALLOID).setSimple(ElementRegistry.IODINE to 2).build()
+
+    //560 ~ 569: Barium
+    val BARIUM = RagiMaterial.Builder(560, "barium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.BARIUM to 1).build()
+
+    //570 ~ 579: Rare Earth
+    val NEODYMIUM = RagiMaterial.Builder(570, "neodymium", TypeRegistry.METAL).setSimple(ElementRegistry.NEODYMIUM to 1).build()
+
+    val SAMARIUM = RagiMaterial.Builder(571, "samarium", TypeRegistry.METAL).setSimple(ElementRegistry.SAMARIUM to 1).build()
+
+    //720 ~ 729: Hafnium
+    val HAFNIUM = RagiMaterial.Builder(720, "hafnium", TypeRegistry.METAL).setSimple(ElementRegistry.HAFNIUM to 1).build()
+
+    //730 ~ 739: Tantalum
+    val TANTALUM = RagiMaterial.Builder(730, "tantalum", TypeRegistry.METAL).setSimple(ElementRegistry.TANTALUM to 1).build()
+
+    //740 ~ 749: Tungsten
+    val TUNGSTEN = RagiMaterial.Builder(740, "tungsten", TypeRegistry.METAL).setSimple(ElementRegistry.TUNGSTEN to 1).build()
+
+    //790 ~ 799: Gold
+    val GOLD = RagiMaterial.Builder(790, "gold", TypeRegistry.METAL).setSimple(ElementRegistry.GOLD to 1).build()
+
+    //800 ~ 809: Mercury
+    val MERCURY = RagiMaterial.Builder(800, "mercury", TypeRegistry.LIQUID).setSimple(ElementRegistry.MERCURY to 1).build()
+
+    //820 ~ 829: Lead
+    val LEAD = RagiMaterial.Builder(820, "lead", TypeRegistry.METAL).setSimple(ElementRegistry.LEAD to 1).build()
+
+    //830 ~ 839: Bismuth
+    val BISMUTH = RagiMaterial.Builder(830, "bismuth", TypeRegistry.METAL).setSimple(ElementRegistry.BISMUTH to 1).build()
+
+    //900 ~ 909: Thorium
+    val THORIUM = RagiMaterial.Builder(900, "thorium", TypeRegistry.METAL_RADIO).setSimple(ElementRegistry.THORIUM to 1).build()
+
+    //920 ~ 929: Uranium
+    val URANIUM_238 = RagiMaterial.Builder(920, "uranium", TypeRegistry.METAL_RADIO).setSimple(ElementRegistry.URANIUM_238 to 1).build()
+
+    val URANIUM_235 = RagiMaterial.Builder(921, "uranium235", TypeRegistry.METAL_RADIO).setSimple(ElementRegistry.URANIUM_235 to 1).build()
+
+    //940 ~ 949: Plutonium
+    val PLUTONIUM_244 = RagiMaterial.Builder(940, "plutonium", TypeRegistry.METAL_RADIO).setSimple(ElementRegistry.PLUTONIUM_244 to 1).build()
+
+    val PLUTONIUM_239 = RagiMaterial.Builder(941, "plutonium239", TypeRegistry.METAL_RADIO).setSimple(ElementRegistry.PLUTONIUM_239 to 1).build()
 
 }

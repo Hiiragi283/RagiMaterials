@@ -1,9 +1,8 @@
 package hiiragi283.ragi_materials.material.builder
 
-import hiiragi283.ragi_materials.client.render.color.ColorManager
+import hiiragi283.ragi_materials.client.color.ColorManager
 import hiiragi283.ragi_materials.material.type.MaterialType
 import java.awt.Color
-import java.math.BigDecimal
 
 open class CompoundBuilder(index: Int, name: String, type: MaterialType, var components: Map<MaterialBuilder, Int>) : MaterialBuilder(index, name, type) {
 
@@ -29,13 +28,11 @@ open class CompoundBuilder(index: Int, name: String, type: MaterialType, var com
     }
 
     private fun initMolar() {
-        var molar = BigDecimal.ZERO
+        var molar = 0.0f
         for (pair in components.toList()) {
-            pair.first.molar?.let {
-                molar = molar.add(it.toBigDecimal() * pair.second.toBigDecimal())
-            }
+            pair.first.molar?.let { molar = it * pair.second }
         }
-        this.molar = if (molar == BigDecimal.ZERO) null else molar.toFloat()
+        this.molar = if (molar == 0.0f) null else molar
     }
 
 }

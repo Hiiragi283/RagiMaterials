@@ -9,14 +9,9 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.util.ResourceLocation
 
-class StoneMillCategory(guiHelper: IGuiHelper) : JEICategoryBase<MillRecipe.Wrapper>(guiHelper) {
+class StoneMillCategory(guiHelper: IGuiHelper) : JEICategoryBase<MillRecipe.Wrapper>() {
 
-    var background: IDrawableStatic
-
-    init {
-        val location = ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png")
-        background = guiHelper.createDrawable(location, 1, 1, 54, 18)
-    }
+    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png"), 1, 1, 54, 18)
 
     override fun getUid(): String = JEICore.StoneMill
 

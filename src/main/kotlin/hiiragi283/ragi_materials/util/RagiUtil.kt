@@ -14,10 +14,22 @@ import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
+import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.ItemStackHandler
 import net.minecraftforge.oredict.OreDictionary
+
+fun ItemStack.toBracket(): String {
+    val item: Item = this.item
+    val location: ResourceLocation? = item.registryName
+    val amount: Int = this.count
+    val meta: Int = this.metadata
+    return "<$location:$meta> * $amount"
+}
+
+fun Boolean.toInt() = if (this) 1 else 0
 
 object RagiUtil {
 
@@ -88,14 +100,6 @@ object RagiUtil {
         return result
     }
 
-    fun ItemStack.toBracket(): String {
-        val item: Item = this.item
-        val location: ResourceLocation? = item.registryName
-        val amount: Int = this.count
-        val meta: Int = this.metadata
-        return "<$location:$meta> * $amount"
-    }
-
     //    Potion    //
 
     fun getPotion(registryName: String): Potion {
@@ -115,40 +119,48 @@ object RagiUtil {
         //RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.toBracket())
     }
 
-    fun Boolean.toInt(): Int {
-        return if (this) 1 else 0
-    }
-
-    fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack) {
+    fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
         val world = player.world
         if (!world.isRemote) {
             val posPlayer = player.position
-            dropItem(world, posPlayer, stack)
+            dropItem(world, posPlayer, stack, x, y, z)
         }
     }
 
-    fun dropInventoryItems(world: World, pos: BlockPos, inventory: ItemStackHandler) {
+    fun dropInventoryItems(world: World, pos: BlockPos, inventory: ItemStackHandler, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
         for (i in 0 until inventory.slots) {
             val stack = inventory.getStackInSlot(i)
-            dropItem(world, pos, stack)
+            dropItem(world, pos, stack, x, y, z)
         }
     }
 
-    fun dropItem(world: World, pos: BlockPos, stack: ItemStack) {
+    fun dropItem(world: World, pos: BlockPos, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
         if (!world.isRemote && !stack.isEmpty) {
             val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble(), pos.z.toDouble() + 0.5f, stack)
             drop.setPickupDelay(0) //即座に回収できるようにする
-            drop.motionX = 0.0
-            drop.motionY = 0.25
-            drop.motionZ = 0.0 //ドロップ時の飛び出しを防止
+            drop.motionX = x
+            drop.motionY = y
+            drop.motionZ = z
             world.spawnEntity(drop) //ドロップアイテムをスポーン
         }
     }
 
-    fun getEnum(name: String): EnumRarity {
-        for (enum in EnumRarity.values()) {
-            if (name == enum.getName()) return enum
+    fun getEnumRarity(name: String): IRarity {
+        return when (name) {
+            "Uncommon" -> EnumRarity.UNCOMMON
+            "Rare" -> EnumRarity.RARE
+            "Epic" -> EnumRarity.EPIC
+            "Legendary" -> object : IRarity {
+                override fun getColor() = TextFormatting.GOLD
+                override fun getName() = "Legendary"
+            }
+
+            "Mythic" -> object : IRarity {
+                override fun getColor() = TextFormatting.RED
+                override fun getName() = "Mythic"
+            }
+
+            else -> EnumRarity.COMMON
         }
-        return EnumRarity.COMMON
     }
 }

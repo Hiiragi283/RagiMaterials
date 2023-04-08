@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -123,7 +123,7 @@ data class LaboRecipe private constructor(private val location: ResourceLocation
                 outputs[1] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.ALUMINA)
                 outputs[2] = MaterialUtil.getPart(PartRegistry.DUST, MaterialRegistry.SODIUM_HYDROXIDE, 2)
                 outputs[3] = RagiFluidUtil.getBottle(MaterialRegistry.WATER, count = 3)
-            }.setCatalyst(0, ItemStack(RagiItem.ItemBlazingCube)).build()
+            }.setCatalyst(0, ItemStack(RagiRegistry.ItemBlazingCube)).build()
         }
 
         fun printMap() {

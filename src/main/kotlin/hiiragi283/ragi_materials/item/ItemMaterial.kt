@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.client.render.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
@@ -52,7 +52,9 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
                         //崩壊後の素材を取得
                         val decayed = material.decayed
-                        if(decayed !== null && !decayed.isEmpty()) { RagiUtil.dropItemAtPlayer(entity, ItemStack(this, 1, decayed.index)) }
+                        if (decayed !== null && !decayed.isEmpty()) {
+                            RagiUtil.dropItemAtPlayer(entity, ItemStack(this, 1, decayed.index))
+                        }
                     }
                 }
             }

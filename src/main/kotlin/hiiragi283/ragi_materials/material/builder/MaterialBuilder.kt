@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.material.builder
 
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
+import hiiragi283.ragi_materials.util.snakeToUpperCamelCase
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid

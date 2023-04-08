@@ -13,7 +13,7 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
 
     init {
         setRegistryName(MOD, ID)
-        hasSubtypes = setHasSubtypes(maxMeta) //メタデータを使用するかどうか
+        hasSubtypes = maxMeta > 0 //メタデータを使用するかどうか
         translationKey = ID //翻訳キーをIDから取得する
     }
 
@@ -21,9 +21,7 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
 
     override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
 
-    override fun getTranslationKey(stack: ItemStack): String = if (maxMeta == 0) super.getTranslationKey() else super.getTranslationKey() + "." + stack.metadata
-
-    private fun setHasSubtypes(maxMeta: Int): Boolean = maxMeta > 0
+    override fun getTranslationKey(stack: ItemStack): String = super.getTranslationKey() + if (maxMeta == 0) "" else ".${stack.metadata}"
 
     //    Client    //
 
@@ -34,7 +32,7 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (this.isInCreativeTab(tab)) {
+        if (isInCreativeTab(tab)) {
             //メタデータの最大値まで処理を繰り返す
             for (i in 0..maxMeta) {
                 subItems.add(ItemStack(this, 1, i))

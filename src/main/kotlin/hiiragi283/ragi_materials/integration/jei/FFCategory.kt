@@ -9,15 +9,9 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.util.ResourceLocation
 
-class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFRecipe.Wrapper>(guiHelper) {
+class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFRecipe.Wrapper>() {
 
-    var background: IDrawableStatic
-
-    //JEIタブの背景を設定するメソッド
-    init {
-        val location = ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png")
-        background = guiHelper.createDrawable(location, 1, 1, 54, 18)
-    }
+    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png"), 1, 1, 54, 18)
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.ForgeFurnace

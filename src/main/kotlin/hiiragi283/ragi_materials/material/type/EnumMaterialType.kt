@@ -10,6 +10,7 @@ enum class EnumMaterialType {
     INGOT_HOT,
     INTERNAL,
     LIQUID,
+    METAL,
     NUGGET,
     PLATE,
     RADIOACTIVE,

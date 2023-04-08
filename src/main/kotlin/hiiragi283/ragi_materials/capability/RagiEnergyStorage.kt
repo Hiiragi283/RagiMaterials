@@ -1,7 +1,10 @@
 package hiiragi283.ragi_materials.capability
 
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.util.INBTSerializable
+import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
 class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capacity, private val maxOut: Int = capacity, private var stored: Int = 0) : IEnergyStorage, INBTSerializable<NBTTagCompound> {
@@ -15,11 +18,25 @@ class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capa
         return energyReceived
     }
 
+    fun receiveEnergyFrom(tileFrom: TileEntity, facingFrom: EnumFacing?, simulate: Boolean) {
+        val energyStorageFrom = tileFrom.getCapability(CapabilityEnergy.ENERGY, facingFrom)
+        if (energyStorageFrom !== null && energyStorageFrom.canExtract() && this.canReceive()) {
+            receiveEnergy(energyStorageFrom.extractEnergy(getFreeCapacity(), simulate), simulate)
+        }
+    }
+
     override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {
         if (!canExtract()) return 0
         val energyExtracted = stored.coerceAtMost(maxOut.coerceAtMost(maxExtract))
         if (!simulate) stored -= energyExtracted
         return energyExtracted
+    }
+
+    fun extractEnergyTo(tileTo: TileEntity, facingTo: EnumFacing?, simulate: Boolean) {
+        val energyStorageTo = tileTo.getCapability(CapabilityEnergy.ENERGY, facingTo)
+        if (energyStorageTo !== null && energyStorageTo.canReceive() && this.canExtract()) {
+            extractEnergy(energyStorageTo.receiveEnergy(capacity, simulate), simulate)
+        }
     }
 
     override fun getEnergyStored() = stored
@@ -30,9 +47,11 @@ class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capa
 
     override fun getMaxEnergyStored() = capacity
 
-    override fun canExtract() = maxOut > 0
+    override fun canExtract() = maxOut > 0 && stored in 1 .. capacity
 
-    override fun canReceive() = maxIn > 0
+    override fun canReceive() = maxIn > 0 && stored in 0 until capacity
+
+    fun getFreeCapacity() = capacity - energyStored
 
     //    INBTSerializable    //
 

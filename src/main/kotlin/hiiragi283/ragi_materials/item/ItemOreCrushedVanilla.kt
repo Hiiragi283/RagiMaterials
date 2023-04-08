@@ -2,13 +2,15 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.client.render.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import java.awt.Color
 
-class ItemOreCrushedVanilla : ItemBase(Reference.MOD_ID, "ore_crushed_vanilla", 7), ICustomModel {
+class ItemOreCrushedVanilla : ItemBase(Reference.MOD_ID, "ore_crushed_vanilla", 7), ICustomModel, IMaterialItem {
 
     //    Client    //
 
@@ -26,6 +28,14 @@ class ItemOreCrushedVanilla : ItemBase(Reference.MOD_ID, "ore_crushed_vanilla", 
             else -> ""
         }
         return I18n.format("item.ore_crushed.name", I18n.format(keyLang))
+    }
+
+    //    IMaterialItem    //
+
+    override fun getColor(stack: ItemStack, tintIndex: Int): Color {
+        val list = OreProperty.listVanilla
+        val index = stack.metadata % list.size
+        return list[index].second.getColor()
     }
 
 }

@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.init.RagiBlock
-import hiiragi283.ragi_materials.init.RagiItem
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.RagiMaterial
@@ -69,8 +68,8 @@ data class MillRecipe private constructor(private val location: ResourceLocation
         }
 
         private fun recipeOre() {
-            val blockOre = RagiBlock.BlockOre1
-            val itemCrushed = RagiItem.ItemOreCrushed
+            val blockOre = RagiRegistry.BlockOre1
+            val itemCrushed = RagiRegistry.ItemOreCrushed
             for (i in OreProperty.listOre1.indices) {
                 //Ore -> Crushed Ore
                 Builder("${blockOre.registryName}_$i").apply {
@@ -86,7 +85,7 @@ data class MillRecipe private constructor(private val location: ResourceLocation
         }
 
         private fun recipeOreVanilla() {
-            val itemCrushed = RagiItem.ItemOreCrushedVanilla
+            val itemCrushed = RagiRegistry.ItemOreCrushedVanilla
             val list = listOf(
                     Blocks.GOLD_ORE,
                     Blocks.IRON_ORE,

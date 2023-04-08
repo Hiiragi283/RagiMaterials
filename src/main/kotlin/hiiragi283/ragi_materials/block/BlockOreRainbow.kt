@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.init.LootTableRegistry
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -52,7 +52,7 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
     override fun harvestBlock(world: World, player: EntityPlayer, pos: BlockPos, state: IBlockState, te: TileEntity?, stack: ItemStack) {
         if (!world.isRemote) {
             val builder = LootContext.Builder(world as WorldServer).build()
-            val lootTable = world.lootTableManager.getLootTableFromLocation(LootTableRegistry.OreRainbow)
+            val lootTable = world.lootTableManager.getLootTableFromLocation(RagiRegistry.OreRainbow)
             val results = lootTable.generateLootForPools(world.rand, builder)
             for (result in results) {
                 if (!result.isEmpty) RagiUtil.dropItemAtPlayer(player, result) //生成物を足元にドロップ

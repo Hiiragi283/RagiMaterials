@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockBase
-import hiiragi283.ragi_materials.item.IMaterialItem
+import hiiragi283.ragi_materials.client.color.ColorManager
+import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -18,9 +19,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
+import java.awt.Color
 import java.util.*
 
-abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IGrowable, IMaterialBlock, IMaterialItem {
+abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IGrowable, IMaterialBlock {
 
     init {
         blockHardness = 0.5f
@@ -108,14 +110,12 @@ abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IG
         if (canGrow(world, pos, state, false) && !isMaxAge(state)) world.setBlockState(pos, state.withProperty(getProperty(), getAge(state) + 1), 2)
     }
 
-    //    IMaterialBLock    //
+    //    IMaterialBlock    //
 
-    abstract override fun getMaterialBlock(world: IBlockAccess, pos: BlockPos, state: IBlockState): RagiMaterial
-
-    //    IMaterialItem    //
-
-    abstract override fun getMaterial(stack: ItemStack): RagiMaterial
-
-    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack
-
+    override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState, tintIndex: Int): Color {
+        val color = super.getColor(world, pos, state, tintIndex)
+        val age = getAge(state)
+        val ageMax = getAgeMax()
+        return ColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age))
+    }
 }

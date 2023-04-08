@@ -67,7 +67,7 @@ data class FFRecipe private constructor(private val location: ResourceLocation, 
         val list = map.values
 
         fun load() {
-            materialRecipe()
+            //materialRecipe()
         }
 
         private fun materialRecipe() {

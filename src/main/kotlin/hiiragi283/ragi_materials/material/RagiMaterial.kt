@@ -1,20 +1,19 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.client.render.color.ColorManager
+import hiiragi283.ragi_materials.client.color.ColorManager
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.MaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RegexStatics.snakeToUpperCamelCase
+import hiiragi283.ragi_materials.util.snakeToUpperCamelCase
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 
 import java.awt.Color
-import java.math.BigDecimal
 
 data class RagiMaterial private constructor(
         val index: Int = -1,
@@ -125,9 +124,9 @@ data class RagiMaterial private constructor(
 
         //モル質量を自動で生成するメソッド
         private fun initMolar(): Float? {
-            var molar = BigDecimal.ZERO
-            components.forEach { pair -> pair.first.molar?.let { molar = molar.add(it.toBigDecimal() * pair.second.toBigDecimal()) } }
-            return if (molar == BigDecimal.ZERO) null else molar.toFloat()
+            var molar = 0.0f
+            components.forEach { pair -> pair.first.molar?.let { molar = it * pair.second } }
+            return if (molar == 0.0f) null else molar
         }
 
         //沸点を自動で生成するメソッド
@@ -199,7 +198,11 @@ data class RagiMaterial private constructor(
                     list.add(it)
                     mapIndex[it.index] = it
                     mapName[it.name] = it
-                    PartRegistry.list.forEach { part -> if (MaterialUtil.isValidPart(part, it)) validPair.add(part to it) }
+                    PartRegistry.list.forEach { part ->
+                        if (MaterialUtil.isValidPart(part, it)) {
+                            validPair.add(part to it)
+                        }
+                    }
                 } else RagiLogger.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]}!")
             } else RagiLogger.warn("The index ${it.index} is smaller than 0!")
         }
