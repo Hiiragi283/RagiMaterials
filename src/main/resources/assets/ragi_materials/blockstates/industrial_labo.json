@@ -2,15 +2,21 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "forge_marker": 1,
   "defaults": {
-    "model": "ragi_materials:tesr_dummy",
+    "model": "ragi_materials:industrial_labo",
     "uvlock": true
   },
   "variants": {
     "facing": {
       "north": {},
-      "east": {},
-      "south": {},
-      "west": {}
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
     }
   }
 }

@@ -19,7 +19,7 @@ class MessageHandlerLabo : IMessageHandler<MessageTile, IMessage> {
         message?.let {
             val tile = Reference.PLAYER_CLIENT.world.getTileEntity(BlockPos(it.x, it.y, it.z))
             if (tile !== null && tile is TileLaboTable) {
-                tile.inputs.clear(0..4)
+                tile.inputs.clear()
             }
         }
         return null

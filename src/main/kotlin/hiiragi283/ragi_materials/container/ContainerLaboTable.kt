@@ -1,11 +1,11 @@
-package hiiragi283.ragi_materials.inventory.container
+package hiiragi283.ragi_materials.container
 
-import hiiragi283.ragi_materials.tile.TileLaboTable
+import hiiragi283.ragi_materials.tile.TileLaboBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.SlotItemHandler
 
-class ContainerLaboTableNew(player: EntityPlayer, override val tile: TileLaboTable) : ContainerBase<TileLaboTable>(player, tile) {
+class ContainerLaboTable(player: EntityPlayer, override val tile: TileLaboBase) : ContainerBase<TileLaboBase>(player, tile) {
 
     val inputs = tile.inputs
     val catalyst = tile.catalyst
@@ -26,16 +26,19 @@ class ContainerLaboTableNew(player: EntityPlayer, override val tile: TileLaboTab
         var stack = ItemStack.EMPTY
         val slot = inventorySlots[index]
         if (slot.hasStack) {
-            val stack1 = slot.stack
-            stack = stack1.copy()
-            if (index < inventory.slots) {
-                if (!mergeItemStack(stack1, inventory.slots, inventorySlots.size, true)) {
-                    return ItemStack.EMPTY
+            val stackSlot = slot.stack
+            stack = stackSlot.copy()
+            when (index) {
+                //Inputs, Catalyst -> Inventory, HotBar
+                in 0 .. 5 -> {
+                    if (!mergeItemStack(stackSlot, inventory.slots, inventorySlots.size, true)) return ItemStack.EMPTY
                 }
-            } else if (!mergeItemStack(stack1, 0, inventory.slots, false)) {
-                return ItemStack.EMPTY
+                //Inventory, HotBar -> Inputs, Catalyst
+                else -> {
+                    if (!mergeItemStack(stackSlot, 0, inventory.slots, false)) return ItemStack.EMPTY
+                }
             }
-            if (stack1.isEmpty) slot.putStack(ItemStack.EMPTY) else slot.onSlotChanged()
+            if (stackSlot.isEmpty) slot.putStack(ItemStack.EMPTY) else slot.onSlotChanged()
         }
         return stack
     }

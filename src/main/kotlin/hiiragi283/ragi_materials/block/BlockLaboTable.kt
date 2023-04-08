@@ -32,7 +32,7 @@ class BlockLaboTable : BlockContainerBase("laboratory_table", Material.IRON, 3) 
 
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is TileLaboTable) RagiUtil.dropInventoryItems(world, pos, tile.inputs)
+        if (tile !== null && tile is TileLaboTable) RagiUtil.dropInventoryItems(world, pos, tile.inventory)
         super.breakBlock(world, pos, state)
     }
 

@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.client.gui
 
 import hiiragi283.ragi_materials.base.TileBase
-import hiiragi283.ragi_materials.inventory.container.ContainerBase
+import hiiragi283.ragi_materials.container.ContainerBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
 
-abstract class GuiItemHandlerBase<T : TileBase>(val container: ContainerBase<T>) : GuiContainer(container) {
+abstract class GuiBase<T : TileBase>(val container: ContainerBase<T>) : GuiContainer(container) {
 
     abstract val background: ResourceLocation
 

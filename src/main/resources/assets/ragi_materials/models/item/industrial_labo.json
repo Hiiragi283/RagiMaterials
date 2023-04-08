@@ -1,5 +1,5 @@
 {
-  "parent": "builtin/entity",
+  "parent": "ragi_materials:block/industrial_labo",
   "display": {
     "thirdperson_righthand": {
       "rotation": [75, 45, 0],

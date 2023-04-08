@@ -23,14 +23,13 @@ class RagiItemHandler(slots: Int) : ItemStackHandler(slots) {
         return result == slots
     }
 
+    fun clear() {
+        clear(0 until slots)
+    }
+
     fun clear(range: IntRange) {
         for (slot in range) {
             setStackInSlot(slot, ItemStack.EMPTY)
         }
     }
-
-    fun clearAll() {
-        clear(0 until slots)
-    }
-
 }

@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.base
 
-import hiiragi283.ragi_materials.inventory.RagiInventory
+import hiiragi283.ragi_materials.container.RagiInventory
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer

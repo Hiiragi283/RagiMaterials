@@ -3,30 +3,21 @@ package hiiragi283.ragi_materials.proxy
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.client.gui.GuiLaboTable
-import hiiragi283.ragi_materials.client.gui.GuiLaboTableNew
-import hiiragi283.ragi_materials.client.gui.GuiOreDictConv
-import hiiragi283.ragi_materials.client.gui.GuiStoneMill
+import hiiragi283.ragi_materials.client.gui.*
 import hiiragi283.ragi_materials.config.JsonConfig
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.container.*
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.crafting.SmeltingRegistry
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
-import hiiragi283.ragi_materials.inventory.container.ContainerLaboTable
-import hiiragi283.ragi_materials.inventory.container.ContainerLaboTableNew
-import hiiragi283.ragi_materials.inventory.container.ContainerOreDictConv
-import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.packet.MessageHandlerLabo
 import hiiragi283.ragi_materials.packet.MessageTile
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
-import hiiragi283.ragi_materials.tile.TileIndustrialLabo
-import hiiragi283.ragi_materials.tile.TileLaboTable
-import hiiragi283.ragi_materials.tile.TileOreDictConv
-import hiiragi283.ragi_materials.tile.TileStoneMill
+import hiiragi283.ragi_materials.tile.*
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.entity.player.EntityPlayer
@@ -126,8 +117,9 @@ abstract class CommonProxy : IGuiHandler {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
+                    is TileFullBottleStation -> container = ContainerFullBottle(player, tile)
                     is TileIndustrialLabo -> container = ContainerLaboTable(player, tile)
-                    is TileLaboTable -> container = ContainerLaboTableNew(player, tile)
+                    is TileLaboTable -> container = ContainerLaboTable(player, tile)
                     is TileOreDictConv -> container = ContainerOreDictConv(player, tile)
                     is TileStoneMill -> container = ContainerStoneMill(player, tile)
                     else -> {}
@@ -144,8 +136,9 @@ abstract class CommonProxy : IGuiHandler {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
+                    is TileFullBottleStation -> gui = GuiFullBottle(player, tile)
                     is TileIndustrialLabo -> gui = GuiLaboTable(player, tile)
-                    is TileLaboTable -> gui = GuiLaboTableNew(player, tile)
+                    is TileLaboTable -> gui = GuiLaboTable(player, tile)
                     is TileOreDictConv -> gui = GuiOreDictConv(player, tile)
                     is TileStoneMill -> gui = GuiStoneMill(player, tile)
                     else -> {}

@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.client.gui
 
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.inventory.container.ContainerOreDictConv
+import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.tile.TileOreDictConv
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 
-class GuiOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : GuiLockableBase<TileOreDictConv>(ContainerOreDictConv(player, tile)) {
+class GuiOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : GuiBase<TileOreDictConv>(ContainerOreDictConv(player, tile)) {
 
     init {
         ySize = 133

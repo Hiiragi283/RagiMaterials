@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.inventory.container
+package hiiragi283.ragi_materials.container
 
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer

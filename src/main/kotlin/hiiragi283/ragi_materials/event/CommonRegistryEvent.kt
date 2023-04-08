@@ -84,7 +84,7 @@ object CommonRegistryEvent {
         registerTile(TileIndustrialLabo::class.java, RagiRegistry.BlockIndustrialLabo) //104
         registerTile(TileStoneMill::class.java, RagiRegistry.BlockStoneMill) //105
         //registerTile(TileQuartzAntenna::class.java, RagiRegistry.BlockQuartzAntenna) //106
-        registerTile(TileOreDictConv::class.java, RagiRegistry.BlockOreDictConvNew) //107
+        registerTile(TileOreDictConv::class.java, RagiRegistry.BlockOreDictConv) //107
     }
 
     private fun <T : TileEntity> registerTile(tile: Class<T>, block: BlockContainerBase) {

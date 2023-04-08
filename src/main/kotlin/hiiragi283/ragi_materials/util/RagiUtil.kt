@@ -18,7 +18,7 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.common.registry.ForgeRegistries
-import net.minecraftforge.items.ItemStackHandler
+import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
 
 fun ItemStack.toBracket(): String {
@@ -127,7 +127,7 @@ object RagiUtil {
         }
     }
 
-    fun dropInventoryItems(world: World, pos: BlockPos, inventory: ItemStackHandler, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
+    fun dropInventoryItems(world: World, pos: BlockPos, inventory: IItemHandler, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
         for (i in 0 until inventory.slots) {
             val stack = inventory.getStackInSlot(i)
             dropItem(world, pos, stack, x, y, z)

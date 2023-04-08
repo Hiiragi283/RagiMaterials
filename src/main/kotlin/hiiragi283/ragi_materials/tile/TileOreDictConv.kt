@@ -2,15 +2,15 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.TileLockableBase
-import hiiragi283.ragi_materials.inventory.RagiInventory
-import hiiragi283.ragi_materials.inventory.container.ContainerOreDictConv
+import hiiragi283.ragi_materials.base.TileItemHandlerBase
+import hiiragi283.ragi_materials.capability.EnumIOType
+import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandler
+import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.SoundManager
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
-import net.minecraft.inventory.ISidedInventory
-import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -20,14 +20,13 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.wrapper.SidedInvWrapper
 import net.minecraftforge.oredict.OreDictionary
 
-class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
+class TileOreDictConv : TileItemHandlerBase(107), ITickable {
 
-    override val inventory = RagiInventory("gui.ragi_materials.oredict_converter", 2)
-    private val invWrapperIn = SidedInvWrapper(this, EnumFacing.UP) //搬入
-    private val invWrapperOut = SidedInvWrapper(this, EnumFacing.DOWN) //搬出
+    val input = RagiItemHandler(1).setIOType(EnumIOType.INPUT)
+    val output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+    val inventory = RagiItemHandlerWrapper(input, output)
     private var count = 0
 
 
@@ -35,26 +34,25 @@ class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        ItemStackHelper.saveAllItems(tag, inventory.inventory) //インベントリをtagに書き込む
+        tag.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        ItemStackHelper.loadAllItems(tag, inventory.inventory) //tagからインベントリを読み込む
+        inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //tagからインベントリを読み込む
     }
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, facing)) {
-            if (facing != EnumFacing.DOWN) invWrapperIn as T else invWrapperOut as T
-        } else super.getCapability(capability, facing)
+        return if (hasCapability(capability, facing)) inventory as T else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean = capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 
-    //    TileBase    //
+
+    //    ITileActivatable    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
@@ -65,15 +63,9 @@ class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerOreDictConv(player, this)
 
-    override fun getGuiID() = "ragi_materials:oredict_converter"
+    override fun getGuiID() = "${Reference.MOD_ID}:oredict_converter"
 
-    //    ISidedInventory    //
-
-    override fun getSlotsForFace(side: EnumFacing): IntArray = if (side == EnumFacing.DOWN) intArrayOf(0) else intArrayOf(1)
-
-    override fun canInsertItem(index: Int, itemStackIn: ItemStack, direction: EnumFacing) = direction != EnumFacing.DOWN && index == 1
-
-    override fun canExtractItem(index: Int, stack: ItemStack, direction: EnumFacing) = direction == EnumFacing.DOWN && index == 0
+    override fun getName() = "gui.${Reference.MOD_ID}.oredict_converter"
 
     //    ITickable    //
 
@@ -81,9 +73,9 @@ class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
         //countが20以上の場合
         if (count >= 20) {
             //搬出スロットが空の場合実行する
-            val stackOut = inventory.getStackInSlot(0)
+            val stackOut = output.getStackInSlot(0)
             if (stackOut.isEmpty) {
-                val stack = inventory.getStackInSlot(1)
+                val stack = input.getStackInSlot(0)
                 val count = stack.count
                 var stackResult = ItemStack.EMPTY
                 //stackががEMPTYでない場合
@@ -96,19 +88,17 @@ class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
                         val oreDict = OreDictionary.getOreName(id)
                         //鉱石辞書から紐づいたstackのNonNullListを取得
                         val listStacks = OreDictionary.getOres(oreDict)
-                        if (stack.item.registryName?.namespace != Reference.MOD_ID) {
-                            //NonNullList内の各stackOreに対して実行
-                            for (stackOre in listStacks) {
+                        //NonNullList内の各stackOreに対して実行
+                        for (stackOre in listStacks) {
+                            if (stack.item.registryName?.namespace != Reference.MOD_ID) {
                                 //他mod -> RagiMaterials
                                 if (stackOre.item.registryName?.namespace == Reference.MOD_ID) {
                                     stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
                                     break
                                 }
-                            }
-                        } else {
-                            for (stackOre in listStacks) {
+                            } else {
                                 //RagiMaterials -> Minecraft
-                                if (stackOre.item.registryName.toString().split(":")[0] == "minecraft") {
+                                if (stackOre.item.registryName?.namespace == "minecraft") {
                                     stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
                                     break
                                 }
@@ -119,8 +109,8 @@ class TileOreDictConv : TileLockableBase(107), ISidedInventory, ITickable {
                     }
                     //resultがEMPTYでない場合
                     if (!stackResult.isEmpty) {
-                        inventory.setInventorySlotContents(0, stackResult)
-                        inventory.setInventorySlotContents(1, ItemStack.EMPTY)
+                        input.setStackInSlot(0, ItemStack.EMPTY)
+                        output.setStackInSlot(0, stackResult)
                         SoundManager.playSoundHypixel(world, pos)
                     }
                 }
