@@ -13,11 +13,12 @@
       "defeatedcrow",
       "karakufire",
       "Sayamame-beans",
+      "SkyTheory",
       "toliner",
       "Tsukimimushi"
     ],
     "credits": "Hiiragi Tsubasa",
-    "logoFile": "logo.png",
+    "logoFile": "assets/ragi_materials/textures/logo.png",
     "screenshots": [],
     "dependencies": []
   }
