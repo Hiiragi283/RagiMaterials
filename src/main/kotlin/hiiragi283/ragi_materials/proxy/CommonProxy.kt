@@ -12,8 +12,7 @@ import hiiragi283.ragi_materials.crafting.SmeltingRegistry
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.packet.MessageHandlerLabo
-import hiiragi283.ragi_materials.packet.MessageTile
+import hiiragi283.ragi_materials.packet.RagiNetworkManager
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
@@ -45,10 +44,10 @@ abstract class CommonProxy : IGuiHandler {
 
     //Pre-Initializationで読み込むメソッド
     open fun onPreInit(event: FMLPreInitializationEvent) {
-        /*
-          Thanks to defeatedcrow!
-          Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
-        */
+        /**
+        Thanks to defeatedcrow!
+        Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
+         */
         //configフォルダーの取得
         RagiMaterialsCore.config = File(event.modConfigurationDirectory, "${Reference.MOD_ID}/")
         RagiLogger.infoDebug(("Config path: ${RagiMaterialsCore.config?.absolutePath}"))
@@ -67,8 +66,8 @@ abstract class CommonProxy : IGuiHandler {
         SmeltingRegistry.load()
         //LootTableの登録
         LootTableList.register(RagiRegistry.OreRainbow)
-        //パケットの登録
-        RagiRegistry.RagiNetworkWrapper.registerMessage(MessageHandlerLabo::class.java, MessageTile::class.java, 0, Side.CLIENT)
+        //Packetの登録
+        RagiNetworkManager.load()
         //連携要素の登録
         IntegrationCore.loadInit()
     }

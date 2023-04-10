@@ -11,8 +11,7 @@
         "north": "false"
       },
       "apply": {
-        "model": "ragi_materials:salt_pond_wall",
-        "uvlock": true
+        "model": "ragi_materials:salt_pond_wall"
       }
     },
     {
@@ -21,8 +20,7 @@
       },
       "apply": {
         "model": "ragi_materials:salt_pond_wall",
-        "y": 90,
-        "uvlock": true
+        "y": 90
       }
     },
     {
@@ -31,8 +29,7 @@
       },
       "apply": {
         "model": "ragi_materials:salt_pond_wall",
-        "y": 180,
-        "uvlock": true
+        "y": 180
       }
     },
     {
@@ -41,8 +38,7 @@
       },
       "apply": {
         "model": "ragi_materials:salt_pond_wall",
-        "y": 270,
-        "uvlock": true
+        "y": 270
       }
     },
     {
@@ -50,8 +46,7 @@
         "type": "water"
       },
       "apply": {
-        "model": "ragi_materials:salt_pond_water",
-        "uvlock": true
+        "model": "ragi_materials:salt_pond_water"
       }
     },
     {
@@ -59,8 +54,7 @@
         "type": "saltwater"
       },
       "apply": {
-        "model": "ragi_materials:salt_pond_saltwater",
-        "uvlock": true
+        "model": "ragi_materials:salt_pond_saltwater"
       }
     },
     {
@@ -68,8 +62,7 @@
         "type": "brine"
       },
       "apply": {
-        "model": "ragi_materials:salt_pond_brine",
-        "uvlock": true
+        "model": "ragi_materials:salt_pond_brine"
       }
     }
   ]

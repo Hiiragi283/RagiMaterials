@@ -8,10 +8,10 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/RenderIBC.java
-*/
+/**
+Thanks to defeatedcrow!
+Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/RenderIBC.java
+ */
 
 @SideOnly(Side.CLIENT)
 object RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {

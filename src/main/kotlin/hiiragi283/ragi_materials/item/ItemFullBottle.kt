@@ -43,7 +43,6 @@ class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialIte
         }
         //素材のツールチップ
         MaterialUtil.materialInfo(getMaterial(stack), tooltip)
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
 
     @SideOnly(Side.CLIENT)

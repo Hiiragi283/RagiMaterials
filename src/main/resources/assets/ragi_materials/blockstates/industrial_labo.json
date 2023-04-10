@@ -2,8 +2,7 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "forge_marker": 1,
   "defaults": {
-    "model": "ragi_materials:industrial_labo",
-    "uvlock": true
+    "model": "ragi_materials:industrial_labo"
   },
   "variants": {
     "facing": {

@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.capability.itemhandler
+package hiiragi283.ragi_materials.capability.item
 
 import hiiragi283.ragi_materials.capability.EnumIOType
 import net.minecraft.item.ItemStack

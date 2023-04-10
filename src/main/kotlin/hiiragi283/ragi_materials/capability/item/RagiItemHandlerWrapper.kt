@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.capability.itemhandler
+package hiiragi283.ragi_materials.capability.item
 
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -10,10 +10,10 @@ import net.minecraftforge.items.IItemHandlerModifiable
 
 class RagiItemHandlerWrapper(vararg iItemHandlers: RagiItemHandler) : IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
-    /*
-      RagiItemHandlerとスロットの番号を紐づけたPairの一覧を作ることで，複数のRagiItemHandlerをまとめて処理できる
-      Thanks to SkyTheory!
-    */
+    /**
+    RagiItemHandlerとスロットの番号を紐づけたPairの一覧を作ることで，複数のRagiItemHandlerをまとめて処理できる
+    Thanks to SkyTheory!
+     */
 
     private val pairs: MutableList<Pair<RagiItemHandler, Int>> = mutableListOf()
 
@@ -108,13 +108,13 @@ class RagiItemHandlerWrapper(vararg iItemHandlers: RagiItemHandler) : IItemHandl
         return result == slots
     }
 
+    fun clear() {
+        clear(0 until slots)
+    }
+
     fun clear(range: IntRange) {
         for (slot in range) {
             setStackInSlot(slot, ItemStack.EMPTY)
         }
-    }
-
-    fun clearAll() {
-        clear(0 until slots)
     }
 }

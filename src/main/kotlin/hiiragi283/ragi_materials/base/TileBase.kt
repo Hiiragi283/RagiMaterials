@@ -17,6 +17,10 @@ abstract class TileBase(open val type: Int) : TileEntity(), ITileActivatable {
     val keyTank = "tank"
     val keyEnergy = "energy"
 
+    //    General    //
+
+    fun getState(): IBlockState = world.getBlockState(pos)
+
     //    NBT tag    //
 
     override fun getUpdateTag(): NBTTagCompound = writeToNBT(NBTTagCompound()) //オーバーライドしないと正常に更新されない
@@ -29,10 +33,10 @@ abstract class TileBase(open val type: Int) : TileEntity(), ITileActivatable {
         this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
     }
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
-    */
+    /**
+    Thanks to defeatedcrow!
+    Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
+     */
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 

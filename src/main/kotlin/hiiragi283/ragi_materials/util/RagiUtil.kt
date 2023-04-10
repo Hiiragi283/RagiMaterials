@@ -78,10 +78,10 @@ object RagiUtil {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
     }
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
-    */
+    /**
+    Thanks to defeatedcrow!
+    Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
+     */
 
     fun isSameStack(stack1: ItemStack, stack2: ItemStack, useCount: Boolean): Boolean {
         var result = stack1.isEmpty && stack2.isEmpty

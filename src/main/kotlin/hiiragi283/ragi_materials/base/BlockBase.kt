@@ -28,7 +28,5 @@ open class BlockBase(ID: String, Material: Material, private val maxTips: Int) :
                 tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
             }
         }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
-
 }

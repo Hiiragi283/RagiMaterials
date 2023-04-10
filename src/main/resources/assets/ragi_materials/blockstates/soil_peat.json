@@ -6,8 +6,7 @@
     "textures": {
       "all": "blocks/concrete_powder_green",
       "particle": "blocks/concrete_powder_green"
-    },
-    "uvlock": true
+    }
   },
   "variants": {
     "age": {

@@ -13,10 +13,10 @@ import net.minecraft.item.EnumRarity
 import java.awt.Color
 import java.io.*
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/SampleConfigMaker.java
-*/
+/**
+Thanks to defeatedcrow!
+Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/SampleConfigMaker.java
+ */
 
 object JsonConfig {
 

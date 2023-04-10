@@ -20,6 +20,6 @@ object RagiFacing {
         }
     }
 
-    fun getState(meta: Int): EnumFacing = HORIZONTAL.allowedValues.toList()[meta]
+    fun getValue(meta: Int): EnumFacing = HORIZONTAL.allowedValues.toList().let { it[meta % it.size] }
 
 }

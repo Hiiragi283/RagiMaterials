@@ -4,10 +4,10 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.config.RagiConfig
 import org.apache.logging.log4j.LogManager
 
-/*
-  Thanks to defeatedcrow!
-  Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/DCLogger.java
-*/
+/**
+Thanks to defeatedcrow!
+Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/DCLogger.java
+ */
 
 object RagiLogger {
 
