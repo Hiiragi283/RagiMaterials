@@ -7,11 +7,10 @@ import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class BlockLaboTable : BlockContainerBase("laboratory_table", Material.IRON, 3) {
+class BlockLaboTable : BlockContainerBase<TileLaboTable>("laboratory_table", Material.IRON, TileLaboTable::class.java, 3) {
 
     init {
         blockHardness = 5.0F
@@ -43,9 +42,4 @@ class BlockLaboTable : BlockContainerBase("laboratory_table", Material.IRON, 3) 
             if (tile !== null && tile is TileLaboTable) tile.chemicalReaction(world, pos)
         }
     }
-
-    //    Tile Entity    //
-
-    override fun createNewTileEntity(world: World, meta: Int): TileEntity = TileLaboTable()
-
 }

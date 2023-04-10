@@ -3,11 +3,17 @@ package hiiragi283.ragi_materials.proxy
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.client.gui.*
 import hiiragi283.ragi_materials.capability.heat.CapabilityHeat
+import hiiragi283.ragi_materials.client.gui.GuiFullBottle
+import hiiragi283.ragi_materials.client.gui.GuiLaboTable
+import hiiragi283.ragi_materials.client.gui.GuiOreDictConv
+import hiiragi283.ragi_materials.client.gui.GuiStoneMill
 import hiiragi283.ragi_materials.config.JsonConfig
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.container.*
+import hiiragi283.ragi_materials.container.ContainerFullBottle
+import hiiragi283.ragi_materials.container.ContainerLaboTable
+import hiiragi283.ragi_materials.container.ContainerOreDictConv
+import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.crafting.CraftingRegistry
 import hiiragi283.ragi_materials.crafting.SmeltingRegistry
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
@@ -33,7 +39,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.IGuiHandler
 import net.minecraftforge.fml.common.network.NetworkRegistry
-import net.minecraftforge.fml.relauncher.Side
 import java.io.File
 
 abstract class CommonProxy : IGuiHandler {
@@ -97,12 +102,16 @@ abstract class CommonProxy : IGuiHandler {
         FFRecipe.Registry.load()
         LaboRecipe.Registry.load()
         MillRecipe.Registry.load()
+    }
+
+    private fun printDebug() {
         //デバッグ用
         if (RagiConfig.debugMode.isDebug) {
-            MaterialUtil.printMap()
             FFRecipe.Registry.printMap()
             LaboRecipe.Registry.printMap()
+            MaterialUtil.printMap()
             MillRecipe.Registry.printMap()
+            RagiRegistry.printTiles()
         }
     }
 

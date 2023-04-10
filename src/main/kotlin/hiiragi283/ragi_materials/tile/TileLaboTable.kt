@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.packet.MessageTile
+import hiiragi283.ragi_materials.packet.RagiNetworkWrapper
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.*
 import net.minecraft.item.ItemStack
@@ -50,7 +51,7 @@ class TileLaboTable : TileLaboBase(100) {
             }
         }
         inputs.clear() //反応結果によらずインベントリを空にする
-        RagiRegistry.RagiNetworkWrapper.sendToAll(MessageTile(this.pos)) //クライアント側にパケットを送る
+        RagiNetworkWrapper.sendToAll(MessageTile(this.pos)) //クライアント側にパケットを送る
     }
 
     //    TileItemHandlerBase    //

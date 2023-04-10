@@ -11,9 +11,10 @@ import net.minecraft.world.World
 import java.util.*
 
 //NBTタグを保持するブロック用のクラス
-abstract class BlockContainerBaseHoldable(id: String, material: Material, maxTips: Int) : BlockContainerBase(id, material, maxTips) {
+abstract class BlockContainerBaseHoldable<T : TileEntity>(id: String, material: Material, tile: Class<T>, maxTips: Int) : BlockContainerBase<T>(id, material, tile, maxTips) {
 
     //    General    //
+
     override fun quantityDropped(random: Random): Int = 0 //デフォルトのドロップはなし
 
     //    Event    //

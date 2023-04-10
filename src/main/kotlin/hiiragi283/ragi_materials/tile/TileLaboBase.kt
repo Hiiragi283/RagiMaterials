@@ -3,8 +3,8 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.base.TileItemHandlerBase
 import hiiragi283.ragi_materials.capability.EnumIOType
-import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandler
-import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerLaboTable
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import net.minecraft.entity.player.EntityPlayer
@@ -15,7 +15,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileLaboBase(type: Int): TileItemHandlerBase(type) {
+abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
 
     val inputs = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
     val catalyst = RagiItemHandler(1).setIOType(EnumIOType.GENERAL)

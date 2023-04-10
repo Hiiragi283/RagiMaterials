@@ -1,11 +1,16 @@
 package hiiragi283.ragi_materials
 
+import hiiragi283.ragi_materials.base.BlockContainerBase
 import hiiragi283.ragi_materials.base.ItemBase
 import hiiragi283.ragi_materials.base.ItemBlockBase
+import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.block.*
+import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.part.PartRegistry
+import hiiragi283.ragi_materials.tile.TileTransferEnergy
+import hiiragi283.ragi_materials.tile.TileTransferFluid
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
@@ -13,8 +18,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fml.common.network.NetworkRegistry
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
 
 object RagiRegistry {
 
@@ -32,6 +35,8 @@ object RagiRegistry {
     val BlockSoilLignite = BlockSoilLignite()
     val BlockSoilPeat = BlockSoilPeat()
     val BlockStoneMill = BlockStoneMill()
+    val BlockTransferEnergy = BlockTransferBase("energy", TileTransferEnergy::class.java, RagiColor.YELLOW)
+    val BlockTransferFluid = BlockTransferBase("fluid", TileTransferFluid::class.java, RagiColor.AQUA)
 
     val BlockSoilAir = BlockSoilAir()
 
@@ -61,6 +66,8 @@ object RagiRegistry {
     val ItemBlockSoilLignite = ItemBlockBase(BlockSoilLignite)
     val ItemBlockSoilPeat = ItemBlockBase(BlockSoilPeat)
     val ItemBlockStoneMill = ItemBlockBase(BlockStoneMill)
+    val ItemBlockTransferEnergy = ItemBlockBase(BlockTransferEnergy)
+    val ItemBlockTransferFluid = ItemBlockBase(BlockTransferFluid)
 
     val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0)
     val ItemBookDebug = ItemBookDebug()
@@ -86,14 +93,12 @@ object RagiRegistry {
 
     val OreRainbow = ResourceLocation(Reference.MOD_ID, "gameplay/ore_rainbow")
 
-    //    NetWork    //
-
-    val RagiNetworkWrapper: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID)
-
     //    Collection    //
 
     val setBlocks: MutableSet<Block> = mutableSetOf()
     val setItems: MutableSet<Item> = mutableSetOf()
+
+    val setBlockContainers: MutableSet<BlockContainerBase<*>> = mutableSetOf()
 
     val setIMaterialBlock: MutableSet<Block> = mutableSetOf()
     val setIMaterialItem: MutableSet<Item> = mutableSetOf()
@@ -114,13 +119,22 @@ object RagiRegistry {
             }
         }
 
-        setBlocks.forEach { if (it is IMaterialBlock) setIMaterialBlock.add(it) }
+        setBlocks.forEach {
+            if (it is BlockContainerBase<*>) setBlockContainers.add(it)
+            if (it is IMaterialBlock) setIMaterialBlock.add(it)
+        }
         setItems.forEach {
             if (it is ItemBlock) {
                 val block = it.block
                 if (block is IMaterialBlock) setIMaterialItemBlock.add(it)
             } else if (it is IMaterialItem) setIMaterialItem.add(it)
         }
+    }
 
+    fun printTiles() {
+        setBlockContainers.forEach {
+            val tile = it.tile.newInstance()
+            if (tile is TileBase) RagiLogger.infoDebug("TileEntity: <${it.tile.name}:${tile.type}>")
+        }
     }
 }

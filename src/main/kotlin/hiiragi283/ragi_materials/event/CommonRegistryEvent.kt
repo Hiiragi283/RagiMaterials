@@ -1,8 +1,6 @@
 package hiiragi283.ragi_materials.event
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.BlockContainerBase
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.item.ItemFullBottle
 import hiiragi283.ragi_materials.item.ItemMaterial
@@ -13,24 +11,19 @@ import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
-import hiiragi283.ragi_materials.tile.*
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.registry.GameRegistry
 
 object CommonRegistryEvent {
 
     fun register() {
         registerFluid()
-        registerTiles()
         registerOreDict()
     }
 
@@ -55,7 +48,7 @@ object CommonRegistryEvent {
         }
     }
 
-    fun registerFluid() {
+    private fun registerFluid() {
         //Fluidの登録
         for (material in RagiMaterial.list) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
@@ -75,7 +68,7 @@ object CommonRegistryEvent {
         }
     }
 
-    fun registerTiles() {
+    /*private fun registerTiles() {
         //TileEntityの登録
         registerTile(TileLaboTable::class.java, RagiRegistry.BlockLaboratoryTable) //100
         registerTile(TileFullBottleStation::class.java, RagiRegistry.BlockFullBottleStation) //101
@@ -85,13 +78,15 @@ object CommonRegistryEvent {
         registerTile(TileStoneMill::class.java, RagiRegistry.BlockStoneMill) //105
         //registerTile(TileQuartzAntenna::class.java, RagiRegistry.BlockQuartzAntenna) //106
         registerTile(TileOreDictConv::class.java, RagiRegistry.BlockOreDictConv) //107
+        registerTile(TileTransferEnergy::class.java, RagiRegistry.BlockTransferEnergy) //108
+        registerTile(TileTransferFluid::class.java, RagiRegistry.BlockTransferFluid) //109
     }
 
     private fun <T : TileEntity> registerTile(tile: Class<T>, block: BlockContainerBase) {
         GameRegistry.registerTileEntity(tile, ResourceLocation(Reference.MOD_ID, "te_${block.registryName!!.path}"))
-    }
+    }*/
 
-    fun registerOreDict() {
+    private fun registerOreDict() {
         //鉱石辞書の登録
         for (pair in RagiMaterial.validPair) {
             val part = pair.first
@@ -123,6 +118,4 @@ object CommonRegistryEvent {
         RagiUtil.setOreDict("gemCharcoal", RagiUtil.getStack("minecraft:coal", 1, 1))
         RagiUtil.setOreDict("stickStone", MaterialUtil.getPart(PartRegistry.STICK, MaterialRegistry.STONE))
     }
-
-
 }

@@ -5,8 +5,8 @@ import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.TileItemHandlerBase
 import hiiragi283.ragi_materials.capability.EnumIOType
 import hiiragi283.ragi_materials.capability.RagiTank
-import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandler
-import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerFullBottle
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.RagiFluidUtil
@@ -105,5 +105,5 @@ class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
     override fun getGuiID() = "${Reference.MOD_ID}:fullbottle_station"
 
     override fun getName() = "gui.${Reference.MOD_ID}.fullbottle_station"
-    
+
 }

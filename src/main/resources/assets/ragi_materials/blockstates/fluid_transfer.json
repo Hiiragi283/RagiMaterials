@@ -1,0 +1,26 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "variants": {
+    "mode": {
+      "nearest": {
+        "model": "ragi_materials:transfer"
+      },
+      "farthest": {
+        "model": "ragi_materials:transfer_alt"
+      }
+    },
+    "facing": {
+      "north": {},
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    }
+  }
+}

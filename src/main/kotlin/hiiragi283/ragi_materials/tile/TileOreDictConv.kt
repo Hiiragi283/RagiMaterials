@@ -4,8 +4,8 @@ import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.base.TileItemHandlerBase
 import hiiragi283.ragi_materials.capability.EnumIOType
-import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandler
-import hiiragi283.ragi_materials.capability.itemhandler.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.SoundManager
