@@ -12,7 +12,7 @@ object Reference {
     const val MOD_NAME = "Ragi Materials"
 
     //Modのバージョンの定義
-    const val VERSION = "v0.6.1b"
+    const val VERSION = "v0.7.0a"
 
     //依存関係の定義
     const val DEPENDENCIES = "required-before:forgelin"
