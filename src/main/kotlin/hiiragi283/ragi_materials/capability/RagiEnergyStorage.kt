@@ -18,10 +18,15 @@ class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capa
         return energyReceived
     }
 
+    fun receiveEnergyFrom(storageFrom: IEnergyStorage, simulate: Boolean) {
+        if (storageFrom.canExtract() && this.canReceive()) {
+            receiveEnergy(storageFrom.extractEnergy(getFreeCapacity(), simulate), simulate)
+        }
+    }
+
     fun receiveEnergyFrom(tileFrom: TileEntity, facingFrom: EnumFacing?, simulate: Boolean) {
-        val energyStorageFrom = tileFrom.getCapability(CapabilityEnergy.ENERGY, facingFrom)
-        if (energyStorageFrom !== null && energyStorageFrom.canExtract() && this.canReceive()) {
-            receiveEnergy(energyStorageFrom.extractEnergy(getFreeCapacity(), simulate), simulate)
+        tileFrom.getCapability(CapabilityEnergy.ENERGY, facingFrom)?.let {
+            receiveEnergyFrom(it, simulate)
         }
     }
 
@@ -32,10 +37,15 @@ class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capa
         return energyExtracted
     }
 
+    fun extractEnergyTo(storageTo: IEnergyStorage, simulate: Boolean) {
+        if (storageTo.canReceive() && this.canExtract()) {
+            extractEnergy(storageTo.receiveEnergy(capacity, simulate), simulate)
+        }
+    }
+
     fun extractEnergyTo(tileTo: TileEntity, facingTo: EnumFacing?, simulate: Boolean) {
-        val energyStorageTo = tileTo.getCapability(CapabilityEnergy.ENERGY, facingTo)
-        if (energyStorageTo !== null && energyStorageTo.canReceive() && this.canExtract()) {
-            extractEnergy(energyStorageTo.receiveEnergy(capacity, simulate), simulate)
+        tileTo.getCapability(CapabilityEnergy.ENERGY, facingTo)?.let {
+            extractEnergyTo(it, simulate)
         }
     }
 
@@ -47,7 +57,7 @@ class RagiEnergyStorage(private val capacity: Int, private val maxIn: Int = capa
 
     override fun getMaxEnergyStored() = capacity
 
-    override fun canExtract() = maxOut > 0 && stored in 1 .. capacity
+    override fun canExtract() = maxOut > 0 && stored in 1..capacity
 
     override fun canReceive() = maxIn > 0 && stored in 0 until capacity
 

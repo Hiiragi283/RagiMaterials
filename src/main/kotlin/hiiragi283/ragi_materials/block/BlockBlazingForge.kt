@@ -8,7 +8,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -17,7 +16,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockBlazingForge : BlockContainerBaseHoldable("blazing_forge", Material.IRON, 3) {
+class BlockBlazingForge : BlockContainerBaseHoldable<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
 
     init {
         blockHardness = 5.0F
@@ -41,15 +40,12 @@ class BlockBlazingForge : BlockContainerBaseHoldable("blazing_forge", Material.I
 
     override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(RagiFacing.HORIZONTAL, placer.horizontalFacing.opposite)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(FACING, EnumFacing.getFront((meta / 4) + 2))", "hiiragi283.ragi_materials.block.BlockBlazingForge.Companion.FACING", "net.minecraft.util.EnumFacing"))
-    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getState(meta))
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getState(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getValue(meta))
 
     //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-    //    Tile Entity    //
-
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity = TileBlazingForge()
 }

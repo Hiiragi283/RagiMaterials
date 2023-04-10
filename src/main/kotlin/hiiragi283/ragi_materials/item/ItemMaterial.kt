@@ -66,7 +66,6 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, par
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
         MaterialUtil.materialInfo(getMaterial(stack), tooltip)
-        super.addInformation(stack, world, tooltip, flag)
     }
 
     @SideOnly(Side.CLIENT)

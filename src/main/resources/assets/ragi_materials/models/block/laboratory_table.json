@@ -3,7 +3,7 @@
 	"textures": {
 		"particle": "ragi_materials:blocks/laboratory_top",
 		"top": "ragi_materials:blocks/laboratory_top",
-		"side": "ragi_materials:blocks/laboratory_side",
+		"side": "ragi_materials:blocks/laboratory_leg",
 		"shelf": "ragi_materials:blocks/laboratory_shelf"
 	},
 	"elements": [

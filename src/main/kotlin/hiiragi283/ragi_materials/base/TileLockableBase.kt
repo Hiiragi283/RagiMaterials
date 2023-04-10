@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.base
 
-import hiiragi283.ragi_materials.inventory.RagiInventory
+import hiiragi283.ragi_materials.container.RagiInventory
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
@@ -35,10 +35,10 @@ abstract class TileLockableBase(val type: Int) : TileEntityLockable(), ITileActi
         this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
     }
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
-    */
+    /**
+    Thanks to defeatedcrow!
+    Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
+     */
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 

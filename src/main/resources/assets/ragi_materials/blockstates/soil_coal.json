@@ -6,8 +6,7 @@
     "textures": {
       "all": "blocks/soul_sand",
       "particle": "blocks/soul_sand"
-    },
-    "uvlock": true
+    }
   },
   "variants": {
     "age": {

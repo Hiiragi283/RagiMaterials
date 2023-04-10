@@ -1,11 +1,9 @@
 package hiiragi283.ragi_materials.base
 
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
-import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -22,13 +20,6 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
     override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
 
     override fun getTranslationKey(stack: ItemStack): String = super.getTranslationKey() + if (maxMeta == 0) "" else ".${stack.metadata}"
-
-    //    Client    //
-
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
-    }
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {

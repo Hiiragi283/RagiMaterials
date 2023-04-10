@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.client.gui
 
-import hiiragi283.ragi_materials.inventory.container.ContainerStateBase
+import hiiragi283.ragi_materials.container.ContainerStateBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation

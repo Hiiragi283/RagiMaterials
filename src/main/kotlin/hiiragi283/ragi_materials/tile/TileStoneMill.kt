@@ -1,19 +1,19 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterialsCore
-import hiiragi283.ragi_materials.base.TileLockableBase
+import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.TileItemHandlerBase
 import hiiragi283.ragi_materials.block.BlockStoneMill
-import hiiragi283.ragi_materials.inventory.RagiInventory
-import hiiragi283.ragi_materials.inventory.container.ContainerStoneMill
+import hiiragi283.ragi_materials.capability.EnumIOType
+import hiiragi283.ragi_materials.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
-import net.minecraft.inventory.ISidedInventory
-import net.minecraft.inventory.ItemStackHelper
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -21,38 +21,56 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.wrapper.SidedInvWrapper
 
-class TileStoneMill : TileLockableBase(105), ISidedInventory {
+class TileStoneMill : TileItemHandlerBase(105) {
 
-    override val inventory = RagiInventory("gui.ragi_materials.stone_mill", 2)
-    private val invWrapperIn = SidedInvWrapper(this, EnumFacing.UP) //搬入
-    private val invWrapperOut = SidedInvWrapper(this, EnumFacing.DOWN) //搬出
+    val input = RagiItemHandler(1).setIOType(EnumIOType.INPUT)
+    val output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+    val inventory = RagiItemHandlerWrapper(input, output)
 
     //    NBT tag    //
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        ItemStackHelper.saveAllItems(tag, inventory.inventory) //インベントリをtagに書き込む
+        tag.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        ItemStackHelper.loadAllItems(tag, inventory.inventory) //tagからインベントリを読み込む
+        inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //tagからインベントリを読み込む
     }
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, facing)) {
-            if (facing != EnumFacing.DOWN) invWrapperIn as T else invWrapperOut as T
-        } else super.getCapability(capability, facing)
+        return if (hasCapability(capability, facing)) inventory as T else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean = capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 
-    //    TileBase    //
+    //    Recipe    //
+
+    private fun canProcess(recipe: MillRecipe) {
+        input.extractItem(0, recipe.getInput().count, false)
+        val stackExtra = output.insertItem(0, recipe.getOutput(), false)
+        if (!stackExtra.isEmpty) RagiUtil.dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
+    }
+
+    private fun doProcess() {
+        val stack = input.getStackInSlot(0)
+        var result = false
+        for (recipe in MillRecipe.Registry.list) {
+            if (recipe.match(stack)) {
+                canProcess(recipe)
+                result = true
+                break
+            }
+        }
+        if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
+    }
+
+    //    ITileActivatable    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) {
@@ -68,51 +86,12 @@ class TileStoneMill : TileLockableBase(105), ISidedInventory {
         return true
     }
 
-    //    Recipe    //
-
-    private fun canProcess(recipe: MillRecipe): Boolean {
-        var result = false
-        val stack = inventory.getStackInSlot(0)
-        val output = recipe.getOutput()
-        //スロットが空ならtrue
-        if (stack.isEmpty) {
-            inventory.setInventorySlotContents(0, output)
-            inventory.decrStackSize(1, recipe.getInput().count)
-            result = true
-        }
-        //スロットにあるstackと完成品が同じ場合
-        else if (RagiUtil.isSameStack(output, stack, false)) {
-            stack.grow(output.count) //スロット内のアイテムを増やす
-            inventory.decrStackSize(1, recipe.getInput().count)
-            result = true
-        }
-        return result
-    }
-
-    private fun doProcess() {
-        val stack = inventory.getStackInSlot(1)
-        var result = false
-        for (recipe in MillRecipe.Registry.list) {
-            if (recipe.match(stack)) {
-                result = canProcess(recipe)
-                break
-            }
-        }
-        if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
-    }
-
-    //    TileLockableBase    //
+    //    TileItemHandlerBase    //
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerStoneMill(player, this)
 
-    override fun getGuiID() = "ragi_materials:stone_mill"
+    override fun getGuiID() = "${Reference.MOD_ID}:stone_mill"
 
-    //    ISidedInventory    //
-
-    override fun getSlotsForFace(side: EnumFacing): IntArray = if (side == EnumFacing.DOWN) intArrayOf(0) else intArrayOf(1)
-
-    override fun canInsertItem(index: Int, itemStackIn: ItemStack, direction: EnumFacing) = direction != EnumFacing.DOWN && index == 1
-
-    override fun canExtractItem(index: Int, stack: ItemStack, direction: EnumFacing) = direction == EnumFacing.DOWN && index == 0
+    override fun getName() = "gui.${Reference.MOD_ID}.stone_mill"
 
 }

@@ -18,7 +18,7 @@ import net.minecraft.util.text.TextFormatting
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.common.registry.ForgeRegistries
-import net.minecraftforge.items.ItemStackHandler
+import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
 
 fun ItemStack.toBracket(): String {
@@ -78,10 +78,10 @@ object RagiUtil {
         return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
     }
 
-    /*
-      Thanks to defeatedcrow!
-      Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
-    */
+    /**
+    Thanks to defeatedcrow!
+    Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
+     */
 
     fun isSameStack(stack1: ItemStack, stack2: ItemStack, useCount: Boolean): Boolean {
         var result = stack1.isEmpty && stack2.isEmpty
@@ -127,7 +127,7 @@ object RagiUtil {
         }
     }
 
-    fun dropInventoryItems(world: World, pos: BlockPos, inventory: ItemStackHandler, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
+    fun dropInventoryItems(world: World, pos: BlockPos, inventory: IItemHandler, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
         for (i in 0 until inventory.slots) {
             val stack = inventory.getStackInSlot(i)
             dropItem(world, pos, stack, x, y, z)

@@ -6,8 +6,7 @@
     "textures": {
       "all": "blocks/gravel",
       "particle": "blocks/gravel"
-    },
-    "uvlock": true
+    }
   },
   "variants": {
     "age": {

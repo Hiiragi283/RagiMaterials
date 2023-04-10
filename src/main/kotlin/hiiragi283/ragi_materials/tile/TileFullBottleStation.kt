@@ -1,9 +1,17 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.TileBase
+import hiiragi283.ragi_materials.RagiMaterialsCore
+import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.base.TileItemHandlerBase
+import hiiragi283.ragi_materials.capability.EnumIOType
 import hiiragi283.ragi_materials.capability.RagiTank
+import hiiragi283.ragi_materials.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.container.ContainerFullBottle
+import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.RagiFluidUtil
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -15,13 +23,13 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.ItemStackHandler
 
-class TileFullBottleStation : TileBase(101), ITickable {
+class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
 
-    val inventory = ItemStackHandler(1)
-    private val tank = RagiTank(64000)
-    private var count = 0
+    val input = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+    val inventory = RagiItemHandlerWrapper(input)
+    val tank = RagiTank(64000)
+    var count = 0
 
     init {
         tank.setTileEntity(this)
@@ -60,10 +68,6 @@ class TileFullBottleStation : TileBase(101), ITickable {
         }
     }
 
-    //    TileBase    //
-
-    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean = FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
-
     //    ITickable    //
 
     override fun update() {
@@ -72,8 +76,8 @@ class TileFullBottleStation : TileBase(101), ITickable {
             val amountRemain = tank.fluidAmount % 1000 //タンクに残る液体量
             val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
             //作成個数が0より多い場合
-            if (countBottle > 0 && tank.fluid !== null && inventory.getStackInSlot(0).isEmpty) {
-                inventory.insertItem(0, RagiFluidUtil.getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
+            if (countBottle > 0 && tank.fluid !== null && input.getStackInSlot(0).isEmpty) {
+                input.insertItem(0, RagiFluidUtil.getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
                 if (amountRemain > 0) {
                     tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き
                 } else {
@@ -83,4 +87,23 @@ class TileFullBottleStation : TileBase(101), ITickable {
             count = 0 //countをリセット
         } else count++ //countを追加
     }
+
+    //    ITileActivatable    //
+
+    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
+        val fluidHandler = FluidUtil.getFluidHandler(player.getHeldItem(hand))
+        return if (fluidHandler !== null) FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing) else {
+            player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
+            return true
+        }
+    }
+
+    //    TileItemHandlerBase    //
+
+    override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerFullBottle(player, this)
+
+    override fun getGuiID() = "${Reference.MOD_ID}:fullbottle_station"
+
+    override fun getName() = "gui.${Reference.MOD_ID}.fullbottle_station"
+
 }

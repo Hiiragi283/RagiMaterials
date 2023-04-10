@@ -6,13 +6,15 @@ import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
-import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.block.statemap.StateMapperBase
 import net.minecraft.item.Item
 import net.minecraftforge.client.model.ModelLoader
 
 object ModelRegistry {
+
+    private val locationOreStone = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
+    private val locationOreStoneRainbow = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone_rainbow")
+    private val locationOreGravel = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
 
     fun load() {
         blocks()
@@ -23,14 +25,8 @@ object ModelRegistry {
     fun blocks() {
 
         //Ore
-        ModelLoader.setCustomStateMapper(RagiRegistry.BlockOre1, object : StateMapperBase() {
-            override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone")
-        })
-
-        ModelLoader.setCustomStateMapper(RagiRegistry.BlockOreRainbow, object : StateMapperBase() {
-            override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = ModelResourceLocation("${Reference.MOD_ID}:ore", "stone_rainbow")
-        })
-
+        ModelManager.setStateMapperAlt(RagiRegistry.BlockOre1, locationOreStone)
+        ModelManager.setStateMapperAlt(RagiRegistry.BlockOreRainbow, locationOreStoneRainbow)
     }
 
     fun fluids() {
@@ -40,21 +36,17 @@ object ModelRegistry {
                 //アイテムとしての描画処理
                 ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(it.block)) { model }
                 //液体ブロックがnullでない場合, ブロックとしての描画処理を実装する
-                if (it.block !== null) {
-                    ModelLoader.setCustomStateMapper(it.block, object : StateMapperBase() {
-                        override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = model
-                    })
-                }
+                if (it.block !== null) ModelManager.setStateMapperAlt(it.block, model)
             }
         }
     }
 
     fun items() {
 
-        /*
-         Thanks to kojin15!
-          Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865
-        */
+        /**
+        Thanks to kojin15!
+        Source: https://qiita.com/kojin15/items/8e5dec722f74c23e9865
+         */
 
         //ItemBlockMaterial
         val blockCrystal = ModelResourceLocation("${Reference.MOD_ID}:part", "block_crystal")
@@ -115,8 +107,13 @@ object ModelRegistry {
         }
 
         //Ore
-        ModelManager.setModelAlt(RagiRegistry.ItemBlockOre1, ModelResourceLocation("${Reference.MOD_ID}:ore", "stone"))
-        ModelManager.setModelAlt(RagiRegistry.ItemOreCrushed, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
-        ModelManager.setModelAlt(RagiRegistry.ItemOreCrushedVanilla, ModelResourceLocation("${Reference.MOD_ID}:ore", "gravel"))
+        ModelManager.setModelAlt(RagiRegistry.ItemBlockOre1, locationOreStone)
+        ModelManager.setModelAlt(RagiRegistry.ItemOreCrushed, locationOreGravel)
+        ModelManager.setModelAlt(RagiRegistry.ItemOreCrushedVanilla, locationOreGravel)
+
+        //Transfer
+        ModelManager.setModelAlt(RagiRegistry.ItemBlockTransferEnergy, ModelResourceLocation("${Reference.MOD_ID}:transfer", "inventory"))
+        ModelManager.setModelAlt(RagiRegistry.ItemBlockTransferFluid, ModelResourceLocation("${Reference.MOD_ID}:transfer", "inventory"))
+
     }
 }

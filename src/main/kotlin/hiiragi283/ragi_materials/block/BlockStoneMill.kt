@@ -2,17 +2,16 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.base.BlockContainerBase
 import hiiragi283.ragi_materials.tile.TileStoneMill
+import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.inventory.InventoryHelper
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class BlockStoneMill : BlockContainerBase("stone_mill", Material.ROCK, 2) {
+class BlockStoneMill : BlockContainerBase<TileStoneMill>("stone_mill", Material.ROCK, TileStoneMill::class.java, 2) {
 
     companion object {
         val COUNT: PropertyInteger = PropertyInteger.create("count", 0, 7)
@@ -47,12 +46,7 @@ class BlockStoneMill : BlockContainerBase("stone_mill", Material.ROCK, 2) {
 
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is TileStoneMill) InventoryHelper.dropInventoryItems(world, pos, tile.inventory)
+        if (tile !== null && tile is TileStoneMill) RagiUtil.dropInventoryItems(world, pos, tile.inventory)
         super.breakBlock(world, pos, state)
     }
-
-    //    Tile Entity    //
-
-    override fun createNewTileEntity(worldIn: World, meta: Int): TileEntity = TileStoneMill()
-
 }

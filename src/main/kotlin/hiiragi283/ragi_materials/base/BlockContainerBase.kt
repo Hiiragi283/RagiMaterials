@@ -8,19 +8,23 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-abstract class BlockContainerBase(ID: String, material: Material, private val maxTips: Int) : BlockContainer(material) {
+abstract class BlockContainerBase<T : TileEntity>(val id: String, material: Material, val tile: Class<T>, private val maxTips: Int) : BlockContainer(material) {
 
     init {
-        setRegistryName(Reference.MOD_ID, ID)
-        translationKey = ID
+        GameRegistry.registerTileEntity(tile, ResourceLocation(Reference.MOD_ID, "te_$id"))
+        setRegistryName(Reference.MOD_ID, id)
+        translationKey = id
     }
 
     //    General    //
@@ -50,7 +54,10 @@ abstract class BlockContainerBase(ID: String, material: Material, private val ma
                 tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
             }
         }
-        super.addInformation(stack, world, tooltip, ITooltipFlag.TooltipFlags.NORMAL)
     }
+
+    //    BlockContainer    //
+
+    override fun createNewTileEntity(worldIn: World, meta: Int): T = tile.newInstance()
 
 }

@@ -11,8 +11,7 @@
         "count": "0"
       },
       "apply": {
-        "model": "ragi_materials:stone_mill",
-        "uvlock": true
+        "model": "ragi_materials:stone_mill"
       }
     },
     {
@@ -21,8 +20,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill_diagonal",
-        "y": 0,
-        "uvlock": true
+        "y": 0
       }
     },
     {
@@ -31,8 +29,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill",
-        "y": 90,
-        "uvlock": true
+        "y": 90
       }
     },
     {
@@ -41,8 +38,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill_diagonal",
-        "y": 90,
-        "uvlock": true
+        "y": 90
       }
     },
     {
@@ -51,8 +47,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill",
-        "y": 180,
-        "uvlock": true
+        "y": 180
       }
     },
     {
@@ -61,8 +56,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill_diagonal",
-        "y": 180,
-        "uvlock": true
+        "y": 180
       }
     },
     {
@@ -71,8 +65,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill",
-        "y": 270,
-        "uvlock": true
+        "y": 270
       }
     },
     {
@@ -81,8 +74,7 @@
       },
       "apply": {
         "model": "ragi_materials:stone_mill_diagonal",
-        "y": 270,
-        "uvlock": true
+        "y": 270
       }
     }
   ]
