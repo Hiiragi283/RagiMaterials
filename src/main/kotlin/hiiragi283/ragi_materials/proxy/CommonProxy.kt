@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.Reference
 import hiiragi283.ragi_materials.client.gui.*
+import hiiragi283.ragi_materials.capability.heat.CapabilityHeat
 import hiiragi283.ragi_materials.config.JsonConfig
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.container.*
@@ -53,6 +54,8 @@ abstract class CommonProxy : IGuiHandler {
         RagiLogger.infoDebug(("Config path: ${RagiMaterialsCore.config?.absolutePath}"))
         //鉱石生成の登録
         //MinecraftForge.ORE_GEN_BUS.register(OreGenRegistry())
+        //Capabilityの登録
+        CapabilityHeat.register()
         //GUI描画の登録
         NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterialsCore.INSTANCE, this)
         //連携要素の登録
