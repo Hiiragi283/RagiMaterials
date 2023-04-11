@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.crafting
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiRegistry
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack

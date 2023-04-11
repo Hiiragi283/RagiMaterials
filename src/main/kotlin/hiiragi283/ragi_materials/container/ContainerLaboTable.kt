@@ -30,7 +30,7 @@ class ContainerLaboTable(player: EntityPlayer, override val tile: TileLaboBase) 
             stack = stackSlot.copy()
             when (index) {
                 //Inputs, Catalyst -> Inventory, HotBar
-                in 0 .. 5 -> {
+                in 0..5 -> {
                     if (!mergeItemStack(stackSlot, inventory.slots, inventorySlots.size, true)) return ItemStack.EMPTY
                 }
                 //Inventory, HotBar -> Inputs, Catalyst

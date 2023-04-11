@@ -5,6 +5,7 @@ tile.energy_transfer.name=Energy Transfer
 tile.fluid_transfer.name=Fluid Transfer
 tile.forge_furnace.name=Forge Furnace
 tile.fullbottle_station.name=Full Bottle Station
+tile.gas_transfer.name=Gas Transfer
 tile.heat_transfer.name=Heat Transfer
 tile.industrial_labo.name=Industrial Chemical Reaction Chamber
 tile.laboratory_table.name=Laboratory Table

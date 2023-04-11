@@ -1,6 +1,9 @@
 package hiiragi283.ragi_materials.proxy
 
-import net.minecraftforge.fml.common.event.*
+import net.minecraftforge.fml.common.event.FMLConstructionEvent
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
 interface IProxy {
 

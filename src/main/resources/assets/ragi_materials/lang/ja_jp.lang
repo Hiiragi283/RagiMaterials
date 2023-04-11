@@ -5,6 +5,7 @@ tile.energy_transfer.name=エネルギートランスファー
 tile.fluid_transfer.name=液体トランスファー
 tile.forge_furnace.name=鍛造炉
 tile.fullbottle_station.name=フルボトルメーカー
+tile.gas_transfer.name=ガストランスファー
 tile.heat_transfer.name=熱エネルギートランスファー
 tile.industrial_labo.name=工業用化学反応室
 tile.laboratory_table.name=実験台

@@ -1,17 +1,5 @@
 package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.block.BlockContainerBase
-import hiiragi283.ragi_materials.item.ItemBase
-import hiiragi283.ragi_materials.item.ItemBlockBase
-import hiiragi283.ragi_materials.tile.TileBase
-import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.client.color.RagiColor
-import hiiragi283.ragi_materials.item.*
-import hiiragi283.ragi_materials.material.OreProperty
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.tile.TileTransferEnergy
-import hiiragi283.ragi_materials.tile.TileTransferFluid
-import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -23,22 +11,23 @@ object RagiRegistry {
 
     //    Block    //
 
-    val BlockBlazingForge = BlockBlazingForge()
-    val BlockForgeFurnace = BlockForgeFurnace()
-    val BlockFullBottleStation = BlockFullBottleStation()
-    val BlockIndustrialLabo = BlockIndustrialLabo()
-    val BlockLaboratoryTable = BlockLaboTable()
-    val BlockOre1 = BlockOreMaterial("ore_block")
-    val BlockOreDictConv = BlockOreDictConv()
-    val BlockOreRainbow = BlockOreRainbow("ore_rainbow")
-    val BlockSoilCoal = BlockSoilCoal()
-    val BlockSoilLignite = BlockSoilLignite()
-    val BlockSoilPeat = BlockSoilPeat()
-    val BlockStoneMill = BlockStoneMill()
-    val BlockTransferEnergy = BlockTransferBase("energy", TileTransferEnergy::class.java, RagiColor.YELLOW)
-    val BlockTransferFluid = BlockTransferBase("fluid", TileTransferFluid::class.java, RagiColor.AQUA)
-
-    val BlockSoilAir = BlockSoilAir()
+    lateinit var BlockBlazingForge: Block
+    lateinit var BlockForgeFurnace: Block
+    lateinit var BlockFullBottleStation: Block
+    lateinit var BlockIndustrialLabo: Block
+    lateinit var BlockLaboratoryTable: Block
+    lateinit var BlockOre1: Block
+    lateinit var BlockOreDictConv: Block
+    lateinit var BlockOreRainbow: Block
+    lateinit var BlockSoilAir: Block
+    lateinit var BlockSoilCoal: Block
+    lateinit var BlockSoilLignite: Block
+    lateinit var BlockSoilPeat: Block
+    lateinit var BlockStoneMill: Block
+    lateinit var BlockTransferEnergy: Block
+    lateinit var BlockTransferFluid: Block
+    lateinit var BlockTransferGas: Block
+    lateinit var BlockTransferHeat: Block
 
     //    Creative Tab    //
 
@@ -54,40 +43,42 @@ object RagiRegistry {
 
     //    Item    //
 
-    val ItemBlockBlazingForge = ItemBlockBase(BlockBlazingForge)
-    val ItemBlockForgeFurnace = ItemBlockBase(BlockForgeFurnace)
-    val ItemBlockFullBottleStation = ItemBlockBase(BlockFullBottleStation)
-    val ItemBlockIndustrialLabo = ItemBlockBase(BlockIndustrialLabo)
-    val ItemBlockLaboratoryTable = ItemBlockBase(BlockLaboratoryTable)
-    val ItemBlockOre1 = ItemBlockBase(BlockOre1, OreProperty.mapOre1.size - 1)
-    val ItemBlockOreDictConv = ItemBlockBase(BlockOreDictConv)
-    val ItemBlockOreRainbow = ItemBlockBase(BlockOreRainbow)
-    val ItemBlockSoilCoal = ItemBlockBase(BlockSoilCoal)
-    val ItemBlockSoilLignite = ItemBlockBase(BlockSoilLignite)
-    val ItemBlockSoilPeat = ItemBlockBase(BlockSoilPeat)
-    val ItemBlockStoneMill = ItemBlockBase(BlockStoneMill)
-    val ItemBlockTransferEnergy = ItemBlockBase(BlockTransferEnergy)
-    val ItemBlockTransferFluid = ItemBlockBase(BlockTransferFluid)
+    lateinit var ItemBlockBlazingForge: Item
+    lateinit var ItemBlockForgeFurnace: Item
+    lateinit var ItemBlockFullBottleStation: Item
+    lateinit var ItemBlockIndustrialLabo: Item
+    lateinit var ItemBlockLaboratoryTable: Item
+    lateinit var ItemBlockOre1: Item
+    lateinit var ItemBlockOreDictConv: Item
+    lateinit var ItemBlockOreRainbow: Item
+    lateinit var ItemBlockSoilCoal: Item
+    lateinit var ItemBlockSoilLignite: Item
+    lateinit var ItemBlockSoilPeat: Item
+    lateinit var ItemBlockStoneMill: Item
+    lateinit var ItemBlockTransferEnergy: Item
+    lateinit var ItemBlockTransferFluid: Item
+    lateinit var ItemBlockTransferGas: Item
+    lateinit var ItemBlockTransferHeat: Item
 
-    val ItemBlazingCube = ItemBase(RagiMaterials.MOD_ID, "blazing_cube", 0)
-    val ItemBookDebug = ItemBookDebug()
-    val ItemEnderTable = ItemEnderTable()
-    val ItemForgeHammer = ItemForgeHammer()
-    val ItemFullBottle = ItemFullBottle()
-    val ItemOreCrushed = ItemOreCrushed()
-    val ItemOreCrushedVanilla = ItemOreCrushedVanilla()
-    val ItemWaste = ItemWaste()
+    lateinit var ItemBlazingCube: Item
+    lateinit var ItemBookDebug: Item
+    lateinit var ItemEnderTable: Item
+    lateinit var ItemForgeHammer: Item
+    lateinit var ItemFullBottle: Item
+    lateinit var ItemOreCrushed: Item
+    lateinit var ItemOreCrushedVanilla: Item
+    lateinit var ItemWaste: Item
 
-    val ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)
-    val ItemCrystal = ItemMaterial(PartRegistry.CRYSTAL)
-    val ItemDust = ItemMaterial(PartRegistry.DUST)
-    val ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY)
-    val ItemGear = ItemMaterial(PartRegistry.GEAR)
-    val ItemIngot = ItemMaterial(PartRegistry.INGOT)
-    val ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
-    val ItemNugget = ItemMaterial(PartRegistry.NUGGET)
-    val ItemPlate = ItemMaterial(PartRegistry.PLATE)
-    val ItemStick = ItemMaterial(PartRegistry.STICK)
+    lateinit var ItemBlockMaterial: Item
+    lateinit var ItemCrystal: Item
+    lateinit var ItemDust: Item
+    lateinit var ItemDustTiny: Item
+    lateinit var ItemGear: Item
+    lateinit var ItemIngot: Item
+    lateinit var ItemIngotHot: Item
+    lateinit var ItemNugget: Item
+    lateinit var ItemPlate: Item
+    lateinit var ItemStick: Item
 
     //    LootTable    //
 
@@ -96,45 +87,10 @@ object RagiRegistry {
     //    Collection    //
 
     val setBlocks: MutableSet<Block> = mutableSetOf()
-    val setItems: MutableSet<Item> = mutableSetOf()
-
-    val setBlockContainers: MutableSet<BlockContainerBase<*>> = mutableSetOf()
-
     val setIMaterialBlock: MutableSet<Block> = mutableSetOf()
+
     val setIMaterialItem: MutableSet<Item> = mutableSetOf()
     val setIMaterialItemBlock: MutableSet<ItemBlock> = mutableSetOf()
+    val setItems: MutableSet<Item> = mutableSetOf()
 
-    init {
-        //collectionへの自動登録
-        val fields = this::class.java.declaredFields
-        for (field in fields) {
-            field.isAccessible = true
-            RagiLogger.infoDebug(field.name)
-            try {
-                val obj = field.get(this)
-                if (obj is Block) setBlocks.add(obj)
-                else if (obj is Item) setItems.add(obj)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        setBlocks.forEach {
-            if (it is BlockContainerBase<*>) setBlockContainers.add(it)
-            if (it is IMaterialBlock) setIMaterialBlock.add(it)
-        }
-        setItems.forEach {
-            if (it is ItemBlock) {
-                val block = it.block
-                if (block is IMaterialBlock) setIMaterialItemBlock.add(it)
-            } else if (it is IMaterialItem) setIMaterialItem.add(it)
-        }
-    }
-
-    fun printTiles() {
-        setBlockContainers.forEach {
-            val tile = it.tile.newInstance()
-            if (tile is TileBase) RagiLogger.infoDebug("TileEntity: <${it.tile.name}:${tile.type}>")
-        }
-    }
 }

@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.packet
 
-import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.tile.TileLaboTable
 import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos

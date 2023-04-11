@@ -1,9 +1,14 @@
 package hiiragi283.ragi_materials.integration
 
 import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.proxy.IProxy
 import net.minecraftforge.fml.common.Loader
+import net.minecraftforge.fml.common.event.FMLConstructionEvent
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 
-object IntegrationCore {
+object IntegrationCore : IProxy {
 
     val enableEIO = Loader.isModLoaded("enderio") && RagiConfig.integration.enableEIO
     val enableJEI = Loader.isModLoaded("jei")
@@ -12,11 +17,15 @@ object IntegrationCore {
     val enableTF = Loader.isModLoaded("thermalfoundation") && RagiConfig.integration.enableTF
     val enableTOP = Loader.isModLoaded("theoneprobe")
 
-    fun loadPreInit() {}
+    override fun onConstruct(event: FMLConstructionEvent) {}
 
-    fun loadInit() {}
+    override fun onPreInit(event: FMLPreInitializationEvent) {
+        if (enableMek) PluginMekanism.onPreInit(event)
+    }
 
-    fun loadPostInit() {
+    override fun onInit(event: FMLInitializationEvent) {}
+
+    override fun onPostInit(event: FMLPostInitializationEvent) {
         PluginVanilla.loadPostInit()
     }
 }

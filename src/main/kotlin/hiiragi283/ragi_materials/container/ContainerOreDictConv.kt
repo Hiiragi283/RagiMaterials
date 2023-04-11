@@ -28,7 +28,7 @@ class ContainerOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : Contai
             stack = stackSlot.copy()
             when (index) {
                 //Input, Output -> Inventory, Hotbar
-                in 0 .. 1 -> {
+                in 0..1 -> {
                     if (!mergeItemStack(stackSlot, 2, inventorySlots.size, true)) return ItemStack.EMPTY
                 }
                 //Inventory, Hotbar -> Input

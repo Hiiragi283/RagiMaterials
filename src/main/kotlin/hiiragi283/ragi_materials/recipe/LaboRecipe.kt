@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -31,7 +31,7 @@ data class LaboRecipe private constructor(private val location: ResourceLocation
     fun getCatalyst(): ItemStack = catalyst.copy()
 
     fun match(inventory: IItemHandler, useCount: Boolean): Boolean {
-        var result = false
+        var result: Boolean
         val matchSlot0 = RagiUtil.isSameStack(this.inputs[0], inventory.getStackInSlot(0), useCount)
         val matchSlot1 = RagiUtil.isSameStack(this.inputs[1], inventory.getStackInSlot(1), useCount)
         val matchSlot2 = RagiUtil.isSameStack(this.inputs[2], inventory.getStackInSlot(2), useCount)

@@ -16,7 +16,7 @@ Source: https://github.com/Hiiragi283/HeatAndClimateMod/blob/1.12.2_v3/main/java
  */
 
 @WailaPlugin
-object PluginWaila : IWailaPlugin {
+class PluginWaila : IWailaPlugin {
 
     override fun register(registrar: IWailaRegistrar) {
 
@@ -33,7 +33,7 @@ object PluginWaila : IWailaPlugin {
         override fun getWailaBody(itemStack: ItemStack, tooltip: MutableList<String>, accessor: IWailaDataAccessor, config: IWailaConfigHandler): MutableList<String> {
             if (config.getConfig("capability.heatinfo")) {
                 val tile = accessor.tileEntity
-                if (tile !== null && tile.hasCapability(CapabilityHeat.HEAT!!, null)) {
+                if (tile !== null && tile.hasCapability(CapabilityHeat.HEAT, null)) {
                     val tag = accessor.nbtData.getCompoundTag("forgeHeat")
                     tooltip.add(String.format("%d / %d FE", tag.getInteger("stored"), tag.getInteger("capacity")))
                 }
@@ -43,8 +43,8 @@ object PluginWaila : IWailaPlugin {
 
         //HUDを表示する対象のNBTタグを取得するメソッド
         override fun getNBTData(player: EntityPlayerMP, tile: TileEntity?, tag: NBTTagCompound, world: World, pos: BlockPos): NBTTagCompound {
-            if (tile !== null && tile.hasCapability(CapabilityHeat.HEAT!!, null)) {
-                val heatStorage = tile.getCapability(CapabilityHeat.HEAT!!, null)!!
+            if (tile !== null && tile.hasCapability(CapabilityHeat.HEAT, null)) {
+                val heatStorage = tile.getCapability(CapabilityHeat.HEAT, null)!!
                 tag.setTag("forgeHeat", NBTTagCompound().apply {
                     this.setInteger("capacity", heatStorage.getMaxHeatStored())
                     this.setInteger("stored", heatStorage.getHeatStored())

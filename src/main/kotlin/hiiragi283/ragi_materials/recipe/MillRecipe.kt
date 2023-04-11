@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.RagiMaterial

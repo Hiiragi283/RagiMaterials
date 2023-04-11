@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.packet.MessageTile
 import hiiragi283.ragi_materials.packet.RagiNetworkWrapper
 import hiiragi283.ragi_materials.recipe.LaboRecipe
