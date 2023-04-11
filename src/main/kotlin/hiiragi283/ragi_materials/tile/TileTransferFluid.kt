@@ -2,8 +2,10 @@ package hiiragi283.ragi_materials.tile
 
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
+import net.minecraftforge.fluids.capability.IFluidTankProperties
 
 class TileTransferFluid : TileTransferBase<IFluidHandler>(109), ITickable {
 
@@ -21,20 +23,22 @@ class TileTransferFluid : TileTransferBase<IFluidHandler>(109), ITickable {
                     //送り元に液体がある場合のみ動作する
                     if (contentFrom != null) {
                         //送り先に液体がない場合，最大限まで搬入する
-                        if (contentTo == null) {
-                            if (propertyFrom.canDrain() && propertyTo.canFill()) {
-                                storageFrom!!.drain(storageTo!!.fill(contentFrom, true), true)
-                            }
-                        }
+                        if (contentTo == null) transferFluid(propertyFrom, propertyTo, contentFrom)
                         //双方に液体がある場合
                         else {
                             //液体が同じ場合
-                            if (contentFrom.fluid.name == contentTo.fluid.name) {
-                                storageFrom!!.drain(storageTo!!.fill(contentFrom, true), true)
-                            }
+                            if (contentFrom.fluid.name == contentTo.fluid.name) transferFluid(propertyFrom, propertyTo, contentFrom)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun transferFluid(propertyFrom: IFluidTankProperties, propertyTo: IFluidTankProperties, contentFrom: FluidStack) {
+        if (propertyFrom.canDrain() && propertyTo.canFill()) {
+            if (storageFrom!!.drain(1, false) != null && storageTo!!.fill(contentFrom, false) > 0) {
+                storageFrom!!.drain(storageTo!!.fill(contentFrom, true), true)
             }
         }
     }

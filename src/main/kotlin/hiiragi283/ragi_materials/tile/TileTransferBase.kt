@@ -22,9 +22,9 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
 
     //    General    //
 
-    private fun getFacing() = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiFacing.HORIZONTAL) else EnumFacing.NORTH
+    fun getFacing(): EnumFacing = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiFacing.HORIZONTAL) else EnumFacing.NORTH
 
-    private fun getMode() = if (getState().block is BlockTransferBase<*>) getState().getValue(BlockTransferBase.MODE) else BlockTransferBase.EnumTransferMode.NEAREST
+    fun getMode(): BlockTransferBase.EnumTransferMode = if (getState().block is BlockTransferBase<*>) getState().getValue(BlockTransferBase.MODE) else BlockTransferBase.EnumTransferMode.NEAREST
 
     //    Capability    //
 
@@ -87,9 +87,9 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
             if (tileTo !== null && tileTo !is TileTransferBase<*>) break
         }
         //storageFromを取得
-        tileFrom?.getCapability(getCapabilityType(), null)?.let { storageFrom = it }
+        tileFrom?.getCapability(getCapabilityType(), getFacing())?.let { storageFrom = it }
         //storageToを取得
-        tileTo?.getCapability(getCapabilityType(), null)?.let { storageTo = it }
+        tileTo?.getCapability(getCapabilityType(), getFacing().opposite)?.let { storageTo = it }
     }
 
     abstract fun getCapabilityType(): Capability<T>

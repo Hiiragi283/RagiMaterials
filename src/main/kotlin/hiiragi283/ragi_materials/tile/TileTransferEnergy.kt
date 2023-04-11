@@ -15,7 +15,8 @@ class TileTransferEnergy : TileTransferBase<IEnergyStorage>(108), ITickable {
     override fun doProcess() {
         if (storageFrom !== null && storageTo !== null) {
             if (storageFrom!!.canExtract() && storageTo!!.canReceive()) {
-                storageFrom!!.extractEnergy(storageTo!!.receiveEnergy(storageFrom!!.maxEnergyStored, false), false)
+                if (storageTo!!.receiveEnergy(1, true) > 0 && storageFrom!!.extractEnergy(1, true) > 0)
+                    storageFrom!!.extractEnergy(storageTo!!.receiveEnergy(storageFrom!!.maxEnergyStored, false), false)
             }
         }
     }
