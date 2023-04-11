@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.packet.MessageTile
 import hiiragi283.ragi_materials.packet.RagiNetworkWrapper
 import hiiragi283.ragi_materials.recipe.LaboRecipe
@@ -56,8 +56,8 @@ class TileLaboTable : TileLaboBase(100) {
 
     //    TileItemHandlerBase    //
 
-    override fun getGuiID() = "${Reference.MOD_ID}:laboratory_table"
+    override fun getGuiID() = "${RagiMaterials.MOD_ID}:laboratory_table"
 
-    override fun getName() = "gui.${Reference.MOD_ID}.labo_table"
+    override fun getName() = "gui.${RagiMaterials.MOD_ID}.labo_table"
 
 }

@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.packet
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.tile.TileLaboTable
+import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
@@ -17,7 +18,7 @@ class MessageHandlerLabo : IMessageHandler<MessageTile, IMessage> {
     override fun onMessage(message: MessageTile?, ctx: MessageContext?): IMessage? {
         //messageがnullでない場合，座標を取得する
         message?.let {
-            val tile = Reference.PLAYER_CLIENT.world.getTileEntity(BlockPos(it.x, it.y, it.z))
+            val tile = Minecraft.getMinecraft().world.getTileEntity(BlockPos(it.x, it.y, it.z))
             if (tile !== null && tile is TileLaboTable) {
                 tile.inputs.clear()
             }

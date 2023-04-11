@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.client.gui
 
-import hiiragi283.ragi_materials.base.TileBase
+import hiiragi283.ragi_materials.tile.TileBase
 import hiiragi283.ragi_materials.container.ContainerBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager

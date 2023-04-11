@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import mezz.jei.api.IGuiHelper
@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack
 
 class MaterialInfoCategory(guiHelper: IGuiHelper) : JEICategoryBase<MaterialInfoWrapper>() {
 
-    private var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(Reference.MOD_ID, "textures/gui/jei/material_info.png"), 0, 0, 162, 108)
+    private var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/material_info.png"), 0, 0, 162, 108)
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.MaterialInfo

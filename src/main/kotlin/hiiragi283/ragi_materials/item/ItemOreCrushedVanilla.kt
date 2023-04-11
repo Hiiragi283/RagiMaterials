@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.client.resources.I18n
@@ -10,7 +9,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.awt.Color
 
-class ItemOreCrushedVanilla : ItemBase(Reference.MOD_ID, "ore_crushed_vanilla", 7), ICustomModel, IMaterialItem {
+class ItemOreCrushedVanilla : ItemBase(RagiMaterials.MOD_ID, "ore_crushed_vanilla", 7), ICustomModel, IMaterialItem {
 
     //    Client    //
 

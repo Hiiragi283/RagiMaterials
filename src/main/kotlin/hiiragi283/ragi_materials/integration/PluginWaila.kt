@@ -16,7 +16,7 @@ Source: https://github.com/Hiiragi283/HeatAndClimateMod/blob/1.12.2_v3/main/java
  */
 
 @WailaPlugin
-class PluginWaila : IWailaPlugin {
+object PluginWaila : IWailaPlugin {
 
     override fun register(registrar: IWailaRegistrar) {
 

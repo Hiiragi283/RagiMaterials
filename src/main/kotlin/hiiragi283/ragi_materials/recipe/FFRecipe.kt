@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.recipe
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.item.IMaterialItem
 import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.material.MaterialUtil
@@ -35,7 +35,7 @@ data class FFRecipe private constructor(private val location: ResourceLocation, 
 
         constructor(domain: String, path: String) : this(ResourceLocation(domain, path))
 
-        constructor(path: String) : this(ResourceLocation(Reference.MOD_ID, path))
+        constructor(path: String) : this(ResourceLocation(RagiMaterials.MOD_ID, path))
 
         private fun getFuelConsumption(stack: ItemStack): Int? {
             val item = stack.item

@@ -12,7 +12,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager
 object CapabilityHeat {
 
     @CapabilityInject(IHeatStorage::class)
-    var HEAT: Capability<IHeatStorage>? = null
+    lateinit var HEAT: Capability<IHeatStorage>
 
     fun register() {
 

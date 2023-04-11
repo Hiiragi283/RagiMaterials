@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
@@ -14,14 +14,12 @@ import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
 @JEIPlugin
-class JEICore : IModPlugin {
+object JEICore : IModPlugin {
 
-    companion object {
-        const val ForgeFurnace = "${Reference.MOD_ID}.forge_furnace"
-        const val LaboTable = "${Reference.MOD_ID}.labo_table"
-        const val StoneMill = "${Reference.MOD_ID}.stone_mill"
-        const val MaterialInfo = "${Reference.MOD_ID}.material_info"
-    }
+    const val ForgeFurnace = "${RagiMaterials.MOD_ID}.forge_furnace"
+    const val LaboTable = "${RagiMaterials.MOD_ID}.labo_table"
+    const val StoneMill = "${RagiMaterials.MOD_ID}.stone_mill"
+    const val MaterialInfo = "${RagiMaterials.MOD_ID}.material_info"
 
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
         val guiHelper = registry.jeiHelpers.guiHelper

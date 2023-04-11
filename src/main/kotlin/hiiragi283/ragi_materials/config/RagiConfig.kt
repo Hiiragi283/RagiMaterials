@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.config
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraftforge.common.config.Config
 
-@Config(modid = Reference.MOD_ID, category = "")
+@Config(modid = RagiMaterials.MOD_ID, category = "")
 object RagiConfig {
 
     @Config.Name("Debug Mode")
@@ -35,7 +35,7 @@ object RagiConfig {
     class DebugMode {
 
         companion object {
-            const val prefix = "config.${Reference.MOD_ID}.debug"
+            const val prefix = "config.${RagiMaterials.MOD_ID}.debug"
         }
 
         @Config.LangKey("${prefix}.debug")
@@ -48,7 +48,7 @@ object RagiConfig {
     class Integration {
 
         companion object {
-            const val prefix = "config.${Reference.MOD_ID}.integration"
+            const val prefix = "config.${RagiMaterials.MOD_ID}.integration"
         }
 
         @Config.LangKey("${prefix}.ender_io")
@@ -75,7 +75,7 @@ object RagiConfig {
     class Material {
 
         companion object {
-            const val prefix = "config.${Reference.MOD_ID}.material"
+            const val prefix = "config.${RagiMaterials.MOD_ID}.material"
         }
 
         @Config.Name("Enable radioactive decay")
@@ -88,7 +88,7 @@ object RagiConfig {
     class RecipeMap {
 
         companion object {
-            const val prefix = "config.${Reference.MOD_ID}.recipe_map"
+            const val prefix = "config.${RagiMaterials.MOD_ID}.recipe_map"
         }
 
         @Config.Name("Blazing Forge - Fuel Map")
@@ -105,7 +105,7 @@ object RagiConfig {
     class Utility {
 
         companion object {
-            const val prefix = "config.${Reference.MOD_ID}.utility"
+            const val prefix = "config.${RagiMaterials.MOD_ID}.utility"
         }
 
     }

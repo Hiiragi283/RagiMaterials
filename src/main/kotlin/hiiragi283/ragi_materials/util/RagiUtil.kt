@@ -1,8 +1,9 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.Minecraft
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
@@ -51,7 +52,7 @@ object RagiUtil {
     //    Command    //
 
     fun executeCommand(sender: ICommandSender, command: String) {
-        Reference.SERVER?.getCommandManager()?.executeCommand(sender, command)
+        Minecraft.getMinecraft().integratedServer?.server?.getCommandManager()?.executeCommand(sender, command)
     }
 
     fun setTitle(player: EntityPlayer, title: String, subtitle: String) {

@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.base.BlockContainerBaseHoldable
 import hiiragi283.ragi_materials.tile.TileBlazingForge
 import hiiragi283.ragi_materials.util.RagiFacing
 import net.minecraft.block.SoundType

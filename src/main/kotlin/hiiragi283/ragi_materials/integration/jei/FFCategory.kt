@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation
 
 class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFRecipe.Wrapper>() {
 
-    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(Reference.MOD_ID, "textures/gui/jei/forge_furnace.png"), 1, 1, 54, 18)
+    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/forge_furnace.png"), 1, 1, 54, 18)
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.ForgeFurnace

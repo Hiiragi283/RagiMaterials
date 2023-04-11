@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.base.BlockBase
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material

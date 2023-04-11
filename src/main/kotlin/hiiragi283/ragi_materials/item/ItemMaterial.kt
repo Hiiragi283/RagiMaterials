@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.material.MaterialUtil
@@ -22,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
-open class ItemMaterial(val part: MaterialPart) : ItemBase(Reference.MOD_ID, part.name, OreDictionary.WILDCARD_VALUE), ICustomModel, IMaterialItem {
+open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID, part.name, OreDictionary.WILDCARD_VALUE), ICustomModel, IMaterialItem {
 
     //    General    //
 

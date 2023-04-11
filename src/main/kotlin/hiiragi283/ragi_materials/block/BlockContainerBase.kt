@@ -1,6 +1,7 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.tile.TileBase
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -22,8 +23,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 abstract class BlockContainerBase<T : TileEntity>(val id: String, material: Material, val tile: Class<T>, private val maxTips: Int) : BlockContainer(material) {
 
     init {
-        GameRegistry.registerTileEntity(tile, ResourceLocation(Reference.MOD_ID, "te_$id"))
-        setRegistryName(Reference.MOD_ID, id)
+        GameRegistry.registerTileEntity(tile, ResourceLocation(RagiMaterials.MOD_ID, "te_$id"))
+        setRegistryName(RagiMaterials.MOD_ID, id)
         translationKey = id
     }
 
@@ -38,7 +39,7 @@ abstract class BlockContainerBase<T : TileEntity>(val id: String, material: Mate
         var result = false
         if (hand == EnumHand.MAIN_HAND) {
             val tile = world.getTileEntity(pos)
-            result = if (tile !== null && tile is ITileActivatable) tile.onTileActivated(world, pos, player, hand, facing) else false
+            result = if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
         }
         return result
     }

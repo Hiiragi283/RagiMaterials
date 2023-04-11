@@ -13,7 +13,11 @@ class TileTransferEnergy : TileTransferBase<IEnergyStorage>(108), ITickable {
     //    TileTransferBase    //
 
     override fun doProcess() {
-        storageFrom!!.extractEnergy(storageTo!!.receiveEnergy(storageFrom!!.maxEnergyStored, false), false)
+        if (storageFrom !== null && storageTo !== null) {
+            if (storageFrom!!.canExtract() && storageTo!!.canReceive()) {
+                storageFrom!!.extractEnergy(storageTo!!.receiveEnergy(storageFrom!!.maxEnergyStored, false), false)
+            }
+        }
     }
 
     override fun getCapabilityType(): Capability<IEnergyStorage> = CapabilityEnergy.ENERGY

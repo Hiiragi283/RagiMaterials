@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials.proxy
 
-import hiiragi283.ragi_materials.RagiMaterialsCore
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.capability.heat.CapabilityHeat
 import hiiragi283.ragi_materials.client.gui.GuiFullBottle
 import hiiragi283.ragi_materials.client.gui.GuiLaboTable
@@ -33,42 +32,38 @@ import net.minecraft.world.World
 import net.minecraft.world.storage.loot.LootTableList
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
-import net.minecraftforge.fml.common.event.FMLConstructionEvent
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.network.IGuiHandler
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import java.io.File
 
-abstract class CommonProxy : IGuiHandler {
+abstract class CommonProxy : IGuiHandler, IProxy {
 
-    open fun onConstruct(event: FMLConstructionEvent) {
+    override fun onConstruct(event: FMLConstructionEvent) {
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
         FluidRegistry.enableUniversalBucket()
     }
 
     //Pre-Initializationで読み込むメソッド
-    open fun onPreInit(event: FMLPreInitializationEvent) {
+    override fun onPreInit(event: FMLPreInitializationEvent) {
+        //lateinit変数の初期化
         /**
         Thanks to defeatedcrow!
         Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
          */
-        //configフォルダーの取得
-        RagiMaterialsCore.config = File(event.modConfigurationDirectory, "${Reference.MOD_ID}/")
-        RagiLogger.infoDebug(("Config path: ${RagiMaterialsCore.config?.absolutePath}"))
-        //鉱石生成の登録
-        //MinecraftForge.ORE_GEN_BUS.register(OreGenRegistry())
+        RagiMaterials.CONFIG = File(event.modConfigurationDirectory, "${RagiMaterials.MOD_ID}/")
+        RagiMaterials.LOGGER = event.modLog
+        RagiLogger.infoDebug(("Config path: ${RagiMaterials.CONFIG.absolutePath}"))
         //Capabilityの登録
         CapabilityHeat.register()
         //GUI描画の登録
-        NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterialsCore.INSTANCE, this)
+        NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterials.INSTANCE, this)
         //連携要素の登録
         IntegrationCore.loadPreInit()
     }
 
     //Initializationで読み込むメソッド
-    open fun onInit(event: FMLInitializationEvent) {
+    override fun onInit(event: FMLInitializationEvent) {
         CommonRegistryEvent.register()
         CraftingRegistry.load()
         SmeltingRegistry.load()
@@ -81,7 +76,7 @@ abstract class CommonProxy : IGuiHandler {
     }
 
     //Post-Initializationで読み込むメソッド
-    open fun onPostInit(event: FMLPostInitializationEvent) {
+    override fun onPostInit(event: FMLPostInitializationEvent) {
         //Jsonの読み取り
         loadJson()
         //設備レシピの登録

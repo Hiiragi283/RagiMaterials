@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.crafting
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -74,12 +74,12 @@ object CraftingRegistry {
                 'A', ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE),
                 'B', "dirt"
         )
-        CraftingManager.addShaped("${Reference.MOD_ID}:soil_peat_1", ItemStack(RagiRegistry.BlockSoilPeat, 1, 0),
+        CraftingManager.addShaped("${RagiMaterials.MOD_ID}:soil_peat_1", ItemStack(RagiRegistry.BlockSoilPeat, 1, 0),
                 " A ", "ABA", " A ",
                 'A', "treeLeaves",
                 'B', "dirt"
         )
-        CraftingManager.addShapeless("${Reference.MOD_ID}:soil_peat_2", ItemStack(RagiRegistry.BlockSoilPeat, 1, 0),
+        CraftingManager.addShapeless("${RagiMaterials.MOD_ID}:soil_peat_2", ItemStack(RagiRegistry.BlockSoilPeat, 1, 0),
                 CraftingManager.setOreDict("vine"),
                 CraftingManager.setOreDict("dirt")
         )

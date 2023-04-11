@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.block
 
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger

@@ -1,10 +1,10 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.block.BlockTransferBase
 import hiiragi283.ragi_materials.util.RagiFacing
 import hiiragi283.ragi_materials.util.RagiResult
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ITickable
@@ -14,6 +14,8 @@ import net.minecraftforge.common.capabilities.Capability
 
 abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable {
 
+    private var tileFrom: TileEntity? = null
+    private var tileTo: TileEntity? = null
     abstract var storageFrom: T?
     abstract var storageTo: T?
     private var count = 0
@@ -22,20 +24,16 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
 
     private fun getFacing() = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiFacing.HORIZONTAL) else EnumFacing.NORTH
 
-    private fun getTileFrom() = world.getTileEntity(pos.offset(getFacing().opposite))
-
     private fun getMode() = if (getState().block is BlockTransferBase<*>) getState().getValue(BlockTransferBase.MODE) else BlockTransferBase.EnumTransferMode.NEAREST
 
     //    Capability    //
 
     override fun <R : Any?> getCapability(capability: Capability<R>, facing: EnumFacing?): R? {
-        val tileFrom = getTileFrom()
-        return if (tileFrom !== null && tileFrom !is TileTransferBase<*>) tileFrom.getCapability(capability, facing) else null
+        return if (tileFrom !== null && tileFrom !is TileTransferBase<*>) tileFrom!!.getCapability(capability, facing) else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-        val tileFrom = getTileFrom()
-        return if (tileFrom !== null && tileFrom !is TileTransferBase<*>) tileFrom.hasCapability(capability, facing) else false
+        return if (tileFrom !== null && tileFrom !is TileTransferBase<*>) tileFrom!!.hasCapability(capability, facing) else false
     }
 
     //    ITileActivatable    //
@@ -47,9 +45,8 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
             if (player.isSneaking) {
                 world.setBlockState(pos, getState().withProperty(BlockTransferBase.MODE, getMode().reverse()))
             } else {
-                getConnection().also {
-                    if (it) RagiResult.succeeded(this, player) else RagiResult.failed(this, player)
-                }
+                getConnection()
+                if (hasConnection()) RagiResult.succeeded(this, player) else RagiResult.failed(this, player)
             }
         }
         return true
@@ -60,7 +57,10 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
     override fun update() {
         if (count >= 20) {
             //送信元と送信先がともに存在する場合
-            if (hasConnection()) doProcess()
+            if (hasConnection()) {
+                getConnection()
+                doProcess()
+            }
             count = 0
         } else count++
     }
@@ -69,29 +69,27 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
 
     //    Energy    //
 
-    private fun hasConnection() = storageFrom !== null && storageTo !== null
+    private fun hasConnection() = tileFrom !== null && tileTo !== null && storageFrom !== null && storageTo !== null
 
-    private fun getConnection(): Boolean {
-        //送信元と送信先を初期化
+    private fun getConnection() {
+        //変数を初期化
+        tileFrom = null
+        tileTo = null
         storageFrom = null
         storageTo = null
-        //storageToを取得
-        getTileFrom()?.let { storageFrom = it.getCapability(getCapabilityType(), getFacing()) }
-        //storageFromを取得
+        //tileFromを取得
+        tileFrom = world.getTileEntity(pos.offset(getFacing().opposite))
+        //tileToを取得
         for (i in 1..16) {
             //modeの値によって検索順を反転させる
             val j = if (getMode() == BlockTransferBase.EnumTransferMode.NEAREST) i else 16 - i
-            val posTo = pos.offset(getFacing(), j)
-            val tileTo = world.getTileEntity(posTo)
-            if (tileTo !== null) {
-                val capability = tileTo.getCapability(getCapabilityType(), getFacing().opposite)
-                if (capability !== null) {
-                    storageTo = capability
-                    break
-                }
-            }
+            tileTo = world.getTileEntity(pos.offset(getFacing(), j))
+            if (tileTo !== null && tileTo !is TileTransferBase<*>) break
         }
-        return hasConnection()
+        //storageFromを取得
+        tileFrom?.getCapability(getCapabilityType(), null)?.let { storageFrom = it }
+        //storageToを取得
+        tileTo?.getCapability(getCapabilityType(), null)?.let { storageTo = it }
     }
 
     abstract fun getCapabilityType(): Capability<T>

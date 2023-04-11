@@ -1,8 +1,7 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.config.RagiConfig
-import org.apache.logging.log4j.LogManager
 
 /**
 Thanks to defeatedcrow!
@@ -11,29 +10,35 @@ Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/ja
 
 object RagiLogger {
 
-    private val LOGGER_RAGI = LogManager.getLogger(Reference.MOD_ID)
-
-    fun info(info: Any?) {
-        LOGGER_RAGI.info(info)
-    }
-
-    fun warn(info: Any?) {
-        LOGGER_RAGI.warn(info)
+    fun debug(info: Any?) {
+        RagiMaterials.LOGGER.debug(info)
     }
 
     fun error(info: Any?) {
-        LOGGER_RAGI.error(info)
+        RagiMaterials.LOGGER.error(info)
+    }
+
+    fun fatal(info: Any?) {
+        RagiMaterials.LOGGER.fatal(info)
+    }
+
+    fun info(info: Any?) {
+        RagiMaterials.LOGGER.info(info)
+    }
+
+    fun warn(info: Any?) {
+        RagiMaterials.LOGGER.warn(info)
     }
 
     fun infoDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.info(info)
+        if (RagiConfig.debugMode.isDebug) RagiMaterials.LOGGER.info(info)
     }
 
     fun warnDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.warn(info)
+        if (RagiConfig.debugMode.isDebug) RagiMaterials.LOGGER.warn(info)
     }
 
     fun errorDebug(info: Any?) {
-        if (RagiConfig.debugMode.isDebug) LOGGER_RAGI.error(info)
+        if (RagiConfig.debugMode.isDebug) RagiMaterials.LOGGER.error(info)
     }
 }

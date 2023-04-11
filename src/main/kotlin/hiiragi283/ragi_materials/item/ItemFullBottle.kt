@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.util.RagiFluidUtil
@@ -23,7 +22,7 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimpl
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemFullBottle : ItemBase(Reference.MOD_ID, "fullbottle", 0), IMaterialItem {
+class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMaterialItem {
 
     //    General    //
 

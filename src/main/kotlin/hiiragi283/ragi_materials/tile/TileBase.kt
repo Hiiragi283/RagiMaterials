@@ -1,7 +1,8 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.tile
 
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.play.server.SPacketUpdateTileEntity
@@ -11,7 +12,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileBase(open val type: Int) : TileEntity(), ITileActivatable {
+abstract class TileBase(open val type: Int) : TileEntity() {
 
     val keyInventory = "inventory"
     val keyTank = "tank"
@@ -19,7 +20,7 @@ abstract class TileBase(open val type: Int) : TileEntity(), ITileActivatable {
 
     //    General    //
 
-    fun getState(): IBlockState = world.getBlockState(pos)
+    fun getState(): IBlockState = if (hasWorld()) world.getBlockState(pos) else Blocks.AIR.defaultState
 
     //    NBT tag    //
 
@@ -40,8 +41,8 @@ abstract class TileBase(open val type: Int) : TileEntity(), ITileActivatable {
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    //    ITIleActivatable    //
+    //    Event    //
 
-    abstract override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
+    abstract fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
 
 }

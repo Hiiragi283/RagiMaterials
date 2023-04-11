@@ -68,24 +68,6 @@ object CommonRegistryEvent {
         }
     }
 
-    /*private fun registerTiles() {
-        //TileEntityの登録
-        registerTile(TileLaboTable::class.java, RagiRegistry.BlockLaboratoryTable) //100
-        registerTile(TileFullBottleStation::class.java, RagiRegistry.BlockFullBottleStation) //101
-        registerTile(TileForgeFurnace::class.java, RagiRegistry.BlockForgeFurnace) //102
-        registerTile(TileBlazingForge::class.java, RagiRegistry.BlockBlazingForge) //103
-        registerTile(TileIndustrialLabo::class.java, RagiRegistry.BlockIndustrialLabo) //104
-        registerTile(TileStoneMill::class.java, RagiRegistry.BlockStoneMill) //105
-        //registerTile(TileQuartzAntenna::class.java, RagiRegistry.BlockQuartzAntenna) //106
-        registerTile(TileOreDictConv::class.java, RagiRegistry.BlockOreDictConv) //107
-        registerTile(TileTransferEnergy::class.java, RagiRegistry.BlockTransferEnergy) //108
-        registerTile(TileTransferFluid::class.java, RagiRegistry.BlockTransferFluid) //109
-    }
-
-    private fun <T : TileEntity> registerTile(tile: Class<T>, block: BlockContainerBase) {
-        GameRegistry.registerTileEntity(tile, ResourceLocation(Reference.MOD_ID, "te_${block.registryName!!.path}"))
-    }*/
-
     private fun registerOreDict() {
         //鉱石辞書の登録
         for (pair in RagiMaterial.validPair) {

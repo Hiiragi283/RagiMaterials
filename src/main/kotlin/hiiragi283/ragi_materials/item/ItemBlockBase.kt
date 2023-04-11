@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.item
 
 import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs

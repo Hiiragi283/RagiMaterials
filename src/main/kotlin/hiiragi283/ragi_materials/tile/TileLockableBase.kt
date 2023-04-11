@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.container.RagiInventory
 import net.minecraft.block.state.IBlockState
@@ -10,12 +10,10 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.NetworkManager
 import net.minecraft.network.play.server.SPacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntityLockable
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileLockableBase(val type: Int) : TileEntityLockable(), ITileActivatable {
+abstract class TileLockableBase(val type: Int) : TileEntityLockable() {
 
     val keyInventory = "inventory"
     val keyTank = "tank"
@@ -41,10 +39,6 @@ abstract class TileLockableBase(val type: Int) : TileEntityLockable(), ITileActi
      */
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
-
-    //    ITIleActivatable    //
-
-    abstract override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean
 
     //    IInventory    //
 

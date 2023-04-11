@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.base.TileBase
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiResult

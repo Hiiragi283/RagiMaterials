@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.base.BlockContainerBase
-import hiiragi283.ragi_materials.base.ItemBase
-import hiiragi283.ragi_materials.base.ItemBlockBase
-import hiiragi283.ragi_materials.base.TileBase
+import hiiragi283.ragi_materials.block.BlockContainerBase
+import hiiragi283.ragi_materials.item.ItemBase
+import hiiragi283.ragi_materials.item.ItemBlockBase
+import hiiragi283.ragi_materials.tile.TileBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.item.*
@@ -42,13 +42,13 @@ object RagiRegistry {
 
     //    Creative Tab    //
 
-    val TabBlock = object : CreativeTabs("${Reference.MOD_ID}.blocks") {
+    val TabBlock = object : CreativeTabs("${RagiMaterials.MOD_ID}.blocks") {
         override fun createIcon() = ItemStack(ItemBlockForgeFurnace)
     }
-    val TabFullBottle = object : CreativeTabs("${Reference.MOD_ID}.fullbottles") {
+    val TabFullBottle = object : CreativeTabs("${RagiMaterials.MOD_ID}.fullbottles") {
         override fun createIcon() = ItemStack(ItemFullBottle)
     }
-    val TabMaterial = object : CreativeTabs("${Reference.MOD_ID}.materials") {
+    val TabMaterial = object : CreativeTabs("${RagiMaterials.MOD_ID}.materials") {
         override fun createIcon() = ItemStack(ItemIngot, 1, 26)
     }
 
@@ -69,7 +69,7 @@ object RagiRegistry {
     val ItemBlockTransferEnergy = ItemBlockBase(BlockTransferEnergy)
     val ItemBlockTransferFluid = ItemBlockBase(BlockTransferFluid)
 
-    val ItemBlazingCube = ItemBase(Reference.MOD_ID, "blazing_cube", 0)
+    val ItemBlazingCube = ItemBase(RagiMaterials.MOD_ID, "blazing_cube", 0)
     val ItemBookDebug = ItemBookDebug()
     val ItemEnderTable = ItemEnderTable()
     val ItemForgeHammer = ItemForgeHammer()
@@ -91,7 +91,7 @@ object RagiRegistry {
 
     //    LootTable    //
 
-    val OreRainbow = ResourceLocation(Reference.MOD_ID, "gameplay/ore_rainbow")
+    val OreRainbow = ResourceLocation(RagiMaterials.MOD_ID, "gameplay/ore_rainbow")
 
     //    Collection    //
 

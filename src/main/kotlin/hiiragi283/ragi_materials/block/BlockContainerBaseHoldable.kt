@@ -1,5 +1,6 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.tile.TileBase
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -11,7 +12,7 @@ import net.minecraft.world.World
 import java.util.*
 
 //NBTタグを保持するブロック用のクラス
-abstract class BlockContainerBaseHoldable<T : TileEntity>(id: String, material: Material, tile: Class<T>, maxTips: Int) : BlockContainerBase<T>(id, material, tile, maxTips) {
+abstract class BlockContainerBaseHoldable<T : TileBase>(id: String, material: Material, tile: Class<T>, maxTips: Int) : BlockContainerBase<T>(id, material, tile, maxTips) {
 
     //    General    //
 
@@ -39,6 +40,13 @@ abstract class BlockContainerBaseHoldable<T : TileEntity>(id: String, material: 
     }
 
     private fun moveFromStack(tile: TileEntity, stack: ItemStack) {
-        if (stack.tagCompound !== null) tile.readFromNBT(tile.writeToNBT(stack.tagCompound!!)) //NBTタグから読み込む
+        if (stack.tagCompound !== null) {
+            val tag = stack.tagCompound!!.also {
+                it.setInteger("x", tile.pos.x)
+                it.setInteger("y", tile.pos.y)
+                it.setInteger("z", tile.pos.z)
+            }
+            tile.readFromNBT(tag) //NBTタグから読み込む
+        }
     }
 }

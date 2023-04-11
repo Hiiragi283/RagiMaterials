@@ -1,8 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiMaterialsCore
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.TileItemHandlerBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.capability.EnumIOType
 import hiiragi283.ragi_materials.capability.RagiTank
 import hiiragi283.ragi_materials.capability.item.RagiItemHandler
@@ -93,7 +91,7 @@ class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         val fluidHandler = FluidUtil.getFluidHandler(player.getHeldItem(hand))
         return if (fluidHandler !== null) FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing) else {
-            player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
+            player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
             return true
         }
     }
@@ -102,8 +100,8 @@ class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerFullBottle(player, this)
 
-    override fun getGuiID() = "${Reference.MOD_ID}:fullbottle_station"
+    override fun getGuiID() = "${RagiMaterials.MOD_ID}:fullbottle_station"
 
-    override fun getName() = "gui.${Reference.MOD_ID}.fullbottle_station"
+    override fun getName() = "gui.${RagiMaterials.MOD_ID}.fullbottle_station"
 
 }

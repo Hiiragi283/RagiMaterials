@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.base.BlockBase
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

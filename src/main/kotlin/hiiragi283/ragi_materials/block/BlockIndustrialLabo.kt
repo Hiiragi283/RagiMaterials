@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.base.BlockContainerBase
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
 import hiiragi283.ragi_materials.util.RagiFacing
 import hiiragi283.ragi_materials.util.RagiUtil

@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation
 
 class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboRecipe.Wrapper>() {
 
-    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(Reference.MOD_ID, "textures/gui/jei/labo_table.png"), 1, 1, 90, 54)
+    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/labo_table.png"), 1, 1, 90, 54)
 
     override fun getUid(): String = JEICore.LaboTable
 

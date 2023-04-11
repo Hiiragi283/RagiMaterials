@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -14,7 +13,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemWaste : ItemBase(Reference.MOD_ID, "waste", 0), IMaterialItem {
+class ItemWaste : ItemBase(RagiMaterials.MOD_ID, "waste", 0), IMaterialItem {
 
     init {
         creativeTab = CreativeTabs.MISC

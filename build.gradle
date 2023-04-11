@@ -80,7 +80,12 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
+    //Deobfuscated Dependencies
     implementation fg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
+    implementation fg.deobf("curse.maven:had-enough-items-557549:4451828")
+    implementation fg.deobf("curse.maven:hwyla-253449:2568751")
+    implementation fg.deobf("curse.maven:the-one-probe-245211:2667280")
+    //Normal Dependencies
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     implementation fileTree(dir: 'libs', include: '*.jar')
 }

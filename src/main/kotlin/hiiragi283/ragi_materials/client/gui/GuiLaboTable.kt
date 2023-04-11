@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.client.gui
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.container.ContainerLaboTable
 import hiiragi283.ragi_materials.tile.TileLaboBase
 import net.minecraft.entity.player.EntityPlayer
@@ -12,6 +12,6 @@ class GuiLaboTable(player: EntityPlayer, tile: TileLaboBase) : GuiBase<TileLaboB
         ySize = 133
     }
 
-    override val background = ResourceLocation(Reference.MOD_ID, "textures/gui/laboratory.png")
+    override val background = ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/laboratory.png")
 
 }

@@ -1,10 +1,9 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.item.ItemStack
 
-class ItemForgeHammer : ItemBase(Reference.MOD_ID, "forge_hammer", 0) {
+class ItemForgeHammer : ItemBase(RagiMaterials.MOD_ID, "forge_hammer", 0) {
 
     init {
         maxDamage = 63

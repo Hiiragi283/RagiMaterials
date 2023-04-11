@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.capability.RagiEnergyStorage
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
@@ -91,8 +91,8 @@ class TileIndustrialLabo : TileLaboBase(104), ITickable {
 
     //    TileItemHandlerBase    //
 
-    override fun getGuiID() = "${Reference.MOD_ID}:industrial_labo"
+    override fun getGuiID() = "${RagiMaterials.MOD_ID}:industrial_labo"
 
-    override fun getName() = "gui.${Reference.MOD_ID}.industrial_labo"
+    override fun getName() = "gui.${RagiMaterials.MOD_ID}.industrial_labo"
 
 }

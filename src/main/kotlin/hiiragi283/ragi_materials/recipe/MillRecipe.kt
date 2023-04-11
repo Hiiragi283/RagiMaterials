@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.material.RagiMaterial
@@ -31,7 +31,7 @@ data class MillRecipe private constructor(private val location: ResourceLocation
 
         constructor(domain: String, path: String) : this(ResourceLocation(domain, path))
 
-        constructor(path: String) : this(ResourceLocation(Reference.MOD_ID, path))
+        constructor(path: String) : this(ResourceLocation(RagiMaterials.MOD_ID, path))
 
         var input: ItemStack = ItemStack.EMPTY
         var output: ItemStack = ItemStack.EMPTY

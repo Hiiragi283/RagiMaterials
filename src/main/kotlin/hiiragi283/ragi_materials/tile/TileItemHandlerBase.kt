@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.tile
 
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.IInteractionObject

@@ -1,8 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiMaterialsCore
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.TileItemHandlerBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.block.BlockStoneMill
 import hiiragi283.ragi_materials.capability.EnumIOType
 import hiiragi283.ragi_materials.capability.item.RagiItemHandler
@@ -75,7 +73,7 @@ class TileStoneMill : TileItemHandlerBase(105) {
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) {
             if (player.isSneaking) {
-                player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
+                player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
             } else {
                 val state = world.getBlockState(pos)
                 val count = state.getValue(BlockStoneMill.COUNT)
@@ -90,8 +88,8 @@ class TileStoneMill : TileItemHandlerBase(105) {
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerStoneMill(player, this)
 
-    override fun getGuiID() = "${Reference.MOD_ID}:stone_mill"
+    override fun getGuiID() = "${RagiMaterials.MOD_ID}:stone_mill"
 
-    override fun getName() = "gui.${Reference.MOD_ID}.stone_mill"
+    override fun getName() = "gui.${RagiMaterials.MOD_ID}.stone_mill"
 
 }

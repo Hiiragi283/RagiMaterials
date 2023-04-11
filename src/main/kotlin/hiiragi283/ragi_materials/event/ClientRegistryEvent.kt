@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.event
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.base.ItemBlockBase
+import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.block.IMaterialBlock
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager

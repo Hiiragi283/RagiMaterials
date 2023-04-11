@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.base
+package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.client.resources.I18n
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 open class BlockBase(ID: String, Material: Material, private val maxTips: Int) : Block(Material) {
 
     init {
-        setRegistryName(Reference.MOD_ID, ID)
+        setRegistryName(RagiMaterials.MOD_ID, ID)
         translationKey = ID
     }
 

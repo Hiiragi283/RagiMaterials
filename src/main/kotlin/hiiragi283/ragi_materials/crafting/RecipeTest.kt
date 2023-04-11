@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.crafting
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.init.Items
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
@@ -10,7 +10,7 @@ import net.minecraft.world.World
 class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     init {
-        setRegistryName("${Reference.MOD_ID}:recipe_test") //タイプミス防止のため予めレシピ名を書いておく
+        setRegistryName("${RagiMaterials.MOD_ID}:recipe_test") //タイプミス防止のため予めレシピ名を書いておく
     }
 
     //レシピが一致するかどうかを判定するメソッド

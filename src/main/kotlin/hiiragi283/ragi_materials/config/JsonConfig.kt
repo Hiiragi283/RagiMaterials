@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.config
 import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import hiiragi283.ragi_materials.RagiMaterialsCore
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.type.EnumCrystalType
@@ -24,38 +24,36 @@ object JsonConfig {
 
     fun loadJson() {
         //configフォルダが取得済みの場合
-        if (RagiMaterialsCore.config !== null) {
-            val file = File(RagiMaterialsCore.config, "/material.json") //jsonファイルのパスを生成
-            try {
-                //Jsonファイルが存在し，かつ読み取り可能な場合
-                if (file.exists() && file.canRead()) {
-                    val streamFile = FileInputStream(file.path) //Fileのstreamを開ける
-                    val streamInput = InputStreamReader(streamFile) //Inputのstreamを開ける
-                    val reader = JsonReader(streamInput) //JsonReaderを開ける
+        val file = File(RagiMaterials.CONFIG, "/material.json") //jsonファイルのパスを生成
+        try {
+            //Jsonファイルが存在し，かつ読み取り可能な場合
+            if (file.exists() && file.canRead()) {
+                val streamFile = FileInputStream(file.path) //Fileのstreamを開ける
+                val streamInput = InputStreamReader(streamFile) //Inputのstreamを開ける
+                val reader = JsonReader(streamInput) //JsonReaderを開ける
 
-                    val gson = Gson()
-                    config = gson.fromJson(reader, MaterialList::class.java) //Jsonから値を読み取る
-                    if (config !== null) {
-                        for (material in config!!.list) {
-                            if (material != MaterialConfig.EMPTY) material.toRagiMaterial() //読み取った素材が有効な場合，登録する
-                        }
+                val gson = Gson()
+                config = gson.fromJson(reader, MaterialList::class.java) //Jsonから値を読み取る
+                if (config !== null) {
+                    for (material in config!!.list) {
+                        if (material != MaterialConfig.EMPTY) material.toRagiMaterial() //読み取った素材が有効な場合，登録する
                     }
-
-                    reader.close() //JsonReaderを閉じる
-                    streamInput.close() //Inputのstreamを閉じる
-                    streamFile.close() //Fileのstreamを閉じる
                 }
-            } catch (e: IOException) {
-                e.printStackTrace()
+
+                reader.close() //JsonReaderを閉じる
+                streamInput.close() //Inputのstreamを閉じる
+                streamFile.close() //Fileのstreamを閉じる
             }
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 
     fun generateJson() {
-        //configフォルダが取得済み，かつ既存のjsonファイルがない場合
-        if (RagiMaterialsCore.config !== null && config == null) {
+        //既存のjsonファイルがない場合
+        if (config == null) {
             config = MaterialList() //デフォルト値は[EMPTY]
-            val file = File(RagiMaterialsCore.config, "/material.json") //jsonファイルのパスを生成
+            val file = File(RagiMaterials.CONFIG, "/material.json") //jsonファイルのパスを生成
             //jsonファイルがない場合
             if (!file.exists()) {
                 //Jsonファイルの親フォルダがない場合，新たに生成する

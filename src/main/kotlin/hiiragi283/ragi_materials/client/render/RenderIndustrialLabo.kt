@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.client.render
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.block.BlockIndustrialLabo
 import hiiragi283.ragi_materials.client.model.tile.ModelIndustrialLabo
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 @SideOnly(Side.CLIENT)
 object RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
 
-    private val location = ResourceLocation(Reference.MOD_ID, "textures/tiles/industrial_labo.png")
+    private val location = ResourceLocation(RagiMaterials.MOD_ID, "textures/tiles/industrial_labo.png")
 
     private var rotate = 180.0f
 

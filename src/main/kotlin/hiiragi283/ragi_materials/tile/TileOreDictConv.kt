@@ -1,8 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiMaterialsCore
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.TileItemHandlerBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.capability.EnumIOType
 import hiiragi283.ragi_materials.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
@@ -55,7 +53,7 @@ class TileOreDictConv : TileItemHandlerBase(107), ITickable {
     //    ITileActivatable    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
         return true
     }
 
@@ -63,9 +61,9 @@ class TileOreDictConv : TileItemHandlerBase(107), ITickable {
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerOreDictConv(player, this)
 
-    override fun getGuiID() = "${Reference.MOD_ID}:oredict_converter"
+    override fun getGuiID() = "${RagiMaterials.MOD_ID}:oredict_converter"
 
-    override fun getName() = "gui.${Reference.MOD_ID}.oredict_converter"
+    override fun getName() = "gui.${RagiMaterials.MOD_ID}.oredict_converter"
 
     //    ITickable    //
 
@@ -90,9 +88,9 @@ class TileOreDictConv : TileItemHandlerBase(107), ITickable {
                         val listStacks = OreDictionary.getOres(oreDict)
                         //NonNullList内の各stackOreに対して実行
                         for (stackOre in listStacks) {
-                            if (stack.item.registryName?.namespace != Reference.MOD_ID) {
+                            if (stack.item.registryName?.namespace != RagiMaterials.MOD_ID) {
                                 //他mod -> RagiMaterials
-                                if (stackOre.item.registryName?.namespace == Reference.MOD_ID) {
+                                if (stackOre.item.registryName?.namespace == RagiMaterials.MOD_ID) {
                                     stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
                                     break
                                 }

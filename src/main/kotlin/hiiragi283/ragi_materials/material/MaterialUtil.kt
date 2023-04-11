@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.material
 
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.part.MaterialPart
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
@@ -14,7 +14,7 @@ object MaterialUtil {
 
     //部品を取得するメソッド
     fun getPart(part: MaterialPart, material: RagiMaterial, amount: Int = 1): ItemStack {
-        return if (isValidPart(part, material)) RagiUtil.getStack("${Reference.MOD_ID}:${part.name}", amount, material.index) else ItemStack.EMPTY
+        return if (isValidPart(part, material)) RagiUtil.getStack("${RagiMaterials.MOD_ID}:${part.name}", amount, material.index) else ItemStack.EMPTY
     }
 
     //代入されたMapから化学式を生成するメソッド

@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.recipe
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.Reference
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
@@ -54,7 +54,7 @@ data class LaboRecipe private constructor(private val location: ResourceLocation
 
         constructor(domain: String, path: String) : this(ResourceLocation(domain, path))
 
-        constructor(path: String) : this(ResourceLocation(Reference.MOD_ID, path))
+        constructor(path: String) : this(ResourceLocation(RagiMaterials.MOD_ID, path))
 
         var inputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
         var outputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)

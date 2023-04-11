@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.Reference
-import hiiragi283.ragi_materials.base.ItemBase
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
@@ -9,7 +8,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class ItemResonatingFork : ItemBase(Reference.MOD_ID, "resonating_fork", 0) {
+class ItemResonatingFork : ItemBase(RagiMaterials.MOD_ID, "resonating_fork", 0) {
 
     init {
         setMaxStackSize(1)

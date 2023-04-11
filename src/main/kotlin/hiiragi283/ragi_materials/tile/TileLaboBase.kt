@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.RagiMaterialsCore
-import hiiragi283.ragi_materials.base.TileItemHandlerBase
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.capability.EnumIOType
 import hiiragi283.ragi_materials.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
@@ -37,7 +36,7 @@ abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
     //    ITileActivatable    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        if (!world.isRemote) player.openGui(RagiMaterialsCore.INSTANCE!!, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
         return true
     }
 

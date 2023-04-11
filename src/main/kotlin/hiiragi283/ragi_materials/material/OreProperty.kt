@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.client.color.ColorManager
 class OreProperty(val first: RagiMaterial, val second: RagiMaterial = RagiMaterial.EMPTY, val third: RagiMaterial = RagiMaterial.EMPTY) {
 
     companion object {
-        val mapVanilla = mapOf(
+        private val mapVanilla = mapOf(
                 "Gold" to OreProperty(MaterialRegistry.GOLD, MaterialRegistry.GOLD, MaterialRegistry.GOLD),
                 "Iron" to OreProperty(MaterialRegistry.IRON, MaterialRegistry.IRON, MaterialRegistry.IRON),
                 "Coal" to OreProperty(MaterialRegistry.COAL, MaterialRegistry.COAL, MaterialRegistry.COAL),
