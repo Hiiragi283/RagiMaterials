@@ -1,13 +1,18 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.MaterialPart
+import hiiragi283.ragi_materials.material.part.PartRegistry
+import hiiragi283.ragi_materials.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiUtil
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -16,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraft.world.World
+import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -77,6 +83,59 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
                 if (MaterialUtil.isValidPart(part, material)) {
                     subItems.add(MaterialUtil.getPart(part, material))
                 }
+            }
+        }
+    }
+
+    override fun registerCustomModel() {
+        when (this.part) {
+            //Block of **
+            PartRegistry.BLOCK -> {
+
+                val blockCrystal = ModelResourceLocation("${RagiMaterials.MOD_ID}:part", "block_crystal")
+                val blockMaterial = ModelResourceLocation("${RagiMaterials.MOD_ID}:part", "block_material")
+                val blockMetal = ModelResourceLocation("${RagiMaterials.MOD_ID}:part", "block_metal")
+
+                ModelLoader.registerItemVariants(this, blockCrystal, blockMaterial, blockMetal)
+
+                ModelLoader.setCustomMeshDefinition(RagiRegistry.ItemBlockMaterial) { stack ->
+                    var result = blockMaterial
+                    val item = stack.item
+                    if (item is IMaterialItem) {
+                        val material = item.getMaterial(stack)
+                        if (material.crystalType != EnumCrystalType.NONE) {
+                            if (material.crystalType != EnumCrystalType.COAL) result = blockCrystal
+                        } else if (EnumMaterialType.INGOT in material.type.list) result = blockMetal
+                    }
+                    result
+                }
+            }
+            //Crystal
+            PartRegistry.CRYSTAL -> {
+
+                ModelLoader.registerItemVariants(
+                        RagiRegistry.ItemCrystal,
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "coal"),
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "cubic"),
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "diamond"),
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "emerald"),
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "lapis"),
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "quartz"),
+                        ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "ruby")
+                )
+                ModelLoader.setCustomMeshDefinition(RagiRegistry.ItemCrystal) { stack ->
+                    var result = ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", EnumCrystalType.CUBIC.texture)
+                    val item = stack.item
+                    if (item is IMaterialItem) {
+                        val material = item.getMaterial(stack)
+                        if (material.crystalType != EnumCrystalType.NONE) result = ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", material.crystalType.texture)
+                    }
+                    result
+                }
+            }
+            //Others
+            else -> {
+                ModelManager.setModelAlt(this, ModelResourceLocation("${RagiMaterials.MOD_ID}:part", part.name))
             }
         }
     }

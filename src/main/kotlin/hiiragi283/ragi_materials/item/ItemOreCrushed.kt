@@ -1,9 +1,11 @@
 package hiiragi283.ragi_materials.item
 
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.material.OreProperty
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
@@ -16,6 +18,11 @@ class ItemOreCrushed : ItemBase(RagiMaterials.MOD_ID, "ore_crushed", OreProperty
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${RagiRegistry.ItemBlockOre1.getTranslationKey(stack)}.name"))
+
+    @SideOnly(Side.CLIENT)
+    override fun registerCustomModel() {
+        ModelManager.setModelAlt(this, ModelResourceLocation("${RagiMaterials.MOD_ID}:ore", "gravel"))
+    }
 
     //    IMaterialItem    //
 

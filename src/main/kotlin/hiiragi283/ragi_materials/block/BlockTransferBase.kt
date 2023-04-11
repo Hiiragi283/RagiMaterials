@@ -1,13 +1,16 @@
 package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.tile.TileTransferBase
 import hiiragi283.ragi_materials.util.RagiFacing
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.EntityLivingBase
@@ -84,6 +87,11 @@ class BlockTransferBase<T : TileTransferBase<*>>(val type: String, tile: Class<T
 
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
+    @SideOnly(Side.CLIENT)
+    override fun registerCustomModel() {
+        ModelManager.setModelAlt(this, ModelResourceLocation("${RagiMaterials.MOD_ID}:transfer", "inventory"))
+    }
 
     //    IMaterialItem    //
 

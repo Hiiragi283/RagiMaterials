@@ -11,7 +11,7 @@ import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 
-class ItemEnderTable: ItemBase(RagiMaterials.MOD_ID, "ender_tablet", 0) {
+class ItemEnderTable : ItemBase(RagiMaterials.MOD_ID, "ender_tablet", 0) {
 
     init {
         setMaxStackSize(1)

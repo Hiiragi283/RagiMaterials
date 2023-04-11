@@ -1,10 +1,14 @@
 package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
@@ -19,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
-class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
+class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomModel {
 
     init {
         blockHardness = 3.0f
@@ -63,5 +67,10 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1) {
 
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
+    override fun registerCustomModel() {
+        ModelManager.setStateMapperAlt(RagiRegistry.BlockOreRainbow, ModelResourceLocation("${RagiMaterials.MOD_ID}:ore", "stone_rainbow"))
+        ModelManager.setModel(this)
+    }
 
 }

@@ -29,6 +29,10 @@ object ModelManager {
         }
     }
 
+    fun setModel(block: Block) {
+        setModel(Item.getItemFromBlock(block))
+    }
+
     fun setModel(vararg items: Item) {
         items.forEach { setModel(it) }
     }
@@ -46,6 +50,10 @@ object ModelManager {
     fun setModelAlt(item: Item, location: ModelResourceLocation) {
         ModelLoader.registerItemVariants(item, location)
         ModelLoader.setCustomMeshDefinition(item) { location }
+    }
+
+    fun setModelAlt(block: Block, location: ModelResourceLocation) {
+        setModelAlt(Item.getItemFromBlock(block), location)
     }
 
     fun setStateMapperAlt(block: Block, location: ModelResourceLocation) {
