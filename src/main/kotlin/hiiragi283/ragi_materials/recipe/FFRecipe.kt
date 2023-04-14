@@ -9,7 +9,7 @@ import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.same
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -19,7 +19,10 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Optional.Interface
 import kotlin.math.pow
 
-data class FFRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack, private val fuel: Int) {
+@Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+data class FFRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack, private val fuel: Int) : IRecipeWrapper {
+
+    constructor(recipe: FFRecipe) : this(recipe.getLocation(), recipe.getInput(), recipe.getOutput(), recipe.getFuel())
 
     fun getLocation() = location
 
@@ -29,7 +32,23 @@ data class FFRecipe private constructor(private val location: ResourceLocation, 
 
     fun getFuel() = fuel
 
-    fun match(input: ItemStack, fuel: Int) = RagiUtil.isSameStack(this.input, input, false) && fuel >= this.fuel
+    fun match(input: ItemStack, fuel: Int) = this.input.same(input) && fuel >= this.fuel
+
+    //    IRecipeWrapper    //
+
+    override fun getIngredients(ing: IIngredients) {
+        //各listをIIngredientsに設定
+        ing.setInputs(VanillaTypes.ITEM, mutableListOf(getInput()))
+        ing.setOutputs(VanillaTypes.ITEM, mutableListOf(getOutput()))
+    }
+
+    override fun drawInfo(mc: Minecraft, wid: Int, hei: Int, mouseX: Int, mouseY: Int) {
+        //テクスチャをGUI上に乗せる
+        //ResourceLocation res = new ResourceLocation(domain, path);
+        //mc.getTextureManager().bindTexture(res);
+        //文字列をGUI上に描画する
+        mc.fontRenderer.drawString("§7Fuel: ${getFuel()}", 60.0f, 4.5f, 0x000000, false)
+    }
 
     class Builder(private val location: ResourceLocation) {
 
@@ -87,30 +106,6 @@ data class FFRecipe private constructor(private val location: ResourceLocation, 
 
         fun printMap() {
             map.forEach { RagiLogger.infoDebug("FFRecipe: <${it.key}>") }
-        }
-    }
-
-    @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
-    class Wrapper(info: FFRecipe) : IRecipeWrapper {
-
-        //private変数の宣言
-        val inputs = info.getInput()
-        val output = info.getOutput()
-        private val fuel = info.getFuel()
-
-        //スロットにはめるIIngredientsを定義するメソッド
-        override fun getIngredients(ingredients: IIngredients) {
-            //各listをIIngredientsに設定
-            ingredients.setInputs(VanillaTypes.ITEM, mutableListOf(inputs))
-            ingredients.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
-        }
-
-        override fun drawInfo(mc: Minecraft, wid: Int, hei: Int, mouseX: Int, mouseY: Int) {
-            //テクスチャをGUI上に乗せる
-            //ResourceLocation res = new ResourceLocation(domain, path);
-            //mc.getTextureManager().bindTexture(res);
-            //文字列をGUI上に描画する
-            mc.fontRenderer.drawString("§7Fuel: $fuel", 60.0f, 4.5f, 0x000000, false)
         }
     }
 }

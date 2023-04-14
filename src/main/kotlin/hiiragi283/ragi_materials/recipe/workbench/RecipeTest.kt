@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.crafting
+package hiiragi283.ragi_materials.recipe.workbench
 
 import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.init.Items

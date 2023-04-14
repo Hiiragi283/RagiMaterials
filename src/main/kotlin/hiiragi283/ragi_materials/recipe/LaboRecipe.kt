@@ -7,7 +7,8 @@ import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.util.RagiFluidUtil
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.same
+import hiiragi283.ragi_materials.util.sameExact
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -16,38 +17,58 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Optional.Interface
 import net.minecraftforge.items.IItemHandler
 
-data class LaboRecipe private constructor(private val location: ResourceLocation, private val inputs: MutableList<ItemStack>, private val outputs: MutableList<ItemStack>, private val catalyst: ItemStack) {
+@Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+data class LaboRecipe private constructor(private val location: ResourceLocation, private var inputs: MutableList<ItemStack>, private var outputs: MutableList<ItemStack>, private var catalyst: ItemStack) : IRecipeWrapper {
+
+    constructor(recipe: LaboRecipe) : this(recipe.getLocation(), recipe.getInputs(), recipe.getOutputs(), recipe.getCatalyst())
 
     fun getLocation() = location
 
     fun getInput(slot: Int): ItemStack = inputs[slot].copy()
 
-    fun getInputs() = inputs.toList()
+    fun getInputs() = inputs.toMutableList()
 
     fun getOutput(slot: Int): ItemStack = outputs[slot].copy()
 
-    fun getOutputs() = outputs.toList()
+    fun getOutputs() = outputs.toMutableList()
 
     fun getCatalyst(): ItemStack = catalyst.copy()
 
-    fun match(inventory: IItemHandler, useCount: Boolean): Boolean {
-        var result: Boolean
-        val matchSlot0 = RagiUtil.isSameStack(this.inputs[0], inventory.getStackInSlot(0), useCount)
-        val matchSlot1 = RagiUtil.isSameStack(this.inputs[1], inventory.getStackInSlot(1), useCount)
-        val matchSlot2 = RagiUtil.isSameStack(this.inputs[2], inventory.getStackInSlot(2), useCount)
-        val matchSlot3 = RagiUtil.isSameStack(this.inputs[3], inventory.getStackInSlot(3), useCount)
-        val matchSlot4 = RagiUtil.isSameStack(this.inputs[4], inventory.getStackInSlot(4), useCount)
-        val matchSlot5 = RagiUtil.isSameStack(this.catalyst, inventory.getStackInSlot(5), useCount)
-        result = matchSlot0 && matchSlot1 && matchSlot2 && matchSlot3 && matchSlot4 && matchSlot5
-        if (!useCount) {
-            val amountSlot0 = matchSlot0 && (inventory.getStackInSlot(0).count >= this.inputs[0].count)
-            val amountSlot1 = matchSlot1 && (inventory.getStackInSlot(1).count >= this.inputs[1].count)
-            val amountSlot2 = matchSlot2 && (inventory.getStackInSlot(2).count >= this.inputs[2].count)
-            val amountSlot3 = matchSlot3 && (inventory.getStackInSlot(3).count >= this.inputs[3].count)
-            val amountSlot4 = matchSlot4 && (inventory.getStackInSlot(4).count >= this.inputs[4].count)
-            result = amountSlot0 && amountSlot1 && amountSlot2 && amountSlot3 && amountSlot4
+    fun match(inventory: IItemHandler): Boolean {
+        var result = true
+        for (i in 0..4) {
+            val input = this.inputs[i]
+            val stackSlot = inventory.getStackInSlot(i)
+            result = result && input.same(stackSlot) && stackSlot.count >= input.count
         }
         return result
+    }
+
+    //stackの個数まで一致するか判断するメソッド
+    fun matchExact(inventory: IItemHandler): Boolean {
+        var result = true
+        for (i in 0..4) {
+            result = result && this.inputs[i].sameExact(inventory.getStackInSlot(i))
+        }
+        return result
+    }
+
+    fun setInput(slot: Int, stack: ItemStack) = also { inputs[slot] = stack }
+
+    fun setInputs(inputs: MutableList<ItemStack>) = also { this.inputs = inputs }
+
+    fun setOutput(slot: Int, stack: ItemStack) = also { outputs[slot] = stack }
+
+    fun setOutputs(outputs: MutableList<ItemStack>) = also { this.outputs = outputs }
+
+    fun setCatalyst(stack: ItemStack) = also { catalyst = stack }
+
+    //    IRecipeWrapper    //
+
+    override fun getIngredients(ings: IIngredients) {
+        val inputs = getInputs().toMutableList().also { it.add(getCatalyst()) }
+        ings.setInputLists(VanillaTypes.ITEM, mutableListOf(inputs))
+        ings.setOutputLists(VanillaTypes.ITEM, mutableListOf(getOutputs()))
     }
 
     class Builder(private val location: ResourceLocation) {
@@ -128,19 +149,4 @@ data class LaboRecipe private constructor(private val location: ResourceLocation
             map.forEach { RagiLogger.infoDebug("LaboRecipe: <${it.key}>") }
         }
     }
-
-    @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
-    class Wrapper(info: LaboRecipe) : IRecipeWrapper {
-
-        val inputs = info.getInputs()
-        val output = info.getOutputs()
-        val catalyst = info.getCatalyst()
-
-        override fun getIngredients(ingredients: IIngredients) {
-            val inputs = this.inputs.toMutableList().also { it.add(catalyst) }
-            ingredients.setInputLists(VanillaTypes.ITEM, mutableListOf(inputs))
-            ingredients.setOutputLists(VanillaTypes.ITEM, mutableListOf(output))
-        }
-    }
-
 }

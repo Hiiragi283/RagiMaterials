@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.crafting
+package hiiragi283.ragi_materials.recipe.furnace
 
 import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.RagiMaterial

@@ -8,7 +8,7 @@ import hiiragi283.ragi_materials.material.RagiMaterial
 import hiiragi283.ragi_materials.material.part.PartRegistry
 import hiiragi283.ragi_materials.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.same
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -17,7 +17,10 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Optional.Interface
 
-data class MillRecipe private constructor(private val location: ResourceLocation, private val input: ItemStack, private val output: ItemStack) {
+@Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+data class MillRecipe private constructor(private val location: ResourceLocation, private var input: ItemStack, private var output: ItemStack) : IRecipeWrapper {
+
+    constructor(recipe: MillRecipe) : this(recipe.getLocation(), recipe.getInput(), recipe.getOutput())
 
     fun getLocation() = location
 
@@ -25,7 +28,18 @@ data class MillRecipe private constructor(private val location: ResourceLocation
 
     fun getOutput(): ItemStack = output.copy()
 
-    fun match(input: ItemStack) = RagiUtil.isSameStack(this.input, input, false)
+    fun match(input: ItemStack) = this.input.same(input)
+
+    fun setInput(stack: ItemStack) = also { this.input = stack }
+
+    fun setOutput(stack: ItemStack) = also { this.output = stack }
+
+    //    IRecipeWrapper    //
+
+    override fun getIngredients(ings: IIngredients) {
+        ings.setInputs(VanillaTypes.ITEM, mutableListOf(getInput()))
+        ings.setOutputs(VanillaTypes.ITEM, mutableListOf(getOutput()))
+    }
 
     class Builder(private val location: ResourceLocation) {
 
@@ -114,20 +128,4 @@ data class MillRecipe private constructor(private val location: ResourceLocation
             map.forEach { RagiLogger.infoDebug("MillRecipe: <${it.key}>") }
         }
     }
-
-    @Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
-    class Wrapper(info: MillRecipe) : IRecipeWrapper {
-
-        //private変数の宣言
-        val input = info.getInput()
-        val output = info.getOutput()
-
-        //スロットにはめるIIngredientsを定義するメソッド
-        override fun getIngredients(ing: IIngredients) {
-            //各listをIIngredientsに設定
-            ing.setInputs(VanillaTypes.ITEM, mutableListOf(input))
-            ing.setOutputs(VanillaTypes.ITEM, mutableListOf(output))
-        }
-    }
-
 }

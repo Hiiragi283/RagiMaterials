@@ -9,7 +9,7 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.util.ResourceLocation
 
-class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFRecipe.Wrapper>() {
+class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFRecipe>() {
 
     var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/forge_furnace.png"), 1, 1, 54, 18)
 
@@ -20,15 +20,12 @@ class FFCategory(guiHelper: IGuiHelper) : JEICategoryBase<FFRecipe.Wrapper>() {
     override fun getBackground(): IDrawable = background
 
     //JEiタブにレシピを設定するメソッド
-    override fun setRecipe(layout: IRecipeLayout, wrapper: FFRecipe.Wrapper, ingredients: IIngredients) {
-        //変化前と変化後のアイテムをwrapperから取得
-        val inputs = wrapper.inputs
-        val output = wrapper.output
-        //inputのスロットを登録
+    override fun setRecipe(layout: IRecipeLayout, wrapper: FFRecipe, ingredients: IIngredients) {
+        //Input
         layout.itemStacks.init(0, true, 0, 0)
-        layout.itemStacks[0] = inputs
-        //outputのスロットを登録
+        layout.itemStacks[0] = wrapper.getInput()
+        //Output
         layout.itemStacks.init(1, false, 36, 0)
-        layout.itemStacks[1] = output
+        layout.itemStacks[1] = wrapper.getOutput()
     }
 }

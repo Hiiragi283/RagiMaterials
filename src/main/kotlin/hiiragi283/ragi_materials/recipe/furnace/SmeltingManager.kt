@@ -1,6 +1,6 @@
-package hiiragi283.ragi_materials.crafting
+package hiiragi283.ragi_materials.recipe.furnace
 
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.sameExact
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -15,9 +15,9 @@ object SmeltingManager {
     //かまどレシピを削除するメソッド
     fun removeInput(input: ItemStack) {
         val registry = FurnaceRecipes.instance().smeltingList
-        val iterator = registry.values.iterator()
+        val iterator = registry.keys.iterator()
         while (iterator.hasNext()) {
-            if (RagiUtil.isSameStack(iterator.next(), input, true)) {
+            if (iterator.next().sameExact(input)) {
                 iterator.remove()
                 break
             }
@@ -28,7 +28,7 @@ object SmeltingManager {
         val registry = FurnaceRecipes.instance().smeltingList
         val iterator = registry.values.iterator()
         while (iterator.hasNext()) {
-            if (RagiUtil.isSameStack(iterator.next(), output, true)) {
+            if (iterator.next().sameExact(output)) {
                 iterator.remove()
                 break
             }

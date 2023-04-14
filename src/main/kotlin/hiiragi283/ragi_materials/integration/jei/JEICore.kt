@@ -35,10 +35,10 @@ class JEICore : IModPlugin {
 
     override fun register(registry: IModRegistry) {
 
-        registry.handleRecipes(FFRecipe::class.java, { FFRecipe.Wrapper(it) }, ForgeFurnace)
-        registry.handleRecipes(LaboRecipe::class.java, { LaboRecipe.Wrapper(it) }, LaboTable)
+        registry.handleRecipes(FFRecipe::class.java, { FFRecipe(it) }, ForgeFurnace)
+        registry.handleRecipes(LaboRecipe::class.java, { LaboRecipe(it) }, LaboTable)
         registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper(it) }, MaterialInfo)
-        registry.handleRecipes(MillRecipe::class.java, { MillRecipe.Wrapper(it) }, StoneMill)
+        registry.handleRecipes(MillRecipe::class.java, { MillRecipe(it) }, StoneMill)
 
         registry.addRecipes(FFRecipe.Registry.list, ForgeFurnace)
         registry.addRecipes(LaboRecipe.Registry.list, LaboTable)
