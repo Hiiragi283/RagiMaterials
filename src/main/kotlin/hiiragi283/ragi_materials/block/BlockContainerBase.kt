@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.tile.TileBase
 import net.minecraft.block.BlockContainer
 import net.minecraft.block.material.Material
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-abstract class BlockContainerBase<T : TileEntity>(val id: String, material: Material, val tile: Class<T>, private val maxTips: Int) : BlockContainer(material) {
+abstract class BlockContainerBase<T : TileEntity>(val id: String, material: Material, val tile: Class<T>, private val maxTips: Int) : BlockContainer(material), IItemBlock {
 
     init {
         GameRegistry.registerTileEntity(tile, ResourceLocation(RagiMaterials.MOD_ID, "te_$id"))
@@ -60,5 +61,9 @@ abstract class BlockContainerBase<T : TileEntity>(val id: String, material: Mate
     //    BlockContainer    //
 
     override fun createNewTileEntity(worldIn: World, meta: Int): T = tile.newInstance()
+
+    //    IItemBlock    //
+
+    override fun getItemBlock() = ItemBlockBase(this)
 
 }

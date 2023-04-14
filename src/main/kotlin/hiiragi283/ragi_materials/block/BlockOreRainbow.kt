@@ -4,6 +4,7 @@ import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
+import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -72,5 +73,9 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomMode
         ModelManager.setStateMapperAlt(RagiRegistry.BlockOreRainbow, ModelResourceLocation("${RagiMaterials.MOD_ID}:ore", "stone_rainbow"))
         ModelManager.setModel(this)
     }
+
+    //    IItemBlock    //
+
+    override fun getItemBlock() = ItemBlockBase(this)
 
 }

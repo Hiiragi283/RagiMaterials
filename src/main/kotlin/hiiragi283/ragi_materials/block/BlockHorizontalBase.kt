@@ -9,7 +9,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-open class BlockHorizontalBase(ID: String, Material: Material, maxTips: Int) : BlockBase(ID, Material, maxTips) {
+abstract class BlockHorizontalBase(ID: String, Material: Material, maxTips: Int) : BlockBase(ID, Material, maxTips) {
 
     companion object {
         val FACING: PropertyDirection = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL)

@@ -16,24 +16,31 @@ object CommonRegistryEvent {
 
     @SubscribeEvent
     fun registerBlock(event: RegistryEvent.Register<Block>) {
+        val registry = event.registry
         //Blockの自動登録
         RagiRegistry.setBlocks.forEach {
             it.creativeTab = RagiRegistry.TabBlock
-            event.registry.register(it)
+            registry.register(it)
             RagiLogger.infoDebug("The block ${it.registryName} is registered!")
         }
     }
 
     @SubscribeEvent
     fun registerItem(event: RegistryEvent.Register<Item>) {
+        val registry = event.registry
         //Itemの自動登録
+        RagiRegistry.setItemBlocks.forEach {
+            registry.register(it)
+            RagiLogger.infoDebug("The item block ${it.registryName} is registered!")
+        }
         RagiRegistry.setItems.forEach {
             if (it is ItemFullBottle) it.setCreativeTab(RagiRegistry.TabFullBottle)
             if (it is ItemMaterial) it.setCreativeTab(RagiRegistry.TabMaterial)
-            event.registry.register(it)
+            registry.register(it)
             RagiLogger.infoDebug("The item ${it.registryName} is registered!")
         }
     }
+
     @SubscribeEvent
     fun registerRecipe(event: RegistryEvent.Register<IRecipe>) {
         val registry = event.registry

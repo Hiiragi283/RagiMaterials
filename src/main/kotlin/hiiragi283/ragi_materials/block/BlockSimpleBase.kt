@@ -6,7 +6,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import java.util.*
 
-open class BlockSimpleBase(ID: String, Material: Material, private val maxMeta: Int, maxTips: Int) : BlockBase(ID, Material, maxTips) {
+abstract class BlockSimpleBase(ID: String, Material: Material, private val maxMeta: Int, maxTips: Int) : BlockBase(ID, Material, maxTips) {
 
     companion object {
         private val property16 = PropertyInteger.create("property", 0, 15)

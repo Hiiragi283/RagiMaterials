@@ -2,11 +2,8 @@ package hiiragi283.ragi_materials
 
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.client.color.ColorManager
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.crafting.CraftingRegistry
-import hiiragi283.ragi_materials.crafting.SmeltingRegistry
 import hiiragi283.ragi_materials.item.*
 import hiiragi283.ragi_materials.material.MaterialRegistry
 import hiiragi283.ragi_materials.material.MaterialUtil
@@ -19,20 +16,21 @@ import hiiragi283.ragi_materials.proxy.IProxy
 import hiiragi283.ragi_materials.recipe.FFRecipe
 import hiiragi283.ragi_materials.recipe.LaboRecipe
 import hiiragi283.ragi_materials.recipe.MillRecipe
+import hiiragi283.ragi_materials.recipe.furnace.SmeltingRegistry
+import hiiragi283.ragi_materials.recipe.workbench.CraftingRegistry
 import hiiragi283.ragi_materials.tile.TileTransferEnergy
 import hiiragi283.ragi_materials.tile.TileTransferFluid
-import hiiragi283.ragi_materials.tile.TileTransferHeat
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.block.Block
 import net.minecraft.item.Item
-import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.oredict.OreDictionary
 
 object RagiInit : IProxy {
 
@@ -42,27 +40,41 @@ object RagiInit : IProxy {
         //lateinit変数の初期化
         initFields()
         //collectionへの自動登録
-        val fields = this::class.java.declaredFields
+        val fields = RagiRegistry::class.java.declaredFields
         for (field in fields) {
             field.isAccessible = true
             RagiLogger.infoDebug(field.name)
             try {
-                val obj = field.get(this)
-                if (obj is Block) RagiRegistry.setBlocks.add(obj)
-                else if (obj is Item) RagiRegistry.setItems.add(obj)
+                val obj = field.get(RagiRegistry)
+                //Block
+                if (obj is Block) {
+                    RagiRegistry.setBlocks.add(obj)
+                    RagiLogger.infoDebug("The block ${obj.registryName} is added to list!")
+                    //ItemBlock
+                    if (obj is IItemBlock && obj.getItemBlock() !== null) {
+                        RagiRegistry.setItemBlocks.add(obj.getItemBlock()!!)
+                        RagiLogger.infoDebug("The item block ${obj.registryName} is added to list!")
+                    }
+                }
+                //Item
+                if (obj is Item) {
+                    RagiRegistry.setItems.add(obj)
+                    RagiLogger.infoDebug("The item ${obj.registryName} is added to list!")
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
         RagiRegistry.setBlocks.forEach {
-            if (it is IMaterialBlock) RagiRegistry.setIMaterialBlock.add(it)
+            if (it is IMaterialBlock) RagiRegistry.setIMaterialBlocks.add(it)
+        }
+        RagiRegistry.setItemBlocks.forEach {
+            val block = it.block
+            if (block is IMaterialBlock) RagiRegistry.setIMaterialItemBlocks.add(it)
         }
         RagiRegistry.setItems.forEach {
-            if (it is ItemBlock) {
-                val block = it.block
-                if (block is IMaterialBlock) RagiRegistry.setIMaterialItemBlock.add(it)
-            } else if (it is IMaterialItem) RagiRegistry.setIMaterialItem.add(it)
+            if (it is IMaterialItem) RagiRegistry.setIMaterialItems.add(it)
         }
     }
 
@@ -86,25 +98,9 @@ object RagiInit : IProxy {
         RagiRegistry.BlockStoneMill = BlockStoneMill()
         RagiRegistry.BlockTransferEnergy = BlockTransferBase("energy", TileTransferEnergy::class.java, RagiColor.YELLOW)
         RagiRegistry.BlockTransferFluid = BlockTransferBase("fluid", TileTransferFluid::class.java, RagiColor.AQUA)
-        RagiRegistry.BlockTransferHeat = BlockTransferBase("heat", TileTransferHeat::class.java, ColorManager.mixColor(RagiColor.RED, RagiColor.GOLD))
+        //RagiRegistry.BlockTransferHeat = BlockTransferBase("heat", TileTransferHeat::class.java, ColorManager.mixColor(RagiColor.RED, RagiColor.GOLD))
 
         //    Item    //
-
-        RagiRegistry.ItemBlockBlazingForge = ItemBlockBase(RagiRegistry.BlockBlazingForge)
-        RagiRegistry.ItemBlockForgeFurnace = ItemBlockBase(RagiRegistry.BlockForgeFurnace)
-        RagiRegistry.ItemBlockFullBottleStation = ItemBlockBase(RagiRegistry.BlockFullBottleStation)
-        RagiRegistry.ItemBlockIndustrialLabo = ItemBlockBase(RagiRegistry.BlockIndustrialLabo)
-        RagiRegistry.ItemBlockLaboratoryTable = ItemBlockBase(RagiRegistry.BlockLaboratoryTable)
-        RagiRegistry.ItemBlockOre1 = ItemBlockBase(RagiRegistry.BlockOre1, OreProperty.mapOre1.size - 1)
-        RagiRegistry.ItemBlockOreDictConv = ItemBlockBase(RagiRegistry.BlockOreDictConv)
-        RagiRegistry.ItemBlockOreRainbow = ItemBlockBase(RagiRegistry.BlockOreRainbow)
-        RagiRegistry.ItemBlockSoilCoal = ItemBlockBase(RagiRegistry.BlockSoilCoal)
-        RagiRegistry.ItemBlockSoilLignite = ItemBlockBase(RagiRegistry.BlockSoilLignite)
-        RagiRegistry.ItemBlockSoilPeat = ItemBlockBase(RagiRegistry.BlockSoilPeat)
-        RagiRegistry.ItemBlockStoneMill = ItemBlockBase(RagiRegistry.BlockStoneMill)
-        RagiRegistry.ItemBlockTransferEnergy = ItemBlockBase(RagiRegistry.BlockTransferEnergy)
-        RagiRegistry.ItemBlockTransferFluid = ItemBlockBase(RagiRegistry.BlockTransferFluid)
-        RagiRegistry.ItemBlockTransferHeat = ItemBlockBase(RagiRegistry.BlockTransferHeat)
 
         RagiRegistry.ItemBlazingCube = ItemBase(RagiMaterials.MOD_ID, "blazing_cube", 0)
         RagiRegistry.ItemBookDebug = ItemBookDebug()
@@ -161,31 +157,31 @@ object RagiInit : IProxy {
             val part = pair.first
             val material = pair.second
             val stack = MaterialUtil.getPart(part, material)
-            RagiUtil.setOreDict(part.prefixOre + material.getOreDict(), stack)
-            material.oredictAlt?.let { RagiUtil.setOreDict(part.prefixOre + it, stack) }
+            OreDictionary.registerOre(part.prefixOre + material.getOreDict(), stack)
+            material.oredictAlt?.let { OreDictionary.registerOre(part.prefixOre + it, stack) }
         }
 
         //Ore
         for (i in OreProperty.listOre1.indices) {
-            RagiUtil.setOreDict("ore${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.BlockOre1, 1, i))
-            RagiUtil.setOreDict("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.ItemOreCrushed, 1, i))
+            OreDictionary.registerOre("ore${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.BlockOre1, 1, i))
+            OreDictionary.registerOre("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.ItemOreCrushed, 1, i))
         }
-        RagiUtil.setOreDict("oreSaltpeter", ItemStack(RagiRegistry.BlockOre1, 1, 6))
-        RagiUtil.setOreDict("oreSaltpeterCrushed", ItemStack(RagiRegistry.ItemOreCrushed, 1, 6))
+        OreDictionary.registerOre("oreSaltpeter", ItemStack(RagiRegistry.BlockOre1, 1, 6))
+        OreDictionary.registerOre("oreSaltpeterCrushed", ItemStack(RagiRegistry.ItemOreCrushed, 1, 6))
 
         for (i in OreProperty.listVanilla.indices) {
-            RagiUtil.setOreDict("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiRegistry.ItemOreCrushedVanilla, 1, i))
+            OreDictionary.registerOre("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiRegistry.ItemOreCrushedVanilla, 1, i))
         }
 
         //Others
-        RagiUtil.setOreDict("charcoal", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
-        RagiUtil.setOreDict("dustGunpowder", RagiUtil.getStack("minecraft:gunpowder", 1, 0))
-        RagiUtil.setOreDict("dustSugar", RagiUtil.getStack("minecraft:sugar", 1, 0))
-        RagiUtil.setOreDict("fuelCoke", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.COKE))
-        RagiUtil.setOreDict("gearStone", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.STONE))
-        RagiUtil.setOreDict("gearWood", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.WOOD))
-        RagiUtil.setOreDict("gemCharcoal", RagiUtil.getStack("minecraft:coal", 1, 1))
-        RagiUtil.setOreDict("stickStone", MaterialUtil.getPart(PartRegistry.STICK, MaterialRegistry.STONE))
+        OreDictionary.registerOre("charcoal", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
+        OreDictionary.registerOre("dustGunpowder", RagiUtil.getStack("minecraft:gunpowder", 1, 0))
+        OreDictionary.registerOre("dustSugar", RagiUtil.getStack("minecraft:sugar", 1, 0))
+        OreDictionary.registerOre("fuelCoke", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.COKE))
+        OreDictionary.registerOre("gearStone", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.STONE))
+        OreDictionary.registerOre("gearWood", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.WOOD))
+        OreDictionary.registerOre("gemCharcoal", RagiUtil.getStack("minecraft:coal", 1, 1))
+        OreDictionary.registerOre("stickStone", MaterialUtil.getPart(PartRegistry.STICK, MaterialRegistry.STONE))
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
@@ -203,10 +199,10 @@ object RagiInit : IProxy {
     private fun printDebug() {
         //デバッグ用
         if (RagiConfig.debugMode.isDebug) {
-            FFRecipe.Registry.printMap()
-            LaboRecipe.Registry.printMap()
+            //FFRecipe.Registry.printMap()
+            //LaboRecipe.Registry.printMap()
             MaterialUtil.printMap()
-            MillRecipe.Registry.printMap()
+            //MillRecipe.Registry.printMap()
             //RagiRegistry.printTiles()
         }
     }

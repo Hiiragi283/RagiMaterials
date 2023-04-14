@@ -32,7 +32,7 @@ object RagiRegistry {
     //    Creative Tab    //
 
     val TabBlock = object : CreativeTabs("${RagiMaterials.MOD_ID}.blocks") {
-        override fun createIcon() = ItemStack(ItemBlockForgeFurnace)
+        override fun createIcon() = ItemStack(BlockForgeFurnace)
     }
     val TabFullBottle = object : CreativeTabs("${RagiMaterials.MOD_ID}.fullbottles") {
         override fun createIcon() = ItemStack(ItemFullBottle)
@@ -42,23 +42,6 @@ object RagiRegistry {
     }
 
     //    Item    //
-
-    lateinit var ItemBlockBlazingForge: Item
-    lateinit var ItemBlockForgeFurnace: Item
-    lateinit var ItemBlockFullBottleStation: Item
-    lateinit var ItemBlockIndustrialLabo: Item
-    lateinit var ItemBlockLaboratoryTable: Item
-    lateinit var ItemBlockOre1: Item
-    lateinit var ItemBlockOreDictConv: Item
-    lateinit var ItemBlockOreRainbow: Item
-    lateinit var ItemBlockSoilCoal: Item
-    lateinit var ItemBlockSoilLignite: Item
-    lateinit var ItemBlockSoilPeat: Item
-    lateinit var ItemBlockStoneMill: Item
-    lateinit var ItemBlockTransferEnergy: Item
-    lateinit var ItemBlockTransferFluid: Item
-    lateinit var ItemBlockTransferGas: Item
-    lateinit var ItemBlockTransferHeat: Item
 
     lateinit var ItemBlazingCube: Item
     lateinit var ItemBookDebug: Item
@@ -87,10 +70,12 @@ object RagiRegistry {
     //    Collection    //
 
     val setBlocks: MutableSet<Block> = mutableSetOf()
-    val setIMaterialBlock: MutableSet<Block> = mutableSetOf()
+    val setIMaterialBlocks: MutableSet<Block> = mutableSetOf()
 
-    val setIMaterialItem: MutableSet<Item> = mutableSetOf()
-    val setIMaterialItemBlock: MutableSet<ItemBlock> = mutableSetOf()
+    val setIMaterialItemBlocks: MutableSet<ItemBlock> = mutableSetOf()
+    val setItemBlocks: MutableSet<ItemBlock> = mutableSetOf()
+
+    val setIMaterialItems: MutableSet<Item> = mutableSetOf()
     val setItems: MutableSet<Item> = mutableSetOf()
 
 }

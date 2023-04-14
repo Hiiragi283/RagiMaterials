@@ -3,6 +3,7 @@ package hiiragi283.ragi_materials.block
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
+import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.material.OreProperty
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -50,13 +51,16 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-
     @SideOnly(Side.CLIENT)
     override fun registerCustomModel() {
         val locationOreStone = ModelResourceLocation("${RagiMaterials.MOD_ID}:ore", "stone")
         ModelManager.setStateMapperAlt(this, locationOreStone)
         ModelManager.setModelAlt(this, locationOreStone)
     }
+
+    //    IItemBlock    //
+
+    override fun getItemBlock() = ItemBlockBase(this, OreProperty.mapOre1.size - 1)
 
     //    IMaterialBlock    //
 

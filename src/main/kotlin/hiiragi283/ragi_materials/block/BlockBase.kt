@@ -10,7 +10,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class BlockBase(ID: String, Material: Material, private val maxTips: Int) : Block(Material) {
+abstract class BlockBase(ID: String, Material: Material, private val maxTips: Int) : Block(Material), IItemBlock {
 
     init {
         setRegistryName(RagiMaterials.MOD_ID, ID)
