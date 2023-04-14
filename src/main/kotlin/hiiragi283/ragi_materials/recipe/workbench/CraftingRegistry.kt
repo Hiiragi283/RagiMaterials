@@ -12,6 +12,7 @@ object CraftingRegistry {
     fun load() {
         addCrafting()
         CraftingMaterial.load()
+        RagiCraftingManager.removeCrafting("minecraft:furnace")
     }
 
     private fun addCrafting() {

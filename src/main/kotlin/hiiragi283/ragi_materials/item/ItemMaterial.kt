@@ -2,15 +2,16 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.material.IMaterialItem
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.part.MaterialPart
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumCrystalType
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.MaterialPart
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
+import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n

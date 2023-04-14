@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.material.MaterialRegistry
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import net.minecraft.block.BlockGravel
 import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.IBlockState

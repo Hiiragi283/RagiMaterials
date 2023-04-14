@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials.integration
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.block.BlockTransferBase
 import hiiragi283.ragi_materials.client.color.RagiColor
-import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.proxy.IProxy
 import hiiragi283.ragi_materials.tile.TileTransferGas
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
@@ -18,8 +17,6 @@ object PluginMekanism : IProxy {
     override fun onPreInit(event: FMLPreInitializationEvent) {
         //Block
         RagiRegistry.BlockTransferGas = BlockTransferBase("gas", TileTransferGas::class.java, RagiColor.GREEN)
-        //Item
-        RagiRegistry.ItemBlockTransferGas = ItemBlockBase(RagiRegistry.BlockTransferGas)
     }
 
     override fun onInit(event: FMLInitializationEvent) {}

@@ -1,10 +1,10 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.capability.EnumIOType
-import hiiragi283.ragi_materials.capability.RagiTank
-import hiiragi283.ragi_materials.capability.item.RagiItemHandler
-import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.api.capability.EnumIOType
+import hiiragi283.ragi_materials.api.capability.RagiTank
+import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerFullBottle
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import hiiragi283.ragi_materials.util.RagiFluidUtil

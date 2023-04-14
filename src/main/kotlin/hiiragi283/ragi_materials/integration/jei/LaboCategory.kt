@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.recipe.LaboRecipe
+import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic

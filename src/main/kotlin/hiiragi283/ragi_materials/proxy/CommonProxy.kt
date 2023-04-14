@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.proxy
 import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.capability.heat.CapabilityHeat
+import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
 import hiiragi283.ragi_materials.client.gui.GuiFullBottle
 import hiiragi283.ragi_materials.client.gui.GuiLaboTable
 import hiiragi283.ragi_materials.client.gui.GuiOreDictConv
@@ -49,8 +49,8 @@ abstract class CommonProxy : IGuiHandler, IProxy {
     override fun onPreInit(event: FMLPreInitializationEvent) {
         //lateinit変数の初期化
         /**
-        Thanks to defeatedcrow!
-        Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
+         * Thanks to defeatedcrow!
+         * Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
          */
         RagiMaterials.CONFIG = File(event.modConfigurationDirectory, "${RagiMaterials.MOD_ID}/")
         RagiMaterials.LOGGER = event.modLog

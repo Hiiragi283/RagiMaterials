@@ -15,10 +15,6 @@ import net.minecraft.world.World
 
 abstract class TileLockableBase(val type: Int) : TileEntityLockable() {
 
-    val keyInventory = "inventory"
-    val keyTank = "tank"
-    val keyBattery = "energy"
-
     abstract val inventory: RagiInventory
 
     //    NBT tag    //
@@ -34,8 +30,8 @@ abstract class TileLockableBase(val type: Int) : TileEntityLockable() {
     }
 
     /**
-    Thanks to defeatedcrow!
-    Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
+     * Thanks to defeatedcrow!
+     * Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
      */
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue

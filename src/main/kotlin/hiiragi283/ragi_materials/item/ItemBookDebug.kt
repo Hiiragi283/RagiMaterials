@@ -1,6 +1,7 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.api.material.IMaterialItem
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.util.RagiUtil

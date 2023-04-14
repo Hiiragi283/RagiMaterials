@@ -11,8 +11,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 // Paste this class into your mod and generate all required imports
 
 /**
-Thanks to defeatedcrow!
-Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/ModelIBC.java
+ * Thanks to defeatedcrow!
+ * Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/ModelIBC.java
  */
 
 @SideOnly(Side.CLIENT)

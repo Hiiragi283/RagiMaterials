@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.util
 
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.RagiMaterial
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.FluidRegistry

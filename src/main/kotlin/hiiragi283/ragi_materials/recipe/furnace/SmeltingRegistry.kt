@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.recipe.furnace
 
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 
 object SmeltingRegistry {
 

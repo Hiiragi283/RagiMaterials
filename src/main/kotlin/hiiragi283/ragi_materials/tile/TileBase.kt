@@ -11,6 +11,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraft.world.WorldServer
 
 abstract class TileBase(open val type: Int) : TileEntity() {
 
@@ -35,11 +36,24 @@ abstract class TileBase(open val type: Int) : TileEntity() {
     }
 
     /**
-    Thanks to defeatedcrow!
-    Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
+     * Thanks to defeatedcrow!
+     * Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
      */
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
+
+    /**
+     * Thanks to DaedalusGame
+     * Source: https://github.com/DaedalusGame/EmbersRekindled/blob/rekindled/src/main/java/teamroots/embers/tileentity/TileEntityBin.java#L91
+     * Source: https://github.com/DaedalusGame/EmbersRekindled/blob/rekindled/src/main/java/teamroots/embers/util/Misc.java#L284
+     */
+
+    override fun markDirty() {
+        super.markDirty()
+        if (world is WorldServer) {
+            (world as WorldServer).playerChunkMap.getEntry(pos.x / 16, pos.z / 16)?.sendPacket(updatePacket)
+        }
+    }
 
     //    Event    //
 

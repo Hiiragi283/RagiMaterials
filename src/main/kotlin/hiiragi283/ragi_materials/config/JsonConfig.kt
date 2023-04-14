@@ -4,18 +4,18 @@ import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.type.EnumCrystalType
-import hiiragi283.ragi_materials.material.type.TypeRegistry
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
+import hiiragi283.ragi_materials.api.material.type.TypeRegistry
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.item.EnumRarity
 import java.awt.Color
 import java.io.*
 
 /**
-Thanks to defeatedcrow!
-Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/SampleConfigMaker.java
+ * Thanks to defeatedcrow!
+ * Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/SampleConfigMaker.java
  */
 
 object JsonConfig {

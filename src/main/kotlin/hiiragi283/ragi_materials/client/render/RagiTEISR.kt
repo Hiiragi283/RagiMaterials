@@ -7,8 +7,8 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 
 /**
-Thanks to SkyTheory!
-Source: https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/renderer/RenderTileEntityItemStack.java
+ * Thanks to SkyTheory!
+ * Source: https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/renderer/RenderTileEntityItemStack.java
  */
 
 object RagiTEISR : TileEntityItemStackRenderer() {

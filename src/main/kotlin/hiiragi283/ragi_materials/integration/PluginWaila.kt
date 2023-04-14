@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration
 
-import hiiragi283.ragi_materials.capability.heat.CapabilityHeat
+import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
 import hiiragi283.ragi_materials.util.RagiLogger
 import mcp.mobius.waila.api.*
 import net.minecraft.entity.player.EntityPlayerMP
@@ -11,8 +11,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
 /**
-Thanks to defeatedcrow!
-Source: https://github.com/Hiiragi283/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/plugin/waila/DCWailaPlugin.java
+ * Thanks to defeatedcrow!
+ * Source: https://github.com/Hiiragi283/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/plugin/waila/DCWailaPlugin.java
  */
 
 @WailaPlugin

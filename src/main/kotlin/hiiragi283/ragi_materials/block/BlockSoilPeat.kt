@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.block
 
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
+import hiiragi283.ragi_materials.api.material.RagiMaterial
 import net.minecraft.block.BlockDirt
 import net.minecraft.block.BlockGrass
 import net.minecraft.block.properties.PropertyInteger

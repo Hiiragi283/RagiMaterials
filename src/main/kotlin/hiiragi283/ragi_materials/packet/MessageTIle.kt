@@ -5,8 +5,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 
 /**
-Thanks to defeatedcrow!
-Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/packet/MessageIBC.java
+ * Thanks to defeatedcrow!
+ * Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/packet/MessageIBC.java
  */
 
 class MessageTile(var x: Int = 0, var y: Int = 0, var z: Int = 0) : IMessage {

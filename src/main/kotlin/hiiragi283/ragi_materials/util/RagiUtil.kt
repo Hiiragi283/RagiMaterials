@@ -1,7 +1,5 @@
 package hiiragi283.ragi_materials.util
 
-import hiiragi283.ragi_materials.RagiMaterials
-import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.command.ICommandSender
@@ -11,8 +9,6 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.potion.Potion
-import net.minecraft.potion.PotionEffect
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextFormatting
@@ -20,7 +16,6 @@ import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.IItemHandler
-import net.minecraftforge.oredict.OreDictionary
 
 fun ItemStack.toBracket(): String {
     val item: Item = this.item
@@ -30,22 +25,39 @@ fun ItemStack.toBracket(): String {
     return "<$location:$meta> * $amount"
 }
 
+fun ItemStack.toLocation() = ResourceLocation(this.item.registryName!!.toString() + "_" + this.metadata)
+
+/**
+ * Thanks to defeatedcrow!
+ * Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
+ */
+
+fun ItemStack.same(stackTo: ItemStack): Boolean {
+    var result = this.isEmpty && stackTo.isEmpty
+    if (!this.isEmpty && !stackTo.isEmpty) {
+        val isSameItem = this.item == stackTo.item
+        val isSameMeta = this.metadata == stackTo.metadata
+        val tag1 = this.tagCompound
+        val tag2 = stackTo.tagCompound
+        val isSameTag = if (tag1 == null && tag2 == null) true else tag1 == tag2
+        result = isSameItem && isSameMeta && isSameTag
+    }
+    return result
+}
+
+fun ItemStack.sameExact(stackTo: ItemStack): Boolean {
+    val isSameCount = this.count == stackTo.count
+    return this.same(stackTo) && isSameCount
+}
+
 fun Boolean.toInt() = if (this) 1 else 0
 
 object RagiUtil {
 
     //    Block    //
 
-    fun getBlock(registryName: String): Block {
-        return ForgeRegistries.BLOCKS.getValue(ResourceLocation(registryName)) ?: Blocks.BARRIER
-    }
-
     fun getState(registryName: String, meta: Int): IBlockState {
-        val block = getBlock(registryName)
-        return block.getStateFromMeta(meta)
-    }
-
-    fun getState(block: Block, meta: Int): IBlockState {
+        val block = ForgeRegistries.BLOCKS.getValue(ResourceLocation(registryName)) ?: Blocks.BARRIER
         return block.getStateFromMeta(meta)
     }
 
@@ -66,59 +78,14 @@ object RagiUtil {
 
     //    Item    //
 
-    fun getItem(registryName: String): Item {
-        return ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName)) ?: Item.getItemFromBlock(Blocks.BARRIER)
-    }
-
     fun getStack(registryName: String, amount: Int, meta: Int): ItemStack {
-        val item = getItem(registryName)
-        return ItemStack(item, amount, meta)
-    }
-
-    fun getStack(id: String): ItemStack {
-        return getStack("${id.split(":")[0]}:${id.split(":")[1]}", 1, id.split(":")[2].toInt())
-    }
-
-    /**
-    Thanks to defeatedcrow!
-    Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
-     */
-
-    fun isSameStack(stack1: ItemStack, stack2: ItemStack, useCount: Boolean): Boolean {
-        var result = stack1.isEmpty && stack2.isEmpty
-        if (!stack1.isEmpty && !stack2.isEmpty) {
-            val isSameItem = stack1.item == stack2.item
-            val isSameMeta = stack1.metadata == stack2.metadata
-            val tag1 = stack1.tagCompound
-            val tag2 = stack2.tagCompound
-            val isSameTag = if (tag1 == null && tag2 == null) true else tag1 == tag2
-            result = isSameItem && isSameMeta && isSameTag
-            if (useCount) {
-                val isSameCount = stack1.count == stack2.count
-                result = result && isSameCount
-            }
-        }
-        return result
-    }
-
-    //    Potion    //
-
-    fun getPotion(registryName: String): Potion {
-        return ForgeRegistries.POTIONS.getValue(ResourceLocation(registryName)) ?: Potion.getPotionById(1)!!
-    }
-
-    fun getPotionEffect(registryName: String, time: Int, level: Int): PotionEffect {
-        return PotionEffect(getPotion(registryName), time, level)
+        val item = ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))
+        return item?.let { ItemStack(it, amount, meta) } ?: ItemStack.EMPTY
     }
 
     //    Other    //
 
     fun convertArrayTomMap(array: Array<String>): Map<String, String> = array.associate { it.split(";")[0] to it.split(";")[1] }
-
-    fun setOreDict(oreDict: String, stack: ItemStack) {
-        OreDictionary.registerOre(oreDict, stack)
-        //RagiLogger.infoDebug("New ore dictionary <ore:" + oreDict + "> was added to " + stack.toBracket())
-    }
 
     fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
         val world = player.world

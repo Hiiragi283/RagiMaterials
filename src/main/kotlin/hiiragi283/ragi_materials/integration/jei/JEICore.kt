@@ -2,10 +2,10 @@ package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.recipe.FFRecipe
-import hiiragi283.ragi_materials.recipe.LaboRecipe
-import hiiragi283.ragi_materials.recipe.MillRecipe
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.recipe.FFRecipe
+import hiiragi283.ragi_materials.api.recipe.LaboRecipe
+import hiiragi283.ragi_materials.api.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration

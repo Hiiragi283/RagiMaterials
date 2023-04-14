@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.capability.RagiEnergyStorage
-import hiiragi283.ragi_materials.recipe.LaboRecipe
+import hiiragi283.ragi_materials.api.capability.RagiEnergyStorage
+import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
@@ -68,7 +68,7 @@ class TileIndustrialLabo : TileLaboBase(104), ITickable {
             if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
                 //レシピチェック
                 for (recipe in LaboRecipe.Registry.list) {
-                    if (recipe.match(inventory, false)) {
+                    if (recipe.match(inventory)) {
                         for (i in 0..4) {
                             val input = recipe.getInput(i)
                             val output = recipe.getOutput(i)

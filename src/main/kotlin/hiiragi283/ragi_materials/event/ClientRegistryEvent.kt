@@ -2,11 +2,11 @@ package hiiragi283.ragi_materials.event
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.block.IMaterialBlock
+import hiiragi283.ragi_materials.api.material.IMaterialBlock
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
-import hiiragi283.ragi_materials.item.IMaterialItem
-import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.IMaterialItem
+import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item

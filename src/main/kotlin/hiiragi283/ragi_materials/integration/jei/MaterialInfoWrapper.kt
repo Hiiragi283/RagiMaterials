@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.part.MaterialPart
-import hiiragi283.ragi_materials.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.MaterialPart
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper

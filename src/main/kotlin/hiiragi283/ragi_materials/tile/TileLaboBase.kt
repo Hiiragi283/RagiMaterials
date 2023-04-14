@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.capability.EnumIOType
-import hiiragi283.ragi_materials.capability.item.RagiItemHandler
-import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.api.capability.EnumIOType
+import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerLaboTable
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import net.minecraft.entity.player.EntityPlayer
@@ -16,8 +16,22 @@ import net.minecraft.world.World
 
 abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
 
-    val inputs = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
-    val catalyst = RagiItemHandler(1).setIOType(EnumIOType.GENERAL)
+    val inputs = object : RagiItemHandler(5) {
+
+        override fun getIOType() = EnumIOType.INPUT
+
+        override fun onContentsChanged(slot: Int) {
+            markDirty() //クライアント側にNBTタグを送る
+        }
+    }
+    val catalyst = object : RagiItemHandler(1) {
+
+        override fun getIOType() = EnumIOType.CATALYST
+
+        override fun onContentsChanged(slot: Int) {
+            markDirty() //クライアント側にNBTタグを送る
+        }
+    }
     val inventory = RagiItemHandlerWrapper(inputs, catalyst)
 
     //    NBT tag    //

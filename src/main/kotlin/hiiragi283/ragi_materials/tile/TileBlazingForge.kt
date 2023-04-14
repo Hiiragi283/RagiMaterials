@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.capability.RagiTank
+import hiiragi283.ragi_materials.api.capability.RagiTank
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.recipe.FFRecipe
+import hiiragi283.ragi_materials.api.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager

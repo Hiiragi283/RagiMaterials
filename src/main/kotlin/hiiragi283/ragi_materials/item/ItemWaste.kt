@@ -1,15 +1,18 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.api.material.IMaterialItem
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
+import hiiragi283.ragi_materials.api.material.RagiMaterial
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.PotionEffect
 import net.minecraft.util.NonNullList
+import net.minecraft.util.ResourceLocation
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
@@ -30,7 +33,7 @@ class ItemWaste : ItemBase(RagiMaterials.MOD_ID, "waste", 0), IMaterialItem {
             if (entity is EntityPlayer) {
                 when (stack.metadata) {
                     //化学廃棄物 -> 毒デバフ
-                    0 -> entity.addPotionEffect(RagiUtil.getPotionEffect("minecraft:poison", 110, 0))
+                    0 -> entity.addPotionEffect(PotionEffect(ForgeRegistries.POTIONS.getValue(ResourceLocation("minecraft:poison"))!!, 110, 0))
                     else -> {}
                 }
             }

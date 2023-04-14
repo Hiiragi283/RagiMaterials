@@ -10,7 +10,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.crafting.IRecipe
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.registries.ForgeRegistry
 
 object CommonRegistryEvent {
 
@@ -44,23 +43,9 @@ object CommonRegistryEvent {
     @SubscribeEvent
     fun registerRecipe(event: RegistryEvent.Register<IRecipe>) {
         val registry = event.registry
-        val registryRecipe = registry as ForgeRegistry<IRecipe>
         //クラフトレシピの自動登録
-        RagiCraftingManager.listAdd.forEach {
+        RagiCraftingManager.list.forEach {
             registry.register(it)
-        }
-
-        /**
-         * Thanks to Kotori!
-         * Source: https://kotori316.blog.fc2.com/blog-entry-17.html
-         */
-
-        //クラフトレシピの削除
-        RagiCraftingManager.listRemove.forEach { location ->
-            //レシピが存在する場合のみ削除
-            registry.getValue(location)?.let {
-                registryRecipe.remove(location)
-            }
         }
     }
 }

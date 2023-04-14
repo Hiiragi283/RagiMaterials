@@ -30,7 +30,8 @@ object ModelManager {
     }
 
     fun setModel(block: Block) {
-        setModel(Item.getItemFromBlock(block))
+        val item = Item.getItemFromBlock(block)
+        if (item.registryName?.path != "air") setModel(item)
     }
 
     fun setModel(vararg items: Item) {

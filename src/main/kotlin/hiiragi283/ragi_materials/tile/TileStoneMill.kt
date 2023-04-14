@@ -2,12 +2,12 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.block.BlockStoneMill
-import hiiragi283.ragi_materials.capability.EnumIOType
-import hiiragi283.ragi_materials.capability.item.RagiItemHandler
-import hiiragi283.ragi_materials.capability.item.RagiItemHandlerWrapper
+import hiiragi283.ragi_materials.api.capability.EnumIOType
+import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
+import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.proxy.CommonProxy
-import hiiragi283.ragi_materials.recipe.MillRecipe
+import hiiragi283.ragi_materials.api.recipe.MillRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.entity.player.EntityPlayer

@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic

@@ -2,10 +2,10 @@ package hiiragi283.ragi_materials.recipe.workbench
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
 

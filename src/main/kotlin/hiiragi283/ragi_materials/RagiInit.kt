@@ -1,29 +1,25 @@
 package hiiragi283.ragi_materials
 
+import hiiragi283.ragi_materials.api.material.*
 import hiiragi283.ragi_materials.base.FluidBase
 import hiiragi283.ragi_materials.block.*
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.item.*
-import hiiragi283.ragi_materials.material.MaterialRegistry
-import hiiragi283.ragi_materials.material.MaterialUtil
 import hiiragi283.ragi_materials.material.OreProperty
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.part.PartRegistry
-import hiiragi283.ragi_materials.material.type.EnumMaterialType
-import hiiragi283.ragi_materials.material.type.TypeRegistry
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.api.material.type.TypeRegistry
 import hiiragi283.ragi_materials.proxy.IProxy
-import hiiragi283.ragi_materials.recipe.FFRecipe
-import hiiragi283.ragi_materials.recipe.LaboRecipe
-import hiiragi283.ragi_materials.recipe.MillRecipe
+import hiiragi283.ragi_materials.api.recipe.FFRecipe
+import hiiragi283.ragi_materials.api.recipe.LaboRecipe
+import hiiragi283.ragi_materials.api.recipe.MillRecipe
 import hiiragi283.ragi_materials.recipe.furnace.SmeltingRegistry
 import hiiragi283.ragi_materials.recipe.workbench.CraftingRegistry
 import hiiragi283.ragi_materials.tile.TileTransferEnergy
 import hiiragi283.ragi_materials.tile.TileTransferFluid
 import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.RagiUtil
-import net.minecraft.block.Block
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
@@ -47,17 +43,17 @@ object RagiInit : IProxy {
             try {
                 val obj = field.get(RagiRegistry)
                 //Block
-                if (obj is Block) {
+                if (obj is BlockBase) {
                     RagiRegistry.setBlocks.add(obj)
                     RagiLogger.infoDebug("The block ${obj.registryName} is added to list!")
                     //ItemBlock
-                    if (obj is IItemBlock && obj.getItemBlock() !== null) {
+                    if (obj.getItemBlock() !== null) {
                         RagiRegistry.setItemBlocks.add(obj.getItemBlock()!!)
                         RagiLogger.infoDebug("The item block ${obj.registryName} is added to list!")
                     }
                 }
                 //Item
-                if (obj is Item) {
+                if (obj is ItemBase) {
                     RagiRegistry.setItems.add(obj)
                     RagiLogger.infoDebug("The item ${obj.registryName} is added to list!")
                 }

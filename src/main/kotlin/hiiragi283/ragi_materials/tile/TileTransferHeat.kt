@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.capability.heat.CapabilityHeat
-import hiiragi283.ragi_materials.capability.heat.IHeatStorage
+import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
+import hiiragi283.ragi_materials.api.capability.heat.IHeatStorage
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
 

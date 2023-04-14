@@ -1,8 +1,9 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.IMaterialItem
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.util.RagiFluidUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag

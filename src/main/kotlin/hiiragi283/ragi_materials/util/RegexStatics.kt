@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.util
 
 /**
-Thanks to RechellaTek!
-Source: https://play.kotlinlang.org/embed?short=56r8wKERc&theme=darcula&readOnly=true
+ * Thanks to RechellaTek!
+ * Source: https://play.kotlinlang.org/embed?short=56r8wKERc&theme=darcula&readOnly=true
  */
 
 class RegexStatics {

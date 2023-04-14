@@ -1,11 +1,12 @@
 package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.api.material.IMaterialBlock
 import hiiragi283.ragi_materials.client.color.ColorManager
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.item.ItemBlockBase
-import hiiragi283.ragi_materials.material.MaterialUtil
-import hiiragi283.ragi_materials.material.RagiMaterial
-import hiiragi283.ragi_materials.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material

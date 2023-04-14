@@ -1,20 +1,18 @@
 package hiiragi283.ragi_materials.recipe.workbench
 
+import hiiragi283.ragi_materials.crafting.RecipeEmpty
+import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.toLocation
 import net.minecraft.item.ItemStack
-import net.minecraft.item.crafting.IRecipe
-import net.minecraft.item.crafting.Ingredient
-import net.minecraft.item.crafting.ShapedRecipes
-import net.minecraft.item.crafting.ShapelessRecipes
+import net.minecraft.item.crafting.*
 import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
-
 
 object RagiCraftingManager {
 
-    val listAdd: MutableSet<IRecipe> = mutableSetOf()
-    val listRemove: MutableSet<ResourceLocation> = mutableSetOf()
+    val list: MutableSet<IRecipe> = mutableSetOf()
 
     //定型クラフトレシピを追加するメソッド
     fun addShaped(output: ItemStack, vararg inputs: Any) {
@@ -27,7 +25,7 @@ object RagiCraftingManager {
     }
 
     fun addShaped(output: ItemStack, inputs: NonNullList<Ingredient>, width: Int, height: Int, registryName: ResourceLocation = output.toLocation()) {
-        listAdd.add(ShapedRecipes(registryName.toString(), width, height, inputs, output).setRegistryName(registryName))
+        list.add(ShapedRecipes(registryName.toString(), width, height, inputs, output).setRegistryName(registryName))
     }
 
     //不定型クラフトレシピを追加するメソッド
@@ -41,17 +39,15 @@ object RagiCraftingManager {
     }
 
     fun addShapeless(output: ItemStack, inputs: NonNullList<Ingredient>, registryName: ResourceLocation = output.toLocation()) {
-        listAdd.add(ShapelessRecipes(registryName.toString(), output, inputs).setRegistryName(registryName))
+        list.add(ShapelessRecipes(registryName.toString(), output, inputs).setRegistryName(registryName))
     }
 
     //クラフトレシピを削除するメソッド
     fun removeCrafting(registryName: String) {
-        listRemove.add(ResourceLocation(registryName))
-
-        /*val location = ResourceLocation(registryName)
-        val recipeBefore = RagiCraftingManager.getRecipe(location)
+        val location = ResourceLocation(registryName)
+        val recipeBefore = CraftingManager.getRecipe(location)
         if (recipeBefore !== null) {
             ForgeRegistries.RECIPES.register(RecipeEmpty(location))
-        } else RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")*/
+        } else RagiLogger.warnDebug("The recipe <recipe:$registryName> was not found...")
     }
 }
