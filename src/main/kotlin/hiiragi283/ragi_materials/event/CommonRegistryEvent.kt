@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.event
 import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.item.ItemFullBottle
 import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.recipe.workbench.RagiCraftingManager
+import hiiragi283.ragi_materials.recipe.workbench.CraftingRegistry
 import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -44,8 +44,9 @@ object CommonRegistryEvent {
     fun registerRecipe(event: RegistryEvent.Register<IRecipe>) {
         val registry = event.registry
         //クラフトレシピの自動登録
-        RagiCraftingManager.list.forEach {
+        CraftingRegistry.set.forEach {
             registry.register(it)
+            RagiLogger.infoDebug("The recipe ${it.registryName} is registered!")
         }
     }
 }

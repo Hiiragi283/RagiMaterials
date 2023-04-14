@@ -9,6 +9,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextFormatting
@@ -51,6 +52,14 @@ fun ItemStack.sameExact(stackTo: ItemStack): Boolean {
 }
 
 fun Boolean.toInt() = if (this) 1 else 0
+
+fun List<ItemStack>.toNonNullList(): NonNullList<ItemStack> {
+    return NonNullList.withSize(this.size, ItemStack.EMPTY).also {
+        for (i in 0 until this.size) {
+            it[i] = this[i]
+        }
+    }
+}
 
 object RagiUtil {
 

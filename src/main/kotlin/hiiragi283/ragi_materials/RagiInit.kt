@@ -72,6 +72,8 @@ object RagiInit : IProxy {
         RagiRegistry.setItems.forEach {
             if (it is IMaterialItem) RagiRegistry.setIMaterialItems.add(it)
         }
+
+        CraftingRegistry.load()
     }
 
     private fun initFields() {
@@ -123,7 +125,6 @@ object RagiInit : IProxy {
     override fun onInit(event: FMLInitializationEvent) {
         registerFluid()
         registerOreDict()
-        CraftingRegistry.load()
         SmeltingRegistry.load()
     }
 

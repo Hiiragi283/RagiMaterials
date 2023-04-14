@@ -2,17 +2,24 @@ package hiiragi283.ragi_materials.recipe.workbench
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.IRecipe
+import net.minecraft.util.NonNullList
 import net.minecraftforge.oredict.OreDictionary
 
 object CraftingRegistry {
 
+    val set: MutableSet<IRecipe> = mutableSetOf()
+
     fun load() {
         addCrafting()
-        CraftingMaterial.load()
-        RagiCraftingManager.removeCrafting("minecraft:furnace")
+        addCraftingMaterial()
     }
 
     private fun addCrafting() {
@@ -91,11 +98,54 @@ object CraftingRegistry {
         )
 
         //ITEM
-        RagiCraftingManager.addShaped(
-                ItemStack(RagiRegistry.ItemForgeHammer),
+        RagiCraftingManager.addShaped(ItemStack(RagiRegistry.ItemForgeHammer),
                 "AAA", "AAA", " B ",
                 'A', "ingotIron",
                 'B', ItemStack(Items.SIGN)
         )
+    }
+
+    private fun addCraftingMaterial() {
+        for (material in RagiMaterial.list) {
+
+            val listType = material.type.list
+
+            if (EnumMaterialType.DUST in listType) {
+                //dust -> tiny dustのレシピを登録
+                RagiCraftingManager.addShapeless(MaterialUtil.getPart(PartRegistry.DUST_TINY, material, 9), NonNullList.withSize(1, RagiIngredient("dust${material.getOreDict()}")), "${RagiMaterials.MOD_ID}:dust_to_tiny_${material.index}")
+                //tiny -> dustのレシピを登録
+                RagiCraftingManager.addShaped(MaterialUtil.getPart(PartRegistry.DUST, material), NonNullList.withSize(9, RagiIngredient("dustTiny${material.getOreDict()}")), 3, 3, "${RagiMaterials.MOD_ID}:tiny_to_dust_${material.index}")
+            }
+
+            if (EnumMaterialType.BLOCK_MATERIAL in listType) {
+                if (EnumMaterialType.CRYSTAL in listType) {
+                    //block -> ingotのレシピを登録
+                    RagiCraftingManager.addShapeless(MaterialUtil.getPart(PartRegistry.CRYSTAL, material, 9), NonNullList.withSize(1, RagiIngredient("block${material.getOreDict()}")), "${RagiMaterials.MOD_ID}:block_to_crystal_${material.index}")
+                    //ingot -> blockのレシピを登録
+                    RagiCraftingManager.addShaped(MaterialUtil.getPart(PartRegistry.BLOCK, material), NonNullList.withSize(9, RagiIngredient("gem${material.getOreDict()}")), 3, 3, "${RagiMaterials.MOD_ID}:crystal_to_block_${material.index}")
+                } else if (EnumMaterialType.INGOT in listType) {
+                    //block -> ingotのレシピを登録
+                    RagiCraftingManager.addShapeless(MaterialUtil.getPart(PartRegistry.INGOT, material, 9), NonNullList.withSize(1, RagiIngredient("block${material.getOreDict()}")), "${RagiMaterials.MOD_ID}:block_to_ingot_${material.index}")
+                    //ingot -> blockのレシピを登録
+                    RagiCraftingManager.addShaped(MaterialUtil.getPart(PartRegistry.BLOCK, material), NonNullList.withSize(9, RagiIngredient("ingot${material.getOreDict()}")), 3, 3, "${RagiMaterials.MOD_ID}:ingot_to_block_${material.index}")
+                }
+            }
+
+            if (EnumMaterialType.INGOT in listType && EnumMaterialType.NUGGET in listType) {
+                //ingot -> nuggetのレシピを登録
+                RagiCraftingManager.addShapeless(MaterialUtil.getPart(PartRegistry.NUGGET, material, 9), NonNullList.withSize(1, RagiIngredient("ingot${material.getOreDict()}")), "${RagiMaterials.MOD_ID}:ingot_to_nugget_${material.index}")
+                //nugget -> ingotのレシピを登録
+                RagiCraftingManager.addShaped(MaterialUtil.getPart(PartRegistry.INGOT, material), NonNullList.withSize(9, RagiIngredient("nugget${material.getOreDict()}")), 3, 3, "${RagiMaterials.MOD_ID}:nugget_to_ingot_${material.index}")
+            }
+
+            if (EnumMaterialType.INGOT_HOT in listType) {
+                //hot ingot -> gearのレシピを登録
+                RagiCraftingManager.addShaped("${RagiMaterials.MOD_ID}:hot_to_gear_${material.index}", MaterialUtil.getPart(PartRegistry.GEAR, material), " A ", "ABA", " A ", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
+                //hot ingot -> plateのレシピを登録
+                RagiCraftingManager.addShaped("${RagiMaterials.MOD_ID}:hot_to_plate_${material.index}", MaterialUtil.getPart(PartRegistry.PLATE, material), "AB", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
+                //hot ingot -> stickのレシピを登録
+                RagiCraftingManager.addShaped("${RagiMaterials.MOD_ID}:hot_to_stick_${material.index}", MaterialUtil.getPart(PartRegistry.STICK, material, 4), "AB", "A ", 'A', "ingotHot${material.getOreDict()}", 'B', ItemStack(RagiRegistry.ItemForgeHammer, 1, OreDictionary.WILDCARD_VALUE))
+            }
+        }
     }
 }
