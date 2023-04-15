@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.packet
+package hiiragi283.ragi_materials.network
 
 import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraftforge.fml.common.network.NetworkRegistry
@@ -11,7 +11,7 @@ object RagiNetworkManager {
 
     fun load() {
         //パケットの登録
-        RagiNetworkWrapper.registerMessage(MessageHandlerLabo::class.java, MessageTile::class.java, 0, Side.CLIENT)
+        RagiNetworkWrapper.registerMessage(MessageHandlerTile::class.java, MessageTile::class.java, 0, Side.CLIENT)
     }
 
 }

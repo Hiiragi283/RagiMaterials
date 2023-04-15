@@ -1,5 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
+import hiiragi283.ragi_materials.network.MessageTile
+import hiiragi283.ragi_materials.network.RagiNetworkWrapper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
@@ -14,9 +16,12 @@ import net.minecraft.world.World
 
 abstract class TileBase(open val type: Int) : TileEntity() {
 
-    val keyInventory = "inventory"
-    val keyTank = "tank"
     val keyEnergy = "energy"
+    val keyGas = "gas"
+    val keyHeat = "heat"
+    val keyInventory = "inventory"
+    val keyMass = "mass"
+    val keyTank = "tank"
 
     //    General    //
 
@@ -28,7 +33,7 @@ abstract class TileBase(open val type: Int) : TileEntity() {
 
     //    Packet    //
 
-    override fun getUpdatePacket(): SPacketUpdateTileEntity = SPacketUpdateTileEntity(pos, type, this.updateTag) //NBTタグの情報を送る
+    override fun getUpdatePacket() = SPacketUpdateTileEntity(pos, type, updateTag) //NBTタグの情報を送る
 
     override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
         this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
@@ -41,14 +46,8 @@ abstract class TileBase(open val type: Int) : TileEntity() {
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    /**
-     * Thanks to t5ugu!
-     * Source: https://github.com/Clayium-Isotope/clayium/blob/master/src/main/java/mods/clayium/block/tile/TileEntityGeneric.java#L90
-     */
-
-    override fun markDirty() {
-        super.markDirty()
-        if (!world.isRemote) world.notifyBlockUpdate(pos, getState(), getState(), 2)
+    fun syncData() {
+        RagiNetworkWrapper.sendToAll(MessageTile(pos))
     }
 
     //    Event    //

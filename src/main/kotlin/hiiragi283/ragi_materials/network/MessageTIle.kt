@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.packet
+package hiiragi283.ragi_materials.network
 
 import io.netty.buffer.ByteBuf
 import net.minecraft.util.math.BlockPos

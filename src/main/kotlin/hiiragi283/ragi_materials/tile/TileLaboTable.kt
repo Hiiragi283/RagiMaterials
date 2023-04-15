@@ -14,7 +14,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 
-class TileLaboTable : TileLaboBase(100) {
+class TileLaboTable : TileLaboBase(100), ITileSyncable {
 
     //    Capability    //
 
@@ -50,9 +50,9 @@ class TileLaboTable : TileLaboBase(100) {
                 SoundManager.playSound(this, SoundManager.getSound("minecraft:entity.generic.explode"))
                 RagiResult.failed(this)
             }
-            inputs.clear() //反応結果によらずインベントリを空にする
         }
-        markDirty()
+        sync() //反応結果によらずインベントリを空にする
+        syncData()
     }
 
     //    TileItemHandlerBase    //
@@ -61,4 +61,9 @@ class TileLaboTable : TileLaboBase(100) {
 
     override fun getName() = "gui.${RagiMaterials.MOD_ID}.labo_table"
 
+    //    ITileSyncable    //
+
+    override fun sync() {
+        inputs.clear()
+    }
 }

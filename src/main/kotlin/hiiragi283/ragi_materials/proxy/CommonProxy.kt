@@ -14,7 +14,7 @@ import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
-import hiiragi283.ragi_materials.packet.RagiNetworkManager
+import hiiragi283.ragi_materials.network.RagiNetworkManager
 import hiiragi283.ragi_materials.tile.*
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.entity.player.EntityPlayer
