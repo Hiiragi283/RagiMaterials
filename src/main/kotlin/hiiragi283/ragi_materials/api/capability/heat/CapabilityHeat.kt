@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.api.capability.heat
 
-import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.RagiMaterials
 import net.minecraft.nbt.NBTBase
 import net.minecraft.nbt.NBTTagInt
 import net.minecraft.util.EnumFacing
@@ -27,6 +27,6 @@ object CapabilityHeat {
         }
         ) { HeatStorage(1000) }
 
-        RagiLogger.infoDebug("The new capability HEAT is registered!")
+        RagiMaterials.LOGGER.debug("The new capability HEAT is registered!")
     }
 }

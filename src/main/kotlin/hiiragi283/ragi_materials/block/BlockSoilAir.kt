@@ -16,6 +16,8 @@ import java.util.*
 
 class BlockSoilAir : BlockBase("soil_air", Material.PLANTS, 2) {
 
+    override val itemBlock = null
+
     init {
         blockHardness = 0.0f
         blockResistance = 0.0f

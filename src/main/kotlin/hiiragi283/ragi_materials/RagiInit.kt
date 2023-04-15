@@ -1,27 +1,34 @@
 package hiiragi283.ragi_materials
 
-import hiiragi283.ragi_materials.api.material.*
-import hiiragi283.ragi_materials.base.FluidBase
-import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.client.color.RagiColor
-import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.item.*
-import hiiragi283.ragi_materials.material.OreProperty
+import hiiragi283.ragi_materials.api.init.RagiBlocks
+import hiiragi283.ragi_materials.api.init.RagiItems
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
+import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
+import hiiragi283.ragi_materials.config.RagiConfig
+import hiiragi283.ragi_materials.item.ItemMaterial
+import hiiragi283.ragi_materials.material.OreProperty
 import hiiragi283.ragi_materials.proxy.IProxy
-import hiiragi283.ragi_materials.api.recipe.FFRecipe
-import hiiragi283.ragi_materials.api.recipe.LaboRecipe
-import hiiragi283.ragi_materials.api.recipe.MillRecipe
+import hiiragi283.ragi_materials.recipe.FFRecipeRegistry
+import hiiragi283.ragi_materials.recipe.LaboRecipeRegistry
+import hiiragi283.ragi_materials.recipe.MillRecipeRegistry
 import hiiragi283.ragi_materials.recipe.furnace.SmeltingRegistry
 import hiiragi283.ragi_materials.recipe.workbench.CraftingRegistry
-import hiiragi283.ragi_materials.tile.TileTransferEnergy
-import hiiragi283.ragi_materials.tile.TileTransferFluid
-import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtil
+import net.minecraft.block.Block
+import net.minecraft.client.resources.I18n
+import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.init.Items
+import net.minecraft.item.Item
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -30,101 +37,55 @@ import net.minecraftforge.oredict.OreDictionary
 
 object RagiInit : IProxy {
 
-    override fun onConstruct(event: FMLConstructionEvent) {}
+    //    Creative Tab    //
 
-    override fun onPreInit(event: FMLPreInitializationEvent) {
-        //lateinit変数の初期化
-        initFields()
-        //collectionへの自動登録
-        val fields = RagiRegistry::class.java.declaredFields
-        for (field in fields) {
-            field.isAccessible = true
-            RagiLogger.infoDebug(field.name)
-            try {
-                val obj = field.get(RagiRegistry)
-                //Block
-                if (obj is BlockBase) {
-                    RagiRegistry.setBlocks.add(obj)
-                    RagiLogger.infoDebug("The block ${obj.registryName} is added to list!")
-                    //ItemBlock
-                    if (obj.getItemBlock() !== null) {
-                        RagiRegistry.setItemBlocks.add(obj.getItemBlock()!!)
-                        RagiLogger.infoDebug("The item block ${obj.registryName} is added to list!")
-                    }
-                }
-                //Item
-                if (obj is ItemBase) {
-                    RagiRegistry.setItems.add(obj)
-                    RagiLogger.infoDebug("The item ${obj.registryName} is added to list!")
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-
-        RagiRegistry.setBlocks.forEach {
-            if (it is IMaterialBlock) RagiRegistry.setIMaterialBlocks.add(it)
-        }
-        RagiRegistry.setItemBlocks.forEach {
-            val block = it.block
-            if (block is IMaterialBlock) RagiRegistry.setIMaterialItemBlocks.add(it)
-        }
-        RagiRegistry.setItems.forEach {
-            if (it is IMaterialItem) RagiRegistry.setIMaterialItems.add(it)
-        }
-
-        CraftingRegistry.load()
+    val TabBlock = object : CreativeTabs("${RagiMaterials.MOD_ID}.blocks") {
+        override fun createIcon() = ItemStack(RagiBlocks.BlockForgeFurnace)
+    }
+    val TabFullBottle = object : CreativeTabs("${RagiMaterials.MOD_ID}.fullbottles") {
+        override fun createIcon() = ItemStack(RagiItems.ItemFullBottle)
+    }
+    val TabMaterial = object : CreativeTabs("${RagiMaterials.MOD_ID}.materials") {
+        override fun createIcon() = ItemStack(RagiItems.ItemIngot, 1, 26)
     }
 
-    private fun initFields() {
+    //    LootTable    //
 
-        //    Block    //
+    val OreRainbow = ResourceLocation(RagiMaterials.MOD_ID, "gameplay/ore_rainbow")
 
-        RagiRegistry.BlockSoilAir = BlockSoilAir()
+    //    Collection    //
 
-        RagiRegistry.BlockBlazingForge = BlockBlazingForge()
-        RagiRegistry.BlockForgeFurnace = BlockForgeFurnace()
-        RagiRegistry.BlockFullBottleStation = BlockFullBottleStation()
-        RagiRegistry.BlockIndustrialLabo = BlockIndustrialLabo()
-        RagiRegistry.BlockLaboratoryTable = BlockLaboTable()
-        RagiRegistry.BlockOre1 = BlockOreMaterial("ore_block")
-        RagiRegistry.BlockOreDictConv = BlockOreDictConv()
-        RagiRegistry.BlockOreRainbow = BlockOreRainbow("ore_rainbow")
-        RagiRegistry.BlockSoilCoal = BlockSoilCoal()
-        RagiRegistry.BlockSoilLignite = BlockSoilLignite()
-        RagiRegistry.BlockSoilPeat = BlockSoilPeat()
-        RagiRegistry.BlockStoneMill = BlockStoneMill()
-        RagiRegistry.BlockTransferEnergy = BlockTransferBase("energy", TileTransferEnergy::class.java, RagiColor.YELLOW)
-        RagiRegistry.BlockTransferFluid = BlockTransferBase("fluid", TileTransferFluid::class.java, RagiColor.AQUA)
-        //RagiRegistry.BlockTransferHeat = BlockTransferBase("heat", TileTransferHeat::class.java, ColorManager.mixColor(RagiColor.RED, RagiColor.GOLD))
+    val setBlocks: MutableSet<Block> = mutableSetOf()
+    val setIMaterialBlocks: MutableSet<Block> = mutableSetOf()
 
-        //    Item    //
+    val setIMaterialItemBlocks: MutableSet<ItemBlock> = mutableSetOf()
+    val setItemBlocks: MutableSet<ItemBlock> = mutableSetOf()
 
-        RagiRegistry.ItemBlazingCube = ItemBase(RagiMaterials.MOD_ID, "blazing_cube", 0)
-        RagiRegistry.ItemBookDebug = ItemBookDebug()
-        RagiRegistry.ItemEnderTable = ItemEnderTable()
-        RagiRegistry.ItemForgeHammer = ItemForgeHammer()
-        RagiRegistry.ItemFullBottle = ItemFullBottle()
-        RagiRegistry.ItemOreCrushed = ItemOreCrushed()
-        RagiRegistry.ItemOreCrushedVanilla = ItemOreCrushedVanilla()
-        RagiRegistry.ItemWaste = ItemWaste()
+    val setIMaterialItems: MutableSet<Item> = mutableSetOf()
+    val setItems: MutableSet<Item> = mutableSetOf()
+    val mapMaterialParts: HashMap<MaterialPart, ItemMaterial> = hashMapOf()
 
-        RagiRegistry.ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)
-        RagiRegistry.ItemCrystal = ItemMaterial(PartRegistry.CRYSTAL)
-        RagiRegistry.ItemDust = ItemMaterial(PartRegistry.DUST)
-        RagiRegistry.ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY)
-        RagiRegistry.ItemGear = ItemMaterial(PartRegistry.GEAR)
-        RagiRegistry.ItemIngot = ItemMaterial(PartRegistry.INGOT)
-        RagiRegistry.ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
-        RagiRegistry.ItemNugget = ItemMaterial(PartRegistry.NUGGET)
-        RagiRegistry.ItemPlate = ItemMaterial(PartRegistry.PLATE)
-        RagiRegistry.ItemStick = ItemMaterial(PartRegistry.STICK)
+    override fun onConstruct(event: FMLConstructionEvent) {
 
+    }
+
+    override fun onPreInit(event: FMLPreInitializationEvent) {
+        RagiBlocks.load()
+        RagiItems.load()
+        registerRecipes()
+    }
+
+    private fun registerRecipes() {
+        //レシピの登録
+        FFRecipeRegistry.load()
+        LaboRecipeRegistry.load()
+        MillRecipeRegistry.load()
     }
 
     override fun onInit(event: FMLInitializationEvent) {
         registerFluid()
         registerOreDict()
+        CraftingRegistry.load()
         SmeltingRegistry.load()
     }
 
@@ -132,19 +93,7 @@ object RagiInit : IProxy {
         //Fluidの登録
         for (material in RagiMaterial.list) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) {
-                //Fluidの登録
-                val fluid = FluidBase(material.name)
-                fluid.setColor(material.color)
-                //MaterialTypesがGASの場合
-                if (material.type.match(TypeRegistry.GAS)) {
-                    fluid.isGaseous = true
-                    fluid.density = fluid.density * -1
-                }
-                FluidRegistry.registerFluid(fluid)
-                //fluid入りバケツを登録
-                FluidRegistry.addBucketForFluid(fluid)
-            }
+            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) FluidBase(material)
         }
     }
 
@@ -160,37 +109,29 @@ object RagiInit : IProxy {
 
         //Ore
         for (i in OreProperty.listOre1.indices) {
-            OreDictionary.registerOre("ore${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.BlockOre1, 1, i))
-            OreDictionary.registerOre("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiRegistry.ItemOreCrushed, 1, i))
+            OreDictionary.registerOre("ore${OreProperty.listOre1[i].first}", ItemStack(RagiBlocks.BlockOre1, 1, i))
+            OreDictionary.registerOre("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiItems.ItemOreCrushed, 1, i))
         }
-        OreDictionary.registerOre("oreSaltpeter", ItemStack(RagiRegistry.BlockOre1, 1, 6))
-        OreDictionary.registerOre("oreSaltpeterCrushed", ItemStack(RagiRegistry.ItemOreCrushed, 1, 6))
+        OreDictionary.registerOre("oreSaltpeter", ItemStack(RagiBlocks.BlockOre1, 1, 6))
+        OreDictionary.registerOre("oreSaltpeterCrushed", ItemStack(RagiItems.ItemOreCrushed, 1, 6))
 
         for (i in OreProperty.listVanilla.indices) {
-            OreDictionary.registerOre("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiRegistry.ItemOreCrushedVanilla, 1, i))
+            OreDictionary.registerOre("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiItems.ItemOreCrushedVanilla, 1, i))
         }
 
         //Others
         OreDictionary.registerOre("charcoal", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
-        OreDictionary.registerOre("dustGunpowder", RagiUtil.getStack("minecraft:gunpowder", 1, 0))
-        OreDictionary.registerOre("dustSugar", RagiUtil.getStack("minecraft:sugar", 1, 0))
+        OreDictionary.registerOre("dustGunpowder", ItemStack(Items.GUNPOWDER))
+        OreDictionary.registerOre("dustSugar", ItemStack(Items.SUGAR))
         OreDictionary.registerOre("fuelCoke", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.COKE))
         OreDictionary.registerOre("gearStone", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.STONE))
         OreDictionary.registerOre("gearWood", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.WOOD))
-        OreDictionary.registerOre("gemCharcoal", RagiUtil.getStack("minecraft:coal", 1, 1))
+        OreDictionary.registerOre("gemCharcoal", ItemStack(Items.COAL))
         OreDictionary.registerOre("stickStone", MaterialUtil.getPart(PartRegistry.STICK, MaterialRegistry.STONE))
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        registerRecipes()
         printDebug()
-    }
-
-    private fun registerRecipes() {
-        //レシピの登録
-        FFRecipe.Registry.load()
-        LaboRecipe.Registry.load()
-        MillRecipe.Registry.load()
     }
 
     private fun printDebug() {
@@ -204,4 +145,32 @@ object RagiInit : IProxy {
         }
     }
 
+    private val location = ResourceLocation("minecraft:blocks/concrete_powder_white")
+
+    class FluidBase(val material: RagiMaterial) : Fluid(material.name, location, location) {
+
+        init {
+            setColor(material.color)
+            //MaterialTypesがGASの場合
+            if (material.type.match(TypeRegistry.GAS)) {
+                isGaseous = true
+                density *= -1
+            }
+            FluidRegistry.registerFluid(this)
+            FluidRegistry.addBucketForFluid(this)
+        }
+
+        override fun getUnlocalizedName(): String = "material.${this.unlocalizedName}"
+
+        override fun getLocalizedName(stack: FluidStack?): String {
+            var localized = ""
+            if (stack !== null) {
+                if (material.type != TypeRegistry.LIQUID && material.type != TypeRegistry.GAS) {
+                    localized += "${I18n.format("fluid.molten")} "
+                }
+            }
+            localized += I18n.format(getUnlocalizedName())
+            return localized
+        }
+    }
 }

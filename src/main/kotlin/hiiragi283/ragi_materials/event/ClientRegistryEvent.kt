@@ -1,13 +1,12 @@
 package hiiragi283.ragi_materials.event
 
+import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.api.material.IMaterialBlock
-import hiiragi283.ragi_materials.client.model.ICustomModel
-import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.api.material.IMaterialItem
 import hiiragi283.ragi_materials.api.material.RagiMaterial
-import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
@@ -24,14 +23,14 @@ object ClientRegistryEvent {
     @SubscribeEvent
     fun registerModel(event: ModelRegistryEvent) {
         //モデルの自動登録
-        RagiRegistry.setBlocks.forEach {
+        RagiInit.setBlocks.forEach {
             if (it is ICustomModel) it.registerCustomModel() else ModelManager.setModel(it)
-            RagiLogger.infoDebug("The model for item block ${it.registryName} is registered!")
+            RagiMaterials.LOGGER.debug("The model for item block ${it.registryName} is registered!")
         }
 
-        RagiRegistry.setItems.forEach {
+        RagiInit.setItems.forEach {
             if (it is ICustomModel) it.registerCustomModel() else ModelManager.setModel(it)
-            RagiLogger.infoDebug("The model for item ${it.registryName} is registered!")
+            RagiMaterials.LOGGER.debug("The model for item ${it.registryName} is registered!")
         }
 
         for (material in RagiMaterial.list) {
@@ -55,20 +54,20 @@ object ClientRegistryEvent {
         blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
             val block = state.block
             if (world !== null && pos !== null && block is IMaterialBlock) block.getColor(world, pos, state, tintIndex).rgb else 0xFFFFFF
-        }, *RagiRegistry.setIMaterialBlocks.toTypedArray())
+        }, *RagiInit.setIMaterialBlocks.toTypedArray())
 
         //Item Block
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             val item = stack.item as ItemBlock
             val block = item.block
             if (block is IMaterialBlock) block.getColor(stack, tintIndex).rgb else 0xFFFFFF
-        }, *RagiRegistry.setIMaterialItemBlocks.toTypedArray())
+        }, *RagiInit.setIMaterialItemBlocks.toTypedArray())
 
         //Item
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             val item = stack.item
             if (item is IMaterialItem) item.getColor(stack, tintIndex).rgb else 0xFFFFFF
-        }, *RagiRegistry.setIMaterialItems.toTypedArray())
+        }, *RagiInit.setIMaterialItems.toTypedArray())
 
     }
 

@@ -13,6 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 abstract class BlockBase(ID: String, Material: Material, private val maxTips: Int) : Block(Material) {
 
+    abstract val itemBlock: ItemBlock?
+
     init {
         setRegistryName(RagiMaterials.MOD_ID, ID)
         translationKey = ID
@@ -30,7 +32,4 @@ abstract class BlockBase(ID: String, Material: Material, private val maxTips: In
             }
         }
     }
-
-    open fun getItemBlock(): ItemBlock? = null
-
 }

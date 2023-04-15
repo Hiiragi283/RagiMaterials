@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.recipe.FFRecipe
 import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import hiiragi283.ragi_materials.api.recipe.MillRecipe
-import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.api.registry.RagiRegistry
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
@@ -40,19 +40,19 @@ class JEICore : IModPlugin {
         registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper(it) }, MaterialInfo)
         registry.handleRecipes(MillRecipe::class.java, { MillRecipe(it) }, StoneMill)
 
-        registry.addRecipes(FFRecipe.Registry.list, ForgeFurnace)
-        registry.addRecipes(LaboRecipe.Registry.list, LaboTable)
+        registry.addRecipes(RagiRegistry.FF_RECIPE.valuesCollection, ForgeFurnace)
+        registry.addRecipes(RagiRegistry.LABO_RECIPE.valuesCollection, LaboTable)
         registry.addRecipes(RagiMaterial.list, MaterialInfo)
-        registry.addRecipes(MillRecipe.Registry.list, StoneMill)
+        registry.addRecipes(RagiRegistry.MILL_RECIPE.valuesCollection, StoneMill)
 
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockForgeFurnace), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockBlazingForge), ForgeFurnace)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockLaboratoryTable), LaboTable)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockIndustrialLabo), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockForgeFurnace), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockBlazingForge), ForgeFurnace)
+        registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockLaboratoryTable), LaboTable)
+        registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockIndustrialLabo), LaboTable)
         registry.addRecipeCatalyst(ItemStack(Items.IRON_INGOT), MaterialInfo)
-        registry.addRecipeCatalyst(ItemStack(RagiRegistry.BlockStoneMill), StoneMill)
+        registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockStoneMill), StoneMill)
 
-        RagiLogger.info("The integration for JEI/HEI has loaded!")
+        RagiMaterials.LOGGER.info("The integration for JEI/HEI has loaded!")
     }
 
     @Deprecated("Deprecated in Java")

@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.integration
 
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
-import hiiragi283.ragi_materials.util.RagiLogger
 import mcp.mobius.waila.api.*
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
@@ -24,7 +24,7 @@ class PluginWaila : IWailaPlugin {
         registrar.registerNBTProvider(HUDHandlerHeat, TileEntity::class.java)
         registrar.addConfig("Capability", "capability.heatinfo", false)
 
-        RagiLogger.info("The integration for Waila/Hwyla has loaded!")
+        RagiMaterials.LOGGER.info("The integration for Waila/Hwyla has loaded!")
     }
 
     object HUDHandlerHeat : IWailaDataProvider {

@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.api.material.IMaterialItem
 import hiiragi283.ragi_materials.block.BlockBase
 import hiiragi283.ragi_materials.client.model.ICustomModel
@@ -16,12 +16,12 @@ import java.awt.Color
 
 class ItemOreCrushed : ItemBase(RagiMaterials.MOD_ID, "ore_crushed", OreProperty.mapOre1.size - 1), ICustomModel, IMaterialItem {
 
-    val ore = RagiRegistry.BlockOre1 as BlockBase
+    val ore = RagiBlocks.BlockOre1 as BlockBase
 
     //    Client    //
 
     @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${ore.getItemBlock()?.getTranslationKey(stack)}.name"))
+    override fun getItemStackDisplayName(stack: ItemStack): String = I18n.format("item.ore_crushed.name", I18n.format("${ore.itemBlock?.getTranslationKey(stack)}.name"))
 
     @SideOnly(Side.CLIENT)
     override fun registerCustomModel() {

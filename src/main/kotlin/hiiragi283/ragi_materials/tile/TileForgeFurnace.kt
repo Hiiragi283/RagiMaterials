@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
-import hiiragi283.ragi_materials.api.recipe.FFRecipe
-import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.api.registry.RagiRegistry
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
@@ -30,7 +30,7 @@ class TileForgeFurnace : TileBase(102) {
                 if (fuel + burnTime <= fuelMax) {
                     fuel += burnTime //燃料を投入
                     playSoundFuel()
-                    RagiLogger.infoDebug("Fuel: $fuel")
+                    RagiMaterials.LOGGER.debug("Fuel: $fuel")
                     ItemStack.EMPTY //燃料は消失する
                 } else stack //上限に達していたら搬入不可能
             } else stack //燃焼不可能な素材なら搬入不可能
@@ -83,10 +83,10 @@ class TileForgeFurnace : TileBase(102) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         var result = false
         val stack = player.getHeldItem(hand)
-        for (recipe in FFRecipe.Registry.list) {
+        for (recipe in RagiRegistry.FF_RECIPE.valuesCollection) {
             if (recipe.match(stack, fuel)) {
                 fuel -= recipe.getFuel() //燃料を減らす
-                RagiLogger.infoDebug("Fuel: $fuel")
+                RagiMaterials.LOGGER.debug("Fuel: $fuel")
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す

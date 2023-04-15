@@ -12,7 +12,7 @@ import net.minecraft.world.World
 import java.util.*
 
 //NBTタグを保持するブロック用のクラス
-abstract class BlockContainerBaseHoldable<T : TileBase>(id: String, material: Material, tile: Class<T>, maxTips: Int) : BlockContainerBase<T>(id, material, tile, maxTips) {
+abstract class BlockContainerBaseHoldable<T : TileBase>(ID: String, material: Material, tile: Class<T>, maxTips: Int) : BlockContainerBase<T>(ID, material, tile, maxTips) {
 
     //    General    //
 

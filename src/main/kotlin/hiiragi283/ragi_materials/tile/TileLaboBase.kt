@@ -16,22 +16,8 @@ import net.minecraft.world.World
 
 abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
 
-    val inputs = object : RagiItemHandler(5) {
-
-        override fun getIOType() = EnumIOType.INPUT
-
-        override fun onContentsChanged(slot: Int) {
-            markDirty() //クライアント側にNBTタグを送る
-        }
-    }
-    val catalyst = object : RagiItemHandler(1) {
-
-        override fun getIOType() = EnumIOType.CATALYST
-
-        override fun onContentsChanged(slot: Int) {
-            markDirty() //クライアント側にNBTタグを送る
-        }
-    }
+    val inputs = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
+    val catalyst = RagiItemHandler(1).setIOType(EnumIOType.CATALYST)
     val inventory = RagiItemHandlerWrapper(inputs, catalyst)
 
     //    NBT tag    //

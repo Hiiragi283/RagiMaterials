@@ -1,7 +1,8 @@
 package hiiragi283.ragi_materials.block
 
+import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.item.ItemBlockBase
@@ -25,6 +26,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import java.util.*
 
 class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomModel {
+
+    override val itemBlock = ItemBlockBase(this)
 
     init {
         blockHardness = 3.0f
@@ -56,7 +59,7 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomMode
     override fun harvestBlock(world: World, player: EntityPlayer, pos: BlockPos, state: IBlockState, te: TileEntity?, stack: ItemStack) {
         if (!world.isRemote) {
             val builder = LootContext.Builder(world as WorldServer).build()
-            val lootTable = world.lootTableManager.getLootTableFromLocation(RagiRegistry.OreRainbow)
+            val lootTable = world.lootTableManager.getLootTableFromLocation(RagiInit.OreRainbow)
             val results = lootTable.generateLootForPools(world.rand, builder)
             for (result in results) {
                 if (!result.isEmpty) RagiUtil.dropItemAtPlayer(player, result) //生成物を足元にドロップ
@@ -70,12 +73,7 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomMode
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     override fun registerCustomModel() {
-        ModelManager.setStateMapperAlt(RagiRegistry.BlockOreRainbow, ModelResourceLocation("${RagiMaterials.MOD_ID}:ore", "stone_rainbow"))
+        ModelManager.setStateMapperAlt(RagiBlocks.BlockOreRainbow, ModelResourceLocation("${RagiMaterials.MOD_ID}:ore", "stone_rainbow"))
         ModelManager.setModel(this)
     }
-
-    //    IItemBlock    //
-
-    override fun getItemBlock() = ItemBlockBase(this)
-
 }

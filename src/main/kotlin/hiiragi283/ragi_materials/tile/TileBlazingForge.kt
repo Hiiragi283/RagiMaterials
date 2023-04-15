@@ -1,8 +1,8 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.api.capability.RagiTank
+import hiiragi283.ragi_materials.api.registry.RagiRegistry
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.api.recipe.FFRecipe
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
@@ -78,7 +78,7 @@ class TileBlazingForge : TileBase(103) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         var result = false
         val stack = player.getHeldItem(hand)
-        for (recipe in FFRecipe.Registry.list) {
+        for (recipe in RagiRegistry.FF_RECIPE.valuesCollection) {
             if (recipe.match(stack, Integer.MAX_VALUE) && canProcess()) {
                 tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 

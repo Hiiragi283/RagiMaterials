@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.api.material.IMaterialBlock
-import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.client.color.RagiColor
-import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.api.material.MaterialUtil
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.client.color.ColorManager
+import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.item.ItemBlockBase
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -24,6 +24,8 @@ import java.awt.Color
 import java.util.*
 
 abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IGrowable, IMaterialBlock {
+
+    override val itemBlock = ItemBlockBase(this)
 
     init {
         blockHardness = 0.5f
@@ -110,10 +112,6 @@ abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IG
     override fun grow(world: World, rand: Random, pos: BlockPos, state: IBlockState) {
         if (canGrow(world, pos, state, false) && !isMaxAge(state)) world.setBlockState(pos, state.withProperty(getProperty(), getAge(state) + 1), 2)
     }
-
-    //    IItemBlock    //
-
-    override fun getItemBlock() = ItemBlockBase(this)
 
     //    IMaterialBlock    //
 

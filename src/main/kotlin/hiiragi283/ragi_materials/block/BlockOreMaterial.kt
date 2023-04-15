@@ -22,6 +22,8 @@ import java.awt.Color
 
 class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomModel, IMaterialBlock {
 
+    override val itemBlock = ItemBlockBase(this, OreProperty.mapOre1.size - 1)
+
     companion object {
         val TYPE: PropertyInteger = PropertyInteger.create("type", 0, 15)
     }
@@ -58,10 +60,6 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
         ModelManager.setStateMapperAlt(this, locationOreStone)
         ModelManager.setModelAlt(this, locationOreStone)
     }
-
-    //    IItemBlock    //
-
-    override fun getItemBlock() = ItemBlockBase(this, OreProperty.mapOre1.size - 1)
 
     //    IMaterialBlock    //
 

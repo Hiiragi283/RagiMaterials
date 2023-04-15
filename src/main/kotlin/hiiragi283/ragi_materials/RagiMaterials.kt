@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.*
+import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
 
@@ -44,7 +45,7 @@ object RagiMaterials : IProxy {
 
     //各種変数の宣言
     lateinit var CONFIG: File
-    lateinit var LOGGER: Logger
+    val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
     @Mod.EventHandler
     override fun onConstruct(event: FMLConstructionEvent) {

@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.client.render
 
-import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.init.RagiBlocks
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemBlock
@@ -17,7 +17,7 @@ object RagiTEISR : TileEntityItemStackRenderer() {
         val item = stack.item
         var block = Blocks.AIR
         if (item is ItemBlock) block = item.block
-        if (block == RagiRegistry.BlockIndustrialLabo) {
+        if (block == RagiBlocks.BlockIndustrialLabo) {
             RenderIndustrialLabo.render(0.0, 0.0, 0.0)
         }
     }

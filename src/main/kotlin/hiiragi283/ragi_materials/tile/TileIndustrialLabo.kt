@@ -2,8 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.capability.RagiEnergyStorage
-import hiiragi283.ragi_materials.api.recipe.LaboRecipe
-import hiiragi283.ragi_materials.util.RagiLogger
+import hiiragi283.ragi_materials.api.registry.RagiRegistry
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
 import hiiragi283.ragi_materials.util.toBracket
@@ -67,17 +66,17 @@ class TileIndustrialLabo : TileLaboBase(104), ITickable {
             //サーバー側，かつインベントリが空でない場合
             if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
                 //レシピチェック
-                for (recipe in LaboRecipe.Registry.list) {
+                for (recipe in RagiRegistry.LABO_RECIPE.valuesCollection) {
                     if (recipe.match(inventory)) {
                         for (i in 0..4) {
                             val input = recipe.getInput(i)
                             val output = recipe.getOutput(i)
                             if (!inputs.getStackInSlot(i).isEmpty && !input.isEmpty) {
                                 inputs.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
-                                RagiLogger.infoDebug("The slot$i is decreased!")
+                                RagiMaterials.LOGGER.debug("The slot$i is decreased!")
                             }
                             RagiUtil.dropItem(world, pos.offset(front), output)
-                            RagiLogger.infoDebug("The output is ${output.toBracket()}")
+                            RagiMaterials.LOGGER.debug("The output is ${output.toBracket()}")
                         }
                         battery.extractEnergy(1000, false)
                         SoundManager.playSound(this, SoundManager.getSound("minecraft:block.piston.extend"))

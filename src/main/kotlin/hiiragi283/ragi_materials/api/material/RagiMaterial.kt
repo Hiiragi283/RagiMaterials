@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.api.material
 
+import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.MaterialType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
 import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.util.RagiLogger
 import hiiragi283.ragi_materials.util.snakeToUpperCamelCase
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.common.IRarity
@@ -202,8 +202,8 @@ data class RagiMaterial private constructor(
                             validPair.add(part to it)
                         }
                     }
-                } else RagiLogger.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]}!")
-            } else RagiLogger.warn("The index ${it.index} is smaller than 0!")
+                } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]}!")
+            } else RagiMaterials.LOGGER.warn("The index ${it.index} is smaller than 0!")
         }
     }
 
@@ -213,7 +213,7 @@ data class RagiMaterial private constructor(
         fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil).also {
             if (mapElement[it.name] == null) {
                 mapElement[it.name] = it
-            } else RagiLogger.warn("The material ${it.name} is duplicated with ${mapElement[it.name]}!")
+            } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${mapElement[it.name]}!")
         }
     }
 

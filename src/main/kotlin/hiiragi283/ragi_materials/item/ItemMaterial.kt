@@ -1,17 +1,17 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.init.RagiItems
 import hiiragi283.ragi_materials.api.material.IMaterialItem
-import hiiragi283.ragi_materials.client.model.ICustomModel
-import hiiragi283.ragi_materials.client.model.ModelManager
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.api.material.MaterialUtil
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
+import hiiragi283.ragi_materials.client.model.ICustomModel
+import hiiragi283.ragi_materials.client.model.ModelManager
+import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
@@ -99,7 +99,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
 
                 ModelLoader.registerItemVariants(this, blockCrystal, blockMaterial, blockMetal)
 
-                ModelLoader.setCustomMeshDefinition(RagiRegistry.ItemBlockMaterial) { stack ->
+                ModelLoader.setCustomMeshDefinition(RagiItems.ItemBlockMaterial) { stack ->
                     var result = blockMaterial
                     val item = stack.item
                     if (item is IMaterialItem) {
@@ -115,7 +115,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
             PartRegistry.CRYSTAL -> {
 
                 ModelLoader.registerItemVariants(
-                        RagiRegistry.ItemCrystal,
+                        RagiItems.ItemCrystal,
                         ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "coal"),
                         ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "cubic"),
                         ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "diamond"),
@@ -124,7 +124,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
                         ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "quartz"),
                         ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", "ruby")
                 )
-                ModelLoader.setCustomMeshDefinition(RagiRegistry.ItemCrystal) { stack ->
+                ModelLoader.setCustomMeshDefinition(RagiItems.ItemCrystal) { stack ->
                     var result = ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal", EnumCrystalType.CUBIC.texture)
                     val item = stack.item
                     if (item is IMaterialItem) {

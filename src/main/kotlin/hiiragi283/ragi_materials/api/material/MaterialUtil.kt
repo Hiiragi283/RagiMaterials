@@ -1,9 +1,8 @@
 package hiiragi283.ragi_materials.api.material
 
+import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.part.MaterialPart
-import hiiragi283.ragi_materials.util.RagiLogger
-import hiiragi283.ragi_materials.util.RagiUtil
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 
@@ -14,7 +13,7 @@ object MaterialUtil {
 
     //部品を取得するメソッド
     fun getPart(part: MaterialPart, material: RagiMaterial, amount: Int = 1): ItemStack {
-        return if (isValidPart(part, material)) RagiUtil.getStack("${RagiMaterials.MOD_ID}:${part.name}", amount, material.index) else ItemStack.EMPTY
+        return if (isValidPart(part, material)) ItemStack(RagiInit.mapMaterialParts[part]!!, amount, material.index) else ItemStack.EMPTY
     }
 
     //代入されたMapから化学式を生成するメソッド
@@ -66,7 +65,7 @@ object MaterialUtil {
     }
 
     fun printMap() {
-        RagiMaterial.mapElement.values.forEach { RagiLogger.infoDebug("<element:${it.name}>") }
-        RagiMaterial.list.forEach { RagiLogger.infoDebug("Index: ${it.index}, <material:${it.name}>") }
+        RagiMaterial.mapElement.values.forEach { RagiMaterials.LOGGER.debug("<element:${it.name}>") }
+        RagiMaterial.list.forEach { RagiMaterials.LOGGER.debug("Index: ${it.index}, <material:${it.name}>") }
     }
 }

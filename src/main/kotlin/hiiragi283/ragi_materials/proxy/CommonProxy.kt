@@ -2,7 +2,6 @@ package hiiragi283.ragi_materials.proxy
 
 import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.RagiRegistry
 import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
 import hiiragi283.ragi_materials.client.gui.GuiFullBottle
 import hiiragi283.ragi_materials.client.gui.GuiLaboTable
@@ -17,7 +16,6 @@ import hiiragi283.ragi_materials.event.CommonRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.packet.RagiNetworkManager
 import hiiragi283.ragi_materials.tile.*
-import hiiragi283.ragi_materials.util.RagiLogger
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Container
@@ -53,8 +51,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
          * Source: https://github.com/defeatedcrow/JsonSampleMod/blob/main/src/main/java/com/defeatedcrow/jsonsample/JsonSampleCore.java
          */
         RagiMaterials.CONFIG = File(event.modConfigurationDirectory, "${RagiMaterials.MOD_ID}/")
-        RagiMaterials.LOGGER = event.modLog
-        RagiLogger.infoDebug(("Config path: ${RagiMaterials.CONFIG.absolutePath}"))
+        RagiMaterials.LOGGER.debug(("Config path: ${RagiMaterials.CONFIG.absolutePath}"))
         //Capabilityの登録
         CapabilityHeat.register()
         //GUI描画の登録
@@ -68,7 +65,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
     //Initializationで読み込むメソッド
     override fun onInit(event: FMLInitializationEvent) {
         //LootTableの登録
-        LootTableList.register(RagiRegistry.OreRainbow)
+        LootTableList.register(RagiInit.OreRainbow)
         //Packetの登録
         RagiNetworkManager.load()
         //連携要素の登録

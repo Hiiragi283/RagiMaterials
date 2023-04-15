@@ -85,13 +85,6 @@ object RagiUtil {
         executeCommand(player, "title @p subtitle {\"translate\":\"$subtitle\"}")
     }
 
-    //    Item    //
-
-    fun getStack(registryName: String, amount: Int, meta: Int): ItemStack {
-        val item = ForgeRegistries.ITEMS.getValue(ResourceLocation(registryName))
-        return item?.let { ItemStack(it, amount, meta) } ?: ItemStack.EMPTY
-    }
-
     //    Other    //
 
     fun convertArrayTomMap(array: Array<String>): Map<String, String> = array.associate { it.split(";")[0] to it.split(";")[1] }

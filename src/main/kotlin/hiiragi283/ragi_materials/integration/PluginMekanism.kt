@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.integration
 
-import hiiragi283.ragi_materials.RagiRegistry
+import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.block.BlockTransferBase
 import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.proxy.IProxy
@@ -16,7 +16,7 @@ object PluginMekanism : IProxy {
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
         //Block
-        RagiRegistry.BlockTransferGas = BlockTransferBase("gas", TileTransferGas::class.java, RagiColor.GREEN)
+        RagiBlocks.BlockTransferGas = BlockTransferBase("gas", TileTransferGas::class.java, RagiColor.GREEN)
     }
 
     override fun onInit(event: FMLInitializationEvent) {}

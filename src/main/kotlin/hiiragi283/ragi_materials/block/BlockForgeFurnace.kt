@@ -29,11 +29,11 @@ class BlockForgeFurnace : BlockContainerBaseHoldable<TileForgeFurnace>("forge_fu
 
     @Deprecated("Deprecated in Java")
     override fun addCollisionBoxToList(state: IBlockState, world: World, pos: BlockPos, entityBox: AxisAlignedBB, collidingBoxes: MutableList<AxisAlignedBB>, entity: Entity?, isActualState: Boolean) {
-        Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0 / 8, 1.0)) //底面
-        Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0 / 8)) //北
-        Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 1.0 - (1.0 / 8), 1.0, 1.0, 1.0)) //南
-        Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(1.0 - (1.0 / 8), 0.0, 0.0, 1.0, 1.0, 1.0)) //東
-        Block.addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0 / 8, 1.0, 1.0)) //西
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0 / 8, 1.0)) //底面
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0 / 8)) //北
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 1.0 - (1.0 / 8), 1.0, 1.0, 1.0)) //南
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(1.0 - (1.0 / 8), 0.0, 0.0, 1.0, 1.0, 1.0)) //東
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0 / 8, 1.0, 1.0)) //西
     }
 
     //    BlockState    //

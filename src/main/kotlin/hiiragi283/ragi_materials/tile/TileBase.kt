@@ -11,7 +11,6 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraft.world.WorldServer
 
 abstract class TileBase(open val type: Int) : TileEntity() {
 
@@ -43,16 +42,13 @@ abstract class TileBase(open val type: Int) : TileEntity() {
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
     /**
-     * Thanks to DaedalusGame
-     * Source: https://github.com/DaedalusGame/EmbersRekindled/blob/rekindled/src/main/java/teamroots/embers/tileentity/TileEntityBin.java#L91
-     * Source: https://github.com/DaedalusGame/EmbersRekindled/blob/rekindled/src/main/java/teamroots/embers/util/Misc.java#L284
+     * Thanks to t5ugu!
+     * Source: https://github.com/Clayium-Isotope/clayium/blob/master/src/main/java/mods/clayium/block/tile/TileEntityGeneric.java#L90
      */
 
     override fun markDirty() {
         super.markDirty()
-        if (world is WorldServer) {
-            (world as WorldServer).playerChunkMap.getEntry(pos.x / 16, pos.z / 16)?.sendPacket(updatePacket)
-        }
+        if (!world.isRemote) world.notifyBlockUpdate(pos, getState(), getState(), 2)
     }
 
     //    Event    //
