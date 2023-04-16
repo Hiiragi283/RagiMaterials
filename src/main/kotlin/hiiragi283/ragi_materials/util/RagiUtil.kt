@@ -33,7 +33,7 @@ fun ItemStack.toLocation() = ResourceLocation(this.item.registryName!!.toString(
  * Source: https://github.com/defeatedcrow/HeatAndClimateLib/blob/1.12.2_v3/main/java/defeatedcrow/hac/core/util/DCUtil.java#L130
  */
 
-fun ItemStack.same(stackTo: ItemStack): Boolean {
+/*fun ItemStack.same(stackTo: ItemStack): Boolean {
     var result = this.isEmpty && stackTo.isEmpty
     if (!this.isEmpty && !stackTo.isEmpty) {
         val isSameItem = this.item == stackTo.item
@@ -49,7 +49,7 @@ fun ItemStack.same(stackTo: ItemStack): Boolean {
 fun ItemStack.sameExact(stackTo: ItemStack): Boolean {
     val isSameCount = this.count == stackTo.count
     return this.same(stackTo) && isSameCount
-}
+}*/
 
 fun Boolean.toInt() = if (this) 1 else 0
 

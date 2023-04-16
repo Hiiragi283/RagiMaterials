@@ -19,13 +19,13 @@ class TileTransferGas : TileTransferBase<IGasHandler>(200), ITickable {
                 for (tankInfoTo in storageTo!!.tankInfo) {
                     val stackFrom = tankInfoFrom.gas
                     val stackTo = tankInfoTo.gas
-                    //送り元に液体がある場合のみ動作する
+                    //送り元に気体がある場合のみ動作する
                     if (stackFrom != null) {
-                        //送り先に液体がない場合，最大限まで搬入する
+                        //送り先に気体がない場合，最大限まで搬入する
                         if (stackTo == null) transferGas(stackFrom)
-                        //双方に液体がある場合
+                        //双方に気体がある場合
                         else {
-                            //液体が同じ場合
+                            //気体が同じ場合
                             if (stackFrom.gas.name == stackTo.gas.name) transferGas(stackFrom)
                         }
                     }

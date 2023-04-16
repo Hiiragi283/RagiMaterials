@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.IMaterialItem
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
-import hiiragi283.ragi_materials.material.OreProperty
+import hiiragi283.ragi_materials.material.OreProperties
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
@@ -40,7 +40,7 @@ class ItemOreCrushedVanilla : ItemBase(RagiMaterials.MOD_ID, "ore_crushed_vanill
     //    IMaterialItem    //
 
     override fun getColor(stack: ItemStack, tintIndex: Int): Color {
-        val list = OreProperty.listVanilla
+        val list = OreProperties.listVanilla
         val index = stack.metadata % list.size
         return list[index].second.getColor()
     }

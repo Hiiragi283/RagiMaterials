@@ -13,6 +13,7 @@ import hiiragi283.ragi_materials.container.ContainerLaboTable
 import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
+import hiiragi283.ragi_materials.event.NewRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.network.RagiNetworkManager
 import hiiragi283.ragi_materials.tile.*
@@ -37,10 +38,13 @@ abstract class CommonProxy : IGuiHandler, IProxy {
     override fun onConstruct(event: FMLConstructionEvent) {
         //イベントの登録
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
+        MinecraftForge.EVENT_BUS.register(NewRegistryEvent)
         //ForgeのUniversal Bucketを使えるようにする
         FluidRegistry.enableUniversalBucket()
         //連携要素の登録
         IntegrationCore.onConstruct(event)
+        //素材の登録
+        RagiInit.onConstruct(event)
     }
 
     //Pre-Initializationで読み込むメソッド

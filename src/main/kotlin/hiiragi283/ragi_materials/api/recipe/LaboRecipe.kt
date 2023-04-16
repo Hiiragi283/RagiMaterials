@@ -1,7 +1,6 @@
 package hiiragi283.ragi_materials.api.recipe
 
-import hiiragi283.ragi_materials.util.same
-import hiiragi283.ragi_materials.util.sameExact
+import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -31,7 +30,7 @@ data class LaboRecipe private constructor(private var inputs: MutableList<ItemSt
         for (i in 0..4) {
             val input = this.inputs[i]
             val stackSlot = inventory.getStackInSlot(i)
-            result = result && input.same(stackSlot) && stackSlot.count >= input.count
+            result = result && ItemStackWrapper(input) == ItemStackWrapper(stackSlot) && stackSlot.count >= input.count
         }
         return result
     }
@@ -40,20 +39,10 @@ data class LaboRecipe private constructor(private var inputs: MutableList<ItemSt
     fun matchExact(inventory: IItemHandler): Boolean {
         var result = true
         for (i in 0..4) {
-            result = result && this.inputs[i].sameExact(inventory.getStackInSlot(i))
+            result = result && ItemStackWrapper(this.inputs[i]) == ItemStackWrapper(inventory.getStackInSlot(i))
         }
         return result
     }
-
-    fun setInput(slot: Int, stack: ItemStack) = also { inputs[slot] = stack }
-
-    fun setInputs(inputs: MutableList<ItemStack>) = also { this.inputs = inputs }
-
-    fun setOutput(slot: Int, stack: ItemStack) = also { outputs[slot] = stack }
-
-    fun setOutputs(outputs: MutableList<ItemStack>) = also { this.outputs = outputs }
-
-    fun setCatalyst(stack: ItemStack) = also { catalyst = stack }
 
     //    IRecipeWrapper    //
 
@@ -69,6 +58,17 @@ data class LaboRecipe private constructor(private var inputs: MutableList<ItemSt
         var outputs: MutableList<ItemStack> = mutableListOf(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY)
         var catalyst: ItemStack = ItemStack.EMPTY
 
+        fun setInput(slot: Int, stack: ItemStack) = also { inputs[slot] = stack }
+
+        fun setInputs(inputs: MutableList<ItemStack>) = also { this.inputs = inputs }
+
+        fun setOutput(slot: Int, stack: ItemStack) = also { outputs[slot] = stack }
+
+        fun setOutputs(outputs: MutableList<ItemStack>) = also { this.outputs = outputs }
+
+        fun setCatalyst(stack: ItemStack) = also { catalyst = stack }
+
         fun build() = LaboRecipe(inputs, outputs, catalyst)
+
     }
 }

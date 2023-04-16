@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.api.material.IMaterialBlock
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.item.ItemBlockBase
-import hiiragi283.ragi_materials.material.OreProperty
+import hiiragi283.ragi_materials.material.OreProperties
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.properties.PropertyInteger
@@ -22,7 +22,7 @@ import java.awt.Color
 
 class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomModel, IMaterialBlock {
 
-    override val itemBlock = ItemBlockBase(this, OreProperty.mapOre1.size - 1)
+    override val itemBlock = ItemBlockBase(this, OreProperties.mapOre1.size - 1)
 
     companion object {
         val TYPE: PropertyInteger = PropertyInteger.create("type", 0, 15)
@@ -46,8 +46,8 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
 
     override fun getMetaFromState(state: IBlockState): Int = state.getValue(TYPE)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(TYPE, meta % OreProperty.mapOre1.size)", "hiiragi283.ragi_materials.block.BlockOreMaterial.Companion.TYPE", "hiiragi283.ragi_materials.material.OreProperty"))
-    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(TYPE, meta % OreProperty.mapOre1.size)
+    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(TYPE, meta % OreProperties.mapOre1.size)", "hiiragi283.ragi_materials.block.BlockOreMaterial.Companion.TYPE", "hiiragi283.ragi_materials.material.OreProperties"))
+    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(TYPE, meta % OreProperties.mapOre1.size)
 
     //    Client    //
 
@@ -64,7 +64,7 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
     //    IMaterialBlock    //
 
     override fun getColor(world: IBlockAccess, pos: BlockPos, state: IBlockState, tintIndex: Int): Color {
-        val list = OreProperty.listOre1
+        val list = OreProperties.listOre1
         val index = this.getMetaFromState(state) % list.size
         return list[index].second.getColor()
     }
@@ -72,7 +72,7 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
     //    IMaterialItem    //
 
     override fun getColor(stack: ItemStack, tintIndex: Int): Color {
-        val list = OreProperty.listOre1
+        val list = OreProperties.listOre1
         val index = stack.metadata % list.size
         return list[index].second.getColor()
     }

@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.api.capability.EnumIOType
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.api.recipe.MillRecipe
-import hiiragi283.ragi_materials.api.registry.RagiRegistry
+import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.block.BlockStoneMill
 import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.proxy.CommonProxy
@@ -59,7 +59,7 @@ class TileStoneMill : TileItemHandlerBase(105) {
     private fun doProcess() {
         val stack = input.getStackInSlot(0)
         var result = false
-        for (recipe in RagiRegistry.MILL_RECIPE.valuesCollection) {
+        for (recipe in RagiRegistries.MILL_RECIPE.valuesCollection) {
             if (recipe.match(stack)) {
                 canProcess(recipe)
                 result = true

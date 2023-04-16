@@ -9,9 +9,8 @@ import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.config.RagiConfig
 import hiiragi283.ragi_materials.item.ItemMaterial
-import hiiragi283.ragi_materials.material.OreProperty
+import hiiragi283.ragi_materials.material.OreProperties
 import hiiragi283.ragi_materials.proxy.IProxy
 import hiiragi283.ragi_materials.recipe.FFRecipeRegistry
 import hiiragi283.ragi_materials.recipe.LaboRecipeRegistry
@@ -66,7 +65,7 @@ object RagiInit : IProxy {
     val mapMaterialParts: HashMap<MaterialPart, ItemMaterial> = hashMapOf()
 
     override fun onConstruct(event: FMLConstructionEvent) {
-
+        MaterialRegistry.registerMaterials()
     }
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
@@ -108,15 +107,15 @@ object RagiInit : IProxy {
         }
 
         //Ore
-        for (i in OreProperty.listOre1.indices) {
-            OreDictionary.registerOre("ore${OreProperty.listOre1[i].first}", ItemStack(RagiBlocks.BlockOre1, 1, i))
-            OreDictionary.registerOre("crushed${OreProperty.listOre1[i].first}", ItemStack(RagiItems.ItemOreCrushed, 1, i))
+        for (i in OreProperties.listOre1.indices) {
+            OreDictionary.registerOre("ore${OreProperties.listOre1[i].first}", ItemStack(RagiBlocks.BlockOre1, 1, i))
+            OreDictionary.registerOre("crushed${OreProperties.listOre1[i].first}", ItemStack(RagiItems.ItemOreCrushed, 1, i))
         }
         OreDictionary.registerOre("oreSaltpeter", ItemStack(RagiBlocks.BlockOre1, 1, 6))
         OreDictionary.registerOre("oreSaltpeterCrushed", ItemStack(RagiItems.ItemOreCrushed, 1, 6))
 
-        for (i in OreProperty.listVanilla.indices) {
-            OreDictionary.registerOre("crushed${OreProperty.listVanilla[i].first}", ItemStack(RagiItems.ItemOreCrushedVanilla, 1, i))
+        for (i in OreProperties.listVanilla.indices) {
+            OreDictionary.registerOre("crushed${OreProperties.listVanilla[i].first}", ItemStack(RagiItems.ItemOreCrushedVanilla, 1, i))
         }
 
         //Others
@@ -131,18 +130,7 @@ object RagiInit : IProxy {
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        printDebug()
-    }
-
-    private fun printDebug() {
-        //デバッグ用
-        if (RagiConfig.debugMode.isDebug) {
-            //FFRecipe.Registry.printMap()
-            //LaboRecipe.Registry.printMap()
-            MaterialUtil.printMap()
-            //MillRecipe.Registry.printMap()
-            //RagiRegistry.printTiles()
-        }
+        MaterialUtil.printMap()
     }
 
     private val location = ResourceLocation("minecraft:blocks/concrete_powder_white")

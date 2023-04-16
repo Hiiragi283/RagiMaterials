@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.recipe.furnace
 
-import hiiragi283.ragi_materials.util.sameExact
+import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -17,7 +17,7 @@ object SmeltingManager {
         val registry = FurnaceRecipes.instance().smeltingList
         val iterator = registry.keys.iterator()
         while (iterator.hasNext()) {
-            if (iterator.next().sameExact(input)) {
+            if (ItemStackWrapper(iterator.next()) == ItemStackWrapper(input)) {
                 iterator.remove()
                 break
             }
@@ -28,7 +28,7 @@ object SmeltingManager {
         val registry = FurnaceRecipes.instance().smeltingList
         val iterator = registry.values.iterator()
         while (iterator.hasNext()) {
-            if (iterator.next().sameExact(output)) {
+            if (ItemStackWrapper(iterator.next()) == ItemStackWrapper(output)) {
                 iterator.remove()
                 break
             }

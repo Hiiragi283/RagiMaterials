@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import hiiragi283.ragi_materials.api.recipe.MillRecipe
 import net.minecraftforge.registries.IForgeRegistry
 
-object RagiRegistry {
+object RagiRegistries {
 
     lateinit var FF_RECIPE: IForgeRegistry<FFRecipe>
     lateinit var LABO_RECIPE: IForgeRegistry<LaboRecipe>

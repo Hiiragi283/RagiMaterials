@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.recipe.FFRecipe
 import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import hiiragi283.ragi_materials.api.recipe.MillRecipe
-import hiiragi283.ragi_materials.api.registry.RagiRegistry
+import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import mezz.jei.api.*
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
@@ -40,10 +40,10 @@ class JEICore : IModPlugin {
         registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper(it) }, MaterialInfo)
         registry.handleRecipes(MillRecipe::class.java, { MillRecipe(it) }, StoneMill)
 
-        registry.addRecipes(RagiRegistry.FF_RECIPE.valuesCollection, ForgeFurnace)
-        registry.addRecipes(RagiRegistry.LABO_RECIPE.valuesCollection, LaboTable)
+        registry.addRecipes(RagiRegistries.FF_RECIPE.valuesCollection, ForgeFurnace)
+        registry.addRecipes(RagiRegistries.LABO_RECIPE.valuesCollection, LaboTable)
         registry.addRecipes(RagiMaterial.list, MaterialInfo)
-        registry.addRecipes(RagiRegistry.MILL_RECIPE.valuesCollection, StoneMill)
+        registry.addRecipes(RagiRegistries.MILL_RECIPE.valuesCollection, StoneMill)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockForgeFurnace), ForgeFurnace)
         registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockBlazingForge), ForgeFurnace)

@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.api.registry.RagiRegistry
+import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
@@ -83,7 +83,7 @@ class TileForgeFurnace : TileBase(102) {
     private fun doProcess(player: EntityPlayer, hand: EnumHand): Boolean {
         var result = false
         val stack = player.getHeldItem(hand)
-        for (recipe in RagiRegistry.FF_RECIPE.valuesCollection) {
+        for (recipe in RagiRegistries.FF_RECIPE.valuesCollection) {
             if (recipe.match(stack, fuel)) {
                 fuel -= recipe.getFuel() //燃料を減らす
                 RagiMaterials.LOGGER.debug("Fuel: $fuel")

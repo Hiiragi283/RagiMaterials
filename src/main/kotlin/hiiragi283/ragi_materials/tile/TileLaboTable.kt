@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.init.RagiItems
-import hiiragi283.ragi_materials.api.registry.RagiRegistry
+import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.util.RagiResult
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
@@ -31,7 +31,7 @@ class TileLaboTable : TileLaboBase(100), ITileSyncable {
         //サーバー側，かつインベントリが空でない場合
         if (!world.isRemote && !inputs.isEmpty()) {
             //レシピチェック
-            for (recipe in RagiRegistry.LABO_RECIPE.valuesCollection) {
+            for (recipe in RagiRegistries.LABO_RECIPE.valuesCollection) {
                 if (recipe.matchExact(inventory)) {
                     isFailed = false
                     for (i in recipe.getOutputs().indices) {

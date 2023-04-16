@@ -23,6 +23,6 @@ class ClientProxy : CommonProxy() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileBlazingForge::class.java, RenderBlazingForge)
         ClientRegistry.bindTileEntitySpecialRenderer(TileLaboTable::class.java, RenderLaboratoryTable)
         //TEISRの登録
-        //RagiRegistry.ItemBlockIndustrialLabo.tileEntityItemStackRenderer = RagiTEISR
+        //RagiRegistries.ItemBlockIndustrialLabo.tileEntityItemStackRenderer = RagiTEISR
     }
 }

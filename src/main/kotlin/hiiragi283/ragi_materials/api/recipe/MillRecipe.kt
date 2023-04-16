@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.api.recipe
 
-import hiiragi283.ragi_materials.util.same
+import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -18,11 +18,7 @@ data class MillRecipe private constructor(private var input: ItemStack, private 
 
     fun getOutput(): ItemStack = output.copy()
 
-    fun match(input: ItemStack) = this.input.same(input)
-
-    fun setInput(stack: ItemStack) = also { this.input = stack }
-
-    fun setOutput(stack: ItemStack) = also { this.output = stack }
+    fun match(input: ItemStack) = ItemStackWrapper(this.input) == ItemStackWrapper(input)
 
     //    IRecipeWrapper    //
 
@@ -35,6 +31,10 @@ data class MillRecipe private constructor(private var input: ItemStack, private 
 
         var input: ItemStack = ItemStack.EMPTY
         var output: ItemStack = ItemStack.EMPTY
+
+        fun setInput(stack: ItemStack) = also { this.input = stack }
+
+        fun setOutput(stack: ItemStack) = also { this.output = stack }
 
         fun build() = MillRecipe(input, output)
 

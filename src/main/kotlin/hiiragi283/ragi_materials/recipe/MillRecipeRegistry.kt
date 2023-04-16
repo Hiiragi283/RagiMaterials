@@ -1,6 +1,5 @@
 package hiiragi283.ragi_materials.recipe
 
-import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.api.init.RagiItems
 import hiiragi283.ragi_materials.api.material.MaterialUtil
@@ -8,7 +7,7 @@ import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.api.recipe.MillRecipe
-import hiiragi283.ragi_materials.material.OreProperty
+import hiiragi283.ragi_materials.material.OreProperties
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 
@@ -39,7 +38,7 @@ object MillRecipeRegistry {
     private fun recipeOre() {
         val blockOre = RagiBlocks.BlockOre1
         val itemCrushed = RagiItems.ItemOreCrushed
-        for (i in OreProperty.listOre1.indices) {
+        for (i in OreProperties.listOre1.indices) {
             //Ore -> Crushed Ore
             MillRecipe.Builder().apply {
                 input = ItemStack(blockOre, 1, i)
@@ -48,7 +47,7 @@ object MillRecipeRegistry {
             //Crushed Ore -> Dust
             MillRecipe.Builder().apply {
                 input = ItemStack(itemCrushed, 1, i)
-                output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listOre1[i].second.first)
+                output = MaterialUtil.getPart(PartRegistry.DUST, OreProperties.listOre1[i].second.first)
             }.build().setRegistryName("${itemCrushed.registryName}_$i").also { set.add(it) }
         }
     }
@@ -74,7 +73,7 @@ object MillRecipeRegistry {
                 input = ItemStack(itemCrushed, 1, i)
                 //ラピスとレッドストーン用の処理
                 val amount = if (i == 3 || i == 5) 8 else 1
-                output = MaterialUtil.getPart(PartRegistry.DUST, OreProperty.listVanilla[i].second.first, amount)
+                output = MaterialUtil.getPart(PartRegistry.DUST, OreProperties.listVanilla[i].second.first, amount)
             }.build().setRegistryName("${itemCrushed.registryName}_$i").also { set.add(it) }
         }
     }
