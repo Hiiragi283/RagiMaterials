@@ -5,10 +5,10 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.common.Optional.Interface
+import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.registries.IForgeRegistryEntry
 
-@Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
 data class MillRecipe private constructor(private var input: ItemStack, private var output: ItemStack)
     : IForgeRegistryEntry.Impl<MillRecipe>(), IRecipeWrapper {
 

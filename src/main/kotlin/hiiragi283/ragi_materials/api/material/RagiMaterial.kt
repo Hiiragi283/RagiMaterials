@@ -206,7 +206,7 @@ data class RagiMaterial private constructor(
                             validPair.add(part to it)
                         }
                     }
-                } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]}!")
+                } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]?.name}!")
             } else RagiMaterials.LOGGER.warn("The index ${it.index} is smaller than 0!")
         }
     }
@@ -217,7 +217,7 @@ data class RagiMaterial private constructor(
         fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil).also {
             if (mapElement[it.name] == null) {
                 mapElement[it.name] = it
-            } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${mapElement[it.name]}!")
+            } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${mapElement[it.name]?.name}!")
         }
     }
 

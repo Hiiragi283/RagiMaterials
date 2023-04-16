@@ -5,11 +5,11 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.common.Optional.Interface
+import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.registries.IForgeRegistryEntry
 
-@Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
 data class LaboRecipe private constructor(private var inputs: MutableList<ItemStack>, private var outputs: MutableList<ItemStack>, private var catalyst: ItemStack)
     : IForgeRegistryEntry.Impl<LaboRecipe>(), IRecipeWrapper {
 

@@ -16,13 +16,19 @@ fun FluidStack.writeToTag(tag: NBTTagCompound): NBTTagCompound {
 
 object RagiFluidUtil {
 
-    fun getFluidStack(name: String, amount: Int) = FluidStack(FluidRegistry.getFluid(name)
-            ?: FluidRegistry.WATER, amount)
+    fun getFluidStack(name: String, amount: Int) = FluidStack(FluidRegistry.getFluid(name) ?: FluidRegistry.WATER, amount)
 
     fun getBottle(fluidStack: FluidStack, count: Int = 1) = ItemStack(RagiItems.ItemFullBottle, count, 0).also { it.tagCompound = fluidStack.writeToTag(NBTTagCompound()) }
 
-    fun getBottle(name: String, amount: Int = 1000, count: Int = 1) = getBottle(getFluidStack(name, amount), count)
+    fun getBottle(name: String, amount: Int = 1000, count: Int = 1) = ItemStack(RagiItems.ItemFullBottle, count, 0).also { stack ->
+        val tag = NBTTagCompound()
+        tag.setTag("Fluid", NBTTagCompound().also {
+            it.setString("FluidName", name)
+            it.setInteger("Amount", amount)
+        })
+        stack.tagCompound = tag
+    }
 
-    fun getBottle(material: RagiMaterial, amount: Int = 1000, count: Int = 1) = getBottle(getFluidStack(material.name, amount), count)
+    fun getBottle(material: RagiMaterial, amount: Int = 1000, count: Int = 1) = getBottle(material.name, amount, count)
 
 }
