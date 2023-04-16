@@ -84,7 +84,7 @@ object RagiInit : IProxy {
     override fun onInit(event: FMLInitializationEvent) {
         registerFluid()
         registerOreDict()
-        CraftingRegistry.load()
+        CraftingRegistry.addRecipes()
         SmeltingRegistry.load()
     }
 
@@ -131,6 +131,7 @@ object RagiInit : IProxy {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         MaterialUtil.printMap()
+        CraftingRegistry.removeRecipes()
     }
 
     private val location = ResourceLocation("minecraft:blocks/concrete_powder_white")

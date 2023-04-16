@@ -15,9 +15,13 @@ import net.minecraftforge.oredict.OreDictionary
 
 object CraftingRegistry {
 
-    fun load() {
+    fun addRecipes() {
         addCrafting()
         addCraftingMaterial()
+    }
+
+    fun removeRecipes() {
+        //RagiCraftingManager.remove("minecraft:furnace")
     }
 
     private fun addCrafting() {
