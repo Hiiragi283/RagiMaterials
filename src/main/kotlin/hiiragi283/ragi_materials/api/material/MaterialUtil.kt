@@ -57,8 +57,9 @@ object MaterialUtil {
         tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.${material.name}"))) //名称
         material.formula?.let { tooltip.add(I18n.format("tips.ragi_materials.property.formula", it)) } //化学式
         material.molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
-        if (material.tempMelt?.equals(material.tempBoil) == true) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempMelt!!)) //昇華点
-        else {
+        if (material.tempMelt !== null && material.tempBoil !== null) {
+            if (material.tempMelt == material.tempBoil) tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempMelt!!)) //昇華点
+        } else {
             material.tempMelt?.let { tooltip.add(I18n.format("tips.ragi_materials.property.melt", it)) } //融点
             material.tempBoil?.let { tooltip.add(I18n.format("tips.ragi_materials.property.boil", it)) } //沸点
         }

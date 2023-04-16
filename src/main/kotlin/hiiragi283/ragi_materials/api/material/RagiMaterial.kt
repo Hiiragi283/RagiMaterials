@@ -14,6 +14,10 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import java.awt.Color
 
+/**
+ * Register your custom materials until Pre-Initialization
+ */
+
 data class RagiMaterial private constructor(
         val index: Int = -1,
         val name: String = "empty",
@@ -174,7 +178,7 @@ data class RagiMaterial private constructor(
             setComponents(listOf(pair))
         }
 
-        fun build() = RagiMaterial(
+        fun build(): RagiMaterial = RagiMaterial(
                 index,
                 name,
                 type,
