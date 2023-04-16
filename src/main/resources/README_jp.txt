@@ -7,8 +7,9 @@
 
 ## Integration
 
-- [CraftTweaker](https://github.com/Hiiragi283/RagiMaterials/blob/master/crafttweaker.md)
 - Just Enough Items/Had Enough Items
+- Mekanism
+- Waila/Hwyla
 
 ## Changelog
 
@@ -16,7 +17,8 @@
 
 ## License
 
-- このmodは以下のライセンスに則って公開されます: [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
+-
+このmodは以下のライセンスに則って公開されます: [Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 
 ## Contributor
 
@@ -26,5 +28,6 @@
     - [karakufire](https://github.com/karakufire)
     - [Sayamame-beans](https://github.com/Sayamame-beans)
     - [SkyTheory](https://github.com/SkyTheory)
+    - [t5ugu](https://github.com/t5ugu)
     - [toliner](https://github.com/toliner)
     - [tsukimimushi](https://twitter.com/Tsukimimushi)

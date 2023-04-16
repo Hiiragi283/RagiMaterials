@@ -9,8 +9,9 @@
 
 ## Integration
 
-- [CraftTweaker](https://github.com/Hiiragi283/RagiMaterials/blob/master/crafttweaker.md)
 - Just Enough Items/Had Enough Items
+- Mekanism
+- Waila/Hwyla
 
 ## Changelog
 
@@ -29,5 +30,6 @@
     - [karakufire](https://github.com/karakufire)
     - [Sayamame-beans](https://github.com/Sayamame-beans)
     - [SkyTheory](https://github.com/SkyTheory)
+    - [t5ugu](https://github.com/t5ugu)
     - [toliner](https://github.com/toliner)
     - [tsukimimushi](https://twitter.com/Tsukimimushi)
