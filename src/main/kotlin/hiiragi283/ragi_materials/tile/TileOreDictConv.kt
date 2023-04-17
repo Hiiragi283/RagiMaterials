@@ -20,7 +20,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.oredict.OreDictionary
 
-class TileOreDictConv : TileItemHandlerBase(107), ITickable {
+class TileOreDictConv : TileItemHandlerBase(), ITickable {
 
     val input = RagiItemHandler(1).setIOType(EnumIOType.INPUT)
     val output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
@@ -44,13 +44,13 @@ class TileOreDictConv : TileItemHandlerBase(107), ITickable {
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, facing)) inventory as T else null
+        return if (hasCapability(capability, facing)) CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean = capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 
 
-    //    ITileActivatable    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)

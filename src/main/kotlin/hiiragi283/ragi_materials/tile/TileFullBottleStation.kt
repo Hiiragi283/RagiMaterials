@@ -22,11 +22,11 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
 
-class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
+class TileFullBottleStation : TileItemHandlerBase(), ITickable {
 
-    val input = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
-    val inventory = RagiItemHandlerWrapper(input)
-    val tank = RagiTank(64000)
+    val output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+    val inventory = RagiItemHandlerWrapper(output)
+    private val tank = RagiTank(64000)
     var count = 0
 
     init {
@@ -52,8 +52,8 @@ class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         return when (capability) {
-            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY -> inventory as T
-            CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY -> tank as T
+            CapabilityItemHandler.ITEM_HANDLER_CAPABILITY -> CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory)
+            CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY -> CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank)
             else -> super.getCapability(capability, facing)
         }
     }
@@ -74,8 +74,8 @@ class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
             val amountRemain = tank.fluidAmount % 1000 //タンクに残る液体量
             val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
             //作成個数が0より多い場合
-            if (countBottle > 0 && tank.fluid !== null && input.getStackInSlot(0).isEmpty) {
-                input.insertItem(0, RagiFluidUtil.getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
+            if (countBottle > 0 && tank.fluid !== null && output.getStackInSlot(0).isEmpty) {
+                output.insertItem(0, RagiFluidUtil.getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
                 if (amountRemain > 0) {
                     tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き
                 } else {
@@ -86,7 +86,7 @@ class TileFullBottleStation : TileItemHandlerBase(101), ITickable {
         } else count++ //countを追加
     }
 
-    //    ITileActivatable    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         val fluidHandler = FluidUtil.getFluidHandler(player.getHeldItem(hand))

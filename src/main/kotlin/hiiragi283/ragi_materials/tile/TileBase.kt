@@ -14,7 +14,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileBase(open val type: Int) : TileEntity() {
+abstract class TileBase : TileEntity() {
 
     val keyEnergy = "energy"
     val keyGas = "gas"
@@ -33,10 +33,10 @@ abstract class TileBase(open val type: Int) : TileEntity() {
 
     //    Packet    //
 
-    override fun getUpdatePacket() = SPacketUpdateTileEntity(pos, type, updateTag) //NBTタグの情報を送る
+    override fun getUpdatePacket() = SPacketUpdateTileEntity(pos, 0, updateTag) //NBTタグの情報を送る
 
     override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
-        this.readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
+        readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む
     }
 
     /**

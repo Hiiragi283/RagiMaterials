@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 
-class TileBlazingForge : TileBase(103) {
+class TileBlazingForge : TileBase() {
 
     private val mapFuel = RagiUtil.convertArrayTomMap(RagiConfig.recipeMap.fuelBlazingForge)
 
@@ -42,7 +42,7 @@ class TileBlazingForge : TileBase(103) {
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, null)) tank as T else null
+        return if (hasCapability(capability, null)) CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank) else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {

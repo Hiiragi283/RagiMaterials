@@ -14,12 +14,12 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 
-class TileLaboTable : TileLaboBase(100), ITileSyncable {
+class TileLaboTable : TileLaboBase(), ITileSyncable {
 
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, facing)) inventory as T else null
+        return if (hasCapability(capability, facing)) CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?) = capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY

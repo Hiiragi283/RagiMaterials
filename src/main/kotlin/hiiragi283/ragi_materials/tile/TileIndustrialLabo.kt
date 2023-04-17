@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.capability.RagiEnergyStorage
+import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.util.RagiUtil
 import hiiragi283.ragi_materials.util.SoundManager
@@ -13,12 +14,13 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.items.CapabilityItemHandler
 
-class TileIndustrialLabo : TileLaboBase(104), ITickable {
+class TileIndustrialLabo : TileLaboBase(), ITickable {
 
     private val battery = RagiEnergyStorage(64000)
-
     private var count = 0
     var front = EnumFacing.NORTH
+
+    private var cache: LaboRecipe? = null
 
     //    NBT tag    //
 
@@ -40,11 +42,11 @@ class TileIndustrialLabo : TileLaboBase(104), ITickable {
             CapabilityItemHandler.ITEM_HANDLER_CAPABILITY -> {
                 when (facing) {
                     front -> null
-                    else -> inventory as T
+                    else -> CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory)
                 }
             }
 
-            CapabilityEnergy.ENERGY -> battery as T
+            CapabilityEnergy.ENERGY -> CapabilityEnergy.ENERGY.cast(battery)
             else -> super.getCapability(capability, facing)
         }
     }
@@ -66,26 +68,41 @@ class TileIndustrialLabo : TileLaboBase(104), ITickable {
             //サーバー側，かつインベントリが空でない場合
             if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
                 //レシピチェック
-                for (recipe in RagiRegistries.LABO_RECIPE.valuesCollection) {
-                    if (recipe.match(inventory)) {
-                        for (i in 0..4) {
-                            val input = recipe.getInput(i)
-                            val output = recipe.getOutput(i)
-                            if (!inputs.getStackInSlot(i).isEmpty && !input.isEmpty) {
-                                inputs.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
-                                RagiMaterials.LOGGER.debug("The slot$i is decreased!")
-                            }
-                            RagiUtil.dropItem(world, pos.offset(front), output)
-                            RagiMaterials.LOGGER.debug("The output is ${output.toBracket()}")
+                if (cacheRecipe()) {
+                    RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
+                    for (i in 0..4) {
+                        val input = cache!!.getInput(i)
+                        val output = cache!!.getOutput(i)
+                        if (!inputs.getStackInSlot(i).isEmpty && !input.isEmpty) {
+                            inputs.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
+                            RagiMaterials.LOGGER.debug("The slot$i is decreased!")
                         }
-                        battery.extractEnergy(1000, false)
-                        SoundManager.playSound(this, SoundManager.getSound("minecraft:block.piston.extend"))
-                        break
+                        RagiUtil.dropItem(world, pos.offset(front), output)
+                        RagiMaterials.LOGGER.debug("The output is ${output.toBracket()}")
                     }
+                    battery.extractEnergy(1000, false)
+                    SoundManager.playSound(this, SoundManager.getSound("minecraft:block.piston.extend"))
                 }
             }
             count = 0 //countをリセット
         } else count++ //countを追加
+    }
+
+    private fun cacheRecipe(): Boolean {
+        var result = false
+        //cacheが空の場合，新規で検索する
+        if (cache == null) {
+            for (recipe in RagiRegistries.LABO_RECIPE.valuesCollection) {
+                if (recipe.match(inventory)) {
+                    cache = recipe
+                    result = true
+                    break
+                }
+            }
+        }
+        //cacheがある場合，それが現在のレシピに適応できないなら空にする
+        else if (cache!!.match(inventory)) result = true else cache = null
+        return result
     }
 
     //    TileItemHandlerBase    //

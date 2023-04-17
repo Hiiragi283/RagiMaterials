@@ -14,7 +14,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
+abstract class TileLaboBase() : TileItemHandlerBase() {
 
     val inputs = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
     val catalyst = RagiItemHandler(1).setIOType(EnumIOType.CATALYST)
@@ -33,7 +33,7 @@ abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
         inventory.deserializeNBT(tag.getCompoundTag(keyInventory))
     }
 
-    //    ITileActivatable    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
@@ -43,6 +43,5 @@ abstract class TileLaboBase(type: Int) : TileItemHandlerBase(type) {
     //    TileItemHandlerBase    //
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerLaboTable(player, this)
-
 
 }

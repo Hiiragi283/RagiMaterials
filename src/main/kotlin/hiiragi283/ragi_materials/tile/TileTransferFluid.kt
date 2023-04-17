@@ -7,7 +7,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.fluids.capability.IFluidTankProperties
 
-class TileTransferFluid : TileTransferBase<IFluidHandler>(109), ITickable {
+class TileTransferFluid : TileTransferBase<IFluidHandler>(), ITickable {
 
     override var storageFrom: IFluidHandler? = null
     override var storageTo: IFluidHandler? = null

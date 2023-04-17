@@ -18,7 +18,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
-class TileForgeFurnace : TileBase(102) {
+class TileForgeFurnace : TileBase() {
 
     var fuel = 0
     var fuelMax = 200 * 80 * 64
@@ -53,7 +53,7 @@ class TileForgeFurnace : TileBase(102) {
     //    Capability    //
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, null)) inventory as T else null
+        return if (hasCapability(capability, null)) CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) else null
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {

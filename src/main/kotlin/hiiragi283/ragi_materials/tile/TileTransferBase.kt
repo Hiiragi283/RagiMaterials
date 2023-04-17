@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 
-abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable {
+abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 
     private var tileFrom: TileEntity? = null
     private var tileTo: TileEntity? = null
@@ -36,7 +36,7 @@ abstract class TileTransferBase<T : Any>(type: Int) : TileBase(type), ITickable 
         return if (tileFrom !== null && tileFrom !is TileTransferBase<*>) tileFrom!!.hasCapability(capability, facing) else false
     }
 
-    //    ITileActivatable    //
+    //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
         if (!world.isRemote) {

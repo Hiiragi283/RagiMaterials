@@ -5,7 +5,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
-class TileTransferEnergy : TileTransferBase<IEnergyStorage>(108), ITickable {
+class TileTransferEnergy : TileTransferBase<IEnergyStorage>(), ITickable {
 
     override var storageFrom: IEnergyStorage? = null
     override var storageTo: IEnergyStorage? = null

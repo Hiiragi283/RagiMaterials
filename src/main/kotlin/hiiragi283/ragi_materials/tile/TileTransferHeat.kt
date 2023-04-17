@@ -5,7 +5,7 @@ import hiiragi283.ragi_materials.api.capability.heat.IHeatStorage
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
 
-class TileTransferHeat : TileTransferBase<IHeatStorage>(108), ITickable {
+class TileTransferHeat : TileTransferBase<IHeatStorage>(), ITickable {
 
     override var storageFrom: IHeatStorage? = null
     override var storageTo: IHeatStorage? = null

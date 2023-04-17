@@ -6,7 +6,7 @@ import mekanism.common.capabilities.Capabilities
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
 
-class TileTransferGas : TileTransferBase<IGasHandler>(200), ITickable {
+class TileTransferGas : TileTransferBase<IGasHandler>(), ITickable {
 
     override var storageFrom: IGasHandler? = null
     override var storageTo: IGasHandler? = null
