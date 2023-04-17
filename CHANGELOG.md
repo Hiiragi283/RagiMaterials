@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.8.1a
+
+- **Removed custom material registration with JSON**
+  - Use API package instead of this
+- Fixed the bug device recipes only processed with same amount stacks
+- Now the entry in FFRecipe/LaboRecipe/MillRecipe registries can be removed
+
 ## v0.8.0a
 
 - **Added API Package for other developers**

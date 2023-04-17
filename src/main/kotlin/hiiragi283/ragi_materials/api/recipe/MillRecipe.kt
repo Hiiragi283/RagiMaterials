@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.api.recipe
 
-import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
+import hiiragi283.ragi_materials.api.stack.ItemMetaNBT
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -18,7 +18,7 @@ data class MillRecipe private constructor(private var input: ItemStack, private 
 
     fun getOutput(): ItemStack = output.copy()
 
-    fun match(input: ItemStack) = ItemStackWrapper(this.input) == ItemStackWrapper(input)
+    fun match(input: ItemStack) = ItemMetaNBT(this.input) == ItemMetaNBT(input)
 
     //    IRecipeWrapper    //
 

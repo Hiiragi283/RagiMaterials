@@ -4,7 +4,6 @@ import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.capability.EnumIOType
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
-import hiiragi283.ragi_materials.api.recipe.MillRecipe
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.block.BlockStoneMill
 import hiiragi283.ragi_materials.container.ContainerStoneMill
@@ -50,18 +49,14 @@ class TileStoneMill : TileItemHandlerBase(105) {
 
     //    Recipe    //
 
-    private fun canProcess(recipe: MillRecipe) {
-        input.extractItem(0, recipe.getInput().count, false)
-        val stackExtra = output.insertItem(0, recipe.getOutput(), false)
-        if (!stackExtra.isEmpty) RagiUtil.dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
-    }
-
     private fun doProcess() {
         val stack = input.getStackInSlot(0)
         var result = false
         for (recipe in RagiRegistries.MILL_RECIPE.valuesCollection) {
             if (recipe.match(stack)) {
-                canProcess(recipe)
+                input.extractItem(0, recipe.getInput().count, false)
+                val stackExtra = output.insertItem(0, recipe.getOutput(), false)
+                if (!stackExtra.isEmpty) RagiUtil.dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
                 result = true
                 break
             }

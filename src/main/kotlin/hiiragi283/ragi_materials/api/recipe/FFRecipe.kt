@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.api.recipe
 
 import hiiragi283.ragi_materials.api.material.IMaterialItem
-import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
+import hiiragi283.ragi_materials.api.stack.ItemMetaNBT
 import hiiragi283.ragi_materials.item.ItemMaterial
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
@@ -24,7 +24,7 @@ data class FFRecipe private constructor(private val input: ItemStack, private va
 
     fun getFuel() = fuel
 
-    fun match(input: ItemStack, fuel: Int) = ItemStackWrapper(this.input) == ItemStackWrapper(input) && fuel >= this.fuel
+    fun match(input: ItemStack, fuel: Int) = ItemMetaNBT(this.input) == ItemMetaNBT(input) && fuel >= this.fuel
 
     //    IRecipeWrapper    //
 
