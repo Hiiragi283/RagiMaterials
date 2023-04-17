@@ -1,14 +1,17 @@
 package hiiragi283.ragi_materials.recipe.workbench
 
 import hiiragi283.ragi_materials.RagiMaterials
+import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.util.toLocation
 import net.minecraft.item.ItemStack
-import net.minecraft.item.crafting.*
+import net.minecraft.item.crafting.CraftingManager
+import net.minecraft.item.crafting.Ingredient
+import net.minecraft.item.crafting.ShapedRecipes
+import net.minecraft.item.crafting.ShapelessRecipes
 import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
-import net.minecraftforge.registries.IForgeRegistryModifiable
 
 object RagiCraftingManager {
 
@@ -51,11 +54,13 @@ object RagiCraftingManager {
     }
 
     //クラフトレシピを削除するメソッド
+    fun remove(registryName: ResourceLocation) {
+        CraftingManager.getRecipe(registryName)?.let {
+            RagiRegistries.remove(ForgeRegistries.RECIPES, registryName)
+        } ?: RagiMaterials.LOGGER.debug("The recipe $registryName was not found...")
+    }
+
     fun remove(registryName: String) {
-        val location = ResourceLocation(registryName)
-        CraftingManager.getRecipe(location)?.let {
-            (ForgeRegistries.RECIPES as IForgeRegistryModifiable<IRecipe>).remove(location)
-            RagiMaterials.LOGGER.debug("The recipe $location was removed!")
-        }?: RagiMaterials.LOGGER.debug("The recipe $registryName was not found...")
+        remove(ResourceLocation((registryName)))
     }
 }

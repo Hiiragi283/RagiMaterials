@@ -12,9 +12,6 @@ import hiiragi283.ragi_materials.api.material.type.TypeRegistry
 import hiiragi283.ragi_materials.item.ItemMaterial
 import hiiragi283.ragi_materials.material.OreProperties
 import hiiragi283.ragi_materials.proxy.IProxy
-import hiiragi283.ragi_materials.recipe.FFRecipeRegistry
-import hiiragi283.ragi_materials.recipe.LaboRecipeRegistry
-import hiiragi283.ragi_materials.recipe.MillRecipeRegistry
 import hiiragi283.ragi_materials.recipe.furnace.SmeltingRegistry
 import hiiragi283.ragi_materials.recipe.workbench.CraftingRegistry
 import net.minecraft.block.Block
@@ -71,14 +68,6 @@ object RagiInit : IProxy {
     override fun onPreInit(event: FMLPreInitializationEvent) {
         RagiBlocks.load()
         RagiItems.load()
-        registerRecipes()
-    }
-
-    private fun registerRecipes() {
-        //レシピの登録
-        FFRecipeRegistry.load()
-        LaboRecipeRegistry.load()
-        MillRecipeRegistry.load()
     }
 
     override fun onInit(event: FMLInitializationEvent) {

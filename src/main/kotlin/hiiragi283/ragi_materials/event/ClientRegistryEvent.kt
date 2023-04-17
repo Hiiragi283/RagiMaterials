@@ -70,5 +70,4 @@ object ClientRegistryEvent {
         }, *RagiInit.setIMaterialItems.toTypedArray())
 
     }
-
 }

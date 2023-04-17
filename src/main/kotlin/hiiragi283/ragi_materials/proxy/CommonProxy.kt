@@ -7,13 +7,13 @@ import hiiragi283.ragi_materials.client.gui.GuiFullBottle
 import hiiragi283.ragi_materials.client.gui.GuiLaboTable
 import hiiragi283.ragi_materials.client.gui.GuiOreDictConv
 import hiiragi283.ragi_materials.client.gui.GuiStoneMill
-import hiiragi283.ragi_materials.config.JsonConfig
 import hiiragi283.ragi_materials.container.ContainerFullBottle
 import hiiragi283.ragi_materials.container.ContainerLaboTable
 import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
 import hiiragi283.ragi_materials.event.NewRegistryEvent
+import hiiragi283.ragi_materials.event.RecipeRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.network.RagiNetworkManager
 import hiiragi283.ragi_materials.tile.*
@@ -39,6 +39,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
         //イベントの登録
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
         MinecraftForge.EVENT_BUS.register(NewRegistryEvent)
+        MinecraftForge.EVENT_BUS.register(RecipeRegistryEvent)
         //ForgeのUniversal Bucketを使えるようにする
         FluidRegistry.enableUniversalBucket()
         //連携要素の登録
@@ -81,18 +82,11 @@ abstract class CommonProxy : IGuiHandler, IProxy {
     //Post-Initializationで読み込むメソッド
     override fun onPostInit(event: FMLPostInitializationEvent) {
         //Jsonの読み取り
-        loadJson()
+        //loadJson()
         //連携要素の登録
         IntegrationCore.onPostInit(event)
         //設備レシピの登録
         RagiInit.onPostInit(event)
-    }
-
-    private fun loadJson() {
-        //Json configの読み取り
-        JsonConfig.loadJson()
-        //Json configの生成
-        JsonConfig.generateJson()
     }
 
     companion object {
