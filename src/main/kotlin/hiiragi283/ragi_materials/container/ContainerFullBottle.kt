@@ -6,10 +6,10 @@ import net.minecraft.item.ItemStack
 
 class ContainerFullBottle(player: EntityPlayer, override val tile: TileFullBottleStation) : ContainerBase<TileFullBottleStation>(player, tile) {
 
-    val input = tile.input
+    val output = tile.output
 
     init {
-        addSlotToContainer(SlotOutItemHandler(input, 0, 44 + 2 * 18, 20))
+        addSlotToContainer(SlotOutItemHandler(output, 0, 44 + 2 * 18, 20))
         initSlotsPlayer(51)
     }
 
@@ -21,10 +21,11 @@ class ContainerFullBottle(player: EntityPlayer, override val tile: TileFullBottl
         if (slot.hasStack) {
             val stackSlot = slot.stack
             stack = stackSlot.copy()
-            if (index == 0) {
-                if (!mergeItemStack(stackSlot, input.slots + 1, inventorySlots.size, true)) return ItemStack.EMPTY
-            } else {
-                if (!mergeItemStack(stackSlot, input.slots, inventorySlots.size, true)) return ItemStack.EMPTY
+            when (index) {
+                //Output -> Inventory, Hotbar
+                0 -> if (!mergeItemStack(stackSlot, 1, inventorySlots.size, true)) return ItemStack.EMPTY
+                //Inventory, Hotbar -> Input
+                else -> if (!mergeItemStack(stackSlot, 0, 1, true)) return ItemStack.EMPTY
             }
             if (stackSlot.isEmpty) slot.putStack(ItemStack.EMPTY) else slot.onSlotChanged()
         }

@@ -27,13 +27,9 @@ class ContainerStoneMill(player: EntityPlayer, tile: TileStoneMill) : ContainerB
             stack = stackSlot.copy()
             when (index) {
                 //Input, Output -> Inventory, Hotbar
-                in 0..1 -> {
-                    if (!mergeItemStack(stackSlot, 2, inventorySlots.size, true)) return ItemStack.EMPTY
-                }
+                in 0..1 -> if (!mergeItemStack(stackSlot, 2, inventorySlots.size, true)) return ItemStack.EMPTY
                 //Inventory, Hotbar -> Input
-                else -> {
-                    if (!mergeItemStack(stackSlot, 0, 1, true)) return ItemStack.EMPTY
-                }
+                else -> if (!mergeItemStack(stackSlot, 0, 1, true)) return ItemStack.EMPTY
             }
             if (stackSlot.isEmpty) slot.putStack(ItemStack.EMPTY) else slot.onSlotChanged()
         }

@@ -3,14 +3,8 @@ package hiiragi283.ragi_materials.proxy
 import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
-import hiiragi283.ragi_materials.client.gui.GuiFullBottle
-import hiiragi283.ragi_materials.client.gui.GuiLaboTable
-import hiiragi283.ragi_materials.client.gui.GuiOreDictConv
-import hiiragi283.ragi_materials.client.gui.GuiStoneMill
-import hiiragi283.ragi_materials.container.ContainerFullBottle
-import hiiragi283.ragi_materials.container.ContainerLaboTable
-import hiiragi283.ragi_materials.container.ContainerOreDictConv
-import hiiragi283.ragi_materials.container.ContainerStoneMill
+import hiiragi283.ragi_materials.client.gui.*
+import hiiragi283.ragi_materials.container.*
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
 import hiiragi283.ragi_materials.event.NewRegistryEvent
 import hiiragi283.ragi_materials.event.RecipeRegistryEvent
@@ -102,6 +96,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
+                    is TileFireboxPrimitive -> container = ContainerFirebox(player, tile)
                     is TileFullBottleStation -> container = ContainerFullBottle(player, tile)
                     is TileIndustrialLabo -> container = ContainerLaboTable(player, tile)
                     is TileLaboTable -> container = ContainerLaboTable(player, tile)
@@ -121,6 +116,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
+                    is TileFireboxPrimitive -> gui = GuiFirebox(player, tile)
                     is TileFullBottleStation -> gui = GuiFullBottle(player, tile)
                     is TileIndustrialLabo -> gui = GuiLaboTable(player, tile)
                     is TileLaboTable -> gui = GuiLaboTable(player, tile)

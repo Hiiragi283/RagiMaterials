@@ -14,6 +14,7 @@ object RagiBlocks {
     val BlockSoilAir = BlockSoilAir()
 
     val BlockBlazingForge = BlockBlazingForge()
+    val BlockFireboxPrimitive = BlockFireboxPrimitive()
     val BlockForgeFurnace = BlockForgeFurnace()
     val BlockFullBottleStation = BlockFullBottleStation()
     val BlockIndustrialLabo = BlockIndustrialLabo()
