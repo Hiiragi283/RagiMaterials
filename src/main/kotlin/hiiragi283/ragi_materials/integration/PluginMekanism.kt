@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.integration
 
 import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.block.BlockTransferBase
-import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.util.RagiColor
 import hiiragi283.ragi_materials.proxy.IProxy
 import hiiragi283.ragi_materials.tile.TileTransferGas
 import net.minecraftforge.fml.common.event.FMLConstructionEvent

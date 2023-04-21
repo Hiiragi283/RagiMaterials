@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.item.ItemBlockBase
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.dropItemAtPlayer
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -45,7 +45,7 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomMode
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         var result = super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ)
         if (player.isSneaking) {
-            RagiUtil.dropItemAtPlayer(player, ItemStack(this)) //シフト右クリックで回収
+            dropItemAtPlayer(player, ItemStack(this)) //シフト右クリックで回収
             world.setBlockToAir(pos) //ブロックを消去
             result = true
         }
@@ -62,7 +62,7 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomMode
             val lootTable = world.lootTableManager.getLootTableFromLocation(RagiInit.OreRainbow)
             val results = lootTable.generateLootForPools(world.rand, builder)
             for (result in results) {
-                if (!result.isEmpty) RagiUtil.dropItemAtPlayer(player, result) //生成物を足元にドロップ
+                if (!result.isEmpty) dropItemAtPlayer(player, result) //生成物を足元にドロップ
             }
         }
     }

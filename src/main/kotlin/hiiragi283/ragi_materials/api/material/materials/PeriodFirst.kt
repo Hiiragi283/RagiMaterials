@@ -4,8 +4,8 @@ import hiiragi283.ragi_materials.api.material.ElementRegistry
 import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.util.ColorUtil
+import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraft.item.EnumRarity
 
 object PeriodFirst {
@@ -33,7 +33,7 @@ object PeriodFirst {
         }.build()
 
         MaterialRegistry.ICE = RagiMaterial.Builder(13, "ice", TypeRegistry.INGOT).setComponents(listOf(MaterialRegistry.WATER to 1)).apply {
-            color = ColorManager.mixColor(RagiColor.AQUA, RagiColor.WHITE)
+            color = ColorUtil.mixColor(RagiColor.AQUA, RagiColor.WHITE)
         }.build()
 
         MaterialRegistry.DEUTERIUM = RagiMaterial.Builder(14, "deuterium", TypeRegistry.GAS).setSimple(ElementRegistry.DEUTERIUM to 2).apply {

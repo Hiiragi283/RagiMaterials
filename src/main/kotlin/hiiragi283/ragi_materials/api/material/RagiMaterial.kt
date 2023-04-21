@@ -6,8 +6,9 @@ import hiiragi283.ragi_materials.api.material.part.PartRegistry
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.MaterialType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.color.ColorManager
+import hiiragi283.ragi_materials.util.ColorUtil
 import hiiragi283.ragi_materials.util.snakeToUpperCamelCase
+import net.minecraft.client.resources.I18n
 import net.minecraft.item.EnumRarity
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid
@@ -36,18 +37,26 @@ data class RagiMaterial private constructor(
 ) {
 
     companion object {
+        @JvmStatic
         val EMPTY = RagiMaterial()
 
-        val list: MutableList<RagiMaterial> = mutableListOf()
-        val mapIndex: LinkedHashMap<Int, RagiMaterial> = linkedMapOf()
-        val mapName: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
-        val mapElement: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
-
-        val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
     }
 
     //nameから液体を取得するメソッド
     fun getFluid(): Fluid? = FluidRegistry.getFluid(this.name)
+
+    //materialのツールチップを生成するメソッド
+    fun getTooltip(tooltip: MutableList<String>) {
+        tooltip.add("§e=== Property ===")
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.$name"))) //名称
+        formula?.let { tooltip.add(I18n.format("tips.ragi_materials.property.formula", it)) } //化学式
+        molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
+        if (tempMelt !== null && tempBoil !== null && tempMelt == tempBoil) tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempMelt!!)) //昇華点
+        else {
+            tempMelt?.let { tooltip.add(I18n.format("tips.ragi_materials.property.melt", it)) } //融点
+            tempBoil?.let { tooltip.add(I18n.format("tips.ragi_materials.property.boil", it)) } //沸点
+        }
+    }
 
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String = this.name.snakeToUpperCamelCase()
@@ -55,6 +64,9 @@ data class RagiMaterial private constructor(
     //素材が空か判定するメソッド
     fun isEmpty(): Boolean = this == EMPTY
     fun isNotEmpty(): Boolean = !isEmpty()
+
+    //部品と素材の組み合わせが有効か判定するメソッド
+    fun isValidPart(part: MaterialPart): Boolean = part.type in type.list
 
     //()つきの化学式を返すメソッド
     fun setBracket(): RagiMaterial = Formula("(${this.formula})").build()
@@ -109,7 +121,7 @@ data class RagiMaterial private constructor(
             val materials = builder.components.toMap().keys
             //自動で生成
             builder.color = initColor()
-            builder.formula = MaterialUtil.getFormula(components)
+            builder.formula = initFormula()
             builder.molar = initMolar()
             //合金の場合
             if (materials.all { it.type == TypeRegistry.METAL }) {
@@ -122,7 +134,33 @@ data class RagiMaterial private constructor(
         private fun initColor(): Color {
             val mapColor: MutableMap<Color, Int> = mutableMapOf()
             components.forEach { mapColor[it.first.color] = it.second }
-            return ColorManager.mixColor(mapColor)
+            return ColorUtil.mixColor(mapColor)
+        }
+
+        //化学式を自動で生成するメソッド
+        private fun initFormula(): String {
+            //変数の宣言・初期化
+            var formula = ""
+            var subscript: String
+            var subscript1 = '\u2080'
+            var subscript10 = '\u2080'
+            components.forEach {
+                //文字を代入する
+                formula += it.first.formula
+                val weight = it.second
+                //化学式の下付き数字の桁数調整
+                if (weight in 2..9) subscript1 = '\u2080' + weight
+                else if (weight in 10..99) {
+                    subscript1 = '\u2080' + (weight % 10)
+                    subscript10 = '\u2080' + (weight / 10)
+                }
+                //2桁目が0でない場合，下付き数字を2桁にする
+                subscript = if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
+                //下付き数字を代入する
+                if (weight > 1) formula += subscript
+            }
+            //化学式を返す
+            return formula
         }
 
         //モル質量を自動で生成するメソッド
@@ -197,16 +235,16 @@ data class RagiMaterial private constructor(
             //indexが負の値でない場合
             if (it.index >= 0) {
                 //同じindex, nameで登録されていない場合
-                if (mapIndex[it.index] == null && mapName[it.name] == null) {
-                    list.add(it)
-                    mapIndex[it.index] = it
-                    mapName[it.name] = it
+                if (MaterialRegistry.mapIndex[it.index] == null && MaterialRegistry.mapName[it.name] == null) {
+                    MaterialRegistry.list.add(it)
+                    MaterialRegistry.mapIndex[it.index] = it
+                    MaterialRegistry.mapName[it.name] = it
                     PartRegistry.list.forEach { part ->
-                        if (MaterialUtil.isValidPart(part, it)) {
-                            validPair.add(part to it)
+                        if (it.isValidPart(part)) {
+                            MaterialRegistry.validPair.add(part to it)
                         }
                     }
-                } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${mapIndex[it.index]?.name}!")
+                } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${MaterialRegistry.mapIndex[it.index]?.name}!")
             } else RagiMaterials.LOGGER.warn("The index ${it.index} is smaller than 0!")
         }
     }
@@ -215,9 +253,9 @@ data class RagiMaterial private constructor(
     class Element(val name: String, val type: MaterialType, val color: Color, val molar: Float, val formula: String, val tempMelt: Int, val tempBoil: Int) {
 
         fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil).also {
-            if (mapElement[it.name] == null) {
-                mapElement[it.name] = it
-            } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${mapElement[it.name]?.name}!")
+            if (MaterialRegistry.mapElement[it.name] == null) {
+                MaterialRegistry.mapElement[it.name] = it
+            } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${MaterialRegistry.mapElement[it.name]?.name}!")
         }
     }
 

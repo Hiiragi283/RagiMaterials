@@ -3,7 +3,7 @@ package hiiragi283.ragi_materials.item
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.init.RagiItems
 import hiiragi283.ragi_materials.api.material.IMaterialItem
-import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
@@ -12,7 +12,9 @@ import hiiragi283.ragi_materials.api.material.type.EnumMaterialType
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.dropItemAtPlayer
+import hiiragi283.ragi_materials.util.getMaterialFromIndex
+import hiiragi283.ragi_materials.util.getPart
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
@@ -59,7 +61,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
                         //崩壊後の素材を取得
                         val decayed = material.decayed
                         if (decayed !== null && !decayed.isEmpty()) {
-                            RagiUtil.dropItemAtPlayer(entity, ItemStack(this, 1, decayed.index))
+                            dropItemAtPlayer(entity, ItemStack(this, 1, decayed.index))
                         }
                     }
                 }
@@ -71,7 +73,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
-        MaterialUtil.materialInfo(getMaterial(stack), tooltip)
+        getMaterial(stack).getTooltip(tooltip)
     }
 
     @SideOnly(Side.CLIENT)
@@ -80,9 +82,9 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (this.isInCreativeTab(tab)) {
-            for (material in RagiMaterial.list) {
-                if (MaterialUtil.isValidPart(part, material)) {
-                    subItems.add(MaterialUtil.getPart(part, material))
+            for (material in MaterialRegistry.list) {
+                if (material.isValidPart(part)) {
+                    subItems.add(getPart(part, material))
                 }
             }
         }
@@ -143,7 +145,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialUtil.getMaterial(stack.metadata)
+    override fun getMaterial(stack: ItemStack): RagiMaterial = getMaterialFromIndex(stack.metadata)
 
     override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack.also { it.itemDamage = material.index } //メタデータを上書き
 

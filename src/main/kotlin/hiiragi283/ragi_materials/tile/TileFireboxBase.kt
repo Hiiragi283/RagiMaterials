@@ -1,36 +1,41 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.api.capability.EnumIOType
-import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
-import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
-import hiiragi283.ragi_materials.container.ContainerLaboTable
+import hiiragi283.ragi_materials.api.capability.heat.HeatStorage
 import hiiragi283.ragi_materials.proxy.CommonProxy
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-abstract class TileLaboBase : TileItemHandlerBase() {
+abstract class TileFireboxBase(heat: Int) : TileItemHandlerBase(), ITickable {
 
-    val inputs = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
-    val catalyst = RagiItemHandler(1).setIOType(EnumIOType.CATALYST)
-    val inventory = RagiItemHandlerWrapper(inputs, catalyst)
+    var count = 0
+    val heat = object : HeatStorage(heat) {
+
+        override fun onOverheated() {
+            if (hasWorld() && !world.isRemote) {
+                world.createExplosion(null, pos.x.toDouble() + 0.5, pos.y.toDouble() + 0.5, pos.z.toDouble() + 0.5, 4.0f, false) //爆破オチなんてサイテー!
+                world.destroyBlock(pos, true) //自身を破壊
+                world.removeTileEntity(pos) //Tile Entityも削除
+            }
+        }
+    }
 
     //    NBT tag    //
 
     override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(tag)
-        tag.setTag(keyInventory, inventory.serializeNBT())
+        tag.setTag(keyHeat, heat.serializeNBT())
         return tag
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
         super.readFromNBT(tag)
-        inventory.deserializeNBT(tag.getCompoundTag(keyInventory))
+        heat.deserializeNBT(tag.getCompoundTag(keyHeat))
     }
 
     //    TileBase    //
@@ -42,6 +47,6 @@ abstract class TileLaboBase : TileItemHandlerBase() {
 
     //    TileItemHandlerBase    //
 
-    override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerLaboTable(player, this)
+    override fun getName() = "gui.${RagiMaterials.MOD_ID}.firebox"
 
 }

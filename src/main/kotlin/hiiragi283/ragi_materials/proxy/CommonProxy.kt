@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.api.capability.heat.CapabilityHeat
 import hiiragi283.ragi_materials.client.gui.*
 import hiiragi283.ragi_materials.container.*
 import hiiragi283.ragi_materials.event.CommonRegistryEvent
-import hiiragi283.ragi_materials.event.NewRegistryEvent
+import hiiragi283.ragi_materials.event.CreateRegistryEvent
 import hiiragi283.ragi_materials.event.RecipeRegistryEvent
 import hiiragi283.ragi_materials.integration.IntegrationCore
 import hiiragi283.ragi_materials.network.RagiNetworkManager
@@ -32,7 +32,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
     override fun onConstruct(event: FMLConstructionEvent) {
         //イベントの登録
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
-        MinecraftForge.EVENT_BUS.register(NewRegistryEvent)
+        MinecraftForge.EVENT_BUS.register(CreateRegistryEvent)
         MinecraftForge.EVENT_BUS.register(RecipeRegistryEvent)
         //ForgeのUniversal Bucketを使えるようにする
         FluidRegistry.enableUniversalBucket()

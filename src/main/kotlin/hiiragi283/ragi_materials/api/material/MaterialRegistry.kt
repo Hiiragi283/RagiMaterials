@@ -1,8 +1,16 @@
 package hiiragi283.ragi_materials.api.material
 
 import hiiragi283.ragi_materials.api.material.materials.*
+import hiiragi283.ragi_materials.api.material.part.MaterialPart
 
 object MaterialRegistry {
+
+    //Collection
+    val list: MutableList<RagiMaterial> = mutableListOf()
+    val mapIndex: LinkedHashMap<Int, RagiMaterial> = linkedMapOf()
+    val mapName: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
+    val mapElement: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
+    val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
 
     //Pre-registration
     lateinit var  HYDROXIDE : RagiMaterial

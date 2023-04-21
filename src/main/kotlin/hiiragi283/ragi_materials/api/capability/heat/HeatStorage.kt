@@ -1,6 +1,8 @@
 package hiiragi283.ragi_materials.api.capability.heat
 
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.util.INBTSerializable
 
 open class HeatStorage(var capacity: Int, private val maxIn: Int = capacity, private val maxOut: Int = capacity, var stored: Int = 0) : IHeatStorage, INBTSerializable<NBTTagCompound> {
@@ -15,11 +17,35 @@ open class HeatStorage(var capacity: Int, private val maxIn: Int = capacity, pri
         return heatReceived
     }
 
+    fun receiveHeatFrom(storageFrom: IHeatStorage, simulate: Boolean) {
+        if (storageFrom.canExtract() && this.canReceive()) {
+            receiveHeat(storageFrom.extractHeat(getFreeCapacity(), simulate), simulate)
+        }
+    }
+
+    fun receiveHeatFrom(tileFrom: TileEntity, facingFrom: EnumFacing?, simulate: Boolean) {
+        tileFrom.getCapability(CapabilityHeat.HEAT, facingFrom)?.let {
+            receiveHeatFrom(it, simulate)
+        }
+    }
+
     override fun extractHeat(maxExtract: Int, simulate: Boolean): Int {
         if (!canExtract()) return 0
         val heatExtracted = stored.coerceAtMost(maxOut.coerceAtMost(maxExtract))
         if (!simulate) stored -= heatExtracted
         return heatExtracted
+    }
+
+    fun extractHeatTo(storageTo: IHeatStorage, simulate: Boolean) {
+        if (storageTo.canReceive() && this.canExtract()) {
+            extractHeat(storageTo.receiveHeat(capacity, simulate), simulate)
+        }
+    }
+
+    fun extractHeatTo(tileTo: TileEntity, facingTo: EnumFacing?, simulate: Boolean) {
+        tileTo.getCapability(CapabilityHeat.HEAT, facingTo)?.let {
+            extractHeatTo(it, simulate)
+        }
     }
 
     override fun getHeatStored() = stored

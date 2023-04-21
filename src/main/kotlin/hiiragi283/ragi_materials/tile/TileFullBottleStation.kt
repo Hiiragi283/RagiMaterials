@@ -7,7 +7,7 @@ import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerFullBottle
 import hiiragi283.ragi_materials.proxy.CommonProxy
-import hiiragi283.ragi_materials.util.RagiFluidUtil
+import hiiragi283.ragi_materials.util.getBottle
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -69,21 +69,23 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable {
     //    ITickable    //
 
     override fun update() {
-        //countが20以上の場合
-        if (count >= 20) {
-            val amountRemain = tank.fluidAmount % 1000 //タンクに残る液体量
-            val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
-            //作成個数が0より多い場合
-            if (countBottle > 0 && tank.fluid !== null && output.getStackInSlot(0).isEmpty) {
-                output.insertItem(0, RagiFluidUtil.getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
-                if (amountRemain > 0) {
-                    tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き
-                } else {
-                    tank.fluid = null //液体量が0ならば空にする
+        if (!world.isRemote) {
+            //countが20以上の場合
+            if (count >= 20) {
+                val amountRemain = tank.fluidAmount % 1000 //タンクに残る液体量
+                val countBottle = tank.fluidAmount / 1000 //生成するフルボトルの個数
+                //作成個数が0より多い場合
+                if (countBottle > 0 && tank.fluid !== null && output.getStackInSlot(0).isEmpty) {
+                    output.insertItem(0, getBottle(FluidStack(tank.fluid!!, 1000), countBottle), false) //フルボトルを製造
+                    if (amountRemain > 0) {
+                        tank.fluid = FluidStack(tank.fluid!!, amountRemain) //タンクの内容量を上書き
+                    } else {
+                        tank.fluid = null //液体量が0ならば空にする
+                    }
                 }
-            }
-            count = 0 //countをリセット
-        } else count++ //countを追加
+                count = 0 //countをリセット
+            } else count++ //countを追加
+        }
     }
 
     //    TileBase    //

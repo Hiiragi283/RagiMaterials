@@ -1,12 +1,12 @@
 package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.api.material.IMaterialBlock
-import hiiragi283.ragi_materials.api.material.MaterialUtil
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
-import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.item.ItemBlockBase
+import hiiragi283.ragi_materials.util.ColorUtil
+import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.util.getPart
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -41,14 +41,14 @@ abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IG
         if (world is World && !world.isRemote) {
             val random = world.rand
             if (isMaxAge(state)) {
-                drops.add(MaterialUtil.getPart(PartRegistry.CRYSTAL, getDropMain(), 4))
+                drops.add(getPart(PartRegistry.CRYSTAL, getDropMain(), 4))
             } else {
                 drops.add(ItemStack(this))
             }
             if (random.nextInt(3) <= fortune) {
-                drops.add(MaterialUtil.getPart(PartRegistry.CRYSTAL, getDropAdd()))
+                drops.add(getPart(PartRegistry.CRYSTAL, getDropAdd()))
                 if (fortune >= 4) {
-                    drops.add(MaterialUtil.getPart(PartRegistry.CRYSTAL, getDropAdd(), fortune - 3))
+                    drops.add(getPart(PartRegistry.CRYSTAL, getDropAdd(), fortune - 3))
                 }
             }
         }
@@ -119,6 +119,6 @@ abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IG
         val color = super.getColor(world, pos, state, tintIndex)
         val age = getAge(state)
         val ageMax = getAgeMax()
-        return ColorManager.mixColor(color to age, RagiColor.WHITE to (ageMax - age))
+        return ColorUtil.mixColor(color to age, RagiColor.WHITE to (ageMax - age))
     }
 }

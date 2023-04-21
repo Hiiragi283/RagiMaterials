@@ -6,7 +6,7 @@ import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.container.ContainerOreDictConv
 import hiiragi283.ragi_materials.proxy.CommonProxy
-import hiiragi283.ragi_materials.util.SoundManager
+import hiiragi283.ragi_materials.util.playSoundHypixel
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.item.ItemStack
@@ -68,52 +68,54 @@ class TileOreDictConv : TileItemHandlerBase(), ITickable {
     //    ITickable    //
 
     override fun update() {
-        //countが20以上の場合
-        if (count >= 20) {
-            //搬出スロットが空の場合実行する
-            val stackOut = output.getStackInSlot(0)
-            if (stackOut.isEmpty) {
-                val stack = input.getStackInSlot(0)
-                val count = stack.count
-                var stackResult = ItemStack.EMPTY
-                //stackががEMPTYでない場合
-                if (!stack.isEmpty) {
-                    //鉱石辞書の数値IDの配列を取得
-                    val arrayIDs = OreDictionary.getOreIDs(stack)
-                    //配列内の各IDに対して実行
-                    for (id in arrayIDs) {
-                        //IDからString型の鉱石辞書を取得
-                        val oreDict = OreDictionary.getOreName(id)
-                        //鉱石辞書から紐づいたstackのNonNullListを取得
-                        val listStacks = OreDictionary.getOres(oreDict)
-                        //NonNullList内の各stackOreに対して実行
-                        for (stackOre in listStacks) {
-                            if (stack.item.registryName?.namespace != RagiMaterials.MOD_ID) {
-                                //他mod -> RagiMaterials
-                                if (stackOre.item.registryName?.namespace == RagiMaterials.MOD_ID) {
-                                    stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
-                                    break
-                                }
-                            } else {
-                                //RagiMaterials -> Minecraft
-                                if (stackOre.item.registryName?.namespace == "minecraft") {
-                                    stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
-                                    break
+        if (!world.isRemote) {
+            //countが20以上の場合
+            if (count >= 20) {
+                //搬出スロットが空の場合実行する
+                val stackOut = output.getStackInSlot(0)
+                if (stackOut.isEmpty) {
+                    val stack = input.getStackInSlot(0)
+                    val count = stack.count
+                    var stackResult = ItemStack.EMPTY
+                    //stackががEMPTYでない場合
+                    if (!stack.isEmpty) {
+                        //鉱石辞書の数値IDの配列を取得
+                        val arrayIDs = OreDictionary.getOreIDs(stack)
+                        //配列内の各IDに対して実行
+                        for (id in arrayIDs) {
+                            //IDからString型の鉱石辞書を取得
+                            val oreDict = OreDictionary.getOreName(id)
+                            //鉱石辞書から紐づいたstackのNonNullListを取得
+                            val listStacks = OreDictionary.getOres(oreDict)
+                            //NonNullList内の各stackOreに対して実行
+                            for (stackOre in listStacks) {
+                                if (stack.item.registryName?.namespace != RagiMaterials.MOD_ID) {
+                                    //他mod -> RagiMaterials
+                                    if (stackOre.item.registryName?.namespace == RagiMaterials.MOD_ID) {
+                                        stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
+                                        break
+                                    }
+                                } else {
+                                    //RagiMaterials -> Minecraft
+                                    if (stackOre.item.registryName?.namespace == "minecraft") {
+                                        stackResult = ItemStack(stackOre.item, count, stackOre.metadata) //resultにstackOreを代入し終了
+                                        break
+                                    }
                                 }
                             }
+                            //resultが埋まっているならbreak
+                            if (!stackResult.isEmpty) break
                         }
-                        //resultが埋まっているならbreak
-                        if (!stackResult.isEmpty) break
-                    }
-                    //resultがEMPTYでない場合
-                    if (!stackResult.isEmpty) {
-                        input.setStackInSlot(0, ItemStack.EMPTY)
-                        output.setStackInSlot(0, stackResult)
-                        SoundManager.playSoundHypixel(world, pos)
+                        //resultがEMPTYでない場合
+                        if (!stackResult.isEmpty) {
+                            input.setStackInSlot(0, ItemStack.EMPTY)
+                            output.setStackInSlot(0, stackResult)
+                            playSoundHypixel(world, pos)
+                        }
                     }
                 }
-            }
-            count = 0 //countをリセット
-        } else count++ //countを追加
+                count = 0 //countをリセット
+            } else count++ //countを追加
+        }
     }
 }

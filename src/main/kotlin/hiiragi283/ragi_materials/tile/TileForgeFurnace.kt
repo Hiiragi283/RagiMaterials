@@ -2,9 +2,7 @@ package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
-import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.SoundManager
+import hiiragi283.ragi_materials.util.*
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -70,9 +68,9 @@ class TileForgeFurnace : TileBase() {
                 player.setHeldItem(hand, inventory.insertItem(0, stack, false)) //燃料を搬入
                 true
             } else doProcess(player, hand) //レシピを実行
-            if (result) RagiResult.succeeded(this) else {
+            if (result) succeeded(this) else {
                 player.sendMessage(TextComponentTranslation("text.ragi_materials.fuel_point", fuel)) //燃料を表示
-                RagiResult.failed(this)
+                failed(this)
             }
         }
         return result
@@ -89,9 +87,9 @@ class TileForgeFurnace : TileBase() {
                 RagiMaterials.LOGGER.debug("Fuel: $fuel")
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
-                RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
+                dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
-                SoundManager.playSound(this, SoundManager.getSound("minecraft:block.fire.extinguish"))
+                playSound(this, getSound("minecraft:block.fire.extinguish"))
                 result = true
                 break
             }
@@ -103,7 +101,7 @@ class TileForgeFurnace : TileBase() {
     private fun isFuel(stack: ItemStack): Boolean = TileEntityFurnace.getItemBurnTime(stack) > 0
 
     fun playSoundFuel() {
-        SoundManager.playSound(this, SoundManager.getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
+        playSound(this, getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
     }
 
 }

@@ -8,7 +8,6 @@ import hiiragi283.ragi_materials.item.ItemBlockBase
 import hiiragi283.ragi_materials.material.OreProperties
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
-import net.minecraft.block.properties.PropertyInteger
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -24,30 +23,26 @@ class BlockOreMaterial(ID: String) : BlockBase(ID, Material.ROCK, -1), ICustomMo
 
     override val itemBlock = ItemBlockBase(this, OreProperties.mapOre1.size - 1)
 
-    companion object {
-        val TYPE: PropertyInteger = PropertyInteger.create("type", 0, 15)
-    }
-
     init {
         blockHardness = 3.0F
         blockResistance = 5.0F
-        defaultState = blockState.baseState.withProperty(TYPE, 0)
+        defaultState = blockState.baseState.withProperty(RagiProperty.TYPE16, 0)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
     }
 
     //    General    //
 
-    override fun damageDropped(state: IBlockState): Int = state.getValue(TYPE)
+    override fun damageDropped(state: IBlockState): Int = state.getValue(RagiProperty.TYPE16)
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, TYPE)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, RagiProperty.TYPE16)
 
-    override fun getMetaFromState(state: IBlockState): Int = state.getValue(TYPE)
+    override fun getMetaFromState(state: IBlockState): Int = state.getValue(RagiProperty.TYPE16)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(TYPE, meta % OreProperties.mapOre1.size)", "hiiragi283.ragi_materials.block.BlockOreMaterial.Companion.TYPE", "hiiragi283.ragi_materials.material.OreProperties"))
-    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(TYPE, meta % OreProperties.mapOre1.size)
+    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(RagiProperty.TYPE16, meta % OreProperties.mapOre1.size)", "hiiragi283.ragi_materials.material.OreProperties"))
+    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(RagiProperty.TYPE16, meta % OreProperties.mapOre1.size)
 
     //    Client    //
 

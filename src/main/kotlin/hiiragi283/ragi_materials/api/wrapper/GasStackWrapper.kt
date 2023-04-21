@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.api.stack
+package hiiragi283.ragi_materials.api.wrapper
 
 import mekanism.api.gas.Gas
 import mekanism.api.gas.GasStack

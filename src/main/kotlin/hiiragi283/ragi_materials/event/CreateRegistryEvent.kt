@@ -17,7 +17,7 @@ import net.minecraftforge.registries.RegistryBuilder
  * Source: https://github.com/SleepyTrousers/EnderIO/blob/master/enderio-base/src/main/java/crazypants/enderio/base/init/ModObjectRegistry.java
  */
 
-object NewRegistryEvent {
+object CreateRegistryEvent {
 
     @SubscribeEvent
     fun createRegistry(event: RegistryEvent.NewRegistry) {

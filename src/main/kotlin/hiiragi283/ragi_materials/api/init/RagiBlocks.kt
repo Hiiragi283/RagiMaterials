@@ -4,9 +4,9 @@ import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.IMaterialBlock
 import hiiragi283.ragi_materials.block.*
-import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.tile.TileTransferEnergy
 import hiiragi283.ragi_materials.tile.TileTransferFluid
+import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraft.block.Block
 
 object RagiBlocks {
@@ -28,7 +28,7 @@ object RagiBlocks {
     val BlockStoneMill = BlockStoneMill()
     val BlockTransferEnergy = BlockTransferBase("energy", TileTransferEnergy::class.java, RagiColor.YELLOW)
     val BlockTransferFluid = BlockTransferBase("fluid", TileTransferFluid::class.java, RagiColor.AQUA)
-    //val BlockTransferHeat = BlockTransferBase("heat", TileTransferHeat::class.java, ColorManager.mixColor(RagiColor.RED, RagiColor.GOLD))
+    //val BlockTransferHeat = BlockTransferBase("heat", TileTransferHeat::class.java, ColorUtil.mixColor(RagiColor.RED, EnumDyeColor.ORANGE.colorValue))
 
     lateinit var BlockTransferGas: Block
 

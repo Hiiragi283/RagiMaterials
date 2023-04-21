@@ -1,9 +1,9 @@
 package hiiragi283.ragi_materials.integration.jei
 
-import hiiragi283.ragi_materials.api.material.MaterialUtil
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
+import hiiragi283.ragi_materials.util.getPart
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -27,7 +27,7 @@ class MaterialInfoWrapper(val material: RagiMaterial) : IRecipeWrapper {
     }
 
     fun getInputsList(list: MutableList<ItemStack>, part: MaterialPart): MutableList<ItemStack> {
-        val stackPart = MaterialUtil.getPart(part, material)
+        val stackPart = getPart(part, material)
         if (!stackPart.isEmpty) {
             list.add(stackPart) //部品を追加
             //鉱石辞書にも対応させる

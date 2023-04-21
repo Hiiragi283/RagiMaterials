@@ -5,8 +5,8 @@ import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.util.ColorUtil
+import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraft.item.EnumRarity
 
 object PeriodFourth {
@@ -25,7 +25,7 @@ object PeriodFourth {
         MaterialRegistry.QUICK_LIME = RagiMaterial.Builder(203, "quick_lime", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, ElementRegistry.OXYGEN to 1)).build()
 
         MaterialRegistry.APATITE = RagiMaterial.Builder(204, "apatite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CALCIUM to 5, MaterialRegistry.PHOSPHATE.setBracket() to 3, MaterialRegistry.HYDROXIDE to 1)).apply {
-            color = ColorManager.mixColor(RagiColor.YELLOW, RagiColor.WHITE)
+            color = ColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE)
             crystalType = EnumCrystalType.EMERALD
         }.build()
 
@@ -53,7 +53,7 @@ object PeriodFourth {
         }.build()
 
         MaterialRegistry.STAINLESS_STEEL = RagiMaterial.Builder(241, "stainless_steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
-            color = ColorManager.mixColor(RagiColor.GRAY, RagiColor.WHITE)
+            color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE)
             rarity = EnumRarity.RARE
         }.build()
 
@@ -66,11 +66,11 @@ object PeriodFourth {
         MaterialRegistry.IRON = RagiMaterial.Builder(260, "iron", TypeRegistry.METAL).setSimple(ElementRegistry.IRON to 1).build()
 
         MaterialRegistry.HEMATITE = RagiMaterial.Builder(261, "hematite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.IRON to 2, ElementRegistry.OXYGEN to 3)).apply {
-            color = ColorManager.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
+            color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
         }.build()
 
         MaterialRegistry.MAGNETITE = RagiMaterial.Builder(262, "magnetite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.IRON to 3, ElementRegistry.OXYGEN to 4)).apply {
-            color = ColorManager.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
+            color = ColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
         }.build()
 
         MaterialRegistry.PYRITE = RagiMaterial.Builder(263, "pyrite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.SULFUR to 2)).apply {

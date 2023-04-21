@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.api.material
 
-import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess

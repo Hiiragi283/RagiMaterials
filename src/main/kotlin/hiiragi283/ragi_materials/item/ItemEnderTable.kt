@@ -1,7 +1,7 @@
 package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.util.SoundManager
+import hiiragi283.ragi_materials.util.playSound
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
@@ -23,7 +23,7 @@ class ItemEnderTable : ItemBase(RagiMaterials.MOD_ID, "ender_tablet", 0) {
         val enderChest = player.inventoryEnderChest
         player.displayGUIChest(enderChest)
         player.addStat(StatList.ENDERCHEST_OPENED)
-        SoundManager.playSound(world, player.position, SoundEvents.BLOCK_ENDERCHEST_OPEN)
+        playSound(world, player.position, SoundEvents.BLOCK_ENDERCHEST_OPEN)
         return ActionResult(EnumActionResult.SUCCESS, player.getHeldItem(hand))
     }
 

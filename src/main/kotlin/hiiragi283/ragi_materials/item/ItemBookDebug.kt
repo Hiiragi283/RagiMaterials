@@ -2,9 +2,9 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.IMaterialItem
-import hiiragi283.ragi_materials.client.color.RagiColor
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.RagiColor
+import hiiragi283.ragi_materials.util.executeCommand
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
@@ -36,7 +36,7 @@ class ItemBookDebug : ItemBase(RagiMaterials.MOD_ID, "book_debug", 0), IMaterial
         //デバッグモードの場合
         if (world.isRemote && RagiConfig.debugMode.isDebug && !player.isSneaking) {
             //落下死防止やコマンド権限のためクリエモードに切り替え
-            RagiUtil.executeCommand(player, "gamemode 1")
+            executeCommand(player, "gamemode 1")
             //各値の取得
             val spawnPoint = world.spawnPoint
             val spawnX = spawnPoint.x + 0.5 //ブロックの中心に来るよう調整
@@ -77,6 +77,6 @@ class ItemBookDebug : ItemBase(RagiMaterials.MOD_ID, "book_debug", 0), IMaterial
 
     //    IMaterialItem    //
 
-    override fun getColor(stack: ItemStack, tintIndex: Int) = if (tintIndex == 1) RagiColor.RAGI_RED else RagiColor.WHITE
+    override fun getColor(stack: ItemStack, tintIndex: Int) = if (tintIndex == 1) RagiMaterials.COLOR else RagiColor.WHITE
 
 }

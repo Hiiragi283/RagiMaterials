@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.recipe.furnace
 
-import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
+import hiiragi283.ragi_materials.api.wrapper.ItemStackWrapper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fml.common.registry.GameRegistry

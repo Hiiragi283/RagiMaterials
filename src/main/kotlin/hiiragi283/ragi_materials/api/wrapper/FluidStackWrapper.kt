@@ -1,4 +1,4 @@
-package hiiragi283.ragi_materials.api.stack
+package hiiragi283.ragi_materials.api.wrapper
 
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.Fluid

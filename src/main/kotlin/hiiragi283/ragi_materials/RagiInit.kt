@@ -3,7 +3,6 @@ package hiiragi283.ragi_materials
 import hiiragi283.ragi_materials.api.init.RagiBlocks
 import hiiragi283.ragi_materials.api.init.RagiItems
 import hiiragi283.ragi_materials.api.material.MaterialRegistry
-import hiiragi283.ragi_materials.api.material.MaterialUtil
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.part.MaterialPart
 import hiiragi283.ragi_materials.api.material.part.PartRegistry
@@ -14,6 +13,7 @@ import hiiragi283.ragi_materials.material.OreProperties
 import hiiragi283.ragi_materials.proxy.IProxy
 import hiiragi283.ragi_materials.recipe.furnace.SmeltingRegistry
 import hiiragi283.ragi_materials.recipe.workbench.CraftingRegistry
+import hiiragi283.ragi_materials.util.getPart
 import net.minecraft.block.Block
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
@@ -79,7 +79,7 @@ object RagiInit : IProxy {
 
     private fun registerFluid() {
         //Fluidの登録
-        for (material in RagiMaterial.list) {
+        for (material in MaterialRegistry.list) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
             if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) FluidBase(material)
         }
@@ -87,10 +87,10 @@ object RagiInit : IProxy {
 
     private fun registerOreDict() {
         //鉱石辞書の登録
-        for (pair in RagiMaterial.validPair) {
+        for (pair in MaterialRegistry.validPair) {
             val part = pair.first
             val material = pair.second
-            val stack = MaterialUtil.getPart(part, material)
+            val stack = getPart(part, material)
             OreDictionary.registerOre(part.prefixOre + material.getOreDict(), stack)
             material.oredictAlt?.let { OreDictionary.registerOre(part.prefixOre + it, stack) }
         }
@@ -108,18 +108,19 @@ object RagiInit : IProxy {
         }
 
         //Others
-        OreDictionary.registerOre("charcoal", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
+        OreDictionary.registerOre("charcoal", getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
         OreDictionary.registerOre("dustGunpowder", ItemStack(Items.GUNPOWDER))
         OreDictionary.registerOre("dustSugar", ItemStack(Items.SUGAR))
-        OreDictionary.registerOre("fuelCoke", MaterialUtil.getPart(PartRegistry.CRYSTAL, MaterialRegistry.COKE))
-        OreDictionary.registerOre("gearStone", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.STONE))
-        OreDictionary.registerOre("gearWood", MaterialUtil.getPart(PartRegistry.GEAR, MaterialRegistry.WOOD))
+        OreDictionary.registerOre("fuelCoke", getPart(PartRegistry.CRYSTAL, MaterialRegistry.COKE))
+        OreDictionary.registerOre("gearStone", getPart(PartRegistry.GEAR, MaterialRegistry.STONE))
+        OreDictionary.registerOre("gearWood", getPart(PartRegistry.GEAR, MaterialRegistry.WOOD))
         OreDictionary.registerOre("gemCharcoal", ItemStack(Items.COAL))
-        OreDictionary.registerOre("stickStone", MaterialUtil.getPart(PartRegistry.STICK, MaterialRegistry.STONE))
+        OreDictionary.registerOre("stickStone", getPart(PartRegistry.STICK, MaterialRegistry.STONE))
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        MaterialUtil.printMap()
+        MaterialRegistry.mapElement.values.forEach { RagiMaterials.LOGGER.debug("<element:${it.name}>") }
+        MaterialRegistry.list.forEach { RagiMaterials.LOGGER.debug("Index: ${it.index}, <material:${it.name}>") }
         CraftingRegistry.removeRecipes()
     }
 

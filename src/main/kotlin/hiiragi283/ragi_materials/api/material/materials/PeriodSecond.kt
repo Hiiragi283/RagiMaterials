@@ -5,8 +5,8 @@ import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.util.ColorUtil
+import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraft.item.EnumRarity
 
 object PeriodSecond {
@@ -18,7 +18,7 @@ object PeriodSecond {
         }.build()
 
         MaterialRegistry.SPODUMENE = RagiMaterial.Builder(31, "spodumene", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.LITHIUM to 1, ElementRegistry.ALUMINIUM to 1, ElementRegistry.SILICON to 2, ElementRegistry.OXYGEN to 6)).apply {
-            color = ColorManager.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE)
+            color = ColorUtil.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE)
             crystalType = EnumCrystalType.LAPIS
         }.build()
 
@@ -70,19 +70,19 @@ object PeriodSecond {
         MaterialRegistry.ANTHRACITE = RagiMaterial.Builder(66, "anthracite", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
             burnTime = 200 * 24
             crystalType = EnumCrystalType.COAL
-            color = ColorManager.mixColor(MaterialRegistry.COAL.color to 5, RagiColor.DARK_BLUE to 1)
+            color = ColorUtil.mixColor(MaterialRegistry.COAL.color to 5, RagiColor.DARK_BLUE to 1)
         }.build()
 
         MaterialRegistry.LIGNITE = RagiMaterial.Builder(67, "lignite", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
             burnTime = 200 * 4
             crystalType = EnumCrystalType.COAL
-            color = ColorManager.mixColor(MaterialRegistry.COAL.color to 5, RagiColor.DARK_RED to 1)
+            color = ColorUtil.mixColor(MaterialRegistry.COAL.color to 5, RagiColor.DARK_RED to 1)
         }.build()
 
         MaterialRegistry.PEAT = RagiMaterial.Builder(68, "peat", TypeRegistry.FUEL).setSimple(ElementRegistry.CARBON to 1).apply {
             burnTime = 200 * 2
             crystalType = EnumCrystalType.COAL
-            color = ColorManager.mixColor(MaterialRegistry.COAL.color to 5, RagiColor.DARK_GREEN to 1)
+            color = ColorUtil.mixColor(MaterialRegistry.COAL.color to 5, RagiColor.DARK_GREEN to 1)
         }.build()
 
         MaterialRegistry.DIAMOND = RagiMaterial.Builder(69, "diamond", TypeRegistry.CRYSTAL).setSimple(ElementRegistry.CARBON to 1).apply {
@@ -107,7 +107,7 @@ object PeriodSecond {
         MaterialRegistry.FLUORINE = RagiMaterial.Builder(90, "fluorine", TypeRegistry.GAS).setSimple(ElementRegistry.FLUORINE to 2).build()
 
         MaterialRegistry.FLUORITE = RagiMaterial.Builder(91, "fluorite", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CALCIUM to 1, ElementRegistry.FLUORINE to 2)).apply {
-            color = ColorManager.mixColor(RagiColor.GREEN, RagiColor.AQUA)
+            color = ColorUtil.mixColor(RagiColor.GREEN, RagiColor.AQUA)
             crystalType = EnumCrystalType.DIAMOND
         }.build()
 
@@ -120,7 +120,7 @@ object PeriodSecond {
 
         //100 ~ 109: Misc (1)
         MaterialRegistry.WOOD = RagiMaterial.Builder(100, "wood", TypeRegistry.WOOD).setComponents(listOf(ElementRegistry.CARBON to 1, ElementRegistry.HYDROGEN to 1, ElementRegistry.OXYGEN to 1)).apply {
-            color = ColorManager.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1)
+            color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1)
         }.setMixture().build()
 
         MaterialRegistry.LAPIS = RagiMaterial.Builder(101, "lapis", TypeRegistry.CRYSTAL).setComponents(listOf(RagiMaterial.Formula("?").build() to 1)).setMixture().apply {

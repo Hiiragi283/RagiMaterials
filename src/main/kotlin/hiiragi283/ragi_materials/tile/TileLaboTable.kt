@@ -3,10 +3,7 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.init.RagiItems
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
-import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.SoundManager
-import hiiragi283.ragi_materials.util.toBracket
+import hiiragi283.ragi_materials.util.*
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
@@ -35,20 +32,20 @@ class TileLaboTable : TileLaboBase(), ITileSyncable {
                 if (recipe.matchExact(inventory)) {
                     isFailed = false
                     for (i in recipe.getOutputs().indices) {
-                        RagiUtil.dropItem(world, pos.add(0, 1, 0), recipe.getOutput(i), 0.0, 0.25, 0.0)
+                        dropItem(world, pos.add(0, 1, 0), recipe.getOutput(i), 0.0, 0.25, 0.0)
                         RagiMaterials.LOGGER.debug("The output is ${recipe.getOutput(i).toBracket()}")
                     }
-                    SoundManager.playSoundHypixel(this)
-                    RagiResult.succeeded(this)
+                    playSoundHypixel(this)
+                    succeeded(this)
                     break
                 }
             }
             RagiMaterials.LOGGER.debug("$isFailed")
             //失敗時の処理
             if (isFailed) {
-                RagiUtil.dropItem(world, pos.add(0, 1, 0), ItemStack(RagiItems.ItemWaste, 1, 0), 0.0, 0.25, 0.0)
-                SoundManager.playSound(this, SoundManager.getSound("minecraft:entity.generic.explode"))
-                RagiResult.failed(this)
+                dropItem(world, pos.add(0, 1, 0), ItemStack(RagiItems.ItemWaste, 1, 0), 0.0, 0.25, 0.0)
+                playSound(this, getSound("minecraft:entity.generic.explode"))
+                failed(this)
             }
         }
         sync() //反応結果によらずインベントリを空にする

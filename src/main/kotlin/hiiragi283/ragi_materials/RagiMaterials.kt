@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import java.awt.Color
 import java.io.File
 
 @Mod(
@@ -46,6 +47,7 @@ object RagiMaterials : IProxy {
     //各種変数の宣言
     lateinit var CONFIG: File
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)
+    val COLOR = Color(255, 0, 31)
 
     @Mod.EventHandler
     override fun onConstruct(event: FMLConstructionEvent) {

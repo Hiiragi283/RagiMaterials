@@ -1,8 +1,11 @@
 package hiiragi283.ragi_materials.tile
 
 import hiiragi283.ragi_materials.block.BlockTransferBase
+import hiiragi283.ragi_materials.block.EnumTransferMode
+import hiiragi283.ragi_materials.block.RagiProperty
 import hiiragi283.ragi_materials.util.RagiFacing
-import hiiragi283.ragi_materials.util.RagiResult
+import hiiragi283.ragi_materials.util.failed
+import hiiragi283.ragi_materials.util.succeeded
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
@@ -24,7 +27,7 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 
     fun getFacing(): EnumFacing = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiFacing.HORIZONTAL) else EnumFacing.NORTH
 
-    fun getMode(): BlockTransferBase.EnumTransferMode = if (getState().block is BlockTransferBase<*>) getState().getValue(BlockTransferBase.MODE) else BlockTransferBase.EnumTransferMode.NEAREST
+    fun getMode() = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiProperty.MODE2) else EnumTransferMode.NEAREST
 
     //    Capability    //
 
@@ -43,10 +46,10 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
             //スニークしている場合，モードを切り変える
             //そうでない場合は接続を試みる
             if (player.isSneaking) {
-                world.setBlockState(pos, getState().withProperty(BlockTransferBase.MODE, getMode().reverse()))
+                world.setBlockState(pos, getState().withProperty(RagiProperty.MODE2, getMode().reverse()))
             } else {
                 getConnection()
-                if (hasConnection()) RagiResult.succeeded(this, player) else RagiResult.failed(this, player)
+                if (hasConnection()) succeeded(this, player) else failed(this, player)
             }
         }
         return true
@@ -55,14 +58,16 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
     //    ITickable    //
 
     override fun update() {
-        if (count >= 20) {
-            //送信元と送信先がともに存在する場合
-            if (hasConnection()) {
-                getConnection()
-                doProcess()
-            }
-            count = 0
-        } else count++
+        if (!world.isRemote) {
+            if (count >= 20) {
+                //送信元と送信先がともに存在する場合
+                if (hasConnection()) {
+                    getConnection()
+                    doProcess()
+                }
+                count = 0
+            } else count++
+        }
     }
 
     abstract fun doProcess()
@@ -82,7 +87,7 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
         //tileToを取得
         for (i in 1..16) {
             //modeの値によって検索順を反転させる
-            val j = if (getMode() == BlockTransferBase.EnumTransferMode.NEAREST) i else 16 - i
+            val j = if (getMode() == EnumTransferMode.NEAREST) i else 16 - i
             tileTo = world.getTileEntity(pos.offset(getFacing(), j))
             if (tileTo !== null && tileTo !is TileTransferBase<*>) break
         }

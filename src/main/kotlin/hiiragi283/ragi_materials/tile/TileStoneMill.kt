@@ -6,11 +6,12 @@ import hiiragi283.ragi_materials.api.capability.item.RagiItemHandler
 import hiiragi283.ragi_materials.api.capability.item.RagiItemHandlerWrapper
 import hiiragi283.ragi_materials.api.recipe.MillRecipe
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
-import hiiragi283.ragi_materials.block.BlockStoneMill
+import hiiragi283.ragi_materials.block.RagiProperty
 import hiiragi283.ragi_materials.container.ContainerStoneMill
 import hiiragi283.ragi_materials.proxy.CommonProxy
-import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.dropItem
+import hiiragi283.ragi_materials.util.failed
+import hiiragi283.ragi_materials.util.succeeded
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -58,10 +59,10 @@ class TileStoneMill : TileItemHandlerBase() {
             RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
             input.extractItem(0, cache!!.getInput().count, false)
             val stackExtra = output.insertItem(0, cache!!.getOutput(), false)
-            if (!stackExtra.isEmpty) RagiUtil.dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
+            if (!stackExtra.isEmpty) dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
             result = true
         }
-        if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
+        if (result) succeeded(this) else failed(this)
     }
 
     private fun cacheRecipe(): Boolean {
@@ -90,9 +91,9 @@ class TileStoneMill : TileItemHandlerBase() {
                 player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
             } else {
                 val state = world.getBlockState(pos)
-                val count = state.getValue(BlockStoneMill.COUNT)
+                val count = state.getValue(RagiProperty.COUNT8)
                 if (count == 7) doProcess()
-                world.setBlockState(pos, state.withProperty(BlockStoneMill.COUNT, (count + 1) % 8), 2) //8で割った余りにすることでオーバーフローを防止
+                world.setBlockState(pos, state.withProperty(RagiProperty.COUNT8, (count + 1) % 8), 2) //8で割った余りにすることでオーバーフローを防止
             }
         }
         return true

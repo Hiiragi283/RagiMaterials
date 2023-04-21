@@ -2,6 +2,7 @@ package hiiragi283.ragi_materials.integration.jei
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.init.RagiBlocks
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.recipe.FFRecipe
 import hiiragi283.ragi_materials.api.recipe.LaboRecipe
@@ -42,7 +43,7 @@ class JEICore : IModPlugin {
 
         registry.addRecipes(RagiRegistries.FF_RECIPE.valuesCollection, ForgeFurnace)
         registry.addRecipes(RagiRegistries.LABO_RECIPE.valuesCollection, LaboTable)
-        registry.addRecipes(RagiMaterial.list, MaterialInfo)
+        registry.addRecipes(MaterialRegistry.list, MaterialInfo)
         registry.addRecipes(RagiRegistries.MILL_RECIPE.valuesCollection, StoneMill)
 
         registry.addRecipeCatalyst(ItemStack(RagiBlocks.BlockForgeFurnace), ForgeFurnace)

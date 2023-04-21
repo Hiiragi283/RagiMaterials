@@ -3,9 +3,7 @@ package hiiragi283.ragi_materials.tile
 import hiiragi283.ragi_materials.api.capability.RagiTank
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
 import hiiragi283.ragi_materials.config.RagiConfig
-import hiiragi283.ragi_materials.util.RagiResult
-import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.SoundManager
+import hiiragi283.ragi_materials.util.*
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -19,7 +17,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 
 class TileBlazingForge : TileBase() {
 
-    private val mapFuel = RagiUtil.convertArrayTomMap(RagiConfig.recipeMap.fuelBlazingForge)
+    private val mapFuel = convertArrayTomMap(RagiConfig.recipeMap.fuelBlazingForge)
 
     private var tank = object : RagiTank(16000) {
         //コンフィグの燃料一覧に登録された液体のみ受け付ける
@@ -58,7 +56,7 @@ class TileBlazingForge : TileBase() {
             result = if (FluidUtil.getFluidHandler(stack) !== null) {
                 FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing)
             } else doProcess(player, hand)
-            if (result) RagiResult.succeeded(this) else RagiResult.failed(this)
+            if (result) succeeded(this) else failed(this)
         }
         return result
     }
@@ -83,9 +81,9 @@ class TileBlazingForge : TileBase() {
                 tank.drain(getFuelConsumption()!!, true) //燃料を消費する
 
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
-                RagiUtil.dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
+                dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
-                SoundManager.playSound(this, SoundManager.getSound("minecraft:block.fire.extinguish"))
+                playSound(this, getSound("minecraft:block.fire.extinguish"))
                 result = true
                 break
             }

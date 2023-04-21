@@ -4,8 +4,9 @@ import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.capability.RagiEnergyStorage
 import hiiragi283.ragi_materials.api.recipe.LaboRecipe
 import hiiragi283.ragi_materials.api.registry.RagiRegistries
-import hiiragi283.ragi_materials.util.RagiUtil
-import hiiragi283.ragi_materials.util.SoundManager
+import hiiragi283.ragi_materials.util.dropItem
+import hiiragi283.ragi_materials.util.getSound
+import hiiragi283.ragi_materials.util.playSound
 import hiiragi283.ragi_materials.util.toBracket
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -63,29 +64,31 @@ class TileIndustrialLabo : TileLaboBase(), ITickable {
     //    ITickable    //
 
     override fun update() {
-        //countが20以上の場合
-        if (count >= 20) {
-            //サーバー側，かつインベントリが空でない場合
-            if (!world.isRemote && !inventory.isEmpty() && battery.energyStored >= 1000) {
-                //レシピチェック
-                if (cacheRecipe()) {
-                    RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
-                    for (i in 0..4) {
-                        val input = cache!!.getInput(i)
-                        val output = cache!!.getOutput(i)
-                        if (!inputs.getStackInSlot(i).isEmpty && !input.isEmpty) {
-                            inputs.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
-                            RagiMaterials.LOGGER.debug("The slot$i is decreased!")
+        if (!world.isRemote) {
+            //countが20以上の場合
+            if (count >= 20) {
+                //インベントリが空でない場合
+                if (!inventory.isEmpty() && battery.energyStored >= 1000) {
+                    //レシピチェック
+                    if (cacheRecipe()) {
+                        RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
+                        for (i in 0..4) {
+                            val input = cache!!.getInput(i)
+                            val output = cache!!.getOutput(i)
+                            if (!inputs.getStackInSlot(i).isEmpty && !input.isEmpty) {
+                                inputs.extractItem(i, input.count, false) //入力スロットからアイテムを減らす
+                                RagiMaterials.LOGGER.debug("The slot$i is decreased!")
+                            }
+                            dropItem(world, pos.offset(front), output)
+                            RagiMaterials.LOGGER.debug("The output is ${output.toBracket()}")
                         }
-                        RagiUtil.dropItem(world, pos.offset(front), output)
-                        RagiMaterials.LOGGER.debug("The output is ${output.toBracket()}")
+                        battery.extractEnergy(1000, false)
+                        playSound(this, getSound("minecraft:block.piston.extend"))
                     }
-                    battery.extractEnergy(1000, false)
-                    SoundManager.playSound(this, SoundManager.getSound("minecraft:block.piston.extend"))
                 }
-            }
-            count = 0 //countをリセット
-        } else count++ //countを追加
+                count = 0 //countをリセット
+            } else count++ //countを追加
+        }
     }
 
     private fun cacheRecipe(): Boolean {

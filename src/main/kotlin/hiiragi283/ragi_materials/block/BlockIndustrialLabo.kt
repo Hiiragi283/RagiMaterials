@@ -2,7 +2,7 @@ package hiiragi283.ragi_materials.block
 
 import hiiragi283.ragi_materials.tile.TileIndustrialLabo
 import hiiragi283.ragi_materials.util.RagiFacing
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.dropInventoryItems
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -47,7 +47,7 @@ class BlockIndustrialLabo : BlockContainerBase<TileIndustrialLabo>("industrial_l
 
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is TileIndustrialLabo) RagiUtil.dropInventoryItems(world, pos, tile.inventory)
+        if (tile !== null && tile is TileIndustrialLabo) dropInventoryItems(world, pos, tile.inventory)
         super.breakBlock(world, pos, state)
     }
 

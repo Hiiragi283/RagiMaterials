@@ -4,7 +4,7 @@ import hiiragi283.ragi_materials.RagiInit
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.IMaterialBlock
 import hiiragi283.ragi_materials.api.material.IMaterialItem
-import hiiragi283.ragi_materials.api.material.RagiMaterial
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.client.model.ICustomModel
 import hiiragi283.ragi_materials.client.model.ModelManager
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -33,7 +33,7 @@ object ClientRegistryEvent {
             RagiMaterials.LOGGER.debug("The model for item ${it.registryName} is registered!")
         }
 
-        for (material in RagiMaterial.list) {
+        for (material in MaterialRegistry.list) {
             material.getFluid()?.let {
                 val model = ModelResourceLocation(("${RagiMaterials.MOD_ID}:${it.name}"), "fluid")
                 //アイテムとしての描画処理

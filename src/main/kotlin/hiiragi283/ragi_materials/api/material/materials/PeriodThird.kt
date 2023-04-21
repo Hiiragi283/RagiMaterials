@@ -5,8 +5,8 @@ import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.client.color.ColorManager
-import hiiragi283.ragi_materials.client.color.RagiColor
+import hiiragi283.ragi_materials.util.ColorUtil
+import hiiragi283.ragi_materials.util.RagiColor
 import net.minecraftforge.fluids.FluidRegistry
 
 object PeriodThird {
@@ -40,7 +40,7 @@ object PeriodThird {
         MaterialRegistry.ALUMINA_SOLUTION = RagiMaterial.Builder(132, "alumina_solution", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.SODIUM to 1, RagiMaterial.Formula("[").build() to 1, ElementRegistry.ALUMINIUM to 1, MaterialRegistry.HYDROXIDE.setBracket() to 4, RagiMaterial.Formula("]").build() to 1)).build()
 
         MaterialRegistry.BAUXITE = RagiMaterial.Builder(133, "bauxite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ALUMINIUM to 2, ElementRegistry.OXYGEN to 3)).apply {
-            color = ColorManager.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
+            color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
         }.build()
 
         MaterialRegistry.RUBY = RagiMaterial.Builder(134, "ruby", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.CHROMIUM to 1, MaterialRegistry.ALUMINA to 1)).apply {
@@ -75,7 +75,7 @@ object PeriodThird {
         MaterialRegistry.SULFUR = RagiMaterial.Builder(160, "sulfur", TypeRegistry.DUST).setSimple(ElementRegistry.SULFUR to 8).build()
 
         MaterialRegistry.SULFURIC_ACID = RagiMaterial.Builder(161, "sulfuric_acid", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.HYDROGEN to 2, MaterialRegistry.SULFATE to 1)).apply {
-            color = ColorManager.mixColor(RagiColor.GOLD, RagiColor.YELLOW)
+            color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW)
         }.build()
 
         //170 ~ 179: Chlorine
@@ -89,12 +89,12 @@ object PeriodThird {
         }.build()
 
         MaterialRegistry.LAVA = RagiMaterial.Builder(181, "lava", TypeRegistry.INTERNAL).setSimple(MaterialRegistry.SILICON_DIOXIDE to 1).apply {
-            color = ColorManager.mixColor(RagiColor.DARK_RED, RagiColor.GOLD)
+            color = ColorUtil.mixColor(RagiColor.DARK_RED, RagiColor.GOLD)
             tempMelt = FluidRegistry.LAVA.temperature
         }.build()
 
         MaterialRegistry.OBSIDIAN = RagiMaterial.Builder(182, "obsidian", TypeRegistry.DUST).setSimple(MaterialRegistry.SILICON_DIOXIDE to 1).apply {
-            color = ColorManager.mixColor(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1)
+            color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1)
         }.build()
 
         MaterialRegistry.NETHERRACK = RagiMaterial.Builder(183, "netherrack", TypeRegistry.DUST).setSimple(MaterialRegistry.SILICON_DIOXIDE to 1).apply {
@@ -102,11 +102,11 @@ object PeriodThird {
         }.build()
 
         MaterialRegistry.SOUL_SAND = RagiMaterial.Builder(184, "soul_sand", TypeRegistry.DUST).setSimple(MaterialRegistry.SILICON_DIOXIDE to 1).apply {
-            color = ColorManager.mixColor(RagiColor.BLACK to 5, RagiColor.GOLD to 1)
+            color = ColorUtil.mixColor(RagiColor.BLACK to 5, RagiColor.GOLD to 1)
         }.build()
 
         MaterialRegistry.END_STONE = RagiMaterial.Builder(185, "end_stone", TypeRegistry.DUST).setSimple(MaterialRegistry.SILICON_DIOXIDE to 1).apply {
-            color = ColorManager.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3)
+            color = ColorUtil.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3)
         }.build()
 
     }

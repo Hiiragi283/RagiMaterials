@@ -4,11 +4,11 @@ import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import hiiragi283.ragi_materials.RagiMaterials
-import hiiragi283.ragi_materials.api.material.MaterialUtil
 import hiiragi283.ragi_materials.api.material.RagiMaterial
 import hiiragi283.ragi_materials.api.material.type.EnumCrystalType
 import hiiragi283.ragi_materials.api.material.type.TypeRegistry
-import hiiragi283.ragi_materials.util.RagiUtil
+import hiiragi283.ragi_materials.util.getEnumRarity
+import hiiragi283.ragi_materials.util.getMaterialFromName
 import net.minecraft.item.EnumRarity
 import java.awt.Color
 import java.io.*
@@ -128,11 +128,11 @@ object JsonConfig {
                 builder.burnTime = burnTime
                 color?.let { builder.color = Color(it) }
                 builder.crystalType = EnumCrystalType.getType(crystalType)
-                builder.decayed = decayed?.let { MaterialUtil.getMaterial(it) }
+                builder.decayed = decayed?.let { getMaterialFromName(it) }
                 formula?.let { builder.formula = it }
                 molar?.let { builder.molar = it }
                 builder.oredictAlt = oredictAlt
-                builder.rarity = RagiUtil.getEnumRarity(rarity)
+                builder.rarity = getEnumRarity(rarity)
                 tempBoil?.let { builder.tempBoil = it }
                 tempMelt?.let { builder.tempMelt = it }
             }.build()
@@ -141,7 +141,7 @@ object JsonConfig {
         private fun convertList(): List<Pair<RagiMaterial, Int>> {
             val map: MutableMap<RagiMaterial, Int> = mutableMapOf()
             components.forEach {
-                var material = MaterialUtil.getMaterial(it.key)
+                var material = getMaterialFromName(it.key)
                 //material取得できなかった場合，化学式の文字列として認識される
                 if (material.isEmpty()) material = RagiMaterial.Formula(it.key).build()
                 map[material] = it.value

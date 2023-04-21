@@ -1,6 +1,6 @@
 package hiiragi283.ragi_materials.api.recipe
 
-import hiiragi283.ragi_materials.api.stack.ItemStackWrapper
+import hiiragi283.ragi_materials.api.wrapper.ItemStackWrapper
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper

@@ -1,11 +1,8 @@
-package hiiragi283.ragi_materials.client.color
+package hiiragi283.ragi_materials.util
 
 import java.awt.Color
 
 object RagiColor {
-
-    //ひいらぎさんのテーマカラー
-    val RAGI_RED = Color(255, 0, 31)
 
     //Minecraftのカラーコードと同じ色
     val BLACK = Color(0x00, 0x00, 0x00)

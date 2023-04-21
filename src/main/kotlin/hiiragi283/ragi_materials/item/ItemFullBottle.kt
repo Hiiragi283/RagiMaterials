@@ -2,9 +2,10 @@ package hiiragi283.ragi_materials.item
 
 import hiiragi283.ragi_materials.RagiMaterials
 import hiiragi283.ragi_materials.api.material.IMaterialItem
-import hiiragi283.ragi_materials.api.material.MaterialUtil
+import hiiragi283.ragi_materials.api.material.MaterialRegistry
 import hiiragi283.ragi_materials.api.material.RagiMaterial
-import hiiragi283.ragi_materials.util.RagiFluidUtil
+import hiiragi283.ragi_materials.util.getBottle
+import hiiragi283.ragi_materials.util.getMaterialFromName
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -42,7 +43,7 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
             tooltip.add(I18n.format("tips.ragi_materials.${path}.$i"))
         }
         //素材のツールチップ
-        MaterialUtil.materialInfo(getMaterial(stack), tooltip)
+        getMaterial(stack).getTooltip(tooltip)
     }
 
     @SideOnly(Side.CLIENT)
@@ -58,9 +59,9 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
             val stack = ItemStack(this)
             subItems.add(stack) //空のフルボトル
             //素材の一覧から液体が取得できるならクリエタブに登録する
-            for (material in RagiMaterial.list) {
+            for (material in MaterialRegistry.list) {
                 material.getFluid()?.let {
-                    subItems.add(RagiFluidUtil.getBottle(FluidStack(it, 1000)))
+                    subItems.add(getBottle(FluidStack(it, 1000)))
                 }
             }
         }
@@ -107,17 +108,17 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
             return result
         }
 
-        override fun canFillFluidType(fluidStack: FluidStack): Boolean = !MaterialUtil.getMaterial(fluidStack.fluid.name).isEmpty() //液体の名前から取得した素材が空でないならtrue
+        override fun canFillFluidType(fluidStack: FluidStack): Boolean = !getMaterialFromName(fluidStack.fluid.name).isEmpty() //液体の名前から取得した素材が空でないならtrue
     }
 
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): RagiMaterial {
         val fluidStack = FluidUtil.getFluidContained(stack)
-        return if (fluidStack !== null) MaterialUtil.getMaterial(fluidStack.fluid.name) else RagiMaterial.EMPTY
+        return if (fluidStack !== null) getMaterialFromName(fluidStack.fluid.name) else RagiMaterial.EMPTY
     }
 
     override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack {
-        return RagiFluidUtil.getBottle(material, count = stack.count)
+        return getBottle(material, count = stack.count)
     }
 }
