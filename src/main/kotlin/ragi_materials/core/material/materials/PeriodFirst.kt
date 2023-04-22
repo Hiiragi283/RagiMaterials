@@ -1,12 +1,12 @@
 package ragi_materials.core.material.materials
 
+import net.minecraft.item.EnumRarity
 import ragi_materials.core.material.ElementRegistry
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.RagiColor
-import net.minecraft.item.EnumRarity
 
 object PeriodFirst {
 

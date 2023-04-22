@@ -1,8 +1,7 @@
 package ragi_materials.core.material
 
-import hiiragi283.ragi_materials.api.material.materials.*
-import ragi_materials.core.material.part.MaterialPart
 import ragi_materials.core.material.materials.*
+import ragi_materials.core.material.part.MaterialPart
 
 object MaterialRegistry {
 
@@ -14,12 +13,12 @@ object MaterialRegistry {
     val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
 
     //Pre-registration
-    lateinit var  HYDROXIDE : RagiMaterial
-    lateinit var  CARBONATE: RagiMaterial
-    lateinit var  NITRATE: RagiMaterial
-    lateinit var  PHOSPHATE: RagiMaterial
-    lateinit var  SULFATE: RagiMaterial
-    lateinit var  TUNGSTATE: RagiMaterial
+    lateinit var HYDROXIDE: RagiMaterial
+    lateinit var CARBONATE: RagiMaterial
+    lateinit var NITRATE: RagiMaterial
+    lateinit var PHOSPHATE: RagiMaterial
+    lateinit var SULFATE: RagiMaterial
+    lateinit var TUNGSTATE: RagiMaterial
 
     //10 ~ 19: Hydrogen
     lateinit var HYDROGEN: RagiMaterial

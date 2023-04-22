@@ -1,7 +1,5 @@
 package ragi_materials.metallurgy.block
 
-import ragi_materials.main.tile.TileBlazingForge
-import ragi_materials.core.util.RagiFacing
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -15,6 +13,8 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.block.BlockContainerBaseHoldable
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.main.tile.TileBlazingForge
 
 class BlockBlazingForge : BlockContainerBaseHoldable<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
 

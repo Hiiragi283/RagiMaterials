@@ -1,7 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.main.tile.TileLaboTable
-import ragi_materials.core.util.dropInventoryItems
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -9,6 +7,8 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.util.dropInventoryItems
+import ragi_materials.main.tile.TileLaboTable
 
 class BlockLaboTable : BlockContainerBase<TileLaboTable>("laboratory_table", Material.IRON, TileLaboTable::class.java, 3) {
 

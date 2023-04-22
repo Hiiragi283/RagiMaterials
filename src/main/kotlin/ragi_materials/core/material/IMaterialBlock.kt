@@ -1,9 +1,9 @@
 package ragi_materials.core.material
 
-import ragi_materials.core.util.RagiColor
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
+import ragi_materials.core.util.RagiColor
 
 interface IMaterialBlock : IMaterialItem {
 

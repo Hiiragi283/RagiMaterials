@@ -2,10 +2,10 @@
 
 package ragi_materials.core.util
 
-import ragi_materials.core.util.wrapper.ItemStackWrapper
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fml.common.registry.GameRegistry
+import ragi_materials.core.util.wrapper.ItemStackWrapper
 
 //かまどレシピを追加するメソッド
 fun addSmelting(output: ItemStack, input: ItemStack, xp: Float = 0f) {

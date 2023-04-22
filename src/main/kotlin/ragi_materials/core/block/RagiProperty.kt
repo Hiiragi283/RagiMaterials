@@ -1,8 +1,8 @@
 package ragi_materials.core.block
 
-import ragi_materials.main.block.EnumTransferMode
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.properties.PropertyInteger
+import ragi_materials.main.block.EnumTransferMode
 
 object RagiProperty {
 

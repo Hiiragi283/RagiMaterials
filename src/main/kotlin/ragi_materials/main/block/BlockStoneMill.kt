@@ -1,7 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.main.tile.TileStoneMill
-import ragi_materials.core.util.dropInventoryItems
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -10,6 +8,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.util.dropInventoryItems
+import ragi_materials.main.tile.TileStoneMill
 
 class BlockStoneMill : BlockContainerBase<TileStoneMill>("stone_mill", Material.ROCK, TileStoneMill::class.java, 2) {
 

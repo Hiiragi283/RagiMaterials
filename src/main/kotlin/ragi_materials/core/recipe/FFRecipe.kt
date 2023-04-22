@@ -1,8 +1,5 @@
 package ragi_materials.core.recipe
 
-import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.util.wrapper.ItemMetaNBT
-import ragi_materials.core.item.ItemMaterial
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -10,6 +7,9 @@ import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.registries.IForgeRegistryEntry
+import ragi_materials.core.item.ItemMaterial
+import ragi_materials.core.material.IMaterialItem
+import ragi_materials.core.util.wrapper.ItemMetaNBT
 import kotlin.math.pow
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")

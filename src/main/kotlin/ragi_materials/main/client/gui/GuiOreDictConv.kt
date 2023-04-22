@@ -1,11 +1,11 @@
 package ragi_materials.main.client.gui
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.main.container.ContainerOreDictConv
-import ragi_materials.main.tile.TileOreDictConv
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.client.gui.GuiBase
+import ragi_materials.main.container.ContainerOreDictConv
+import ragi_materials.main.tile.TileOreDictConv
 
 class GuiOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : GuiBase<TileOreDictConv>(ContainerOreDictConv(player, tile)) {
 

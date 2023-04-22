@@ -1,8 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.main.tile.TileIndustrialLabo
-import ragi_materials.core.util.RagiFacing
-import ragi_materials.core.util.dropInventoryItems
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -14,6 +11,9 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.core.util.dropInventoryItems
+import ragi_materials.main.tile.TileIndustrialLabo
 
 class BlockIndustrialLabo : BlockContainerBase<TileIndustrialLabo>("industrial_labo", Material.IRON, TileIndustrialLabo::class.java, 3) {
 

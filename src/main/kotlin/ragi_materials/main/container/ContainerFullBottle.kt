@@ -1,10 +1,10 @@
 package ragi_materials.main.container
 
-import ragi_materials.main.tile.TileFullBottleStation
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import ragi_materials.core.container.ContainerBase
 import ragi_materials.core.container.SlotOutItemHandler
+import ragi_materials.main.tile.TileFullBottleStation
 
 class ContainerFullBottle(player: EntityPlayer, override val tile: TileFullBottleStation) : ContainerBase<TileFullBottleStation>(player, tile) {
 

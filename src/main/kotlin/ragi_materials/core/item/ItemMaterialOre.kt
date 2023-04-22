@@ -2,9 +2,9 @@ package ragi_materials.core.item
 
 import net.minecraft.item.ItemStack
 import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.core.material.part.PartRegistry
+import ragi_materials.core.material.part.MaterialPart
 
-class ItemMaterialOre: ItemMaterial(PartRegistry.ORE) {
+class ItemMaterialOre(part: MaterialPart) : ItemMaterial(part) {
 
     //    IMaterialItem    //
 

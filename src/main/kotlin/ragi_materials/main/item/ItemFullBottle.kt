@@ -1,11 +1,5 @@
 package ragi_materials.main.item
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.core.material.RagiMaterial
-import ragi_materials.core.util.getBottle
-import ragi_materials.core.util.getMaterialFromName
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
@@ -23,7 +17,13 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.item.ItemBase
+import ragi_materials.core.material.IMaterialItem
+import ragi_materials.core.material.MaterialRegistry
+import ragi_materials.core.material.RagiMaterial
+import ragi_materials.core.util.getBottle
+import ragi_materials.core.util.getMaterialFromName
 
 class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMaterialItem {
 

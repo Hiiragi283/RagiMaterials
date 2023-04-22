@@ -1,7 +1,5 @@
 package ragi_materials.metallurgy.block
 
-import ragi_materials.main.tile.TileForgeFurnace
-import ragi_materials.core.util.RagiFacing
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -14,6 +12,8 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBaseHoldable
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.main.tile.TileForgeFurnace
 
 class BlockForgeFurnace : BlockContainerBaseHoldable<TileForgeFurnace>("forge_furnace", Material.ROCK, TileForgeFurnace::class.java, 3) {
 

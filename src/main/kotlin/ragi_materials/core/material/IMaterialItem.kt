@@ -1,7 +1,7 @@
 package ragi_materials.core.material
 
-import ragi_materials.core.util.RagiColor
 import net.minecraft.item.ItemStack
+import ragi_materials.core.util.RagiColor
 
 interface IMaterialItem {
 

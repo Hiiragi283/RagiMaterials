@@ -1,15 +1,15 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.EnumIOType
-import ragi_materials.core.capability.item.RagiItemHandler
-import ragi_materials.core.capability.item.RagiItemHandlerWrapper
-import ragi_materials.metallurgy.container.ContainerFirebox
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntityFurnace
 import net.minecraft.util.EnumFacing
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.item.RagiItemHandler
+import ragi_materials.core.capability.item.RagiItemHandlerWrapper
+import ragi_materials.metallurgy.container.ContainerFirebox
 
 class TileFireboxPrimitive : TileFireboxBase(1800 * 64) {
 

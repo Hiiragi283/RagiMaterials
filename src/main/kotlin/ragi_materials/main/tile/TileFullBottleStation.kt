@@ -1,13 +1,5 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.EnumIOType
-import ragi_materials.core.capability.RagiTank
-import ragi_materials.core.capability.item.RagiItemHandler
-import ragi_materials.core.capability.item.RagiItemHandlerWrapper
-import ragi_materials.main.container.ContainerFullBottle
-import ragi_materials.core.proxy.CommonProxy
-import ragi_materials.core.util.getBottle
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -21,7 +13,15 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.RagiTank
+import ragi_materials.core.capability.item.RagiItemHandler
+import ragi_materials.core.capability.item.RagiItemHandlerWrapper
+import ragi_materials.core.proxy.CommonProxy
 import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.util.getBottle
+import ragi_materials.main.container.ContainerFullBottle
 
 class TileFullBottleStation : TileItemHandlerBase(), ITickable {
 

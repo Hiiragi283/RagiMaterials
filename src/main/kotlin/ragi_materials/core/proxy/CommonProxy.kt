@@ -1,18 +1,10 @@
 package ragi_materials.core.proxy
 
-import ragi_materials.core.RagiInit
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.RagiCapability
-import ragi_materials.core.event.CommonRegistryEvent
-import ragi_materials.core.event.CreateRegistryEvent
-import ragi_materials.core.event.RecipeRegistryEvent
-import ragi_materials.core.network.RagiNetworkManager
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Container
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraft.world.storage.loot.LootTableList
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
@@ -21,10 +13,23 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.IGuiHandler
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import ragi_materials.core.RagiInit
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.event.CommonRegistryEvent
+import ragi_materials.core.event.CreateRegistryEvent
+import ragi_materials.core.event.RecipeRegistryEvent
 import ragi_materials.core.integration.IntegrationCore
-import ragi_materials.main.client.gui.*
-import ragi_materials.main.container.*
+import ragi_materials.core.network.RagiNetworkManager
+import ragi_materials.main.client.gui.GuiFullBottle
+import ragi_materials.main.client.gui.GuiLaboTable
+import ragi_materials.main.client.gui.GuiOreDictConv
+import ragi_materials.main.client.gui.GuiStoneMill
+import ragi_materials.main.container.ContainerFullBottle
+import ragi_materials.main.container.ContainerLaboTable
+import ragi_materials.main.container.ContainerOreDictConv
+import ragi_materials.main.container.ContainerStoneMill
 import ragi_materials.main.tile.*
 import ragi_materials.metallurgy.client.gui.GuiFirebox
 import ragi_materials.metallurgy.container.ContainerFirebox
@@ -69,7 +74,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
     //Initializationで読み込むメソッド
     override fun onInit(event: FMLInitializationEvent) {
         //LootTableの登録
-        LootTableList.register(RagiRegistry.OreRainbow)
+        //LootTableList.register(RagiRegistry.OreRainbow)
         //Packetの登録
         RagiNetworkManager.load()
         //連携要素の登録

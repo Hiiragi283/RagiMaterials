@@ -2,11 +2,11 @@
 
 package ragi_materials.core.util
 
+import net.minecraft.item.ItemStack
+import ragi_materials.core.RagiRegistry
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.MaterialPart
-import net.minecraft.item.ItemStack
-import ragi_materials.core.RagiRegistry
 
 //代入したindexと一致するMaterialBuilderを返すメソッド
 fun getMaterialFromIndex(index: Int): RagiMaterial = MaterialRegistry.mapIndex[index] ?: RagiMaterial.EMPTY

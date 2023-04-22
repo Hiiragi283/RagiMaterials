@@ -1,10 +1,10 @@
 package ragi_materials.core.capability
 
-import ragi_materials.core.util.getMaterialFromName
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.util.INBTSerializable
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidTank
+import ragi_materials.core.util.getMaterialFromName
 
 open class RagiTank(cap: Int) : FluidTank(cap), INBTSerializable<NBTTagCompound> {
 

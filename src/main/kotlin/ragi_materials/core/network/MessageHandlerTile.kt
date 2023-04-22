@@ -1,11 +1,11 @@
 package ragi_materials.core.network
 
-import ragi_materials.core.tile.ITileSyncable
 import net.minecraft.client.Minecraft
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
+import ragi_materials.core.tile.ITileSyncable
 
 class MessageHandlerTile : IMessageHandler<MessageTile, IMessage> {
 

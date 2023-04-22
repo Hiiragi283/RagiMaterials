@@ -1,7 +1,5 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.RagiRegistry
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -14,6 +12,8 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.ItemStackHandler
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
 import ragi_materials.core.tile.TileBase
 import ragi_materials.core.util.*
 

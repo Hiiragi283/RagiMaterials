@@ -1,12 +1,12 @@
 package ragi_materials.core.recipe
 
-import ragi_materials.core.util.wrapper.ItemMetaNBT
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.registries.IForgeRegistryEntry
+import ragi_materials.core.util.wrapper.ItemMetaNBT
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
 data class MillRecipe private constructor(private var input: ItemStack, private var output: ItemStack)

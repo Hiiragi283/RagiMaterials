@@ -1,16 +1,16 @@
 package ragi_materials.core.event
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.recipe.FFRecipe
-import ragi_materials.core.recipe.LaboRecipe
-import ragi_materials.core.recipe.MillRecipe
-import ragi_materials.core.RagiRegistry
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 import net.minecraftforge.registries.RegistryBuilder
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
+import ragi_materials.core.recipe.FFRecipe
+import ragi_materials.core.recipe.LaboRecipe
+import ragi_materials.core.recipe.MillRecipe
 
 /**
  * Thanks to SleepyTrousers!

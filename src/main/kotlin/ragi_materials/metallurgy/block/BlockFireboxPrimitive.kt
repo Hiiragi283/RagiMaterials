@@ -1,7 +1,5 @@
 package ragi_materials.metallurgy.block
 
-import ragi_materials.main.tile.TileFireboxPrimitive
-import ragi_materials.core.util.RagiFacing
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -12,8 +10,10 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBaseHoldable
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.main.tile.TileFireboxPrimitive
 
-class BlockFireboxPrimitive: BlockContainerBaseHoldable<TileFireboxPrimitive>("firebox_primitive", Material.ROCK, TileFireboxPrimitive::class.java, 2) {
+class BlockFireboxPrimitive : BlockContainerBaseHoldable<TileFireboxPrimitive>("firebox_primitive", Material.ROCK, TileFireboxPrimitive::class.java, 2) {
 
     init {
         blockHardness = 5.0F

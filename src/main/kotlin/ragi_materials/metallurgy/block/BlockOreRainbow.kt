@@ -1,10 +1,5 @@
 package ragi_materials.metallurgy.block
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.main.client.model.ICustomModel
-import ragi_materials.main.client.model.ModelManager
-import ragi_materials.core.item.ItemBlockBase
-import ragi_materials.core.util.dropItemAtPlayer
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -17,12 +12,15 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraft.world.WorldServer
-import net.minecraft.world.storage.loot.LootContext
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
 import ragi_materials.core.block.BlockBase
+import ragi_materials.core.item.ItemBlockBase
+import ragi_materials.core.util.dropItemAtPlayer
+import ragi_materials.main.client.model.ICustomModel
+import ragi_materials.main.client.model.ModelManager
 import java.util.*
 
 class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomModel {
@@ -57,14 +55,14 @@ class BlockOreRainbow(ID: String) : BlockBase(ID, Material.ROCK, 1), ICustomMode
     }
 
     override fun harvestBlock(world: World, player: EntityPlayer, pos: BlockPos, state: IBlockState, te: TileEntity?, stack: ItemStack) {
-        if (!world.isRemote) {
+        /*if (!world.isRemote) {
             val builder = LootContext.Builder(world as WorldServer).build()
             val lootTable = world.lootTableManager.getLootTableFromLocation(RagiRegistry.OreRainbow)
             val results = lootTable.generateLootForPools(world.rand, builder)
             for (result in results) {
                 if (!result.isEmpty) dropItemAtPlayer(player, result) //生成物を足元にドロップ
             }
-        }
+        }*/
     }
 
     //    Client    //

@@ -1,9 +1,9 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.capability.RagiCapability
-import ragi_materials.core.capability.heat.IHeatStorage
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
+import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.capability.heat.IHeatStorage
 
 class TileTransferHeat : TileTransferBase<IHeatStorage>(), ITickable {
 

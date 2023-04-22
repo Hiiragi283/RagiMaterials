@@ -6,7 +6,7 @@ data class MaterialType constructor(val name: String, val list: MutableList<Enum
 
     fun enableRadio() = Builder(name).addTypes(list).addType(EnumMaterialType.RADIOACTIVE).build()
 
-    fun match(type: MaterialType) = this == TypeRegistry.WILDCARD || this == type
+    fun match(type: MaterialType) = name == "wildcard" || name == type.name
 
     class Builder(val name: String) {
 

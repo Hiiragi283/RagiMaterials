@@ -1,19 +1,5 @@
 package ragi_materials.core.item
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.core.material.RagiMaterial
-import ragi_materials.core.material.part.MaterialPart
-import ragi_materials.core.material.part.PartRegistry
-import ragi_materials.core.material.type.EnumCrystalType
-import ragi_materials.core.material.type.EnumMaterialType
-import ragi_materials.main.client.model.ICustomModel
-import ragi_materials.main.client.model.ModelManager
-import ragi_materials.core.config.RagiConfig
-import ragi_materials.core.util.dropItemAtPlayer
-import ragi_materials.core.util.getMaterialFromIndex
-import ragi_materials.core.util.getPart
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
@@ -28,7 +14,21 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.config.RagiConfig
+import ragi_materials.core.material.IMaterialItem
+import ragi_materials.core.material.MaterialRegistry
+import ragi_materials.core.material.RagiMaterial
+import ragi_materials.core.material.part.MaterialPart
+import ragi_materials.core.material.part.PartRegistry
+import ragi_materials.core.material.type.EnumCrystalType
+import ragi_materials.core.material.type.EnumMaterialType
+import ragi_materials.core.util.dropItemAtPlayer
+import ragi_materials.core.util.getMaterialFromIndex
+import ragi_materials.core.util.getPart
+import ragi_materials.main.client.model.ICustomModel
+import ragi_materials.main.client.model.ModelManager
 
 open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID, part.name, OreDictionary.WILDCARD_VALUE), ICustomModel, IMaterialItem {
 

@@ -39,7 +39,6 @@ object RagiRegistry {
     lateinit var BlockFullBottleStation: BlockBase
     lateinit var BlockIndustrialLabo: BlockBase
     lateinit var BlockLaboratoryTable: BlockBase
-    //lateinit var BlockOre1: BlockBase
     lateinit var BlockOreDictConv: BlockBase
     lateinit var BlockOreRainbow: BlockBase
     lateinit var BlockSoilAir: BlockBase
@@ -57,6 +56,10 @@ object RagiRegistry {
     lateinit var TabFullBottle: CreativeTabs
     lateinit var TabMaterial: CreativeTabs
 
+    fun availableTabBlock() = ::TabBlock.isInitialized
+    fun availableTabFullBottle() = ::TabFullBottle.isInitialized
+    fun availableTabMaterial() = ::TabMaterial.isInitialized
+
     //    Item    //
 
     lateinit var ItemBlazingCube: ItemBase
@@ -64,8 +67,6 @@ object RagiRegistry {
     lateinit var ItemEnderTable: ItemBase
     lateinit var ItemForgeHammer: ItemBase
     lateinit var ItemFullBottle: ItemBase
-    //lateinit var ItemOreCrushed: ItemBase
-    //lateinit var ItemOreCrushedVanilla: ItemBase
     lateinit var ItemWaste: ItemBase
 
     lateinit var ItemBlockMaterial: ItemMaterial
@@ -76,10 +77,10 @@ object RagiRegistry {
     lateinit var ItemIngot: ItemMaterial
     lateinit var ItemIngotHot: ItemMaterial
     lateinit var ItemNugget: ItemMaterial
+    lateinit var ItemOre: ItemMaterial
+    lateinit var ItemOreCrushed: ItemMaterial
     lateinit var ItemPlate: ItemMaterial
     lateinit var ItemStick: ItemMaterial
-
-    lateinit var ItemOre: ItemMaterial
 
     //    LootTable    //
 
@@ -111,7 +112,7 @@ object RagiRegistry {
             try {
                 //Block
                 val obj = it.get(this)
-                if (obj is BlockBase) {
+                if (obj is BlockBase && obj.registryName !== null) {
                     setBlocks.add(obj)
                     RagiMaterials.LOGGER.debug("The block ${obj.registryName} is added to list!")
                     if (obj.itemBlock !== null) {
@@ -120,11 +121,10 @@ object RagiRegistry {
                     }
                 }
                 //Item
-                if (obj is ItemBase) {
+                if (obj is ItemBase && obj.registryName !== null) {
                     setItems.add(obj)
                     RagiMaterials.LOGGER.debug("The item ${obj.registryName} is added to list!")
                 }
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }

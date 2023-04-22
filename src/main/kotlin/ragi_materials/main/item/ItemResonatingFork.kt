@@ -1,12 +1,12 @@
 package ragi_materials.main.item
 
-import ragi_materials.core.RagiMaterials
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.EnumActionResult
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.item.ItemBase
 
 class ItemResonatingFork : ItemBase(RagiMaterials.MOD_ID, "resonating_fork", 0) {

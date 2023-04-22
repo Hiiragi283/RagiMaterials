@@ -1,10 +1,10 @@
 package ragi_materials.main.container
 
-import ragi_materials.main.tile.TileLaboBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.SlotItemHandler
 import ragi_materials.core.container.ContainerBase
+import ragi_materials.main.tile.TileLaboBase
 
 class ContainerLaboTable(player: EntityPlayer, override val tile: TileLaboBase) : ContainerBase<TileLaboBase>(player, tile) {
 

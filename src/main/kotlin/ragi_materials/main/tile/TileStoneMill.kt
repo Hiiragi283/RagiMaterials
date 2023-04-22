@@ -1,17 +1,5 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.EnumIOType
-import ragi_materials.core.capability.item.RagiItemHandler
-import ragi_materials.core.capability.item.RagiItemHandlerWrapper
-import ragi_materials.core.recipe.MillRecipe
-import ragi_materials.core.RagiRegistry
-import ragi_materials.core.block.RagiProperty
-import ragi_materials.main.container.ContainerStoneMill
-import ragi_materials.core.proxy.CommonProxy
-import ragi_materials.core.util.dropItem
-import ragi_materials.core.util.failed
-import ragi_materials.core.util.succeeded
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -21,7 +9,19 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
+import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.item.RagiItemHandler
+import ragi_materials.core.capability.item.RagiItemHandlerWrapper
+import ragi_materials.core.proxy.CommonProxy
+import ragi_materials.core.recipe.MillRecipe
 import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.util.dropItem
+import ragi_materials.core.util.failed
+import ragi_materials.core.util.succeeded
+import ragi_materials.main.container.ContainerStoneMill
 
 class TileStoneMill : TileItemHandlerBase() {
 

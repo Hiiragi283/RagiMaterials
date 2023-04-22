@@ -1,10 +1,10 @@
 package ragi_materials.core.client.gui
 
-import ragi_materials.core.container.ContainerBase
-import ragi_materials.core.tile.TileBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
+import ragi_materials.core.container.ContainerBase
+import ragi_materials.core.tile.TileBase
 
 abstract class GuiBase<T : TileBase>(val container: ContainerBase<T>) : GuiContainer(container) {
 

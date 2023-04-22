@@ -1,8 +1,5 @@
 package ragi_materials.core.integration.jei
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.part.PartRegistry
-import ragi_materials.core.material.type.EnumMaterialType
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
@@ -11,6 +8,9 @@ import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.material.part.PartRegistry
+import ragi_materials.core.material.type.EnumMaterialType
 
 class MaterialInfoCategory(guiHelper: IGuiHelper) : JEICategoryBase<MaterialInfoWrapper>() {
 

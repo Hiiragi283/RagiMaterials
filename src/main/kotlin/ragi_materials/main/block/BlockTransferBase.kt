@@ -1,12 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.IMaterialBlock
-import ragi_materials.main.client.model.ICustomModel
-import ragi_materials.main.client.model.ModelManager
-import ragi_materials.main.tile.TileTransferBase
-import ragi_materials.core.util.RagiColor
-import ragi_materials.core.util.RagiFacing
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
@@ -24,8 +17,15 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.material.IMaterialBlock
+import ragi_materials.core.util.RagiColor
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.main.client.model.ICustomModel
+import ragi_materials.main.client.model.ModelManager
+import ragi_materials.main.tile.TileTransferBase
 import java.awt.Color
 import java.util.*
 

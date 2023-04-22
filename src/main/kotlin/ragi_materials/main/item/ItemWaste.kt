@@ -1,9 +1,5 @@
 package ragi_materials.main.item
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.core.material.RagiMaterial
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -15,7 +11,11 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.item.ItemBase
+import ragi_materials.core.material.IMaterialItem
+import ragi_materials.core.material.MaterialRegistry
+import ragi_materials.core.material.RagiMaterial
 
 class ItemWaste : ItemBase(RagiMaterials.MOD_ID, "waste", 0), IMaterialItem {
 

@@ -1,12 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.core.material.IMaterialBlock
-import ragi_materials.core.material.RagiMaterial
-import ragi_materials.core.material.part.PartRegistry
-import ragi_materials.core.item.ItemBlockBase
-import ragi_materials.core.util.ColorUtil
-import ragi_materials.core.util.RagiColor
-import ragi_materials.core.util.getPart
 import net.minecraft.block.IGrowable
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -21,6 +14,13 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
 import ragi_materials.core.block.BlockBase
+import ragi_materials.core.item.ItemBlockBase
+import ragi_materials.core.material.IMaterialBlock
+import ragi_materials.core.material.RagiMaterial
+import ragi_materials.core.material.part.PartRegistry
+import ragi_materials.core.util.ColorUtil
+import ragi_materials.core.util.RagiColor
+import ragi_materials.core.util.getPart
 import java.awt.Color
 import java.util.*
 

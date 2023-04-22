@@ -26,13 +26,13 @@ object PeriodSixth {
         MaterialRegistry.TUNGSTEN = RagiMaterial.Builder(740, "tungsten", TypeRegistry.METAL).setSimple(ElementRegistry.TUNGSTEN to 1).build()
 
         //790 ~ 799: Gold
-        MaterialRegistry.GOLD = RagiMaterial.Builder(790, "gold", TypeRegistry.METAL).setSimple(ElementRegistry.GOLD to 1).build()
+        MaterialRegistry.GOLD = RagiMaterial.Builder(790, "gold", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.GOLD to 1).build()
 
         //800 ~ 809: Mercury
         MaterialRegistry.MERCURY = RagiMaterial.Builder(800, "mercury", TypeRegistry.LIQUID).setSimple(ElementRegistry.MERCURY to 1).build()
 
         //820 ~ 829: Lead
-        MaterialRegistry.LEAD = RagiMaterial.Builder(820, "lead", TypeRegistry.METAL).setSimple(ElementRegistry.LEAD to 1).build()
+        MaterialRegistry.LEAD = RagiMaterial.Builder(820, "lead", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.LEAD to 1).build()
 
         //830 ~ 839: Bismuth
         MaterialRegistry.BISMUTH = RagiMaterial.Builder(830, "bismuth", TypeRegistry.METAL).setSimple(ElementRegistry.BISMUTH to 1).build()

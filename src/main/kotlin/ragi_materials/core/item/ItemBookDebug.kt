@@ -1,9 +1,5 @@
 package ragi_materials.core.item
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.util.RagiColor
-import ragi_materials.core.util.executeCommand
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
@@ -17,7 +13,10 @@ import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
-import ragi_materials.core.item.ItemBase
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.material.IMaterialItem
+import ragi_materials.core.util.RagiColor
+import ragi_materials.core.util.executeCommand
 
 class ItemBookDebug : ItemBase(RagiMaterials.MOD_ID, "book_debug", 0), IMaterialItem {
 

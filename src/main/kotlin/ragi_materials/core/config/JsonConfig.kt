@@ -3,13 +3,13 @@ package ragi_materials.core.config
 import com.google.gson.Gson
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import net.minecraft.item.EnumRarity
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.getEnumRarity
 import ragi_materials.core.util.getMaterialFromName
-import net.minecraft.item.EnumRarity
 import java.awt.Color
 import java.io.*
 

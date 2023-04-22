@@ -1,11 +1,5 @@
 package ragi_materials.main.tile
 
-import ragi_materials.main.block.BlockTransferBase
-import ragi_materials.main.block.EnumTransferMode
-import ragi_materials.core.block.RagiProperty
-import ragi_materials.core.util.RagiFacing
-import ragi_materials.core.util.failed
-import ragi_materials.core.util.succeeded
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
@@ -14,7 +8,13 @@ import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
+import ragi_materials.core.block.RagiProperty
 import ragi_materials.core.tile.TileBase
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.core.util.failed
+import ragi_materials.core.util.succeeded
+import ragi_materials.main.block.BlockTransferBase
+import ragi_materials.main.block.EnumTransferMode
 
 abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 

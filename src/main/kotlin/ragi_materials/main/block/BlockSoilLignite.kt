@@ -1,6 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.core.material.MaterialRegistry
 import net.minecraft.block.BlockGravel
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
@@ -9,6 +8,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.common.BiomeDictionary
 import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.material.MaterialRegistry
 
 class BlockSoilLignite : BlockSoilFuel("soil_lignite") {
 

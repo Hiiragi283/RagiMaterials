@@ -1,7 +1,7 @@
 package ragi_materials.main.item
 
-import ragi_materials.core.RagiMaterials
 import net.minecraft.item.ItemStack
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.item.ItemBase
 
 class ItemForgeHammer : ItemBase(RagiMaterials.MOD_ID, "forge_hammer", 0) {

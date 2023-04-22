@@ -57,6 +57,12 @@ object PartRegistry {
         type = EnumMaterialType.ORE
     }.build()
 
+    val ORE_CRUSHED = MaterialPart.Builder("ore_crushed").apply {
+        prefixOre = "oreCrushed"
+        scale = 1.0f
+        type = EnumMaterialType.ORE
+    }.build()
+
     val PLATE = MaterialPart.Builder("plate").apply {
         prefixOre = "plate"
         type = EnumMaterialType.PLATE

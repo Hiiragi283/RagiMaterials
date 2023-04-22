@@ -1,6 +1,5 @@
 package ragi_materials.core.tile
 
-import ragi_materials.core.container.RagiInventory
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
@@ -12,6 +11,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity
 import net.minecraft.tileentity.TileEntityLockable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import ragi_materials.core.container.RagiInventory
 
 abstract class TileLockableBase(val type: Int) : TileEntityLockable() {
 

@@ -1,7 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.core.material.RagiMaterial
 import net.minecraft.block.BlockDirt
 import net.minecraft.block.BlockGrass
 import net.minecraft.block.state.IBlockState
@@ -10,6 +8,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.common.BiomeDictionary
 import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.material.MaterialRegistry
+import ragi_materials.core.material.RagiMaterial
 
 class BlockSoilPeat : BlockSoilFuel("soil_peat") {
 

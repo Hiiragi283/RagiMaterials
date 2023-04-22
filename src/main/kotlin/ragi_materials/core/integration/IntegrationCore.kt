@@ -1,12 +1,12 @@
 package ragi_materials.core.integration
 
-import ragi_materials.core.config.RagiConfig
-import ragi_materials.core.proxy.IProxy
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import ragi_materials.core.config.RagiConfig
+import ragi_materials.core.proxy.IProxy
 
 object IntegrationCore : IProxy {
 

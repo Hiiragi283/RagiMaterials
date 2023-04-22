@@ -1,15 +1,15 @@
 package ragi_materials.metallurgy.client.render
 
-import ragi_materials.metallurgy.block.BlockBlazingForge
-import ragi_materials.metallurgy.client.model.tile.ModelBlazingForge
-import ragi_materials.main.tile.TileBlazingForge
-import ragi_materials.core.util.RagiFacing
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.util.RagiFacing
+import ragi_materials.main.tile.TileBlazingForge
+import ragi_materials.metallurgy.block.BlockBlazingForge
+import ragi_materials.metallurgy.client.model.tile.ModelBlazingForge
 
 @SideOnly(Side.CLIENT)
 object RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {

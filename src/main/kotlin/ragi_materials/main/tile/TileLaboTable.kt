@@ -1,13 +1,13 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.RagiRegistry
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
 import ragi_materials.core.tile.ITileSyncable
 import ragi_materials.core.util.*
 

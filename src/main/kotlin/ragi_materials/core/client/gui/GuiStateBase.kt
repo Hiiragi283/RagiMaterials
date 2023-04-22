@@ -1,9 +1,9 @@
 package ragi_materials.core.client.gui
 
-import ragi_materials.core.container.ContainerStateBase
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.util.ResourceLocation
+import ragi_materials.core.container.ContainerStateBase
 
 abstract class GuiStateBase(val container: ContainerStateBase) : GuiContainer(container) {
 

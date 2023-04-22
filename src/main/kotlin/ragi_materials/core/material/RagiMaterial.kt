@@ -1,6 +1,13 @@
 package ragi_materials.core.material
 
+import net.minecraft.client.resources.I18n
+import net.minecraft.item.EnumRarity
+import net.minecraft.item.ItemStack
+import net.minecraftforge.common.IRarity
+import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidRegistry
 import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
 import ragi_materials.core.material.part.MaterialPart
 import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.material.type.EnumCrystalType
@@ -8,13 +15,6 @@ import ragi_materials.core.material.type.MaterialType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.snakeToUpperCamelCase
-import net.minecraft.client.resources.I18n
-import net.minecraft.item.EnumRarity
-import net.minecraft.item.ItemStack
-import net.minecraftforge.common.IRarity
-import net.minecraftforge.fluids.Fluid
-import net.minecraftforge.fluids.FluidRegistry
-import ragi_materials.core.RagiRegistry
 import java.awt.Color
 
 /**

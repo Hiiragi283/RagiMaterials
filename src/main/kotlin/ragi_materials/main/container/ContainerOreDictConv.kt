@@ -1,11 +1,11 @@
 package ragi_materials.main.container
 
-import ragi_materials.main.tile.TileOreDictConv
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.SlotItemHandler
 import ragi_materials.core.container.ContainerBase
 import ragi_materials.core.container.SlotOutItemHandler
+import ragi_materials.main.tile.TileOreDictConv
 
 class ContainerOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : ContainerBase<TileOreDictConv>(player, tile) {
 

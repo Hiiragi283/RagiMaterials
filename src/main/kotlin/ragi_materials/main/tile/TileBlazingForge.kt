@@ -1,8 +1,5 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.capability.RagiTank
-import ragi_materials.core.RagiRegistry
-import ragi_materials.core.config.RagiConfig
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -13,6 +10,9 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
+import ragi_materials.core.RagiRegistry
+import ragi_materials.core.capability.RagiTank
+import ragi_materials.core.config.RagiConfig
 import ragi_materials.core.tile.TileBase
 import ragi_materials.core.util.*
 

@@ -2,12 +2,12 @@
 
 package ragi_materials.core.util
 
-import ragi_materials.core.material.RagiMaterial
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.material.RagiMaterial
 
 fun FluidStack.writeToTag(tag: NBTTagCompound): NBTTagCompound {
     val tagFluid = NBTTagCompound()

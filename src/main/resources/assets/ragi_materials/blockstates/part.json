@@ -63,6 +63,12 @@
         "layer1": "ragi_materials:items/ore_layer"
       }
     }],
+    "ore_crushed": [{
+      "textures": {
+        "layer0": "ragi_materials:items/dust",
+        "layer1": "ragi_materials:items/ore_crushed_layer"
+      }
+    }],
     "plate": [{
       "textures": {
         "layer0": "ragi_materials:items/plate"

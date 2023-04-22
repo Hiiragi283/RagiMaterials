@@ -1,11 +1,11 @@
 package ragi_materials.core.recipe
 
-import ragi_materials.core.RagiMaterials
 import net.minecraft.init.Items
 import net.minecraft.inventory.InventoryCrafting
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
+import ragi_materials.core.RagiMaterials
 
 class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 

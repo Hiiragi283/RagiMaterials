@@ -1,6 +1,5 @@
 package ragi_materials.core.capability
 
-import ragi_materials.core.RagiMaterials
 import net.minecraft.nbt.NBTBase
 import net.minecraft.nbt.NBTTagInt
 import net.minecraft.util.EnumFacing
@@ -8,6 +7,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.Capability.IStorage
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.CapabilityManager
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.capability.heat.HeatStorage
 import ragi_materials.core.capability.heat.IHeatStorage
 

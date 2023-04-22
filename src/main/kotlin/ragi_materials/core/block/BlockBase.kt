@@ -1,6 +1,5 @@
 package ragi_materials.core.block
 
-import ragi_materials.core.RagiMaterials
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.client.resources.I18n
@@ -10,6 +9,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.RagiMaterials
 
 abstract class BlockBase(ID: String, Material: Material, private val maxTips: Int) : Block(Material) {
 

@@ -2,8 +2,6 @@
 
 package ragi_materials.core.util
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.RagiRegistry
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.Ingredient
@@ -13,6 +11,8 @@ import net.minecraft.util.NonNullList
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
 
 //定型クラフトレシピを追加するメソッド
 fun addCraftingShaped(output: ItemStack, vararg inputs: Any) {

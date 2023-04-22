@@ -1,12 +1,12 @@
 package ragi_materials.main.client.render
 
-import ragi_materials.main.tile.TileLaboTable
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.main.tile.TileLaboTable
 
 /**
  * Thanks to defeatedcrow!

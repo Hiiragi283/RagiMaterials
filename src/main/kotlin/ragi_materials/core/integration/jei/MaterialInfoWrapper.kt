@@ -1,9 +1,5 @@
 package ragi_materials.core.integration.jei
 
-import ragi_materials.core.material.RagiMaterial
-import ragi_materials.core.material.part.MaterialPart
-import ragi_materials.core.material.part.PartRegistry
-import ragi_materials.core.util.getPart
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -11,6 +7,10 @@ import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.oredict.OreDictionary
+import ragi_materials.core.material.RagiMaterial
+import ragi_materials.core.material.part.MaterialPart
+import ragi_materials.core.material.part.PartRegistry
+import ragi_materials.core.util.getPart
 
 class MaterialInfoWrapper(val material: RagiMaterial) : IRecipeWrapper {
 

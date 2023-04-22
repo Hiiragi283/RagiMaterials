@@ -1,7 +1,5 @@
 package ragi_materials.main.block
 
-import ragi_materials.main.tile.TileOreDictConv
-import ragi_materials.core.util.dropInventoryItems
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
@@ -12,6 +10,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.util.dropInventoryItems
+import ragi_materials.main.tile.TileOreDictConv
 
 class BlockOreDictConv : BlockContainerBase<TileOreDictConv>("oredict_converter", Material.WOOD, TileOreDictConv::class.java, 2) {
 

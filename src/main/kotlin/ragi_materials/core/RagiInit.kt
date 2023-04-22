@@ -24,12 +24,15 @@ import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.material.type.EnumMaterialType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.proxy.IProxy
+import ragi_materials.core.recipe.CraftingRegistry
+import ragi_materials.core.recipe.SmeltingRegistry
 import ragi_materials.core.util.RagiColor
 import ragi_materials.core.util.getPart
 import ragi_materials.main.block.*
-import ragi_materials.main.item.*
-import ragi_materials.core.recipe.CraftingRegistry
-import ragi_materials.core.recipe.SmeltingRegistry
+import ragi_materials.main.item.ItemEnderTable
+import ragi_materials.main.item.ItemForgeHammer
+import ragi_materials.main.item.ItemFullBottle
+import ragi_materials.main.item.ItemWaste
 import ragi_materials.main.tile.TileTransferEnergy
 import ragi_materials.main.tile.TileTransferFluid
 import ragi_materials.metallurgy.block.BlockBlazingForge
@@ -97,7 +100,8 @@ object RagiInit : IProxy {
         RagiRegistry.ItemIngot = ItemMaterial(PartRegistry.INGOT)
         RagiRegistry.ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
         RagiRegistry.ItemNugget = ItemMaterial(PartRegistry.NUGGET)
-        RagiRegistry.ItemOre = ItemMaterialOre()
+        RagiRegistry.ItemOre = ItemMaterialOre(PartRegistry.ORE)
+        RagiRegistry.ItemOreCrushed = ItemMaterialOre(PartRegistry.ORE_CRUSHED)
         RagiRegistry.ItemPlate = ItemMaterial(PartRegistry.PLATE)
         RagiRegistry.ItemStick = ItemMaterial(PartRegistry.STICK)
 

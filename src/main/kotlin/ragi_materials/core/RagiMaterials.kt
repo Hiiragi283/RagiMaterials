@@ -1,13 +1,13 @@
 package ragi_materials.core
 
-import ragi_materials.core.proxy.CommonProxy
-import ragi_materials.core.proxy.IProxy
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
+import ragi_materials.core.proxy.CommonProxy
+import ragi_materials.core.proxy.IProxy
 import java.awt.Color
 import java.io.File
 

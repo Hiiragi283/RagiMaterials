@@ -1,19 +1,19 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.RagiEnergyStorage
-import ragi_materials.core.recipe.LaboRecipe
-import ragi_materials.core.RagiRegistry
-import ragi_materials.core.util.dropItem
-import ragi_materials.core.util.getSound
-import ragi_materials.core.util.playSound
-import ragi_materials.core.util.toBracket
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.items.CapabilityItemHandler
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
+import ragi_materials.core.capability.RagiEnergyStorage
+import ragi_materials.core.recipe.LaboRecipe
+import ragi_materials.core.util.dropItem
+import ragi_materials.core.util.getSound
+import ragi_materials.core.util.playSound
+import ragi_materials.core.util.toBracket
 
 class TileIndustrialLabo : TileLaboBase(), ITickable {
 

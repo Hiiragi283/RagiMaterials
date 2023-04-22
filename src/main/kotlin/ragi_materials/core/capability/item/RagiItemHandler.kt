@@ -1,8 +1,8 @@
 package ragi_materials.core.capability.item
 
-import ragi_materials.core.capability.EnumIOType
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
+import ragi_materials.core.capability.EnumIOType
 
 open class RagiItemHandler(slots: Int) : ItemStackHandler(slots) {
 

@@ -1,10 +1,10 @@
 package ragi_materials.metallurgy.container
 
-import ragi_materials.main.tile.TileFireboxPrimitive
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.SlotItemHandler
 import ragi_materials.core.container.ContainerBase
+import ragi_materials.main.tile.TileFireboxPrimitive
 
 class ContainerFirebox(player: EntityPlayer, override val tile: TileFireboxPrimitive) : ContainerBase<TileFireboxPrimitive>(player, tile) {
 

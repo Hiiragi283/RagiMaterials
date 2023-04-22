@@ -1,11 +1,5 @@
 package ragi_materials.core.event
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.material.IMaterialBlock
-import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.main.client.model.ICustomModel
-import ragi_materials.main.client.model.ModelManager
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
@@ -15,7 +9,13 @@ import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.material.IMaterialBlock
+import ragi_materials.core.material.IMaterialItem
+import ragi_materials.core.material.MaterialRegistry
+import ragi_materials.main.client.model.ICustomModel
+import ragi_materials.main.client.model.ModelManager
 
 @SideOnly(Side.CLIENT)
 object ClientRegistryEvent {

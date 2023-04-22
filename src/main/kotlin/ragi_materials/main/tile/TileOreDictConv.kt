@@ -1,12 +1,5 @@
 package ragi_materials.main.tile
 
-import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.EnumIOType
-import ragi_materials.core.capability.item.RagiItemHandler
-import ragi_materials.core.capability.item.RagiItemHandlerWrapper
-import ragi_materials.main.container.ContainerOreDictConv
-import ragi_materials.core.proxy.CommonProxy
-import ragi_materials.core.util.playSoundHypixel
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.item.ItemStack
@@ -19,7 +12,14 @@ import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.oredict.OreDictionary
+import ragi_materials.core.RagiMaterials
+import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.item.RagiItemHandler
+import ragi_materials.core.capability.item.RagiItemHandlerWrapper
+import ragi_materials.core.proxy.CommonProxy
 import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.util.playSoundHypixel
+import ragi_materials.main.container.ContainerOreDictConv
 
 class TileOreDictConv : TileItemHandlerBase(), ITickable {
 
