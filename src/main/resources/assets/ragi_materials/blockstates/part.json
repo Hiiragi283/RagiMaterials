@@ -57,6 +57,12 @@
         "layer0": "ragi_materials:items/nugget"
       }
     }],
+    "ore": [{
+      "textures": {
+        "layer0": "ragi_materials:items/crystal_coal",
+        "layer1": "ragi_materials:items/ore_layer"
+      }
+    }],
     "plate": [{
       "textures": {
         "layer0": "ragi_materials:items/plate"
