@@ -1,18 +1,13 @@
 package ragi_materials.core.util
 
-import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.EnumFacing
+import ragi_materials.core.block.property.RagiProperty
 
 object RagiFacing {
 
-    //0 -> NORTH, 1 -> EAST, 2 -> SOUTH, 3 -> WEST
-    val HORIZONTAL: PropertyDirection = PropertyDirection.create("facing",
-            listOf(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST)
-    )
-
     fun getMeta(state: IBlockState): Int {
-        return when (state.getValue(HORIZONTAL)) {
+        return when (state.getValue(RagiProperty.HORIZONTAL)) {
             EnumFacing.EAST -> 1
             EnumFacing.SOUTH -> 2
             EnumFacing.WEST -> 3
@@ -20,6 +15,6 @@ object RagiFacing {
         }
     }
 
-    fun getValue(meta: Int): EnumFacing = HORIZONTAL.allowedValues.toList().let { it[meta % it.size] }
+    fun getValue(meta: Int): EnumFacing = RagiProperty.HORIZONTAL.allowedValues.toList().let { it[meta % it.size] }
 
 }

@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.RagiMaterials
-import ragi_materials.core.util.RagiFacing
+import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.main.block.BlockIndustrialLabo
 import ragi_materials.main.client.model.tile.ModelIndustrialLabo
 import ragi_materials.main.tile.TileIndustrialLabo
@@ -24,7 +24,7 @@ object RenderIndustrialLabo : TileEntitySpecialRenderer<TileIndustrialLabo>() {
         if (te.hasWorld()) {
             val state = te.world.getBlockState(te.pos)
             if (state.block is BlockIndustrialLabo) {
-                rotate = when (state.getValue(RagiFacing.HORIZONTAL)) {
+                rotate = when (state.getValue(RagiProperty.HORIZONTAL)) {
                     EnumFacing.EAST -> -90.0f
                     EnumFacing.SOUTH -> 0.0f
                     EnumFacing.WEST -> 90.0f

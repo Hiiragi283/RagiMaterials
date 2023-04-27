@@ -7,7 +7,7 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBase
-import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.main.tile.TileStoneMill
 
@@ -38,11 +38,17 @@ class BlockStoneMill : BlockContainerBase<TileStoneMill>("stone_mill", Material.
     @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(COUNT, meta / 8)", "ragi_materials.main.BlockStoneMill.Companion.COUNT"))
     override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(RagiProperty.COUNT8, meta / 8)
 
+    fun getCount(state: IBlockState): Int = state.getValue(RagiProperty.COUNT8)
+
+    fun setCount(state: IBlockState, count: Int): IBlockState = state.withProperty(RagiProperty.COUNT8, count % 8)
+
+    fun addCount(state: IBlockState) = state.withProperty(RagiProperty.COUNT8, (getCount(state) + 1) % 8)
+
     //    Event    //
 
-    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
+    override fun removeTile(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
         if (tile !== null && tile is TileStoneMill) dropInventoryItems(world, pos, tile.inventory)
-        super.breakBlock(world, pos, state)
+        super.removeTile(world, pos, state)
     }
 }

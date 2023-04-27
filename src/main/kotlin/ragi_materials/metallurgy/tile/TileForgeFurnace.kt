@@ -1,4 +1,4 @@
-package ragi_materials.main.tile
+package ragi_materials.metallurgy.tile
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack

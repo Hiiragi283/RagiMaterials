@@ -35,10 +35,7 @@ import ragi_materials.main.item.ItemFullBottle
 import ragi_materials.main.item.ItemWaste
 import ragi_materials.main.tile.TileTransferEnergy
 import ragi_materials.main.tile.TileTransferFluid
-import ragi_materials.metallurgy.block.BlockBlazingForge
-import ragi_materials.metallurgy.block.BlockFireboxPrimitive
-import ragi_materials.metallurgy.block.BlockForgeFurnace
-import ragi_materials.metallurgy.block.BlockOreRainbow
+import ragi_materials.metallurgy.block.*
 
 object RagiInit : IProxy {
 
@@ -81,7 +78,8 @@ object RagiInit : IProxy {
         //Metallurgic Feature
         if (RagiConfig.module.enableMetallurgy) {
             RagiRegistry.BlockBlazingForge = BlockBlazingForge()
-            RagiRegistry.BlockFireboxPrimitive = BlockFireboxPrimitive()
+            RagiRegistry.BlockBloomery = BlockBloomery()
+            RagiRegistry.BlockBloomeryMolten = BlockBloomeryMolten()
             RagiRegistry.BlockForgeFurnace = BlockForgeFurnace()
             //RagiRegistry.BlockOre1 = BlockOreMaterial("ore_block")
             RagiRegistry.BlockOreRainbow = BlockOreRainbow("ore_rainbow")

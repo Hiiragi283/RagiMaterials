@@ -6,10 +6,9 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import ragi_materials.core.util.RagiFacing
-import ragi_materials.main.tile.TileBlazingForge
 import ragi_materials.metallurgy.block.BlockBlazingForge
 import ragi_materials.metallurgy.client.model.tile.ModelBlazingForge
+import ragi_materials.metallurgy.tile.TileBlazingForge
 
 @SideOnly(Side.CLIENT)
 object RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
@@ -22,8 +21,9 @@ object RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
 
         if (te.hasWorld()) {
             val state = te.world.getBlockState(te.pos)
-            if (state.block is BlockBlazingForge) {
-                rotate = when (state.getValue(RagiFacing.HORIZONTAL)) {
+            val block  = state.block
+            if (block is BlockBlazingForge) {
+                rotate = when (block.getFacing(state)) {
                     EnumFacing.EAST -> -90.0f
                     EnumFacing.SOUTH -> 0.0f
                     EnumFacing.WEST -> 90.0f

@@ -31,8 +31,6 @@ import ragi_materials.main.container.ContainerLaboTable
 import ragi_materials.main.container.ContainerOreDictConv
 import ragi_materials.main.container.ContainerStoneMill
 import ragi_materials.main.tile.*
-import ragi_materials.metallurgy.client.gui.GuiFirebox
-import ragi_materials.metallurgy.container.ContainerFirebox
 import java.io.File
 
 abstract class CommonProxy : IGuiHandler, IProxy {
@@ -106,7 +104,6 @@ abstract class CommonProxy : IGuiHandler, IProxy {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
-                    is TileFireboxPrimitive -> container = ContainerFirebox(player, tile)
                     is TileFullBottleStation -> container = ContainerFullBottle(player, tile)
                     is TileIndustrialLabo -> container = ContainerLaboTable(player, tile)
                     is TileLaboTable -> container = ContainerLaboTable(player, tile)
@@ -126,7 +123,6 @@ abstract class CommonProxy : IGuiHandler, IProxy {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 when (tile) {
-                    is TileFireboxPrimitive -> gui = GuiFirebox(player, tile)
                     is TileFullBottleStation -> gui = GuiFullBottle(player, tile)
                     is TileIndustrialLabo -> gui = GuiLaboTable(player, tile)
                     is TileLaboTable -> gui = GuiLaboTable(player, tile)

@@ -1,4 +1,4 @@
-package ragi_materials.main.block
+package ragi_materials.core.block.property
 
 import net.minecraft.util.IStringSerializable
 

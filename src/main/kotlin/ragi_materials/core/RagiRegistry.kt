@@ -34,7 +34,9 @@ object RagiRegistry {
     //    Block    //
 
     lateinit var BlockBlazingForge: BlockBase
-    lateinit var BlockFireboxPrimitive: BlockBase
+    lateinit var BlockBloomery: BlockBase
+    lateinit var BlockBloomeryMolten: BlockBase
+    //lateinit var BlockFireboxPrimitive: BlockBase
     lateinit var BlockForgeFurnace: BlockBase
     lateinit var BlockFullBottleStation: BlockBase
     lateinit var BlockIndustrialLabo: BlockBase

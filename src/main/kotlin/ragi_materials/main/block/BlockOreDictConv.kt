@@ -45,9 +45,9 @@ class BlockOreDictConv : BlockContainerBase<TileOreDictConv>("oredict_converter"
 
     //    Event    //
 
-    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
+    override fun removeTile(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
         if (tile !== null && tile is TileOreDictConv) dropInventoryItems(world, pos, tile.inventory)
-        super.breakBlock(world, pos, state)
+        super.removeTile(world, pos, state)
     }
 }

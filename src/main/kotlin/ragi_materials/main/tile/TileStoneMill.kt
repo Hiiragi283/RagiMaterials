@@ -11,7 +11,6 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
-import ragi_materials.core.block.RagiProperty
 import ragi_materials.core.capability.EnumIOType
 import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
@@ -21,6 +20,7 @@ import ragi_materials.core.tile.TileItemHandlerBase
 import ragi_materials.core.util.dropItem
 import ragi_materials.core.util.failed
 import ragi_materials.core.util.succeeded
+import ragi_materials.main.block.BlockStoneMill
 import ragi_materials.main.container.ContainerStoneMill
 
 class TileStoneMill : TileItemHandlerBase() {
@@ -92,9 +92,11 @@ class TileStoneMill : TileItemHandlerBase() {
                 player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
             } else {
                 val state = world.getBlockState(pos)
-                val count = state.getValue(RagiProperty.COUNT8)
-                if (count == 7) doProcess()
-                world.setBlockState(pos, state.withProperty(RagiProperty.COUNT8, (count + 1) % 8), 2) //8で割った余りにすることでオーバーフローを防止
+                val block = state.block
+                if (block is BlockStoneMill) {
+                    if (block.getCount(state) == 7) doProcess()
+                    world.setBlockState(pos, block.addCount(state), 2) //8で割った余りにすることでオーバーフローを防止
+                }
             }
         }
         return true

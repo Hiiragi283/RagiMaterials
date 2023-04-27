@@ -28,7 +28,7 @@ object RagiMaterials : IProxy {
     const val MOD_NAME = "Ragi Materials"
 
     //Modのバージョンの宣言
-    const val VERSION = "v0.8.1a"
+    const val VERSION = "v0.9.0a"
 
     //依存関係の宣言
     const val DEPENDENCIES = "required-after:forgelin;after:jei"

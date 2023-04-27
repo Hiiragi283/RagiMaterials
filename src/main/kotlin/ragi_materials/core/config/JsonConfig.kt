@@ -128,7 +128,7 @@ object JsonConfig {
                 builder.burnTime = burnTime
                 color?.let { builder.color = Color(it) }
                 builder.crystalType = EnumCrystalType.getType(crystalType)
-                builder.decayed = decayed?.let { getMaterialFromName(it) }
+                //builder.decayed = decayed?.let { getMaterialFromName(it) }
                 formula?.let { builder.formula = it }
                 molar?.let { builder.molar = it }
                 builder.oredictAlt = oredictAlt

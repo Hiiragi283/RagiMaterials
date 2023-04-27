@@ -1,5 +1,6 @@
 package ragi_materials.main.tile
 
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
@@ -8,13 +9,11 @@ import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
-import ragi_materials.core.block.RagiProperty
 import ragi_materials.core.tile.TileBase
-import ragi_materials.core.util.RagiFacing
 import ragi_materials.core.util.failed
 import ragi_materials.core.util.succeeded
 import ragi_materials.main.block.BlockTransferBase
-import ragi_materials.main.block.EnumTransferMode
+import ragi_materials.core.block.property.EnumTransferMode
 
 abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 
@@ -26,9 +25,11 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 
     //    General    //
 
-    fun getFacing(): EnumFacing = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiFacing.HORIZONTAL) else EnumFacing.NORTH
+    fun getFacing(): EnumFacing = (getState().block as BlockTransferBase<*>).getFacing(getState())
 
-    fun getMode() = if (getState().block is BlockTransferBase<*>) getState().getValue(RagiProperty.MODE2) else EnumTransferMode.NEAREST
+    fun getMode() = (getState().block as BlockTransferBase<*>).getMode(getState())
+
+    fun reverseMode(): IBlockState = (getState().block as BlockTransferBase<*>).reverseMode(getState())
 
     //    Capability    //
 
@@ -47,7 +48,7 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
             //スニークしている場合，モードを切り変える
             //そうでない場合は接続を試みる
             if (player.isSneaking) {
-                world.setBlockState(pos, getState().withProperty(RagiProperty.MODE2, getMode().reverse()))
+                world.setBlockState(pos, reverseMode())
             } else {
                 getConnection()
                 if (hasConnection()) succeeded(this, player) else failed(this, player)

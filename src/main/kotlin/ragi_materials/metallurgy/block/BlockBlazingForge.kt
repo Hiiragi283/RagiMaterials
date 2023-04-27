@@ -13,15 +13,16 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.block.BlockContainerBaseHoldable
+import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
-import ragi_materials.main.tile.TileBlazingForge
+import ragi_materials.metallurgy.tile.TileBlazingForge
 
 class BlockBlazingForge : BlockContainerBaseHoldable<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
 
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
-        defaultState = blockState.baseState.withProperty(RagiFacing.HORIZONTAL, EnumFacing.NORTH)
+        defaultState = blockState.baseState.withProperty(RagiProperty.HORIZONTAL, EnumFacing.NORTH)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
     }
@@ -33,14 +34,14 @@ class BlockBlazingForge : BlockContainerBaseHoldable<TileBlazingForge>("blazing_
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, RagiFacing.HORIZONTAL)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, RagiProperty.HORIZONTAL)
 
     override fun getMetaFromState(state: IBlockState): Int = RagiFacing.getMeta(state)
 
-    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(RagiFacing.HORIZONTAL, placer.horizontalFacing.opposite)
+    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(RagiProperty.HORIZONTAL, placer.horizontalFacing.opposite)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getState(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
-    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getValue(meta))
+    @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(RagiProperty.HORIZONTAL, RagiFacing.getState(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
+    override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(RagiProperty.HORIZONTAL, RagiFacing.getValue(meta))
 
     //    Client    //
 

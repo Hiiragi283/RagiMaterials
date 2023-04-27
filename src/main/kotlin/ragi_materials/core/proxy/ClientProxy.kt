@@ -6,9 +6,9 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import ragi_materials.core.event.ClientRegistryEvent
 import ragi_materials.main.client.render.RenderLaboratoryTable
-import ragi_materials.main.tile.TileBlazingForge
 import ragi_materials.main.tile.TileLaboTable
 import ragi_materials.metallurgy.client.render.RenderBlazingForge
+import ragi_materials.metallurgy.tile.TileBlazingForge
 
 class ClientProxy : CommonProxy() {
 

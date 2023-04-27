@@ -59,7 +59,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
                         stackRadio.shrink(1) //1つ減らす
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
                         //崩壊後の素材を取得
-                        val decayed = material.decayed
+                        val decayed = material.getDecayed()
                         if (decayed !== null && !decayed.isEmpty()) {
                             dropItemAtPlayer(entity, ItemStack(this, 1, decayed.index))
                         }

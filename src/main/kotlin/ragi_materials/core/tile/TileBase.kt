@@ -11,16 +11,20 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.network.MessageTile
 import ragi_materials.core.network.RagiNetworkWrapper
 
 abstract class TileBase : TileEntity() {
+
+    var material: RagiMaterial = RagiMaterial.EMPTY
 
     val keyEnergy = "energy"
     val keyGas = "gas"
     val keyHeat = "heat"
     val keyInventory = "inventory"
     val keyMass = "mass"
+    val keyMaterial = "material"
     val keyTank = "tank"
 
     //    General    //

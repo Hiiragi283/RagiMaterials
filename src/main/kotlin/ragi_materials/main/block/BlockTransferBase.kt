@@ -19,7 +19,8 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.block.BlockContainerBase
-import ragi_materials.core.block.RagiProperty
+import ragi_materials.core.block.property.EnumTransferMode
+import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.util.RagiColor
 import ragi_materials.core.util.RagiFacing
@@ -32,7 +33,7 @@ import java.util.*
 class BlockTransferBase<T : TileTransferBase<*>>(val type: String, tile: Class<T>, val color: Color) : BlockContainerBase<T>("${type}_transfer", Material.CIRCUITS, tile, 2), ICustomModel, IMaterialBlock {
 
     init {
-        defaultState = blockState.baseState.withProperty(RagiFacing.HORIZONTAL, EnumFacing.NORTH).withProperty(RagiProperty.MODE2, EnumTransferMode.NEAREST)
+        defaultState = blockState.baseState.withProperty(RagiProperty.HORIZONTAL, EnumFacing.NORTH).withProperty(RagiProperty.MODE2, EnumTransferMode.NEAREST)
     }
 
     //    General    //
@@ -51,14 +52,20 @@ class BlockTransferBase<T : TileTransferBase<*>>(val type: String, tile: Class<T
 
     //    BlockState    //
 
-    override fun createBlockState() = BlockStateContainer(this, RagiFacing.HORIZONTAL, RagiProperty.MODE2)
+    override fun createBlockState() = BlockStateContainer(this, RagiProperty.HORIZONTAL, RagiProperty.MODE2)
 
     override fun getMetaFromState(state: IBlockState): Int = RagiFacing.getMeta(state) + state.getValue(RagiProperty.MODE2).meta * 4
 
-    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(RagiFacing.HORIZONTAL, placer.horizontalFacing.opposite)
+    override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState = this.defaultState.withProperty(RagiProperty.HORIZONTAL, placer.horizontalFacing.opposite)
 
-    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getValue(meta)).withProperty(RagiProperty.MODE2, EnumTransferMode.getValue(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
-    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(RagiFacing.HORIZONTAL, RagiFacing.getValue(meta)).withProperty(RagiProperty.MODE2, EnumTransferMode.getValue(meta))
+    @Deprecated("Deprecated in Java", ReplaceWith("defaultState.withProperty(RagiProperty.HORIZONTAL, RagiFacing.getValue(meta)).withProperty(RagiProperty.MODE2, EnumTransferMode.getValue(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
+    override fun getStateFromMeta(meta: Int): IBlockState = defaultState.withProperty(RagiProperty.HORIZONTAL, RagiFacing.getValue(meta)).withProperty(RagiProperty.MODE2, EnumTransferMode.getValue(meta))
+
+    fun getMode(state: IBlockState): EnumTransferMode = state.getValue(RagiProperty.MODE2)
+
+    fun setMode(state: IBlockState, mode: EnumTransferMode): IBlockState = state.withProperty(RagiProperty.MODE2, mode)
+
+    fun reverseMode(state: IBlockState): IBlockState = setMode(state, getMode(state).reverse())
 
     //    Client    //
 
