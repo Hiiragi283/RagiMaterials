@@ -21,7 +21,7 @@ object RenderBlazingForge : TileEntitySpecialRenderer<TileBlazingForge>() {
 
         if (te.hasWorld()) {
             val state = te.world.getBlockState(te.pos)
-            val block  = state.block
+            val block = state.block
             if (block is BlockBlazingForge) {
                 rotate = when (block.getFacing(state)) {
                     EnumFacing.EAST -> -90.0f

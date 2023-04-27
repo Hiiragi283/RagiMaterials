@@ -9,11 +9,11 @@ import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
+import ragi_materials.core.block.property.EnumTransferMode
 import ragi_materials.core.tile.TileBase
 import ragi_materials.core.util.failed
 import ragi_materials.core.util.succeeded
 import ragi_materials.main.block.BlockTransferBase
-import ragi_materials.core.block.property.EnumTransferMode
 
 abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 

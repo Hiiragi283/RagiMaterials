@@ -23,10 +23,9 @@ abstract class TileLaboBase : TileItemHandlerBase() {
 
     //    NBT tag    //
 
-    override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
-        super.writeToNBT(tag)
-        tag.setTag(keyInventory, inventory.serializeNBT())
-        return tag
+    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
+        super.writeToNBT(it)
+        it.setTag(keyInventory, inventory.serializeNBT())
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {

@@ -47,10 +47,10 @@ class BlockIndustrialLabo : BlockContainerBase<TileIndustrialLabo>("industrial_l
 
     //    Event    //
 
-    override fun removeTile(world: World, pos: BlockPos, state: IBlockState) {
+    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
         if (tile !== null && tile is TileIndustrialLabo) dropInventoryItems(world, pos, tile.inventory)
-        super.removeTile(world, pos, state)
+        super.breakBlock(world, pos, state)
     }
 
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {

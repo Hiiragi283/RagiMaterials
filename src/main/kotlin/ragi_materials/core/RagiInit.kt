@@ -14,10 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.oredict.OreDictionary
 import ragi_materials.core.config.RagiConfig
-import ragi_materials.core.item.ItemBase
-import ragi_materials.core.item.ItemBookDebug
-import ragi_materials.core.item.ItemMaterial
-import ragi_materials.core.item.ItemMaterialOre
+import ragi_materials.core.item.*
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.PartRegistry
@@ -78,19 +75,18 @@ object RagiInit : IProxy {
         //Metallurgic Feature
         if (RagiConfig.module.enableMetallurgy) {
             RagiRegistry.BlockBlazingForge = BlockBlazingForge()
+            RagiRegistry.BlockBloom = BlockBloom()
             RagiRegistry.BlockBloomery = BlockBloomery()
-            RagiRegistry.BlockBloomeryMolten = BlockBloomeryMolten()
             RagiRegistry.BlockForgeFurnace = BlockForgeFurnace()
-            //RagiRegistry.BlockOre1 = BlockOreMaterial("ore_block")
             RagiRegistry.BlockOreRainbow = BlockOreRainbow("ore_rainbow")
         }
     }
 
     private fun registerItems() {
         //Core Feature
-        RagiRegistry.ItemBlockMaterial = ItemMaterial(PartRegistry.BLOCK)
+        RagiRegistry.ItemBlockMaterial = ItemMaterialBlock()
         RagiRegistry.ItemBookDebug = ItemBookDebug()
-        RagiRegistry.ItemCrystal = ItemMaterial(PartRegistry.CRYSTAL)
+        RagiRegistry.ItemCrystal = ItemMaterialCrystal()
         RagiRegistry.ItemDust = ItemMaterial(PartRegistry.DUST)
         RagiRegistry.ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY)
         RagiRegistry.ItemForgeHammer = ItemForgeHammer()

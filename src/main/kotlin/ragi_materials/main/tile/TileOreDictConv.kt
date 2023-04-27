@@ -31,10 +31,9 @@ class TileOreDictConv : TileItemHandlerBase(), ITickable {
 
     //    NBT tag    //
 
-    override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
-        super.writeToNBT(tag)
-        tag.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
-        return tag
+    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
+        super.writeToNBT(it)
+        it.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {

@@ -27,10 +27,9 @@ class TileBlazingForge : TileBase() {
 
     //    NBT tag    //
 
-    override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
-        super.writeToNBT(tag)
-        tag.setTag(keyTank, tank.serializeNBT()) //燃料をNBTタグに書き込む
-        return tag
+    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
+        super.writeToNBT(it)
+        it.setTag(keyTank, tank.serializeNBT()) //燃料をNBTタグに書き込む
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {

@@ -29,10 +29,10 @@ class BlockLaboTable : BlockContainerBase<TileLaboTable>("laboratory_table", Mat
 
     //    Event    //
 
-    override fun removeTile(world: World, pos: BlockPos, state: IBlockState) {
+    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)
         if (tile !== null && tile is TileLaboTable) dropInventoryItems(world, pos, tile.inventory)
-        super.removeTile(world, pos, state)
+        super.breakBlock(world, pos, state)
     }
 
     @Deprecated("Deprecated in Java")

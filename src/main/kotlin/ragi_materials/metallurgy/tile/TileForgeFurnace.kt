@@ -38,10 +38,9 @@ class TileForgeFurnace : TileBase() {
 
     //    NBT tag    //
 
-    override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
-        super.writeToNBT(tag)
-        tag.setInteger("fuel", fuel) //燃料をtagに書き込む
-        return tag
+    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
+        super.writeToNBT(it)
+        it.setInteger("fuel", fuel) //燃料をtagに書き込む
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {

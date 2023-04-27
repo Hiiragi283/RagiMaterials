@@ -2,6 +2,7 @@ package ragi_materials.core.material.materials
 
 import net.minecraft.item.EnumRarity
 import ragi_materials.core.material.ElementRegistry
+import ragi_materials.core.material.EnumSubMaterial
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.type.EnumCrystalType
@@ -51,6 +52,7 @@ object PeriodFourth {
             oredictAlt = "Chrome"
             rarity = EnumRarity.UNCOMMON
         }.build()
+        MaterialRegistry.CHROMIUM.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.CHROMIUM)
 
         MaterialRegistry.STAINLESS_STEEL = RagiMaterial.Builder(241, "stainless_steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 6, ElementRegistry.CHROMIUM to 1, ElementRegistry.MANGANESE to 1, ElementRegistry.NICKEL to 1)).apply {
             color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE)
@@ -68,19 +70,23 @@ object PeriodFourth {
         MaterialRegistry.HEMATITE = RagiMaterial.Builder(261, "hematite", TypeRegistry.DUST.enableOre()).setComponents(listOf(ElementRegistry.IRON to 2, ElementRegistry.OXYGEN to 3)).apply {
             color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)
         }.build()
+        MaterialRegistry.HEMATITE.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.IRON)
 
         MaterialRegistry.MAGNETITE = RagiMaterial.Builder(262, "magnetite", TypeRegistry.DUST.enableOre()).setComponents(listOf(ElementRegistry.IRON to 3, ElementRegistry.OXYGEN to 4)).apply {
             color = ColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY)
         }.build()
+        MaterialRegistry.MAGNETITE.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.IRON)
 
         MaterialRegistry.PYRITE = RagiMaterial.Builder(263, "pyrite", TypeRegistry.CRYSTAL.enableOre()).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.SULFUR to 2)).apply {
             color = RagiColor.YELLOW
             crystalType = EnumCrystalType.CUBIC
         }.build()
+        MaterialRegistry.PYRITE.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.IRON)
 
         MaterialRegistry.ARSENOPYRITE = RagiMaterial.Builder(264, "arsenopyrite", TypeRegistry.CRYSTAL.enableOre()).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.ARSENIC to 1, ElementRegistry.SULFUR to 1)).apply {
             crystalType = EnumCrystalType.CUBIC
         }.build()
+        MaterialRegistry.ARSENOPYRITE.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.IRON)
 
         MaterialRegistry.STEEL = RagiMaterial.Builder(265, "steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).apply {
             rarity = EnumRarity.UNCOMMON
@@ -90,11 +96,13 @@ object PeriodFourth {
         MaterialRegistry.COBALT = RagiMaterial.Builder(270, "cobalt", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.COBALT to 1).apply {
             rarity = EnumRarity.UNCOMMON
         }.build()
+        MaterialRegistry.COBALT.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.COBALT)
 
         //280 ~ 289: Nickel
         MaterialRegistry.NICKEL = RagiMaterial.Builder(280, "nickel", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.NICKEL to 1).apply {
             rarity = EnumRarity.UNCOMMON
         }.build()
+        MaterialRegistry.NICKEL.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.NICKEL)
 
         MaterialRegistry.INVAR = RagiMaterial.Builder(281, "invar", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.NICKEL to 2)).apply {
             rarity = EnumRarity.UNCOMMON
@@ -106,9 +114,11 @@ object PeriodFourth {
 
         //290 ~ 299: Copper
         MaterialRegistry.COPPER = RagiMaterial.Builder(290, "copper", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.COPPER to 1).build()
+        MaterialRegistry.COPPER.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.COPPER)
 
         //300 ~ 309: Zinc
         MaterialRegistry.ZINC = RagiMaterial.Builder(300, "zinc", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.ZINC to 1).build()
+        MaterialRegistry.ZINC.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.ZINC)
 
         //MaterialRegistry.SPHALERITE = RagiMaterial.Builder(301, "sphalerite", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ZINC to 1, ElementRegistry.SULFUR to 1)).build()
 

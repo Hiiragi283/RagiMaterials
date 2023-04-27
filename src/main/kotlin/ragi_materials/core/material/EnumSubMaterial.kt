@@ -6,6 +6,7 @@ enum class EnumSubMaterial {
     DECAYED,
     HYDROXIDE,
     ISOTOPE,
+    NATIVE,
     NITRATE,
     OXIDE,
     PHOSPHATE,

@@ -5,13 +5,11 @@
     "model": "ragi_materials:bloomery"
   },
   "variants": {
-    "type": {
-      "empty": {},
-      "iron": {},
-      "copper": {},
-      "tin": {},
-      "gold": {},
-      "lead": {}
+    "active": {
+      "true": {
+        "model": "ragi_materials:bloomery_active"
+      },
+      "false": {}
     }
   }
 }

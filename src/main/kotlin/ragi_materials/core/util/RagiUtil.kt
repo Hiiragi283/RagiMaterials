@@ -24,6 +24,8 @@ fun ItemStack.toLocation1() = ResourceLocation(this.item.registryName!!.toString
 
 fun Boolean.toInt() = if (this) 1 else 0
 
+fun Int.toBool() = this % 2 != 0
+
 fun List<ItemStack>.toNonNullList(): NonNullList<ItemStack> {
     return NonNullList.withSize(this.size, ItemStack.EMPTY).also {
         for (i in 0 until this.size) {

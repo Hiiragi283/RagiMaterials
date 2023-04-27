@@ -27,16 +27,16 @@ class RagiMaterial private constructor(
         val index: Int = -1,
         val name: String = "empty",
         val type: MaterialType = TypeRegistry.INTERNAL,
-        var burnTime: Int = -1,
-        var color: Color = Color(0xFFFFFF),
-        var components: List<Pair<RagiMaterial, Int>> = listOf(EMPTY to 1),
-        var crystalType: EnumCrystalType = EnumCrystalType.NONE,
-        var formula: String? = null,
-        var mapSubMaterials: Map<EnumSubMaterial, RagiMaterial?> = mapOf(),
-        var mapTemp: Map<EnumTemp, Int?> = mapOf(),
-        var molar: Float? = null,
-        var oredictAlt: String? = null,
-        var rarity: IRarity = EnumRarity.COMMON
+        val burnTime: Int = -1,
+        val color: Color = Color(0xFFFFFF),
+        val components: List<Pair<RagiMaterial, Int>> = listOf(EMPTY to 1),
+        val crystalType: EnumCrystalType = EnumCrystalType.NONE,
+        val formula: String? = null,
+        val mapSubMaterials: MutableMap<EnumSubMaterial, RagiMaterial?> = mutableMapOf(),
+        val mapTemp: Map<EnumTemp, Int?> = mapOf(),
+        val molar: Float? = null,
+        val oredictAlt: String? = null,
+        val rarity: IRarity = EnumRarity.COMMON
 ) {
 
     companion object {
@@ -50,9 +50,6 @@ class RagiMaterial private constructor(
 
     //nameから液体を取得するメソッド
     fun getFluid(): Fluid? = FluidRegistry.getFluid(this.name)
-
-    //放射性崩壊後の素材を取得するメソッド
-    fun getDecayed() = mapSubMaterials[EnumSubMaterial.DECAYED]
 
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String = this.name.snakeToUpperCamelCase()
@@ -90,10 +87,14 @@ class RagiMaterial private constructor(
     //()つきの化学式を返すメソッド
     fun setBracket(): RagiMaterial = Formula("(${this.formula})").build()
 
-    //NBTタグに素材を書き込むメソッド
-    fun writeToNBT(tag: NBTTagCompound) = tag.also { it.setString("material", name) }
+    //関連した素材を設定するメソッド
+    fun setSubMaterial(type: EnumSubMaterial, material: RagiMaterial) = also { it.mapSubMaterials[type] = material }
 
-    fun writeToNBT() = writeToNBT(NBTTagCompound())
+    //NBTタグに素材を書き込むメソッド
+    fun writeToNBT(tag: NBTTagCompound?): NBTTagCompound {
+        val tag1 = tag ?: NBTTagCompound()
+        return tag1.also { it.setString("material", name) }
+    }
 
     class Builder(val index: Int = -1, val name: String = "empty", val type: MaterialType = TypeRegistry.INTERNAL) {
 
@@ -108,7 +109,6 @@ class RagiMaterial private constructor(
         var tempBoil: Int? = null
         var tempMelt: Int? = null
         var tempSubl: Int? = null
-        private var mapSubMaterial: MutableMap<EnumSubMaterial, RagiMaterial?> = mutableMapOf()
 
         //燃焼時間を設定するメソッド
         fun setBurnTime(time: Int) = also { it.burnTime = time }
@@ -118,9 +118,6 @@ class RagiMaterial private constructor(
 
         //結晶の構造を設定するメソッド
         fun setCrystalType(type: EnumCrystalType) = also { it.crystalType = type }
-
-        //関連した素材を設定するメソッド
-        fun setSubMaterial(type: EnumSubMaterial, material: RagiMaterial) = also { it.mapSubMaterial[type] = material }
 
         //化学式を設定するメソッド
         fun setFormula(formula: String?) = also { it.formula = formula }
@@ -256,7 +253,7 @@ class RagiMaterial private constructor(
                 components,
                 crystalType,
                 formula,
-                mapSubMaterial,
+                mutableMapOf(),
                 mapOf(
                         EnumTemp.MELTING to tempMelt,
                         EnumTemp.BOILING to tempBoil,

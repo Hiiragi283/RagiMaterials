@@ -36,11 +36,10 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable {
 
     //    NBT tag    //
 
-    override fun writeToNBT(tag: NBTTagCompound): NBTTagCompound {
-        super.writeToNBT(tag)
-        tag.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
-        tag.setTag(keyTank, tank.serializeNBT())
-        return tag
+    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
+        super.writeToNBT(it)
+        it.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
+        it.setTag(keyTank, tank.serializeNBT())
     }
 
     override fun readFromNBT(tag: NBTTagCompound) {
