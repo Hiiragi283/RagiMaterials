@@ -9,12 +9,13 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
 import ragi_materials.core.RagiMaterials
+import ragi_materials.core.material.part.MaterialPart
 import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.material.type.EnumMaterialType
 
 class MaterialInfoCategory(guiHelper: IGuiHelper) : JEICategoryBase<MaterialInfoWrapper>() {
 
-    private var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/material_info.png"), 0, 0, 162, 108)
+    private var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/material_info.png"), 0, 0, 144, 108)
 
     //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.MaterialInfo
@@ -25,40 +26,36 @@ class MaterialInfoCategory(guiHelper: IGuiHelper) : JEICategoryBase<MaterialInfo
     //JEiタブにレシピを設定するメソッド
     override fun setRecipe(layout: IRecipeLayout, wrapper: MaterialInfoWrapper, ingredients: IIngredients) {
         val material = wrapper.material
-        //Dust
-        layout.itemStacks.init(0, true, 18 * 1, 18 * 3)
-        layout.itemStacks[0] = wrapper.getInputsList(mutableListOf(), PartRegistry.DUST)
-        //Tiny Dust
-        layout.itemStacks.init(1, true, 18 * 1, 18 * 5)
-        layout.itemStacks[1] = wrapper.getInputsList(mutableListOf(), PartRegistry.DUST_TINY)
-        //Block
-        layout.itemStacks.init(2, true, 18 * 3, 18 * 1)
-        layout.itemStacks[2] = wrapper.getInputsList(mutableListOf(), PartRegistry.BLOCK)
+
+        initPart(layout, wrapper, 0, 1, 1, PartRegistry.ORE) //Ore
+        initPart(layout, wrapper, 1, 1, 3, PartRegistry.ORE_CRUSHED) //Crushed Ore
+        //initPart(layout, wrapper, 1, 1, 5, PartRegistry.)
+        initFluid(layout, wrapper, 0, 3, 1) //Fluid
+        initPart(layout, wrapper, 4, 3, 3, PartRegistry.DUST) //Dust
+        initPart(layout, wrapper, 5, 3, 5, PartRegistry.DUST_TINY) //Tiny Dust
+        initPart(layout, wrapper, 6, 5, 1, PartRegistry.BLOCK) //Block
+
         //Ingot or Crystal
-        layout.itemStacks.init(3, true, 18 * 3, 18 * 3)
+        layout.itemStacks.init(7, true, 18 * 5 - 9, 18 * 3 - 9)
         val listMain = mutableListOf<ItemStack>()
         if (EnumMaterialType.INGOT in material.type.list) listMain.addAll(wrapper.getInputsList(mutableListOf(), PartRegistry.INGOT))
         if (EnumMaterialType.CRYSTAL in material.type.list) listMain.addAll(wrapper.getInputsList(mutableListOf(), PartRegistry.CRYSTAL))
-        layout.itemStacks[3] = listMain
-        //Nugget
-        layout.itemStacks.init(4, true, 18 * 3, 18 * 5)
-        layout.itemStacks[4] = wrapper.getInputsList(mutableListOf(), PartRegistry.NUGGET)
-        //Fluid
-        layout.fluidStacks.init(0, true, 18 * 5 + 1, 18 * 2 + 1)
-        material.getFluid()?.let { layout.fluidStacks[0] = FluidStack(it, 1000) }
-        //Hot Ingot
-        layout.itemStacks.init(5, true, 18 * 5, 18 * 4)
-        layout.itemStacks[5] = wrapper.getInputsList(mutableListOf(), PartRegistry.INGOT_HOT)
-        //Stick
-        layout.itemStacks.init(6, true, 18 * 7, 18 * 1)
-        layout.itemStacks[6] = wrapper.getInputsList(mutableListOf(), PartRegistry.STICK)
-        //Plate
-        layout.itemStacks.init(7, true, 18 * 7, 18 * 3)
-        layout.itemStacks[7] = wrapper.getInputsList(mutableListOf(), PartRegistry.PLATE)
-        //Gear
-        layout.itemStacks.init(8, true, 18 * 7, 18 * 5)
-        layout.itemStacks[8] = wrapper.getInputsList(mutableListOf(), PartRegistry.GEAR)
+        layout.itemStacks[7] = listMain
+
+        initPart(layout, wrapper, 8, 5, 5, PartRegistry.NUGGET) //Nugget
+        initPart(layout, wrapper, 9, 7, 1, PartRegistry.GEAR) //Gear
+        initPart(layout, wrapper, 10, 7, 3, PartRegistry.PLATE) //Plate
+        initPart(layout, wrapper, 11, 7, 5, PartRegistry.STICK) //Stick
     }
 
+    private fun initPart(layout: IRecipeLayout, wrapper: MaterialInfoWrapper, index: Int, x: Int, y: Int, part: MaterialPart) {
+        layout.itemStacks.init(index, true, 18 * x - 9, 18 * y - 9)
+        layout.itemStacks[index] = wrapper.getInputsList(mutableListOf(), part)
+    }
+
+    private fun initFluid(layout: IRecipeLayout, wrapper: MaterialInfoWrapper, index: Int, x: Int, y: Int) {
+        layout.fluidStacks.init(index, true, 18 * x - 8, 18 * y - 8)
+        wrapper.material.getFluid()?.let { layout.fluidStacks[index] = FluidStack(it, 1000) }
+    }
 
 }

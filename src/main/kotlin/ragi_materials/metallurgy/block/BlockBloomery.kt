@@ -23,7 +23,7 @@ import ragi_materials.metallurgy.tile.TileBloom
 import ragi_materials.metallurgy.tile.TileBloomery
 import java.util.*
 
-class BlockBloomery : BlockContainerBase<TileBloomery>("bloomery", Material.ROCK, TileBloomery::class.java, 2) {
+class BlockBloomery : BlockContainerBase<TileBloomery>("bloomery", Material.ROCK, TileBloomery::class.java, 4) {
 
     init {
         blockHardness = 5.0F
