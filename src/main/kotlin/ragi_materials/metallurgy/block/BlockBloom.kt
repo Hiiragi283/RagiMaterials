@@ -4,19 +4,24 @@ import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.IBlockState
+import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
-import ragi_materials.core.block.BlockContainerBaseMaterial
+import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.material.RagiMaterial
+import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.tile.TileBase
+import ragi_materials.core.util.getPart
 import ragi_materials.metallurgy.tile.TileBloom
+import java.util.*
 
-class BlockBloom : BlockContainerBaseMaterial<TileBloom>("bloom", Material.ROCK, TileBloom::class.java, -1), IMaterialBlock {
+class BlockBloom : BlockContainerBase<TileBloom>("bloom", Material.ROCK, TileBloom::class.java, -1), IMaterialBlock {
 
-    //override val itemBlock = null
+    override val itemBlock = null
 
     init {
         blockHardness = 5.0F
@@ -33,11 +38,19 @@ class BlockBloom : BlockContainerBaseMaterial<TileBloom>("bloom", Material.ROCK,
     @Deprecated("Deprecated in Java", ReplaceWith("BlockFaceShape.UNDEFINED", "net.minecraft.block.state.BlockFaceShape"))
     override fun getBlockFaceShape(world: IBlockAccess, state: IBlockState, pos: BlockPos, face: EnumFacing) = BlockFaceShape.UNDEFINED
 
+    override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
+        val tile = world.getTileEntity(pos)
+        val part = if (tile !== null && tile is TileBase) getPart(PartRegistry.INGOT, tile.material) else ItemStack.EMPTY
+        if (!part.isEmpty) drops.add(part)
+    }
+
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isFullCube(state: IBlockState): Boolean = false
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
+
+    override fun quantityDropped(random: Random) = 0
 
     //    IMaterialBlock    //
 

@@ -1,5 +1,6 @@
 package ragi_materials.main.tile
 
+import net.minecraft.init.SoundEvents
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
@@ -11,7 +12,6 @@ import ragi_materials.core.RagiRegistry
 import ragi_materials.core.capability.RagiEnergyStorage
 import ragi_materials.core.recipe.LaboRecipe
 import ragi_materials.core.util.dropItem
-import ragi_materials.core.util.getSound
 import ragi_materials.core.util.playSound
 import ragi_materials.core.util.toBracket
 
@@ -83,7 +83,7 @@ class TileIndustrialLabo : TileLaboBase(), ITickable {
                             RagiMaterials.LOGGER.debug("The output is ${output.toBracket()}")
                         }
                         battery.extractEnergy(1000, false)
-                        playSound(this, getSound("minecraft:block.piston.extend"))
+                        playSound(this, SoundEvents.BLOCK_PISTON_EXTEND)
                     }
                 }
                 count = 0 //countをリセット

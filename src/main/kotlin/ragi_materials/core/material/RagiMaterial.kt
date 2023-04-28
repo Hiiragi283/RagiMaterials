@@ -16,7 +16,7 @@ import ragi_materials.core.material.type.MaterialType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.getMaterialFromName
-import ragi_materials.core.util.snakeToUpperCamelCase
+import ragi_materials.snakeToUpperCamelCase
 import java.awt.Color
 
 /**

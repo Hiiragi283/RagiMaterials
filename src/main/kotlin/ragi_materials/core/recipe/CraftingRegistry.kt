@@ -137,12 +137,12 @@ object CraftingRegistry {
                 'A', ItemStack(Blocks.TALLGRASS, 1, OreDictionary.WILDCARD_VALUE),
                 'B', "dirt"
         )
-        addCraftingShaped("${RagiMaterials.MOD_ID}:soil_peat_1", ItemStack(RagiRegistry.BlockSoilPeat.itemBlock!!, 1, 0),
+        addCraftingShaped(1, ItemStack(RagiRegistry.BlockSoilPeat.itemBlock!!, 1, 0),
                 " A ", "ABA", " A ",
                 'A', "treeLeaves",
                 'B', "dirt"
         )
-        addCraftingShapeless("${RagiMaterials.MOD_ID}:soil_peat_2", ItemStack(RagiRegistry.BlockSoilPeat.itemBlock!!, 1, 0),
+        addCraftingShapeless(2, ItemStack(RagiRegistry.BlockSoilPeat.itemBlock!!, 1, 0),
                 RagiIngredient("vine"),
                 RagiIngredient("dirt")
         )
@@ -159,6 +159,16 @@ object CraftingRegistry {
                 'A', ItemStack(Blocks.IRON_BARS),
                 'B', ItemStack(RagiRegistry.ItemBlazingCube),
                 'C', ItemStack(Blocks.NETHER_BRICK)
+        )
+        addCraftingShaped(ItemStack(RagiRegistry.BlockBloomery.itemBlock!!, 1, 0),
+                "AAA", "ABA", "AAA",
+                'A', ItemStack(Blocks.HARDENED_CLAY),
+                'B', "blockCoal"
+        )
+        addCraftingShaped(1, ItemStack(RagiRegistry.BlockBloomery.itemBlock!!, 1, 0),
+                "AAA", "ABA", "AAA",
+                'A', ItemStack(Blocks.HARDENED_CLAY),
+                'B', "blockCharcoal"
         )
         addCraftingShaped(ItemStack(RagiRegistry.BlockForgeFurnace.itemBlock!!, 1, 0),
                 "A A", "A A", "BCB",

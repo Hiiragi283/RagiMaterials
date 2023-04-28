@@ -1,5 +1,6 @@
 package ragi_materials.main.tile
 
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
@@ -44,7 +45,7 @@ class TileLaboTable : TileLaboBase(), ITileSyncable {
             //失敗時の処理
             if (isFailed) {
                 dropItem(world, pos.add(0, 1, 0), ItemStack(RagiRegistry.ItemWaste, 1, 0), 0.0, 0.25, 0.0)
-                playSound(this, getSound("minecraft:entity.generic.explode"))
+                playSound(this, SoundEvents.ENTITY_GENERIC_EXPLODE)
                 failed(this)
             }
         }

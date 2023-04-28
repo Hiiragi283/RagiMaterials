@@ -1,6 +1,8 @@
 
 # Block
 tile.blazing_forge.name=Blazing Forge
+tile.bloom.name=Bloom
+tile.bloomery.name=Bloomery
 tile.energy_transfer.name=Energy Transfer
 tile.fluid_transfer.name=Fluid Transfer
 tile.forge_furnace.name=Forge Furnace

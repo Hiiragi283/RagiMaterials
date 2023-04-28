@@ -10,7 +10,7 @@ import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.EnumMaterialType
 
-class ItemMaterialBlock: ItemMaterial(PartRegistry.BLOCK) {
+class ItemMaterialBlock : ItemMaterial(PartRegistry.BLOCK) {
 
     @SideOnly(Side.CLIENT)
     override fun registerCustomModel() {

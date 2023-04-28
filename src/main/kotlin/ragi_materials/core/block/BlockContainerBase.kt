@@ -25,19 +25,7 @@ abstract class BlockContainerBase<T : TileBase>(ID: String, material: Material, 
         GameRegistry.registerTileEntity(tile, ResourceLocation(RagiMaterials.MOD_ID, "te_$ID"))
     }
 
-    //    General    //
-
-    override fun hasTileEntity(state: IBlockState) = true
-
     //    Event    //
-
-    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
-        val tile = world.getTileEntity(pos)
-        if (tile !== null) removeTile(tile as T, world, pos, state)
-        super.breakBlock(world, pos, state)
-    }
-
-    open fun removeTile(tile: T, world: World, pos: BlockPos, state: IBlockState) {}
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         var result = false

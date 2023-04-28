@@ -1,6 +1,7 @@
 package ragi_materials.metallurgy.tile
 
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemFlintAndSteel
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -12,6 +13,9 @@ import ragi_materials.core.item.ItemMaterialOre
 import ragi_materials.core.material.EnumSubMaterial
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.tile.TileBase
+import ragi_materials.core.util.failed
+import ragi_materials.core.util.playSound
+import ragi_materials.core.util.succeeded
 import ragi_materials.metallurgy.block.BlockBloomery
 
 class TileBloomery : TileBase() {
@@ -31,33 +35,42 @@ class TileBloomery : TileBase() {
     //    TileBase    //
 
     override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        val stack = player.getHeldItem(hand)
-        return when (val item = stack.item) {
-            //鉱石の場合
-            RagiRegistry.ItemOre -> {
-                var result = false
-                val metal = (item as ItemMaterialOre).getMaterial(stack).mapSubMaterials[EnumSubMaterial.NATIVE]
-                //製錬後の素材が取得できる場合，素材を代入する
-                if (metal !== null && !metal.isEmpty()) {
-                    material = metal
-                    stack.shrink(1)
-                    result = true
+        return if (!world.isRemote) {
+            val stack = player.getHeldItem(hand)
+            when (val item = stack.item) {
+                //鉱石の場合
+                RagiRegistry.ItemOre -> {
+                    var result = false
+                    val metal = (item as ItemMaterialOre).getMaterial(stack).mapSubMaterials[EnumSubMaterial.NATIVE]
+                    //製錬後の素材が取得できる場合，素材を代入する
+                    if (metal !== null && !metal.isEmpty()) {
+                        material = metal
+                        stack.shrink(1)
+                        playSound(this, SoundEvents.BLOCK_GRAVEL_PLACE, 1.0f, 0.5f)
+                        succeeded(this, player)
+                        result = true
+                    }
+                    result
                 }
-                result
-            }
-            //火打石の場合
-            is ItemFlintAndSteel -> {
-                val state = getState()
-                val block = state.block
-                if (block is BlockBloomery && !material.isEmpty()) {
-                    world.setBlockState(pos, block.setActive(state, true), 2)
-                    world.scheduleUpdate(pos, block, 10 * 20) //10秒間精錬する
-                    stack.itemDamage += 1 //耐久地を1つ減らす
+                //火打石の場合
+                is ItemFlintAndSteel -> {
+                    val state = getState()
+                    val block = state.block
+                    if (block is BlockBloomery && !material.isEmpty()) {
+                        world.setBlockState(pos, block.setActive(state, true), 2)
+                        world.scheduleUpdate(pos, block, 10 * 20) //10秒間精錬する
+                        stack.itemDamage += 1 //耐久地を1つ減らす
+                        playSound(this, SoundEvents.ITEM_FLINTANDSTEEL_USE)
+                        succeeded(this, player)
+                    }
+                    true
                 }
-                true
-            }
 
-            else -> false
-        }
+                else -> {
+                    failed(this, player)
+                    false
+                }
+            }
+        } else false
     }
 }

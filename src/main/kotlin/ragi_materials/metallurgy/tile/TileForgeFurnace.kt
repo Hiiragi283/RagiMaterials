@@ -1,6 +1,7 @@
 package ragi_materials.metallurgy.tile
 
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntityFurnace
@@ -15,7 +16,10 @@ import net.minecraftforge.items.ItemStackHandler
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
 import ragi_materials.core.tile.TileBase
-import ragi_materials.core.util.*
+import ragi_materials.core.util.dropItemAtPlayer
+import ragi_materials.core.util.failed
+import ragi_materials.core.util.playSound
+import ragi_materials.core.util.succeeded
 
 class TileForgeFurnace : TileBase() {
 
@@ -89,7 +93,7 @@ class TileForgeFurnace : TileBase() {
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
-                playSound(this, getSound("minecraft:block.fire.extinguish"))
+                playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
                 result = true
                 break
             }
@@ -101,7 +105,7 @@ class TileForgeFurnace : TileBase() {
     private fun isFuel(stack: ItemStack): Boolean = TileEntityFurnace.getItemBurnTime(stack) > 0
 
     fun playSoundFuel() {
-        playSound(this, getSound("minecraft:block.gravel.place"), 1.0f, 0.5f)
+        playSound(this, SoundEvents.BLOCK_GRAVEL_PLACE, 1.0f, 0.5f)
     }
 
 }

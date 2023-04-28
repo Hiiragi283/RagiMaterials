@@ -7,7 +7,7 @@ import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumParticleTypes
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
@@ -43,6 +43,9 @@ class BlockBloomery : BlockContainerBase<TileBloomery>("bloomery", Material.ROCK
             else -> BlockFaceShape.UNDEFINED
         }
     }
+
+    @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
+    override fun getBoundingBox(blockState: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isFullCube(state: IBlockState): Boolean = false
@@ -84,10 +87,4 @@ class BlockBloomery : BlockContainerBase<TileBloomery>("bloomery", Material.ROCK
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-    @SideOnly(Side.CLIENT)
-    override fun randomDisplayTick(state: IBlockState, world: World, pos: BlockPos, rand: Random) {
-        if (world.isUpdateScheduled(pos, this)) {
-            world.spawnParticle(EnumParticleTypes.FLAME, pos.x.toDouble() + 0.5, pos.y.toDouble() + 1.0, pos.z.toDouble() + 0.5, 0.0, 0.0, 0.0)
-        }
-    }
 }

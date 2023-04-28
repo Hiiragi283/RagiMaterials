@@ -1,6 +1,8 @@
 
 # Block
 tile.blazing_forge.name=燃え盛る鍛造炉
+tile.bloom.name=塊鉄
+tile.bloomery.name=塊鉄炉
 tile.energy_transfer.name=エネルギートランスファー
 tile.fluid_transfer.name=液体トランスファー
 tile.forge_furnace.name=鍛造炉

@@ -20,7 +20,7 @@ fun ItemStack.toBracket(): String {
     return "<$location:$meta> * $amount"
 }
 
-fun ItemStack.toLocation1() = ResourceLocation(this.item.registryName!!.toString() + "_" + this.metadata)
+fun ItemStack.toLocation() = ResourceLocation(this.item.registryName!!.toString() + "_" + this.metadata)
 
 fun Boolean.toInt() = if (this) 1 else 0
 

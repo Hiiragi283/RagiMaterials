@@ -1,4 +1,4 @@
-package ragi_materials.core.util
+package ragi_materials
 
 /**
  * Thanks to RechellaTek!

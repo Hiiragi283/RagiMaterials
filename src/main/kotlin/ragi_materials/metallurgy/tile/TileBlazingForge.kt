@@ -1,6 +1,7 @@
 package ragi_materials.metallurgy.tile
 
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -83,7 +84,7 @@ class TileBlazingForge : TileBase() {
                 stack.shrink(1) //手持ちのアイテムを1つ減らす
                 dropItemAtPlayer(player, recipe.getOutput()) //完成品をプレイヤーに渡す
 
-                playSound(this, getSound("minecraft:block.fire.extinguish"))
+                playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
                 result = true
                 break
             }
