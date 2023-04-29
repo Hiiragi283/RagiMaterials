@@ -1,7 +1,6 @@
 package ragi_materials.core.integration.jei
 
 import mezz.jei.api.IGuiHelper
-import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
@@ -15,15 +14,10 @@ import ragi_materials.core.material.type.EnumMaterialType
 
 class MaterialInfoCategory(guiHelper: IGuiHelper) : JEICategoryBase<MaterialInfoWrapper>() {
 
-    private var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/material_info.png"), 0, 0, 144, 108)
+    override var backGround: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/material_info.png"), 0, 0, 144, 108)
 
-    //JEiタブのIDを取得するメソッド
     override fun getUid(): String = JEICore.MaterialInfo
 
-    //JEiタブの背景を取得するメソッド
-    override fun getBackground(): IDrawable = background
-
-    //JEiタブにレシピを設定するメソッド
     override fun setRecipe(layout: IRecipeLayout, wrapper: MaterialInfoWrapper, ingredients: IIngredients) {
         val material = wrapper.material
 

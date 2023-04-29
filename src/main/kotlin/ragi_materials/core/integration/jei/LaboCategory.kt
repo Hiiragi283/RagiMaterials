@@ -1,7 +1,6 @@
 package ragi_materials.core.integration.jei
 
 import mezz.jei.api.IGuiHelper
-import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
@@ -11,11 +10,9 @@ import ragi_materials.core.recipe.LaboRecipe
 
 class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboRecipe>() {
 
-    var background: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/labo_table.png"), 1, 1, 90, 54)
+    override var backGround: IDrawableStatic = guiHelper.createDrawable(ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/jei/labo_table.png"), 1, 1, 90, 54)
 
     override fun getUid(): String = JEICore.LaboTable
-
-    override fun getBackground(): IDrawable = background
 
     override fun setRecipe(layout: IRecipeLayout, wrapper: LaboRecipe, ingredients: IIngredients) {
         //Inputs
