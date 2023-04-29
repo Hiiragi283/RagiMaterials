@@ -84,7 +84,7 @@ class TileForgeFurnace : TileBase() {
     }
 
     override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
-        getDropWithNBT()
+        dropItemFromTile(world, pos, ItemStack(RagiRegistry.BlockForgeFurnace), this)
     }
 
     //    Recipe    //

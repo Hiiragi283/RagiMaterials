@@ -17,12 +17,14 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
 import ragi_materials.core.RagiMaterials
+import ragi_materials.core.RagiRegistry
 import ragi_materials.core.capability.EnumIOType
 import ragi_materials.core.capability.RagiTank
 import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
 import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.util.dropItemFromTile
 import ragi_materials.core.util.getBottle
 import ragi_materials.main.container.ContainerFullBottle
 
@@ -69,6 +71,24 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable {
         }
     }
 
+    //    TileBase    //
+
+    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
+        val fluidHandler = FluidUtil.getFluidHandler(player.getHeldItem(hand))
+        return if (fluidHandler !== null) FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing) else {
+            player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
+            return true
+        }
+    }
+
+    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
+        readNBTFromStack(stack)
+    }
+
+    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
+        dropItemFromTile(world, pos, ItemStack(RagiRegistry.BlockFullBottleStation), this)
+    }
+
     //    ITickable    //
 
     override fun update() {
@@ -89,24 +109,6 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable {
                 count = 0 //countをリセット
             } else count++ //countを追加
         }
-    }
-
-    //    TileBase    //
-
-    override fun onTileActivated(world: World, pos: BlockPos, player: EntityPlayer, hand: EnumHand, facing: EnumFacing): Boolean {
-        val fluidHandler = FluidUtil.getFluidHandler(player.getHeldItem(hand))
-        return if (fluidHandler !== null) FluidUtil.interactWithFluidHandler(player, hand, world, pos, facing) else {
-            player.openGui(RagiMaterials.INSTANCE, CommonProxy.TileID, world, pos.x, pos.y, pos.z)
-            return true
-        }
-    }
-
-    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
-        readNBTFromStack(stack)
-    }
-
-    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
-        getDropWithNBT()
     }
 
     //    TileItemHandlerBase    //

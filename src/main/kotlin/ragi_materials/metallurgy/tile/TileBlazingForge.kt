@@ -70,7 +70,7 @@ class TileBlazingForge : TileBase() {
     }
 
     override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
-        getDropWithNBT()
+        dropItemFromTile(world, pos, ItemStack(RagiRegistry.BlockBlazingForge), this)
     }
 
     //    Recipe    //

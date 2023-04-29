@@ -6,9 +6,11 @@ import net.minecraft.inventory.Container
 import net.minecraft.inventory.Slot
 import net.minecraft.tileentity.TileEntity
 
-abstract class ContainerBase<T : TileEntity>(val player: EntityPlayer, open val tile: TileEntity) : Container() {
+abstract class ContainerBase<T : TileEntity>(val player: EntityPlayer, val tile: TileEntity) : Container() {
 
     val invPlayer: InventoryPlayer = player.inventory
+
+    override fun canInteractWith(playerIn: EntityPlayer) = true
 
     fun initSlotsPlayer(posY: Int) {
         //プレイヤーのインベントリのスロットを設定

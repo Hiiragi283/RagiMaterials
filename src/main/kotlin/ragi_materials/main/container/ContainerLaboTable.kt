@@ -6,7 +6,7 @@ import net.minecraftforge.items.SlotItemHandler
 import ragi_materials.core.container.ContainerBase
 import ragi_materials.main.tile.TileLaboBase
 
-class ContainerLaboTable(player: EntityPlayer, override val tile: TileLaboBase) : ContainerBase<TileLaboBase>(player, tile) {
+class ContainerLaboTable(player: EntityPlayer, tile: TileLaboBase) : ContainerBase<TileLaboBase>(player, tile) {
 
     val inputs = tile.inputs
     val catalyst = tile.catalyst
@@ -20,8 +20,6 @@ class ContainerLaboTable(player: EntityPlayer, override val tile: TileLaboBase) 
         addSlotToContainer(SlotItemHandler(catalyst, 0, 44 + 9 + 5 * 18, 20))
         initSlotsPlayer(51)
     }
-
-    override fun canInteractWith(playerIn: EntityPlayer) = true
 
     override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {
         var stack = ItemStack.EMPTY

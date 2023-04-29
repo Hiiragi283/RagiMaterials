@@ -19,8 +19,6 @@ class ContainerOreDictConv(player: EntityPlayer, tile: TileOreDictConv) : Contai
         initSlotsPlayer(51) //Player
     }
 
-    override fun canInteractWith(playerIn: EntityPlayer) = true
-
     override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {
         var stack = ItemStack.EMPTY
         val slot = inventorySlots[index]

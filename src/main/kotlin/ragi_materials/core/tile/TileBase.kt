@@ -3,6 +3,7 @@ package ragi_materials.core.tile
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.network.NetworkManager
@@ -15,7 +16,6 @@ import net.minecraft.world.World
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.network.MessageTile
 import ragi_materials.core.network.RagiNetworkWrapper
-import ragi_materials.core.util.dropItem
 
 abstract class TileBase : TileEntity() {
 
@@ -31,7 +31,7 @@ abstract class TileBase : TileEntity() {
 
     //    General    //
 
-    fun getState(): IBlockState = getBlockType().getStateFromMeta(blockMetadata)
+    fun getState(): IBlockState = if (hasWorld()) world.getBlockState(pos) else Blocks.AIR.defaultState
 
     //    NBT tag    //
 
@@ -63,13 +63,21 @@ abstract class TileBase : TileEntity() {
     open fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {}
 
     fun readNBTFromStack(stack: ItemStack) {
-        if (stack.tagCompound !== null) {
-            val tag = stack.getOrCreateSubCompound("BlockEntityTag").also {
-                it.setInteger("x", this.pos.x)
-                it.setInteger("y", this.pos.y)
-                it.setInteger("z", this.pos.z)
+        //ItemStackに保存されたNBTタグを取得し，nullでない場合
+        stack.getSubCompound("BlockEntityTag")?.let {
+            //TileEntityからNBTタグを取得
+            val tagTile = updateTag
+            //tagTileにtagStackを合併
+            tagTile.merge(it)
+            //座標を修正する
+            tagTile.setInteger("x", this.pos.x)
+            tagTile.setInteger("y", this.pos.y)
+            tagTile.setInteger("z", this.pos.z)
+            //座標が異なる場合
+            if (tagTile != updateTag.copy()) {
+                readFromNBT(tagTile)
+                markDirty()
             }
-            readFromNBT(tag) //NBTタグから読み込む
         }
     }
 
@@ -78,11 +86,5 @@ abstract class TileBase : TileEntity() {
     }
 
     open fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {}
-
-    fun getDropWithNBT() {
-        val stack = ItemStack(getBlockType())
-        stack.getOrCreateSubCompound("BlockEntityTag").merge(updateTag)
-        dropItem(world, pos, stack)
-    }
 
 }

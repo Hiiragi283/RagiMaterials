@@ -32,17 +32,20 @@ class ItemBookDebug : ItemBase(RagiMaterials.MOD_ID, "book_debug", 0), IMaterial
 
     override fun onItemRightClick(world: World, player: EntityPlayer, hand: EnumHand): ActionResult<ItemStack> {
         val stack: ItemStack = player.getHeldItem(hand)
+        //落下死防止やコマンド権限のためクリエモードに切り替え
+        if (!world.isRemote) executeCommand(player, "gamemode 1")
         if (world.isRemote && !player.isSneaking) {
-            //落下死防止やコマンド権限のためクリエモードに切り替え
-            executeCommand(player, "gamemode 1")
             //各値の取得
             val spawnPoint = world.spawnPoint
             val spawnX = spawnPoint.x + 0.5 //ブロックの中心に来るよう調整
             val spawnY = 128.0 //高度チェックが面倒なのでy=128に固定
             val spawnZ = spawnPoint.z + 0.5 //ブロックの中心に来るよう調整
+            player.motionX = 0.0
+            player.motionY = 0.0
+            player.motionZ = 0.0 //運動ベクトルをリセット
             //プレイヤーを指定した座標にテレポート
             player.setLocationAndAngles(spawnX, spawnY, spawnZ, 0f, 0f)
-        } else player.sendMessage(TextComponentTranslation("text.ragi_materials.debug_disabled"))
+        }
         return ActionResult(EnumActionResult.SUCCESS, stack)
     }
 

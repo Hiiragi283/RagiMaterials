@@ -6,7 +6,7 @@ import ragi_materials.core.container.ContainerBase
 import ragi_materials.core.container.SlotOutItemHandler
 import ragi_materials.main.tile.TileFullBottleStation
 
-class ContainerFullBottle(player: EntityPlayer, override val tile: TileFullBottleStation) : ContainerBase<TileFullBottleStation>(player, tile) {
+class ContainerFullBottle(player: EntityPlayer, tile: TileFullBottleStation) : ContainerBase<TileFullBottleStation>(player, tile) {
 
     val output = tile.output
 
@@ -14,8 +14,6 @@ class ContainerFullBottle(player: EntityPlayer, override val tile: TileFullBottl
         addSlotToContainer(SlotOutItemHandler(output, 0, 44 + 2 * 18, 20))
         initSlotsPlayer(51)
     }
-
-    override fun canInteractWith(playerIn: EntityPlayer) = true
 
     override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {
         var stack = ItemStack.EMPTY
