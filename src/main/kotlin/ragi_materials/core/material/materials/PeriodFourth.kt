@@ -88,7 +88,11 @@ object PeriodFourth {
         }.build()
         MaterialRegistry.ARSENOPYRITE.setSubMaterial(EnumSubMaterial.NATIVE, MaterialRegistry.IRON)
 
-        MaterialRegistry.STEEL = RagiMaterial.Builder(265, "steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).apply {
+        MaterialRegistry.STEEL = RagiMaterial.Builder(265, "steel", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).setMixture().apply {
+            rarity = EnumRarity.UNCOMMON
+        }.build()
+
+        MaterialRegistry.WROUGHT_IRON = RagiMaterial.Builder(266, "wrought_iron", TypeRegistry.METAL).setComponents(listOf(ElementRegistry.IRON to 1, ElementRegistry.CARBON to 1)).setMixture().apply {
             rarity = EnumRarity.UNCOMMON
         }.build()
 

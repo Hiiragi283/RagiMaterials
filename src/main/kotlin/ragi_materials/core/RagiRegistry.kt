@@ -79,7 +79,7 @@ object RagiRegistry {
     lateinit var ItemDustTiny: ItemMaterial
     lateinit var ItemGear: ItemMaterial
     lateinit var ItemIngot: ItemMaterial
-    lateinit var ItemIngotHot: ItemMaterial
+    //lateinit var ItemIngotHot: ItemMaterial
     lateinit var ItemNugget: ItemMaterial
     lateinit var ItemOre: ItemMaterial
     lateinit var ItemOreCrushed: ItemMaterial

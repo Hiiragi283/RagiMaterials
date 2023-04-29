@@ -92,7 +92,7 @@ object RagiInit : IProxy {
         RagiRegistry.ItemForgeHammer = ItemForgeHammer()
         RagiRegistry.ItemGear = ItemMaterial(PartRegistry.GEAR)
         RagiRegistry.ItemIngot = ItemMaterial(PartRegistry.INGOT)
-        RagiRegistry.ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
+        //RagiRegistry.ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
         RagiRegistry.ItemNugget = ItemMaterial(PartRegistry.NUGGET)
         RagiRegistry.ItemOre = ItemMaterialOre(PartRegistry.ORE)
         RagiRegistry.ItemOreCrushed = ItemMaterialOre(PartRegistry.ORE_CRUSHED)

@@ -154,6 +154,7 @@ object MaterialRegistry {
     lateinit var PYRITE: RagiMaterial
     lateinit var ARSENOPYRITE: RagiMaterial
     lateinit var STEEL: RagiMaterial
+    lateinit var WROUGHT_IRON: RagiMaterial
 
     //270 ~ 279: Cobalt
     lateinit var COBALT: RagiMaterial

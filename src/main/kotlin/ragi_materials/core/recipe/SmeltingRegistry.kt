@@ -1,17 +1,11 @@
 package ragi_materials.core.recipe
 
 import ragi_materials.core.config.RagiConfig
-import ragi_materials.core.material.MaterialRegistry
-import ragi_materials.core.material.part.PartRegistry
-import ragi_materials.core.material.type.EnumMaterialType
-import ragi_materials.core.material.type.TypeRegistry
-import ragi_materials.core.util.addSmelting
-import ragi_materials.core.util.getPart
 
 object SmeltingRegistry {
 
     fun addSmelting() {
-        addSmeltingCore()
+        //addSmeltingCore()
         //Experimental Feature
         if (RagiConfig.module.enableExperimental) addSmeltingExp()
         //Magical Feature
@@ -22,7 +16,7 @@ object SmeltingRegistry {
         if (RagiConfig.module.enableMetallurgy) addSmeltingMetallurgy()
     }
 
-    private fun addSmeltingCore() {
+    /*private fun addSmeltingCore() {
         for (pair in MaterialRegistry.validPair) {
             val part = pair.first
             val material = pair.second
@@ -34,7 +28,7 @@ object SmeltingRegistry {
                 addSmelting(output, input)
             }
         }
-    }
+    }*/
 
     private fun addSmeltingMetallurgy() {}
 

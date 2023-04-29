@@ -9,7 +9,6 @@ import ragi_materials.core.config.RagiConfig
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.material.type.EnumMaterialType
-import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.recipe.FFRecipe
 import ragi_materials.core.recipe.LaboRecipe
 import ragi_materials.core.recipe.MillRecipe
@@ -23,7 +22,7 @@ object RecipeRegistryEvent {
         val registry = event.registry
 
         //Material Part -> Hot Material Ingot (this will be removed)
-        for (pair in MaterialRegistry.validPair) {
+        /*for (pair in MaterialRegistry.validPair) {
             val part = pair.first
             val material = pair.second
             val type = part.type
@@ -37,7 +36,7 @@ object RecipeRegistryEvent {
                     RagiMaterials.LOGGER.debug("The FF recipe ${it.registryName} is registered!")
                 }
             }
-        }
+        }*/
     }
 
     @SubscribeEvent
