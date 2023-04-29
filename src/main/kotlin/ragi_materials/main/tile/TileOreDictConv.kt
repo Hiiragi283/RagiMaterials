@@ -1,5 +1,6 @@
 package ragi_materials.main.tile
 
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.item.ItemStack
@@ -18,6 +19,7 @@ import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
 import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.core.util.playSoundHypixel
 import ragi_materials.main.container.ContainerOreDictConv
 
@@ -57,13 +59,15 @@ class TileOreDictConv : TileItemHandlerBase(), ITickable {
         return true
     }
 
+    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
+        dropInventoryItems(world, pos, inventory)
+    }
+
     //    TileLockableBase    //
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerOreDictConv(player, this)
 
     override fun getGuiID() = "${RagiMaterials.MOD_ID}:oredict_converter"
-
-    override fun getName() = "gui.${RagiMaterials.MOD_ID}.oredict_converter"
 
     //    ITickable    //
 

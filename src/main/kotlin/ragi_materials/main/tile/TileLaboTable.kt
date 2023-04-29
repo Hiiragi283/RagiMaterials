@@ -57,8 +57,6 @@ class TileLaboTable : TileLaboBase(), ITileSyncable {
 
     override fun getGuiID() = "${RagiMaterials.MOD_ID}:laboratory_table"
 
-    override fun getName() = "gui.${RagiMaterials.MOD_ID}.labo_table"
-
     //    ITileSyncable    //
 
     override fun sync() {

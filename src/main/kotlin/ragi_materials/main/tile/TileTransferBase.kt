@@ -25,11 +25,11 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
 
     //    General    //
 
-    fun getFacing(): EnumFacing = (getState().block as BlockTransferBase<*>).getFacing(getState())
+    fun getFacing(): EnumFacing = (getBlockType() as BlockTransferBase<*>).getFacing(getState())
 
-    fun getMode() = (getState().block as BlockTransferBase<*>).getMode(getState())
+    fun getMode() = (getBlockType() as BlockTransferBase<*>).getMode(getState())
 
-    fun reverseMode(): IBlockState = (getState().block as BlockTransferBase<*>).reverseMode(getState())
+    fun reverseMode(): IBlockState = (getBlockType() as BlockTransferBase<*>).reverseMode(getState())
 
     //    Capability    //
 

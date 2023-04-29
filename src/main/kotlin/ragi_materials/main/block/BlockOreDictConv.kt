@@ -8,9 +8,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
-import net.minecraft.world.World
 import ragi_materials.core.block.BlockContainerBase
-import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.main.tile.TileOreDictConv
 
 class BlockOreDictConv : BlockContainerBase<TileOreDictConv>("oredict_converter", Material.WOOD, TileOreDictConv::class.java, 2) {
@@ -43,11 +41,4 @@ class BlockOreDictConv : BlockContainerBase<TileOreDictConv>("oredict_converter"
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
 
-    //    Event    //
-
-    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
-        val tile = world.getTileEntity(pos)
-        if (tile !== null && tile is TileOreDictConv) dropInventoryItems(world, pos, tile.inventory)
-        super.breakBlock(world, pos, state)
-    }
 }

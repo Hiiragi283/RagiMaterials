@@ -11,12 +11,13 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import ragi_materials.core.block.BlockContainerBaseHoldable
+import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
 import ragi_materials.metallurgy.tile.TileForgeFurnace
+import java.util.*
 
-class BlockForgeFurnace : BlockContainerBaseHoldable<TileForgeFurnace>("forge_furnace", Material.ROCK, TileForgeFurnace::class.java, 3) {
+class BlockForgeFurnace : BlockContainerBase<TileForgeFurnace>("forge_furnace", Material.ROCK, TileForgeFurnace::class.java, 3) {
 
     init {
         blockHardness = 5.0F
@@ -36,6 +37,8 @@ class BlockForgeFurnace : BlockContainerBaseHoldable<TileForgeFurnace>("forge_fu
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(1.0 - (1.0 / 8), 0.0, 0.0, 1.0, 1.0, 1.0)) //東
         addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0 / 8, 1.0, 1.0)) //西
     }
+
+    override fun quantityDropped(random: Random) = 0
 
     //    BlockState    //
 

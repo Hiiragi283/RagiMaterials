@@ -1,7 +1,10 @@
 package ragi_materials.main.tile
 
+import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -98,12 +101,18 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable {
         }
     }
 
+    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
+        readNBTFromStack(stack)
+    }
+
+    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
+        getDropWithNBT()
+    }
+
     //    TileItemHandlerBase    //
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerFullBottle(player, this)
 
     override fun getGuiID() = "${RagiMaterials.MOD_ID}:fullbottle_station"
-
-    override fun getName() = "gui.${RagiMaterials.MOD_ID}.fullbottle_station"
 
 }

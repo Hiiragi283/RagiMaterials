@@ -27,6 +27,12 @@ abstract class BlockContainerBase<T : TileBase>(ID: String, material: Material, 
 
     //    Event    //
 
+    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
+        val tile = world.getTileEntity(pos)
+        if (tile !== null && tile is TileBase) tile.onTileRemoved(world, pos, state)
+        super.breakBlock(world, pos, state)
+    }
+
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
         var result = false
         if (hand == EnumHand.MAIN_HAND) {
@@ -38,11 +44,9 @@ abstract class BlockContainerBase<T : TileBase>(ID: String, material: Material, 
 
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
         val tile = world.getTileEntity(pos)
-        if (tile !== null) onTilePlaced(tile as T, world, pos, state, placer, stack)
+        if (tile !== null && tile is TileBase) tile.onTilePlaced(world, pos, state, placer, stack)
         super.onBlockPlacedBy(world, pos, state, placer, stack)
     }
-
-    open fun onTilePlaced(tile: T, world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {}
 
     //    ITileEntityProvider    //
 

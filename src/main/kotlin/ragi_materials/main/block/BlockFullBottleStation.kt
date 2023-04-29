@@ -6,10 +6,11 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import ragi_materials.core.block.BlockContainerBaseHoldable
+import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.main.tile.TileFullBottleStation
+import java.util.*
 
-class BlockFullBottleStation : BlockContainerBaseHoldable<TileFullBottleStation>("fullbottle_station", Material.IRON, TileFullBottleStation::class.java, 2) {
+class BlockFullBottleStation : BlockContainerBase<TileFullBottleStation>("fullbottle_station", Material.IRON, TileFullBottleStation::class.java, 2) {
 
     init {
         blockHardness = 5.0F
@@ -22,6 +23,8 @@ class BlockFullBottleStation : BlockContainerBaseHoldable<TileFullBottleStation>
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
+
+    override fun quantityDropped(random: Random) = 0
 
     //    Client    //
 

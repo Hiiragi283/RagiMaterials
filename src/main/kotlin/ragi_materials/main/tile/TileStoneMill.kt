@@ -1,5 +1,6 @@
 package ragi_materials.main.tile
 
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.nbt.NBTTagCompound
@@ -17,6 +18,7 @@ import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
 import ragi_materials.core.recipe.MillRecipe
 import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.core.util.dropItem
 import ragi_materials.core.util.failed
 import ragi_materials.core.util.succeeded
@@ -101,12 +103,14 @@ class TileStoneMill : TileItemHandlerBase() {
         return true
     }
 
+    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
+        dropInventoryItems(world, pos, inventory)
+    }
+
     //    TileItemHandlerBase    //
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerStoneMill(player, this)
 
     override fun getGuiID() = "${RagiMaterials.MOD_ID}:stone_mill"
-
-    override fun getName() = "gui.${RagiMaterials.MOD_ID}.stone_mill"
 
 }

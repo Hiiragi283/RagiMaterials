@@ -1,14 +1,20 @@
 package ragi_materials.main.tile
 
+import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.init.SoundEvents
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.items.CapabilityItemHandler
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.capability.RagiEnergyStorage
 import ragi_materials.core.recipe.LaboRecipe
 import ragi_materials.core.util.dropItem
@@ -61,6 +67,16 @@ class TileIndustrialLabo : TileLaboBase(), ITickable {
         }
     }
 
+    //    TileBase    //
+
+    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
+        front = state.getValue(RagiProperty.HORIZONTAL) //タイルエンティティに向きを保存させる
+    }
+
+    //    TileItemHandlerBase    //
+
+    override fun getGuiID() = "${RagiMaterials.MOD_ID}:industrial_labo"
+
     //    ITickable    //
 
     override fun update() {
@@ -107,11 +123,4 @@ class TileIndustrialLabo : TileLaboBase(), ITickable {
         else if (cache!!.match(inventory)) result = true else cache = null
         return result
     }
-
-    //    TileItemHandlerBase    //
-
-    override fun getGuiID() = "${RagiMaterials.MOD_ID}:industrial_labo"
-
-    override fun getName() = "gui.${RagiMaterials.MOD_ID}.industrial_labo"
-
 }

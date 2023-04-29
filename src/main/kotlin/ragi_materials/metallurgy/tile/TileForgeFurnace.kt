@@ -1,5 +1,7 @@
 package ragi_materials.metallurgy.tile
 
+import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
@@ -16,10 +18,7 @@ import net.minecraftforge.items.ItemStackHandler
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
 import ragi_materials.core.tile.TileBase
-import ragi_materials.core.util.dropItemAtPlayer
-import ragi_materials.core.util.failed
-import ragi_materials.core.util.playSound
-import ragi_materials.core.util.succeeded
+import ragi_materials.core.util.*
 
 class TileForgeFurnace : TileBase() {
 
@@ -78,6 +77,14 @@ class TileForgeFurnace : TileBase() {
             }
         }
         return result
+    }
+
+    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
+        readNBTFromStack(stack)
+    }
+
+    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
+        getDropWithNBT()
     }
 
     //    Recipe    //

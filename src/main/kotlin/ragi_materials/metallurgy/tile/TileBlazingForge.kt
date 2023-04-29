@@ -1,7 +1,10 @@
 package ragi_materials.metallurgy.tile
 
+import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -60,6 +63,14 @@ class TileBlazingForge : TileBase() {
             if (result) succeeded(this) else failed(this)
         }
         return result
+    }
+
+    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
+        readNBTFromStack(stack)
+    }
+
+    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
+        getDropWithNBT()
     }
 
     //    Recipe    //
