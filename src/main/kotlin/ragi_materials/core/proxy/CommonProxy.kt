@@ -17,6 +17,7 @@ import ragi_materials.core.RagiInit
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
 import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.event.CapabilityEvent
 import ragi_materials.core.event.CommonRegistryEvent
 import ragi_materials.core.event.CreateRegistryEvent
 import ragi_materials.core.event.RecipeRegistryEvent
@@ -37,6 +38,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
 
     override fun onConstruct(event: FMLConstructionEvent) {
         //イベントの登録
+        MinecraftForge.EVENT_BUS.register(CapabilityEvent)
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
         MinecraftForge.EVENT_BUS.register(CreateRegistryEvent)
         MinecraftForge.EVENT_BUS.register(RecipeRegistryEvent)

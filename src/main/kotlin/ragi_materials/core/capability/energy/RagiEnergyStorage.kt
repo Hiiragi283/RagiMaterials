@@ -1,4 +1,4 @@
-package ragi_materials.core.capability
+package ragi_materials.core.capability.energy
 
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity

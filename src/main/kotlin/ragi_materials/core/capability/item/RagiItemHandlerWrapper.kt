@@ -88,11 +88,11 @@ class RagiItemHandlerWrapper(vararg iItemHandlers: RagiItemHandler) : IItemHandl
     override fun deserializeNBT(nbt: NBTTagCompound) {
         val tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND)
         for (i in 0 until tagList.tagCount()) {
-            val itemTags = tagList.getCompoundTagAt(i)
-            val slot = itemTags.getInteger("Slot")
+            val tag = tagList.getCompoundTagAt(i)
+            val slot = tag.getInteger("Slot")
             if (slot >= 0 && slot < pairs.size) {
                 val pair = getSlotHandler(slot)
-                pair.first.setStackInSlot(pair.second, ItemStack(itemTags))
+                pair.first.setStackInSlot(pair.second, ItemStack(tag))
             }
         }
     }

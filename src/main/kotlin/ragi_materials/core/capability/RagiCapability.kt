@@ -1,10 +1,6 @@
 package ragi_materials.core.capability
 
-import net.minecraft.nbt.NBTBase
-import net.minecraft.nbt.NBTTagInt
-import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.common.capabilities.Capability.IStorage
 import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.common.capabilities.CapabilityManager
 import ragi_materials.core.RagiMaterials
@@ -18,7 +14,9 @@ object RagiCapability {
 
     fun register() {
 
-        CapabilityManager.INSTANCE.register(IHeatStorage::class.java, object : IStorage<IHeatStorage> {
+        CapabilityManager.INSTANCE.register(IHeatStorage::class.java, RagiStorage<IHeatStorage>()) { HeatStorage(1000) }
+
+        /*CapabilityManager.INSTANCE.register(IHeatStorage::class.java, object : IStorage<IHeatStorage> {
 
             override fun writeNBT(capability: Capability<IHeatStorage>, instance: IHeatStorage, side: EnumFacing) = NBTTagInt(instance.getHeatStored())
 
@@ -27,7 +25,7 @@ object RagiCapability {
                 instance.stored = (nbt as NBTTagInt).int
             }
         }
-        ) { HeatStorage(1000) }
+        ) { HeatStorage(1000) }*/
 
         RagiMaterials.LOGGER.debug("The new capability HEAT is registered!")
     }

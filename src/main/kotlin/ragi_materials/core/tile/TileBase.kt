@@ -13,6 +13,9 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import ragi_materials.core.capability.energy.RagiEnergyStorage
+import ragi_materials.core.capability.fluid.RagiTankWrapper
+import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.network.MessageTile
 import ragi_materials.core.network.RagiNetworkWrapper
@@ -20,6 +23,10 @@ import ragi_materials.core.network.RagiNetworkWrapper
 abstract class TileBase : TileEntity() {
 
     var material: RagiMaterial = RagiMaterial.EMPTY
+
+    open lateinit var inventory: RagiItemHandlerWrapper
+    open lateinit var tank: RagiTankWrapper
+    open lateinit var energy: RagiEnergyStorage
 
     val keyEnergy = "energy"
     val keyGas = "gas"

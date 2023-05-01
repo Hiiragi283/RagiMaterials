@@ -3,16 +3,19 @@ package ragi_materials.core.capability.item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
 import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.ICapabilityIO
 
-open class RagiItemHandler(slots: Int) : ItemStackHandler(slots) {
+open class RagiItemHandler(slots: Int) : ItemStackHandler(slots), ICapabilityIO<RagiItemHandler> {
 
-    private var ioType = EnumIOType.INPUT
+    //    ICapabilityIO    //
+
+    override var ioType = EnumIOType.INPUT
+
+    override fun getIOType() = ioType
+
+    override fun setIOType(type: EnumIOType): RagiItemHandler = also { ioType = type }
 
     //    Custom    //
-
-    open fun getIOType() = ioType
-
-    open fun setIOType(type: EnumIOType): RagiItemHandler = also { ioType = type }
 
     open fun isEmpty(): Boolean {
         var result = 0
