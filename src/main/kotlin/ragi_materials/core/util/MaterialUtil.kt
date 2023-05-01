@@ -25,3 +25,6 @@ fun getPart(part: MaterialPart, material: RagiMaterial, amount: Int = 1): ItemSt
     }
     return ItemStack.EMPTY
 }
+
+//()つきの化学式を返すメソッド
+fun setBracket(material: RagiMaterial) = material.copy(formula = "(${material.formula})")

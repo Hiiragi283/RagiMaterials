@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.registries.IForgeRegistryEntry
 import ragi_materials.core.item.ItemMaterial
 import ragi_materials.core.material.IMaterialItem
-import ragi_materials.core.util.wrapper.ItemMetaNBT
+import ragi_materials.core.util.wrapper.ItemStackWrapper
 import kotlin.math.pow
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
@@ -24,7 +24,7 @@ data class FFRecipe private constructor(private val input: ItemStack, private va
 
     fun getFuel() = fuel
 
-    fun match(input: ItemStack, fuel: Int) = ItemMetaNBT(this.input) == ItemMetaNBT(input) && fuel >= this.fuel
+    fun match(input: ItemStack, fuel: Int) = ItemStackWrapper(this.input, 1) == ItemStackWrapper(input, 1) && fuel >= this.fuel
 
     //    IRecipeWrapper    //
 

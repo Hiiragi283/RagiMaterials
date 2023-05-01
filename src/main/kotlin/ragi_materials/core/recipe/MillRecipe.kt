@@ -6,7 +6,7 @@ import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.registries.IForgeRegistryEntry
-import ragi_materials.core.util.wrapper.ItemMetaNBT
+import ragi_materials.core.util.wrapper.ItemStackWrapper
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
 data class MillRecipe private constructor(private var input: ItemStack, private var output: ItemStack)
@@ -18,7 +18,7 @@ data class MillRecipe private constructor(private var input: ItemStack, private 
 
     fun getOutput(): ItemStack = output.copy()
 
-    fun match(input: ItemStack) = ItemMetaNBT(this.input) == ItemMetaNBT(input)
+    fun match(input: ItemStack) = ItemStackWrapper(this.input, 1) == ItemStackWrapper(input, 1)
 
     //    IRecipeWrapper    //
 

@@ -5,8 +5,10 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
@@ -14,16 +16,19 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.RagiRegistry
-import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.block.BlockContainerHoldable
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.material.RagiMaterial
+import ragi_materials.core.material.part.PartRegistry
+import ragi_materials.core.tile.TileBase
+import ragi_materials.core.util.getPart
 import ragi_materials.core.util.toBool
 import ragi_materials.core.util.toInt
 import ragi_materials.metallurgy.tile.TileBloom
 import ragi_materials.metallurgy.tile.TileBloomery
 import java.util.*
 
-class BlockBloomery : BlockContainerBase<TileBloomery>("bloomery", Material.ROCK, TileBloomery::class.java, 4) {
+class BlockBloomery : BlockContainerHoldable<TileBloomery>("bloomery", Material.ROCK, TileBloomery::class.java, 4) {
 
     init {
         blockHardness = 5.0F
@@ -46,6 +51,14 @@ class BlockBloomery : BlockContainerBase<TileBloomery>("bloomery", Material.ROCK
 
     @Deprecated("Deprecated in Java", ReplaceWith("AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)", "net.minecraft.util.math.AxisAlignedBB"))
     override fun getBoundingBox(blockState: IBlockState, world: IBlockAccess, pos: BlockPos): AxisAlignedBB = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.75, 1.0)
+
+    override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
+        val stack = ItemStack(this)
+        drops.add(stack)
+        world.getTileEntity(pos)?.let {
+            if (it is TileBase) drops.add(getPart(PartRegistry.ORE, it.material))
+        }
+    }
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isFullCube(state: IBlockState): Boolean = false

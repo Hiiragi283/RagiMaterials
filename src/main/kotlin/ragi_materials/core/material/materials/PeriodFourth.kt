@@ -9,6 +9,7 @@ import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.RagiColor
+import ragi_materials.core.util.setBracket
 
 object PeriodFourth {
 
@@ -19,13 +20,13 @@ object PeriodFourth {
         //200 ~ 209: Calcium
         MaterialRegistry.CALCIUM = RagiMaterial.Builder(200, "calcium", TypeRegistry.INTERNAL).setSimple(ElementRegistry.CALCIUM to 1).build()
 
-        MaterialRegistry.CALCIUM_HYDROXIDE = RagiMaterial.Builder(201, "calcium_hydroxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, MaterialRegistry.HYDROXIDE.setBracket() to 2)).build()
+        MaterialRegistry.CALCIUM_HYDROXIDE = RagiMaterial.Builder(201, "calcium_hydroxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, setBracket(MaterialRegistry.HYDROXIDE) to 2)).build()
 
         MaterialRegistry.LIME = RagiMaterial.Builder(202, "lime", TypeRegistry.DUST.enableOre()).setComponents(listOf(ElementRegistry.CALCIUM to 1, MaterialRegistry.CARBONATE to 1)).build()
 
         MaterialRegistry.QUICK_LIME = RagiMaterial.Builder(203, "quick_lime", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.CALCIUM to 1, ElementRegistry.OXYGEN to 1)).build()
 
-        MaterialRegistry.APATITE = RagiMaterial.Builder(204, "apatite", TypeRegistry.CRYSTAL.enableOre()).setComponents(listOf(ElementRegistry.CALCIUM to 5, MaterialRegistry.PHOSPHATE.setBracket() to 3, MaterialRegistry.HYDROXIDE to 1)).apply {
+        MaterialRegistry.APATITE = RagiMaterial.Builder(204, "apatite", TypeRegistry.CRYSTAL.enableOre()).setComponents(listOf(ElementRegistry.CALCIUM to 5, setBracket(MaterialRegistry.PHOSPHATE) to 3, MaterialRegistry.HYDROXIDE to 1)).apply {
             color = ColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE)
             crystalType = EnumCrystalType.EMERALD
         }.build()

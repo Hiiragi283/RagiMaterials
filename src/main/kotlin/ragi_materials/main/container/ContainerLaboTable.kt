@@ -8,7 +8,7 @@ import ragi_materials.main.tile.TileLaboBase
 
 class ContainerLaboTable(player: EntityPlayer, tile: TileLaboBase) : ContainerBase<TileLaboBase>(player, tile) {
 
-    val inputs = tile.inputs
+    val inputs = tile.input
     val catalyst = tile.catalyst
     val inventory = tile.inventory
 

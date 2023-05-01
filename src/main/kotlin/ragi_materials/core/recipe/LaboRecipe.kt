@@ -30,7 +30,7 @@ data class LaboRecipe private constructor(private var inputs: MutableList<ItemSt
         for (i in 0..4) {
             val input = this.inputs[i]
             val stackSlot = inventory.getStackInSlot(i)
-            result = result && ItemStackWrapper(input) == ItemStackWrapper(stackSlot) && stackSlot.count >= input.count
+            result = result && ItemStackWrapper(input, 1) == ItemStackWrapper(stackSlot, 1) && stackSlot.count >= input.count
         }
         return result
     }

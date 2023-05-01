@@ -4,19 +4,17 @@ import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import ragi_materials.core.block.BlockContainerHoldable
+import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
-import ragi_materials.metallurgy.tile.TileForgeFurnace
+import ragi_materials.metallurgy.tile.TileBlastFurnaceCore
 
-class BlockForgeFurnace : BlockContainerHoldable<TileForgeFurnace>("forge_furnace", Material.ROCK, TileForgeFurnace::class.java, 3) {
+class BlockBlastFurnaceCore : BlockContainerBase<TileBlastFurnaceCore>("blast_furnace", Material.ROCK, TileBlastFurnaceCore::class.java, -1) {
 
     init {
         blockHardness = 5.0F
@@ -24,17 +22,6 @@ class BlockForgeFurnace : BlockContainerHoldable<TileForgeFurnace>("forge_furnac
         defaultState = blockState.baseState.withProperty(RagiProperty.HORIZONTAL, EnumFacing.NORTH)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
-    }
-
-    //    General    //
-
-    @Deprecated("Deprecated in Java")
-    override fun addCollisionBoxToList(state: IBlockState, world: World, pos: BlockPos, entityBox: AxisAlignedBB, collidingBoxes: MutableList<AxisAlignedBB>, entity: Entity?, isActualState: Boolean) {
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0 / 8, 1.0)) //底面
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0 / 8)) //北
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 1.0 - (1.0 / 8), 1.0, 1.0, 1.0)) //南
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(1.0 - (1.0 / 8), 0.0, 0.0, 1.0, 1.0, 1.0)) //東
-        addCollisionBoxToList(pos, entityBox, collidingBoxes, AxisAlignedBB(0.0, 0.0, 0.0, 1.0 / 8, 1.0, 1.0)) //西
     }
 
     //    BlockState    //
@@ -48,4 +35,15 @@ class BlockForgeFurnace : BlockContainerHoldable<TileForgeFurnace>("forge_furnac
     @Deprecated("Deprecated in Java", ReplaceWith("blockState.baseState.withProperty(RagiProperty.HORIZONTAL, RagiFacing.getState(meta))", "hiiragi283.ragi_materials.util.RagiFacing", "hiiragi283.ragi_materials.util.RagiFacing"))
     override fun getStateFromMeta(meta: Int): IBlockState = blockState.baseState.withProperty(RagiProperty.HORIZONTAL, RagiFacing.getValue(meta))
 
+    //    Event    //
+
+    override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
+        //破壊時にInterfaceも破壊する
+        val tile = world.getTileEntity(pos)
+        if (tile !== null && tile is TileBlastFurnaceCore) {
+            val stateTo = tile.getStateInterface()
+            if (stateTo.block is BlockBlastFurnaceInterface) world.destroyBlock(tile.getPosInterface(), false)
+        }
+        super.breakBlock(world, pos, state)
+    }
 }

@@ -10,7 +10,7 @@ import net.minecraft.util.NonNullList
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
-import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.block.BlockContainerHoldable
 import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.PartRegistry
@@ -19,7 +19,7 @@ import ragi_materials.core.util.getPart
 import ragi_materials.metallurgy.tile.TileBloom
 import java.util.*
 
-class BlockBloom : BlockContainerBase<TileBloom>("bloom", Material.ROCK, TileBloom::class.java, -1), IMaterialBlock {
+class BlockBloom : BlockContainerHoldable<TileBloom>("bloom", Material.ROCK, TileBloom::class.java, -1), IMaterialBlock {
 
     override val itemBlock = null
 

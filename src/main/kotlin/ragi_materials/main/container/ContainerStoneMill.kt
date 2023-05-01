@@ -14,8 +14,8 @@ class ContainerStoneMill(player: EntityPlayer, tile: TileStoneMill) : ContainerB
     val inventory = tile.inventory
 
     init {
-        addSlotToContainer(SlotItemHandler(input, 0, 44 + 1 * 18, 20))
-        addSlotToContainer(SlotOutItemHandler(output, 0, 44 + 3 * 18, 20))
+        addSlotToContainer(SlotItemHandler(input, 0, 8 + 3 * 18, 20))
+        addSlotToContainer(SlotOutItemHandler(output, 0, 8 + 5 * 18, 20))
         initSlotsPlayer(51) //Player
     }
 

@@ -37,7 +37,7 @@ object RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
     }
 
     private fun renderStack(te: TileLaboTable, x: Double, y: Double, z: Double, slot: Int) {
-        val stack = te.inputs.getStackInSlot(slot)
+        val stack = te.input.getStackInSlot(slot)
         if (!stack.isEmpty) {
             //スロット内のItemStackを取得
             GlStateManager.pushMatrix()

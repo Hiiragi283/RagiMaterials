@@ -7,7 +7,7 @@ import net.minecraft.inventory.Container
 import net.minecraft.inventory.IInventory
 import net.minecraft.inventory.Slot
 
-class ContainerStateBase(val player: EntityPlayer, val inventory: IInventory, val state: IBlockState) : Container() {
+abstract class ContainerStateBase(val player: EntityPlayer, val inventory: IInventory, val state: IBlockState) : Container() {
 
     val invPlayer: InventoryPlayer = player.inventory
 

@@ -12,13 +12,12 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.block.BlockContainerHoldable
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
 import ragi_materials.metallurgy.tile.TileBlazingForge
-import java.util.*
 
-class BlockBlazingForge : BlockContainerBase<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
+class BlockBlazingForge : BlockContainerHoldable<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
 
     init {
         blockHardness = 5.0F
@@ -32,8 +31,6 @@ class BlockBlazingForge : BlockContainerBase<TileBlazingForge>("blazing_forge", 
 
     @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
-
-    override fun quantityDropped(random: Random) = 0
 
     //    BlockState    //
 

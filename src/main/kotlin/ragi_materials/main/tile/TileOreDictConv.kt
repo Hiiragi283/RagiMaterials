@@ -4,53 +4,40 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.RagiCapabilityProvider
 import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
+import ragi_materials.core.tile.ITileProvider
 import ragi_materials.core.tile.TileItemHandlerBase
 import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.core.util.playSoundHypixel
 import ragi_materials.main.container.ContainerOreDictConv
 
-class TileOreDictConv : TileItemHandlerBase(), ITickable {
+class TileOreDictConv : TileItemHandlerBase(), ITickable, ITileProvider.Inventory {
 
-    val input = RagiItemHandler(1).setIOType(EnumIOType.INPUT)
-    val output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
-    val inventory = RagiItemHandlerWrapper(input, output)
+    lateinit var input: RagiItemHandler
+    lateinit var output: RagiItemHandler
     private var count = 0
-
-
-    //    NBT tag    //
-
-    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
-        super.writeToNBT(it)
-        it.setTag(keyInventory, inventory.serializeNBT()) //インベントリをtagに書き込む
-    }
-
-    override fun readFromNBT(tag: NBTTagCompound) {
-        super.readFromNBT(tag)
-        inventory.deserializeNBT(tag.getCompoundTag(keyInventory)) //tagからインベントリを読み込む
-    }
 
     //    Capability    //
 
-    override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, facing)) CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) else null
+    override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
+        input = RagiItemHandler(1).setIOType(EnumIOType.INPUT)
+        output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+        inventory = RagiItemHandlerWrapper(input, output)
+        return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }
-
-    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean = capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-
 
     //    TileBase    //
 

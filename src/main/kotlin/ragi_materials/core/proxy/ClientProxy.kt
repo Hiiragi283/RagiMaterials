@@ -7,7 +7,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import ragi_materials.core.event.ClientRegistryEvent
 import ragi_materials.main.client.render.RenderLaboratoryTable
 import ragi_materials.main.tile.TileLaboTable
+import ragi_materials.metallurgy.client.render.RenderBlastFurnace
 import ragi_materials.metallurgy.client.render.RenderBlazingForge
+import ragi_materials.metallurgy.tile.TileBlastFurnaceInterface
 import ragi_materials.metallurgy.tile.TileBlazingForge
 
 class ClientProxy : CommonProxy() {
@@ -20,6 +22,7 @@ class ClientProxy : CommonProxy() {
     override fun onPreInit(event: FMLPreInitializationEvent) {
         super.onPreInit(event)
         //TESRの登録
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBlastFurnaceInterface::class.java, RenderBlastFurnace)
         ClientRegistry.bindTileEntitySpecialRenderer(TileBlazingForge::class.java, RenderBlazingForge)
         ClientRegistry.bindTileEntitySpecialRenderer(TileLaboTable::class.java, RenderLaboratoryTable)
         //TEISRの登録

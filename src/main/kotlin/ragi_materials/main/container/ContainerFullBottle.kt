@@ -11,7 +11,7 @@ class ContainerFullBottle(player: EntityPlayer, tile: TileFullBottleStation) : C
     val output = tile.output
 
     init {
-        addSlotToContainer(SlotOutItemHandler(output, 0, 44 + 2 * 18, 20))
+        addSlotToContainer(SlotOutItemHandler(output, 0, 8 + 4 * 18, 20))
         initSlotsPlayer(51)
     }
 

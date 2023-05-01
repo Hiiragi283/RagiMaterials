@@ -110,6 +110,7 @@ text.ragi_materials.succeeded=[%s] §a成功!
 text.ragi_materials.fuel_point=[Fuel Point] §b%s
 
 # GUI
+gui.ragi_materials.bloomery=塊鉄炉
 gui.ragi_materials.forge_furnace=鍛造炉
 gui.ragi_materials.fullbottle_station=フルボトルメーカー
 gui.ragi_materials.industrial_labo=工業用化学反応槽

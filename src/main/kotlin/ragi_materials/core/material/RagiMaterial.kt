@@ -23,7 +23,7 @@ import java.awt.Color
  * Register your custom materials until Pre-Initialization
  */
 
-class RagiMaterial private constructor(
+data class RagiMaterial private constructor(
         val index: Int = -1,
         val name: String = "empty",
         val type: MaterialType = TypeRegistry.INTERNAL,
@@ -32,12 +32,13 @@ class RagiMaterial private constructor(
         val components: List<Pair<RagiMaterial, Int>> = listOf(EMPTY to 1),
         val crystalType: EnumCrystalType = EnumCrystalType.NONE,
         val formula: String? = null,
-        val mapSubMaterials: MutableMap<EnumSubMaterial, RagiMaterial?> = mutableMapOf(),
         val mapTemp: Map<EnumTemp, Int?> = mapOf(),
         val molar: Float? = null,
         val oredictAlt: String? = null,
         val rarity: IRarity = EnumRarity.COMMON
 ) {
+
+    val mapSubMaterials: MutableMap<EnumSubMaterial, RagiMaterial?> = mutableMapOf()
 
     companion object {
         @JvmStatic
@@ -83,9 +84,6 @@ class RagiMaterial private constructor(
 
     //部品と素材の組み合わせが有効か判定するメソッド
     fun isValidPart(part: MaterialPart): Boolean = part.type in type.list
-
-    //()つきの化学式を返すメソッド
-    fun setBracket(): RagiMaterial = Formula("(${this.formula})").build()
 
     //関連した素材を設定するメソッド
     fun setSubMaterial(type: EnumSubMaterial, material: RagiMaterial) = also { it.mapSubMaterials[type] = material }
@@ -253,7 +251,6 @@ class RagiMaterial private constructor(
                 components,
                 crystalType,
                 formula,
-                mutableMapOf(),
                 mapOf(
                         EnumTemp.MELTING to tempMelt,
                         EnumTemp.BOILING to tempBoil,

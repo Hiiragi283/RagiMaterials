@@ -48,6 +48,7 @@ object RagiInit : IProxy {
         registerBlocks()
         registerItems()
         registerCreativeTabs()
+        registerFluid()
     }
 
     private fun registerBlocks() {
@@ -74,6 +75,8 @@ object RagiInit : IProxy {
         }
         //Metallurgic Feature
         if (RagiConfig.module.enableMetallurgy) {
+            RagiRegistry.BlockBlastFurnaceCore = BlockBlastFurnaceCore()
+            RagiRegistry.BlockBlastFurnaceInterface = BlockBlastFurnaceInterface()
             RagiRegistry.BlockBlazingForge = BlockBlazingForge()
             RagiRegistry.BlockBloom = BlockBloom()
             RagiRegistry.BlockBloomery = BlockBloomery()
@@ -139,21 +142,20 @@ object RagiInit : IProxy {
         }
     }
 
-    //    onInit    //
-
-    override fun onInit(event: FMLInitializationEvent) {
-        registerFluid()
-        registerOreDict()
-        CraftingRegistry.addRecipes()
-        SmeltingRegistry.addSmelting()
-    }
-
     private fun registerFluid() {
         //Fluidの登録
         for (material in MaterialRegistry.list) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
             if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) FluidBase(material)
         }
+    }
+
+    //    onInit    //
+
+    override fun onInit(event: FMLInitializationEvent) {
+        registerOreDict()
+        CraftingRegistry.addRecipes()
+        SmeltingRegistry.addSmelting()
     }
 
     private fun registerOreDict() {

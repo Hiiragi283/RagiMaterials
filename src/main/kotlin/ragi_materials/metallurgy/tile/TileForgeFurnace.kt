@@ -1,7 +1,5 @@
 package ragi_materials.metallurgy.tile
 
-import net.minecraft.block.state.IBlockState
-import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
@@ -12,32 +10,26 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
-import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.ItemStackHandler
+import net.minecraftforge.items.IItemHandler
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.RagiCapabilityProvider
+import ragi_materials.core.capability.item.RagiItemHandler
+import ragi_materials.core.capability.item.RagiItemHandlerWrapper
+import ragi_materials.core.tile.ITileProvider
 import ragi_materials.core.tile.TileBase
-import ragi_materials.core.util.*
+import ragi_materials.core.util.dropItemAtPlayer
+import ragi_materials.core.util.failed
+import ragi_materials.core.util.playSound
+import ragi_materials.core.util.succeeded
 
-class TileForgeFurnace : TileBase() {
+class TileForgeFurnace : TileBase(), ITileProvider.Inventory {
 
+    lateinit var input: RagiItemHandler
     var fuel = 0
     var fuelMax = 200 * 80 * 64
-    val inventory = object : ItemStackHandler(1) {
-
-        override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-            return if (isFuel(stack)) {
-                val burnTime = TileEntityFurnace.getItemBurnTime(stack) * stack.count
-                if (fuel + burnTime <= fuelMax) {
-                    fuel += burnTime //燃料を投入
-                    playSoundFuel()
-                    RagiMaterials.LOGGER.debug("Fuel: $fuel")
-                    ItemStack.EMPTY //燃料は消失する
-                } else stack //上限に達していたら搬入不可能
-            } else stack //燃焼不可能な素材なら搬入不可能
-        }
-    }
 
     //    NBT tag    //
 
@@ -53,12 +45,22 @@ class TileForgeFurnace : TileBase() {
 
     //    Capability    //
 
-    override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return if (hasCapability(capability, null)) CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) else null
-    }
-
-    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+    override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
+        input = object : RagiItemHandler(1) {
+            override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
+                return if (isFuel(stack)) {
+                    val burnTime = TileEntityFurnace.getItemBurnTime(stack) * stack.count
+                    if (fuel + burnTime <= fuelMax) {
+                        fuel += burnTime //燃料を投入
+                        playSoundFuel()
+                        RagiMaterials.LOGGER.debug("Fuel: $fuel")
+                        ItemStack.EMPTY //燃料は消失する
+                    } else stack //上限に達していたら搬入不可能
+                } else stack //燃焼不可能な素材なら搬入不可能
+            }
+        }.setIOType(EnumIOType.INPUT)
+        inventory = RagiItemHandlerWrapper(input)
+        return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }
 
     //    TileBase    //
@@ -68,7 +70,7 @@ class TileForgeFurnace : TileBase() {
         if (!world.isRemote) {
             val stack = player.getHeldItem(hand)
             result = if (isFuel(stack)) {
-                player.setHeldItem(hand, inventory.insertItem(0, stack, false)) //燃料を搬入
+                player.setHeldItem(hand, input.insertItem(0, stack, false)) //燃料を搬入
                 true
             } else doProcess(player, hand) //レシピを実行
             if (result) succeeded(this) else {
@@ -77,14 +79,6 @@ class TileForgeFurnace : TileBase() {
             }
         }
         return result
-    }
-
-    override fun onTilePlaced(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {
-        readNBTFromStack(stack)
-    }
-
-    override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
-        dropItemFromTile(world, pos, ItemStack(RagiRegistry.BlockForgeFurnace), this)
     }
 
     //    Recipe    //

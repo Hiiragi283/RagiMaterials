@@ -13,6 +13,7 @@ import ragi_materials.core.item.ItemMaterial
 import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.material.IMaterialItem
 import ragi_materials.core.material.part.MaterialPart
+import ragi_materials.core.recipe.BlastFurnaceRecipe
 import ragi_materials.core.recipe.FFRecipe
 import ragi_materials.core.recipe.LaboRecipe
 import ragi_materials.core.recipe.MillRecipe
@@ -33,12 +34,11 @@ object RagiRegistry {
 
     //    Block    //
 
+    lateinit var BlockBlastFurnaceCore: BlockBase
+    lateinit var BlockBlastFurnaceInterface: BlockBase
     lateinit var BlockBlazingForge: BlockBase
     lateinit var BlockBloom: BlockBase
     lateinit var BlockBloomery: BlockBase
-
-    //lateinit var BlockBloomeryMolten: BlockBase
-    //lateinit var BlockFireboxPrimitive: BlockBase
     lateinit var BlockForgeFurnace: BlockBase
     lateinit var BlockFullBottleStation: BlockBase
     lateinit var BlockIndustrialLabo: BlockBase
@@ -79,6 +79,7 @@ object RagiRegistry {
     lateinit var ItemDustTiny: ItemMaterial
     lateinit var ItemGear: ItemMaterial
     lateinit var ItemIngot: ItemMaterial
+
     //lateinit var ItemIngotHot: ItemMaterial
     lateinit var ItemNugget: ItemMaterial
     lateinit var ItemOre: ItemMaterial
@@ -92,6 +93,7 @@ object RagiRegistry {
 
     //    IForgeRegistry    //
 
+    lateinit var BF_RECIPE: IForgeRegistry<BlastFurnaceRecipe>
     lateinit var FF_RECIPE: IForgeRegistry<FFRecipe>
     lateinit var LABO_RECIPE: IForgeRegistry<LaboRecipe>
     lateinit var MILL_RECIPE: IForgeRegistry<MillRecipe>

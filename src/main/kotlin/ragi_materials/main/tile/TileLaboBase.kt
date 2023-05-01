@@ -3,36 +3,35 @@ package ragi_materials.main.tile
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
-import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.items.CapabilityItemHandler
+import net.minecraftforge.items.IItemHandler
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.capability.EnumIOType
+import ragi_materials.core.capability.RagiCapabilityProvider
 import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
+import ragi_materials.core.tile.ITileProvider
 import ragi_materials.core.tile.TileItemHandlerBase
 import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.main.container.ContainerLaboTable
 
-abstract class TileLaboBase : TileItemHandlerBase() {
+abstract class TileLaboBase : TileItemHandlerBase(), ITileProvider.Inventory {
 
-    val inputs = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
-    val catalyst = RagiItemHandler(1).setIOType(EnumIOType.CATALYST)
-    val inventory = RagiItemHandlerWrapper(inputs, catalyst)
+    lateinit var input: RagiItemHandler
+    lateinit var catalyst: RagiItemHandler
 
-    //    NBT tag    //
+    //    Capability    //
 
-    override fun writeToNBT(tag: NBTTagCompound) = tag.also {
-        super.writeToNBT(it)
-        it.setTag(keyInventory, inventory.serializeNBT())
-    }
-
-    override fun readFromNBT(tag: NBTTagCompound) {
-        super.readFromNBT(tag)
-        inventory.deserializeNBT(tag.getCompoundTag(keyInventory))
+    override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
+        input = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
+        catalyst = RagiItemHandler(1).setIOType(EnumIOType.CATALYST)
+        inventory = RagiItemHandlerWrapper(input, catalyst)
+        return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }
 
     //    TileBase    //
