@@ -46,7 +46,7 @@ class TileForgeFurnace : TileBase(), ITileProvider.Inventory {
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-        input = object : RagiItemHandler(1) {
+        input = object : RagiItemHandler(1, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
                 return if (isFuel(stack)) {
                     val burnTime = TileEntityFurnace.getItemBurnTime(stack) * stack.count

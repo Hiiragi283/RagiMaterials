@@ -13,11 +13,12 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import ragi_materials.core.capability.energy.RagiEnergyStorage
 import ragi_materials.core.capability.fluid.RagiTankWrapper
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.material.RagiMaterial
-import ragi_materials.core.network.MessageTile
+import ragi_materials.core.network.RagiMessage
 import ragi_materials.core.network.RagiNetworkWrapper
 
 abstract class TileBase : TileEntity() {
@@ -59,8 +60,10 @@ abstract class TileBase : TileEntity() {
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean = oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    fun syncData() {
-        RagiNetworkWrapper.sendToAll(MessageTile(pos))
+    fun syncData(vararg messages: IMessage = arrayOf(RagiMessage.Sync(pos, updateTag))) {
+        for (message in messages) {
+            RagiNetworkWrapper.sendToAll(message)
+        }
     }
 
     //    Event    //

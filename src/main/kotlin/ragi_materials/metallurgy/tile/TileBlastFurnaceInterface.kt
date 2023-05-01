@@ -38,31 +38,10 @@ class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-
-        inputOre = object : RagiItemHandler(1) {
-            override fun onContentsChanged(slot: Int) {
-                markDirty()
-            }
-        }.setIOType(EnumIOType.INPUT)
-
-        inputFuel = object : RagiItemHandler(1) {
-            override fun onContentsChanged(slot: Int) {
-                markDirty()
-            }
-        }.setIOType(EnumIOType.INPUT)
-
-        inputFlux = object : RagiItemHandler(1) {
-            override fun onContentsChanged(slot: Int) {
-                markDirty()
-            }
-        }.setIOType(EnumIOType.INPUT)
-
-        output = object : RagiItemHandler(1) {
-            override fun onContentsChanged(slot: Int) {
-                markDirty()
-            }
-        }.setIOType(EnumIOType.OUTPUT)
-
+        inputOre = RagiItemHandler(1, this).setIOType(EnumIOType.INPUT)
+        inputFuel = RagiItemHandler(1, this).setIOType(EnumIOType.INPUT)
+        inputFlux = RagiItemHandler(1, this).setIOType(EnumIOType.INPUT)
+        output = RagiItemHandler(1, this).setIOType(EnumIOType.OUTPUT)
         inventory = RagiItemHandlerWrapper(inputOre, inputFuel, inputFlux, output)
         return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }
@@ -106,6 +85,7 @@ class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory
                 inputFlux.extractItem(0, cache!!.getInputFlux().count, false)
                 outputTank.fill(cache!!.getOutput(), true)
                 output.insertItem(0, cache!!.getOutputSlag(), false)
+                syncData() //クライアント側と同期
             }
         }
     }

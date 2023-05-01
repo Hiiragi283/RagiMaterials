@@ -6,6 +6,7 @@ import net.minecraft.inventory.Container
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -16,7 +17,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry
 import ragi_materials.core.RagiInit
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
-import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.capability.RagiStorage
+import ragi_materials.core.capability.heat.HeatStorage
+import ragi_materials.core.capability.heat.IHeatStorage
 import ragi_materials.core.event.CapabilityEvent
 import ragi_materials.core.event.CommonRegistryEvent
 import ragi_materials.core.event.CreateRegistryEvent
@@ -63,7 +66,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
         RagiMaterials.CONFIG = File(event.modConfigurationDirectory, "${RagiMaterials.MOD_ID}/")
         RagiMaterials.LOGGER.debug(("Config path: ${RagiMaterials.CONFIG.absolutePath}"))
         //Capabilityの登録
-        RagiCapability.register()
+        CapabilityManager.INSTANCE.register(IHeatStorage::class.java, RagiStorage<IHeatStorage>()) { HeatStorage(1000) }
         //GUI描画の登録
         NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterials.INSTANCE, this)
         //連携要素の登録

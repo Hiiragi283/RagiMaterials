@@ -33,8 +33,8 @@ class TileOreDictConv : TileItemHandlerBase(), ITickable, ITileProvider.Inventor
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-        input = RagiItemHandler(1).setIOType(EnumIOType.INPUT)
-        output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+        input = RagiItemHandler(1, this).setIOType(EnumIOType.INPUT)
+        output = RagiItemHandler(1, this).setIOType(EnumIOType.OUTPUT)
         inventory = RagiItemHandlerWrapper(input, output)
         return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }

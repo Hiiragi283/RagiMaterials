@@ -12,7 +12,6 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.fluids.FluidStack
-import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStackSimple
 import net.minecraftforge.fml.relauncher.Side
@@ -88,22 +87,15 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
         override fun drain(maxDrain: Int, doDrain: Boolean): FluidStack? {
             //変数の宣言
             var result: FluidStack? = null
-            //stackにNBTタグがない場合, NBTタグを付与
-            if (stack.tagCompound == null) stack.tagCompound = NBTTagCompound()
-            //NBTタグを取得
-            val tag = stack.tagCompound!!
-            //NBTタグがFluidというkeyを持っている場合
-            if (tag.hasKey("Fluid")) {
-                //Fluid配下のNBTタグからFluidStackを取得
-                val fluidStack = FluidStack.loadFluidStackFromNBT(tag.getCompoundTag("Fluid"))
-                //FluidStackがnullでない場合
-                if (fluidStack !== null) {
-                    val amount = fluidStack.amount //液体量を取得
-                    //液体量が1000の場合
-                    if (amount == 1000) {
-                        if (doDrain) stack.shrink(1) //stackを1つ減らす
-                        result = fluidStack.copy() //FluidStackを代入する
-                    }
+            //NBTタグからFluidStackを取得
+            val fluidStack = FluidStack.loadFluidStackFromNBT(stack.tagCompound)
+            //FluidStackがnullでない場合
+            if (fluidStack !== null) {
+                val amount = fluidStack.amount //液体量を取得
+                //液体量が1000の場合
+                if (amount == 1000) {
+                    if (doDrain) stack.shrink(1) //stackを1つ減らす
+                    result = fluidStack.copy() //FluidStackを代入する
                 }
             }
             return result
@@ -115,7 +107,7 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): RagiMaterial {
-        val fluidStack = FluidUtil.getFluidContained(stack)
+        val fluidStack = FluidStack.loadFluidStackFromNBT(stack.tagCompound)
         return if (fluidStack !== null) getMaterialFromName(fluidStack.fluid.name) else RagiMaterial.EMPTY
     }
 

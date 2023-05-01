@@ -4,8 +4,13 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.items.ItemStackHandler
 import ragi_materials.core.capability.EnumIOType
 import ragi_materials.core.capability.ICapabilityIO
+import ragi_materials.core.tile.TileBase
 
-open class RagiItemHandler(slots: Int) : ItemStackHandler(slots), ICapabilityIO<RagiItemHandler> {
+open class RagiItemHandler(slots: Int, val tile: TileBase) : ItemStackHandler(slots), ICapabilityIO<RagiItemHandler> {
+
+    override fun onContentsChanged(slot: Int) {
+        tile.markDirty()
+    }
 
     //    ICapabilityIO    //
 

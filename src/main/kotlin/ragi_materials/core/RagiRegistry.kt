@@ -5,9 +5,12 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.CapabilityInject
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryModifiable
 import ragi_materials.core.block.BlockBase
+import ragi_materials.core.capability.heat.IHeatStorage
 import ragi_materials.core.item.ItemBase
 import ragi_materials.core.item.ItemMaterial
 import ragi_materials.core.material.IMaterialBlock
@@ -109,6 +112,11 @@ object RagiRegistry {
     fun remove(registry: IForgeRegistry<*>, registryName: String) {
         removeRegistryEntry(registry, ResourceLocation(registryName))
     }
+
+    //    Capability    //
+
+    @CapabilityInject(IHeatStorage::class)
+    lateinit var HEAT: Capability<IHeatStorage>
 
     //このクラス内のフィールドを一覧に代入するメソッド
     fun addCollection() {

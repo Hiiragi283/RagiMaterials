@@ -20,7 +20,7 @@ import ragi_materials.core.util.getPart
 
 object RecipeRegistryEvent {
 
-    private fun <T: IForgeRegistryEntry.Impl<T>> T.registerRecipe(registry: IForgeRegistry<T>) {
+    private fun <T : IForgeRegistryEntry.Impl<T>> T.registerRecipe(registry: IForgeRegistry<T>) {
         registry.register(this)
         RagiMaterials.LOGGER.debug("The recipe ${this.registryName} is registered!")
     }

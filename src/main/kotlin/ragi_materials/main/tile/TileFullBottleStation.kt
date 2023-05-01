@@ -35,7 +35,7 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable, ITileProvider.In
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-        output = RagiItemHandler(1).setIOType(EnumIOType.OUTPUT)
+        output = RagiItemHandler(1, this).setIOType(EnumIOType.OUTPUT)
         inventory = RagiItemHandlerWrapper(output)
         return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }

@@ -4,6 +4,7 @@ import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
 import ragi_materials.core.tile.ITileSyncable
@@ -37,9 +38,9 @@ class TileLaboTable : TileLaboBase(), ITileSyncable {
                 playSound(this, SoundEvents.ENTITY_GENERIC_EXPLODE)
                 failed(this)
             }
+            input.clear() //反応結果によらずインベントリを空にする
+            syncData() //クライアント側にパケットを送る
         }
-        sync() //反応結果によらずインベントリを空にする
-        syncData()
     }
 
     //    TileItemHandlerBase    //
@@ -48,7 +49,7 @@ class TileLaboTable : TileLaboBase(), ITileSyncable {
 
     //    ITileSyncable    //
 
-    override fun sync() {
+    override fun sync(message: IMessage) {
         input.clear()
     }
 }

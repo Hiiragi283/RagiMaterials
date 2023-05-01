@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.util.INBTSerializable
-import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.RagiRegistry
 
 open class HeatStorage(var capacity: Int, private val maxIn: Int = capacity, private val maxOut: Int = capacity, var stored: Int = 0) : IHeatStorage, INBTSerializable<NBTTagCompound> {
 
@@ -25,7 +25,7 @@ open class HeatStorage(var capacity: Int, private val maxIn: Int = capacity, pri
     }
 
     fun receiveHeatFrom(tileFrom: TileEntity, facingFrom: EnumFacing?, simulate: Boolean) {
-        tileFrom.getCapability(RagiCapability.HEAT, facingFrom)?.let {
+        tileFrom.getCapability(RagiRegistry.HEAT, facingFrom)?.let {
             receiveHeatFrom(it, simulate)
         }
     }
@@ -44,7 +44,7 @@ open class HeatStorage(var capacity: Int, private val maxIn: Int = capacity, pri
     }
 
     fun extractHeatTo(tileTo: TileEntity, facingTo: EnumFacing?, simulate: Boolean) {
-        tileTo.getCapability(RagiCapability.HEAT, facingTo)?.let {
+        tileTo.getCapability(RagiRegistry.HEAT, facingTo)?.let {
             extractHeatTo(it, simulate)
         }
     }

@@ -2,7 +2,7 @@ package ragi_materials.main.tile
 
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.capabilities.Capability
-import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.RagiRegistry
 import ragi_materials.core.capability.heat.IHeatStorage
 
 class TileTransferHeat : TileTransferBase<IHeatStorage>(), ITickable {
@@ -21,6 +21,6 @@ class TileTransferHeat : TileTransferBase<IHeatStorage>(), ITickable {
         }
     }
 
-    override fun getCapabilityType(): Capability<IHeatStorage> = RagiCapability.HEAT
+    override fun getCapabilityType(): Capability<IHeatStorage> = RagiRegistry.HEAT
 
 }

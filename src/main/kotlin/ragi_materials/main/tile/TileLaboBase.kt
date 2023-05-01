@@ -28,8 +28,8 @@ abstract class TileLaboBase : TileItemHandlerBase(), ITileProvider.Inventory {
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-        input = RagiItemHandler(5).setIOType(EnumIOType.INPUT)
-        catalyst = RagiItemHandler(1).setIOType(EnumIOType.CATALYST)
+        input = RagiItemHandler(5, this).setIOType(EnumIOType.INPUT)
+        catalyst = RagiItemHandler(1, this).setIOType(EnumIOType.CATALYST)
         inventory = RagiItemHandlerWrapper(input, catalyst)
         return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
     }

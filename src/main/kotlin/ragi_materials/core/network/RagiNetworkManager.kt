@@ -11,7 +11,8 @@ object RagiNetworkManager {
 
     fun load() {
         //パケットの登録
-        RagiNetworkWrapper.registerMessage(MessageHandlerTile::class.java, MessageTile::class.java, 0, Side.CLIENT)
+        RagiNetworkWrapper.registerMessage(MessageHandler.Sync::class.java, RagiMessage.Sync::class.java, 0, Side.CLIENT)
+        RagiNetworkWrapper.registerMessage(MessageHandler.Tile::class.java, RagiMessage.Tile::class.java, 1, Side.CLIENT)
+        RagiNetworkWrapper.registerMessage(MessageHandler.Fluid::class.java, RagiMessage.Fluid::class.java, 2, Side.CLIENT)
     }
-
 }

@@ -14,7 +14,6 @@ class ContainerBlastFurnace(player: EntityPlayer, tile: TileBlastFurnaceInterfac
     val inputFlux = tile.inputFlux
     val inventory = tile.inventory
     val output = tile.output
-    val tank = tile.tank
 
     init {
         addSlotToContainer(SlotItemHandler(inputOre, 0, 8 + 1 * 18, 20))

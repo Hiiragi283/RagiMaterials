@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import ragi_materials.core.RagiMaterials
-import ragi_materials.core.capability.RagiCapability
+import ragi_materials.core.RagiRegistry
 
 /**
  * Thanks to defeatedcrow!
@@ -33,7 +33,7 @@ class PluginWaila : IWailaPlugin {
         override fun getWailaBody(itemStack: ItemStack, tooltip: MutableList<String>, accessor: IWailaDataAccessor, config: IWailaConfigHandler): MutableList<String> {
             if (config.getConfig("capability.heatinfo")) {
                 val tile = accessor.tileEntity
-                if (tile !== null && tile.hasCapability(RagiCapability.HEAT, null)) {
+                if (tile !== null && tile.hasCapability(RagiRegistry.HEAT, null)) {
                     val tag = accessor.nbtData.getCompoundTag("forgeHeat")
                     tooltip.add(String.format("%d / %d FE", tag.getInteger("stored"), tag.getInteger("capacity")))
                 }
@@ -43,8 +43,8 @@ class PluginWaila : IWailaPlugin {
 
         //HUDを表示する対象のNBTタグを取得するメソッド
         override fun getNBTData(player: EntityPlayerMP, tile: TileEntity?, tag: NBTTagCompound, world: World, pos: BlockPos): NBTTagCompound {
-            if (tile !== null && tile.hasCapability(RagiCapability.HEAT, null)) {
-                val heatStorage = tile.getCapability(RagiCapability.HEAT, null)!!
+            if (tile !== null && tile.hasCapability(RagiRegistry.HEAT, null)) {
+                val heatStorage = tile.getCapability(RagiRegistry.HEAT, null)!!
                 tag.setTag("forgeHeat", NBTTagCompound().apply {
                     this.setInteger("capacity", heatStorage.getMaxHeatStored())
                     this.setInteger("stored", heatStorage.getHeatStored())
