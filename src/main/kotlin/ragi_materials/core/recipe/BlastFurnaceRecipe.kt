@@ -2,23 +2,19 @@ package ragi_materials.core.recipe
 
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
-import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
-import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.items.IItemHandler
-import net.minecraftforge.registries.IForgeRegistryEntry
 import ragi_materials.core.util.getFluidStack
 import ragi_materials.core.util.wrapper.ItemStackWrapper
 
-@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
 data class BlastFurnaceRecipe private constructor(
         private val ore: ItemStack,
         private val fuel: ItemStack,
         private val flux: ItemStack,
         private val output: FluidStack,
         private val slag: ItemStack
-) : IForgeRegistryEntry.Impl<BlastFurnaceRecipe>(), IRecipeWrapper {
+) : RecipeBase<BlastFurnaceRecipe>() {
 
     constructor(recipe: BlastFurnaceRecipe) : this(recipe.ore, recipe.fuel, recipe.flux, recipe.output, recipe.slag)
 
@@ -32,7 +28,7 @@ data class BlastFurnaceRecipe private constructor(
 
     fun getOutputSlag(): ItemStack = slag.copy()
 
-    fun match(inventory: IItemHandler): Boolean {
+    override fun match(inventory: IItemHandler): Boolean {
         return matchSlot(inventory, 0, ore) && matchSlot(inventory, 1, fuel) && matchSlot(inventory, 2, flux)
     }
 

@@ -20,12 +20,14 @@ import ragi_materials.core.capability.fluid.RagiTankWrapper
 import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.recipe.BlastFurnaceRecipe
+import ragi_materials.core.tile.ITileCachable
+import ragi_materials.core.tile.ITileContainer
 import ragi_materials.core.tile.ITileProvider
-import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.tile.TileBase
 import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.metallurgy.container.ContainerBlastFurnace
 
-class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory, ITileProvider.Tank {
+class TileBlastFurnaceInterface : TileBase(), ITileCachable<BlastFurnaceRecipe>, ITileContainer, ITileProvider.Inventory, ITileProvider.Tank {
 
     lateinit var inputOre: RagiItemHandler
     lateinit var inputFuel: RagiItemHandler
@@ -33,7 +35,7 @@ class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory
     lateinit var output: RagiItemHandler
     lateinit var outputTank: RagiTank
 
-    private var cache: BlastFurnaceRecipe? = null
+    override var cache: BlastFurnaceRecipe? = null
 
     //    Capability    //
 
@@ -64,7 +66,9 @@ class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory
         dropInventoryItems(world, pos, inventory)
     }
 
-    //    TileItemHandlerBase    //
+    //    ITileContainer    //
+
+    override fun getDisplayName() = super<ITileContainer>.getDisplayName()
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerBlastFurnace(player, this)
 
@@ -73,7 +77,7 @@ class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory
     //    Recipe    //
 
     fun doProcess() {
-        if (cacheRecipe()) {
+        if (cacheRecipe(inventory, RagiRegistry.BF_RECIPE.valuesCollection)) {
             RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
             val dummyStack = output.insertItem(0, cache!!.getOutputSlag(), true)
             val dummyFluid = outputTank.fill(cache!!.getOutput(), false)
@@ -89,22 +93,4 @@ class TileBlastFurnaceInterface : TileItemHandlerBase(), ITileProvider.Inventory
             }
         }
     }
-
-    private fun cacheRecipe(): Boolean {
-        var result = false
-        //cacheが空の場合，新規で検索する
-        if (cache == null) {
-            for (recipe in RagiRegistry.BF_RECIPE.valuesCollection) {
-                if (recipe.match(inventory)) {
-                    cache = recipe
-                    result = true
-                    break
-                }
-            }
-        }
-        //cacheがある場合，それが現在のレシピに適応できないなら空にする
-        else if (cache!!.match(inventory)) result = true else cache = null
-        return result
-    }
-
 }

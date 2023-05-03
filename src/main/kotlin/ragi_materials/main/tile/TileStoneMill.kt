@@ -18,8 +18,10 @@ import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
 import ragi_materials.core.recipe.MillRecipe
+import ragi_materials.core.tile.ITileCachable
+import ragi_materials.core.tile.ITileContainer
 import ragi_materials.core.tile.ITileProvider
-import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.tile.TileBase
 import ragi_materials.core.util.dropInventoryItems
 import ragi_materials.core.util.dropItem
 import ragi_materials.core.util.failed
@@ -27,11 +29,11 @@ import ragi_materials.core.util.succeeded
 import ragi_materials.main.block.BlockStoneMill
 import ragi_materials.main.container.ContainerStoneMill
 
-class TileStoneMill : TileItemHandlerBase(), ITileProvider.Inventory {
+class TileStoneMill : TileBase(), ITileCachable<MillRecipe>, ITileContainer, ITileProvider.Inventory {
 
     lateinit var input: RagiItemHandler
     lateinit var output: RagiItemHandler
-    private var cache: MillRecipe? = null
+    override var cache: MillRecipe? = null
 
     //    Capability    //
 
@@ -52,7 +54,7 @@ class TileStoneMill : TileItemHandlerBase(), ITileProvider.Inventory {
 
     private fun doProcess() {
         var result = false
-        if (cacheRecipe()) {
+        if (cacheRecipe(input, RagiRegistry.MILL_RECIPE.valuesCollection)) {
             RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
             input.extractItem(0, cache!!.getInput().count, false)
             val stackExtra = output.insertItem(0, cache!!.getOutput(), false)
@@ -60,24 +62,6 @@ class TileStoneMill : TileItemHandlerBase(), ITileProvider.Inventory {
             result = true
         }
         if (result) succeeded(this) else failed(this)
-    }
-
-    private fun cacheRecipe(): Boolean {
-        val stack = input.getStackInSlot(0)
-        var result = false
-        //cacheが空の場合，新規で検索する
-        if (cache == null) {
-            for (recipe in RagiRegistry.MILL_RECIPE.valuesCollection) {
-                if (recipe.match(stack)) {
-                    cache = recipe
-                    result = true
-                    break
-                }
-            }
-        }
-        //cacheがある場合，それが現在のレシピに適応できないなら空にする
-        else if (cache!!.match(stack)) result = true else cache = null
-        return result
     }
 
     //    TileBase    //
@@ -102,7 +86,9 @@ class TileStoneMill : TileItemHandlerBase(), ITileProvider.Inventory {
         dropInventoryItems(world, pos, inventory)
     }
 
-    //    TileItemHandlerBase    //
+    //    ITileContainer    //
+
+    override fun getDisplayName() = super<ITileContainer>.getDisplayName()
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerStoneMill(player, this)
 

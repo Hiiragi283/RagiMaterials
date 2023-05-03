@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
@@ -16,16 +15,15 @@ import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.proxy.CommonProxy
-import ragi_materials.core.tile.TileBase
+import ragi_materials.core.tile.TileTickableBase
 import ragi_materials.core.util.failed
 import ragi_materials.core.util.succeeded
 import ragi_materials.metallurgy.block.BlockBlastFurnaceInterface
 
-class TileBlastFurnaceCore : TileBase(), ITickable {
+class TileBlastFurnaceCore : TileTickableBase(200) {
 
     private var isValid = false
     private var front = EnumFacing.NORTH
-    private var count = 0
 
     //    General    //
 
@@ -102,20 +100,14 @@ class TileBlastFurnaceCore : TileBase(), ITickable {
         front = getState().getValue(RagiProperty.HORIZONTAL) //タイルエンティティに向きを保存させる
     }
 
-    //    ITickable    //
+    //    TileTickableBase    //
 
-    override fun update() {
-        //10秒ごとに実行する
-        if (count > 200) {
-            if (!world.isRemote) {
-                //構造体が有効な場合
-                if (isValidStructure(world, pos)) {
-                    //Interfaceを取得
-                    val tile = getTileInterface()
-                    if (tile !== null && tile is TileBlastFurnaceInterface) tile.doProcess()
-                }
-            }
-            count = 0
-        } else count++
+    override fun onUpdateServer() {
+        //構造体が有効な場合
+        if (isValidStructure(world, pos)) {
+            //Interfaceを取得
+            val tile = getTileInterface()
+            if (tile !== null && tile is TileBlastFurnaceInterface) tile.doProcess()
+        }
     }
 }

@@ -37,14 +37,13 @@ object RenderLaboratoryTable : TileEntitySpecialRenderer<TileLaboTable>() {
     }
 
     private fun renderStack(te: TileLaboTable, x: Double, y: Double, z: Double, slot: Int) {
-        val stack = te.input.getStackInSlot(slot)
-        if (!stack.isEmpty) {
-            //スロット内のItemStackを取得
-            GlStateManager.pushMatrix()
-            GlStateManager.translate(x.toFloat() + listSlot[slot].first, y.toFloat() + 1.0f, z.toFloat() + listSlot[slot].second)
-            GlStateManager.scale(0.8f, 0.8f, 0.8f)
-            Minecraft.getMinecraft().renderItem.renderItem(stack, ItemCameraTransforms.TransformType.GROUND) //ItemStackを描画
-            GlStateManager.popMatrix()
-        }
+        //スロット内のItemStackを取得
+        GlStateManager.pushMatrix()
+        GlStateManager.enableRescaleNormal()
+        GlStateManager.translate(x.toFloat() + listSlot[slot].first, y.toFloat() + 1.0f, z.toFloat() + listSlot[slot].second)
+        GlStateManager.scale(0.8f, 0.8f, 0.8f)
+        Minecraft.getMinecraft().renderItem.renderItem(te.input.getStackInSlot(slot), ItemCameraTransforms.TransformType.GROUND) //ItemStackを描画
+        GlStateManager.disableRescaleNormal()
+        GlStateManager.popMatrix()
     }
 }

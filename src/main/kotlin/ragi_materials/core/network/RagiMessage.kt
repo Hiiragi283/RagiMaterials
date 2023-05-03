@@ -3,7 +3,6 @@ package ragi_materials.core.network
 import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.network.ByteBufUtils
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 
@@ -52,32 +51,5 @@ sealed class RagiMessage(var x: Int = 0, var y: Int = 0, var z: Int = 0) : IMess
             }
         }
 
-    }
-
-    class Tile(x: Int = 0, y: Int = 0, z: Int = 0) : RagiMessage(x, y, z) {
-
-        constructor(pos: BlockPos) : this(pos.x, pos.y, pos.z)
-
-    }
-
-    class Fluid(x: Int = 0, y: Int = 0, z: Int = 0, var fluid: FluidStack? = null) : RagiMessage(x, y, z) {
-
-        constructor(pos: BlockPos, fluid: FluidStack? = null) : this(pos.x, pos.y, pos.z, fluid)
-
-        override fun fromBytes(buf: ByteBuf?) {
-            super.fromBytes(buf)
-            buf?.let {
-                //FluidStackを読み取る
-                fluid = FluidStack.loadFluidStackFromNBT(ByteBufUtils.readTag(it))
-            }
-        }
-
-        override fun toBytes(buf: ByteBuf?) {
-            super.toBytes(buf)
-            buf?.let {
-                //FluidStackを書き込む
-                ByteBufUtils.writeTag(it, fluid?.writeToNBT(NBTTagCompound()))
-            }
-        }
     }
 }

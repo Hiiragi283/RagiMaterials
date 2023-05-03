@@ -24,5 +24,4 @@ abstract class ContainerBase<T : TileEntity>(val player: EntityPlayer, val tile:
             addSlotToContainer(Slot(invPlayer, x, 8 + x * 18, 3 * 18 + (posY + 4)))
         }
     }
-
 }

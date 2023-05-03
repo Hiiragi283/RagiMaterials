@@ -2,15 +2,12 @@ package ragi_materials.core.recipe
 
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
-import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.common.Optional
-import net.minecraftforge.registries.IForgeRegistryEntry
+import net.minecraftforge.items.IItemHandler
 import ragi_materials.core.util.wrapper.ItemStackWrapper
 
-@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
 data class MillRecipe private constructor(private var input: ItemStack, private var output: ItemStack)
-    : IForgeRegistryEntry.Impl<MillRecipe>(), IRecipeWrapper {
+    : RecipeBase<MillRecipe>() {
 
     constructor(recipe: MillRecipe) : this(recipe.getInput(), recipe.getOutput())
 
@@ -18,7 +15,7 @@ data class MillRecipe private constructor(private var input: ItemStack, private 
 
     fun getOutput(): ItemStack = output.copy()
 
-    fun match(input: ItemStack) = ItemStackWrapper(this.input, 1) == ItemStackWrapper(input, 1)
+    override fun match(inventory: IItemHandler) = ItemStackWrapper(this.input, 1) == ItemStackWrapper(inventory.getStackInSlot(0), 1)
 
     //    IRecipeWrapper    //
 

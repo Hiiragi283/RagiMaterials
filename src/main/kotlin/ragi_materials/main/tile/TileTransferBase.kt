@@ -5,23 +5,21 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import ragi_materials.core.block.property.EnumTransferMode
-import ragi_materials.core.tile.TileBase
+import ragi_materials.core.tile.TileTickableBase
 import ragi_materials.core.util.failed
 import ragi_materials.core.util.succeeded
 import ragi_materials.main.block.BlockTransferBase
 
-abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
+abstract class TileTransferBase<T : Any> : TileTickableBase(20) {
 
     private var tileFrom: TileEntity? = null
     private var tileTo: TileEntity? = null
     abstract var storageFrom: T?
     abstract var storageTo: T?
-    private var count = 0
 
     //    General    //
 
@@ -57,18 +55,13 @@ abstract class TileTransferBase<T : Any> : TileBase(), ITickable {
         return true
     }
 
-    //    ITickable    //
+    //    TileTickableBase    //
 
-    override fun update() {
-        if (!world.isRemote) {
-            if (count >= 20) {
-                //送信元と送信先がともに存在する場合
-                if (hasConnection()) {
-                    getConnection()
-                    doProcess()
-                }
-                count = 0
-            } else count++
+    override fun onUpdateServer() {
+        //送信元と送信先がともに存在する場合
+        if (hasConnection()) {
+            getConnection()
+            doProcess()
         }
     }
 

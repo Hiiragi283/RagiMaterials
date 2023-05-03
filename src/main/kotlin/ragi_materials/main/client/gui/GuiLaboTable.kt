@@ -14,5 +14,4 @@ class GuiLaboTable(player: EntityPlayer, tile: TileLaboBase) : GuiBase<TileLaboB
     }
 
     override val background = ResourceLocation(RagiMaterials.MOD_ID, "textures/gui/laboratory.png")
-
 }

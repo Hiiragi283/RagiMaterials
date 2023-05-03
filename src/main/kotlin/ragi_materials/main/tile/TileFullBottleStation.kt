@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
-import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidStack
@@ -21,16 +20,16 @@ import ragi_materials.core.capability.fluid.RagiTankWrapper
 import ragi_materials.core.capability.item.RagiItemHandler
 import ragi_materials.core.capability.item.RagiItemHandlerWrapper
 import ragi_materials.core.proxy.CommonProxy
+import ragi_materials.core.tile.ITileContainer
 import ragi_materials.core.tile.ITileProvider
-import ragi_materials.core.tile.TileItemHandlerBase
+import ragi_materials.core.tile.TileTickableBase
 import ragi_materials.core.util.getBottle
 import ragi_materials.main.container.ContainerFullBottle
 
-class TileFullBottleStation : TileItemHandlerBase(), ITickable, ITileProvider.Inventory, ITileProvider.Tank {
+class TileFullBottleStation : TileTickableBase(20), ITileContainer, ITileProvider.Inventory, ITileProvider.Tank {
 
     lateinit var output: RagiItemHandler
     lateinit var inputTank: RagiTank
-    var count = 0
 
     //    Capability    //
 
@@ -56,29 +55,25 @@ class TileFullBottleStation : TileItemHandlerBase(), ITickable, ITileProvider.In
         }
     }
 
-    //    ITickable    //
+    //    TileTickableBase    //
 
-    override fun update() {
-        if (!world.isRemote) {
-            //countが20以上の場合
-            if (count >= 20) {
-                val amountRemain = inputTank.fluidAmount % 1000 //タンクに残る液体量
-                val countBottle = inputTank.fluidAmount / 1000 //生成するフルボトルの個数
-                //作成個数が0より多い場合
-                if (countBottle > 0 && inputTank.fluid !== null && output.getStackInSlot(0).isEmpty) {
-                    output.insertItem(0, getBottle(FluidStack(inputTank.fluid!!, 1000), countBottle), false) //フルボトルを製造
-                    if (amountRemain > 0) {
-                        inputTank.fluid = FluidStack(inputTank.fluid!!, amountRemain) //タンクの内容量を上書き
-                    } else {
-                        inputTank.fluid = null //液体量が0ならば空にする
-                    }
-                }
-                count = 0 //countをリセット
-            } else count++ //countを追加
+    override fun onUpdateServer() {
+        val amountRemain = inputTank.fluidAmount % 1000 //タンクに残る液体量
+        val countBottle = inputTank.fluidAmount / 1000 //生成するフルボトルの個数
+        //作成個数が0より多い場合
+        if (countBottle > 0 && inputTank.fluid !== null && output.getStackInSlot(0).isEmpty) {
+            output.insertItem(0, getBottle(FluidStack(inputTank.fluid!!, 1000), countBottle), false) //フルボトルを製造
+            if (amountRemain > 0) {
+                inputTank.fluid = FluidStack(inputTank.fluid!!, amountRemain) //タンクの内容量を上書き
+            } else {
+                inputTank.fluid = null //液体量が0ならば空にする
+            }
         }
     }
 
-    //    TileItemHandlerBase    //
+    //    ITileContainer    //
+
+    override fun getDisplayName() = super<ITileContainer>.getDisplayName()
 
     override fun createContainer(playerInventory: InventoryPlayer, player: EntityPlayer) = ContainerFullBottle(player, this)
 

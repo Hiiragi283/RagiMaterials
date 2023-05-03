@@ -55,7 +55,7 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (this.isInCreativeTab(tab)) {
+        if (isInCreativeTab(tab)) {
             val stack = ItemStack(this)
             subItems.add(stack) //空のフルボトル
             //素材の一覧から液体が取得できるならクリエタブに登録する
@@ -73,7 +73,7 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
         return object : ICapabilityProvider {
 
             override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-                return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) FullBottleFluidHandler(stack, 1000) as T else null
+                return if (capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY) CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.cast(FullBottleFluidHandler(stack, 1000)) else null
             }
 
             override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
@@ -88,7 +88,7 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
             //変数の宣言
             var result: FluidStack? = null
             //NBTタグからFluidStackを取得
-            val fluidStack = FluidStack.loadFluidStackFromNBT(stack.tagCompound)
+            val fluidStack = FluidStack.loadFluidStackFromNBT(stack.getOrCreateSubCompound("Fluid"))
             //FluidStackがnullでない場合
             if (fluidStack !== null) {
                 val amount = fluidStack.amount //液体量を取得
@@ -107,11 +107,9 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): RagiMaterial {
-        val fluidStack = FluidStack.loadFluidStackFromNBT(stack.tagCompound)
-        return if (fluidStack !== null) getMaterialFromName(fluidStack.fluid.name) else RagiMaterial.EMPTY
+        FluidStack.loadFluidStackFromNBT(stack.getOrCreateSubCompound("Fluid"))?.let { return getMaterialFromName(it.fluid.name) }
+                ?: return RagiMaterial.EMPTY
     }
 
-    override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack {
-        return getBottle(material, count = stack.count)
-    }
+    override fun setMaterial(stack: ItemStack, material: RagiMaterial) = getBottle(material, count = stack.count)
 }

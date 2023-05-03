@@ -4,7 +4,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.IInteractionObject
 import ragi_materials.core.RagiMaterials
 
-abstract class TileItemHandlerBase : TileBase(), IInteractionObject {
+interface ITileContainer : IInteractionObject {
 
     override fun getDisplayName() = TextComponentTranslation(this.name)
 
