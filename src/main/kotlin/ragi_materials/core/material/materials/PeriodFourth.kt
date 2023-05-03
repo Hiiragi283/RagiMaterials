@@ -61,7 +61,7 @@ object PeriodFourth {
         }.build()
 
         //250 ~ 259: Manganese
-        MaterialRegistry.MANGANESE = RagiMaterial.Builder(250, "manganese", TypeRegistry.METAL).setSimple(ElementRegistry.MANGANESE to 1).apply {
+        MaterialRegistry.MANGANESE = RagiMaterial.Builder(250, "manganese", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.MANGANESE to 1).apply {
             rarity = EnumRarity.UNCOMMON
         }.build()
 

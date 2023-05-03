@@ -40,7 +40,7 @@ object PeriodFifth {
         MaterialRegistry.INDIUM = RagiMaterial.Builder(490, "indium", TypeRegistry.METAL).setSimple(ElementRegistry.INDIUM to 1).build()
 
         //500 ~ 509: Tin
-        MaterialRegistry.TIN = RagiMaterial.Builder(500, "tin", TypeRegistry.METAL).setSimple(ElementRegistry.TIN to 1).build()
+        MaterialRegistry.TIN = RagiMaterial.Builder(500, "tin", TypeRegistry.METAL.enableOre()).setSimple(ElementRegistry.TIN to 1).build()
 
         //510 ~ 519: Antimony
         MaterialRegistry.ANTIMONY = RagiMaterial.Builder(510, "antimony", TypeRegistry.METAL).setSimple(ElementRegistry.ANTIMONY to 1).build()

@@ -25,7 +25,7 @@ class LaboCategory(guiHelper: IGuiHelper) : JEICategoryBase<LaboRecipe>() {
         layout.itemStacks[5] = wrapper.getCatalyst()
         //Outputs
         for (i in wrapper.getOutputs().indices) {
-            layout.itemStacks.init(i + 6, true, 18 * i, 18 * 2)
+            layout.itemStacks.init(i + 6, false, 18 * i, 18 * 2)
             layout.itemStacks[i + 6] = wrapper.getOutput(i)
         }
     }

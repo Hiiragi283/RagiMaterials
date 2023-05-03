@@ -122,6 +122,9 @@ itemGroup.ragi_materials.blocks=RagiMaterials - Blocks
 itemGroup.ragi_materials.fullbottles=RagiMaterials - Full Bottles
 itemGroup.ragi_materials.materials=RagiMaterials - Materials
 
+# Enchantment
+enchantment.material=Material
+
 # Fluid
 fluid.molten=Molten
 

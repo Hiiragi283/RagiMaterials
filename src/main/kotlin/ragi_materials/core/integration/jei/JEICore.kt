@@ -29,10 +29,10 @@ class JEICore : IModPlugin {
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
         val guiHelper = registry.jeiHelpers.guiHelper
         registry.addRecipeCategories(
-                BloomeryCategory(guiHelper),
+                BloomeryJEI.Category(guiHelper),
                 FFCategory(guiHelper),
                 LaboCategory(guiHelper),
-                MaterialInfoCategory(guiHelper),
+                MaterialInfoJEI.Category(guiHelper),
                 StoneMillCategory(guiHelper)
         )
     }
@@ -40,14 +40,14 @@ class JEICore : IModPlugin {
     override fun register(registry: IModRegistry) {
 
         //Handler Registration
-        registry.handleRecipes(RagiMaterial::class.java, { BloomeryWrapper(it) }, Bloomery)
+        registry.handleRecipes(RagiMaterial::class.java, { BloomeryJEI.Wrapper(it) }, Bloomery)
         registry.handleRecipes(FFRecipe::class.java, { FFRecipe(it) }, ForgeFurnace)
         registry.handleRecipes(LaboRecipe::class.java, { LaboRecipe(it) }, LaboTable)
-        registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoWrapper(it) }, MaterialInfo)
+        registry.handleRecipes(RagiMaterial::class.java, { MaterialInfoJEI.Wrapper(it) }, MaterialInfo)
         registry.handleRecipes(MillRecipe::class.java, { MillRecipe(it) }, StoneMill)
 
         //Recipe Registration
-        registry.addRecipes(getListOre(), Bloomery)
+        registry.addRecipes(BloomeryJEI.getListOre(), Bloomery)
         registry.addRecipes(RagiRegistry.FF_RECIPE.valuesCollection, ForgeFurnace)
         registry.addRecipes(RagiRegistry.LABO_RECIPE.valuesCollection, LaboTable)
         registry.addRecipes(MaterialRegistry.list, MaterialInfo)
