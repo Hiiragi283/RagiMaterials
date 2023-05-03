@@ -20,10 +20,7 @@ import ragi_materials.core.RagiRegistry
 import ragi_materials.core.capability.RagiStorage
 import ragi_materials.core.capability.heat.HeatStorage
 import ragi_materials.core.capability.heat.IHeatStorage
-import ragi_materials.core.event.CapabilityEvent
-import ragi_materials.core.event.CommonRegistryEvent
-import ragi_materials.core.event.CreateRegistryEvent
-import ragi_materials.core.event.RecipeRegistryEvent
+import ragi_materials.core.event.*
 import ragi_materials.core.integration.IntegrationCore
 import ragi_materials.core.network.RagiNetworkManager
 import ragi_materials.main.client.gui.GuiFullBottle
@@ -48,6 +45,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
         MinecraftForge.EVENT_BUS.register(CreateRegistryEvent)
         MinecraftForge.EVENT_BUS.register(RecipeRegistryEvent)
+        MinecraftForge.EVENT_BUS.register(DropMaterialEvent)
         //ForgeのUniversal Bucketを使えるようにする
         FluidRegistry.enableUniversalBucket()
         //連携要素の登録

@@ -1,11 +1,13 @@
 package ragi_materials.core.event
 
 import net.minecraft.block.Block
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.item.Item
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.RagiRegistry
+import ragi_materials.core.enchant.EnchantmentMaterial
 import ragi_materials.core.item.ItemMaterial
 import ragi_materials.main.item.ItemFullBottle
 
@@ -36,5 +38,12 @@ object CommonRegistryEvent {
             registry.register(it)
             RagiMaterials.LOGGER.debug("The item ${it.registryName} is registered!")
         }
+    }
+
+    @SubscribeEvent
+    fun registerEnchant(event: RegistryEvent.Register<Enchantment>) {
+        val registry = event.registry
+        registry.register(EnchantmentMaterial)
+        RagiMaterials.LOGGER.debug("The enchantment ${EnchantmentMaterial.registryName} is registered!")
     }
 }
