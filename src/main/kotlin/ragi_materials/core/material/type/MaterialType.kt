@@ -4,9 +4,9 @@ data class MaterialType constructor(val name: String) {
 
     val types: MutableList<EnumMaterialType> = mutableListOf()
 
-    fun enableOre() = copy().also { it.types.add(EnumMaterialType.ORE) }
+    fun enableOre() = Builder(name).addType(types).addType(EnumMaterialType.ORE).build()
 
-    fun enableRadio() = copy().also { it.types.add(EnumMaterialType.RADIOACTIVE) }
+    fun enableRadio() = Builder(name).addType(types).addType(EnumMaterialType.RADIOACTIVE).build()
 
     fun match(type: MaterialType) = name == "wildcard" || this == type
 

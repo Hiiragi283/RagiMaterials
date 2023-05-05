@@ -27,12 +27,12 @@ object PeriodSecond {
             rarity = EnumRarity.RARE
         }.build()
 
-        MaterialRegistry.EMERALD = RagiMaterial.Builder(41, "emerald", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18)).apply {
+        MaterialRegistry.EMERALD = RagiMaterial.Builder(41, "emerald", TypeRegistry.CRYSTAL.enableOre()).setComponents(listOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18)).apply {
             color = RagiColor.GREEN
             crystalType = EnumCrystalType.EMERALD
         }.build()
 
-        MaterialRegistry.AQUAMARINE = RagiMaterial.Builder(42, "aquamarine", TypeRegistry.CRYSTAL).setComponents(listOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18)).apply {
+        MaterialRegistry.AQUAMARINE = RagiMaterial.Builder(42, "aquamarine", TypeRegistry.CRYSTAL.enableOre()).setComponents(listOf(ElementRegistry.BERYLLIUM to 3, ElementRegistry.ALUMINIUM to 2, ElementRegistry.SILICON to 6, ElementRegistry.OXYGEN to 18)).apply {
             color = RagiColor.AQUA
             crystalType = EnumCrystalType.EMERALD
         }.build()
@@ -40,7 +40,7 @@ object PeriodSecond {
         //50 ~ 59: Boron
         MaterialRegistry.BORON = RagiMaterial.Builder(50, "boron", TypeRegistry.METALLOID).setSimple(ElementRegistry.BORON to 1).build()
 
-        MaterialRegistry.BORAX = RagiMaterial.Builder(51, "borax", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.SODIUM to 2, ElementRegistry.HYDROGEN to 20, ElementRegistry.BORON to 4, ElementRegistry.OXYGEN to 17)).build()
+        MaterialRegistry.BORAX = RagiMaterial.Builder(51, "borax", TypeRegistry.DUST.enableOre()).setComponents(listOf(ElementRegistry.SODIUM to 2, ElementRegistry.HYDROGEN to 20, ElementRegistry.BORON to 4, ElementRegistry.OXYGEN to 17)).build()
 
         MaterialRegistry.BORON_OXIDE = RagiMaterial.Builder(52, "boron_oxide", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.BORON to 2, ElementRegistry.OXYGEN to 3)).build()
 
