@@ -18,7 +18,7 @@ object BloomeryJEI {
 
     fun getListOre(): Set<RagiMaterial> {
         val set: MutableSet<RagiMaterial> = mutableSetOf()
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.getMaterials()) {
             material.mapSubMaterials[EnumSubMaterial.NATIVE]?.let { set.add(material) }
         }
         return set

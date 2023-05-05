@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.block.BlockBase
 import java.util.*
 
-class BlockSoilAir : BlockBase("soil_air", Material.PLANTS, 2) {
+object BlockSoilAir : BlockBase("soil_air", Material.PLANTS, 2) {
 
     override val itemBlock = null
 

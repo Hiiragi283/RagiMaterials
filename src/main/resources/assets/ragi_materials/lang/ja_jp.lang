@@ -28,6 +28,7 @@ item.forge_hammer.name=鍛造ハンマー
 item.fullbottle.name=空のフルボトル
 item.fullbottle_filled.name=%sフルボトル
 item.ore_crushed.name=砕けた%s
+item.pickaxe_material.name=マテリアルマイナー
 item.ragi_axe.name=%sの斧
 item.ragi_block_material.name=%sブロック
 item.ragi_crushed.name=粉砕された%s鉱石
@@ -79,6 +80,8 @@ tips.ragi_materials.ore_rainbow.1=素手でシフト右クリックすること�
 tips.ragi_materials.oredict_converter.0=鉱石辞書に基づいてアイテムを変換します
 tips.ragi_materials.oredict_converter.1=右クリックして手に持っているアイテムをRagiMaterials製のものに変換します
 tips.ragi_materials.oredict_converter.2=もし手に持っているアイテムがRagiMaterials製の場合，Minecraft製のものに変換します
+tips.ragi_materials.pickaxe_material.0=木，石，土砂および適正なしのブロックを素早く採掘できます
+tips.ragi_materials.pickaxe_material.1=Materialエンチャントの効果でブロックに応じて鉱石や粉末を採掘できます
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 °C
 tips.ragi_materials.property.durability=- 耐久値: §b%s§r
 tips.ragi_materials.property.formula=- 化学式: §b%s§r
@@ -123,7 +126,7 @@ itemGroup.ragi_materials.fullbottles=らぎマテリアルズ - フルボトル
 itemGroup.ragi_materials.materials=らぎマテリアルズ - 素材
 
 # Enchantment
-enchantment.material=Material
+enchantment.ragi_materials.material=Material
 
 # Fluid
 fluid.molten=溶融

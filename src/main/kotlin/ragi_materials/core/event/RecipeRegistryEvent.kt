@@ -99,18 +99,18 @@ object RecipeRegistryEvent {
     fun registerMillRecipe(event: RegistryEvent.Register<MillRecipe>) {
         val registry = event.registry
         //Material Part -> Material Dust
-        for (pair in MaterialRegistry.validPair) {
-            val part = pair.first
-            val material = pair.second
-            if (part.scale >= 1.0f && part.type != EnumMaterialType.DUST) {
-                val partOutput = when (part) {
-                    PartRegistry.ORE -> PartRegistry.ORE_CRUSHED
-                    else -> PartRegistry.DUST
+        for (material in MaterialRegistry.getMaterials()) {
+            for (part in material.listValidParts) {
+                if (part.scale >= 1.0f && part.type != EnumMaterialType.DUST) {
+                    val partOutput = when (part) {
+                        PartRegistry.ORE -> PartRegistry.ORE_CRUSHED
+                        else -> PartRegistry.DUST
+                    }
+                    MillRecipe.Builder().apply {
+                        this.input = getPart(part, material)
+                        this.output = getPart(partOutput, material, part.scale.toInt())
+                    }.build().setRegistryName(RagiMaterials.MOD_ID, "${part.name}_${material.name}").registerRecipe(registry)
                 }
-                MillRecipe.Builder().apply {
-                    this.input = getPart(part, material)
-                    this.output = getPart(partOutput, material, part.scale.toInt())
-                }.build().setRegistryName(RagiMaterials.MOD_ID, "${part.name}_${material.name}").registerRecipe(registry)
             }
         }
     }

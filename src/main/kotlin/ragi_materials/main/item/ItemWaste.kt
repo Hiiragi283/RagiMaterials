@@ -17,7 +17,7 @@ import ragi_materials.core.material.IMaterialItem
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 
-class ItemWaste : ItemBase(RagiMaterials.MOD_ID, "waste", 0), IMaterialItem {
+object ItemWaste : ItemBase(RagiMaterials.MOD_ID, "waste", 0), IMaterialItem {
 
     init {
         creativeTab = CreativeTabs.MISC

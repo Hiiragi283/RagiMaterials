@@ -10,7 +10,7 @@ import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.main.tile.TileLaboTable
 import java.util.*
 
-class BlockLaboTable : BlockContainerBase<TileLaboTable>("laboratory_table", Material.IRON, TileLaboTable::class.java, 3) {
+object BlockLaboTable : BlockContainerBase<TileLaboTable>("laboratory_table", Material.IRON, TileLaboTable::class.java, 3) {
 
     init {
         blockHardness = 5.0F

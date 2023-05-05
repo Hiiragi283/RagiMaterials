@@ -43,7 +43,7 @@ data class FFRecipe private constructor(private val input: ItemStack, private va
             val item = stack.item
             return if (item is IMaterialItem && item is ItemMaterial) {
                 val material = item.getMaterial(stack)
-                val tempMelt = material.getTempMelt()
+                val tempMelt = material.tempMelt
                 val scale = item.part.scale
                 return tempMelt?.run { (2.0.pow(this / 1000) * scale).toInt() * 200 } ?: 0
             } else 0

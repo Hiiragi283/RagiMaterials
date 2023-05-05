@@ -10,7 +10,7 @@ import net.minecraftforge.common.BiomeDictionary
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.material.MaterialRegistry
 
-class BlockSoilLignite : BlockSoilFuel("soil_lignite") {
+object BlockSoilLignite : BlockSoilFuel("soil_lignite") {
 
     //    General    //
 

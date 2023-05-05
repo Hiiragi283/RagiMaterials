@@ -7,7 +7,7 @@ import net.minecraft.item.crafting.IRecipe
 import net.minecraft.world.World
 import ragi_materials.core.RagiMaterials
 
-class RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
+object RecipeTest : net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     init {
         setRegistryName("${RagiMaterials.MOD_ID}:recipe_test") //タイプミス防止のため予めレシピ名を書いておく

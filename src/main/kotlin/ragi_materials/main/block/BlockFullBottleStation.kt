@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.block.BlockContainerHoldable
 import ragi_materials.main.tile.TileFullBottleStation
 
-class BlockFullBottleStation : BlockContainerHoldable<TileFullBottleStation>("fullbottle_station", Material.IRON, TileFullBottleStation::class.java, 2) {
+object BlockFullBottleStation : BlockContainerHoldable<TileFullBottleStation>("fullbottle_station", Material.IRON, TileFullBottleStation::class.java, 2) {
 
     init {
         blockHardness = 5.0F

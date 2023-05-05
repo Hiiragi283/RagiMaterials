@@ -19,7 +19,7 @@ import ragi_materials.core.util.getPart
 import ragi_materials.metallurgy.tile.TileBloom
 import java.util.*
 
-class BlockBloom : BlockContainerHoldable<TileBloom>("bloom", Material.ROCK, TileBloom::class.java, -1), IMaterialBlock {
+object BlockBloom : BlockContainerHoldable<TileBloom>("bloom", Material.ROCK, TileBloom::class.java, -1), IMaterialBlock {
 
     override val itemBlock = null
 

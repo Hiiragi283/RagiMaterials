@@ -40,10 +40,10 @@ object PartRegistry {
         type = EnumMaterialType.INGOT
     }.build()
 
-    val INGOT_HOT = MaterialPart.Builder("ingot_hot").apply {
+    /*val INGOT_HOT = MaterialPart.Builder("ingot_hot").apply {
         prefixOre = "ingotHot"
         type = EnumMaterialType.INGOT_HOT
-    }.build()
+    }.build()*/
 
     val NUGGET = MaterialPart.Builder("nugget").apply {
         prefixOre = "nugget"

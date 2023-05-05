@@ -1,16 +1,24 @@
 package ragi_materials.core.material
 
 import ragi_materials.core.material.materials.*
-import ragi_materials.core.material.part.MaterialPart
 
 object MaterialRegistry {
 
     //Collection
-    val list: MutableList<RagiMaterial> = mutableListOf()
     val mapIndex: LinkedHashMap<Int, RagiMaterial> = linkedMapOf()
     val mapName: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
     val mapElement: LinkedHashMap<String, RagiMaterial> = linkedMapOf()
-    val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
+    //val validPair: MutableList<Pair<MaterialPart, RagiMaterial>> = mutableListOf()
+
+    fun getElement(name: String): RagiMaterial = mapElement[name] ?: RagiMaterial.EMPTY
+
+    fun getElements() = mapElement.values
+
+    fun getMaterial(index: Int): RagiMaterial = mapIndex[index] ?: RagiMaterial.EMPTY
+
+    fun getMaterial(name: String): RagiMaterial = mapName[name] ?: RagiMaterial.EMPTY
+
+    fun getMaterials() = mapIndex.values
 
     //Pre-registration
     lateinit var HYDROXIDE: RagiMaterial

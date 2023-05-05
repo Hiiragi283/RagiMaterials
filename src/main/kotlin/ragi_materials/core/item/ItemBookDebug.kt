@@ -1,6 +1,5 @@
 package ragi_materials.core.item
 
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
@@ -18,11 +17,7 @@ import ragi_materials.core.material.IMaterialItem
 import ragi_materials.core.util.RagiColor
 import ragi_materials.core.util.executeCommand
 
-class ItemBookDebug : ItemBase(RagiMaterials.MOD_ID, "book_debug", 0), IMaterialItem {
-
-    init {
-        creativeTab = CreativeTabs.MISC
-    }
+object ItemBookDebug : ItemBase(RagiMaterials.MOD_ID, "book_debug", 0), IMaterialItem {
 
     //    General    //
 

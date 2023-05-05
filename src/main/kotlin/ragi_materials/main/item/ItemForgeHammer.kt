@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack
 import ragi_materials.core.RagiMaterials
 import ragi_materials.core.item.ItemBase
 
-class ItemForgeHammer : ItemBase(RagiMaterials.MOD_ID, "forge_hammer", 0) {
+object ItemForgeHammer : ItemBase(RagiMaterials.MOD_ID, "forge_hammer", 0) {
 
     init {
         maxDamage = 63

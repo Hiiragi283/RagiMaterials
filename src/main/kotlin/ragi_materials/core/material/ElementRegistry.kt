@@ -131,13 +131,13 @@ object ElementRegistry {
     val PLUTONIUM_244 = RagiMaterial.Element("plutonium", TypeRegistry.METAL.enableRadio(), RagiColor.RED, 244.0f, "Pu", 640, 3228).build()
 
     //Isotope
-    val DEUTERIUM = RagiMaterial.Element("deuterium", TypeRegistry.GAS, HYDROGEN.color, 2.0f, "D", HYDROGEN.getTempMelt()!!, HYDROGEN.getTempBoil()!!).build()
+    val DEUTERIUM = RagiMaterial.Element("deuterium", TypeRegistry.GAS, HYDROGEN.color, 2.0f, "D", HYDROGEN.tempMelt, HYDROGEN.tempBoil).build()
 
-    val TRITIUM = RagiMaterial.Element("tritium", TypeRegistry.GAS, HYDROGEN.color, 3.0f, "T", HYDROGEN.getTempMelt()!!, HYDROGEN.getTempBoil()!!).build()
+    val TRITIUM = RagiMaterial.Element("tritium", TypeRegistry.GAS, HYDROGEN.color, 3.0f, "T", HYDROGEN.tempMelt, HYDROGEN.tempBoil).build()
 
-    val URANIUM_235 = RagiMaterial.Element("uranium235", TypeRegistry.METAL.enableRadio(), URANIUM_238.color, 235.0f, "U-235", URANIUM_238.getTempMelt()!!, URANIUM_238.getTempBoil()!!).build()
+    val URANIUM_235 = RagiMaterial.Element("uranium235", TypeRegistry.METAL.enableRadio(), URANIUM_238.color, 235.0f, "U-235", URANIUM_238.tempMelt, URANIUM_238.tempBoil).build()
 
-    val PLUTONIUM_239 = RagiMaterial.Element("plutonium239", TypeRegistry.METAL.enableRadio(), PLUTONIUM_244.color, 239.0f, "Pu-239", PLUTONIUM_244.getTempMelt()!!, PLUTONIUM_244.getTempBoil()!!).build()
+    val PLUTONIUM_239 = RagiMaterial.Element("plutonium239", TypeRegistry.METAL.enableRadio(), PLUTONIUM_244.color, 239.0f, "Pu-239", PLUTONIUM_244.tempMelt, PLUTONIUM_244.tempBoil).build()
 
     //Imaginary Elements
     val REDSTONE = RagiMaterial.Element("redstone", TypeRegistry.DUST, RagiColor.DARK_RED, 112.2f, "Rs", 1122, 1194).build()

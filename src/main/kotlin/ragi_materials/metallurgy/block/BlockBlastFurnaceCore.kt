@@ -14,7 +14,7 @@ import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
 import ragi_materials.metallurgy.tile.TileBlastFurnaceCore
 
-class BlockBlastFurnaceCore : BlockContainerBase<TileBlastFurnaceCore>("blast_furnace", Material.ROCK, TileBlastFurnaceCore::class.java, -1) {
+object BlockBlastFurnaceCore : BlockContainerBase<TileBlastFurnaceCore>("blast_furnace", Material.ROCK, TileBlastFurnaceCore::class.java, -1) {
 
     init {
         blockHardness = 5.0F

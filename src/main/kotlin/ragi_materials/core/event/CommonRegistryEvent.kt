@@ -1,6 +1,7 @@
 package ragi_materials.core.event
 
 import net.minecraft.block.Block
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.item.Item
 import net.minecraftforge.event.RegistryEvent
@@ -33,17 +34,19 @@ object CommonRegistryEvent {
             RagiMaterials.LOGGER.debug("The item block ${it.registryName} is registered!")
         }
         RagiRegistry.setItems.forEach {
-            if (it is ItemFullBottle && RagiRegistry.availableTabFullBottle()) it.setCreativeTab(RagiRegistry.TabFullBottle)
-            if (it is ItemMaterial && RagiRegistry.availableTabMaterial()) it.setCreativeTab(RagiRegistry.TabMaterial)
+            when (it) {
+                is ItemFullBottle -> it.setCreativeTab(RagiRegistry.TabFullBottle)
+                is ItemMaterial -> it.setCreativeTab(RagiRegistry.TabMaterial)
+                else -> it.setCreativeTab(CreativeTabs.MISC)
+            }
             registry.register(it)
             RagiMaterials.LOGGER.debug("The item ${it.registryName} is registered!")
         }
     }
 
     @SubscribeEvent
-    fun registerEnchant(event: RegistryEvent.Register<Enchantment>) {
+    fun registerEnchantment(event: RegistryEvent.Register<Enchantment>) {
         val registry = event.registry
         registry.register(EnchantmentMaterial)
-        RagiMaterials.LOGGER.debug("The enchantment ${EnchantmentMaterial.registryName} is registered!")
     }
 }

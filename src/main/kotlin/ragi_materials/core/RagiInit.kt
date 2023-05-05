@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.oredict.OreDictionary
 import ragi_materials.core.config.RagiConfig
 import ragi_materials.core.item.*
@@ -54,7 +55,7 @@ object RagiInit : IProxy {
     private fun registerBlocks() {
         //Experimental Feature
         if (RagiConfig.module.enableExperimental) {
-            RagiRegistry.BlockSoilAir = BlockSoilAir()
+            RagiRegistry.BlockSoilAir = BlockSoilAir
             RagiRegistry.BlockTransferEnergy = BlockTransferBase("energy", TileTransferEnergy::class.java, RagiColor.YELLOW)
         }
         //Magical Feature
@@ -63,39 +64,39 @@ object RagiInit : IProxy {
         }
         //Main Feature
         if (RagiConfig.module.enableMain) {
-            RagiRegistry.BlockFullBottleStation = BlockFullBottleStation()
-            RagiRegistry.BlockIndustrialLabo = BlockIndustrialLabo()
-            RagiRegistry.BlockLaboratoryTable = BlockLaboTable()
-            RagiRegistry.BlockOreDictConv = BlockOreDictConv()
-            RagiRegistry.BlockSoilCoal = BlockSoilCoal()
-            RagiRegistry.BlockSoilLignite = BlockSoilLignite()
-            RagiRegistry.BlockSoilPeat = BlockSoilPeat()
-            RagiRegistry.BlockStoneMill = BlockStoneMill()
+            RagiRegistry.BlockFullBottleStation = BlockFullBottleStation
+            RagiRegistry.BlockIndustrialLabo = BlockIndustrialLabo
+            RagiRegistry.BlockLaboratoryTable = BlockLaboTable
+            RagiRegistry.BlockOreDictConv = BlockOreDictConv
+            RagiRegistry.BlockSoilCoal = BlockSoilCoal
+            RagiRegistry.BlockSoilLignite = BlockSoilLignite
+            RagiRegistry.BlockSoilPeat = BlockSoilPeat
+            RagiRegistry.BlockStoneMill = BlockStoneMill
             RagiRegistry.BlockTransferFluid = BlockTransferBase("fluid", TileTransferFluid::class.java, RagiColor.AQUA)
         }
         //Metallurgic Feature
         if (RagiConfig.module.enableMetallurgy) {
-            RagiRegistry.BlockBlastFurnaceCore = BlockBlastFurnaceCore()
-            RagiRegistry.BlockBlastFurnaceInterface = BlockBlastFurnaceInterface()
-            RagiRegistry.BlockBlazingForge = BlockBlazingForge()
-            RagiRegistry.BlockBloom = BlockBloom()
-            RagiRegistry.BlockBloomery = BlockBloomery()
-            RagiRegistry.BlockForgeFurnace = BlockForgeFurnace()
+            RagiRegistry.BlockBlastFurnaceCore = BlockBlastFurnaceCore
+            RagiRegistry.BlockBlastFurnaceInterface = BlockBlastFurnaceInterface
+            RagiRegistry.BlockBlazingForge = BlockBlazingForge
+            RagiRegistry.BlockBloom = BlockBloom
+            RagiRegistry.BlockBloomery = BlockBloomery
+            RagiRegistry.BlockForgeFurnace = BlockForgeFurnace
             RagiRegistry.BlockOreRainbow = BlockOreRainbow("ore_rainbow")
         }
     }
 
     private fun registerItems() {
         //Core Feature
-        RagiRegistry.ItemBlockMaterial = ItemMaterialBlock()
-        RagiRegistry.ItemBookDebug = ItemBookDebug()
-        RagiRegistry.ItemCrystal = ItemMaterialCrystal()
+        RagiRegistry.ItemBlockMaterial = ItemMaterialBlock
+        RagiRegistry.ItemBookDebug = ItemBookDebug
+        RagiRegistry.ItemCrystal = ItemMaterialCrystal
         RagiRegistry.ItemDust = ItemMaterial(PartRegistry.DUST)
         RagiRegistry.ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY)
-        RagiRegistry.ItemForgeHammer = ItemForgeHammer()
+        RagiRegistry.ItemForgeHammer = ItemForgeHammer
+        RagiRegistry.ItemMaterialMiner = ItemMaterialMiner
         RagiRegistry.ItemGear = ItemMaterial(PartRegistry.GEAR)
         RagiRegistry.ItemIngot = ItemMaterial(PartRegistry.INGOT)
-        //RagiRegistry.ItemIngotHot = ItemMaterial(PartRegistry.INGOT_HOT)
         RagiRegistry.ItemNugget = ItemMaterial(PartRegistry.NUGGET)
         RagiRegistry.ItemOre = ItemMaterialOre(PartRegistry.ORE)
         RagiRegistry.ItemOreCrushed = ItemMaterialOre(PartRegistry.ORE_CRUSHED)
@@ -113,9 +114,9 @@ object RagiInit : IProxy {
         //Main Feature
         if (RagiConfig.module.enableMain) {
             RagiRegistry.ItemBlazingCube = ItemBase(RagiMaterials.MOD_ID, "blazing_cube", 0)
-            RagiRegistry.ItemEnderTable = ItemEnderTable()
-            RagiRegistry.ItemFullBottle = ItemFullBottle()
-            RagiRegistry.ItemWaste = ItemWaste()
+            RagiRegistry.ItemEnderTable = ItemEnderTable
+            RagiRegistry.ItemFullBottle = ItemFullBottle
+            RagiRegistry.ItemWaste = ItemWaste
         }
         //Metallurgic Feature
         if (RagiConfig.module.enableMetallurgy) {
@@ -144,9 +145,9 @@ object RagiInit : IProxy {
 
     private fun registerFluid() {
         //Fluidの登録
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.getMaterials()) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
-            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.list) FluidBase(material)
+            if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.types) FluidBase(material)
         }
     }
 
@@ -160,12 +161,12 @@ object RagiInit : IProxy {
 
     private fun registerOreDict() {
         //鉱石辞書の登録
-        for (pair in MaterialRegistry.validPair) {
-            val part = pair.first
-            val material = pair.second
-            val stack = getPart(part, material)
-            OreDictionary.registerOre(part.prefixOre + material.getOreDict(), stack)
-            material.oredictAlt?.let { OreDictionary.registerOre(part.prefixOre + it, stack) }
+        for (material in MaterialRegistry.getMaterials()) {
+            for (part in material.listValidParts) {
+                val stack = getPart(part, material)
+                OreDictionary.registerOre(part.prefixOre + material.getOreDict(), stack)
+                material.oredictAlt?.let { OreDictionary.registerOre(part.prefixOre + it, stack) }
+            }
         }
 
         //Others
@@ -182,8 +183,15 @@ object RagiInit : IProxy {
     //    onPostInit    //
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        MaterialRegistry.mapElement.values.forEach { RagiMaterials.LOGGER.debug("<element:${it.name}>") }
-        MaterialRegistry.list.forEach { RagiMaterials.LOGGER.debug("Index: ${it.index}, <material:${it.name}>") }
+        for (element in MaterialRegistry.getElements()) {
+            RagiMaterials.LOGGER.debug("<element:${element.name}>")
+        }
+        for (material in MaterialRegistry.getMaterials()) {
+            RagiMaterials.LOGGER.debug("Index: ${material.index}, <material:${material.name}>")
+        }
+        for (enchant in ForgeRegistries.ENCHANTMENTS.valuesCollection) {
+            RagiMaterials.LOGGER.debug("Enchantment: <enchantment:${enchant.name}>")
+        }
         CraftingRegistry.removeRecipes()
     }
 

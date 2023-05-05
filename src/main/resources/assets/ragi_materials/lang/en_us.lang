@@ -28,6 +28,7 @@ item.forge_hammer.name=Forge Hammer
 item.fullbottle.name=Blank Full Bottle
 item.fullbottle_filled.name=%s Full Bottle
 item.ore_crushed.name=Crushed %s
+item.pickaxe_material.name=Material Miner
 item.ragi_axe.name=%s Axe
 item.ragi_block_material.name=Block of %s
 item.ragi_crushed.name=Crushed %s Ore
@@ -79,6 +80,8 @@ tips.ragi_materials.ore_rainbow.1=Shift right-click with empty hand to collect
 tips.ragi_materials.oredict_converter.0=Used for converting items based on Ore Dictionary
 tips.ragi_materials.oredict_converter.1=Right-click to converted the item you holding to one made by Ragi Materials
 tips.ragi_materials.oredict_converter.2=If the item you holding is made by Ragi Materials, it will be converted one made by Minecraft
+tips.ragi_materials.pickaxe_material.0=This tool allows you rapid mining of wood, stone, sediment and no tool blocks
+tips.ragi_materials.pickaxe_material.1=Material enchantments allow mining of ores and powders depending on the block
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 °C
 tips.ragi_materials.property.durability=- Durability: §b%s§r
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
@@ -123,7 +126,7 @@ itemGroup.ragi_materials.fullbottles=RagiMaterials - Full Bottles
 itemGroup.ragi_materials.materials=RagiMaterials - Materials
 
 # Enchantment
-enchantment.material=Material
+enchantment.ragi_materials.material=Material
 
 # Fluid
 fluid.molten=Molten

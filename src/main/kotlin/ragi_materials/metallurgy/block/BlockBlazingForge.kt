@@ -17,7 +17,7 @@ import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
 import ragi_materials.metallurgy.tile.TileBlazingForge
 
-class BlockBlazingForge : BlockContainerHoldable<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
+object BlockBlazingForge : BlockContainerHoldable<TileBlazingForge>("blazing_forge", Material.IRON, TileBlazingForge::class.java, 3) {
 
     init {
         blockHardness = 5.0F

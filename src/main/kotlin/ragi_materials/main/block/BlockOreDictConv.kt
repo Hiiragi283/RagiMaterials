@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockAccess
 import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.main.tile.TileOreDictConv
 
-class BlockOreDictConv : BlockContainerBase<TileOreDictConv>("oredict_converter", Material.WOOD, TileOreDictConv::class.java, 2) {
+object BlockOreDictConv : BlockContainerBase<TileOreDictConv>("oredict_converter", Material.WOOD, TileOreDictConv::class.java, 2) {
 
     init {
         blockHardness = 5.0F

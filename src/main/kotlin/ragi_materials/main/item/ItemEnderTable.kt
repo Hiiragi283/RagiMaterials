@@ -12,7 +12,7 @@ import ragi_materials.core.RagiMaterials
 import ragi_materials.core.item.ItemBase
 import ragi_materials.core.util.playSound
 
-class ItemEnderTable : ItemBase(RagiMaterials.MOD_ID, "ender_tablet", 0) {
+object ItemEnderTable : ItemBase(RagiMaterials.MOD_ID, "ender_tablet", 0) {
 
     init {
         setMaxStackSize(1)

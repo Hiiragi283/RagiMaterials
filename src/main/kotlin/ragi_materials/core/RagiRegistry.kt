@@ -1,9 +1,7 @@
 package ragi_materials.core
 
-import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.item.Item
-import net.minecraft.item.ItemBlock
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
@@ -12,6 +10,7 @@ import net.minecraftforge.registries.IForgeRegistryModifiable
 import ragi_materials.core.block.BlockBase
 import ragi_materials.core.capability.heat.IHeatStorage
 import ragi_materials.core.item.ItemBase
+import ragi_materials.core.item.ItemBlockBase
 import ragi_materials.core.item.ItemMaterial
 import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.material.IMaterialItem
@@ -25,14 +24,14 @@ object RagiRegistry {
 
     //    Collection    //
 
-    val setBlocks: MutableSet<Block> = mutableSetOf()
-    val setIMaterialBlocks: MutableSet<Block> = mutableSetOf()
+    val setBlocks: MutableSet<BlockBase> = mutableSetOf()
+    val setIMaterialBlocks: MutableSet<BlockBase> = mutableSetOf()
 
-    val setIMaterialItemBlocks: MutableSet<ItemBlock> = mutableSetOf()
-    val setItemBlocks: MutableSet<ItemBlock> = mutableSetOf()
+    val setIMaterialItemBlocks: MutableSet<ItemBlockBase> = mutableSetOf()
+    val setItemBlocks: MutableSet<ItemBlockBase> = mutableSetOf()
 
-    val setIMaterialItems: MutableSet<Item> = mutableSetOf()
-    val setItems: MutableSet<Item> = mutableSetOf()
+    val setIMaterialItems: MutableSet<ItemBase> = mutableSetOf()
+    val setItems: MutableSet<ItemBase> = mutableSetOf()
     val mapMaterialParts: HashMap<MaterialPart, ItemMaterial> = hashMapOf()
 
     //    Block    //
@@ -67,6 +66,10 @@ object RagiRegistry {
     fun availableTabFullBottle() = ::TabFullBottle.isInitialized
     fun availableTabMaterial() = ::TabMaterial.isInitialized
 
+    //    Enchantment    //
+
+    lateinit var EnchantmentMaterial: Enchantment
+
     //    Item    //
 
     lateinit var ItemBlazingCube: ItemBase
@@ -75,6 +78,7 @@ object RagiRegistry {
     lateinit var ItemForgeHammer: ItemBase
     lateinit var ItemFullBottle: ItemBase
     lateinit var ItemWaste: ItemBase
+    lateinit var ItemMaterialMiner: ItemBase
 
     lateinit var ItemBlockMaterial: ItemMaterial
     lateinit var ItemCrystal: ItemMaterial
@@ -82,8 +86,6 @@ object RagiRegistry {
     lateinit var ItemDustTiny: ItemMaterial
     lateinit var ItemGear: ItemMaterial
     lateinit var ItemIngot: ItemMaterial
-
-    //lateinit var ItemIngotHot: ItemMaterial
     lateinit var ItemNugget: ItemMaterial
     lateinit var ItemOre: ItemMaterial
     lateinit var ItemOreCrushed: ItemMaterial

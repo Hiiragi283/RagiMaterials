@@ -5,15 +5,13 @@ import net.minecraft.enchantment.EnumEnchantmentType
 import net.minecraft.inventory.EntityEquipmentSlot
 import ragi_materials.core.RagiMaterials
 
-object EnchantmentMaterial : Enchantment(Rarity.VERY_RARE, EnumEnchantmentType.DIGGER, arrayOf(EntityEquipmentSlot.MAINHAND)) {
+object EnchantmentMaterial : Enchantment(Rarity.VERY_RARE, EnumEnchantmentType.BREAKABLE, arrayOf(EntityEquipmentSlot.MAINHAND)) {
 
     init {
-        name = "material"
+        name = "${RagiMaterials.MOD_ID}.material"
         setRegistryName(RagiMaterials.MOD_ID, name)
     }
 
     override fun getMaxLevel() = 1
-
-    override fun isTreasureEnchantment() = true
 
 }

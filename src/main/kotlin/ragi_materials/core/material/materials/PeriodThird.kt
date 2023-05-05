@@ -8,7 +8,6 @@ import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.RagiColor
-import ragi_materials.core.util.setBracket
 
 object PeriodThird {
 
@@ -38,7 +37,7 @@ object PeriodThird {
 
         MaterialRegistry.ALUMINA = RagiMaterial.Builder(131, "alumina", TypeRegistry.DUST).setComponents(listOf(ElementRegistry.ALUMINIUM to 2, ElementRegistry.OXYGEN to 3)).build()
 
-        MaterialRegistry.ALUMINA_SOLUTION = RagiMaterial.Builder(132, "alumina_solution", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.SODIUM to 1, RagiMaterial.Formula("[").build() to 1, ElementRegistry.ALUMINIUM to 1, setBracket(MaterialRegistry.HYDROXIDE) to 4, RagiMaterial.Formula("]").build() to 1)).build()
+        MaterialRegistry.ALUMINA_SOLUTION = RagiMaterial.Builder(132, "alumina_solution", TypeRegistry.LIQUID).setComponents(listOf(ElementRegistry.SODIUM to 1, RagiMaterial.Formula("[").build() to 1, ElementRegistry.ALUMINIUM to 1, MaterialRegistry.HYDROXIDE.setBracket() to 4, RagiMaterial.Formula("]").build() to 1)).build()
 
         MaterialRegistry.BAUXITE = RagiMaterial.Builder(133, "bauxite", TypeRegistry.DUST.enableOre()).setComponents(listOf(ElementRegistry.ALUMINIUM to 2, ElementRegistry.OXYGEN to 3)).apply {
             color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1)

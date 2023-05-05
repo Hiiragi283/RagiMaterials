@@ -22,9 +22,8 @@ import ragi_materials.core.material.IMaterialItem
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.util.getBottle
-import ragi_materials.core.util.getMaterialFromName
 
-class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMaterialItem {
+object ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMaterialItem {
 
     //    General    //
 
@@ -59,7 +58,7 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
             val stack = ItemStack(this)
             subItems.add(stack) //空のフルボトル
             //素材の一覧から液体が取得できるならクリエタブに登録する
-            for (material in MaterialRegistry.list) {
+            for (material in MaterialRegistry.getMaterials()) {
                 material.getFluid()?.let {
                     subItems.add(getBottle(FluidStack(it, 1000)))
                 }
@@ -101,13 +100,13 @@ class ItemFullBottle : ItemBase(RagiMaterials.MOD_ID, "fullbottle", 0), IMateria
             return result
         }
 
-        override fun canFillFluidType(fluidStack: FluidStack): Boolean = !getMaterialFromName(fluidStack.fluid.name).isEmpty() //液体の名前から取得した素材が空でないならtrue
+        override fun canFillFluidType(fluidStack: FluidStack): Boolean = !MaterialRegistry.getMaterial(fluidStack.fluid.name).isEmpty() //液体の名前から取得した素材が空でないならtrue
     }
 
     //    IMaterialItem    //
 
     override fun getMaterial(stack: ItemStack): RagiMaterial {
-        FluidStack.loadFluidStackFromNBT(stack.getOrCreateSubCompound("Fluid"))?.let { return getMaterialFromName(it.fluid.name) }
+        FluidStack.loadFluidStackFromNBT(stack.getOrCreateSubCompound("Fluid"))?.let { return MaterialRegistry.getMaterial(it.fluid.name) }
                 ?: return RagiMaterial.EMPTY
     }
 

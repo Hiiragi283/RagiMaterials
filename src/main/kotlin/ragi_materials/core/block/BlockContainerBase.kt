@@ -5,7 +5,6 @@ import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -19,7 +18,7 @@ import ragi_materials.core.tile.TileBase
 
 abstract class BlockContainerBase<T : TileBase>(ID: String, material: Material, val tile: Class<T>, maxTips: Int) : BlockBase(ID, material, maxTips), ITileEntityProvider {
 
-    override val itemBlock: ItemBlock? = ItemBlockBase(this)
+    override val itemBlock: ItemBlockBase? = ItemBlockBase(this)
 
     init {
         GameRegistry.registerTileEntity(tile, ResourceLocation(RagiMaterials.MOD_ID, "te_$ID"))

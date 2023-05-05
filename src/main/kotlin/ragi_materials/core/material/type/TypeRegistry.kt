@@ -7,7 +7,7 @@ object TypeRegistry {
     fun getType(name: String): MaterialType = map[name] ?: INTERNAL
 
     val CRYSTAL = MaterialType.Builder("crystal")
-            .addTypes(
+            .addType(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.CRYSTAL,
                     EnumMaterialType.DUST,
@@ -19,7 +19,7 @@ object TypeRegistry {
             .build() //固体全般
 
     val FUEL = MaterialType.Builder("fuel")
-            .addTypes(
+            .addType(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.CRYSTAL,
                     EnumMaterialType.DUST
@@ -30,7 +30,7 @@ object TypeRegistry {
             .build() //気体全般
 
     val INGOT = MaterialType.Builder("ingot")
-            .addTypes(
+            .addType(
                     EnumMaterialType.DUST,
                     EnumMaterialType.INGOT,
                     EnumMaterialType.PLATE,
@@ -46,7 +46,7 @@ object TypeRegistry {
             .build()//流体全般 (流体ブロックなし)
 
     val METAL = MaterialType.Builder("metal")
-            .addTypes(
+            .addType(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.DUST,
                     EnumMaterialType.GEAR,
@@ -59,7 +59,7 @@ object TypeRegistry {
             ).build() //金属全般
 
     val METALLOID = MaterialType.Builder("metalloid")
-            .addTypes(
+            .addType(
                     EnumMaterialType.BLOCK_MATERIAL,
                     EnumMaterialType.DUST,
                     EnumMaterialType.INGOT,
@@ -67,7 +67,7 @@ object TypeRegistry {
             ).build() //半金属
 
     val STONE = MaterialType.Builder("stone")
-            .addTypes(
+            .addType(
                     EnumMaterialType.DUST,
                     EnumMaterialType.GEAR,
                     EnumMaterialType.PLATE,
@@ -75,11 +75,11 @@ object TypeRegistry {
             ).build() //石材用
 
     val WILDCARD = MaterialType.Builder("wildcard")
-            .addTypes(EnumMaterialType.values().toList())
+            .addType(EnumMaterialType.values().toList())
             .build() //デバッグ用
 
     val WOOD = MaterialType.Builder("wood")
-            .addTypes(
+            .addType(
                     EnumMaterialType.DUST,
                     EnumMaterialType.GEAR,
                     EnumMaterialType.PLATE

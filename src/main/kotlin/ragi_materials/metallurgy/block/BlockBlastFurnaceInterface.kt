@@ -11,11 +11,12 @@ import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import ragi_materials.core.block.BlockContainerBase
+import ragi_materials.core.item.ItemBlockBase
 import ragi_materials.metallurgy.tile.TileBlastFurnaceInterface
 
-class BlockBlastFurnaceInterface : BlockContainerBase<TileBlastFurnaceInterface>("blast_furnace_interface", Material.ROCK, TileBlastFurnaceInterface::class.java, -1) {
+object BlockBlastFurnaceInterface : BlockContainerBase<TileBlastFurnaceInterface>("blast_furnace_interface", Material.ROCK, TileBlastFurnaceInterface::class.java, -1) {
 
-    override val itemBlock = null
+    override val itemBlock: ItemBlockBase? = null
 
     init {
         blockHardness = 0.0f

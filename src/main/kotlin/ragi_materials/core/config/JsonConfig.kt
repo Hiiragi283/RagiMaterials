@@ -5,11 +5,11 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import net.minecraft.item.EnumRarity
 import ragi_materials.core.RagiMaterials
+import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.getEnumRarity
-import ragi_materials.core.util.getMaterialFromName
 import java.awt.Color
 import java.io.*
 
@@ -141,7 +141,7 @@ object JsonConfig {
         private fun convertList(): List<Pair<RagiMaterial, Int>> {
             val map: MutableMap<RagiMaterial, Int> = mutableMapOf()
             components.forEach {
-                var material = getMaterialFromName(it.key)
+                var material = MaterialRegistry.getMaterial(it.key)
                 //material取得できなかった場合，化学式の文字列として認識される
                 if (material.isEmpty()) material = RagiMaterial.Formula(it.key).build()
                 map[material] = it.value

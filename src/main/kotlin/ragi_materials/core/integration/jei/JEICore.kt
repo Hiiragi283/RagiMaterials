@@ -50,7 +50,7 @@ class JEICore : IModPlugin {
         registry.addRecipes(BloomeryJEI.getListOre(), Bloomery)
         registry.addRecipes(RagiRegistry.FF_RECIPE.valuesCollection, ForgeFurnace)
         registry.addRecipes(RagiRegistry.LABO_RECIPE.valuesCollection, LaboTable)
-        registry.addRecipes(MaterialRegistry.list, MaterialInfo)
+        registry.addRecipes(MaterialRegistry.getMaterials(), MaterialInfo)
         registry.addRecipes(RagiRegistry.MILL_RECIPE.valuesCollection, StoneMill)
 
         //Catalyst Registration

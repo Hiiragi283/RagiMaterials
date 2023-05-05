@@ -15,7 +15,6 @@ import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.MaterialType
 import ragi_materials.core.material.type.TypeRegistry
 import ragi_materials.core.util.ColorUtil
-import ragi_materials.core.util.getMaterialFromName
 import ragi_materials.snakeToUpperCamelCase
 import java.awt.Color
 
@@ -29,14 +28,18 @@ data class RagiMaterial private constructor(
         val type: MaterialType = TypeRegistry.INTERNAL,
         val burnTime: Int = -1,
         val color: Color = Color(0xFFFFFF),
-        val components: List<Pair<RagiMaterial, Int>> = listOf(EMPTY to 1),
+        //val components: List<Pair<RagiMaterial, Int>> = listOf(EMPTY to 1),
         val crystalType: EnumCrystalType = EnumCrystalType.NONE,
         val formula: String? = null,
-        val mapTemp: Map<EnumTemp, Int?> = mapOf(),
         val molar: Float? = null,
         val oredictAlt: String? = null,
-        val rarity: IRarity = EnumRarity.COMMON
+        val rarity: IRarity = EnumRarity.COMMON,
+        val tempMelt: Int? = null,
+        val tempBoil: Int? = null,
+        val tempSubl: Int? = null
 ) {
+
+    val listValidParts: MutableList<MaterialPart> = mutableListOf()
 
     val mapSubMaterials: MutableMap<EnumSubMaterial, RagiMaterial?> = mutableMapOf()
 
@@ -46,7 +49,7 @@ data class RagiMaterial private constructor(
 
         //NBTタグから素材を取得するメソッド
         @JvmStatic
-        fun readFromNBT(tag: NBTTagCompound) = getMaterialFromName(tag.getString("material"))
+        fun readFromNBT(tag: NBTTagCompound) = MaterialRegistry.getMaterial(tag.getString("material"))
     }
 
     //nameから液体を取得するメソッド
@@ -58,24 +61,15 @@ data class RagiMaterial private constructor(
     //部品を取得するメソッド
     fun getPart(part: MaterialPart, amount: Int = 1): ItemStack = if (isValidPart(part)) ItemStack(RagiRegistry.mapMaterialParts[part]!!, amount, index) else ItemStack.EMPTY
 
-    //融点を取得するメソッド
-    fun getTempMelt() = mapTemp[EnumTemp.MELTING]
-
-    //沸点を取得するメソッド
-    fun getTempBoil() = mapTemp[EnumTemp.BOILING]
-
-    //昇華点を取得するメソッド
-    fun getTempSubl() = mapTemp[EnumTemp.SUBLIMATION]
-
     //materialのツールチップを生成するメソッド
     fun getTooltip(tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.$name"))) //名称
         formula?.let { tooltip.add(I18n.format("tips.ragi_materials.property.formula", it)) } //化学式
         molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
-        getTempMelt()?.let { tooltip.add(I18n.format("tips.ragi_materials.property.melt", it)) } //融点
-        getTempBoil()?.let { tooltip.add(I18n.format("tips.ragi_materials.property.boil", it)) } //沸点
-        getTempSubl()?.let { tooltip.add(I18n.format("tips.ragi_materials.property.subl", it)) }//昇華点
+        tempMelt?.let { tooltip.add(I18n.format("tips.ragi_materials.property.melt", it)) } //融点
+        tempBoil?.let { tooltip.add(I18n.format("tips.ragi_materials.property.boil", it)) } //沸点
+        tempSubl?.let { tooltip.add(I18n.format("tips.ragi_materials.property.subl", it)) }//昇華点
     }
 
     //素材が空か判定するメソッド
@@ -83,7 +77,10 @@ data class RagiMaterial private constructor(
     fun isNotEmpty(): Boolean = !isEmpty()
 
     //部品と素材の組み合わせが有効か判定するメソッド
-    fun isValidPart(part: MaterialPart): Boolean = part.type in type.list
+    fun isValidPart(part: MaterialPart): Boolean = part.type in type.types
+
+    //()つきの化学式を返すメソッド
+    fun setBracket() = copy(formula = "(${formula})")
 
     //関連した素材を設定するメソッド
     fun setSubMaterial(type: EnumSubMaterial, material: RagiMaterial) = also { it.mapSubMaterials[type] = material }
@@ -198,7 +195,7 @@ data class RagiMaterial private constructor(
             var tempBoil = 0
             var divideBoil = 0
             components.forEach { pair ->
-                pair.first.getTempBoil()?.let {
+                pair.first.tempBoil?.let {
                     tempBoil += it * pair.second
                     divideBoil += pair.second
                 }
@@ -212,7 +209,7 @@ data class RagiMaterial private constructor(
             var tempMelt = 0
             var divideMelt = 0
             components.forEach { pair ->
-                pair.first.getTempMelt()?.let {
+                pair.first.tempMelt?.let {
                     tempMelt += it * pair.second
                     divideMelt += pair.second
                 }
@@ -237,9 +234,9 @@ data class RagiMaterial private constructor(
         //素材を単体に設定するメソッド
         fun setSimple(pair: Pair<RagiMaterial, Int>) = also {
             setComponents(listOf(pair))
-            tempMelt = pair.first.getTempMelt()
-            tempBoil = pair.first.getTempBoil()
-            tempSubl = pair.first.getTempSubl()
+            tempMelt = pair.first.tempMelt
+            tempBoil = pair.first.tempBoil
+            tempSubl = pair.first.tempSubl
         }
 
         fun build(): RagiMaterial = RagiMaterial(
@@ -248,28 +245,25 @@ data class RagiMaterial private constructor(
                 type,
                 burnTime,
                 color,
-                components,
+                //components,
                 crystalType,
                 formula,
-                mapOf(
-                        EnumTemp.MELTING to tempMelt,
-                        EnumTemp.BOILING to tempBoil,
-                        EnumTemp.SUBLIMATION to tempSubl
-                ),
                 molar,
                 oredictAlt,
                 rarity,
+                tempMelt,
+                tempBoil,
+                tempSubl
         ).also {
             //indexが負の値でない場合
             if (it.index >= 0) {
                 //同じindex, nameで登録されていない場合
                 if (MaterialRegistry.mapIndex[it.index] == null && MaterialRegistry.mapName[it.name] == null) {
-                    MaterialRegistry.list.add(it)
                     MaterialRegistry.mapIndex[it.index] = it
                     MaterialRegistry.mapName[it.name] = it
-                    PartRegistry.list.forEach { part ->
+                    for (part in PartRegistry.list) {
                         if (it.isValidPart(part)) {
-                            MaterialRegistry.validPair.add(part to it)
+                            it.listValidParts.add(part)
                         }
                     }
                 } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${MaterialRegistry.mapIndex[it.index]?.name}!")
@@ -280,7 +274,7 @@ data class RagiMaterial private constructor(
     //元素用のクラス
     class Element(val name: String, val type: MaterialType, val color: Color, val molar: Float, val formula: String, val tempMelt: Int? = null, val tempBoil: Int? = null, val tempSubl: Int? = null) {
 
-        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, mapTemp = mapOf(EnumTemp.MELTING to tempMelt, EnumTemp.BOILING to tempBoil, EnumTemp.SUBLIMATION to tempSubl)).also {
+        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil, tempSubl = tempSubl).also {
             if (MaterialRegistry.mapElement[it.name] == null) {
                 MaterialRegistry.mapElement[it.name] = it
             } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${MaterialRegistry.mapElement[it.name]?.name}!")

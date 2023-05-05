@@ -79,8 +79,8 @@ object MaterialInfoJEI {
             //Ingot or Crystal
             layout.itemStacks.init(7, true, 18 * 5 - 9, 18 * 3 - 9)
             val listMain = mutableListOf<ItemStack>()
-            if (EnumMaterialType.INGOT in material.type.list) listMain.addAll(wrapper.getInputsList(mutableListOf(), PartRegistry.INGOT))
-            if (EnumMaterialType.CRYSTAL in material.type.list) listMain.addAll(wrapper.getInputsList(mutableListOf(), PartRegistry.CRYSTAL))
+            if (EnumMaterialType.INGOT in material.type.types) listMain.addAll(wrapper.getInputsList(mutableListOf(), PartRegistry.INGOT))
+            if (EnumMaterialType.CRYSTAL in material.type.types) listMain.addAll(wrapper.getInputsList(mutableListOf(), PartRegistry.CRYSTAL))
             layout.itemStacks[7] = listMain
 
             initPart(layout, wrapper, 8, 5, 5, PartRegistry.NUGGET) //Nugget

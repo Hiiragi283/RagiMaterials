@@ -14,7 +14,7 @@ import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
 import ragi_materials.main.tile.TileIndustrialLabo
 
-class BlockIndustrialLabo : BlockContainerBase<TileIndustrialLabo>("industrial_labo", Material.IRON, TileIndustrialLabo::class.java, 3) {
+object BlockIndustrialLabo : BlockContainerBase<TileIndustrialLabo>("industrial_labo", Material.IRON, TileIndustrialLabo::class.java, 3) {
 
     init {
         blockHardness = 5.0F

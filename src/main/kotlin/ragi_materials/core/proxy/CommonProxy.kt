@@ -43,9 +43,10 @@ abstract class CommonProxy : IGuiHandler, IProxy {
         //イベントの登録
         MinecraftForge.EVENT_BUS.register(CapabilityEvent)
         MinecraftForge.EVENT_BUS.register(CommonRegistryEvent)
+        MinecraftForge.EVENT_BUS.register(CraftingEvent)
         MinecraftForge.EVENT_BUS.register(CreateRegistryEvent)
-        MinecraftForge.EVENT_BUS.register(RecipeRegistryEvent)
         MinecraftForge.EVENT_BUS.register(DropMaterialEvent)
+        MinecraftForge.EVENT_BUS.register(RecipeRegistryEvent)
         //ForgeのUniversal Bucketを使えるようにする
         FluidRegistry.enableUniversalBucket()
         //連携要素の登録

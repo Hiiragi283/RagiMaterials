@@ -22,7 +22,6 @@ import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.MaterialPart
 import ragi_materials.core.material.type.EnumMaterialType
 import ragi_materials.core.util.dropItemAtPlayer
-import ragi_materials.core.util.getMaterialFromIndex
 import ragi_materials.core.util.getPart
 import ragi_materials.main.client.model.ICustomModel
 import ragi_materials.main.client.model.ModelManager
@@ -51,7 +50,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
                 if (entity is EntityPlayer) {
                     val material = getMaterial(stack)
                     //取得した素材が放射性の場合
-                    if (EnumMaterialType.RADIOACTIVE in material.type.list) {
+                    if (EnumMaterialType.RADIOACTIVE in material.type.types) {
                         val stackRadio = stack.copy()
                         stackRadio.shrink(1) //1つ減らす
                         entity.inventory.setInventorySlotContents(slot, stackRadio)
@@ -79,7 +78,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (this.isInCreativeTab(tab)) {
-            for (material in MaterialRegistry.list) {
+            for (material in MaterialRegistry.getMaterials()) {
                 if (material.isValidPart(part)) {
                     subItems.add(getPart(part, material))
                 }
@@ -93,7 +92,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
 
     //    IMaterialItem    //
 
-    override fun getMaterial(stack: ItemStack): RagiMaterial = getMaterialFromIndex(stack.metadata)
+    override fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.getMaterial(stack.metadata)
 
     override fun setMaterial(stack: ItemStack, material: RagiMaterial): ItemStack = stack.also { it.itemDamage = material.index } //メタデータを上書き
 

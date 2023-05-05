@@ -17,7 +17,7 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
 
     //    General    //
 
-    override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
+    override fun getMetadata(damage: Int): Int = if (maxMeta > 0 && damage in 0..maxMeta) damage else maxMeta
 
     override fun getTranslationKey(stack: ItemStack): String = super.getTranslationKey() + if (maxMeta == 0) "" else ".${stack.metadata}"
 

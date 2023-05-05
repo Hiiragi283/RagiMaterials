@@ -33,7 +33,7 @@ object ClientRegistryEvent {
             RagiMaterials.LOGGER.debug("The model for item ${it.registryName} is registered!")
         }
 
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.getMaterials()) {
             material.getFluid()?.let {
                 val model = ModelResourceLocation(("${RagiMaterials.MOD_ID}:${it.name}"), "fluid")
                 //アイテムとしての描画処理

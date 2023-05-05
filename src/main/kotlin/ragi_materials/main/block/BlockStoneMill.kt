@@ -8,7 +8,7 @@ import ragi_materials.core.block.BlockContainerBase
 import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.main.tile.TileStoneMill
 
-class BlockStoneMill : BlockContainerBase<TileStoneMill>("stone_mill", Material.ROCK, TileStoneMill::class.java, 2) {
+object BlockStoneMill : BlockContainerBase<TileStoneMill>("stone_mill", Material.ROCK, TileStoneMill::class.java, 2) {
 
     init {
         blockHardness = 5.0F

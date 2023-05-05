@@ -6,14 +6,14 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidTank
 import ragi_materials.core.capability.EnumIOType
 import ragi_materials.core.capability.ICapabilityIO
-import ragi_materials.core.util.getMaterialFromName
+import ragi_materials.core.material.MaterialRegistry
 
 open class RagiTank(cap: Int) : FluidTank(cap), ICapabilityIO<RagiTank>, INBTSerializable<NBTTagCompound> {
 
     //    FluidTank    //
 
     //液体の名前から取得した素材が空でないならtrue
-    override fun canFillFluidType(fluid: FluidStack?): Boolean = if (fluid !== null) !getMaterialFromName(fluid.fluid.name).isEmpty() else false
+    override fun canFillFluidType(fluid: FluidStack?): Boolean = if (fluid !== null) !MaterialRegistry.getMaterial(fluid.fluid.name).isEmpty() else false
 
     //    ICapabilityIO    //
 

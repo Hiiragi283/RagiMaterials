@@ -11,7 +11,7 @@ import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 
-class BlockSoilPeat : BlockSoilFuel("soil_peat") {
+object BlockSoilPeat : BlockSoilFuel("soil_peat") {
 
     //    General    //
 

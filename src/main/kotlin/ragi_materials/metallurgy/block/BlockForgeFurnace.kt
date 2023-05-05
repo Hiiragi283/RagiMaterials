@@ -16,7 +16,7 @@ import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.util.RagiFacing
 import ragi_materials.metallurgy.tile.TileForgeFurnace
 
-class BlockForgeFurnace : BlockContainerHoldable<TileForgeFurnace>("forge_furnace", Material.ROCK, TileForgeFurnace::class.java, 3) {
+object BlockForgeFurnace : BlockContainerHoldable<TileForgeFurnace>("forge_furnace", Material.ROCK, TileForgeFurnace::class.java, 3) {
 
     init {
         blockHardness = 5.0F

@@ -40,10 +40,18 @@ object CraftingRegistry {
                 'A', "ingotIron",
                 'B', ItemStack(Items.SIGN)
         )
+        addCraftingShaped(ItemStack(RagiRegistry.ItemMaterialMiner),
+                "ABC", " D ", " E ",
+                'A', ItemStack(Items.IRON_AXE),
+                'B', ItemStack(Items.IRON_PICKAXE),
+                'C', ItemStack(Items.IRON_SHOVEL),
+                'D', "workbench",
+                'E', "stickWood"
+        )
 
-        for (material in MaterialRegistry.list) {
+        for (material in MaterialRegistry.getMaterials()) {
 
-            val listType = material.type.list
+            val listType = material.type.types
 
             if (EnumMaterialType.DUST in listType) {
                 //dust -> tiny dustのレシピを登録

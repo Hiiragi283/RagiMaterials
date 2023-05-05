@@ -10,7 +10,7 @@ import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.material.type.EnumCrystalType
 import ragi_materials.core.material.type.EnumMaterialType
 
-class ItemMaterialBlock : ItemMaterial(PartRegistry.BLOCK) {
+object ItemMaterialBlock : ItemMaterial(PartRegistry.BLOCK) {
 
     @SideOnly(Side.CLIENT)
     override fun registerCustomModel() {
@@ -28,7 +28,7 @@ class ItemMaterialBlock : ItemMaterial(PartRegistry.BLOCK) {
                 val material = item.getMaterial(stack)
                 if (material.crystalType != EnumCrystalType.NONE) {
                     if (material.crystalType != EnumCrystalType.COAL) result = blockCrystal
-                } else if (EnumMaterialType.INGOT in material.type.list) result = blockMetal
+                } else if (EnumMaterialType.INGOT in material.type.types) result = blockMetal
             }
             result
         }
