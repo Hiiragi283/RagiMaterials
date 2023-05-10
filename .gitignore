@@ -19,9 +19,5 @@ build
 
 # other
 eclipse
-run
+client
 server
-
-*.jar
-docs
-src/main/kotlin/hiiragi283/ragi_materials/unused

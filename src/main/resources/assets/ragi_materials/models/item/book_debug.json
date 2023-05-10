@@ -1,8 +1,0 @@
-{
-  "credit": "Tweaked by Hiiragi Russell Tsubasa",
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "items/book_writable",
-    "layer1": "ragi_materials:items/particle_layer"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "ragi_materials:block/all_tintindex",
-  "textures": {
-    "all": "blocks/concrete_powder_green",
-    "particle": "blocks/concrete_powder_green"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "ragi_materials:block/ore",
-  "textures": {
-    "stone": "blocks/stone",
-    "ore": "ragi_materials:blocks/ore_rainbow",
-    "particle": "ragi_materials:blocks/ore_rainbow"
-  }
-}

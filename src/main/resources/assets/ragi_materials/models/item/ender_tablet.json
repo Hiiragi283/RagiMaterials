@@ -1,8 +1,0 @@
-{
-	"credit": "Tweaked by Hiiragi Russell Tsubasa",
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "blocks/structure_block_save",
-		"layer1": "items/structure_void"
-	}
-}
