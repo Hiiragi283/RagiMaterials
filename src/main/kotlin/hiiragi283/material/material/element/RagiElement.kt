@@ -1,6 +1,7 @@
-package hiiragi283.material.material
+package hiiragi283.material.material.element
 
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.material.IMaterialBase
 import hiiragi283.material.material.type.MaterialType
 import hiiragi283.material.material.type.TypeRegistry
 import hiiragi283.material.util.RagiColor

@@ -1,4 +1,4 @@
-package hiiragi283.material.material
+package hiiragi283.material.material.element
 
 object ElementRegistry {
 
