@@ -24,9 +24,7 @@ data class LaboRecipe private constructor(private var inputs: MutableList<ItemSt
     override fun match(inventory: IItemHandler): Boolean {
         var result = true
         for (i in 0..4) {
-            val input = this.inputs[i]
-            val stackSlot = inventory.getStackInSlot(i)
-            result = result && ItemStackWrapper(input, 1) == ItemStackWrapper(stackSlot, 1) && stackSlot.count >= input.count
+            result = result && ItemStackWrapper(inventory.getStackInSlot(i)).moreThan(ItemStackWrapper(getInput(i)))
         }
         return result
     }

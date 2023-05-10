@@ -36,11 +36,11 @@ class TileBloom : TileBase() {
             if (item == RagiRegistry.ItemForgeHammer) {
                 val rand = world.rand
                 if (rand.nextInt(chance) != 0) {
-                    dropItem(world, pos.add(0.0, 0.6, 0.0), getPart(PartRegistry.INGOT, material), rand.nextDouble() * 0.25, rand.nextDouble() * 0.25, rand.nextDouble() * 0.25)
+                    dropItem(world, pos.add(0.0, 0.6, 0.0), material.getPart(PartRegistry.INGOT), rand.nextDouble() * 0.25, rand.nextDouble() * 0.25, rand.nextDouble() * 0.25)
                     playSound(this, SoundEvents.BLOCK_ANVIL_LAND, 0.5f)
                     chance-- //確率を下げる
                 } else {
-                    dropItem(world, pos, getPart(PartRegistry.INGOT, material), rand.nextDouble() * 0.25, rand.nextDouble() * 0.25, rand.nextDouble() * 0.25)
+                    dropItem(world, pos, material.getPart(PartRegistry.INGOT), rand.nextDouble() * 0.25, rand.nextDouble() * 0.25, rand.nextDouble() * 0.25)
                     world.destroyBlock(pos, false)
                 }
                 item.setDamage(stack, item.getDamage(stack) + 1)

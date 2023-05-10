@@ -23,14 +23,8 @@ import ragi_materials.core.capability.heat.IHeatStorage
 import ragi_materials.core.event.*
 import ragi_materials.core.integration.IntegrationCore
 import ragi_materials.core.network.RagiNetworkManager
-import ragi_materials.main.client.gui.GuiFullBottle
-import ragi_materials.main.client.gui.GuiLaboTable
-import ragi_materials.main.client.gui.GuiOreDictConv
-import ragi_materials.main.client.gui.GuiStoneMill
-import ragi_materials.main.container.ContainerFullBottle
-import ragi_materials.main.container.ContainerLaboTable
-import ragi_materials.main.container.ContainerOreDictConv
-import ragi_materials.main.container.ContainerStoneMill
+import ragi_materials.main.client.gui.*
+import ragi_materials.main.container.*
 import ragi_materials.main.tile.*
 import ragi_materials.metallurgy.client.gui.GuiBlastFurnace
 import ragi_materials.metallurgy.container.ContainerBlastFurnace
@@ -113,6 +107,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
                 when (tile) {
                     is TileBlastFurnaceInterface -> container = ContainerBlastFurnace(player, tile)
                     is TileFullBottleStation -> container = ContainerFullBottle(player, tile)
+                    is TileHopperPress -> container = ContainerHopperPress(player, tile)
                     is TileIndustrialLabo -> container = ContainerLaboTable(player, tile)
                     is TileLaboTable -> container = ContainerLaboTable(player, tile)
                     is TileOreDictConv -> container = ContainerOreDictConv(player, tile)
@@ -133,6 +128,7 @@ abstract class CommonProxy : IGuiHandler, IProxy {
                 when (tile) {
                     is TileBlastFurnaceInterface -> gui = GuiBlastFurnace(player, tile)
                     is TileFullBottleStation -> gui = GuiFullBottle(player, tile)
+                    is TileHopperPress -> gui = GuiHopperPress(player, tile)
                     is TileIndustrialLabo -> gui = GuiLaboTable(player, tile)
                     is TileLaboTable -> gui = GuiLaboTable(player, tile)
                     is TileOreDictConv -> gui = GuiOreDictConv(player, tile)

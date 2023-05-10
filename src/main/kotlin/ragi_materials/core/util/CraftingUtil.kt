@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import ragi_materials.core.RagiMaterials
-import ragi_materials.core.RagiRegistry
 
 //定型クラフトレシピを追加するメソッド
 fun addCraftingShaped(output: ItemStack, vararg inputs: Any) {
@@ -67,7 +66,7 @@ fun addCraftingShapeless(output: ItemStack, inputs: NonNullList<Ingredient>, reg
 //クラフトレシピを削除するメソッド
 fun removeCrafting(registryName: ResourceLocation) {
     CraftingManager.getRecipe(registryName)?.let {
-        RagiRegistry.removeRegistryEntry(ForgeRegistries.RECIPES, registryName)
+        removeRegistryEntry(ForgeRegistries.RECIPES, registryName)
     } ?: RagiMaterials.LOGGER.debug("The recipe $registryName was not found...")
 }
 

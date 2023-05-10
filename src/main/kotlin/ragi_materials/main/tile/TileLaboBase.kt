@@ -23,15 +23,15 @@ import ragi_materials.main.container.ContainerLaboTable
 
 abstract class TileLaboBase : TileTickableBase(20), ITileContainer, ITileProvider.Inventory {
 
-    lateinit var input: RagiItemHandler
-    lateinit var catalyst: RagiItemHandler
+    lateinit var input: RagiItemHandler<TileLaboBase>
+    lateinit var catalyst: RagiItemHandler<TileLaboBase>
 
     var hasPenalty = false
 
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-        input = object : RagiItemHandler(5, this) {
+        input = object : RagiItemHandler<TileLaboBase>(5, this) {
             override fun onContentsChanged(slot: Int) {
                 super.onContentsChanged(slot)
                 hasPenalty = false

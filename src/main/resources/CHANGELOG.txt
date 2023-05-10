@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.9.0a
+
+- **ALL FEATURES WERE SPLITTED INTO SOME MODULES**
+  - Core (Cannot be disabled)
+  - Main (Misc features)
+  - Metallurgy (Mainly ore processing)
+  - Experimental (Unstable features)
+- Removed API due to incompatibility between Java and Kotlin
+
 ## v0.8.1a
 
 - **Removed custom material registration with JSON**

@@ -33,12 +33,11 @@ abstract class BlockContainerBase<T : TileBase>(ID: String, material: Material, 
     }
 
     override fun onBlockActivated(world: World, pos: BlockPos, state: IBlockState, player: EntityPlayer, hand: EnumHand, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float): Boolean {
-        var result = false
         if (hand == EnumHand.MAIN_HAND) {
             val tile = world.getTileEntity(pos)
-            result = if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
+            return if (tile !== null && tile is TileBase) tile.onTileActivated(world, pos, player, hand, facing) else false
         }
-        return result
+        return false
     }
 
     override fun onBlockPlacedBy(world: World, pos: BlockPos, state: IBlockState, placer: EntityLivingBase, stack: ItemStack) {

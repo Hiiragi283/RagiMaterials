@@ -20,7 +20,6 @@ import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.RagiColor
-import ragi_materials.core.util.getPart
 import java.awt.Color
 import java.util.*
 
@@ -42,14 +41,14 @@ abstract class BlockSoilFuel(ID: String) : BlockBase(ID, Material.GROUND, 2), IG
         if (world is World && !world.isRemote) {
             val random = world.rand
             if (isMaxAge(state)) {
-                drops.add(getPart(PartRegistry.CRYSTAL, getDropMain(), 4))
+                drops.add(getDropMain().getPart(PartRegistry.CRYSTAL, 4))
             } else {
                 drops.add(ItemStack(this))
             }
             if (random.nextInt(3) <= fortune) {
-                drops.add(getPart(PartRegistry.CRYSTAL, getDropAdd()))
+                drops.add(getDropAdd().getPart(PartRegistry.CRYSTAL))
                 if (fortune >= 4) {
-                    drops.add(getPart(PartRegistry.CRYSTAL, getDropAdd(), fortune - 3))
+                    drops.add(getDropAdd().getPart(PartRegistry.CRYSTAL, fortune - 3))
                 }
             }
         }

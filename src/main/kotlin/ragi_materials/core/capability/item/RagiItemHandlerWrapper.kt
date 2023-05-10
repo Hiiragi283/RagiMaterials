@@ -13,15 +13,16 @@ import net.minecraftforge.items.IItemHandlerModifiable
  * Thanks to SkyTheory!
  */
 
-class RagiItemHandlerWrapper(vararg iItemHandlers: RagiItemHandler) : IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
+class RagiItemHandlerWrapper(vararg itemHandlers: RagiItemHandler<*>) : IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
-    private val pairs: MutableList<Pair<RagiItemHandler, Int>> = mutableListOf()
+    private val pairs: MutableList<Pair<RagiItemHandler<*>, Int>> = mutableListOf()
 
     init {
-        iItemHandlers.forEach { handler ->
-            for (slot in 0 until handler.slots) {
-                pairs.add(handler to slot)
+        for (itemHandler in itemHandlers) {
+            for (slot in 0 until itemHandler.slots) {
+                pairs.add(itemHandler to slot)
             }
+
         }
     }
 

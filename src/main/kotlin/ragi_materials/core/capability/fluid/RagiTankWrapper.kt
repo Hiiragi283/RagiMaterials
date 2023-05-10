@@ -18,8 +18,8 @@ class RagiTankWrapper(private vararg val tanks: RagiTank) : IFluidHandler, INBTS
 
     override fun getTankProperties(): Array<IFluidTankProperties> {
         val properties: MutableList<IFluidTankProperties> = mutableListOf()
-        tanks.forEach {
-            properties.add(it.tankProperties[0])
+        for (tank in tanks) {
+            properties.add(tank.tankProperties[0])
         }
         return properties.toTypedArray()
     }

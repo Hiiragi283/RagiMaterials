@@ -140,11 +140,11 @@ object JsonConfig {
 
         private fun convertList(): List<Pair<RagiMaterial, Int>> {
             val map: MutableMap<RagiMaterial, Int> = mutableMapOf()
-            components.forEach {
-                var material = MaterialRegistry.getMaterial(it.key)
+            for ((name, weight) in components) {
+                var material = MaterialRegistry.getMaterial(name)
                 //material取得できなかった場合，化学式の文字列として認識される
-                if (material.isEmpty()) material = RagiMaterial.Formula(it.key).build()
-                map[material] = it.value
+                if (material.isEmpty()) material = RagiMaterial.Formula(name).build()
+                map[material] = weight
             }
             return map.toList()
         }

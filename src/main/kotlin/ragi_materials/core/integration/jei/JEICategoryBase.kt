@@ -6,9 +6,11 @@ import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.resources.I18n
 import ragi_materials.core.RagiMaterials
 
-abstract class JEICategoryBase<T : IRecipeWrapper> : IRecipeCategory<T> {
+interface JEICategoryBase<T : IRecipeWrapper> : IRecipeCategory<T> {
 
-    abstract val backGround: IDrawableStatic
+    //    IRecipeCategory    //
+
+    val backGround: IDrawableStatic
 
     override fun getBackground() = backGround
 

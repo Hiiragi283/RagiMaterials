@@ -23,14 +23,13 @@ object ClientRegistryEvent {
     @SubscribeEvent
     fun registerModel(event: ModelRegistryEvent) {
         //モデルの自動登録
-        RagiRegistry.setBlocks.forEach {
-            if (it is ICustomModel) it.registerCustomModel() else ModelManager.setModel(it)
-            RagiMaterials.LOGGER.debug("The model for item block ${it.registryName} is registered!")
+        for (block in RagiRegistry.setBlocks) {
+            if (block is ICustomModel) block.registerCustomModel() else ModelManager.setModel(block)
+            RagiMaterials.LOGGER.debug("The model for item block ${block.registryName} is registered!")
         }
-
-        RagiRegistry.setItems.forEach {
-            if (it is ICustomModel) it.registerCustomModel() else ModelManager.setModel(it)
-            RagiMaterials.LOGGER.debug("The model for item ${it.registryName} is registered!")
+        for (item in RagiRegistry.setItems) {
+            if (item is ICustomModel) item.registerCustomModel() else ModelManager.setModel(item)
+            RagiMaterials.LOGGER.debug("The model for item ${item.registryName} is registered!")
         }
 
         for (material in MaterialRegistry.getMaterials()) {

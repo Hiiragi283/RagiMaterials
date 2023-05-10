@@ -6,7 +6,7 @@ import ragi_materials.core.capability.EnumIOType
 import ragi_materials.core.capability.ICapabilityIO
 import ragi_materials.core.tile.TileBase
 
-open class RagiItemHandler(slots: Int, val tile: TileBase) : ItemStackHandler(slots), ICapabilityIO<RagiItemHandler> {
+open class RagiItemHandler<T: TileBase>(slots: Int, val tile: T) : ItemStackHandler(slots), ICapabilityIO<RagiItemHandler<*>> {
 
     override fun onContentsChanged(slot: Int) {
         tile.markDirty()
@@ -18,7 +18,7 @@ open class RagiItemHandler(slots: Int, val tile: TileBase) : ItemStackHandler(sl
 
     override fun getIOType() = ioType
 
-    override fun setIOType(type: EnumIOType): RagiItemHandler = also { ioType = type }
+    override fun setIOType(type: EnumIOType): RagiItemHandler<T> = also { ioType = type }
 
     //    Custom    //
 

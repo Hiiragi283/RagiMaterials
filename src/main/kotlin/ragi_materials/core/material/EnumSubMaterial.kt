@@ -10,6 +10,8 @@ enum class EnumSubMaterial {
     NITRATE,
     OXIDE,
     PHOSPHATE,
+    SECONDARY,
     SULFATE,
-    SULFIDE
+    SULFIDE,
+    TERTIARY,
 }

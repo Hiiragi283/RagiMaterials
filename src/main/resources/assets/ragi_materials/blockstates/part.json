@@ -26,6 +26,12 @@
         "all": "ragi_materials:blocks/block_metal"
       }
     }],
+    "crushed": [{
+      "textures": {
+        "layer0": "ragi_materials:items/dust",
+        "layer1": "ragi_materials:items/ore_crushed_layer"
+      }
+    }],
     "dust": [{
       "textures": {
         "layer0": "ragi_materials:items/dust"
@@ -63,15 +69,15 @@
         "layer1": "ragi_materials:items/ore_layer"
       }
     }],
-    "crushed": [{
-      "textures": {
-        "layer0": "ragi_materials:items/dust",
-        "layer1": "ragi_materials:items/ore_crushed_layer"
-      }
-    }],
     "plate": [{
       "textures": {
         "layer0": "ragi_materials:items/plate"
+      }
+    }],
+    "purified": [{
+      "textures": {
+        "layer0": "ragi_materials:items/dust",
+        "layer1": "ragi_materials:items/ore_crushed_layer"
       }
     }],
     "stick": [{

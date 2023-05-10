@@ -11,7 +11,7 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import ragi_materials.core.container.ContainerBase
 import ragi_materials.core.tile.TileBase
-import java.awt.Color
+import ragi_materials.core.util.ColorUtil
 
 
 abstract class GuiBase<T : TileBase>(val container: ContainerBase<T>) : GuiContainer(container) {
@@ -50,26 +50,15 @@ abstract class GuiBase<T : TileBase>(val container: ContainerBase<T>) : GuiConta
         val spr = textureMapBlocks.getTextureExtry(fluid.still.toString()) ?: textureMapBlocks.missingSprite
         mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
         //TextureAtlasSpriteに液体の色を乗せる
-        setGLColor(fluid.color)
+        ColorUtil.setGLColor(fluid.color)
         //TextureAtlasSpriteを描画する
         drawFluidTexture(x.toDouble(), y.toDouble(), spr!!)
         //着色をリセットする
-        setGLColor(0xFFFFFF)
+        ColorUtil.setGLColor(0xFFFFFF)
     }
 
     fun renderFluid(stack: FluidStack, x: Int, y: Int) {
         renderFluid(stack.fluid, x, y)
-    }
-
-    private fun setGLColor(color: Color) {
-        setGLColor(color.rgb)
-    }
-
-    private fun setGLColor(color: Int) {
-        val red = (color shr 16 and 255) / 255.0f
-        val green = (color shr 8 and 255) / 255.0f
-        val blue = (color and 255) / 255.0f
-        GlStateManager.color(red, green, blue, 1.0f)
     }
 
     private fun drawFluidTexture(x: Double, y: Double, spr: TextureAtlasSprite) {

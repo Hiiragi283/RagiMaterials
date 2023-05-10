@@ -18,10 +18,10 @@ object CommonRegistryEvent {
     fun registerBlock(event: RegistryEvent.Register<Block>) {
         val registry = event.registry
         //Blockの自動登録
-        RagiRegistry.setBlocks.forEach {
-            if (RagiRegistry.availableTabBlock()) it.creativeTab = RagiRegistry.TabBlock
-            registry.register(it)
-            RagiMaterials.LOGGER.debug("The block ${it.registryName} is registered!")
+        for (block in RagiRegistry.setBlocks) {
+            if (RagiRegistry.availableTabBlock()) block.creativeTab = RagiRegistry.TabBlock
+            registry.register(block)
+            RagiMaterials.LOGGER.debug("The block ${block.registryName} is registered!")
         }
     }
 
@@ -29,18 +29,19 @@ object CommonRegistryEvent {
     fun registerItem(event: RegistryEvent.Register<Item>) {
         val registry = event.registry
         //Itemの自動登録
-        RagiRegistry.setItemBlocks.forEach {
-            registry.register(it)
-            RagiMaterials.LOGGER.debug("The item block ${it.registryName} is registered!")
+        for (itemBlock in RagiRegistry.setItemBlocks) {
+            registry.register(itemBlock)
+            RagiMaterials.LOGGER.debug("The item block ${itemBlock.registryName} is registered!")
+
         }
-        RagiRegistry.setItems.forEach {
-            when (it) {
-                is ItemFullBottle -> it.setCreativeTab(RagiRegistry.TabFullBottle)
-                is ItemMaterial -> it.setCreativeTab(RagiRegistry.TabMaterial)
-                else -> it.setCreativeTab(CreativeTabs.MISC)
+        for (item in RagiRegistry.setItems) {
+            when (item) {
+                is ItemFullBottle -> item.setCreativeTab(RagiRegistry.TabFullBottle)
+                is ItemMaterial -> item.setCreativeTab(RagiRegistry.TabMaterial)
+                else -> item.setCreativeTab(CreativeTabs.MISC)
             }
-            registry.register(it)
-            RagiMaterials.LOGGER.debug("The item ${it.registryName} is registered!")
+            registry.register(item)
+            RagiMaterials.LOGGER.debug("The item ${item.registryName} is registered!")
         }
     }
 

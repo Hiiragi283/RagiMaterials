@@ -21,7 +21,6 @@ import ragi_materials.core.block.property.RagiProperty
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.tile.TileBase
-import ragi_materials.core.util.getPart
 import ragi_materials.core.util.toBool
 import ragi_materials.core.util.toInt
 import ragi_materials.metallurgy.tile.TileBloom
@@ -33,6 +32,7 @@ object BlockBloomery : BlockContainerHoldable<TileBloomery>("bloomery", Material
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
+        defaultState = blockState.baseState.withProperty(RagiProperty.ACTIVE, false)
         setHarvestLevel("pickaxe", 0)
         soundType = SoundType.STONE
     }
@@ -56,7 +56,7 @@ object BlockBloomery : BlockContainerHoldable<TileBloomery>("bloomery", Material
         val stack = ItemStack(this)
         drops.add(stack)
         world.getTileEntity(pos)?.let {
-            if (it is TileBase) drops.add(getPart(PartRegistry.ORE, it.material))
+            if (it is TileBase) drops.add(it.material.getPart(PartRegistry.ORE))
         }
     }
 

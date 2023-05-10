@@ -15,7 +15,6 @@ import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.PartRegistry
 import ragi_materials.core.tile.TileBase
-import ragi_materials.core.util.getPart
 import ragi_materials.metallurgy.tile.TileBloom
 import java.util.*
 
@@ -40,7 +39,7 @@ object BlockBloom : BlockContainerHoldable<TileBloom>("bloom", Material.ROCK, Ti
 
     override fun getDrops(drops: NonNullList<ItemStack>, world: IBlockAccess, pos: BlockPos, state: IBlockState, fortune: Int) {
         val tile = world.getTileEntity(pos)
-        val part = if (tile !== null && tile is TileBase) getPart(PartRegistry.INGOT, tile.material) else ItemStack.EMPTY
+        val part = if (tile !== null && tile is TileBase) tile.material.getPart(PartRegistry.INGOT) else ItemStack.EMPTY
         if (!part.isEmpty) drops.add(part)
     }
 

@@ -31,8 +31,8 @@ import ragi_materials.main.container.ContainerStoneMill
 
 class TileStoneMill : TileBase(), ITileCachable<MillRecipe>, ITileContainer, ITileProvider.Inventory {
 
-    lateinit var input: RagiItemHandler
-    lateinit var output: RagiItemHandler
+    lateinit var input: RagiItemHandler<TileStoneMill>
+    lateinit var output: RagiItemHandler<TileStoneMill>
     override var cache: MillRecipe? = null
 
     //    Capability    //
@@ -48,20 +48,6 @@ class TileStoneMill : TileBase(), ITileCachable<MillRecipe>, ITileContainer, ITi
         output = RagiItemHandler(1, this).setIOType(EnumIOType.OUTPUT)
         inventory = RagiItemHandlerWrapper(input, output)
         return RagiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory, inventory)
-    }
-
-    //    Recipe    //
-
-    private fun doProcess() {
-        var result = false
-        if (cacheRecipe(input, RagiRegistry.MILL_RECIPE.valuesCollection)) {
-            RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
-            input.extractItem(0, cache!!.getInput().count, false)
-            val stackExtra = output.insertItem(0, cache!!.getOutput(), false)
-            if (!stackExtra.isEmpty) dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
-            result = true
-        }
-        if (result) succeeded(this) else failed(this)
     }
 
     //    TileBase    //
@@ -84,6 +70,18 @@ class TileStoneMill : TileBase(), ITileCachable<MillRecipe>, ITileContainer, ITi
 
     override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
         dropInventoryItems(world, pos, inventory)
+    }
+
+    //    Recipe    //
+
+    private fun doProcess() {
+        if (cacheRecipe(input, RagiRegistry.MILL_RECIPE.valuesCollection)) {
+            RagiMaterials.LOGGER.debug("The recipe cached is ${cache!!.registryName}")
+            input.extractItem(0, cache!!.getInput().count, false)
+            val stackExtra = output.insertItem(0, cache!!.getOutput(), false)
+            if (!stackExtra.isEmpty) dropItem(world, pos.add(0, 1, 0), stackExtra, 0.0, 0.25, 0.0)
+            succeeded(this)
+        } else failed(this)
     }
 
     //    ITileContainer    //

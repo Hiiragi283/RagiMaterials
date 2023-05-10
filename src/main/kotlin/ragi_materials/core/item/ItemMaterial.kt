@@ -22,7 +22,6 @@ import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.part.MaterialPart
 import ragi_materials.core.material.type.EnumMaterialType
 import ragi_materials.core.util.dropItemAtPlayer
-import ragi_materials.core.util.getPart
 import ragi_materials.main.client.model.ICustomModel
 import ragi_materials.main.client.model.ModelManager
 
@@ -80,7 +79,7 @@ open class ItemMaterial(val part: MaterialPart) : ItemBase(RagiMaterials.MOD_ID,
         if (this.isInCreativeTab(tab)) {
             for (material in MaterialRegistry.getMaterials()) {
                 if (material.isValidPart(part)) {
-                    subItems.add(getPart(part, material))
+                    subItems.add(material.getPart(part))
                 }
             }
         }

@@ -32,7 +32,7 @@ data class BlastFurnaceRecipe private constructor(
         return matchSlot(inventory, 0, ore) && matchSlot(inventory, 1, fuel) && matchSlot(inventory, 2, flux)
     }
 
-    private fun matchSlot(inventory: IItemHandler, slot: Int, stack: ItemStack): Boolean = ItemStackWrapper(inventory.getStackInSlot(slot), 1) == ItemStackWrapper(stack, 1) && inventory.getStackInSlot(slot).count >= stack.count
+    private fun matchSlot(inventory: IItemHandler, slot: Int, stack: ItemStack): Boolean = ItemStackWrapper(inventory.getStackInSlot(slot), 1).moreThan(ItemStackWrapper(stack))
 
     //    IRecipeWrapper    //
 

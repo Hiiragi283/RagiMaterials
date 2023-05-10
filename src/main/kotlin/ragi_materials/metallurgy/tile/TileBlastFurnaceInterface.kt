@@ -29,10 +29,10 @@ import ragi_materials.metallurgy.container.ContainerBlastFurnace
 
 class TileBlastFurnaceInterface : TileBase(), ITileCachable<BlastFurnaceRecipe>, ITileContainer, ITileProvider.Inventory, ITileProvider.Tank {
 
-    lateinit var inputOre: RagiItemHandler
-    lateinit var inputFuel: RagiItemHandler
-    lateinit var inputFlux: RagiItemHandler
-    lateinit var output: RagiItemHandler
+    lateinit var inputOre: RagiItemHandler<TileBlastFurnaceInterface>
+    lateinit var inputFuel: RagiItemHandler<TileBlastFurnaceInterface>
+    lateinit var inputFlux: RagiItemHandler<TileBlastFurnaceInterface>
+    lateinit var output: RagiItemHandler<TileBlastFurnaceInterface>
     lateinit var outputTank: RagiTank
 
     override var cache: BlastFurnaceRecipe? = null

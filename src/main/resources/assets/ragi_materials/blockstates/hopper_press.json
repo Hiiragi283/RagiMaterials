@@ -1,0 +1,15 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:hopper_press"
+  },
+  "variants": {
+    "active": {
+      "true": {
+        "model": "ragi_materials:hopper_press_active"
+      },
+      "false": {}
+    }
+  }
+}

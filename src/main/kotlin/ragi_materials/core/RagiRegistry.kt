@@ -5,8 +5,8 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityInject
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.registries.IForgeRegistry
-import net.minecraftforge.registries.IForgeRegistryModifiable
 import ragi_materials.core.block.BlockBase
 import ragi_materials.core.capability.heat.IHeatStorage
 import ragi_materials.core.item.ItemBase
@@ -15,10 +15,7 @@ import ragi_materials.core.item.ItemMaterial
 import ragi_materials.core.material.IMaterialBlock
 import ragi_materials.core.material.IMaterialItem
 import ragi_materials.core.material.part.MaterialPart
-import ragi_materials.core.recipe.BlastFurnaceRecipe
-import ragi_materials.core.recipe.FFRecipe
-import ragi_materials.core.recipe.LaboRecipe
-import ragi_materials.core.recipe.MillRecipe
+import ragi_materials.core.recipe.*
 
 object RagiRegistry {
 
@@ -36,6 +33,7 @@ object RagiRegistry {
 
     //    Block    //
 
+    lateinit var BlockBasin: BlockBase
     lateinit var BlockBlastFurnaceCore: BlockBase
     lateinit var BlockBlastFurnaceInterface: BlockBase
     lateinit var BlockBlazingForge: BlockBase
@@ -43,6 +41,7 @@ object RagiRegistry {
     lateinit var BlockBloomery: BlockBase
     lateinit var BlockForgeFurnace: BlockBase
     lateinit var BlockFullBottleStation: BlockBase
+    lateinit var BlockHopperPress: BlockBase
     lateinit var BlockIndustrialLabo: BlockBase
     lateinit var BlockLaboratoryTable: BlockBase
     lateinit var BlockOreDictConv: BlockBase
@@ -70,6 +69,10 @@ object RagiRegistry {
 
     lateinit var EnchantmentMaterial: Enchantment
 
+    //    Fluid    //
+
+    lateinit var FluidSeedOil: Fluid
+
     //    Item    //
 
     lateinit var ItemBlazingCube: ItemBase
@@ -81,6 +84,7 @@ object RagiRegistry {
     lateinit var ItemMaterialMiner: ItemBase
 
     lateinit var ItemBlockMaterial: ItemMaterial
+    lateinit var ItemCrushed: ItemMaterial
     lateinit var ItemCrystal: ItemMaterial
     lateinit var ItemDust: ItemMaterial
     lateinit var ItemDustTiny: ItemMaterial
@@ -88,8 +92,8 @@ object RagiRegistry {
     lateinit var ItemIngot: ItemMaterial
     lateinit var ItemNugget: ItemMaterial
     lateinit var ItemOre: ItemMaterial
-    lateinit var ItemOreCrushed: ItemMaterial
     lateinit var ItemPlate: ItemMaterial
+    lateinit var ItemPurified: ItemMaterial
     lateinit var ItemStick: ItemMaterial
 
     //    LootTable    //
@@ -98,22 +102,12 @@ object RagiRegistry {
 
     //    IForgeRegistry    //
 
+    lateinit var BASIN_RECIPE: IForgeRegistry<BasinRecipe>
     lateinit var BF_RECIPE: IForgeRegistry<BlastFurnaceRecipe>
-    lateinit var FF_RECIPE: IForgeRegistry<FFRecipe>
+    lateinit var FF_RECIPE: IForgeRegistry<ForgeFurnaceRecipe>
+    lateinit var HP_RECIPE: IForgeRegistry<HopperPressRecipe>
     lateinit var LABO_RECIPE: IForgeRegistry<LaboRecipe>
     lateinit var MILL_RECIPE: IForgeRegistry<MillRecipe>
-
-    //エントリーを削除するメソッド
-    fun removeRegistryEntry(registry: IForgeRegistry<*>, registryName: ResourceLocation) {
-        if (registry is IForgeRegistryModifiable<*>) {
-            registry.remove(registryName)
-            RagiMaterials.LOGGER.warn("The entry $registryName was removed from ${registry::class.java.name}!")
-        } else RagiMaterials.LOGGER.warn("The registry ${registry::class.java.name} is not implementing IForgeRegistryModifiable!")
-    }
-
-    fun remove(registry: IForgeRegistry<*>, registryName: String) {
-        removeRegistryEntry(registry, ResourceLocation(registryName))
-    }
 
     //    Capability    //
 
@@ -122,12 +116,12 @@ object RagiRegistry {
 
     //このクラス内のフィールドを一覧に代入するメソッド
     fun addCollection() {
-        this::class.java.declaredFields.forEach {
-            it.isAccessible = true
-            RagiMaterials.LOGGER.debug(it.name)
+        for (field in this::class.java.declaredFields) {
+            field.isAccessible = true
+            RagiMaterials.LOGGER.debug(field.name)
             try {
                 //Block
-                val obj = it.get(this)
+                val obj = field.get(this)
                 if (obj is BlockBase && obj.registryName !== null) {
                     setBlocks.add(obj)
                     RagiMaterials.LOGGER.debug("The block ${obj.registryName} is added to list!")
@@ -147,21 +141,22 @@ object RagiRegistry {
         }
 
         //Block
-        setBlocks.forEach {
-            if (it is IMaterialBlock) setIMaterialBlocks.add(it)
+        for (block in setBlocks) {
+            if (block is IMaterialBlock) setIMaterialBlocks.add(block)
         }
-        setItemBlocks.forEach {
-            val block = it.block
-            if (block is IMaterialBlock) setIMaterialItemBlocks.add(it)
+        for (itemBlock in setItemBlocks) {
+            val block = itemBlock.block
+            if (block is IMaterialBlock) setIMaterialItemBlocks.add(itemBlock)
         }
 
         //Item
-        setItems.forEach {
-            if (it is IMaterialItem) setIMaterialItems.add(it)
-            if (it is ItemMaterial) {
-                mapMaterialParts[it.part] = it
-                RagiMaterials.LOGGER.debug("The part-item pair ${it.part.name} -> ${it.registryName} is added to map!")
+        for (item in setItems) {
+            if (item is IMaterialItem) setIMaterialItems.add(item)
+            if (item is ItemMaterial) {
+                mapMaterialParts[item.part] = item
+                RagiMaterials.LOGGER.debug("The part-item pair ${item.part.name} -> ${item.registryName} is added to map!")
             }
+
         }
     }
 }

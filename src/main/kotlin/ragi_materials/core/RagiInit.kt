@@ -25,7 +25,6 @@ import ragi_materials.core.proxy.IProxy
 import ragi_materials.core.recipe.CraftingRegistry
 import ragi_materials.core.recipe.SmeltingRegistry
 import ragi_materials.core.util.RagiColor
-import ragi_materials.core.util.getPart
 import ragi_materials.main.block.*
 import ragi_materials.main.item.ItemEnderTable
 import ragi_materials.main.item.ItemForgeHammer
@@ -40,7 +39,7 @@ object RagiInit : IProxy {
     //    onConstruct    //
 
     override fun onConstruct(event: FMLConstructionEvent) {
-        MaterialRegistry.registerMaterials()
+        MaterialRegistry.load()
     }
 
     //    onPreInit    //
@@ -64,7 +63,9 @@ object RagiInit : IProxy {
         }
         //Main Feature
         if (RagiConfig.module.enableMain) {
+            RagiRegistry.BlockBasin = BlockBasin
             RagiRegistry.BlockFullBottleStation = BlockFullBottleStation
+            RagiRegistry.BlockHopperPress = BlockHopperPress
             RagiRegistry.BlockIndustrialLabo = BlockIndustrialLabo
             RagiRegistry.BlockLaboratoryTable = BlockLaboTable
             RagiRegistry.BlockOreDictConv = BlockOreDictConv
@@ -90,19 +91,19 @@ object RagiInit : IProxy {
         //Core Feature
         RagiRegistry.ItemBlockMaterial = ItemMaterialBlock
         RagiRegistry.ItemBookDebug = ItemBookDebug
+        RagiRegistry.ItemCrushed = ItemMaterialOre(PartRegistry.CRUSHED)
         RagiRegistry.ItemCrystal = ItemMaterialCrystal
         RagiRegistry.ItemDust = ItemMaterial(PartRegistry.DUST)
         RagiRegistry.ItemDustTiny = ItemMaterial(PartRegistry.DUST_TINY)
         RagiRegistry.ItemForgeHammer = ItemForgeHammer
-        RagiRegistry.ItemMaterialMiner = ItemMaterialMiner
         RagiRegistry.ItemGear = ItemMaterial(PartRegistry.GEAR)
         RagiRegistry.ItemIngot = ItemMaterial(PartRegistry.INGOT)
+        RagiRegistry.ItemMaterialMiner = ItemMaterialMiner
         RagiRegistry.ItemNugget = ItemMaterial(PartRegistry.NUGGET)
         RagiRegistry.ItemOre = ItemMaterialOre(PartRegistry.ORE)
-        RagiRegistry.ItemOreCrushed = ItemMaterialOre(PartRegistry.ORE_CRUSHED)
         RagiRegistry.ItemPlate = ItemMaterial(PartRegistry.PLATE)
+        RagiRegistry.ItemPurified = ItemMaterialPurified
         RagiRegistry.ItemStick = ItemMaterial(PartRegistry.STICK)
-
         //Experimental Feature
         if (RagiConfig.module.enableExperimental) {
 
@@ -144,7 +145,11 @@ object RagiInit : IProxy {
     }
 
     private fun registerFluid() {
-        //Fluidの登録
+
+        RagiRegistry.FluidSeedOil = Fluid("seed_oil", location, location).setColor(RagiColor.GREEN)
+        FluidRegistry.registerFluid(RagiRegistry.FluidSeedOil)
+        FluidRegistry.addBucketForFluid(RagiRegistry.FluidSeedOil)
+
         for (material in MaterialRegistry.getMaterials()) {
             //typeがINTERNALでない，かつmaterialのtypeがfluidの場合
             if (material.type != TypeRegistry.INTERNAL && EnumMaterialType.LIQUID in material.type.types) FluidBase(material)
@@ -163,21 +168,21 @@ object RagiInit : IProxy {
         //鉱石辞書の登録
         for (material in MaterialRegistry.getMaterials()) {
             for (part in material.listValidParts) {
-                val stack = getPart(part, material)
+                val stack = material.getPart(part)
                 OreDictionary.registerOre(part.prefixOre + material.getOreDict(), stack)
                 material.oredictAlt?.let { OreDictionary.registerOre(part.prefixOre + it, stack) }
             }
         }
 
         //Others
-        OreDictionary.registerOre("charcoal", getPart(PartRegistry.CRYSTAL, MaterialRegistry.CHARCOAL))
+        OreDictionary.registerOre("charcoal", MaterialRegistry.CHARCOAL.getPart(PartRegistry.CRYSTAL))
         OreDictionary.registerOre("dustGunpowder", ItemStack(Items.GUNPOWDER))
         OreDictionary.registerOre("dustSugar", ItemStack(Items.SUGAR))
-        OreDictionary.registerOre("fuelCoke", getPart(PartRegistry.CRYSTAL, MaterialRegistry.COKE))
-        OreDictionary.registerOre("gearStone", getPart(PartRegistry.GEAR, MaterialRegistry.STONE))
-        OreDictionary.registerOre("gearWood", getPart(PartRegistry.GEAR, MaterialRegistry.WOOD))
+        OreDictionary.registerOre("fuelCoke", MaterialRegistry.COKE.getPart(PartRegistry.CRYSTAL))
+        OreDictionary.registerOre("gearStone", MaterialRegistry.STONE.getPart(PartRegistry.GEAR))
+        OreDictionary.registerOre("gearWood", MaterialRegistry.WOOD.getPart(PartRegistry.GEAR))
         OreDictionary.registerOre("gemCharcoal", ItemStack(Items.COAL))
-        OreDictionary.registerOre("stickStone", getPart(PartRegistry.STICK, MaterialRegistry.STONE))
+        OreDictionary.registerOre("stickStone", MaterialRegistry.STONE.getPart(PartRegistry.STICK))
     }
 
     //    onPostInit    //

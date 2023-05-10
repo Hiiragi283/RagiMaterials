@@ -85,6 +85,36 @@ data class RagiMaterial private constructor(
     //関連した素材を設定するメソッド
     fun setSubMaterial(type: EnumSubMaterial, material: RagiMaterial) = also { it.mapSubMaterials[type] = material }
 
+    //素材とMaterialRegistryに登録するメソッド
+    fun register(): RagiMaterial {
+        //indexが負の場合
+        if (index < 0) {
+            RagiMaterials.LOGGER.warn("The index $index is smaller than 0!")
+            //Elementとして登録を試みる
+            if (MaterialRegistry.mapElement[name] != null) {
+                RagiMaterials.LOGGER.warn("The element $name is duplicated with ${MaterialRegistry.mapElement[name]?.name}!")
+                return this
+            }
+            MaterialRegistry.mapElement[name] = this
+            return this
+        }
+        //すでに同じindexまたはnameで登録されいた場合
+        if (MaterialRegistry.mapIndex[index] != null || MaterialRegistry.mapName[name] != null) {
+            RagiMaterials.LOGGER.warn("The material $name indexed $index is duplicated with ${MaterialRegistry.mapIndex[index]?.name}!")
+            return this
+        }
+        //上の条件に当てはまらない場合，登録を行う
+        //indexが負の値でない場合
+        MaterialRegistry.mapIndex[index] = this
+        MaterialRegistry.mapName[name] = this
+        for (part in PartRegistry.list) {
+            if (isValidPart(part)) {
+                listValidParts.add(part)
+            }
+        }
+        return this
+    }
+
     //NBTタグに素材を書き込むメソッド
     fun writeToNBT(tag: NBTTagCompound?): NBTTagCompound {
         val tag1 = tag ?: NBTTagCompound()
@@ -153,7 +183,9 @@ data class RagiMaterial private constructor(
         //色を自動で生成するメソッド
         private fun initColor(): Color {
             val mapColor: MutableMap<Color, Int> = mutableMapOf()
-            components.forEach { mapColor[it.first.color] = it.second }
+            for (pair in components) {
+                mapColor[pair.first.color] = pair.second
+            }
             return ColorUtil.mixColor(mapColor)
         }
 
@@ -164,10 +196,10 @@ data class RagiMaterial private constructor(
             var subscript: String
             var subscript1 = '\u2080'
             var subscript10 = '\u2080'
-            components.forEach {
+            for (pair in components) {
                 //文字を代入する
-                formula += it.first.formula
-                val weight = it.second
+                formula += pair.first.formula
+                val weight = pair.second
                 //化学式の下付き数字の桁数調整
                 if (weight in 2..9) subscript1 = '\u2080' + weight
                 else if (weight in 10..99) {
@@ -186,7 +218,9 @@ data class RagiMaterial private constructor(
         //モル質量を自動で生成するメソッド
         private fun initMolar(): Float? {
             var molar = 0.0f
-            components.forEach { pair -> pair.first.molar?.let { molar = it * pair.second } }
+            for (pair in components) {
+                pair.first.molar?.let { molar = it * pair.second }
+            }
             return if (molar == 0.0f) null else molar
         }
 
@@ -194,7 +228,7 @@ data class RagiMaterial private constructor(
         private fun initBoil(): Int? {
             var tempBoil = 0
             var divideBoil = 0
-            components.forEach { pair ->
+            for (pair in components) {
                 pair.first.tempBoil?.let {
                     tempBoil += it * pair.second
                     divideBoil += pair.second
@@ -208,7 +242,7 @@ data class RagiMaterial private constructor(
         private fun initMelt(): Int? {
             var tempMelt = 0
             var divideMelt = 0
-            components.forEach { pair ->
+            for (pair in components) {
                 pair.first.tempMelt?.let {
                     tempMelt += it * pair.second
                     divideMelt += pair.second
@@ -227,7 +261,9 @@ data class RagiMaterial private constructor(
         //混合物用の化学式を自動で生成するメソッド
         private fun initFormulaMixture(): String {
             var formula = ""
-            components.forEach { formula += ",${it.first.formula}" }
+            for (pair in components) {
+                formula += ",${pair.first.formula}"
+            }
             return "(${formula.substring(1)})"
         }
 
@@ -245,7 +281,6 @@ data class RagiMaterial private constructor(
                 type,
                 burnTime,
                 color,
-                //components,
                 crystalType,
                 formula,
                 molar,
@@ -254,31 +289,19 @@ data class RagiMaterial private constructor(
                 tempMelt,
                 tempBoil,
                 tempSubl
-        ).also {
-            //indexが負の値でない場合
-            if (it.index >= 0) {
-                //同じindex, nameで登録されていない場合
-                if (MaterialRegistry.mapIndex[it.index] == null && MaterialRegistry.mapName[it.name] == null) {
-                    MaterialRegistry.mapIndex[it.index] = it
-                    MaterialRegistry.mapName[it.name] = it
-                    for (part in PartRegistry.list) {
-                        if (it.isValidPart(part)) {
-                            it.listValidParts.add(part)
-                        }
-                    }
-                } else RagiMaterials.LOGGER.warn("The material ${it.name} indexed ${it.index} is duplicated with ${MaterialRegistry.mapIndex[it.index]?.name}!")
-            } else RagiMaterials.LOGGER.warn("The index ${it.index} is smaller than 0!")
+        )
+
+        fun buildAndRegister(): RagiMaterial {
+            return build().register()
         }
+
     }
 
     //元素用のクラス
     class Element(val name: String, val type: MaterialType, val color: Color, val molar: Float, val formula: String, val tempMelt: Int? = null, val tempBoil: Int? = null, val tempSubl: Int? = null) {
 
-        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil, tempSubl = tempSubl).also {
-            if (MaterialRegistry.mapElement[it.name] == null) {
-                MaterialRegistry.mapElement[it.name] = it
-            } else RagiMaterials.LOGGER.warn("The material ${it.name} is duplicated with ${MaterialRegistry.mapElement[it.name]?.name}!")
-        }
+        fun build() = RagiMaterial(-1, name, type, color = color, formula = formula, molar = molar, tempMelt = tempMelt, tempBoil = tempBoil, tempSubl = tempSubl)
+
     }
 
     //化学式用のクラス

@@ -15,7 +15,7 @@ data class MillRecipe private constructor(private var input: ItemStack, private 
 
     fun getOutput(): ItemStack = output.copy()
 
-    override fun match(inventory: IItemHandler) = ItemStackWrapper(this.input, 1) == ItemStackWrapper(inventory.getStackInSlot(0), 1)
+    override fun match(inventory: IItemHandler) = ItemStackWrapper(inventory.getStackInSlot(0)).moreThan(ItemStackWrapper(getInput()))
 
     //    IRecipeWrapper    //
 

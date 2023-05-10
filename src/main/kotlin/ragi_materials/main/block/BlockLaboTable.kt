@@ -36,10 +36,8 @@ object BlockLaboTable : BlockContainerBase<TileLaboTable>("laboratory_table", Ma
 
     override fun updateTick(world: World, pos: BlockPos, state: IBlockState, rand: Random) {
         if (!world.isRemote) {
-            if (world.isBlockPowered(pos)) {
-                val tile = world.getTileEntity(pos)
-                if (tile !== null && tile is TileLaboTable) tile.chemicalReaction()
-            }
+            val tile = world.getTileEntity(pos)
+            if (tile !== null && tile is TileLaboTable) tile.chemicalReaction()
         }
     }
 }

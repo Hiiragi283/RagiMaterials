@@ -13,6 +13,11 @@ object PartRegistry {
         type = EnumMaterialType.BLOCK_MATERIAL
     }.build()
 
+    val CRUSHED = MaterialPart.Builder("crushed").apply {
+        prefixOre = "crushed"
+        type = EnumMaterialType.ORE
+    }.build()
+    
     val CRYSTAL = MaterialPart.Builder("crystal").apply {
         prefixOre = "gem"
         type = EnumMaterialType.CRYSTAL
@@ -57,15 +62,14 @@ object PartRegistry {
         type = EnumMaterialType.ORE
     }.build()
 
-    val ORE_CRUSHED = MaterialPart.Builder("crushed").apply {
-        prefixOre = "crushed"
-        scale = 1.0f
-        type = EnumMaterialType.ORE
-    }.build()
-
     val PLATE = MaterialPart.Builder("plate").apply {
         prefixOre = "plate"
         type = EnumMaterialType.PLATE
+    }.build()
+
+    val PURIFIED = MaterialPart.Builder("purified").apply {
+        prefixOre = "crushedPurified"
+        type = EnumMaterialType.ORE
     }.build()
 
     val STICK = MaterialPart.Builder("stick").apply {

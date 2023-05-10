@@ -35,7 +35,9 @@ object ModelManager {
     }
 
     fun setModel(vararg items: Item) {
-        items.forEach { setModel(it) }
+        for (item in items) {
+            setModel(item)
+        }
     }
 
     //メタデータによらず特定のモデルファイルだけを利用させるメソッド
@@ -44,7 +46,9 @@ object ModelManager {
     }
 
     fun setModelSame(vararg items: Item) {
-        items.forEach { setModelSame(it) }
+        for (item in items) {
+            setModelSame(item)
+        }
     }
 
     //新規でモデルのパスを紐づけてモデルを登録するメソッド

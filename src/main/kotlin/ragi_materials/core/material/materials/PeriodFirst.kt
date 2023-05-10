@@ -5,7 +5,6 @@ import ragi_materials.core.material.ElementRegistry
 import ragi_materials.core.material.MaterialRegistry
 import ragi_materials.core.material.RagiMaterial
 import ragi_materials.core.material.type.TypeRegistry
-import ragi_materials.core.util.ColorUtil
 import ragi_materials.core.util.RagiColor
 
 object PeriodFirst {
@@ -20,41 +19,25 @@ object PeriodFirst {
         MaterialRegistry.TUNGSTATE = RagiMaterial.Builder(-1, "tungstate", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.TUNGSTEN to 1, ElementRegistry.OXYGEN to 4)).build()
 
         //10 ~ 19: Hydrogen
-        MaterialRegistry.HYDROGEN = RagiMaterial.Builder(10, "hydrogen", TypeRegistry.GAS).setSimple(ElementRegistry.HYDROGEN to 2).build()
+        MaterialRegistry.HYDROGEN = RagiMaterial.Builder(10, "hydrogen", TypeRegistry.GAS).setSimple(ElementRegistry.HYDROGEN to 2).buildAndRegister()
 
         MaterialRegistry.WATER = RagiMaterial.Builder(11, "water", TypeRegistry.INTERNAL).setComponents(listOf(ElementRegistry.HYDROGEN to 2, ElementRegistry.OXYGEN to 1)).apply {
             color = RagiColor.BLUE
             tempBoil = 100
             tempMelt = 0
-        }.build()
+        }.buildAndRegister()
 
-        MaterialRegistry.SNOW = RagiMaterial.Builder(12, "snow", TypeRegistry.INGOT).setComponents(listOf(MaterialRegistry.WATER to 1)).apply {
-            color = RagiColor.WHITE
-        }.build()
-
-        MaterialRegistry.ICE = RagiMaterial.Builder(13, "ice", TypeRegistry.INGOT).setComponents(listOf(MaterialRegistry.WATER to 1)).apply {
-            color = ColorUtil.mixColor(RagiColor.AQUA, RagiColor.WHITE)
-        }.build()
-
-        MaterialRegistry.DEUTERIUM = RagiMaterial.Builder(14, "deuterium", TypeRegistry.GAS).setSimple(ElementRegistry.DEUTERIUM to 2).apply {
+        MaterialRegistry.DEUTERIUM = RagiMaterial.Builder(12, "deuterium", TypeRegistry.GAS).setSimple(ElementRegistry.DEUTERIUM to 2).apply {
             rarity = EnumRarity.EPIC
         }.build()
 
-        MaterialRegistry.TRITIUM = RagiMaterial.Builder(15, "tritium", TypeRegistry.GAS).setSimple(ElementRegistry.TRITIUM to 2).apply {
+        MaterialRegistry.TRITIUM = RagiMaterial.Builder(13, "tritium", TypeRegistry.GAS).setSimple(ElementRegistry.TRITIUM to 2).apply {
             rarity = EnumRarity.EPIC
         }.build()
 
-        //20 ~ 29: Helium, Neon, Argon
+        //20 ~ 29: Helium
         MaterialRegistry.HELIUM = RagiMaterial.Builder(20, "helium", TypeRegistry.GAS).setSimple(ElementRegistry.HELIUM to 1).apply {
             rarity = EnumRarity.RARE
-        }.build()
-
-        MaterialRegistry.NEON = RagiMaterial.Builder(21, "neon", TypeRegistry.GAS).setSimple(ElementRegistry.NEON to 1).apply {
-            rarity = EnumRarity.RARE
-        }.build()
-
-        MaterialRegistry.ARGON = RagiMaterial.Builder(22, "argon", TypeRegistry.GAS).setSimple(ElementRegistry.ARGON to 1).apply {
-            rarity = EnumRarity.RARE
-        }.build()
+        }.buildAndRegister()
     }
 }

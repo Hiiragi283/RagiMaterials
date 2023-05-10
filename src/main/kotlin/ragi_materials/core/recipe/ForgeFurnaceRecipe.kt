@@ -13,10 +13,10 @@ import ragi_materials.core.util.wrapper.ItemStackWrapper
 import kotlin.math.pow
 
 @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
-data class FFRecipe private constructor(private val input: ItemStack, private val output: ItemStack, private val fuel: Int)
-    : IForgeRegistryEntry.Impl<FFRecipe>(), IRecipeWrapper {
+data class ForgeFurnaceRecipe private constructor(private val input: ItemStack, private val output: ItemStack, private val fuel: Int)
+    : IForgeRegistryEntry.Impl<ForgeFurnaceRecipe>(), IRecipeWrapper {
 
-    constructor(recipe: FFRecipe) : this(recipe.getInput(), recipe.getOutput(), recipe.getFuel())
+    constructor(recipe: ForgeFurnaceRecipe) : this(recipe.getInput(), recipe.getOutput(), recipe.getFuel())
 
     fun getInput(): ItemStack = input.copy()
 
@@ -57,7 +57,7 @@ data class FFRecipe private constructor(private val input: ItemStack, private va
 
         fun setOutput(stack: ItemStack) = also { this.output = stack }
 
-        fun build() = FFRecipe(input, output, fuel)
+        fun build() = ForgeFurnaceRecipe(input, output, fuel)
 
     }
 }

@@ -28,7 +28,7 @@ import ragi_materials.main.container.ContainerFullBottle
 
 class TileFullBottleStation : TileTickableBase(20), ITileContainer, ITileProvider.Inventory, ITileProvider.Tank {
 
-    lateinit var output: RagiItemHandler
+    lateinit var output: RagiItemHandler<TileFullBottleStation>
     lateinit var inputTank: RagiTank
 
     //    Capability    //

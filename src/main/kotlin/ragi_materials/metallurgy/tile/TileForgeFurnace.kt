@@ -27,7 +27,7 @@ import ragi_materials.core.util.succeeded
 
 class TileForgeFurnace : TileBase(), ITileProvider.Inventory {
 
-    lateinit var input: RagiItemHandler
+    lateinit var input: RagiItemHandler<TileForgeFurnace>
     var fuel = 0
     var fuelMax = 200 * 80 * 64
 
@@ -46,7 +46,7 @@ class TileForgeFurnace : TileBase(), ITileProvider.Inventory {
     //    Capability    //
 
     override fun createInventory(): RagiCapabilityProvider<IItemHandler> {
-        input = object : RagiItemHandler(1, this) {
+        input = object : RagiItemHandler<TileForgeFurnace>(1, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
                 return if (isFuel(stack)) {
                     val burnTime = TileEntityFurnace.getItemBurnTime(stack) * stack.count
