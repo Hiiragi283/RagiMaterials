@@ -1,27 +1,27 @@
 package hiiragi283.material.base
 
 import hiiragi283.material.capability.RagiCapabilityProvider
-import net.minecraftforge.energy.IEnergyStorage
-import net.minecraftforge.fluids.capability.IFluidHandler
-import net.minecraftforge.items.IItemHandler
+import hiiragi283.material.capability.energy.RagiEnergyStorage
+import hiiragi283.material.capability.fluid.RagiTank
+import hiiragi283.material.capability.item.RagiItemHandler
 
 object ITileProvider {
 
     interface Inventory {
 
-        fun createInventory(): RagiCapabilityProvider<IItemHandler>
+        fun createInventory(): RagiCapabilityProvider<RagiItemHandler<*>>
 
     }
 
     interface Tank {
 
-        fun createTank(): RagiCapabilityProvider<IFluidHandler>
+        fun createTank(): RagiCapabilityProvider<RagiTank>
 
     }
 
     interface Energy {
 
-        fun createBattery(): RagiCapabilityProvider<IEnergyStorage>
+        fun createBattery(): RagiCapabilityProvider<RagiEnergyStorage>
 
     }
 }

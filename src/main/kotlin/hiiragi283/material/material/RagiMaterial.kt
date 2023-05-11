@@ -20,6 +20,7 @@ import java.awt.Color
  */
 
 data class RagiMaterial private constructor(
+    val index: Int = -1,
     override val name: String = "empty",
     override val type: MaterialType = TypeRegistry.INTERNAL,
     val burnTime: Int = -1,
@@ -46,6 +47,12 @@ data class RagiMaterial private constructor(
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String = this.name.snakeToUpperCamelCase()
 
+    //翻訳後の名前を取得するメソッド
+    fun getTranslatedName(): String = I18n.format(getTranslationKey())
+
+    //翻訳キーを取得するメソッド
+    fun getTranslationKey() = "material.$name"
+
     //materialのツールチップを生成するメソッド
     fun getTooltip(tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
@@ -62,6 +69,14 @@ data class RagiMaterial private constructor(
 
     //()つきの化学式を返すメソッド
     fun setBracket() = copy(formula = "(${formula})")
+
+    //NBTタグに素材を書き込むメソッド
+    fun writeToNBT(tag: NBTTagCompound?): NBTTagCompound {
+        val tag1 = tag ?: NBTTagCompound()
+        return tag1.also { it.setString("material", name) }
+    }
+
+    //    IMaterialBase    //
 
     //素材を登録するメソッド
     override fun register(): RagiMaterial {
@@ -81,23 +96,18 @@ data class RagiMaterial private constructor(
         return this
     }
 
-    //NBTタグに素材を書き込むメソッド
-    fun writeToNBT(tag: NBTTagCompound?): NBTTagCompound {
-        val tag1 = tag ?: NBTTagCompound()
-        return tag1.also { it.setString("material", name) }
-    }
-
     class Builder(
-        private val name: String = "empty",
-        private val type: MaterialType = TypeRegistry.INTERNAL
+        private val index: Int,
+        private val name: String,
+        private val type: MaterialType
     ) {
 
-        private var burnTime = -1
-        private var color = Color(0xFFFFFF)
+        var burnTime = -1
+        var color = Color(0xFFFFFF)
         private var components: List<Pair<IMaterialBase<*>, Int>> = listOf()
-        private var crystalType = EnumCrystalType.NONE
-        private var formula: String = ""
-        private var molar: Float? = null
+        var crystalType = EnumCrystalType.NONE
+        var formula: String = ""
+        var molar: Float? = null
 
         //燃焼時間を設定するメソッド
         fun setBurnTime(time: Int) = also { it.burnTime = time }
@@ -187,6 +197,7 @@ data class RagiMaterial private constructor(
         fun setSimple(element: IMaterialBase<*>, amount: Int) = also { setComponents(listOf(element to amount)) }
 
         fun build(): RagiMaterial = RagiMaterial(
+            index,
             name,
             type,
             burnTime,

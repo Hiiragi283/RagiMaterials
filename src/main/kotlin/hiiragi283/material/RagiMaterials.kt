@@ -53,18 +53,22 @@ object RagiMaterials {
 
     @Mod.EventHandler
     fun onConstruct(event: FMLConstructionEvent) {
+        proxy.onConstruct()
     }
 
     @Mod.EventHandler
     fun onPreInit(event: FMLPreInitializationEvent) {
+        proxy.onPreInit()
     }
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
+        proxy.onInit()
     }
 
     @Mod.EventHandler
     fun onPostInit(event: FMLPostInitializationEvent) {
+        proxy.onPostInit()
     }
 
 }

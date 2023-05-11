@@ -11,11 +11,10 @@ import net.minecraftforge.common.util.INBTSerializable
  * Source: https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/capability/DataProvider.java
  */
 
-class RagiCapabilityProvider<T : Any?>(
+class RagiCapabilityProvider<T>(
     private val capability: Capability<T>,
-    private val instance: T,
-    private var serializer: INBTSerializable<NBTTagCompound>
-) : ICapabilitySerializable<NBTTagCompound> {
+    private val instance: T
+) : ICapabilitySerializable<NBTTagCompound> where T : Any, T : INBTSerializable<NBTTagCompound> {
 
     //    ICapability    //
 
@@ -27,9 +26,9 @@ class RagiCapabilityProvider<T : Any?>(
 
     //    INBTSerializable<NBTTagCompound>    //
 
-    override fun serializeNBT(): NBTTagCompound = serializer.serializeNBT()
+    override fun serializeNBT(): NBTTagCompound = instance.serializeNBT()
 
     override fun deserializeNBT(nbt: NBTTagCompound) {
-        serializer.deserializeNBT(nbt)
+        instance.deserializeNBT(nbt)
     }
 }

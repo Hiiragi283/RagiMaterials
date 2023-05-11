@@ -55,7 +55,7 @@ abstract class TileBase : TileEntity() {
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean =
         oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    //    Event    //
+    //    CommonEvent    //
 
     abstract fun onTileActivated(
         world: World,

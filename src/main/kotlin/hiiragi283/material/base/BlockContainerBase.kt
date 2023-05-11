@@ -23,7 +23,7 @@ abstract class BlockContainerBase<T : TileBase>(ID: String, material: Material, 
         GameRegistry.registerTileEntity(tile, ResourceLocation(RagiMaterials.MOD_ID, "te_$ID"))
     }
 
-    //    Event    //
+    //    CommonEvent    //
 
     override fun breakBlock(world: World, pos: BlockPos, state: IBlockState) {
         val tile = world.getTileEntity(pos)

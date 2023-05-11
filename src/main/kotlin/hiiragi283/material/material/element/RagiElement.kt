@@ -23,6 +23,8 @@ data class RagiElement(
     //元素が空か判定するメソッド
     fun isEmpty(): Boolean = this == EMPTY
 
+    //    IMaterialBase    //
+
     override fun register(): RagiElement {
         val element = ElementRegistry.getElement(name)
         //同じ名前の素材がない場合

@@ -1,23 +1,27 @@
 package hiiragi283.material.base
 
+import hiiragi283.material.RagiMaterials
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.registries.IForgeRegistry
 
-open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
+abstract class ItemBase(ID: String, private var maxMeta: Int) : Item() {
 
     init {
-        setRegistryName(MOD, ID)
+        setRegistryName(RagiMaterials.MOD_ID, ID)
+        creativeTab = CreativeTabs.MISC
         hasSubtypes = maxMeta > 0 //メタデータを使用するかどうか
+        maxMeta = 0.coerceAtLeast(maxMeta) //maxMetaを0以上にする
         translationKey = ID //翻訳キーをIDから取得する
     }
 
     //    General    //
 
-    override fun getMetadata(damage: Int): Int = if (maxMeta > 0 && damage in 0..maxMeta) damage else maxMeta
+    override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
 
     override fun getTranslationKey(stack: ItemStack): String =
         super.getTranslationKey() + if (maxMeta == 0) "" else ".${stack.metadata}"
@@ -31,4 +35,15 @@ open class ItemBase(MOD: String, ID: String, val maxMeta: Int) : Item() {
             }
         }
     }
+
+    //    ItemBase    //
+
+    open fun register(registry: IForgeRegistry<Item>) {
+        registry.register(this)
+    }
+
+    open fun registerOreDict() {}
+
+    open fun registerRecipe() {}
+
 }

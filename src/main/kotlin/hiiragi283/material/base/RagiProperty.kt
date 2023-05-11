@@ -15,8 +15,6 @@ object RagiProperty {
 
     val COUNT8: PropertyInteger = PropertyInteger.create("count", 0, 7)
 
-    val HAS_ORE: PropertyBool = PropertyBool.create("ore")
-
     //0 -> NORTH, 1 -> EAST, 2 -> SOUTH, 3 -> WEST
     val HORIZONTAL: PropertyDirection =
         PropertyDirection.create("facing", listOf(EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST))
