@@ -1,13 +1,11 @@
 package hiiragi283.material.material
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.material.part.MaterialPart
-import hiiragi283.material.material.part.PartRegistry
+import hiiragi283.material.item.ItemMaterial
 import hiiragi283.material.material.type.EnumCrystalType
 import hiiragi283.material.material.type.MaterialType
 import hiiragi283.material.material.type.TypeRegistry
 import hiiragi283.material.util.ColorUtil
-import hiiragi283.material.util.RagiColor
 import net.minecraft.client.resources.I18n
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.Fluid
@@ -20,21 +18,21 @@ import java.awt.Color
  */
 
 data class RagiMaterial private constructor(
-    val index: Int = -1,
-    override val name: String = "empty",
-    override val type: MaterialType = TypeRegistry.INTERNAL,
-    val burnTime: Int = -1,
-    override val color: Color = RagiColor.WHITE,
-    val crystalType: EnumCrystalType = EnumCrystalType.NONE,
-    override val formula: String = "",
-    override val molar: Float? = null
+    val index: Int,
+    override val name: String,
+    override val type: MaterialType,
+    val burnTime: Int,
+    override val color: Color,
+    val crystalType: EnumCrystalType,
+    override val formula: String,
+    override val molar: Float?
 ) : IMaterialBase<RagiMaterial> {
 
-    val listValidParts: MutableList<MaterialPart> = mutableListOf()
+    val listValidParts: MutableList<ItemMaterial> = mutableListOf()
 
     companion object {
         @JvmStatic
-        val EMPTY = RagiMaterial()
+        val EMPTY = Builder().build()
 
         //NBTタグから素材を取得するメソッド
         @JvmStatic
@@ -48,10 +46,7 @@ data class RagiMaterial private constructor(
     fun getOreDict(): String = this.name.snakeToUpperCamelCase()
 
     //翻訳後の名前を取得するメソッド
-    fun getTranslatedName(): String = I18n.format(getTranslationKey())
-
-    //翻訳キーを取得するメソッド
-    fun getTranslationKey() = "material.$name"
+    fun getTranslatedName(): String = I18n.format("material.$name")
 
     //materialのツールチップを生成するメソッド
     fun getTooltip(tooltip: MutableList<String>) {
@@ -65,7 +60,7 @@ data class RagiMaterial private constructor(
     fun isEmpty(): Boolean = this == EMPTY
 
     //部品と素材の組み合わせが有効か判定するメソッド
-    fun isValidPart(part: MaterialPart): Boolean = part.type in type.types
+    fun isValidPart(item: ItemMaterial): Boolean = item in type.parts
 
     //()つきの化学式を返すメソッド
     fun setBracket() = copy(formula = "(${formula})")
@@ -79,27 +74,21 @@ data class RagiMaterial private constructor(
     //    IMaterialBase    //
 
     //素材を登録するメソッド
-    override fun register(): RagiMaterial {
+    override fun register() = also {
         val material = MaterialRegistry.getMaterial(name)
         //同じ名前の素材がない場合
-        if (!material.isEmpty()) {
+        if (material.isEmpty()) {
             MaterialRegistry.setMaterial(this)
             RagiMaterials.LOGGER.info("The material $name is registered!")
         } else {
             RagiMaterials.LOGGER.warn("The material $name is duplicated with ${material.name}!")
         }
-        for (part in PartRegistry.getList()) {
-            if (isValidPart(part)) {
-                listValidParts.add(part)
-            }
-        }
-        return this
     }
 
     class Builder(
-        private val index: Int,
-        private val name: String,
-        private val type: MaterialType
+        private val index: Int = -1,
+        private val name: String = "empty",
+        private val type: MaterialType = TypeRegistry.INTERNAL
     ) {
 
         var burnTime = -1
@@ -190,7 +179,7 @@ data class RagiMaterial private constructor(
             for (pair in components) {
                 formula += ",${pair.first.formula}"
             }
-            return "(${formula.substring(1)})"
+            return if (formula.length > 1) "(${formula.substring(1)})" else ""
         }
 
         //素材を単体に設定するメソッド

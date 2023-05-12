@@ -1,60 +1,53 @@
 package hiiragi283.material.registry
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.base.BlockBase
 import hiiragi283.material.base.ItemBase
-import hiiragi283.material.base.ItemBlockBase
 import hiiragi283.material.client.color.IRagiColored
 import hiiragi283.material.client.model.ICustomModel
 import hiiragi283.material.client.model.ModelManager
 import hiiragi283.material.item.ItemMaterial
-import hiiragi283.material.material.part.MaterialPart
-import hiiragi283.material.material.part.PartRegistry
 import hiiragi283.material.util.RagiColor
-import net.minecraft.block.Block
 import net.minecraft.item.Item
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 object RagiRegistry {
 
-    fun getPart(part: MaterialPart) = ForgeRegistries.ITEMS.getValue(ResourceLocation(RagiMaterials.MOD_ID, part.name)) ?: ITEM_INGOT
-
     //    Collection    //
 
-    private lateinit var blocks: Set<BlockBase>
-    private lateinit var items: Set<ItemBase>
+    private val items: MutableSet<ItemBase> = mutableSetOf()
+    private val mapItemMaterials: LinkedHashMap<String, ItemMaterial> = linkedMapOf()
+
+    fun getItemMaterials() = mapItemMaterials.values
 
     //    Item    //
 
-    val ITEM_DUST = ItemMaterial(PartRegistry.DUST)
-    val ITEM_INGOT = ItemMaterial(PartRegistry.INGOT)
+    val ITEM_PART_BLOCK = ItemMaterial("block_material", "block", 9.0f)
+    val ITEM_PART_CRYSTAL = ItemMaterial("crystal", "gem")
+    val ITEM_PART_DUST = ItemMaterial("dust", "dust")
+    val ITEM_PART_DUST_TINY = ItemMaterial("dust_tiny", "dustTiny", 0.1f)
+    val ITEM_PART_GEAR = ItemMaterial("gear", "gear", 4.0f)
+    val ITEM_PART_INGOT = ItemMaterial("ingot", "ingot")
+    val ITEM_PART_NUGGET = ItemMaterial("nugget", "nugget", 0.1f)
+    val ITEM_PART_PLATE = ItemMaterial("plate", "plate")
+    val ITEM_PART_STICK = ItemMaterial("stick", "stick", 0.5f)
 
     //    Registration    //
 
     fun load() {
-
-        val blocks: MutableSet<BlockBase> = mutableSetOf()
-        val items: MutableSet<ItemBase> = mutableSetOf()
-
         for (field in this::class.java.declaredFields) {
             field.isAccessible = true
-            when (val obj = field.get(this)) {
-                is BlockBase -> blocks.add(obj)
-                is ItemBase -> items.add(obj)
-                else -> {}
+            val obj = field.get(this)
+            if (obj is ItemBase) {
+                items.add(obj)
+                RagiMaterials.LOGGER.debug("The item ${obj.registryName} was added to collection!")
+                if (obj is ItemMaterial) mapItemMaterials[obj.prefixOre] = obj
             }
         }
-
-        this.blocks = blocks
-        this.items = items
-
     }
 
     fun registerOreDict() {
@@ -72,14 +65,6 @@ object RagiRegistry {
     object CommonEvent {
 
         @SubscribeEvent
-        fun registerBlocks(event: RegistryEvent.Register<Block>) {
-            val registry = event.registry
-            for (block in blocks) {
-                block.register(registry)
-            }
-        }
-
-        @SubscribeEvent
         fun registerItems(event: RegistryEvent.Register<Item>) {
             val registry = event.registry
             for (item in items) {
@@ -93,11 +78,6 @@ object RagiRegistry {
 
         @SubscribeEvent
         fun registerModel(event: ModelRegistryEvent) {
-            //モデルの自動登録
-            for (block in blocks) {
-                if (block is ICustomModel) block.registerModel() else ModelManager.setModel(block)
-                RagiMaterials.LOGGER.debug("The model for item block ${block.registryName} is registered!")
-            }
             for (item in items) {
                 if (item is ICustomModel) item.registerModel() else ModelManager.setModel(item)
                 RagiMaterials.LOGGER.debug("The model for item ${item.registryName} is registered!")
@@ -106,30 +86,7 @@ object RagiRegistry {
 
         @SubscribeEvent
         fun registerColor(event: ColorHandlerEvent.Item) {
-
-            val blockColors = event.blockColors
-            val itemColors = event.itemColors
-
-            //Block
-            blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
-                val block = state.block
-                if (world !== null && pos !== null && block is IRagiColored.Block) block.getColor(
-                    state,
-                    world,
-                    pos,
-                    tintIndex
-                ).rgb else RagiColor.WHITE.rgb
-            }, *blocks.toTypedArray())
-
-            //ItemBlock
-            itemColors.registerItemColorHandler({ stack, tintIndex ->
-                val item = stack.item as ItemBlockBase
-                val block = item.block
-                if (block is IRagiColored.Block) block.getColor(stack, tintIndex).rgb else RagiColor.WHITE.rgb
-            }, *blocks.toTypedArray())
-
-            //Item
-            itemColors.registerItemColorHandler({ stack, tintIndex ->
+            event.itemColors.registerItemColorHandler({ stack, tintIndex ->
                 val item = stack.item
                 if (item is IRagiColored.Item) item.getColor(stack, tintIndex).rgb else RagiColor.WHITE.rgb
             }, *items.toTypedArray())

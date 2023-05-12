@@ -1,0 +1,26 @@
+
+##    Item    ##
+
+item.ragi_block_material.name=Block of %s
+item.ragi_crystal.name=%s
+item.ragi_dust.name=%s Dust
+item.ragi_dust_tiny.name=Tiny Pile of %s Dust
+item.ragi_gear.name=%s Gear
+item.ragi_ingot.name=%s Ingot
+item.ragi_nugget.name=%s Nugget
+item.ragi_plate.name=%s Plate
+item.ragi_stick.name=%s Stick
+
+##    Tooltip    ##
+
+tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
+tips.ragi_materials.property.mol=- Molar Mass: §b%s§r§7 g/mol
+tips.ragi_materials.property.name=- Name: §b%s§r§7
+
+##    Material    ##
+
+material.stone=Stone
+material.granite=Granite
+material.diorite=Diorite
+material.andesite=Andesite
+material.wood=Wood

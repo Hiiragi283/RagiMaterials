@@ -1,30 +1,28 @@
 package hiiragi283.material.material.type
 
-data class MaterialType constructor(val name: String) {
+import hiiragi283.material.item.ItemMaterial
 
-    val types: MutableList<EnumMaterialType> = mutableListOf()
+data class MaterialType(val name: String, val parts: Set<ItemMaterial>) {
 
-    fun enableOre() = Builder(name).addType(types).addType(EnumMaterialType.ORE).build()
+    /**
+     * Collectionは比較不可能なため，わざと除外する
+     */
+    override fun equals(other: Any?): Boolean {
+        return if (other !== null && other is MaterialType) name == other.name else false
+    }
 
-    fun enableRadio() = Builder(name).addType(types).addType(EnumMaterialType.RADIOACTIVE).build()
-
-    fun match(type: MaterialType) = name == "wildcard" || this == type
+    override fun hashCode() = name.hashCode()
 
     class Builder(val name: String) {
 
-        private var list: MutableList<EnumMaterialType> = mutableListOf()
+        private val parts: MutableSet<ItemMaterial> = mutableSetOf()
 
-        //fun addType(type: EnumMaterialType): Builder = also { list.add(type) }
+        fun addParts(items: Collection<ItemMaterial>) = also { parts.addAll(items) }
 
-        fun addType(types: Collection<EnumMaterialType>): Builder = also { list.addAll(types) }
+        fun addParts(vararg items: ItemMaterial) = also { parts.addAll(items) }
 
-        fun addType(vararg types: EnumMaterialType): Builder = also { list.addAll(types) }
-
-        fun build(): MaterialType {
-            return MaterialType(name).also {
-                it.types.addAll(list)
-                TypeRegistry.setType(it)
-            }
+        fun build() = MaterialType(name, parts).also {
+            TypeRegistry.setType(it)
         }
     }
 }

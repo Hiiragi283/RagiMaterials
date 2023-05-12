@@ -1,6 +1,7 @@
 package hiiragi283.material.proxy
 
 import hiiragi283.material.material.MaterialRegistry
+import hiiragi283.material.material.element.ElementRegistry
 import hiiragi283.material.registry.RagiRegistry
 import net.minecraftforge.common.MinecraftForge
 
@@ -9,6 +10,8 @@ open class CommonProxy : IProxy {
     override fun onConstruct() {
         //Eventの登録
         MinecraftForge.EVENT_BUS.register(RagiRegistry.CommonEvent)
+        //元素の登録
+        ElementRegistry.load()
         //素材の登録
         MaterialRegistry.load()
     }

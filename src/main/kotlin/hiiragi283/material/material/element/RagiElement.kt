@@ -8,16 +8,16 @@ import hiiragi283.material.util.RagiColor
 import java.awt.Color
 
 data class RagiElement(
-    override val name: String = "empty",
-    override val type: MaterialType = TypeRegistry.INTERNAL,
-    override val color: Color = RagiColor.WHITE,
-    override val formula: String = "",
-    override val molar: Float? = null,
+    override val name: String,
+    override val type: MaterialType,
+    override val color: Color,
+    override val formula: String,
+    override val molar: Float
 ) : IMaterialBase<RagiElement> {
 
     companion object {
         @JvmStatic
-        val EMPTY = RagiElement()
+        val EMPTY = RagiElement("empty", TypeRegistry.INTERNAL, RagiColor.WHITE, "", 0.0f)
     }
 
     //元素が空か判定するメソッド

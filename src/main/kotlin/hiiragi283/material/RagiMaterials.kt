@@ -52,23 +52,15 @@ object RagiMaterials {
     val COLOR = Color(255, 0, 31)
 
     @Mod.EventHandler
-    fun onConstruct(event: FMLConstructionEvent) {
-        proxy.onConstruct()
-    }
+    fun onConstruct(event: FMLConstructionEvent): Unit = proxy.onConstruct()
 
     @Mod.EventHandler
-    fun onPreInit(event: FMLPreInitializationEvent) {
-        proxy.onPreInit()
-    }
+    fun onPreInit(event: FMLPreInitializationEvent): Unit = proxy.onPreInit()
 
     @Mod.EventHandler
-    fun onInit(event: FMLInitializationEvent) {
-        proxy.onInit()
-    }
+    fun onInit(event: FMLInitializationEvent): Unit = proxy.onInit()
 
     @Mod.EventHandler
-    fun onPostInit(event: FMLPostInitializationEvent) {
-        proxy.onPostInit()
-    }
+    fun onPostInit(event: FMLPostInitializationEvent): Unit = proxy.onPostInit()
 
 }

@@ -40,6 +40,7 @@ abstract class ItemBase(ID: String, private var maxMeta: Int) : Item() {
 
     open fun register(registry: IForgeRegistry<Item>) {
         registry.register(this)
+        RagiMaterials.LOGGER.debug("The item $registryName was registered!")
     }
 
     open fun registerOreDict() {}

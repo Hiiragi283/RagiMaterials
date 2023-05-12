@@ -50,6 +50,7 @@ minecraft {
             workingDirectory project.file('client')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            args '--username', 'hiiragi283'
             environment 'MC_VERSION', project.minecraft_version.toString()
             mods {
                 material {
@@ -61,6 +62,7 @@ minecraft {
             workingDirectory project.file('server')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            args '--username', 'hiiragi283'
             environment 'MC_VERSION', project.minecraft_version.toString()
             mods {
                 material {

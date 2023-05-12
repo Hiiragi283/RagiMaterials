@@ -1,91 +1,84 @@
 package hiiragi283.material.material.type
 
+import hiiragi283.material.registry.RagiRegistry
+
 object TypeRegistry {
 
     private val mapType: LinkedHashMap<String, MaterialType> = linkedMapOf()
 
     fun getType(name: String): MaterialType = mapType.getOrDefault(name, INTERNAL)
 
-    fun setType(type: MaterialType) {
-        mapType.putIfAbsent(type.name, type)
-    }
+    fun setType(type: MaterialType): MaterialType? = mapType.putIfAbsent(type.name, type)
 
     val CRYSTAL = MaterialType.Builder("crystal")
-        .addType(
-            EnumMaterialType.BLOCK_MATERIAL,
-            EnumMaterialType.CRYSTAL,
-            EnumMaterialType.DUST,
-            EnumMaterialType.PLATE
-        ).build() //宝石類
+        .addParts(
+            RagiRegistry.ITEM_PART_BLOCK,
+            RagiRegistry.ITEM_PART_CRYSTAL,
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY,
+            RagiRegistry.ITEM_PART_PLATE
+        ).build()
 
     val DUST = MaterialType.Builder("dust")
-        .addType(EnumMaterialType.DUST)
-        .build() //固体全般
+        .addParts(
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY
+        ).build()
 
     val FUEL = MaterialType.Builder("fuel")
-        .addType(
-            EnumMaterialType.BLOCK_MATERIAL,
-            EnumMaterialType.CRYSTAL,
-            EnumMaterialType.DUST
-        ).build() //化石燃料
+        .addParts(
+            RagiRegistry.ITEM_PART_BLOCK,
+            RagiRegistry.ITEM_PART_CRYSTAL,
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY
+        ).build()
 
-    val GAS = MaterialType.Builder("gas")
-        .addType(EnumMaterialType.LIQUID)
-        .build() //気体全般
+    val GAS = MaterialType.Builder("gas").build()
 
     val INGOT = MaterialType.Builder("ingot")
-        .addType(
-            EnumMaterialType.DUST,
-            EnumMaterialType.INGOT,
-            EnumMaterialType.PLATE,
-            EnumMaterialType.STICK
-        ).build() //インゴット全般
+        .addParts(
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY,
+            RagiRegistry.ITEM_PART_INGOT,
+            RagiRegistry.ITEM_PART_PLATE,
+            RagiRegistry.ITEM_PART_STICK
+        ).build()
 
-    val INTERNAL = MaterialType.Builder("internal")
-        //.addType(EnumMaterialType.INTERNAL)
-        .build() //内部データ
+    val INTERNAL = MaterialType.Builder("internal").build()
 
-    val LIQUID = MaterialType.Builder("liquid")
-        .addType(EnumMaterialType.LIQUID)
-        .build()//流体全般 (流体ブロックなし)
+    val LIQUID = MaterialType.Builder("liquid").build()
 
     val METAL = MaterialType.Builder("metal")
-        .addType(
-            EnumMaterialType.BLOCK_MATERIAL,
-            EnumMaterialType.DUST,
-            EnumMaterialType.GEAR,
-            EnumMaterialType.INGOT,
-            EnumMaterialType.INGOT_HOT,
-            EnumMaterialType.LIQUID,
-            EnumMaterialType.NUGGET,
-            EnumMaterialType.PLATE,
-            EnumMaterialType.STICK
-        ).build() //金属全般
-
-    val METALLOID = MaterialType.Builder("metalloid")
-        .addType(
-            EnumMaterialType.BLOCK_MATERIAL,
-            EnumMaterialType.DUST,
-            EnumMaterialType.INGOT,
-            EnumMaterialType.PLATE
-        ).build() //半金属
+        .addParts(
+            RagiRegistry.ITEM_PART_BLOCK,
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY,
+            RagiRegistry.ITEM_PART_GEAR,
+            RagiRegistry.ITEM_PART_INGOT,
+            RagiRegistry.ITEM_PART_NUGGET,
+            RagiRegistry.ITEM_PART_PLATE,
+            RagiRegistry.ITEM_PART_STICK
+        ).build()
 
     val STONE = MaterialType.Builder("stone")
-        .addType(
-            EnumMaterialType.DUST,
-            EnumMaterialType.GEAR,
-            EnumMaterialType.PLATE,
-            EnumMaterialType.STICK
-        ).build() //石材用
+        .addParts(
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY,
+            RagiRegistry.ITEM_PART_GEAR,
+            RagiRegistry.ITEM_PART_PLATE,
+            RagiRegistry.ITEM_PART_STICK
+        ).build()
 
     val WILDCARD = MaterialType.Builder("wildcard")
-        .addType(EnumMaterialType.values().toList())
-        .build() //デバッグ用
+        .addParts(RagiRegistry.getItemMaterials())
+        .build()
 
     val WOOD = MaterialType.Builder("wood")
-        .addType(
-            EnumMaterialType.DUST,
-            EnumMaterialType.GEAR,
-            EnumMaterialType.PLATE
-        ).build() //木材用
+        .addParts(
+            RagiRegistry.ITEM_PART_DUST,
+            RagiRegistry.ITEM_PART_DUST_TINY,
+            RagiRegistry.ITEM_PART_GEAR,
+            RagiRegistry.ITEM_PART_PLATE
+        ).build()
+
 }
