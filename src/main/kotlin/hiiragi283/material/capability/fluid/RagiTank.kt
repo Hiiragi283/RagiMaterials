@@ -13,7 +13,7 @@ open class RagiTank(cap: Int) : FluidTank(cap), ICapabilityIO<RagiTank>, INBTSer
 
     override var ioType = EnumIOType.INPUT
 
-    override fun getIOType() = ioType
+    override fun getIOType(): EnumIOType = ioType
 
     override fun setIOType(type: EnumIOType): RagiTank = also { ioType = type }
 

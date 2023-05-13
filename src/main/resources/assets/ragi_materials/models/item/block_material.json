@@ -1,0 +1,8 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "parent": "ragi_materials:item/block",
+  "textures": {
+    "all": "ragi_materials:blocks/block_material",
+    "particle": "ragi_materials:blocks/block_material"
+  }
+}

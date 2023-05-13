@@ -4,51 +4,51 @@ import hiiragi283.material.registry.RagiRegistry
 
 object TypeRegistry {
 
-    private val mapType: LinkedHashMap<String, MaterialType> = linkedMapOf()
+    private val mapType: HashMap<String, MaterialType> = hashMapOf()
 
     fun getType(name: String): MaterialType = mapType.getOrDefault(name, INTERNAL)
 
     fun setType(type: MaterialType): MaterialType? = mapType.putIfAbsent(type.name, type)
 
-    val CRYSTAL = MaterialType.Builder("crystal")
+    val CRYSTAL = MaterialType("crystal")
         .addParts(
             RagiRegistry.ITEM_PART_BLOCK,
             RagiRegistry.ITEM_PART_CRYSTAL,
             RagiRegistry.ITEM_PART_DUST,
             RagiRegistry.ITEM_PART_DUST_TINY,
             RagiRegistry.ITEM_PART_PLATE
-        ).build()
+        )
 
-    val DUST = MaterialType.Builder("dust")
+    val DUST = MaterialType("dust")
         .addParts(
             RagiRegistry.ITEM_PART_DUST,
             RagiRegistry.ITEM_PART_DUST_TINY
-        ).build()
+        )
 
-    val FUEL = MaterialType.Builder("fuel")
+    val FUEL = MaterialType("fuel")
         .addParts(
             RagiRegistry.ITEM_PART_BLOCK,
             RagiRegistry.ITEM_PART_CRYSTAL,
             RagiRegistry.ITEM_PART_DUST,
             RagiRegistry.ITEM_PART_DUST_TINY
-        ).build()
+        )
 
-    val GAS = MaterialType.Builder("gas").build()
+    val GAS = MaterialType("gas")
 
-    val INGOT = MaterialType.Builder("ingot")
+    val INGOT = MaterialType("ingot")
         .addParts(
             RagiRegistry.ITEM_PART_DUST,
             RagiRegistry.ITEM_PART_DUST_TINY,
             RagiRegistry.ITEM_PART_INGOT,
             RagiRegistry.ITEM_PART_PLATE,
             RagiRegistry.ITEM_PART_STICK
-        ).build()
+        )
 
-    val INTERNAL = MaterialType.Builder("internal").build()
+    val INTERNAL = MaterialType("internal")
 
-    val LIQUID = MaterialType.Builder("liquid").build()
+    val LIQUID = MaterialType("liquid")
 
-    val METAL = MaterialType.Builder("metal")
+    val METAL = MaterialType("metal")
         .addParts(
             RagiRegistry.ITEM_PART_BLOCK,
             RagiRegistry.ITEM_PART_DUST,
@@ -58,27 +58,26 @@ object TypeRegistry {
             RagiRegistry.ITEM_PART_NUGGET,
             RagiRegistry.ITEM_PART_PLATE,
             RagiRegistry.ITEM_PART_STICK
-        ).build()
+        )
 
-    val STONE = MaterialType.Builder("stone")
+    val STONE = MaterialType("stone")
         .addParts(
             RagiRegistry.ITEM_PART_DUST,
             RagiRegistry.ITEM_PART_DUST_TINY,
             RagiRegistry.ITEM_PART_GEAR,
             RagiRegistry.ITEM_PART_PLATE,
             RagiRegistry.ITEM_PART_STICK
-        ).build()
+        )
 
-    val WILDCARD = MaterialType.Builder("wildcard")
+    val WILDCARD = MaterialType("wildcard")
         .addParts(RagiRegistry.getItemMaterials())
-        .build()
 
-    val WOOD = MaterialType.Builder("wood")
+    val WOOD = MaterialType("wood")
         .addParts(
             RagiRegistry.ITEM_PART_DUST,
             RagiRegistry.ITEM_PART_DUST_TINY,
             RagiRegistry.ITEM_PART_GEAR,
             RagiRegistry.ITEM_PART_PLATE
-        ).build()
+        )
 
 }

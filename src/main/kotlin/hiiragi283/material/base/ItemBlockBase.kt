@@ -22,7 +22,7 @@ open class ItemBlockBase(block: Block, private val maxMeta: Int = 0) : ItemBlock
     override fun getTranslationKey(stack: ItemStack): String =
         super.getTranslationKey() + if (maxMeta == 0) "" else ".${stack.metadata}"
 
-    //    ClientEvent    //
+    //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {

@@ -41,7 +41,7 @@ abstract class TileBase : TileEntity() {
 
     //    Packet    //
 
-    override fun getUpdatePacket() = SPacketUpdateTileEntity(pos, 0, updateTag) //NBTタグの情報を送る
+    override fun getUpdatePacket(): SPacketUpdateTileEntity = SPacketUpdateTileEntity(pos, 0, updateTag) //NBTタグの情報を送る
 
     override fun onDataPacket(net: NetworkManager, pkt: SPacketUpdateTileEntity) {
         readFromNBT(pkt.nbtCompound) //受け取ったパケットのNBTタグを書き込む

@@ -20,5 +20,5 @@ fun addEnchantments(vararg pairs: Pair<Enchantment, Int>, stack: ItemStack) {
     EnchantmentHelper.setEnchantments(map, stack)
 }
 
-fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
+fun hasEnchantment(enchantment: Enchantment, stack: ItemStack): Boolean =
     EnchantmentHelper.getEnchantmentLevel(enchantment, stack) > 0

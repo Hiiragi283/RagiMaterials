@@ -1,11 +1,11 @@
 
 ##    Item    ##
 
-item.ragi_block_material.name=Block of %s
-item.ragi_crystal.name=%s
+item.ragi_block.name=Block of %s
 item.ragi_dust.name=%s Dust
 item.ragi_dust_tiny.name=Tiny Pile of %s Dust
 item.ragi_gear.name=%s Gear
+item.ragi_gem.name=%s
 item.ragi_ingot.name=%s Ingot
 item.ragi_nugget.name=%s Nugget
 item.ragi_plate.name=%s Plate
@@ -23,4 +23,12 @@ material.stone=Stone
 material.granite=Granite
 material.diorite=Diorite
 material.andesite=Andesite
+material.dirt=Dirt
 material.wood=Wood
+material.bedrock=Bedrock
+material.sand=Sand
+material.gold=Gold
+material.iron=Iron
+material.coal=Coal
+material.glass=Glass
+material.lapis=Lapis

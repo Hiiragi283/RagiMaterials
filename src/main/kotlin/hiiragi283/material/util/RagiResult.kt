@@ -4,6 +4,7 @@ package hiiragi283.material.util
 
 import net.minecraft.block.Block
 import net.minecraft.client.Minecraft
+import net.minecraft.client.entity.EntityPlayerSP
 import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.command.ICommandSender
 import net.minecraft.tileentity.TileEntity
@@ -12,7 +13,7 @@ import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.IBlockAccess
 
 private val WORLD_CLIENT: WorldClient = Minecraft.getMinecraft().world
-private val PLAYER_CLIENT = Minecraft.getMinecraft().player
+private val PLAYER_CLIENT: EntityPlayerSP = Minecraft.getMinecraft().player
 
 fun succeeded(block: Block, player: ICommandSender = PLAYER_CLIENT) {
     player.sendMessage(TextComponentTranslation("text.ragi_materials.succeeded", block.localizedName))

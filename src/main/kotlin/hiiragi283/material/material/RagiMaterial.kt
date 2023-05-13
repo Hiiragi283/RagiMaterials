@@ -32,11 +32,11 @@ data class RagiMaterial private constructor(
 
     companion object {
         @JvmStatic
-        val EMPTY = Builder().build()
+        val EMPTY: RagiMaterial = Builder().build()
 
         //NBTタグから素材を取得するメソッド
         @JvmStatic
-        fun readFromNBT(tag: NBTTagCompound) = MaterialRegistry.getMaterial(tag.getString("material"))
+        fun readFromNBT(tag: NBTTagCompound): RagiMaterial = MaterialRegistry.getMaterial(tag.getString("material"))
     }
 
     //nameから液体を取得するメソッド
@@ -52,7 +52,7 @@ data class RagiMaterial private constructor(
     fun getTooltip(tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.$name"))) //名称
-        tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula)) //化学式
+        if (formula.isNotEmpty()) tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula)) //化学式
         molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
     }
 
@@ -60,10 +60,10 @@ data class RagiMaterial private constructor(
     fun isEmpty(): Boolean = this == EMPTY
 
     //部品と素材の組み合わせが有効か判定するメソッド
-    fun isValidPart(item: ItemMaterial): Boolean = item in type.parts
+    fun isValidPart(item: ItemMaterial): Boolean = item in type.getParts()
 
     //()つきの化学式を返すメソッド
-    fun setBracket() = copy(formula = "(${formula})")
+    fun setBracket(): RagiMaterial = copy(formula = "(${formula})")
 
     //NBTタグに素材を書き込むメソッド
     fun writeToNBT(tag: NBTTagCompound?): NBTTagCompound {
@@ -99,22 +99,22 @@ data class RagiMaterial private constructor(
         var molar: Float? = null
 
         //燃焼時間を設定するメソッド
-        fun setBurnTime(time: Int) = also { it.burnTime = time }
+        fun setBurnTime(time: Int): Builder = also { it.burnTime = time }
 
         //色を設定するメソッド
-        fun setColor(color: Color) = also { it.color = color }
+        fun setColor(color: Color): Builder = also { it.color = color }
 
         //結晶の構造を設定するメソッド
-        fun setCrystalType(type: EnumCrystalType) = also { it.crystalType = type }
+        fun setCrystalType(type: EnumCrystalType): Builder = also { it.crystalType = type }
 
         //化学式を設定するメソッド
-        fun setFormula(formula: String) = also { it.formula = formula }
+        fun setFormula(formula: String): Builder = also { it.formula = formula }
 
         //モル質量を設定するメソッド
-        fun setMolarMass(molar: Float?) = also { it.molar = molar }
+        fun setMolarMass(molar: Float?): Builder = also { it.molar = molar }
 
         //素材の組成を設定し，そこから自動的に物性を生成するメソッド
-        fun setComponents(components: List<Pair<IMaterialBase<*>, Int>>) = also { builder ->
+        fun setComponents(components: List<Pair<IMaterialBase<*>, Int>>): Builder = also { builder ->
             builder.components = components
             val materials = builder.components.toMap().keys
             //自動で生成
@@ -168,7 +168,7 @@ data class RagiMaterial private constructor(
         }
 
         //素材を混合物に設定するメソッド
-        fun setMixture() = also {
+        fun setMixture(): Builder = also {
             it.formula = initFormulaMixture()
             it.molar = null
         }
@@ -183,7 +183,8 @@ data class RagiMaterial private constructor(
         }
 
         //素材を単体に設定するメソッド
-        fun setSimple(element: IMaterialBase<*>, amount: Int) = also { setComponents(listOf(element to amount)) }
+        fun setSimple(element: IMaterialBase<*>, amount: Int): Builder =
+            also { setComponents(listOf(element to amount)) }
 
         fun build(): RagiMaterial = RagiMaterial(
             index,

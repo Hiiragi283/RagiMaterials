@@ -17,7 +17,7 @@ open class RagiItemHandler<T : TileBase>(slots: Int, val tile: T) : ItemStackHan
 
     override var ioType = EnumIOType.INPUT
 
-    override fun getIOType() = ioType
+    override fun getIOType(): EnumIOType = ioType
 
     override fun setIOType(type: EnumIOType): RagiItemHandler<T> = also { ioType = type }
 
@@ -32,9 +32,7 @@ open class RagiItemHandler<T : TileBase>(slots: Int, val tile: T) : ItemStackHan
         return result == slots
     }
 
-    open fun clear() {
-        clear(0 until slots)
-    }
+    open fun clear(): Unit = clear(0 until slots)
 
     open fun clear(range: IntRange) {
         for (slot in range) {

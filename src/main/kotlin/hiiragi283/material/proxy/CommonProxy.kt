@@ -9,7 +9,7 @@ open class CommonProxy : IProxy {
 
     override fun onConstruct() {
         //Eventの登録
-        MinecraftForge.EVENT_BUS.register(RagiRegistry.CommonEvent)
+        MinecraftForge.EVENT_BUS.register(RagiRegistry)
         //元素の登録
         ElementRegistry.load()
         //素材の登録

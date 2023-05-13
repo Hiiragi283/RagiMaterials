@@ -23,13 +23,12 @@ class RagiItemHandlerWrapper(vararg itemHandlers: RagiItemHandler<*>) : IItemHan
             for (slot in 0 until itemHandler.slots) {
                 pairs.add(itemHandler to slot)
             }
-
         }
     }
 
     //    Slot    //
 
-    override fun getSlots() = pairs.size
+    override fun getSlots(): Int = pairs.size
 
     override fun getStackInSlot(slot: Int): ItemStack {
         val pair = getSlotHandler(slot)
@@ -41,9 +40,9 @@ class RagiItemHandlerWrapper(vararg itemHandlers: RagiItemHandler<*>) : IItemHan
         pair.first.setStackInSlot(pair.second, stack)
     }
 
-    override fun getSlotLimit(slot: Int) = 64
+    override fun getSlotLimit(slot: Int): Int = 64
 
-    fun getSlotHandler(slot: Int) = pairs[slot]
+    fun getSlotHandler(slot: Int): Pair<RagiItemHandler<*>, Int> = pairs[slot]
 
     //    Extraction    //
 
@@ -56,7 +55,7 @@ class RagiItemHandlerWrapper(vararg itemHandlers: RagiItemHandler<*>) : IItemHan
     }
 
     //アイテムを取り出せるか判定するメソッド
-    fun canExtract(slot: Int) = getSlotHandler(slot).first.getIOType().canOutput
+    fun canExtract(slot: Int): Boolean = getSlotHandler(slot).first.getIOType().canOutput
 
     //    Insertion    //
 
@@ -69,7 +68,7 @@ class RagiItemHandlerWrapper(vararg itemHandlers: RagiItemHandler<*>) : IItemHan
     }
 
     //アイテムを入れられるか判定するメソッド
-    fun canInsert(slot: Int) = getSlotHandler(slot).first.getIOType().canInput
+    fun canInsert(slot: Int): Boolean = getSlotHandler(slot).first.getIOType().canInput
 
     //    INBTSerializable    //
 
@@ -110,9 +109,7 @@ class RagiItemHandlerWrapper(vararg itemHandlers: RagiItemHandler<*>) : IItemHan
         return result == slots
     }
 
-    fun clear() {
-        clear(0 until slots)
-    }
+    fun clear(): Unit = clear(0 until slots)
 
     fun clear(range: IntRange) {
         for (slot in range) {

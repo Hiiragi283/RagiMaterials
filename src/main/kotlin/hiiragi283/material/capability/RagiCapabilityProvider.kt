@@ -18,7 +18,7 @@ class RagiCapabilityProvider<T>(
 
     //    ICapability    //
 
-    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?) = capability == this.capability
+    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean = capability == this.capability
 
     override fun <T : Any?> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         return if (hasCapability(capability, facing)) this.capability.cast(instance) else null

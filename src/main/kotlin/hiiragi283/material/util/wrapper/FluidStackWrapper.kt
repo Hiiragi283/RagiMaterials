@@ -7,7 +7,7 @@ data class FluidStackWrapper(val fluid: Fluid?, val amount: Int) {
 
     constructor(stack: FluidStack?, amount: Int = stack?.amount ?: 0) : this(stack?.fluid, amount)
 
-    fun toFluidStack() = FluidStack(fluid, amount)
+    fun toFluidStack(): FluidStack = FluidStack(fluid, amount)
 
     fun moreThan(other: FluidStackWrapper?): Boolean {
         //相手がnullでない場合

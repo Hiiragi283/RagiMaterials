@@ -1,35 +1,29 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.base.ItemBase
-import hiiragi283.material.client.color.IRagiColored
-import hiiragi283.material.client.model.ICustomModel
-import hiiragi283.material.client.model.ModelManager
+import hiiragi283.material.client.color.IColorHandler
+import hiiragi283.material.client.model.RagiModelManager
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material.RagiMaterial
 import hiiragi283.material.util.RagiColor
 import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
-import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
+import rechellatek.snakeToLowerCamelCase
+import kotlin.math.roundToInt
 
-open class ItemMaterial(private val ID: String, val prefixOre: String, val scale: Float = 1.0f) :
-    ItemBase(ID, OreDictionary.WILDCARD_VALUE), ICustomModel, IRagiColored.Item {
+open class ItemMaterial(private val ID: String, private val scale: Float = 1.0f) :
+    ItemBase(ID, OreDictionary.WILDCARD_VALUE), IColorHandler.Item {
 
     //    General    //
 
-    override fun getItemBurnTime(stack: ItemStack): Int = getMaterial(stack).burnTime
+    override fun getItemBurnTime(stack: ItemStack): Int = (getMaterial(stack).burnTime * scale).roundToInt()
 
-    //    ClientEvent    //
-
-    @SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
-        getMaterial(stack).getTooltip(tooltip)
-    }
+    //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
@@ -47,25 +41,29 @@ open class ItemMaterial(private val ID: String, val prefixOre: String, val scale
 
     //    ItemBase    //
 
+    @SideOnly(Side.CLIENT)
+    override fun registerModel(): Unit = RagiModelManager.setModelSame(this)
+
     override fun registerOreDict() {
         for (material in MaterialRegistry.getMaterialAll()) {
+            val oredict = getOrePrefix() + material.getOreDict()
             val stack = getStack(material)
-            if (!stack.isEmpty) OreDictionary.registerOre(prefixOre + material.getOreDict(), stack)
+            if (!stack.isEmpty) OreDictionary.registerOre(oredict, stack)
+            //有効な部品でなくとも鉱石辞書の組み合わせは登録する
+            MaterialRegistry.setMaterialWithOre(oredict, material)
         }
     }
 
     //    ItemMaterial    //
 
-    private fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.getMaterial(stack.metadata)
+    private fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.getMaterial(stack)
+
+    fun getOrePrefix() = ID.snakeToLowerCamelCase()
 
     private fun getStack(material: RagiMaterial, amount: Int = 1) =
         if (material.isValidPart(this)) ItemStack(this, amount, material.index) else ItemStack.EMPTY
 
-    //    ICustomModel    //
-
-    override fun registerModel(): Unit = ModelManager.setModelSame(this)
-
-    //    IRagiColored    //
+    //    IColorHandler    //
 
     override fun getColor(stack: ItemStack, tintIndex: Int) =
         if (tintIndex == 0) getMaterial(stack).color else RagiColor.WHITE

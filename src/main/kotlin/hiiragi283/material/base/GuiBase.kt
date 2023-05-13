@@ -16,8 +16,8 @@ abstract class GuiBase<T : TileBase>(val container: ContainerBase<T>) : GuiConta
 
     abstract val background: ResourceLocation
 
-    fun getOriginX() = (width - xSize) / 2
-    fun getOriginY() = (height - ySize) / 2
+    fun getOriginX(): Int = (width - xSize) / 2
+    fun getOriginY(): Int = (height - ySize) / 2
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawDefaultBackground()

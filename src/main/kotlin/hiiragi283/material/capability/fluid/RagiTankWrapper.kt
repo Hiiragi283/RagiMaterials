@@ -10,9 +10,9 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties
 
 class RagiTankWrapper(private vararg val tanks: RagiTank) : IFluidHandler, INBTSerializable<NBTTagCompound> {
 
-    fun getFluid(index: Int) = tanks[index].fluid
+    fun getFluid(index: Int): FluidStack? = tanks[index].fluid
 
-    fun getCapacity(index: Int) = tanks[index].fluid
+    fun getCapacity(index: Int): FluidStack? = tanks[index].fluid
 
     //    IFluidHandler    //
 
@@ -55,7 +55,7 @@ class RagiTankWrapper(private vararg val tanks: RagiTank) : IFluidHandler, INBTS
     }
 
     //最初に登録したtankを返す
-    override fun drain(maxDrain: Int, doDrain: Boolean) = tanks[0].drain(maxDrain, doDrain)
+    override fun drain(maxDrain: Int, doDrain: Boolean): FluidStack? = tanks[0].drain(maxDrain, doDrain)
 
     //    INBTSerializable<NBTTagCompound>    //
 

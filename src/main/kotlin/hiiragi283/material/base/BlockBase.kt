@@ -48,7 +48,7 @@ abstract class BlockBase(ID: String, Material: Material, private val maxTips: In
         return if (property in state.propertyKeys) state.getValue(property) else null
     }
 
-    //    ClientEvent    //
+    //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
@@ -65,6 +65,7 @@ abstract class BlockBase(ID: String, Material: Material, private val maxTips: In
 
     fun register(registry: IForgeRegistry<Block>) {
         registry.register(this)
+        RagiMaterials.LOGGER.debug("The block $registryName was registered!")
     }
 
 }

@@ -54,19 +54,19 @@ class RagiEnergyStorage(
         }
     }
 
-    override fun getEnergyStored() = stored
+    override fun getEnergyStored(): Int = stored
 
     fun setEnergyStored(energy: Int) {
         stored = energy.coerceAtMost(capacity)
     }
 
-    override fun getMaxEnergyStored() = capacity
+    override fun getMaxEnergyStored(): Int = capacity
 
-    override fun canExtract() = maxOut > 0 && stored in 1..capacity
+    override fun canExtract(): Boolean = maxOut > 0 && stored in 1..capacity
 
-    override fun canReceive() = maxIn > 0 && stored in 0 until capacity
+    override fun canReceive(): Boolean = maxIn > 0 && stored in 0 until capacity
 
-    fun getFreeCapacity() = capacity - energyStored
+    fun getFreeCapacity(): Int = capacity - energyStored
 
     //    INBTSerializable    //
 

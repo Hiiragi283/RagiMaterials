@@ -2,10 +2,10 @@ package hiiragi283.material.registry
 
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.base.ItemBase
-import hiiragi283.material.client.color.IRagiColored
-import hiiragi283.material.client.model.ICustomModel
-import hiiragi283.material.client.model.ModelManager
+import hiiragi283.material.client.color.IColorHandler
 import hiiragi283.material.item.ItemMaterial
+import hiiragi283.material.item.ItemMaterialBlock
+import hiiragi283.material.item.ItemMaterialCrystal
 import hiiragi283.material.util.RagiColor
 import net.minecraft.item.Item
 import net.minecraftforge.client.event.ColorHandlerEvent
@@ -22,19 +22,19 @@ object RagiRegistry {
     private val items: MutableSet<ItemBase> = mutableSetOf()
     private val mapItemMaterials: LinkedHashMap<String, ItemMaterial> = linkedMapOf()
 
-    fun getItemMaterials() = mapItemMaterials.values
+    fun getItemMaterials(): Collection<ItemMaterial> = mapItemMaterials.values
 
     //    Item    //
 
-    val ITEM_PART_BLOCK = ItemMaterial("block_material", "block", 9.0f)
-    val ITEM_PART_CRYSTAL = ItemMaterial("crystal", "gem")
-    val ITEM_PART_DUST = ItemMaterial("dust", "dust")
-    val ITEM_PART_DUST_TINY = ItemMaterial("dust_tiny", "dustTiny", 0.1f)
-    val ITEM_PART_GEAR = ItemMaterial("gear", "gear", 4.0f)
-    val ITEM_PART_INGOT = ItemMaterial("ingot", "ingot")
-    val ITEM_PART_NUGGET = ItemMaterial("nugget", "nugget", 0.1f)
-    val ITEM_PART_PLATE = ItemMaterial("plate", "plate")
-    val ITEM_PART_STICK = ItemMaterial("stick", "stick", 0.5f)
+    val ITEM_PART_BLOCK = ItemMaterialBlock
+    val ITEM_PART_CRYSTAL = ItemMaterialCrystal
+    val ITEM_PART_DUST = ItemMaterial("dust")
+    val ITEM_PART_DUST_TINY = ItemMaterial("dust_tiny", 0.1f)
+    val ITEM_PART_GEAR = ItemMaterial("gear", 4.0f)
+    val ITEM_PART_INGOT = ItemMaterial("ingot")
+    val ITEM_PART_NUGGET = ItemMaterial("nugget", 0.1f)
+    val ITEM_PART_PLATE = ItemMaterial("plate")
+    val ITEM_PART_STICK = ItemMaterial("stick", 0.5f)
 
     //    Registration    //
 
@@ -45,8 +45,16 @@ object RagiRegistry {
             if (obj is ItemBase) {
                 items.add(obj)
                 RagiMaterials.LOGGER.debug("The item ${obj.registryName} was added to collection!")
-                if (obj is ItemMaterial) mapItemMaterials[obj.prefixOre] = obj
+                if (obj is ItemMaterial) mapItemMaterials[obj.getOrePrefix()] = obj
             }
+        }
+    }
+
+    @SubscribeEvent
+    fun registerItems(event: RegistryEvent.Register<Item>) {
+        val registry = event.registry
+        for (item in items) {
+            item.register(registry)
         }
     }
 
@@ -62,24 +70,13 @@ object RagiRegistry {
         }
     }
 
-    object CommonEvent {
-
-        @SubscribeEvent
-        fun registerItems(event: RegistryEvent.Register<Item>) {
-            val registry = event.registry
-            for (item in items) {
-                item.register(registry)
-            }
-        }
-    }
-
     @SideOnly(Side.CLIENT)
-    object ClientEvent {
+    object Client {
 
         @SubscribeEvent
         fun registerModel(event: ModelRegistryEvent) {
             for (item in items) {
-                if (item is ICustomModel) item.registerModel() else ModelManager.setModel(item)
+                item.registerModel()
                 RagiMaterials.LOGGER.debug("The model for item ${item.registryName} is registered!")
             }
         }
@@ -88,7 +85,7 @@ object RagiRegistry {
         fun registerColor(event: ColorHandlerEvent.Item) {
             event.itemColors.registerItemColorHandler({ stack, tintIndex ->
                 val item = stack.item
-                if (item is IRagiColored.Item) item.getColor(stack, tintIndex).rgb else RagiColor.WHITE.rgb
+                if (item is IColorHandler.Item) item.getColor(stack, tintIndex).rgb else RagiColor.WHITE.rgb
             }, *items.toTypedArray())
         }
     }

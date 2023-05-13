@@ -1,6 +1,7 @@
 package hiiragi283.material.base
 
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.client.model.RagiModelManager
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -42,6 +43,9 @@ abstract class ItemBase(ID: String, private var maxMeta: Int) : Item() {
         registry.register(this)
         RagiMaterials.LOGGER.debug("The item $registryName was registered!")
     }
+
+    @SideOnly(Side.CLIENT)
+    open fun registerModel(): Unit = RagiModelManager.setModel(this)
 
     open fun registerOreDict() {}
 
