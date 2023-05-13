@@ -116,7 +116,6 @@ data class RagiMaterial private constructor(
         //素材の組成を設定し，そこから自動的に物性を生成するメソッド
         fun setComponents(components: List<Pair<IMaterialBase<*>, Int>>): Builder = also { builder ->
             builder.components = components
-            val materials = builder.components.toMap().keys
             //自動で生成
             builder.color = initColor()
             builder.formula = initFormula()

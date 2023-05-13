@@ -32,6 +32,8 @@ object ElementRegistry {
     private val colorCopper = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.RED)
     private val colorZinc = ColorUtil.mixColor(RagiColor.GREEN to 1, RagiColor.WHITE to 2)
 
+    private val colorEnder = ColorUtil.mixColor(RagiColor.DARK_GREEN to 1, RagiColor.BLUE to 1)
+
     //    Element    //
 
     /**
@@ -80,5 +82,9 @@ object ElementRegistry {
     val KRYPTON = RagiElement("krypton", TypeRegistry.GAS, RagiColor.LIGHT_PURPLE, "Kr", 84.0f)
 
     val GOLD = RagiElement("gold", TypeRegistry.METAL, RagiColor.YELLOW, "Au", 197.0f)
+
+    val REDSTONE = RagiElement("redstone", TypeRegistry.CRYSTAL, RagiColor.DARK_RED, "Rs", 112.2f)
+    val GLOWSTONE = RagiElement("glowstone", TypeRegistry.CRYSTAL, colorSulfur, "Gw", 112.2f)
+    val ENDER = RagiElement("ender", TypeRegistry.CRYSTAL, colorEnder, "En", 112.2f)
 
 }

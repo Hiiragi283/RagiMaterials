@@ -3,6 +3,7 @@ package hiiragi283.material.registry
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.base.ItemBase
 import hiiragi283.material.client.color.IColorHandler
+import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemMaterial
 import hiiragi283.material.item.ItemMaterialBlock
 import hiiragi283.material.item.ItemMaterialCrystal
@@ -35,6 +36,8 @@ object RagiRegistry {
     val ITEM_PART_NUGGET = ItemMaterial("nugget", 0.1f)
     val ITEM_PART_PLATE = ItemMaterial("plate")
     val ITEM_PART_STICK = ItemMaterial("stick", 0.5f)
+
+    val ITEM_BOOK_RESPAWN = ItemBookRespawn
 
     //    Registration    //
 

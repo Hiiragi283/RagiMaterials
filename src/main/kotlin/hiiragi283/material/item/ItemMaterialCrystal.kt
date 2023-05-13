@@ -29,7 +29,10 @@ object ItemMaterialCrystal : ItemMaterial("gem") {
             if (item is ItemMaterial) {
                 val material = MaterialRegistry.getMaterial(stack)
                 if (material.crystalType != EnumCrystalType.NONE) result =
-                    ModelResourceLocation("${RagiMaterials.MOD_ID}:crystal_${material.crystalType.texture}", "inventory")
+                    ModelResourceLocation(
+                        "${RagiMaterials.MOD_ID}:crystal_${material.crystalType.texture}",
+                        "inventory"
+                    )
             }
             result
         }
