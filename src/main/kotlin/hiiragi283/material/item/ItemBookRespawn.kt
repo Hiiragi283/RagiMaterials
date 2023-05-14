@@ -11,7 +11,8 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Rarity
 import net.minecraft.world.level.Level
 
-object ItemBookRespawn : ItemBase(FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.EPIC)) {
+object ItemBookRespawn :
+    ItemBase(FabricItemSettings().group(CreativeModeTab.TAB_MISC).maxCount(1).rarity(Rarity.EPIC)) {
 
     override fun getRegistryName(): ResourceLocation = ResourceLocation(RagiMaterials.MOD_ID, "book_respawn")
 

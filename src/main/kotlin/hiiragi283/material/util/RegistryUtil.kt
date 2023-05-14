@@ -15,7 +15,9 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.material.Fluid
 
 fun getBlock(location: ResourceLocation): Block = Registry.BLOCK.get(location)
-fun getEnchant(location: ResourceLocation): Enchantment = Registry.ENCHANTMENT.get(location) ?: Enchantments.ALL_DAMAGE_PROTECTION
+fun getEnchant(location: ResourceLocation): Enchantment =
+    Registry.ENCHANTMENT.get(location) ?: Enchantments.ALL_DAMAGE_PROTECTION
+
 fun getEntity(location: ResourceLocation): EntityType<*> = Registry.ENTITY_TYPE.get(location)
 fun getFluid(location: ResourceLocation): Fluid = Registry.FLUID.get(location)
 fun getItem(location: ResourceLocation): Item = Registry.ITEM.get(location)

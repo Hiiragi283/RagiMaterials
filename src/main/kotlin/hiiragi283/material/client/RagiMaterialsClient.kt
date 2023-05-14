@@ -10,8 +10,8 @@ object RagiMaterialsClient : ClientModInitializer {
     override fun onInitializeClient() {
 
         //着色システムの登録
-        ColorProviderRegistry.BLOCK.register(RagiColorProvider, *RagiRegistry.getBlocksColored().toTypedArray())
-        ColorProviderRegistry.ITEM.register(RagiColorProvider, *RagiRegistry.getItemsColored().toTypedArray())
+        ColorProviderRegistry.BLOCK.register(RagiColorProvider, *RagiRegistry.setBlocksColored.toTypedArray())
+        ColorProviderRegistry.ITEM.register(RagiColorProvider, *RagiRegistry.setItemsColored.toTypedArray())
 
     }
 }

@@ -11,15 +11,10 @@ object RagiRegistry {
 
     //    Collection    //
 
-    private val setBlocks: MutableSet<BlockBase> = mutableSetOf()
-    private val setBlocksColored: MutableSet<BlockBase> = mutableSetOf()
-    private val setItems: MutableSet<ItemBase> = mutableSetOf()
-    private val setItemsColored: MutableSet<ItemBase> = mutableSetOf()
-
-    fun getBlocks() = setBlocks.toSet()
-    fun getBlocksColored() = setBlocksColored.toSet()
-    fun getItems() = setItems.toSet()
-    fun getItemsColored() = setItemsColored.toSet()
+    val setBlocks: MutableSet<BlockBase> = mutableSetOf()
+    val setBlocksColored: MutableSet<BlockBase> = mutableSetOf()
+    val setItems: MutableSet<ItemBase> = mutableSetOf()
+    val setItemsColored: MutableSet<ItemBase> = mutableSetOf()
 
     //    Item    //
 
