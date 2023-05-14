@@ -8,7 +8,7 @@
     "hiiragi283"
   ],
   "contact": {
-    "repo": "https://github.com/hiiragi283/RagiMaterials-Fabric"
+    "sources": "https://github.com/hiiragi283/RagiMaterials"
   },
   "license": "All-Rights-Reserved",
   "icon": "assets/ragi_materials/textures/icon.png",
@@ -17,13 +17,13 @@
     "client": [
       {
         "adapter": "kotlin",
-        "value": "hiiragi283.ragi_materials.client.RagiMaterialsClient"
+        "value": "hiiragi283.material.client.RagiMaterialsClient"
       }
     ],
     "main": [
       {
         "adapter": "kotlin",
-        "value": "hiiragi283.ragi_materials.RagiMaterialsCore"
+        "value": "hiiragi283.material.RagiMaterials"
       }
     ]
   },
@@ -31,5 +31,8 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
-  }
+  },
+  "mixins": [
+    "ragi_materials.mixins.json"
+  ]
 }

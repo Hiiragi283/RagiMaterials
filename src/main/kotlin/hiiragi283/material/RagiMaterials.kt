@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Logger
 
 object RagiMaterials : ModInitializer {
 
-    const val MOD_ID = "ragi_materials"
+    const val MOD_ID: String = "ragi_materials"
 
-    const val MOD_NAME = "RagiMaterials"
+    const val MOD_NAME: String = "RagiMaterials"
 
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 

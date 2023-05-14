@@ -10,11 +10,25 @@ import net.minecraft.sound.SoundEvents
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-fun playSound(world: World?, pos: BlockPos, soundEvent: SoundEvent, volume: Float = 1.0f, pitch: Float = 1.0f, soundCategory: SoundCategory = SoundCategory.MASTER, player: PlayerEntity? = null) {
+fun playSound(
+    world: World?,
+    pos: BlockPos,
+    soundEvent: SoundEvent,
+    volume: Float = 1.0f,
+    pitch: Float = 1.0f,
+    soundCategory: SoundCategory = SoundCategory.MASTER,
+    player: PlayerEntity? = null
+) {
     world?.playSound(player, pos, soundEvent, soundCategory, volume, pitch)
 }
 
-fun playSound(tile: BlockEntity, soundEvent: SoundEvent, volume: Float = 1.0f, pitch: Float = 1.0f, soundCategory: SoundCategory = SoundCategory.MASTER) {
+fun playSound(
+    tile: BlockEntity,
+    soundEvent: SoundEvent,
+    volume: Float = 1.0f,
+    pitch: Float = 1.0f,
+    soundCategory: SoundCategory = SoundCategory.MASTER
+) {
     playSound(tile.world, tile.pos, soundEvent, volume, pitch, soundCategory)
 }
 

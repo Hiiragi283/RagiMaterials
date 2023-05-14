@@ -9,10 +9,17 @@ import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
 import net.minecraft.world.World
+import java.awt.Color
 
 abstract class ItemMaterial(private val settings: MaterialItemSettings) : ItemBase(settings), IColorHandler.ITEM {
 
-    constructor(material: RagiMaterial, part: String, scale: Float = 1.0f) : this(MaterialItemSettings(material, part, scale))
+    constructor(material: RagiMaterial, part: String, scale: Float = 1.0f) : this(
+        MaterialItemSettings(
+            material,
+            part,
+            scale
+        )
+    )
 
     //    General    //
 
@@ -36,6 +43,8 @@ abstract class ItemMaterial(private val settings: MaterialItemSettings) : ItemBa
 
     //    IColorHandler.ITEM    //
 
-    override fun getColor(stack: ItemStack, tintIndex: Int) = getMaterial().color
+    override fun getColor(stack: ItemStack, tintIndex: Int): Color = getMaterial().color
+
+    class Ingot(material: RagiMaterial) : ItemMaterial(material, "ingot")
 
 }

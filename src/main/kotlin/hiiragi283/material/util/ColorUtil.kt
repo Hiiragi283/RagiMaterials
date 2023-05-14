@@ -37,7 +37,11 @@ object ColorUtil {
             blueSum += color.blue * weight
             weightSum += weight
         }
-        return if (weightSum != 0) Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum) else RagiColor.WHITE
+        return if (weightSum != 0) Color(
+            redSum / weightSum,
+            greenSum / weightSum,
+            blueSum / weightSum
+        ) else RagiColor.WHITE
     }
 
     //Map用

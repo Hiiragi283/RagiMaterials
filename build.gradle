@@ -9,8 +9,6 @@ group = project.maven_group
 
 repositories {
     mavenCentral()
-    maven { url "https://maven.architectury.dev" }
-    maven { url "https://maven.shedaniel.me" }
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -28,11 +26,6 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
-    //REI dependencies
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:8.3.594"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:8.3.594"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:8.3.594"
 
 }
 

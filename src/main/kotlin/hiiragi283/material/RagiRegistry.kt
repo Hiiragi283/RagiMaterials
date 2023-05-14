@@ -3,7 +3,7 @@ package hiiragi283.material
 import hiiragi283.material.block.BlockBase
 import hiiragi283.material.client.color.IColorHandler
 import hiiragi283.material.item.ItemBase
-import hiiragi283.material.item.ItemMaterialIngot
+import hiiragi283.material.item.ItemMaterial
 import hiiragi283.material.material.MaterialRegistry
 import net.minecraft.util.registry.Registry
 
@@ -23,9 +23,9 @@ object RagiRegistry {
 
     //    Item    //
 
-    val INGOT_COPPER = ItemMaterialIngot(MaterialRegistry.COPPER)
-    val INGOT_GOLD = ItemMaterialIngot(MaterialRegistry.GOLD)
-    val INGOT_IRON = ItemMaterialIngot(MaterialRegistry.IRON)
+    val INGOT_COPPER = ItemMaterial.Ingot(MaterialRegistry.COPPER)
+    val INGOT_GOLD = ItemMaterial.Ingot(MaterialRegistry.GOLD)
+    val INGOT_IRON = ItemMaterial.Ingot(MaterialRegistry.IRON)
 
     //    Registration    //
 

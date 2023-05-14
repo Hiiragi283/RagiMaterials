@@ -17,7 +17,12 @@ object RagiColorProvider : BlockColorProvider, ItemColorProvider {
 
     override fun getColor(state: BlockState, world: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int {
         val block = state.block
-        return if (block is IColorHandler.BLOCK && world !== null && pos !== null) block.getColor(state, world, pos, tintIndex).rgb else RagiColor.WHITE.rgb
+        return if (block is IColorHandler.BLOCK && world !== null && pos !== null) block.getColor(
+            state,
+            world,
+            pos,
+            tintIndex
+        ).rgb else RagiColor.WHITE.rgb
     }
 
     //    ItemColorProvider    //
