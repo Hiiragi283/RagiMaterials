@@ -99,6 +99,14 @@ dependencies {
     implementation fg.deobf("curse.maven:itemzoom-261725:2643616")
     implementation fg.deobf("curse.maven:placebo-283644:2694382")
 
+    implementation fg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
+    implementation fg.deobf("curse.maven:cofh-core-69162:2920433")
+    implementation fg.deobf("curse.maven:cofh-world-271384:2920434")
+    implementation fg.deobf("curse.maven:jei-integration-265917:2951731")
+    implementation fg.deobf("curse.maven:redstone-flux-270789:2920436")
+    implementation fg.deobf("curse.maven:thermal-expansion-69163:2926431")
+    implementation fg.deobf("curse.maven:thermal-foundation-222880:2926428")
+
 }
 
 processResources {

@@ -3,6 +3,7 @@ package hiiragi283.material.item
 import hiiragi283.material.base.ItemBase
 import hiiragi283.material.client.color.IColorHandler
 import hiiragi283.material.client.model.RagiModelManager
+import hiiragi283.material.creativetab.CreativeTabMaterial
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material.RagiMaterial
 import hiiragi283.material.util.RagiColor
@@ -16,8 +17,12 @@ import net.minecraftforge.oredict.OreDictionary
 import rechellatek.snakeToLowerCamelCase
 import kotlin.math.roundToInt
 
-open class ItemMaterial(private val ID: String, private val scale: Float = 1.0f) :
+abstract class ItemMaterial(private val ID: String, private val scale: Float = 1.0f) :
     ItemBase(ID, OreDictionary.WILDCARD_VALUE), IColorHandler.Item {
+
+    init {
+        creativeTab = CreativeTabMaterial
+    }
 
     //    General    //
 
@@ -46,7 +51,7 @@ open class ItemMaterial(private val ID: String, private val scale: Float = 1.0f)
 
     override fun registerOreDict() {
         for (material in MaterialRegistry.getMaterialAll()) {
-            val oredict = getOrePrefix() + material.getOreDict()
+            val oredict = getOreDict(material)
             val stack = getStack(material)
             if (!stack.isEmpty) OreDictionary.registerOre(oredict, stack)
             //有効な部品でなくとも鉱石辞書の組み合わせは登録する
@@ -54,13 +59,23 @@ open class ItemMaterial(private val ID: String, private val scale: Float = 1.0f)
         }
     }
 
+    override fun registerRecipe() {
+        for (material in MaterialRegistry.getMaterialAll()) {
+            if (this in material.type.getParts()) registerRecipeMaterial(material)
+        }
+    }
+
+    abstract fun registerRecipeMaterial(material: RagiMaterial)
+
     //    ItemMaterial    //
 
     private fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.getMaterial(stack)
 
+    fun getOreDict(material: RagiMaterial) = getOrePrefix() + material.getOreDict()
+
     fun getOrePrefix() = ID.snakeToLowerCamelCase()
 
-    private fun getStack(material: RagiMaterial, amount: Int = 1) =
+    fun getStack(material: RagiMaterial, amount: Int = 1): ItemStack =
         if (material.isValidPart(this)) ItemStack(this, amount, material.index) else ItemStack.EMPTY
 
     //    IColorHandler    //

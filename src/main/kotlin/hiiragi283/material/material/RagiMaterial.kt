@@ -20,12 +20,12 @@ import java.awt.Color
 data class RagiMaterial private constructor(
     val index: Int,
     override val name: String,
-    override val type: MaterialType,
+    val type: MaterialType,
     val burnTime: Int,
     override val color: Color,
     val crystalType: EnumCrystalType,
     override val formula: String,
-    override val molar: Float?
+    override val molar: Float
 ) : IMaterialBase<RagiMaterial> {
 
     val listValidParts: MutableList<ItemMaterial> = mutableListOf()
@@ -51,9 +51,9 @@ data class RagiMaterial private constructor(
     //materialのツールチップを生成するメソッド
     fun getTooltip(tooltip: MutableList<String>) {
         tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", I18n.format("material.$name"))) //名称
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", getTranslatedName())) //名称
         if (formula.isNotEmpty()) tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula)) //化学式
-        molar?.let { tooltip.add(I18n.format("tips.ragi_materials.property.mol", it)) } //モル質量
+        if (molar > 0.0f) tooltip.add(I18n.format("tips.ragi_materials.property.mol", molar)) //モル質量
     }
 
     //素材が空か判定するメソッド
@@ -96,7 +96,7 @@ data class RagiMaterial private constructor(
         private var components: List<Pair<IMaterialBase<*>, Int>> = listOf()
         var crystalType = EnumCrystalType.NONE
         var formula: String = ""
-        var molar: Float? = null
+        var molar: Float = 0.0f
 
         //燃焼時間を設定するメソッド
         fun setBurnTime(time: Int): Builder = also { it.burnTime = time }
@@ -111,7 +111,7 @@ data class RagiMaterial private constructor(
         fun setFormula(formula: String): Builder = also { it.formula = formula }
 
         //モル質量を設定するメソッド
-        fun setMolarMass(molar: Float?): Builder = also { it.molar = molar }
+        fun setMolarMass(molar: Float): Builder = also { it.molar = molar }
 
         //素材の組成を設定し，そこから自動的に物性を生成するメソッド
         fun setComponents(components: List<Pair<IMaterialBase<*>, Int>>): Builder = also { builder ->
@@ -158,18 +158,18 @@ data class RagiMaterial private constructor(
         }
 
         //モル質量を自動で生成するメソッド
-        private fun initMolar(): Float? {
+        private fun initMolar(): Float {
             var molar = 0.0f
             for (pair in components) {
-                pair.first.molar?.let { molar = it * pair.second }
+                molar = pair.first.molar * pair.second
             }
-            return if (molar == 0.0f) null else molar
+            return molar
         }
 
         //素材を混合物に設定するメソッド
         fun setMixture(): Builder = also {
             it.formula = initFormulaMixture()
-            it.molar = null
+            it.molar = 0.0f
         }
 
         //混合物用の化学式を自動で生成するメソッド

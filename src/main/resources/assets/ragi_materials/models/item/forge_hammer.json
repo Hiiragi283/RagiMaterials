@@ -1,0 +1,8 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "items/sign",
+    "layer1": "ragi_materials:items/forge_hammer"
+  }
+}

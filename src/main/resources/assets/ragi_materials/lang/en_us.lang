@@ -1,11 +1,16 @@
 
+##    CreativeTab    ##
+
+itemGroup.ragi_materials.material=RagiMaterials
+
 ##    Item    ##
 
+item.forge_hammer.name=Forge Hammer
 item.ragi_block.name=Block of %s
 item.ragi_dust.name=%s Dust
 item.ragi_dust_tiny.name=Tiny Pile of %s Dust
 item.ragi_gear.name=%s Gear
-item.ragi_gem.name=%s
+item.ragi_gem.name=%s Gem
 item.ragi_ingot.name=%s Ingot
 item.ragi_nugget.name=%s Nugget
 item.ragi_plate.name=%s Plate
@@ -42,3 +47,29 @@ material.glowstone=Glowstone
 material.end_stone=End Stone
 material.emerald=Emerald
 material.quartz=Quartz
+material.charcoal=Charcoal
+material.gunpowder=Gunpowder
+material.brick=Brick
+material.sugar=Sugar
+material.bone=Bone
+material.ender_pearl=Ender
+material.blaze=Blaze
+
+material.copper=Copper
+material.tin=Tin
+material.silver=Silver
+material.lead=Lead
+material.zinc=Zinc
+material.aluminium=Aluminium
+material.nickel=Nickel
+material.platinum=Platinum
+material.iridium=Iridium
+material.osmium=Osmium
+material.mithril=Mithril
+
+material.steel=Steel
+material.electrum=Electrum
+material.invar=Invar
+material.bronze=Bronze
+material.brass=Brass
+material.constantan=Constantan

@@ -2,8 +2,13 @@ package hiiragi283.material.item
 
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.material.MaterialRegistry
+import hiiragi283.material.material.RagiMaterial
 import hiiragi283.material.material.type.EnumCrystalType
+import hiiragi283.material.registry.RagiRegistry
+import hiiragi283.material.util.RagiIngredient
+import hiiragi283.material.util.addCraftingShapeless
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.util.NonNullList
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -38,4 +43,12 @@ object ItemMaterialCrystal : ItemMaterial("gem") {
         }
     }
 
+    override fun registerRecipeMaterial(material: RagiMaterial) {
+        //block -> gemのレシピを登録
+        addCraftingShapeless(
+            getStack(material, 9),
+            NonNullList.withSize(1, RagiIngredient(RagiRegistry.ITEM_PART_BLOCK.getOreDict(material))),
+            "${RagiMaterials.MOD_ID}:block_to_crystal_${material.index}"
+        )
+    }
 }
