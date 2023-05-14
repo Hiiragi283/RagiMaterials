@@ -1,10 +1,6 @@
 package hiiragi283.material.util
 
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.item.EnumDyeColor
 import java.awt.Color
-
-fun colorWrapper(color: EnumDyeColor): Color = Color(color.colorValue)
 
 object ColorUtil {
 
@@ -41,11 +37,7 @@ object ColorUtil {
             blueSum += color.blue * weight
             weightSum += weight
         }
-        return if (weightSum != 0) Color(
-            redSum / weightSum,
-            greenSum / weightSum,
-            blueSum / weightSum
-        ) else colorWrapper(EnumDyeColor.WHITE)
+        return if (weightSum != 0) Color(redSum / weightSum, greenSum / weightSum, blueSum / weightSum) else RagiColor.WHITE
     }
 
     //Map用
@@ -59,17 +51,6 @@ object ColorUtil {
         val blue2 = colorMixed.blue * 2 - colorBase1.blue
         //混成前の色を返す
         return Color(red2, green2, blue2)
-    }
-
-    fun setGLColor(color: Int) {
-        val red = (color shr 16 and 255) / 255.0f
-        val green = (color shr 8 and 255) / 255.0f
-        val blue = (color and 255) / 255.0f
-        GlStateManager.color(red, green, blue, 1.0f)
-    }
-
-    fun setGLColor(color: Color) {
-        setGLColor(color.rgb)
     }
 
 }

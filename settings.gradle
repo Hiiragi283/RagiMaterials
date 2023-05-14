@@ -1,9 +1,9 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         maven {
-            name = "Fancy Gradle"
-            url = "https://gitlab.com/api/v4/projects/26758973/packages/maven"
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
         }
+        gradlePluginPortal()
     }
 }

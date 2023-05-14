@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "ragi_materials",
+  "version": "${version}",
+  "name": "RagiMaterials",
+  "description": "",
+  "authors": [
+    "hiiragi283"
+  ],
+  "contact": {
+    "repo": "https://github.com/hiiragi283/RagiMaterials-Fabric"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/ragi_materials/textures/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "hiiragi283.ragi_materials.client.RagiMaterialsClient"
+      }
+    ],
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "hiiragi283.ragi_materials.RagiMaterialsCore"
+      }
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

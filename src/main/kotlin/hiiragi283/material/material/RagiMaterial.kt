@@ -1,15 +1,14 @@
 package hiiragi283.material.material
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.item.ItemMaterial
-import hiiragi283.material.material.type.EnumCrystalType
-import hiiragi283.material.material.type.MaterialType
-import hiiragi283.material.material.type.TypeRegistry
 import hiiragi283.material.util.ColorUtil
-import net.minecraft.client.resources.I18n
-import net.minecraft.nbt.NBTTagCompound
-import net.minecraftforge.fluids.Fluid
-import net.minecraftforge.fluids.FluidRegistry
+import net.minecraft.fluid.Fluid
+import net.minecraft.nbt.NbtCompound
+import net.minecraft.text.LiteralText
+import net.minecraft.text.Text
+import net.minecraft.text.TranslatableText
+import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
 import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
 
@@ -18,9 +17,7 @@ import java.awt.Color
  */
 
 data class RagiMaterial private constructor(
-    val index: Int,
     override val name: String,
-    val type: MaterialType,
     val burnTime: Int,
     override val color: Color,
     val crystalType: EnumCrystalType,
@@ -28,47 +25,42 @@ data class RagiMaterial private constructor(
     override val molar: Float
 ) : IMaterialBase<RagiMaterial> {
 
-    val listValidParts: MutableList<ItemMaterial> = mutableListOf()
-
     companion object {
         @JvmStatic
         val EMPTY: RagiMaterial = Builder().build()
 
         //NBTタグから素材を取得するメソッド
         @JvmStatic
-        fun readFromNBT(tag: NBTTagCompound): RagiMaterial = MaterialRegistry.getMaterial(tag.getString("material"))
+        fun readFromNBT(tag: NbtCompound): RagiMaterial = MaterialRegistry.getMaterial(tag.getString("material"))
     }
 
     //nameから液体を取得するメソッド
-    fun getFluid(): Fluid? = FluidRegistry.getFluid(this.name)
+    fun getFluid(): Fluid = Registry.FLUID.get(Identifier(RagiMaterials.MOD_ID, name))
 
     //registryNameからUCC型のStringを取得するメソッド
-    fun getOreDict(): String = this.name.snakeToUpperCamelCase()
+    fun getOreDict(): String = name.snakeToUpperCamelCase()
 
     //翻訳後の名前を取得するメソッド
-    fun getTranslatedName(): String = I18n.format("material.$name")
+    fun getTranslatedName(): TranslatableText = TranslatableText("material.$name")
 
     //materialのツールチップを生成するメソッド
-    fun getTooltip(tooltip: MutableList<String>) {
-        tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", getTranslatedName())) //名称
-        if (formula.isNotEmpty()) tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula)) //化学式
-        if (molar > 0.0f) tooltip.add(I18n.format("tips.ragi_materials.property.mol", molar)) //モル質量
+    fun getTooltip(tooltip: MutableList<Text>) {
+        tooltip.add(LiteralText("§e=== Property ==="))
+        tooltip.add(TranslatableText("tips.ragi_materials.property.name", getTranslatedName())) //名称
+        if (formula.isNotEmpty()) tooltip.add(TranslatableText("tips.ragi_materials.property.formula", formula)) //化学式
+        if (molar > 0.0f) tooltip.add(TranslatableText("tips.ragi_materials.property.mol", molar)) //モル質量
     }
 
     //素材が空か判定するメソッド
     fun isEmpty(): Boolean = this == EMPTY
 
-    //部品と素材の組み合わせが有効か判定するメソッド
-    fun isValidPart(item: ItemMaterial): Boolean = item in type.getParts()
-
     //()つきの化学式を返すメソッド
     fun setBracket(): RagiMaterial = copy(formula = "(${formula})")
 
     //NBTタグに素材を書き込むメソッド
-    fun writeToNBT(tag: NBTTagCompound?): NBTTagCompound {
-        val tag1 = tag ?: NBTTagCompound()
-        return tag1.also { it.setString("material", name) }
+    fun writeToNBT(tag: NbtCompound?): NbtCompound {
+        val tag1 = tag ?: NbtCompound()
+        return tag1.also { it.putString("material", name) }
     }
 
     //    IMaterialBase    //
@@ -86,9 +78,7 @@ data class RagiMaterial private constructor(
     }
 
     class Builder(
-        private val index: Int = -1,
-        private val name: String = "empty",
-        private val type: MaterialType = TypeRegistry.INTERNAL
+        private val name: String = "empty"
     ) {
 
         var burnTime = -1
@@ -186,9 +176,7 @@ data class RagiMaterial private constructor(
             also { setComponents(listOf(element to amount)) }
 
         fun build(): RagiMaterial = RagiMaterial(
-            index,
             name,
-            type,
             burnTime,
             color,
             crystalType,

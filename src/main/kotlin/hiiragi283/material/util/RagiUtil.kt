@@ -2,52 +2,20 @@
 
 package hiiragi283.material.util
 
-import hiiragi283.material.RagiMaterials
-import net.minecraft.client.Minecraft
-import net.minecraft.command.ICommandSender
-import net.minecraft.item.EnumRarity
-import net.minecraft.item.ItemStack
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.common.IRarity
-import net.minecraftforge.fluids.FluidStack
-import net.minecraftforge.registries.IForgeRegistry
-import net.minecraftforge.registries.IForgeRegistryModifiable
+import net.minecraft.server.command.CommandOutput
+import net.minecraft.util.Rarity
 
-fun ItemStack.toBracket(): String = "<${this.item.registryName}:${this.metadata}> * ${this.count}"
+fun Boolean.toInt() = if (this) 1 else 0
 
-fun ItemStack.toLocation(): ResourceLocation =
-    ResourceLocation(this.item.registryName!!.toString() + "_" + this.metadata)
+fun Int.toBool() = this % 2 != 0
 
-fun FluidStack.toBracket(): String = "<fluid:${this.fluid.name}> * ${this.amount}"
+fun executeCommand(sender: CommandOutput, command: String) {}
 
-fun Boolean.toInt(): Int = if (this) 1 else 0
-
-fun Int.toBool(): Boolean = this % 2 != 0
-
-fun executeCommand(sender: ICommandSender, command: String) {
-    Minecraft.getMinecraft().integratedServer?.getCommandManager()?.executeCommand(sender, command)
-}
-
-fun getEnumRarity(name: String): IRarity {
+fun getEnumRarity(name: String): Rarity {
     return when (name) {
-        "Uncommon" -> EnumRarity.UNCOMMON
-        "Rare" -> EnumRarity.RARE
-        "Epic" -> EnumRarity.EPIC
-        else -> EnumRarity.COMMON
+        "Uncommon" -> Rarity.UNCOMMON
+        "Rare" -> Rarity.RARE
+        "Epic" -> Rarity.EPIC
+        else -> Rarity.COMMON
     }
 }
-
-//エントリーを削除するメソッド
-fun removeRegistryEntry(registry: IForgeRegistry<*>, registryName: ResourceLocation): Boolean {
-    return if (registry is IForgeRegistryModifiable<*>) {
-        registry.remove(registryName)
-        RagiMaterials.LOGGER.warn("The entry $registryName was removed from ${registry::class.java.name}!")
-        true
-    } else {
-        RagiMaterials.LOGGER.warn("The registry ${registry::class.java.name} is not implementing IForgeRegistryModifiable!")
-        false
-    }
-}
-
-fun remove(registry: IForgeRegistry<*>, registryName: String): Boolean =
-    removeRegistryEntry(registry, ResourceLocation(registryName))

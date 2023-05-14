@@ -1,159 +1,108 @@
-buildscript {
-
-    ext.kotlin_version = '1.8.21'
-
-    repositories {
-        maven {
-            url = "https://maven.minecraftforge.net"
-        }
-        mavenCentral()
-        mavenLocal()
-    }
-
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: kotlin_version, changing: true
-    }
-}
-
 plugins {
-    id 'wtf.gofancy.fancygradle' version "1.1.+"
+    id 'fabric-loom' version '1.1-SNAPSHOT'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
 }
-
-apply plugin: "idea"
-apply plugin: "java-library"
-apply plugin: "kotlin"
-apply plugin: "net.minecraftforge.gradle"
 
 version = project.mod_version
 group = project.maven_group
-archivesBaseName = project.archives_base_name
-
-sourceCompatibility = targetCompatibility = "1.8"
-
-compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
-}
-
-configurations {
-    embed
-    implementation.extendsFrom(embed)
-}
-
-minecraft {
-
-    mappings channel: 'stable', version: '39-1.12'
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    runs {
-        client {
-            workingDirectory project.file('client')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            args '--username', 'hiiragi283'
-            environment 'MC_VERSION', project.minecraft_version.toString()
-            mods {
-                material {
-                    source sourceSets.main
-                }
-            }
-        }
-        server {
-            workingDirectory project.file('server')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            args '--username', 'hiiragi283'
-            environment 'MC_VERSION', project.minecraft_version.toString()
-            mods {
-                material {
-                    source sourceSets.main
-                }
-            }
-        }
-    }
-}
 
 repositories {
-
-    maven {
-        name = "Curse Maven"
-        url = "https://cursemaven.com"
-        content {
-            includeGroup 'curse.maven'
-        }
-    }
     mavenCentral()
-
+    maven { url "https://maven.architectury.dev" }
+    maven { url "https://maven.shedaniel.me" }
+    // Add repositories to retrieve artifacts from in here.
+    // You should only use this when depending on other mods because
+    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+    // for more information about repositories.
 }
 
 dependencies {
+    // To change the versions see the gradle.properties file
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
-    //Deobfuscated Dependencies
-    implementation fg.deobf("curse.maven:had-enough-items-557549:4451828")
-    implementation fg.deobf("curse.maven:shadowfacts-forgelin-248453:2785465")
-    implementation fg.deobf("curse.maven:the-one-probe-245211:2667280")
-    //Normal Dependencies
-    implementation fg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479")
-    implementation fg.deobf("curse.maven:infinity-item-editor-290958:3802759")
-    implementation fg.deobf("curse.maven:itemzoom-261725:2643616")
-    implementation fg.deobf("curse.maven:placebo-283644:2694382")
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    implementation fg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
-    implementation fg.deobf("curse.maven:cofh-core-69162:2920433")
-    implementation fg.deobf("curse.maven:cofh-world-271384:2920434")
-    implementation fg.deobf("curse.maven:jei-integration-265917:2951731")
-    implementation fg.deobf("curse.maven:redstone-flux-270789:2920436")
-    implementation fg.deobf("curse.maven:thermal-expansion-69163:2926431")
-    implementation fg.deobf("curse.maven:thermal-foundation-222880:2926428")
+    //REI dependencies
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:8.3.594"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:8.3.594"
+    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:8.3.594"
 
 }
 
 processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.loader_version
+    filteringCharset "UTF-8"
 
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    // this will ensure that this task is redone when the versions change.
-    inputs.property 'version', project.mod_version
-    inputs.property "mcversion", project.minecraft_version
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include "mcmod.info"
-        // replace version and mcversion
-        expand([
-                'version'  : project.mod_version,
-                'mcversion': project.minecraft_version
-        ])
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version
     }
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "mcmod.info"
-    }
-    //rename "(.+_at.cfg)", 'META-INF/$1' // Access Transformers
+}
 
+def targetJavaVersion = 17
+tasks.withType(JavaCompile).configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
+    it.options.encoding = "UTF-8"
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        it.options.release = targetJavaVersion
+    }
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+    archivesBaseName = project.archives_base_name
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
 }
 
 jar {
-    manifest {
-        def attribute_map = [:]
-        attribute_map["FMLAT"] = "ragi_materials_at.cfg"
-        attributes(attribute_map)
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
     }
-    exclude("META-INF/versions/9/module-info.class")
 }
 
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
 }
 
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
-
-fancyGradle {
-    patches {
-        asm
-        codeChickenLib
-        coremods
-        resources
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }

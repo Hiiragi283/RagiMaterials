@@ -1,86 +1,41 @@
 package hiiragi283.material.item
 
-import hiiragi283.material.base.ItemBase
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.client.color.IColorHandler
-import hiiragi283.material.client.model.RagiModelManager
-import hiiragi283.material.creativetab.CreativeTabMaterial
-import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material.RagiMaterial
-import hiiragi283.material.util.RagiColor
-import net.minecraft.client.resources.I18n
-import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
-import net.minecraft.util.NonNullList
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.oredict.OreDictionary
-import rechellatek.snakeToLowerCamelCase
-import kotlin.math.roundToInt
+import net.minecraft.text.Text
+import net.minecraft.text.TranslatableText
+import net.minecraft.util.Identifier
+import net.minecraft.world.World
 
-abstract class ItemMaterial(private val ID: String, private val scale: Float = 1.0f) :
-    ItemBase(ID, OreDictionary.WILDCARD_VALUE), IColorHandler.Item {
+abstract class ItemMaterial(private val settings: MaterialItemSettings) : ItemBase(settings), IColorHandler.ITEM {
 
-    init {
-        creativeTab = CreativeTabMaterial
-    }
+    constructor(material: RagiMaterial, part: String, scale: Float = 1.0f) : this(MaterialItemSettings(material, part, scale))
 
     //    General    //
 
-    override fun getItemBurnTime(stack: ItemStack): Int = (getMaterial(stack).burnTime * scale).roundToInt()
+    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
+        settings.material.getTooltip(tooltip)
+    }
 
-    //    Client    //
-
-    @SideOnly(Side.CLIENT)
-    override fun getItemStackDisplayName(stack: ItemStack): String =
-        I18n.format("item.ragi_$ID.name", getMaterial(stack).getTranslatedName())
-
-    @SideOnly(Side.CLIENT)
-    override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
-        if (isInCreativeTab(tab)) {
-            for (material in MaterialRegistry.getMaterialAll()) {
-                val stack = getStack(material)
-                if (!stack.isEmpty) subItems.add(getStack(material))
-            }
-        }
+    override fun getName(): Text {
+        return TranslatableText("item.${getPart()}", getMaterial().getTranslatedName())
     }
 
     //    ItemBase    //
 
-    @SideOnly(Side.CLIENT)
-    override fun registerModel(): Unit = RagiModelManager.setModelSame(this)
+    override fun getIdentifier(): Identifier = Identifier(RagiMaterials.MOD_ID, "${getPart()}_${getMaterial().name}")
 
-    override fun registerOreDict() {
-        for (material in MaterialRegistry.getMaterialAll()) {
-            val oredict = getOreDict(material)
-            val stack = getStack(material)
-            if (!stack.isEmpty) OreDictionary.registerOre(oredict, stack)
-            //有効な部品でなくとも鉱石辞書の組み合わせは登録する
-            MaterialRegistry.setMaterialWithOre(oredict, material)
-        }
-    }
+    //    Material    //
 
-    override fun registerRecipe() {
-        for (material in MaterialRegistry.getMaterialAll()) {
-            if (this in material.type.getParts()) registerRecipeMaterial(material)
-        }
-    }
+    private fun getMaterial(): RagiMaterial = settings.material
 
-    abstract fun registerRecipeMaterial(material: RagiMaterial)
+    private fun getPart(): String = settings.part
 
-    //    ItemMaterial    //
+    //    IColorHandler.ITEM    //
 
-    private fun getMaterial(stack: ItemStack): RagiMaterial = MaterialRegistry.getMaterial(stack)
-
-    fun getOreDict(material: RagiMaterial) = getOrePrefix() + material.getOreDict()
-
-    fun getOrePrefix() = ID.snakeToLowerCamelCase()
-
-    fun getStack(material: RagiMaterial, amount: Int = 1): ItemStack =
-        if (material.isValidPart(this)) ItemStack(this, amount, material.index) else ItemStack.EMPTY
-
-    //    IColorHandler    //
-
-    override fun getColor(stack: ItemStack, tintIndex: Int) =
-        if (tintIndex == 0) getMaterial(stack).color else RagiColor.WHITE
+    override fun getColor(stack: ItemStack, tintIndex: Int) = getMaterial().color
 
 }
