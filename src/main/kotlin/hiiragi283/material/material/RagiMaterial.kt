@@ -2,13 +2,13 @@ package hiiragi283.material.material
 
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.util.ColorUtil
-import net.minecraft.fluid.Fluid
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.text.LiteralText
-import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
-import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
+import net.minecraft.core.Registry
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.TextComponent
+import net.minecraft.network.chat.TranslatableComponent
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.level.material.Fluid
 import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
 
@@ -31,24 +31,29 @@ data class RagiMaterial private constructor(
 
         //NBTタグから素材を取得するメソッド
         @JvmStatic
-        fun readFromNBT(tag: NbtCompound): RagiMaterial = MaterialRegistry.getMaterial(tag.getString("material"))
+        fun readFromNBT(tag: CompoundTag): RagiMaterial = MaterialRegistry.getMaterial(tag.getString("material"))
     }
 
     //nameから液体を取得するメソッド
-    fun getFluid(): Fluid = Registry.FLUID.get(Identifier(RagiMaterials.MOD_ID, name))
+    fun getFluid(): Fluid = Registry.FLUID.get(ResourceLocation(RagiMaterials.MOD_ID, name))
 
     //registryNameからUCC型のStringを取得するメソッド
     fun getOreDict(): String = name.snakeToUpperCamelCase()
 
     //翻訳後の名前を取得するメソッド
-    fun getTranslatedName(): TranslatableText = TranslatableText("material.$name")
+    fun getTranslatedName(): TranslatableComponent = TranslatableComponent("material.$name")
 
     //materialのツールチップを生成するメソッド
-    fun getTooltip(tooltip: MutableList<Text>) {
-        tooltip.add(LiteralText("§e=== Property ==="))
-        tooltip.add(TranslatableText("tips.ragi_materials.property.name", getTranslatedName())) //名称
-        if (formula.isNotEmpty()) tooltip.add(TranslatableText("tips.ragi_materials.property.formula", formula)) //化学式
-        if (molar > 0.0f) tooltip.add(TranslatableText("tips.ragi_materials.property.mol", molar)) //モル質量
+    fun getTooltip(tooltip: MutableList<Component>) {
+        tooltip.add(TextComponent("§e=== Property ==="))
+        tooltip.add(TranslatableComponent("tips.ragi_materials.property.name", getTranslatedName())) //名称
+        if (formula.isNotEmpty()) tooltip.add(
+            TranslatableComponent(
+                "tips.ragi_materials.property.formula",
+                formula
+            )
+        ) //化学式
+        if (molar > 0.0f) tooltip.add(TranslatableComponent("tips.ragi_materials.property.mol", molar)) //モル質量
     }
 
     //素材が空か判定するメソッド
@@ -58,8 +63,8 @@ data class RagiMaterial private constructor(
     fun setBracket(): RagiMaterial = copy(formula = "(${formula})")
 
     //NBTタグに素材を書き込むメソッド
-    fun writeToNBT(tag: NbtCompound?): NbtCompound {
-        val tag1 = tag ?: NbtCompound()
+    fun writeToNBT(tag: CompoundTag?): CompoundTag {
+        val tag1 = tag ?: CompoundTag()
         return tag1.also { it.putString("material", name) }
     }
 

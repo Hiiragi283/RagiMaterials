@@ -2,22 +2,22 @@
 
 package hiiragi283.material.util
 
-import net.minecraft.block.entity.BlockEntity
-import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.sound.SoundCategory
-import net.minecraft.sound.SoundEvent
-import net.minecraft.sound.SoundEvents
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
+import net.minecraft.core.BlockPos
+import net.minecraft.sounds.SoundEvent
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.entity.BlockEntity
 
 fun playSound(
-    world: World?,
+    world: Level?,
     pos: BlockPos,
     soundEvent: SoundEvent,
     volume: Float = 1.0f,
     pitch: Float = 1.0f,
-    soundCategory: SoundCategory = SoundCategory.MASTER,
-    player: PlayerEntity? = null
+    soundCategory: SoundSource = SoundSource.MASTER,
+    player: Player? = null
 ) {
     world?.playSound(player, pos, soundEvent, soundCategory, volume, pitch)
 }
@@ -27,15 +27,15 @@ fun playSound(
     soundEvent: SoundEvent,
     volume: Float = 1.0f,
     pitch: Float = 1.0f,
-    soundCategory: SoundCategory = SoundCategory.MASTER
+    soundCategory: SoundSource = SoundSource.MASTER
 ) {
-    playSound(tile.world, tile.pos, soundEvent, volume, pitch, soundCategory)
+    playSound(tile.level, tile.blockPos, soundEvent, volume, pitch, soundCategory)
 }
 
-fun playSoundHypixel(world: World?, pos: BlockPos) {
-    world?.playSound(null, pos, SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.BLOCKS, 1.0f, 0.5f)
+fun playSoundHypixel(world: Level?, pos: BlockPos) {
+    world?.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.MASTER, 1.0f, 0.5f)
 }
 
 fun playSoundHypixel(tile: BlockEntity) {
-    playSoundHypixel(tile.world, tile.pos)
+    playSoundHypixel(tile.level, tile.blockPos)
 }

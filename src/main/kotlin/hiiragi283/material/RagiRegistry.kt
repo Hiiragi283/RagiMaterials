@@ -5,7 +5,7 @@ import hiiragi283.material.client.color.IColorHandler
 import hiiragi283.material.item.ItemBase
 import hiiragi283.material.item.ItemMaterial
 import hiiragi283.material.material.MaterialRegistry
-import net.minecraft.util.registry.Registry
+import net.minecraft.core.Registry
 
 object RagiRegistry {
 
@@ -36,13 +36,13 @@ object RagiRegistry {
             //Block
             if (obj is BlockBase) {
                 setBlocks.add(obj)
-                RagiMaterials.LOGGER.info("The block ${obj.getIdentifier()} is added to collection!")
+                RagiMaterials.LOGGER.info("The block ${obj.getRegistryName()} is added to collection!")
                 if (obj is IColorHandler.BLOCK) setBlocksColored.add(obj)
             }
             //Item
             if (obj is ItemBase) {
                 setItems.add(obj)
-                RagiMaterials.LOGGER.info("The item ${obj.getIdentifier()} is added to collection!")
+                RagiMaterials.LOGGER.info("The item ${obj.getRegistryName()} is added to collection!")
                 if (obj is IColorHandler.ITEM) setItemsColored.add(obj)
             }
         }
@@ -52,21 +52,21 @@ object RagiRegistry {
         //Block
         for (block in setBlocks) {
             registerBlock(block)
-            RagiMaterials.LOGGER.info("The block ${block.getIdentifier()} is registered!")
+            RagiMaterials.LOGGER.info("The block ${block.getRegistryName()} is registered!")
         }
         //Item
         for (item in setItems) {
             registerItem(item)
-            RagiMaterials.LOGGER.info("The item ${item.getIdentifier()} is registered!")
+            RagiMaterials.LOGGER.info("The item ${item.getRegistryName()} is registered!")
         }
     }
 
     private fun registerBlock(block: BlockBase) {
-        Registry.register(Registry.BLOCK, block.getIdentifier(), block)
+        Registry.register(Registry.BLOCK, block.getRegistryName(), block)
     }
 
     private fun registerItem(item: ItemBase) {
-        Registry.register(Registry.ITEM, item.getIdentifier(), item)
+        Registry.register(Registry.ITEM, item.getRegistryName(), item)
     }
 
 }

@@ -1,6 +1,27 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
-.gradle
+# idea
+out
+*.ipr
+*.iws
+*.iml
 .idea
+
+# gradle
 build
-libs
+.gradle
+
+# other
+eclipse
 run
+server
+
+*.jar
+docs
+src/main/kotlin/hiiragi283/ragi_materials/unused

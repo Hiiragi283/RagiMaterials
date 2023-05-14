@@ -3,12 +3,12 @@ package hiiragi283.material.item
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.client.color.IColorHandler
 import hiiragi283.material.material.RagiMaterial
-import net.minecraft.client.item.TooltipContext
-import net.minecraft.item.ItemStack
-import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
-import net.minecraft.util.Identifier
-import net.minecraft.world.World
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.TranslatableComponent
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
 import java.awt.Color
 
 abstract class ItemMaterial(private val settings: MaterialItemSettings) : ItemBase(settings), IColorHandler.ITEM {
@@ -23,17 +23,23 @@ abstract class ItemMaterial(private val settings: MaterialItemSettings) : ItemBa
 
     //    General    //
 
-    override fun appendTooltip(stack: ItemStack, world: World?, tooltip: MutableList<Text>, context: TooltipContext) {
-        settings.material.getTooltip(tooltip)
+    override fun appendHoverText(
+        itemStack: ItemStack,
+        level: Level?,
+        list: MutableList<Component>,
+        tooltipFlag: TooltipFlag
+    ) {
+        settings.material.getTooltip(list)
     }
 
-    override fun getName(): Text {
-        return TranslatableText("item.${getPart()}", getMaterial().getTranslatedName())
+    override fun getName(itemStack: ItemStack): Component {
+        return TranslatableComponent("item.${getPart()}", getMaterial().getTranslatedName())
     }
 
     //    ItemBase    //
 
-    override fun getIdentifier(): Identifier = Identifier(RagiMaterials.MOD_ID, "${getPart()}_${getMaterial().name}")
+    override fun getRegistryName(): ResourceLocation =
+        ResourceLocation(RagiMaterials.MOD_ID, "${getPart()}_${getMaterial().name}")
 
     //    Material    //
 

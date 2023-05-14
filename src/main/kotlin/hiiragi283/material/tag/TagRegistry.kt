@@ -1,13 +1,20 @@
 package hiiragi283.material.tag
 
-import net.minecraft.tag.TagKey
-import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
-import net.minecraft.util.registry.RegistryKey
+import hiiragi283.material.RagiRegistry
+import hiiragi283.material.item.ItemMaterial
+import hiiragi283.material.util.getItem
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.tags.TagKey
 
 object TagRegistry {
 
-    fun <T : Registry<T>> getOrCreateCommonTag(registry: RegistryKey<T>, id: Identifier): TagKey<T> =
-        TagKey.of(registry, id)
+    val TAG_IRON_INGOT = TagKey.create(Registry.ITEM_REGISTRY, ResourceLocation("c", "iron_ingots"))
+
+    //Tag -> ItemMaterial
+    fun <T : Any> getItemMaterial(tag: TagKey<T>): ItemMaterial {
+        val item = getItem(tag.location)
+        return if (item is ItemMaterial) item else RagiRegistry.INGOT_IRON
+    }
 
 }

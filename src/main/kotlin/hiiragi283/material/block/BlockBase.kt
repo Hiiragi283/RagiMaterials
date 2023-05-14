@@ -1,11 +1,10 @@
 package hiiragi283.material.block
 
-import hiiragi283.material.util.IIdentifiable
-import net.minecraft.block.Block
-import net.minecraft.util.Identifier
+import hiiragi283.material.util.IRegistryObject
+import net.minecraft.world.level.block.Block
 
-abstract class BlockBase(settings: Settings) : Block(settings), IIdentifiable {
+abstract class BlockBase(properties: Properties) : Block(properties), IRegistryObject {
 
-    abstract override fun getIdentifier(): Identifier
+
 
 }

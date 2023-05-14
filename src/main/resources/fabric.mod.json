@@ -5,7 +5,7 @@
   "name": "RagiMaterials",
   "description": "",
   "authors": [
-    "hiiragi283"
+    "Hiiragi283"
   ],
   "contact": {
     "sources": "https://github.com/hiiragi283/RagiMaterials"
@@ -27,12 +27,12 @@
       }
     ]
   },
+  "mixins": [
+    "ragi_materials.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
-  },
-  "mixins": [
-    "ragi_materials.mixins.json"
-  ]
+  }
 }

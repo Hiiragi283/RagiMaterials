@@ -2,14 +2,11 @@
 
 package hiiragi283.material.util
 
-import net.minecraft.server.command.CommandOutput
-import net.minecraft.util.Rarity
+import net.minecraft.world.item.Rarity
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
 
 fun Int.toBool(): Boolean = this % 2 != 0
-
-fun executeCommand(sender: CommandOutput, command: String) {}
 
 fun getEnumRarity(name: String): Rarity {
     return when (name) {

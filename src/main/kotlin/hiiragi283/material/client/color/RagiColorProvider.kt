@@ -3,29 +3,34 @@ package hiiragi283.material.client.color
 import hiiragi283.material.util.RagiColor
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
-import net.minecraft.block.BlockState
-import net.minecraft.client.color.block.BlockColorProvider
-import net.minecraft.client.color.item.ItemColorProvider
-import net.minecraft.item.ItemStack
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.BlockRenderView
+import net.minecraft.client.color.block.BlockColor
+import net.minecraft.client.color.item.ItemColor
+import net.minecraft.core.BlockPos
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.BlockAndTintGetter
+import net.minecraft.world.level.block.state.BlockState
 
 @Environment(value = EnvType.CLIENT)
-object RagiColorProvider : BlockColorProvider, ItemColorProvider {
+object RagiColorProvider : BlockColor, ItemColor {
 
-    //    BlockColorProvider    //
+    //    BlockColor    //
 
-    override fun getColor(state: BlockState, world: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int {
+    override fun getColor(
+        state: BlockState,
+        blockAndTintGetter: BlockAndTintGetter?,
+        pos: BlockPos?,
+        tintIndex: Int
+    ): Int {
         val block = state.block
-        return if (block is IColorHandler.BLOCK && world !== null && pos !== null) block.getColor(
+        return if (block is IColorHandler.BLOCK && blockAndTintGetter !== null && pos !== null) block.getColor(
             state,
-            world,
+            blockAndTintGetter,
             pos,
             tintIndex
         ).rgb else RagiColor.WHITE.rgb
     }
 
-    //    ItemColorProvider    //
+    //    ItemColor    //
 
     override fun getColor(stack: ItemStack, tintIndex: Int): Int {
         val item = stack.item

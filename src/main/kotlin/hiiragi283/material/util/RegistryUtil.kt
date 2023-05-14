@@ -2,22 +2,22 @@
 
 package hiiragi283.material.util
 
-import net.minecraft.block.Block
-import net.minecraft.enchantment.Enchantment
-import net.minecraft.enchantment.Enchantments
-import net.minecraft.entity.EntityType
-import net.minecraft.fluid.Fluid
-import net.minecraft.item.Item
-import net.minecraft.potion.Potion
-import net.minecraft.sound.SoundEvent
-import net.minecraft.sound.SoundEvents
-import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.sounds.SoundEvent
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.alchemy.Potion
+import net.minecraft.world.item.enchantment.Enchantment
+import net.minecraft.world.item.enchantment.Enchantments
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.material.Fluid
 
-fun getBlock(id: Identifier): Block = Registry.BLOCK.get(id)
-fun getEnchant(id: Identifier): Enchantment = Registry.ENCHANTMENT.get(id) ?: Enchantments.FORTUNE
-fun getEntity(id: Identifier): EntityType<*> = Registry.ENTITY_TYPE.get(id)
-fun getFluid(id: Identifier): Fluid = Registry.FLUID.get(id)
-fun getItem(id: Identifier): Item = Registry.ITEM.get(id)
-fun getPotion(id: Identifier): Potion = Registry.POTION.get(id)
-fun getSound(id: Identifier): SoundEvent = Registry.SOUND_EVENT.get(id) ?: SoundEvents.ENTITY_ITEM_PICKUP
+fun getBlock(location: ResourceLocation): Block = Registry.BLOCK.get(location)
+fun getEnchant(location: ResourceLocation): Enchantment = Registry.ENCHANTMENT.get(location) ?: Enchantments.ALL_DAMAGE_PROTECTION
+fun getEntity(location: ResourceLocation): EntityType<*> = Registry.ENTITY_TYPE.get(location)
+fun getFluid(location: ResourceLocation): Fluid = Registry.FLUID.get(location)
+fun getItem(location: ResourceLocation): Item = Registry.ITEM.get(location)
+fun getPotion(location: ResourceLocation): Potion = Registry.POTION.get(location)
+fun getSound(location: ResourceLocation): SoundEvent = Registry.SOUND_EVENT.get(location) ?: SoundEvents.AMBIENT_CAVE
