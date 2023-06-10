@@ -93,7 +93,7 @@ object MaterialRegistry {
 
     @JvmField
     val NEON = HiiragiMaterial.Builder("neon", 10)
-        .setColor(RagiColor.GREEN)
+        .setColor(RagiColor.DARK_AQUA)
         .setFormula("Ne")
         .setMolar(20.2)
         .build()
@@ -129,7 +129,7 @@ object MaterialRegistry {
 
     @JvmField
     val PHOSPHORUS = HiiragiMaterial.Builder("phosphorus", 15)
-        .setColor(RagiColor.YELLOW)
+        .setColor(RagiColor.WHITE)
         .setFormula("P")
         .setMolar(31.0)
         .build()
@@ -158,7 +158,7 @@ object MaterialRegistry {
     // 4th Period
     @JvmField
     val POTASSIUM = HiiragiMaterial.Builder("potassium", 19)
-        .setColor(RagiColor.DARK_AQUA)
+        .setColor(RagiColor.GRAY)
         .setFormula("K")
         .setMolar(39.1)
         .build()
@@ -195,7 +195,7 @@ object MaterialRegistry {
     val CHROMIUM = HiiragiMaterial.Builder("chromium", 24)
         .setColor(RagiColor.GRAY)
         .setFormula("Cr")
-        .setMolar(52)
+        .setMolar(52.0)
         .build()
 
     @JvmField
@@ -275,6 +275,13 @@ object MaterialRegistry {
         .setMolar(79.9)
         .build()
 
+    @JvmField
+    val KRYPTON = HiiragiMaterial.Builder("krypton", 36)
+        .setColor(RagiColor.DARK_GREEN)
+        .setFormula("Kr")
+        .setMolar(83.8)
+        .build()
+
 
 
 
@@ -324,6 +331,8 @@ object MaterialRegistry {
         registerMaterial(ARSENIC)
         registerMaterial(SELENIUM)
         registerMaterial(BROMINE)
+        registerMaterial(KRYPTON)
+
     }
 
 }
