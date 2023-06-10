@@ -636,6 +636,233 @@ object MaterialRegistry {
         //.setMolar(222.0)
         .build()
 
+    // 6th Period
+    @JvmField
+    val FRANCIUM = HiiragiMaterial.Builder("francium", 87)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Fr")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val RADIUM = HiiragiMaterial.Builder("radium", 88)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ra")
+        //.setMolar()
+        .build()
+
+    // (Actinoid START)
+    @JvmField
+    val ACTINIUM = HiiragiMaterial.Builder("actinium", 89)
+        .setColor(RagiColor.DARK_AQUA)
+        .setFormula("Ac")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val THORIUM = HiiragiMaterial.Builder("thorium", 90)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Th")
+        .setMolar(232.0)
+        .build()
+
+    @JvmField
+    val PROTACTINIUM = HiiragiMaterial.Builder("protactinium", 91)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Pa")
+        .setMolar(231.0)
+        .build()
+
+    @JvmField
+    val URANIUM238 = HiiragiMaterial.Builder("uranium238", 92)
+        .setColor(RagiColor.GREEN)
+        .setFormula("U238")
+        .setMolar(238.0)
+        .build()
+
+    @JvmField
+    val NEPTUNIUM = HiiragiMaterial.Builder("neptunium", 93)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Np")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val PLUTONIUM244 = HiiragiMaterial.Builder("plutonium244", 94)
+        .setColor(RagiColor.DARK_RED)
+        .setFormula("Pu244")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val AMERICIUM = HiiragiMaterial.Builder("americium", 95)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Am")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val CURIUM = HiiragiMaterial.Builder("curium", 96)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Cm")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val BERKELIUM = HiiragiMaterial.Builder("berkelium", 97)
+        .setColor(RagiColor.GRAY)
+        .setFormula("")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val CALIFORNIUM = HiiragiMaterial.Builder("californium", 98)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Cf")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", 99)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Es")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val FERMIUM = HiiragiMaterial.Builder("fermium", 100)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Fm")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", 101)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Md")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val NOBELIUM = HiiragiMaterial.Builder("nobelium", 102)
+        .setColor(RagiColor.WHITE)
+        .setFormula("No")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val LAWRENCIUM = HiiragiMaterial.Builder("larrencium", 103)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Lr")
+        //.setMolar()
+        .build()
+    // (Actinoid END)
+
+    @JvmField
+    val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", 104)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Lr")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val DUBNIUM = HiiragiMaterial.Builder("dubnium", 105)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Db")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", 106)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Sg")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val BOHRIUM = HiiragiMaterial.Builder("bohrium", 107)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Bh")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val HASSIUM = HiiragiMaterial.Builder("hassium", 108)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Hs")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", 109)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Mt")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", 110)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Ds")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", 111)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Rg")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val COPERNICIUM = HiiragiMaterial.Builder("copernicium", 112)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Cn")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val NIHONIUM = HiiragiMaterial.Builder("nihonium", 113)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Nh")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val FLEROVIUM = HiiragiMaterial.Builder("flerovium", 114)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Fl")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", 115)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Mc")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", 116)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Lv")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val TENNESSINE = HiiragiMaterial.Builder("tennesine", 117)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Ts")
+        //.setMolar()
+        .build()
+
+    @JvmField
+    val OGANESSON = HiiragiMaterial.Builder("oganesson", 118)
+        .setColor(RagiColor.WHITE)
+        .setFormula("Og")
+        //.setMolar()
+        .build()
+
     fun init() {
         // ELEMENTS //
         // --1st Period--
@@ -732,6 +959,42 @@ object MaterialRegistry {
         registerMaterial(POLONIUM)
         registerMaterial(ASTATINE)
         registerMaterial(RADON)
+        // --7th Period
+        registerMaterial(FRANCIUM)
+        registerMaterial(RADIUM)
+        // (Actinoid START)
+        registerMaterial(ACTINIUM)
+        registerMaterial(THORIUM)
+        registerMaterial(PROTACTINIUM)
+        registerMaterial(URANIUM238)
+        registerMaterial(NEPTUNIUM)
+        registerMaterial(PLUTONIUM244)
+        registerMaterial(AMERICIUM)
+        registerMaterial(CURIUM)
+        registerMaterial(BERKELIUM)
+        registerMaterial(CALIFORNIUM)
+        registerMaterial(EINSTEINIUM)
+        registerMaterial(FERMIUM)
+        registerMaterial(MENDELEVIUM)
+        registerMaterial(NOBELIUM)
+        registerMaterial(LAWRENCIUM)
+        // (Actinoid END)
+        registerMaterial(RUTHERFORDIUM)
+        registerMaterial(DUBNIUM)
+        registerMaterial(SEABORGIUM)
+        registerMaterial(BOHRIUM)
+        registerMaterial(HASSIUM)
+        registerMaterial(MEITNERIUM)
+        registerMaterial(DARMSTADTIUM)
+        registerMaterial(ROENTGENIUM)
+        registerMaterial(COPERNICIUM)
+        registerMaterial(NIHONIUM)
+        registerMaterial(FLEROVIUM)
+        registerMaterial(MOSCOVIUM)
+        registerMaterial(LIVERMORIUM)
+        registerMaterial(TENNESSINE)
+        registerMaterial(OGANESSON)
+
 
     }
 
