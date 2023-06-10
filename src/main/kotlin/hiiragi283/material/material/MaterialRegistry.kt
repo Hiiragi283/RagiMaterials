@@ -155,6 +155,133 @@ object MaterialRegistry {
         .setMolar(40.0)
         .build()
 
+    // 4th Period
+    @JvmField
+    val POTASSIUM = HiiragiMaterial.Builder("potassium", 19)
+        .setColor(RagiColor.DARK_AQUA)
+        .setFormula("K")
+        .setMolar(39.1)
+        .build()
+
+    @JvmField
+    val CALCIUM = HiiragiMaterial.Builder("calcium", 20)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ca")
+        .setMolar(40.1)
+        .build()
+
+    @JvmField
+    val SCANDIUM = HiiragiMaterial.Builder("scandium", 21)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Sc")
+        .setMolar(45.0)
+        .build()
+
+    @JvmField
+    val TITANIUM = HiiragiMaterial.Builder("titanium", 22)
+        .setColor(RagiColor.LIGHT_PURPLE)
+        .setFormula("Ti")
+        .setMolar(47.9)
+        .build()
+
+    @JvmField
+    val VANADIUM = HiiragiMaterial.Builder("vanadium", 23)
+        .setColor(RagiColor.DARK_GRAY)
+        .setFormula("V")
+        .setMolar(50.9)
+        .build()
+
+    @JvmField
+    val CHROMIUM = HiiragiMaterial.Builder("chromium", 24)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Cr")
+        .setMolar(52)
+        .build()
+
+    @JvmField
+    val MANGANESE = HiiragiMaterial.Builder("manganese", 25)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Mn")
+        .setMolar(54.9)
+        .build()
+
+    @JvmField
+    val IRON = HiiragiMaterial.Builder("iron", 26)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Fe")
+        .setMolar(55.8)
+        .build()
+
+    @JvmField
+    val COBALT = HiiragiMaterial.Builder("cobalt", 27)
+        .setColor(RagiColor.BLUE)
+        .setFormula("Co")
+        .setMolar(58.9)
+        .build()
+
+    @JvmField
+    val NICKEL = HiiragiMaterial.Builder("nickel", 28)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ni")
+        .setMolar(58.7)
+        .build()
+
+    @JvmField
+    val COPPER = HiiragiMaterial.Builder("copper", 29)
+        .setColor(RagiColor.GOLD)
+        .setFormula("Cu")
+        .setMolar(63.5)
+        .build()
+
+    @JvmField
+    val ZINC = HiiragiMaterial.Builder("zinc", 30)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Zn")
+        .setMolar(65.4)
+        .build()
+
+    @JvmField
+    val GALLIUM = HiiragiMaterial.Builder("gallium", 31)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ga")
+        .setMolar(69.7)
+        .build()
+
+    @JvmField
+    val GERMANIUM = HiiragiMaterial.Builder("germanium", 32)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ge")
+        .setMolar(72.6)
+        .build()
+
+    @JvmField
+    val ARSENIC = HiiragiMaterial.Builder("arsenic", 33)
+        .setColor(RagiColor.GRAY)
+        .setFormula("As")
+        .setMolar(74.9)
+        .build()
+
+    @JvmField
+    val SELENIUM = HiiragiMaterial.Builder("selenium", 34)
+        .setColor(RagiColor.BLACK)
+        .setFormula("Se")
+        .setMolar(74.9)
+        .build()
+
+    @JvmField
+    val BROMINE = HiiragiMaterial.Builder("bromine", 35)
+        .setColor(RagiColor.GOLD)
+        .setFormula("Br")
+        .setMolar(79.9)
+        .build()
+
+
+
+
+
+
+
+
 
     fun init() {
         // ELEMENTS //
@@ -179,6 +306,24 @@ object MaterialRegistry {
         registerMaterial(SULFUR)
         registerMaterial(CHLORINE)
         registerMaterial(ARGON)
+        // 4th Period
+        registerMaterial(POTASSIUM)
+        registerMaterial(CALCIUM)
+        registerMaterial(SCANDIUM)
+        registerMaterial(TITANIUM)
+        registerMaterial(VANADIUM)
+        registerMaterial(CHROMIUM)
+        registerMaterial(MANGANESE)
+        registerMaterial(IRON)
+        registerMaterial(COBALT)
+        registerMaterial(NICKEL)
+        registerMaterial(COPPER)
+        registerMaterial(ZINC)
+        registerMaterial(GALLIUM)
+        registerMaterial(GERMANIUM)
+        registerMaterial(ARSENIC)
+        registerMaterial(SELENIUM)
+        registerMaterial(BROMINE)
     }
 
 }
