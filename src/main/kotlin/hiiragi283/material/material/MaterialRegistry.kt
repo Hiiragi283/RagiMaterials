@@ -636,19 +636,19 @@ object MaterialRegistry {
         //.setMolar(222.0)
         .build()
 
-    // 6th Period
+    // 7th Period
     @JvmField
     val FRANCIUM = HiiragiMaterial.Builder("francium", 87)
         .setColor(RagiColor.GRAY)
         .setFormula("Fr")
-        //.setMolar()
+        //.setMolar(223.0)
         .build()
 
     @JvmField
     val RADIUM = HiiragiMaterial.Builder("radium", 88)
         .setColor(RagiColor.GRAY)
         .setFormula("Ra")
-        //.setMolar()
+        //.setMolar(226.0)
         .build()
 
     // (Actinoid START)
@@ -656,7 +656,7 @@ object MaterialRegistry {
     val ACTINIUM = HiiragiMaterial.Builder("actinium", 89)
         .setColor(RagiColor.DARK_AQUA)
         .setFormula("Ac")
-        //.setMolar()
+        //.setMolar(227.0)
         .build()
 
     @JvmField
@@ -684,77 +684,77 @@ object MaterialRegistry {
     val NEPTUNIUM = HiiragiMaterial.Builder("neptunium", 93)
         .setColor(RagiColor.GRAY)
         .setFormula("Np")
-        //.setMolar()
+        //.setMolar(237.0)
         .build()
 
     @JvmField
     val PLUTONIUM244 = HiiragiMaterial.Builder("plutonium244", 94)
         .setColor(RagiColor.DARK_RED)
         .setFormula("Pu244")
-        //.setMolar()
+        .setMolar(244.1)
         .build()
 
     @JvmField
     val AMERICIUM = HiiragiMaterial.Builder("americium", 95)
         .setColor(RagiColor.GRAY)
         .setFormula("Am")
-        //.setMolar()
+        //.setMolar(243.0)
         .build()
 
     @JvmField
     val CURIUM = HiiragiMaterial.Builder("curium", 96)
         .setColor(RagiColor.GRAY)
         .setFormula("Cm")
-        //.setMolar()
+        //.setMolar(247.0)
         .build()
 
     @JvmField
     val BERKELIUM = HiiragiMaterial.Builder("berkelium", 97)
         .setColor(RagiColor.GRAY)
-        .setFormula("")
-        //.setMolar()
+        .setFormula("Bk")
+        //.setMolar(247.0)
         .build()
 
     @JvmField
     val CALIFORNIUM = HiiragiMaterial.Builder("californium", 98)
         .setColor(RagiColor.GRAY)
         .setFormula("Cf")
-        //.setMolar()
+        //.setMolar(251.0/252.0)
         .build()
 
     @JvmField
     val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", 99)
         .setColor(RagiColor.GRAY)
         .setFormula("Es")
-        //.setMolar()
+        //.setMolar(252.0)
         .build()
 
     @JvmField
     val FERMIUM = HiiragiMaterial.Builder("fermium", 100)
         .setColor(RagiColor.WHITE)
         .setFormula("Fm")
-        //.setMolar()
+        //.setMolar(257.0)
         .build()
 
     @JvmField
     val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", 101)
         .setColor(RagiColor.WHITE)
         .setFormula("Md")
-        //.setMolar()
+        //.setMolar(258.0)
         .build()
 
     @JvmField
     val NOBELIUM = HiiragiMaterial.Builder("nobelium", 102)
         .setColor(RagiColor.WHITE)
         .setFormula("No")
-        //.setMolar()
+        //.setMolar(259.0)
         .build()
 
     @JvmField
     val LAWRENCIUM = HiiragiMaterial.Builder("larrencium", 103)
         .setColor(RagiColor.WHITE)
         .setFormula("Lr")
-        //.setMolar()
+        //.setMolar(262.0/266.0)
         .build()
     // (Actinoid END)
 
@@ -762,105 +762,105 @@ object MaterialRegistry {
     val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", 104)
         .setColor(RagiColor.WHITE)
         .setFormula("Lr")
-        //.setMolar()
+        //.setMolar(261.1/267.0)
         .build()
 
     @JvmField
     val DUBNIUM = HiiragiMaterial.Builder("dubnium", 105)
         .setColor(RagiColor.WHITE)
         .setFormula("Db")
-        //.setMolar()
+        //.setMolar(265.0/268.0)
         .build()
 
     @JvmField
     val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", 106)
         .setColor(RagiColor.WHITE)
         .setFormula("Sg")
-        //.setMolar()
+        //.setMolar(269.0/271.0)
         .build()
 
     @JvmField
     val BOHRIUM = HiiragiMaterial.Builder("bohrium", 107)
         .setColor(RagiColor.WHITE)
         .setFormula("Bh")
-        //.setMolar()
+        //.setMolar(270.0/272.0)
         .build()
 
     @JvmField
     val HASSIUM = HiiragiMaterial.Builder("hassium", 108)
         .setColor(RagiColor.WHITE)
         .setFormula("Hs")
-        //.setMolar()
+        //.setMolar(269.0/277.0)
         .build()
 
     @JvmField
     val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", 109)
         .setColor(RagiColor.WHITE)
         .setFormula("Mt")
-        //.setMolar()
+        //.setMolar(276.0/278.0)
         .build()
 
     @JvmField
     val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", 110)
         .setColor(RagiColor.WHITE)
         .setFormula("Ds")
-        //.setMolar()
+        //.setMolar(281.0)
         .build()
 
     @JvmField
     val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", 111)
         .setColor(RagiColor.WHITE)
         .setFormula("Rg")
-        //.setMolar()
+        //.setMolar(280.0/281.0/282.0)
         .build()
 
     @JvmField
     val COPERNICIUM = HiiragiMaterial.Builder("copernicium", 112)
         .setColor(RagiColor.WHITE)
         .setFormula("Cn")
-        //.setMolar()
+        //.setMolar(285.0)
         .build()
 
     @JvmField
     val NIHONIUM = HiiragiMaterial.Builder("nihonium", 113)
         .setColor(RagiColor.WHITE)
         .setFormula("Nh")
-        //.setMolar()
+        //.setMolar(278.0/286.0)
         .build()
 
     @JvmField
     val FLEROVIUM = HiiragiMaterial.Builder("flerovium", 114)
         .setColor(RagiColor.WHITE)
         .setFormula("Fl")
-        //.setMolar()
+        //.setMolar(289.0)
         .build()
 
     @JvmField
     val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", 115)
         .setColor(RagiColor.WHITE)
         .setFormula("Mc")
-        //.setMolar()
+        //.setMolar(289.0/290.0)
         .build()
 
     @JvmField
     val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", 116)
         .setColor(RagiColor.WHITE)
         .setFormula("Lv")
-        //.setMolar()
+        //.setMolar(293.0)
         .build()
 
     @JvmField
     val TENNESSINE = HiiragiMaterial.Builder("tennesine", 117)
         .setColor(RagiColor.WHITE)
         .setFormula("Ts")
-        //.setMolar()
+        //.setMolar(293.0/294.0)
         .build()
 
     @JvmField
     val OGANESSON = HiiragiMaterial.Builder("oganesson", 118)
         .setColor(RagiColor.WHITE)
         .setFormula("Og")
-        //.setMolar()
+        //.setMolar(294.0)
         .build()
 
     fun init() {
