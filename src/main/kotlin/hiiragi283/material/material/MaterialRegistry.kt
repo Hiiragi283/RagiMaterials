@@ -24,7 +24,7 @@ object MaterialRegistry {
     //    Materials    //
 
     // ELEMENTS //
-    // 1st Period
+    // --1st Period--
     @JvmField
     val HYDROGEN = HiiragiMaterial.Builder("hydrogen", 1)
         .setColor(RagiColor.BLUE)
@@ -41,7 +41,7 @@ object MaterialRegistry {
         .setMolar(4.0)
         .build()
 
-    // 2nd Period
+    // --2nd Period--
     @JvmField
     val LITHIUM = HiiragiMaterial.Builder("lithium", 3)
         .setColor(RagiColor.GRAY)
@@ -98,7 +98,7 @@ object MaterialRegistry {
         .setMolar(20.2)
         .build()
 
-    // 3rd Period
+    // --3rd Period--
     @JvmField
     val SODIUM = HiiragiMaterial.Builder("sodium", 11)
         .setColor(RagiColor.BLUE)
@@ -155,7 +155,7 @@ object MaterialRegistry {
         .setMolar(40.0)
         .build()
 
-    // 4th Period
+    // --4th Period--
     @JvmField
     val POTASSIUM = HiiragiMaterial.Builder("potassium", 19)
         .setColor(RagiColor.GRAY)
@@ -282,7 +282,7 @@ object MaterialRegistry {
         .setMolar(83.8)
         .build()
 
-    // 5th Period
+    // --5th Period--
     @JvmField
     val RUBIDIUM = HiiragiMaterial.Builder("rubidium", 37)
         .setColor(RagiColor.GRAY)
@@ -638,10 +638,10 @@ object MaterialRegistry {
 
     fun init() {
         // ELEMENTS //
-        // 1st Period
+        // --1st Period--
         registerMaterial(HYDROGEN)
         registerMaterial(HELIUM)
-        // 2nd Period
+        // --2nd Period--
         registerMaterial(LITHIUM)
         registerMaterial(BERYLLIUM)
         registerMaterial(BORON)
@@ -650,7 +650,7 @@ object MaterialRegistry {
         registerMaterial(OXYGEN)
         registerMaterial(FLUORINE)
         registerMaterial(NEON)
-        // 3rd Period
+        // --3rd Period--
         registerMaterial(SODIUM)
         registerMaterial(MAGNESIUM)
         registerMaterial(ALUMINIUM)
@@ -659,7 +659,7 @@ object MaterialRegistry {
         registerMaterial(SULFUR)
         registerMaterial(CHLORINE)
         registerMaterial(ARGON)
-        // 4th Period
+        // --4th Period--
         registerMaterial(POTASSIUM)
         registerMaterial(CALCIUM)
         registerMaterial(SCANDIUM)
@@ -678,7 +678,7 @@ object MaterialRegistry {
         registerMaterial(SELENIUM)
         registerMaterial(BROMINE)
         registerMaterial(KRYPTON)
-        // 5th Period
+        // --5th Period--
         registerMaterial(RUBIDIUM)
         registerMaterial(STRONTIUM)
         registerMaterial(YTTRIUM)
@@ -697,7 +697,7 @@ object MaterialRegistry {
         registerMaterial(TELLURIUM)
         registerMaterial(IODINE)
         registerMaterial(XENON)
-        // 6th Period
+        // --6th Period--
         registerMaterial(CAESIUM)
         registerMaterial(BARIUM)
         // (Lanthanoid START)
