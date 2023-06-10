@@ -1,13 +1,17 @@
 package hiiragi283.material.proxy
 
+import net.minecraftforge.fml.common.event.*
+
 interface IProxy {
 
-    fun onConstruct()
+    fun onConstruct(event: FMLConstructionEvent)
 
-    fun onPreInit()
+    fun onPreInit(event: FMLPreInitializationEvent)
 
-    fun onInit()
+    fun onInit(event: FMLInitializationEvent)
 
-    fun onPostInit()
+    fun onPostInit(event: FMLPostInitializationEvent)
+
+    fun onComplete(event: FMLLoadCompleteEvent)
 
 }

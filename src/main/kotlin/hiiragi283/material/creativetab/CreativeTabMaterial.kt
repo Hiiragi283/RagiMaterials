@@ -5,7 +5,7 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
-object CreativeTabMaterial : CreativeTabs("${RagiMaterials.MOD_ID}.material") {
+object CreativeTabMaterial : CreativeTabs("${RagiMaterials.MODID}.material") {
 
     override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
 

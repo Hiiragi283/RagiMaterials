@@ -14,8 +14,8 @@ fun addEnchantment(enchantment: Enchantment, level: Int, stack: ItemStack) {
 
 fun addEnchantments(vararg pairs: Pair<Enchantment, Int>, stack: ItemStack) {
     val map = EnchantmentHelper.getEnchantments(stack)
-    for (pair in pairs) {
-        map[pair.first] = pair.second
+    pairs.forEach {
+        map[it.first] = it.second
     }
     EnchantmentHelper.setEnchantments(map, stack)
 }

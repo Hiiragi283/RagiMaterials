@@ -1,10 +1,7 @@
 package hiiragi283.material.util
 
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.item.EnumDyeColor
 import java.awt.Color
-
-fun colorWrapper(color: EnumDyeColor): Color = Color(color.colorValue)
 
 object ColorUtil {
 
@@ -45,7 +42,7 @@ object ColorUtil {
             redSum / weightSum,
             greenSum / weightSum,
             blueSum / weightSum
-        ) else colorWrapper(EnumDyeColor.WHITE)
+        ) else RagiColor.WHITE
     }
 
     //Map用

@@ -2,19 +2,12 @@ package hiiragi283.material.registry
 
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.base.ItemBase
-import hiiragi283.material.client.color.IColorHandler
-import hiiragi283.material.item.*
-import hiiragi283.material.util.RagiColor
+import hiiragi283.material.item.ItemBookRespawn
+import hiiragi283.material.item.ItemForgeHammer
+import hiiragi283.material.item_old.*
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.client.event.ColorHandlerEvent
-import net.minecraftforge.client.event.ModelRegistryEvent
-import net.minecraftforge.event.RegistryEvent
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
 object RagiRegistry {
@@ -24,6 +17,7 @@ object RagiRegistry {
     private val items: MutableSet<ItemBase> = mutableSetOf()
     private val mapItemMaterials: LinkedHashMap<String, ItemMaterial> = linkedMapOf()
 
+    fun getItems(): Collection<ItemBase> = items
     fun getItemMaterials(): Collection<ItemMaterial> = mapItemMaterials.values
 
     //    Item    //
@@ -55,17 +49,9 @@ object RagiRegistry {
         }
     }
 
-    @SubscribeEvent
-    fun registerItems(event: RegistryEvent.Register<Item>) {
-        val registry = event.registry
-        for (item in items) {
-            item.register(registry)
-        }
-    }
-
     fun registerOreDict() {
-        for (item in items) {
-            item.registerOreDict()
+        items.forEach {
+            it.registerOreDict()
         }
         //for Vanilla
         OreDictionary.registerOre("blockStone", ItemStack(Blocks.STONE, 1, 0))
@@ -97,30 +83,8 @@ object RagiRegistry {
     }
 
     fun registerRecipe() {
-        for (item in items) {
-            item.registerRecipe()
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    object Client {
-
-        @SideOnly(Side.CLIENT)
-        @SubscribeEvent
-        fun registerModel(event: ModelRegistryEvent) {
-            for (item in items) {
-                item.registerModel()
-                RagiMaterials.LOGGER.debug("The model for item ${item.registryName} is registered!")
-            }
-        }
-
-        @SideOnly(Side.CLIENT)
-        @SubscribeEvent
-        fun registerColor(event: ColorHandlerEvent.Item) {
-            event.itemColors.registerItemColorHandler({ stack, tintIndex ->
-                val item = stack.item
-                if (item is IColorHandler.Item) item.getColor(stack, tintIndex).rgb else RagiColor.WHITE.rgb
-            }, *items.toTypedArray())
+        items.forEach {
+            it.registerRecipe()
         }
     }
 }

@@ -1,33 +1,39 @@
 package hiiragi283.material.proxy
 
+import hiiragi283.material.RMEventHandler
 import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.element.ElementRegistry
+import hiiragi283.material.part.PartRegistry
 import hiiragi283.material.registry.RagiRegistry
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.event.*
 
-open class CommonProxy : IProxy {
+abstract class CommonProxy : IProxy {
 
-    override fun onConstruct() {
+    override fun onConstruct(event: FMLConstructionEvent) {
         //Eventの登録
-        MinecraftForge.EVENT_BUS.register(RagiRegistry)
-        //元素の登録
-        ElementRegistry.load()
+        registerEvent(RMEventHandler)
         //素材の登録
-        MaterialRegistry.load()
+        MaterialRegistry.init()
+        //部品の登録
+        PartRegistry.init()
     }
 
-    override fun onPreInit() {
+    fun registerEvent(event: Any) = MinecraftForge.EVENT_BUS.register(event)
+
+    override fun onPreInit(event: FMLPreInitializationEvent) {
         //オブジェクトの生成
         RagiRegistry.load()
     }
 
-    override fun onInit() {
+    override fun onInit(event: FMLInitializationEvent) {
         //鉱石辞書の登録
         RagiRegistry.registerOreDict()
         //レシピの登録
         RagiRegistry.registerRecipe()
     }
 
-    override fun onPostInit() {}
+    override fun onPostInit(event: FMLPostInitializationEvent) {}
+
+    override fun onComplete(event: FMLLoadCompleteEvent) {}
 
 }

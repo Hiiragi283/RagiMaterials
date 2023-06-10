@@ -1,6 +1,5 @@
 package hiiragi283.material.item
 
-import hiiragi283.material.base.ItemBase
 import hiiragi283.material.util.executeCommand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
@@ -10,7 +9,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 
-object ItemBookRespawn : ItemBase("book_respawn", 0) {
+object ItemBookRespawn : RMItemBase("book_respawn", 0) {
 
     //    General    //
 
@@ -23,14 +22,11 @@ object ItemBookRespawn : ItemBase("book_respawn", 0) {
         if (!world.isRemote) executeCommand(player, "gamemode 1")
         if (world.isRemote) {
             val spawnPoint = world.spawnPoint
-            val spawnX = spawnPoint.x + 0.5 //ブロックの中心に来るよう調整
-            val spawnY = 128.0 //高度チェックが面倒なのでy=128に固定
-            val spawnZ = spawnPoint.z + 0.5 //ブロックの中心に来るよう調整
             player.motionX = 0.0
             player.motionY = 0.0
             player.motionZ = 0.0 //運動ベクトルをリセット
             //プレイヤーを指定した座標にテレポート
-            player.setLocationAndAngles(spawnX, spawnY, spawnZ, 0.0f, 0.0f)
+            player.setLocationAndAngles(spawnPoint.x + 0.5, 128.0, spawnPoint.z + 0.5, 0.0f, 0.0f)
         }
         return super.onItemRightClick(world, player, hand)
     }

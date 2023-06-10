@@ -8,8 +8,9 @@ data class ItemStackWrapper(val item: Item?, val count: Int, val meta: Int, val 
 
     constructor(stack: ItemStack, count: Int = stack.count) : this(stack.item, count, stack.metadata, stack.tagCompound)
 
-    fun toItemStack(): ItemStack = item?.let { item -> ItemStack(item, count, meta).also { it.tagCompound = tag } }
-        ?: ItemStack.EMPTY
+    fun toItemStack(count: Int = this.count): ItemStack =
+        item?.let { item -> ItemStack(item, count, meta).also { it.tagCompound = tag } }
+            ?: ItemStack.EMPTY
 
     fun moreThan(other: ItemStackWrapper): Boolean = copy(count = 1) == other.copy(count = 1) && count >= other.count
 

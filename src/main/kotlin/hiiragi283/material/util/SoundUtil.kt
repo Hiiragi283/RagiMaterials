@@ -4,21 +4,10 @@ package hiiragi283.material.util
 
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.ForgeRegistries
-
-fun getSound(location: ResourceLocation): SoundEvent {
-    return ForgeRegistries.SOUND_EVENTS.getValue(location)
-        ?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
-}
-
-fun getSound(registryName: String): SoundEvent {
-    return getSound(ResourceLocation(registryName))
-}
 
 fun playSound(
     world: World,
@@ -43,7 +32,14 @@ fun playSound(
 }
 
 fun playSoundHypixel(world: World, pos: BlockPos) {
-    world.playSound(null, pos, getSound("minecraft:entity.player.levelup"), SoundCategory.BLOCKS, 1.0f, 0.5f)
+    world.playSound(
+        null,
+        pos,
+        getSound("minecraft:entity.player.levelup"),
+        SoundCategory.BLOCKS,
+        1.0f,
+        0.5f
+    )
 }
 
 fun playSoundHypixel(tile: TileEntity) {

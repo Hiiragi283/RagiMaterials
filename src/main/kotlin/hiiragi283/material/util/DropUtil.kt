@@ -2,58 +2,47 @@
 
 package hiiragi283.material.util
 
-import hiiragi283.material.RagiMaterials
+import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
-import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.inventory.InventoryHelper
 import net.minecraft.item.ItemStack
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.items.IItemHandler
 
-fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
-    val world = player.world
-    if (!world.isRemote) {
-        val posPlayer = player.position
-        dropItem(world, posPlayer, stack, x, y, z)
+fun dropInventory(world: World, pos: BlockPos, vararg inventories: IItemHandler) {
+    dropInventory(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), *inventories)
+}
+
+fun dropInventory(world: World, entity: Entity, vararg inventories: IItemHandler) {
+    dropInventory(world, entity.posX, entity.posY, entity.posZ, *inventories)
+}
+
+fun dropInventory(world: World, x: Double, y: Double, z: Double, vararg inventories: IItemHandler) {
+    if (world.isRemote) return
+    inventories.forEach { handler ->
+        (0 until handler.slots)
+            .map { handler.getStackInSlot(it) }
+            .filter { !it.isEmpty }
+            .forEach { InventoryHelper.spawnItemStack(world, x, y, z, it) }
     }
 }
 
-fun dropInventoryItems(
-    world: World,
-    pos: BlockPos,
-    inventory: IItemHandler,
-    x: Double = 0.0,
-    y: Double = 0.0,
-    z: Double = 0.0
-) {
-    for (i in 0 until inventory.slots) {
-        val stack = inventory.getStackInSlot(i)
-        dropItem(world, pos, stack, x, y, z)
-    }
+fun dropItem(world: World, pos: BlockPos, stack: ItemStack) {
+    dropItem(world, pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), stack)
 }
 
-fun dropItemFromTile(
-    world: World,
-    pos: BlockPos,
-    stack: ItemStack,
-    tile: TileEntity,
-    x: Double = 0.0,
-    y: Double = 0.0,
-    z: Double = 0.0
-) {
-    RagiMaterials.LOGGER.debug("The stack is ${stack.toBracket()}")
-    stack.getOrCreateSubCompound("BlockEntityTag").merge(tile.updateTag)
-    dropItem(world, pos, stack, x, y, z)
+fun dropItem(world: World, entity: Entity, stack: ItemStack) {
+    dropItem(world, entity.posX, entity.posY, entity.posZ, stack)
 }
 
-fun dropItem(world: World, pos: BlockPos, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
-    if (!world.isRemote && !stack.isEmpty) {
-        val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble(), pos.z.toDouble() + 0.5f, stack)
-        drop.setPickupDelay(0) //即座に回収できるようにする
-        drop.motionX = x
-        drop.motionY = y
-        drop.motionZ = z
-        world.spawnEntity(drop) //ドロップアイテムをスポーン
+fun dropItem(world: World, x: Double, y: Double, z: Double, stack: ItemStack) {
+    if (world.isRemote) return
+    val drop = EntityItem(world, x, y, z, stack).also {
+        it.setPickupDelay(0)
+        it.motionX = 0.0
+        it.motionY = 0.0
+        it.motionZ = 0.0
     }
+    world.spawnEntity(drop)
 }
