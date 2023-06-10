@@ -282,13 +282,132 @@ object MaterialRegistry {
         .setMolar(83.8)
         .build()
 
+    // 5th Period
+    @JvmField
+    val RUBIDIUM = HiiragiMaterial.Builder("rubidium", 37)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Rb")
+        .setMolar(85.5)
+        .build()
 
+    @JvmField
+    val STRONTIUM = HiiragiMaterial.Builder("strontium", 38)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Sr")
+        .setMolar(87.6)
+        .build()
 
+    @JvmField
+    val YTTRIUM = HiiragiMaterial.Builder("yttrium", 39)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Y")
+        .setMolar(88.9)
+        .build()
 
+    @JvmField
+    val ZIRCONIUM = HiiragiMaterial.Builder("zirconium", 40)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Zr")
+        .setMolar(91.2)
+        .build()
 
+    @JvmField
+    val NIOBIUM = HiiragiMaterial.Builder("niobium", 41)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Nb")
+        .setMolar(92.9)
+        .build()
 
+    @JvmField
+    val MOLYBDENUM = HiiragiMaterial.Builder("molybdenum", 42)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Mo")
+        .setMolar(96.0)
+        .build()
 
+    @JvmField
+    val TECHNETIUM = HiiragiMaterial.Builder("technetium", 43)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Tc")
+        //.setMolar(97.0/98.0/99.0)
+        .build()
 
+    @JvmField
+    val RUTHENIUM = HiiragiMaterial.Builder("ruthenium", 44)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ru")
+        .setMolar(101.1)
+        .build()
+
+    @JvmField
+    val RHODIUM = HiiragiMaterial.Builder("rhodium", 45)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Rh")
+        .setMolar(102.9)
+        .build()
+
+    @JvmField
+    val PALLADIUN = HiiragiMaterial.Builder("palladium", 46)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Pd")
+        .setMolar(106.4)
+        .build()
+
+    @JvmField
+    val SILVER = HiiragiMaterial.Builder("silver", 47)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Ag")
+        .setMolar(107.9)
+        .build()
+
+    @JvmField
+    val CADMIUM = HiiragiMaterial.Builder("cadmium", 48)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Cd")
+        .setMolar(112.4)
+        .build()
+
+    @JvmField
+    val INDIUM = HiiragiMaterial.Builder("indium", 49)
+        .setColor(RagiColor.GRAY)
+        .setFormula("In")
+        .setMolar(114.8)
+        .build()
+
+    @JvmField
+    val TIN = HiiragiMaterial.Builder("tin", 50)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Sn")
+        .setMolar(118.7)
+        .build()
+
+    @JvmField
+    val ANTIMONY = HiiragiMaterial.Builder("antimony", 51)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Sb")
+        .setMolar(121.8)
+        .build()
+
+    @JvmField
+    val TELLURIUM = HiiragiMaterial.Builder("tellurium", 52)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Te")
+        .setMolar(127.6)
+        .build()
+
+    @JvmField
+    val IODINE = HiiragiMaterial.Builder("iodine", 53)
+        .setColor(RagiColor.DARK_PURPLE)
+        .setFormula("I")
+        .setMolar(126.9)
+        .build()
+
+    @JvmField
+    val XENON = HiiragiMaterial.Builder("xenon", 54)
+        .setColor(RagiColor.AQUA)
+        .setFormula("Xe")
+        .setMolar(131.3)
+        .build()
 
     fun init() {
         // ELEMENTS //
@@ -332,6 +451,25 @@ object MaterialRegistry {
         registerMaterial(SELENIUM)
         registerMaterial(BROMINE)
         registerMaterial(KRYPTON)
+        // 5th Period
+        registerMaterial(RUBIDIUM)
+        registerMaterial(STRONTIUM)
+        registerMaterial(YTTRIUM)
+        registerMaterial(ZIRCONIUM)
+        registerMaterial(NIOBIUM)
+        registerMaterial(MOLYBDENUM)
+        registerMaterial(TECHNETIUM)
+        registerMaterial(RUTHENIUM)
+        registerMaterial(RHODIUM)
+        registerMaterial(PALLADIUN)
+        registerMaterial(SILVER)
+        registerMaterial(CADMIUM)
+        registerMaterial(INDIUM)
+        registerMaterial(TIN)
+        registerMaterial(ANTIMONY)
+        registerMaterial(TELLURIUM)
+        registerMaterial(IODINE)
+        registerMaterial(XENON)
 
     }
 
