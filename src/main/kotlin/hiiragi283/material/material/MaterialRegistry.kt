@@ -46,7 +46,7 @@ object MaterialRegistry {
     val LITHIUM = HiiragiMaterial.Builder("lithium", 3)
         .setColor(RagiColor.GRAY)
         .setFormula("Li")
-        .setMolar(7.0)
+        .setMolar(6.9)
         .build()
 
     @JvmField
@@ -98,6 +98,63 @@ object MaterialRegistry {
         .setMolar(20.2)
         .build()
 
+    // 3rd Period
+    @JvmField
+    val SODIUM = HiiragiMaterial.Builder("sodium", 11)
+        .setColor(RagiColor.BLUE)
+        .setFormula("Na")
+        .setMolar(23.0)
+        .build()
+
+    @JvmField
+    val MAGNESIUM = HiiragiMaterial.Builder("magnesium", 12)
+        .setColor(RagiColor.GRAY)
+        .setFormula("Mg")
+        .setMolar(24.3)
+        .build()
+
+    @JvmField
+    val ALUMINIUM = HiiragiMaterial.Builder("aluminium", 13)
+        .setColor(RagiColor.AQUA)
+        .setFormula("Al")
+        .setMolar(27.0)
+        .build()
+
+    @JvmField
+    val SILICON = HiiragiMaterial.Builder("silicon", 14)
+        .setColor(RagiColor.DARK_GRAY)
+        .setFormula("Si")
+        .setMolar(28.1)
+        .build()
+
+    @JvmField
+    val PHOSPHORUS = HiiragiMaterial.Builder("phosphorus", 15)
+        .setColor(RagiColor.YELLOW)
+        .setFormula("P")
+        .setMolar(31.0)
+        .build()
+
+    @JvmField
+    val SULFUR = HiiragiMaterial.Builder("sulfur", 16)
+        .setColor(RagiColor.YELLOW)
+        .setFormula("S")
+        .setMolar(32.1)
+        .build()
+
+    @JvmField
+    val CHLORINE = HiiragiMaterial.Builder("chlorine", 17)
+        .setColor(RagiColor.YELLOW)
+        .setFormula("Cl")
+        .setMolar(35.5)
+        .build()
+
+    @JvmField
+    val ARGON = HiiragiMaterial.Builder("argon", 18)
+        .setColor(RagiColor.GREEN)
+        .setFormula("Ar")
+        .setMolar(40.0)
+        .build()
+
 
     fun init() {
         // ELEMENTS //
@@ -113,6 +170,15 @@ object MaterialRegistry {
         registerMaterial(OXYGEN)
         registerMaterial(FLUORINE)
         registerMaterial(NEON)
+        // 3rd Period
+        registerMaterial(SODIUM)
+        registerMaterial(MAGNESIUM)
+        registerMaterial(ALUMINIUM)
+        registerMaterial(SILICON)
+        registerMaterial(PHOSPHORUS)
+        registerMaterial(SULFUR)
+        registerMaterial(CHLORINE)
+        registerMaterial(ARGON)
     }
 
 }
