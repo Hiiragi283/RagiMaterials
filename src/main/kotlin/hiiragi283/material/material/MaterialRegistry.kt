@@ -76,8 +76,9 @@ object MaterialRegistry {
         .setColor(RagiColor.BLACK)
         .setFormula("C")
         .setMolar(12.0)
-        .setTempBoil(4300)
-        .setTempMelt(4000)
+        //.setTempBoil(4300)
+        //.setTempMelt(4000)
+        .setTempSubl(3915)
         .build()
 
     @JvmField
