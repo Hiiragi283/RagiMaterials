@@ -15,16 +15,23 @@ data class MaterialPart(val part: HiiragiPart, val material: HiiragiMaterial) : 
 
     fun isEmpty(): Boolean = this == EMPTY
 
+    fun getOreDictName(): String = StringBuilder().also {
+        it.append(part.getOreDictPrefix())
+        it.append(material.getOreDictName())
+    }.toString()
+
     //    IMaterialPart    //
 
     override fun getMaterialPart(obj: MaterialPart): MaterialPart = this
 
     //    IForgeRegistryEntry    //
 
+    private val location = ResourceLocation(part.name, material.getName())
+
     //上書き不可能
     override fun setRegistryName(name: ResourceLocation): MaterialPart = this
 
-    override fun getRegistryName(): ResourceLocation = ResourceLocation(part.name, material.getName())
+    override fun getRegistryName(): ResourceLocation = location
 
     override fun getRegistryType(): Class<MaterialPart> = javaClass
 

@@ -1,17 +1,17 @@
 package hiiragi283.material.util
 
-import hiiragi283.material.util.wrapper.BlockStateWrapper
-import hiiragi283.material.util.wrapper.FluidStackWrapper
-import hiiragi283.material.util.wrapper.ItemStackWrapper
+import net.minecraft.block.state.IBlockState
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fluids.FluidStack
 
 data class MetaResourceLocation(val location: ResourceLocation, val meta: Int) {
 
-    constructor(state: BlockStateWrapper) : this(state.block.registryName!!, state.meta)
+    constructor(state: IBlockState) : this(state.block.registryName!!, state.block.getMetaFromState(state))
 
-    constructor(stack: FluidStackWrapper) : this(ResourceLocation(stack.fluid.name), 0)
+    constructor(stack: FluidStack) : this(ResourceLocation(stack.fluid.name), 0)
 
-    constructor(stack: ItemStackWrapper) : this(stack.item?.registryName!!, stack.meta)
+    constructor(stack: ItemStack) : this(stack.item.registryName!!, stack.metadata)
 
     override fun toString(): String = StringBuilder().also {
         it.append(location.namespace)

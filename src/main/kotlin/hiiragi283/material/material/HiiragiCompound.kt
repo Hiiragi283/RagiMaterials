@@ -13,20 +13,16 @@ abstract class HiiragiCompound : HiiragiMaterial() {
 
         fun addComponents(vararg pairs: Pair<HiiragiMaterial, Int>) = also {
             pairs.forEach { components[it.first] = it.second }
-        }
-
-        override fun build(): HiiragiMaterial {
             initProperties()
-            return super.build()
         }
 
         private fun initProperties() {
             initColor()
             initFormula()
             initMolar()
-            initTempBoil()
-            initTempMelt()
-            initTempSubl()
+            //initTempBoil()
+            //initTempMelt()
+            //initTempSubl()
         }
 
         //色を自動で生成

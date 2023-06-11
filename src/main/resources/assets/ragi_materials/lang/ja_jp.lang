@@ -1,6 +1,34 @@
-# Materials
 
-# Elements
+##    CreativeTab    ##
+
+itemGroup.ragi_materials.material=RagiMaterials
+
+##    Item    ##
+
+item.forge_hammer_0.name=フォージハンマー
+item.ragi_materials.block.name=%sブロック
+item.ragi_materials.dust.name=%s粉末
+item.ragi_materials.dust_tiny.name=小さな%s粉末
+item.ragi_materials.gear.name=%sの歯車
+item.ragi_materials.gem.name=%s結晶
+item.ragi_materials.ingot.name=%sインゴット
+item.ragi_materials.nugget.name=%sナゲット
+item.ragi_materials.plate.name=%s板
+item.ragi_materials.stick.name=%s棒
+
+##    Tooltip    ##
+
+tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
+tips.ragi_materials.property.formula=- 化学式: §b%s§r
+tips.ragi_materials.property.melt=- 融点: §b%s§r§7 K
+tips.ragi_materials.property.mol=- 分子量: §b%s§r§7 g/mol
+tips.ragi_materials.property.name=- 名称: §b%s§r§7
+tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
+
+##    Material    ##
+
+###   Elements   ###
+
 material.hydrogen=水素
 material.helium=ヘリウム
 material.lithium=リチウム
@@ -24,7 +52,7 @@ material.calcium=カルシウム
 material.scandium=スカンジウム
 material.titanium=チタン
 material.vanadium=バナジウム
-material.chrome=クロム
+material.chromium=クロム
 material.manganese=マンガン
 material.iron=鉄
 material.cobalt=コバルト

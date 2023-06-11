@@ -15,10 +15,12 @@ import net.minecraftforge.registries.IForgeRegistryModifiable
 
 fun ItemStack.toBracket(): String = "<${this.item.registryName}:${this.metadata}> * ${this.count}"
 
-fun ItemStack.toLocation(): ResourceLocation =
-    ResourceLocation(this.item.registryName!!.toString() + "_" + this.metadata)
+fun ItemStack.toLocation(): ResourceLocation = this.item.registryName!!.append("_" + this.metadata)
 
 fun FluidStack.toBracket(): String = "<fluid:${this.fluid.name}> * ${this.amount}"
+
+//ResourceLocationの末尾に付け足す関数
+fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, this.path + path)
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
 

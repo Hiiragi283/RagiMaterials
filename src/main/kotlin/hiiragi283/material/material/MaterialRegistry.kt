@@ -23,6 +23,10 @@ object MaterialRegistry {
 
     //    Materials    //
 
+    /**
+     * @author MrKono
+     */
+
     // ELEMENTS //
     // --1st Period--
     @JvmField
@@ -955,7 +959,7 @@ object MaterialRegistry {
         .build()
 
     @JvmField
-    val LAWRENCIUM = HiiragiMaterial.Builder("larrencium", 103)
+    val LAWRENCIUM = HiiragiMaterial.Builder("lawrencium", 103)
         .setColor(RagiColor.WHITE)
         .setFormula("Lr")
         //.setMolar(262.0/266.0)
@@ -1082,7 +1086,7 @@ object MaterialRegistry {
         .build()
 
     @JvmField
-    val TENNESSINE = HiiragiMaterial.Builder("tennesine", 117)
+    val TENNESSINE = HiiragiMaterial.Builder("tennessine", 117)
         .setColor(RagiColor.WHITE)
         .setFormula("Ts")
         //.setMolar(293.0/294.0)
@@ -1230,7 +1234,6 @@ object MaterialRegistry {
         registerMaterial(LIVERMORIUM)
         registerMaterial(TENNESSINE)
         registerMaterial(OGANESSON)
-
 
     }
 

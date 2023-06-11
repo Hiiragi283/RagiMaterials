@@ -9,4 +9,12 @@ data class BlockStateWrapper(val block: Block, val meta: Int) {
 
     fun toBlockState(): IBlockState = block.getStateFromMeta(meta)
 
+    override fun toString() = StringBuilder().also {
+        it.append(block.registryName!!.namespace)
+        it.append(":")
+        it.append(block.registryName!!.path)
+        it.append(":")
+        it.append(meta)
+    }.toString()
+
 }

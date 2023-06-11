@@ -24,6 +24,6 @@ object ItemForgeHammer : RMItemBase("forge_hammer", 0) {
             .setPattern("AAA", "AAA", " B ")
             .setIngredient('A', "ingotIron")
             .setIngredient('B', ItemStack(Items.SIGN))
-            .build()
+            .buildShaped()
     }
 }

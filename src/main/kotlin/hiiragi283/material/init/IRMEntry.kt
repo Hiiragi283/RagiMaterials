@@ -11,6 +11,8 @@ interface IRMEntry<T : IForgeRegistryEntry<T>> {
 
     fun register(registry: IForgeRegistry<T>)
 
+    fun registerMaterialPart() {}
+
     fun registerOreDict() {}
 
     fun registerRecipe() {}

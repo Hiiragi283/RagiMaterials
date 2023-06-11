@@ -1,11 +1,9 @@
-package hiiragi283.material.item_old
+package hiiragi283.material.material_old
 
-import hiiragi283.material.base.ItemBase
 import hiiragi283.material.client.IColorHandler
 import hiiragi283.material.client.RMModelManager
 import hiiragi283.material.creativetab.CreativeTabMaterial
-import hiiragi283.material.material_old.MaterialRegistryOld
-import hiiragi283.material.material_old.RagiMaterialOld
+import hiiragi283.material.item.RMItemBase
 import hiiragi283.material.util.RagiColor
 import net.minecraft.client.resources.I18n
 import net.minecraft.creativetab.CreativeTabs
@@ -18,7 +16,7 @@ import rechellatek.snakeToLowerCamelCase
 import kotlin.math.roundToInt
 
 abstract class ItemMaterial(private val ID: String, private val scale: Float = 1.0f) :
-    ItemBase(ID, OreDictionary.WILDCARD_VALUE), IColorHandler.Item {
+    RMItemBase(ID, OreDictionary.WILDCARD_VALUE), IColorHandler.Item {
 
     init {
         creativeTab = CreativeTabMaterial
@@ -65,7 +63,7 @@ abstract class ItemMaterial(private val ID: String, private val scale: Float = 1
         }
     }
 
-    abstract fun registerRecipeMaterial(material: RagiMaterialOld)
+    open fun registerRecipeMaterial(material: RagiMaterialOld) {}
 
     //    ItemMaterial    //
 

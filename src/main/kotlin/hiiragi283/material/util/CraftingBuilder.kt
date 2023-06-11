@@ -1,6 +1,7 @@
 package hiiragi283.material.util
 
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.registry.GameRegistry
 
@@ -9,6 +10,8 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
     constructor(location: String, output: ItemStack) : this(ResourceLocation(location), output)
 
     constructor(output: ItemStack) : this(output.toLocation(), output)
+
+    //    Shaped    //
 
     private val params: MutableList<Any> = mutableListOf()
 
@@ -24,8 +27,20 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
         params.add(oredict)
     }
 
-    fun build() {
+    fun buildShaped() {
         GameRegistry.addShapedRecipe(location, location, output, *params.toTypedArray())
+    }
+
+    //    Shapeless    //
+
+    private val ingredients: MutableList<Ingredient> = mutableListOf()
+
+    fun addIngredient(vararg ings: Ingredient) = also {
+        ingredients.addAll(ings)
+    }
+
+    fun buildShapeless() {
+        GameRegistry.addShapelessRecipe(location, location, output, *ingredients.toTypedArray())
     }
 
 }

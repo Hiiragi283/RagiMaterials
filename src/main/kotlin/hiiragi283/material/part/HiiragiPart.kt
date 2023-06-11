@@ -1,6 +1,7 @@
 package hiiragi283.material.part
 
 import hiiragi283.material.RagiMaterials
+import rechellatek.snakeToLowerCamelCase
 
 data class HiiragiPart(val name: String, val scale: Double) {
 
@@ -12,5 +13,7 @@ data class HiiragiPart(val name: String, val scale: Double) {
     }
 
     fun isEmpty(): Boolean = this.name == "empty"
+
+    fun getOreDictPrefix() = name.snakeToLowerCamelCase()
 
 }

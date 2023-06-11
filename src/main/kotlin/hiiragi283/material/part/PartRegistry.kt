@@ -17,16 +17,32 @@ object PartRegistry {
         val name = part.name
         //同じ名前で登録されていた場合，登録せずに警告を表示する
         REGISTRY.putIfAbsent(name, part)
-            .let { RagiMaterials.LOGGER.warn("The part: $name has already registered!") }
+            ?.let { RagiMaterials.LOGGER.warn("The part: $name has already registered!") }
     }
 
     //    Parts    //
 
     @JvmField
+    val DUST = HiiragiPart("dust", 1.0)
+
+    @JvmField
+    val DUST_TINY = HiiragiPart("dust_tiny", 0.1)
+
+    @JvmField
     val INGOT = HiiragiPart("ingot", 1.0)
 
+    @JvmField
+    val PLATE = HiiragiPart("plate", 1.0)
+
+    @JvmField
+    val STICK = HiiragiPart("stick", 0.5)
+
     fun init() {
+        registerPart(DUST)
+        registerPart(DUST_TINY)
         registerPart(INGOT)
+        registerPart(PLATE)
+        registerPart(STICK)
     }
 
 }

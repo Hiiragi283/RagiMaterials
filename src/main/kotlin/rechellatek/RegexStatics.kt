@@ -1,8 +1,8 @@
 package rechellatek
 
 /**
- * Thanks to RechellaTek!
- * Source: https://play.kotlinlang.org/embed?short=56r8wKERc&theme=darcula&readOnly=true
+ * @author RechellaTek!
+ * @see <a href = https://play.kotlinlang.org/embed?short=56r8wKERc&theme=darcula&readOnly=true>Source Code </a>
  */
 
 class RegexStatics {

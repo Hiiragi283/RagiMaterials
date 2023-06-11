@@ -1,6 +1,7 @@
 package hiiragi283.material.material
 
 import hiiragi283.material.util.RagiColor
+import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
 
 abstract class HiiragiMaterial {
@@ -12,29 +13,74 @@ abstract class HiiragiMaterial {
         val EMPTY = Builder("empty", -1).build()
     }
 
-    fun isEmpty(): Boolean = getName() == "empty"
+    fun isEmpty(): Boolean = this == EMPTY
 
+    /**
+     * Material color for this material
+     */
     abstract fun getColor(): Color
 
     /**
-     * "" means this material doesn't have chemical formula
+     * Chemical formula for this material
+     * @return "" is regarded as not having chemical formula
      */
     abstract fun getFormula(): String
+    fun hasFormula(): Boolean = getFormula().isBlank()
+
+    /**
+     * Integer index for this material
+     * @return Negative value is regarded as not having the value
+     */
     abstract fun getIndex(): Int
 
     /**
-     * 0.0 means this material doesn't have molar mass
+     * Molar mass for this material
+     * @return Negative value is regarded as not having the value
      */
     abstract fun getMolar(): Double
+    fun hasMolar(): Boolean = getMolar() > 0.0
+
+    /**
+     * Name for this material
+     * @return Should be unique
+     */
     abstract fun getName(): String
 
     /**
-     * -1 means this material doesn't have boiling point, melting point, or sublimation point
-     * @return Not Celsius but Kelvin temperature
+     * Boiling point with Kelvin Temperature for this material
+     * @return Negative value is regarded as not having the value
      */
     abstract fun getTempBoil(): Int
+    fun hasTempBoil(): Boolean = getTempBoil() >= 0
+
+    /**
+     * Melting point with Kelvin Temperature for this material
+     * @return Negative value is regarded as not having the value
+     */
     abstract fun getTempMelt(): Int
+    fun hasTempMelt(): Boolean = getTempBoil() >= 0
+
+    /**
+     * Sublimation point with Kelvin Temperature for this material
+     * @return Negative value is regarded as not having the value
+     */
     abstract fun getTempSubl(): Int
+    fun hasTempSubl(): Boolean = getTempSubl() >= 0
+
+    fun getOreDictName() = getName().snakeToUpperCamelCase()
+
+    //物質の標準状態での相を返すメソッド
+    fun getState(): StandardState {
+        //沸点と融点が有効な場合
+        if (hasTempBoil() && hasTempMelt()) {
+            //沸点が298 K以下 -> 標準状態で気体
+            if (getTempBoil() <= 298) return StandardState.GAS
+            //融点が常温以下 -> 標準状態で液体
+            else if (getTempMelt() <= 298) return StandardState.LIQUID
+        }
+        //それ以外は固体として扱う
+        return StandardState.SOLID
+    }
 
     //    General    //
 
@@ -51,7 +97,7 @@ abstract class HiiragiMaterial {
 
         var color: Color = RagiColor.WHITE
         var formula: String = ""
-        var molar: Double = 0.0
+        var molar: Double = -1.0
         var tempBoil: Int = -1
         var tempMelt: Int = -1
         var tempSubl: Int = -1

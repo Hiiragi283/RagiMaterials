@@ -1,6 +1,6 @@
 package hiiragi283.material.material_old.type
 
-import hiiragi283.material.item_old.ItemMaterial
+import hiiragi283.material.material_old.ItemMaterial
 
 data class MaterialType(val name: String) {
 
