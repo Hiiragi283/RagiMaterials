@@ -537,7 +537,7 @@ object MaterialRegistry {
 
     // (Lanthanoid START)
     @JvmField
-    val LANTHANUM = HiiragiMaterial.Builder("lanthanoum", 57)
+    val LANTHANUM = HiiragiMaterial.Builder("lanthanum", 57)
         .setColor(RagiColor.GRAY)
         .setFormula("La")
         .setMolar(138.9)
