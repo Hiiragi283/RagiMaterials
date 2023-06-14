@@ -1,5 +1,8 @@
 package hiiragi283.material.material
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class StandardState {
-    SOLID, LIQUID, GAS;
+    UNDEFINED, SOLID, LIQUID, GAS;
 }

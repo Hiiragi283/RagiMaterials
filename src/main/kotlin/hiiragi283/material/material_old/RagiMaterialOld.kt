@@ -1,7 +1,6 @@
 package hiiragi283.material.material_old
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.material.IMaterialBase
 import hiiragi283.material.material_old.type.EnumCrystalType
 import hiiragi283.material.material_old.type.MaterialType
 import hiiragi283.material.material_old.type.TypeRegistry

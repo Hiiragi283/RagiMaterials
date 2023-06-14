@@ -10,9 +10,6 @@ object MaterialPartRegistry {
 
     private val TAG_TO_MATERIAL_PART: HashMap<String, MaterialPart> = hashMapOf()
 
-    @JvmStatic
-    fun getMaterialParts(): Collection<MaterialPart> = RagiMaterials.MATERIAL_PART.valuesCollection
-
     //    getMaterialPart    //
 
     @JvmStatic

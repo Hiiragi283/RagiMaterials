@@ -1,14 +1,10 @@
 package hiiragi283.material
 
-import hiiragi283.material.material_part.MaterialPart
 import hiiragi283.material.proxy.CommonProxy
 import hiiragi283.material.proxy.IProxy
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.*
-import net.minecraftforge.registries.IForgeRegistry
-import net.minecraftforge.registries.RegistryBuilder
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.awt.Color
@@ -40,11 +36,6 @@ object RagiMaterials : IProxy {
     //各種変数の宣言
     val LOGGER: Logger by lazy { LogManager.getLogger(MODID) }
     val COLOR: Color by lazy { Color(255, 0, 31) }
-
-    val MATERIAL_PART: IForgeRegistry<MaterialPart> = RegistryBuilder<MaterialPart>()
-        .setName(ResourceLocation(MODID, "material_part"))
-        .setType(MaterialPart::class.java)
-        .create()
 
     @Mod.EventHandler
     override fun onConstruct(event: FMLConstructionEvent): Unit = proxy.onConstruct(event)

@@ -9,14 +9,16 @@ import net.minecraftforge.fluids.FluidRegistry
 
 private val location = ResourceLocation("blocks/concrete_powder_white")
 
-class HiiragiFluid private constructor(val material: HiiragiMaterial) : Fluid(material.getName(), location, location) {
+class HiiragiFluid private constructor(val material: HiiragiMaterial) : Fluid(material.name, location, location) {
 
     init {
-        color = material.getColor().rgb
-        when (material.getState()) {
+        color = material.color
+        when (material.standardState) {
+            //標準状態が未定義 -> パス
+            StandardState.UNDEFINED -> {}
             //標準状態で固体 -> 温度は融点に等しい
             StandardState.SOLID -> {
-                temperature = material.getTempMelt()
+                temperature = material.tempMelt
                 luminosity = 15
             }
             //標準状態で液体 -> 温度は298 K
@@ -32,7 +34,7 @@ class HiiragiFluid private constructor(val material: HiiragiMaterial) : Fluid(ma
         }
     }
 
-    override fun getUnlocalizedName(): String = "material.${material.getName()}"
+    override fun getUnlocalizedName(): String = "material.${material.name}"
 
     companion object {
         fun register() {
