@@ -82,7 +82,7 @@ object MaterialRegistry {
         molar = 12.0
         //tempBoil = 4300
         //tempMelt = 4000
-        TempSubl = 3915
+        tempSubl = 3915
         }
 
     @JvmField
@@ -328,7 +328,7 @@ object MaterialRegistry {
         molar = 74.9
         //tempBoil = 887
         //tempMelt = 1090
-        TempSubl = 887
+        tempSubl = 887
         }
 
     @JvmField
