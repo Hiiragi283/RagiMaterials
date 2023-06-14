@@ -1,82 +1,140 @@
 package hiiragi283.material.material
 
+import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
+import kotlinx.serialization.Serializable
 import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
 
-abstract class HiiragiMaterial {
+/**
+ * @param name Name for this material
+ * @param index Index for this material
+ * @param color Material color for this material
+ * @param formula Chemical formula for this material
+ * @param molar Molar Mass for this material
+ * @param tempBoil Boiling point with Kelvin Temperature for this material
+ * @param tempBoil Melting point with Kelvin Temperature for this material
+ * @param tempBoil Sublimation point with Kelvin Temperature for this material
+ */
 
-    abstract val translationKey: String
+@Serializable
+open class HiiragiMaterial(
+    val name: String,
+    val index: Int,
+    var color: Int = 0xFFFFFF,
+    var formula: String = "",
+    var molar: Double = -1.0,
+    var standardState: StandardState = StandardState.UNDEFINED,
+    var tempBoil: Int = -1,
+    var tempMelt: Int = -1,
+    var tempSubl: Int = -1
+) {
+
+    private val components: MutableMap<HiiragiMaterial, Int>
+        get() = mutableMapOf(EMPTY to 1)
+
+    val translationKey: String
+        get() = "material.$name"
 
     companion object {
         @JvmField
-        val EMPTY = Builder("empty", -1).build()
+        val EMPTY = HiiragiMaterial("empty", -1)
     }
+
+    fun addComponents(vararg pairs: Pair<HiiragiMaterial, Int>) = also {
+        pairs.forEach { components[it.first] = it.second }
+        initColor()
+        initFormula()
+        initMolar()
+    }
+
+    //色を自動で生成
+    fun initColor() {
+        color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
+    }
+
+    //化学式を自動で生成
+    fun initFormula() {
+        var result = ""
+        for ((material, weight) in components) {
+            //文字を代入する
+            result += material.formula
+            //化学式の下付き数字の桁数調整
+            val subscript1 = Char(2080 + (weight % 10))
+            val subscript10 = Char(2080 + (weight / 10))
+            //2桁目が0でない場合，下付き数字を2桁にする
+            val subscript =
+                if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
+            //下付き数字を代入する
+            if (weight > 1) result += subscript
+        }
+        formula = result
+    }
+
+    //分子量を自動で生成
+    fun initMolar() {
+        var molar = 0.0
+        components.toList().forEach {
+            molar += it.first.molar * it.second
+        }
+        this.molar = molar
+    }
+
+    //沸点を自動で生成
+    fun initTempBoil() {
+        var boil = 0.0
+        components.toList().forEach {
+            boil += it.first.tempBoil * it.second
+        }
+        this.molar = boil
+    }
+
+    //融点を自動で生成
+    fun initTempMelt() {
+        var melt = 0.0
+        components.toList().forEach {
+            melt += it.first.tempMelt * it.second
+        }
+        this.molar = melt
+    }
+
+    //昇華点を自動で生成
+    fun initTempSubl() {
+        var subl = 0.0
+        components.toList().forEach {
+            subl += it.first.tempSubl * it.second
+        }
+        this.molar = subl
+    }
+
+    fun hasFormula(): Boolean = formula.isBlank()
+
+    fun hasMolar(): Boolean = molar > 0.0
+
+    fun hasTempBoil(): Boolean = tempBoil >= 0
+
+    fun hasTempMelt(): Boolean = tempMelt >= 0
+
+    fun hasTempSubl(): Boolean = tempSubl >= 0
 
     fun isEmpty(): Boolean = this == EMPTY
 
-    /**
-     * Material color for this material
-     */
-    abstract fun getColor(): Color
+    fun isGas(): Boolean = standardState == StandardState.GAS
 
-    /**
-     * Chemical formula for this material
-     * @return "" is regarded as not having chemical formula
-     */
-    abstract fun getFormula(): String
-    fun hasFormula(): Boolean = getFormula().isBlank()
+    fun isLiquid(): Boolean = standardState == StandardState.LIQUID
 
-    /**
-     * Integer index for this material
-     * @return Negative value is regarded as not having the value
-     */
-    abstract fun getIndex(): Int
+    fun isSolid(): Boolean = standardState == StandardState.SOLID
 
-    /**
-     * Molar mass for this material
-     * @return Negative value is regarded as not having the value
-     */
-    abstract fun getMolar(): Double
-    fun hasMolar(): Boolean = getMolar() > 0.0
-
-    /**
-     * Name for this material
-     * @return Should be unique
-     */
-    abstract fun getName(): String
-
-    /**
-     * Boiling point with Kelvin Temperature for this material
-     * @return Negative value is regarded as not having the value
-     */
-    abstract fun getTempBoil(): Int
-    fun hasTempBoil(): Boolean = getTempBoil() >= 0
-
-    /**
-     * Melting point with Kelvin Temperature for this material
-     * @return Negative value is regarded as not having the value
-     */
-    abstract fun getTempMelt(): Int
-    fun hasTempMelt(): Boolean = getTempBoil() >= 0
-
-    /**
-     * Sublimation point with Kelvin Temperature for this material
-     * @return Negative value is regarded as not having the value
-     */
-    abstract fun getTempSubl(): Int
-    fun hasTempSubl(): Boolean = getTempSubl() >= 0
-
-    fun getOreDictName() = getName().snakeToUpperCamelCase()
+    fun getOreDictName() = name.snakeToUpperCamelCase()
 
     //物質の標準状態での相を返すメソッド
     fun getState(): StandardState {
         //沸点と融点が有効な場合
         if (hasTempBoil() && hasTempMelt()) {
             //沸点が298 K以下 -> 標準状態で気体
-            if (getTempBoil() <= 298) return StandardState.GAS
+            if (tempBoil <= 298) return StandardState.GAS
             //融点が常温以下 -> 標準状態で液体
-            else if (getTempMelt() <= 298) return StandardState.LIQUID
+            else if (tempMelt <= 298) return StandardState.LIQUID
         }
         //それ以外は固体として扱う
         return StandardState.SOLID
@@ -85,15 +143,15 @@ abstract class HiiragiMaterial {
     //    General    //
 
     override fun equals(other: Any?): Boolean =
-        if (other !== null && other is HiiragiMaterial) this.getName() == other.getName() else false
+        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
 
-    override fun hashCode(): Int = getName().hashCode()
+    override fun hashCode(): Int = name.hashCode()
 
-    override fun toString(): String = "Material:${this.getName()}"
+    override fun toString(): String = "Material:${this.name}"
 
     //    Builder    //
 
-    open class Builder(val name: String, val index: Int) {
+    open class Builder(val name: String, private val index: Int) {
 
         var color: Color = RagiColor.WHITE
         var formula: String = ""
@@ -109,18 +167,25 @@ abstract class HiiragiMaterial {
         fun setTempMelt(temp: Int) = also { this.tempMelt = temp }
         fun setTempSubl(temp: Int) = also { this.tempSubl = temp }
 
-        open fun build(): HiiragiMaterial = object : HiiragiMaterial() {
+        open fun build(): HiiragiMaterial = HiiragiMaterial(
+            name,
+            index,
+            color.rgb,
+            formula,
+            molar,
+            StandardState.UNDEFINED,
+            tempBoil,
+            tempMelt,
+            tempSubl
+        ).also {
+            it.standardState = it.getState() //標準状態を初期化
+        }
 
-            override val translationKey = "material.$name"
-            override fun getColor(): Color = color
-            override fun getFormula(): String = formula
-            override fun getIndex(): Int = index
-            override fun getMolar(): Double = molar
-            override fun getName(): String = name
-            override fun getTempBoil(): Int = tempBoil
-            override fun getTempMelt(): Int = tempMelt
-            override fun getTempSubl(): Int = tempSubl
-
+        fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
+            return HiiragiMaterial(name, index).also {
+                it.init()
+                it.standardState = it.getState() //標準状態を初期化
+            }
         }
 
     }

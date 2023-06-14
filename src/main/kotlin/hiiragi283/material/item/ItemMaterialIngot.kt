@@ -1,7 +1,6 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.StandardState
 import hiiragi283.material.part.PartRegistry
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.RagiIngredient
@@ -15,15 +14,15 @@ object ItemMaterialIngot : ItemMaterialBase(PartRegistry.INGOT) {
 
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
-            .filter { it.getState() == StandardState.SOLID }
+            .filter { it.isSolid() }
             .forEach {
                 //nugget -> ingot
-                CraftingBuilder(ItemStack(this, 1, it.getIndex()))
+                CraftingBuilder(ItemStack(this, 1, it.index))
                     .setPattern("AAA", "AAA", "AAA")
                     .setIngredient('A', "nugget${it.getOreDictName()}")
                     .buildShaped()
                 //block -> ingot
-                val ingot9 = ItemStack(this, 9, it.getIndex())
+                val ingot9 = ItemStack(this, 9, it.index)
                 CraftingBuilder(ingot9.toLocation().append("_alt"), ingot9)
                     .addIngredient(RagiIngredient("block${it.getOreDictName()}"))
                     .buildShapeless()

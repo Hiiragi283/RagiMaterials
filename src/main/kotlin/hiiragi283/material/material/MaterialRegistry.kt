@@ -1,11 +1,10 @@
 package hiiragi283.material.material
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.util.RagiColor
 
 object MaterialRegistry {
 
-    private val REGISTRY: HashMap<String, HiiragiMaterial> = hashMapOf()
+    private val REGISTRY: LinkedHashMap<String, HiiragiMaterial> = linkedMapOf()
 
     @JvmStatic
     fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
@@ -15,7 +14,7 @@ object MaterialRegistry {
 
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
-        val name = material.getName()
+        val name = material.name
         //同じ名前で登録されていた場合，登録せずに警告を表示する
         REGISTRY.putIfAbsent(name, material)
             ?.let { RagiMaterials.LOGGER.warn("The material: $name has already registered!") }
@@ -1104,137 +1103,7 @@ object MaterialRegistry {
         }
 
     fun init() {
-        // ELEMENTS //
-        // --1st Period--
-        registerMaterial(HYDROGEN)
-        registerMaterial(HELIUM)
-        // --2nd Period--
-        registerMaterial(LITHIUM)
-        registerMaterial(BERYLLIUM)
-        registerMaterial(BORON)
-        registerMaterial(CARBON)
-        registerMaterial(NITROGEN)
-        registerMaterial(OXYGEN)
-        registerMaterial(FLUORINE)
-        registerMaterial(NEON)
-        // --3rd Period--
-        registerMaterial(SODIUM)
-        registerMaterial(MAGNESIUM)
-        registerMaterial(ALUMINIUM)
-        registerMaterial(SILICON)
-        registerMaterial(PHOSPHORUS)
-        registerMaterial(SULFUR)
-        registerMaterial(CHLORINE)
-        registerMaterial(ARGON)
-        // --4th Period--
-        registerMaterial(POTASSIUM)
-        registerMaterial(CALCIUM)
-        registerMaterial(SCANDIUM)
-        registerMaterial(TITANIUM)
-        registerMaterial(VANADIUM)
-        registerMaterial(CHROMIUM)
-        registerMaterial(MANGANESE)
-        registerMaterial(IRON)
-        registerMaterial(COBALT)
-        registerMaterial(NICKEL)
-        registerMaterial(COPPER)
-        registerMaterial(ZINC)
-        registerMaterial(GALLIUM)
-        registerMaterial(GERMANIUM)
-        registerMaterial(ARSENIC)
-        registerMaterial(SELENIUM)
-        registerMaterial(BROMINE)
-        registerMaterial(KRYPTON)
-        // --5th Period--
-        registerMaterial(RUBIDIUM)
-        registerMaterial(STRONTIUM)
-        registerMaterial(YTTRIUM)
-        registerMaterial(ZIRCONIUM)
-        registerMaterial(NIOBIUM)
-        registerMaterial(MOLYBDENUM)
-        registerMaterial(TECHNETIUM)
-        registerMaterial(RUTHENIUM)
-        registerMaterial(RHODIUM)
-        registerMaterial(PALLADIUM)
-        registerMaterial(SILVER)
-        registerMaterial(CADMIUM)
-        registerMaterial(INDIUM)
-        registerMaterial(TIN)
-        registerMaterial(ANTIMONY)
-        registerMaterial(TELLURIUM)
-        registerMaterial(IODINE)
-        registerMaterial(XENON)
-        // --6th Period--
-        registerMaterial(CAESIUM)
-        registerMaterial(BARIUM)
-        // (Lanthanoid START)
-        registerMaterial(LANTHANUM)
-        registerMaterial(CERIUM)
-        registerMaterial(PRASEODYMIUM)
-        registerMaterial(NEODYMIUM)
-        registerMaterial(PROMETHIUM)
-        registerMaterial(SAMARIUM)
-        registerMaterial(EUROPIUM)
-        registerMaterial(GADOLINIUM)
-        registerMaterial(TERBIUM)
-        registerMaterial(DYSPROSIUM)
-        registerMaterial(HOLMIUM)
-        registerMaterial(ERBIUM)
-        registerMaterial(THULIUM)
-        registerMaterial(YTTERBIUM)
-        registerMaterial(LUTETIUM)
-        // (Lanthanoid END)
-        registerMaterial(HAFNIUM)
-        registerMaterial(TANTALUM)
-        registerMaterial(TUNGSTEN)
-        registerMaterial(RHENIUM)
-        registerMaterial(OSMIUM)
-        registerMaterial(IRIDIUM)
-        registerMaterial(PLATINUM)
-        registerMaterial(GOLD)
-        registerMaterial(MERCURY)
-        registerMaterial(THALLIUM)
-        registerMaterial(LEAD)
-        registerMaterial(BISMUTH)
-        registerMaterial(POLONIUM)
-        registerMaterial(ASTATINE)
-        registerMaterial(RADON)
-        // --7th Period
-        registerMaterial(FRANCIUM)
-        registerMaterial(RADIUM)
-        // (Actinoid START)
-        registerMaterial(ACTINIUM)
-        registerMaterial(THORIUM)
-        registerMaterial(PROTACTINIUM)
-        registerMaterial(URANIUM238)
-        registerMaterial(NEPTUNIUM)
-        registerMaterial(PLUTONIUM244)
-        registerMaterial(AMERICIUM)
-        registerMaterial(CURIUM)
-        registerMaterial(BERKELIUM)
-        registerMaterial(CALIFORNIUM)
-        registerMaterial(EINSTEINIUM)
-        registerMaterial(FERMIUM)
-        registerMaterial(MENDELEVIUM)
-        registerMaterial(NOBELIUM)
-        registerMaterial(LAWRENCIUM)
-        // (Actinoid END)
-        registerMaterial(RUTHERFORDIUM)
-        registerMaterial(DUBNIUM)
-        registerMaterial(SEABORGIUM)
-        registerMaterial(BOHRIUM)
-        registerMaterial(HASSIUM)
-        registerMaterial(MEITNERIUM)
-        registerMaterial(DARMSTADTIUM)
-        registerMaterial(ROENTGENIUM)
-        registerMaterial(COPERNICIUM)
-        registerMaterial(NIHONIUM)
-        registerMaterial(FLEROVIUM)
-        registerMaterial(MOSCOVIUM)
-        registerMaterial(LIVERMORIUM)
-        registerMaterial(TENNESSINE)
-        registerMaterial(OGANESSON)
-
+        MaterialElements.init()
     }
 
 }

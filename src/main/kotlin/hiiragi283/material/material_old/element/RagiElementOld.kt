@@ -1,7 +1,7 @@
 package hiiragi283.material.material_old.element
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.material.IMaterialBase
+import hiiragi283.material.material_old.IMaterialBase
 import hiiragi283.material.util.RagiColor
 import java.awt.Color
 

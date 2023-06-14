@@ -1,7 +1,6 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.StandardState
 import hiiragi283.material.part.PartRegistry
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.RagiIngredient
@@ -13,9 +12,9 @@ object ItemMaterialDustTiny : ItemMaterialBase(PartRegistry.DUST_TINY) {
 
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
-            .filter { it.getState() == StandardState.SOLID }
+            .filter { it.isSolid() }
             .forEach {
-                CraftingBuilder(ItemStack(this, 9, it.getIndex()))
+                CraftingBuilder(ItemStack(this, 9, it.index))
                     .addIngredient(RagiIngredient("dust${it.getOreDictName()}"))
                     .buildShapeless()
             }

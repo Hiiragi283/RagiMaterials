@@ -1,9 +1,6 @@
 package hiiragi283.material
 
 import hiiragi283.material.init.RMItems
-import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material_part.MaterialPart
-import hiiragi283.material.part.PartRegistry
 import net.minecraft.item.Item
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
@@ -16,18 +13,6 @@ object RMEventHandler {
 
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>): Unit = RMItems.register(event.registry)
-
-    @SubscribeEvent
-    fun registerMaterialPart(event: RegistryEvent.Register<MaterialPart>) {
-        val registry = event.registry
-        MaterialRegistry.getMaterials().forEach { material ->
-            PartRegistry.getParts().forEach { part ->
-                val materialPart = MaterialPart(part, material)
-                registry.register(materialPart)
-                RagiMaterials.LOGGER.debug("The material-part ${materialPart.registryName} is registered!")
-            }
-        }
-    }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent

@@ -1,10 +1,13 @@
 package hiiragi283.material.proxy
 
 import hiiragi283.material.RMEventHandler
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.fluid.HiiragiFluid
 import hiiragi283.material.init.RMItems
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.part.PartRegistry
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.event.*
 
@@ -35,6 +38,11 @@ abstract class CommonProxy : IProxy {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {}
 
-    override fun onComplete(event: FMLLoadCompleteEvent) {}
+    override fun onComplete(event: FMLLoadCompleteEvent) {
+        MaterialRegistry.getMaterials()
+            .forEach {
+                RagiMaterials.LOGGER.debug(Json.encodeToString(it))
+            }
+    }
 
 }

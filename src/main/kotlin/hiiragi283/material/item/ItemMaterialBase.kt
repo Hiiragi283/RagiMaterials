@@ -3,7 +3,6 @@ package hiiragi283.material.item
 import hiiragi283.material.client.RMModelManager
 import hiiragi283.material.creativetab.CreativeTabMaterial
 import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.StandardState
 import hiiragi283.material.material_part.IMaterialPart
 import hiiragi283.material.material_part.MaterialPart
 import hiiragi283.material.material_part.MaterialPartRegistry
@@ -32,17 +31,17 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
         val material = getMaterial(stack)
         if (!material.isEmpty()) {
             tooltip.add("§e=== Property ===")
-            tooltip.add(I18n.format("tips.ragi_materials.property.name", material.getName()))
+            tooltip.add(I18n.format("tips.ragi_materials.property.name", material.name))
             if (material.hasFormula())
-                tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.getFormula()))
+                tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula))
             if (material.hasMolar())
-                tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.getMolar()))
+                tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar))
             if (material.hasTempMelt())
-                tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.getTempMelt()))
+                tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt))
             if (material.hasTempBoil())
-                tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.getTempBoil()))
+                tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.tempBoil))
             if (material.hasTempSubl())
-                tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.getTempSubl()))
+                tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl))
         }
     }
 
@@ -54,8 +53,8 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
         MaterialRegistry.getMaterials()
-            .filter { it.getState() == StandardState.SOLID }
-            .map { ItemStack(this, 1, it.getIndex()) }
+            .filter { it.isSolid() }
+            .map { ItemStack(this, 1, it.index) }
             .forEach { subItems.add(it) }
     }
 
@@ -63,19 +62,19 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     override fun registerMaterialPart() {
         MaterialRegistry.getMaterials()
-            .filter { it.getState() == StandardState.SOLID }
+            .filter { it.isSolid() }
             .map { MaterialPart(part, it) }
             .forEach {
-                MaterialPartRegistry.registerTag(ItemStack(this, 1, it.material.getIndex()), it)
+                MaterialPartRegistry.registerTag(ItemStack(this, 1, it.material.index), it)
             }
     }
 
     override fun registerOreDict() {
         MaterialRegistry.getMaterials()
-            .filter { it.getState() == StandardState.SOLID }
+            .filter { it.isSolid() }
             .map { MaterialPart(part, it) }
             .forEach {
-                OreDictionary.registerOre(it.getOreDictName(), ItemStack(this, 1, it.material.getIndex()))
+                OreDictionary.registerOre(it.getOreDictName(), ItemStack(this, 1, it.material.index))
             }
     }
 
@@ -83,7 +82,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
     override fun registerColorItem(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             val material = getMaterial(stack)
-            if (!material.isEmpty() && tintIndex == 0) material.getColor().rgb else -1
+            if (!material.isEmpty() && tintIndex == 0) material.color else -1
         }, this)
     }
 
