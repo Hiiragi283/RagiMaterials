@@ -16,7 +16,7 @@ object MaterialElements {
         molar = 1.0
         tempBoil = 20
         tempMelt = 14
-    }
+}
 
     @JvmField
     val HELIUM = HiiragiMaterial.Builder("helium", 2).build {
@@ -25,1063 +25,1064 @@ object MaterialElements {
         molar = 4.0
         tempBoil = 3
         tempMelt = 1
-    }
-
+}
+    
     // --2nd Period--
     @JvmField
-    val LITHIUM = HiiragiMaterial.Builder("lithium", 3)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Li")
-        .setMolar(6.9)
-        .setTempBoil(1560)
-        .setTempMelt(454)
-        .build()
+    val LITHIUM = HiiragiMaterial.Builder("lithium", 3).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Li"
+        molar = 6.9
+        tempBoil = 1560
+        tempMelt = 454
+    }
 
     @JvmField
-    val BERYLLIUM = HiiragiMaterial.Builder("beryllium", 4)
-        .setColor(RagiColor.DARK_GREEN)
-        .setFormula("Be")
-        .setMolar(9.0)
-        .setTempBoil(2742)
-        .setTempMelt(1560)
-        .build()
+    val BERYLLIUM = HiiragiMaterial.Builder("beryllium", 4).build {
+        color = RagiColor.DARK_GREEN.rgb
+        formula = "Be"
+        molar = 9.0
+        tempBoil = 2742
+        tempMelt = 1560
+    }
 
     @JvmField
-    val BORON = HiiragiMaterial.Builder("boron", 5)
-        .setColor(RagiColor.GRAY)
-        .setFormula("B")
-        .setMolar(10.8)
-        .setTempBoil(4200)
-        .setTempMelt(2349)
-        .build()
+    val BORON = HiiragiMaterial.Builder("boron", 5).build {
+        color = RagiColor.GRAY.rgb
+        formula = "B"
+        molar = 10.8
+        tempBoil = 4200
+        tempMelt = 2349
+    }
 
     @JvmField
-    val CARBON = HiiragiMaterial.Builder("carbon", 6)
-        .setColor(RagiColor.BLACK)
-        .setFormula("C")
-        .setMolar(12.0)
-        //.setTempBoil(4300)
-        //.setTempMelt(4000)
-        .setTempSubl(3915)
-        .build()
+    val CARBON = HiiragiMaterial.Builder("carbon", 6).build {
+        color = RagiColor.BLACK.rgb
+        formula = "C"
+        molar = 12.0
+        //tempBoil = 4300
+        //tempMelt = 4000
+        tempSubl = 3915
+        }
 
     @JvmField
-    val NITROGEN = HiiragiMaterial.Builder("nitrogen", 7)
-        .setColor(RagiColor.DARK_AQUA)
-        .setFormula("N")
-        .setMolar(14.0)
-        .setTempBoil(77)
-        .setTempMelt(63)
-        .build()
+    val NITROGEN = HiiragiMaterial.Builder("nitrogen", 7).build {
+        color = RagiColor.DARK_AQUA.rgb
+        formula = "N"
+        molar = 14.0
+        tempBoil = 77
+        tempMelt = 63
+    }
 
     @JvmField
-    val OXYGEN = HiiragiMaterial.Builder("oxygen", 8)
-        .setColor(RagiColor.AQUA)
-        .setFormula("O")
-        .setMolar(16.0)
-        .setTempBoil(90)
-        .setTempMelt(54)
-        .build()
+    val OXYGEN = HiiragiMaterial.Builder("oxygen", 8).build {
+        color = RagiColor.AQUA.rgb
+        formula = "O"
+        molar = 16.0
+        tempBoil = 90
+        tempMelt = 54
+    }
 
     @JvmField
-    val FLUORINE = HiiragiMaterial.Builder("fluorine", 9)
-        .setColor(RagiColor.BLUE)
-        .setFormula("F")
-        .setMolar(19.0)
-        .setTempBoil(85)
-        .setTempMelt(54)
-        .build()
+    val FLUORINE = HiiragiMaterial.Builder("fluorine", 9).build {
+        color = RagiColor.BLUE.rgb
+        formula = "F"
+        molar = 19.0
+        tempBoil = 85
+        tempMelt = 54
+    }
 
     @JvmField
-    val NEON = HiiragiMaterial.Builder("neon", 10)
-        .setColor(RagiColor.DARK_AQUA)
-        .setFormula("Ne")
-        .setMolar(20.2)
-        .setTempBoil(27)
-        .setTempMelt(25)
-        .build()
+    val NEON = HiiragiMaterial.Builder("neon", 10).build {
+        color = RagiColor.DARK_AQUA.rgb
+        formula = "Ne"
+        molar = 20.2
+        tempBoil = 27
+        tempMelt = 25
+    }
 
     // --3rd Period--
     @JvmField
-    val SODIUM = HiiragiMaterial.Builder("sodium", 11)
-        .setColor(RagiColor.BLUE)
-        .setFormula("Na")
-        .setMolar(23.0)
-        .setTempBoil(1156)
-        .setTempMelt(371)
-        .build()
+    val SODIUM = HiiragiMaterial.Builder("sodium", 11).build {
+        color = RagiColor.BLUE.rgb
+        formula = "Na"
+        molar = 23.0
+        tempBoil = 1156
+        tempMelt = 371
+    }
 
     @JvmField
-    val MAGNESIUM = HiiragiMaterial.Builder("magnesium", 12)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Mg")
-        .setMolar(24.3)
-        .setTempBoil(1363)
-        .setTempMelt(923)
-        .build()
+    val MAGNESIUM = HiiragiMaterial.Builder("magnesium", 12).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Mg"
+        molar = 24.3
+        tempBoil = 1363
+        tempMelt = 923
+    }
 
     @JvmField
-    val ALUMINIUM = HiiragiMaterial.Builder("aluminium", 13)
-        .setColor(RagiColor.AQUA)
-        .setFormula("Al")
-        .setMolar(27.0)
-        .setTempBoil(2792)
-        .setTempMelt(933)
-        .build()
+    val ALUMINIUM = HiiragiMaterial.Builder("aluminium", 13).build {
+        color = RagiColor.AQUA.rgb
+        formula = "Al"
+        molar = 27.0
+        tempBoil = 2792
+        tempMelt = 933
+    }
 
     @JvmField
-    val SILICON = HiiragiMaterial.Builder("silicon", 14)
-        .setColor(RagiColor.DARK_GRAY)
-        .setFormula("Si")
-        .setMolar(28.1)
-        .setTempBoil(3538)
-        .setTempMelt(1687)
-        .build()
+    val SILICON = HiiragiMaterial.Builder("silicon", 14).build {
+        color = RagiColor.DARK_GRAY.rgb
+        formula = "Si"
+        molar = 28.1
+        tempBoil = 3538
+        tempMelt = 1687
+    }
 
     @JvmField
-    val PHOSPHORUS = HiiragiMaterial.Builder("phosphorus", 15)
-        .setColor(RagiColor.WHITE)
-        .setFormula("P")
-        .setMolar(31.0)
-        .setTempBoil(550)
-        .setTempMelt(317)
-        .build()
+    val PHOSPHORUS = HiiragiMaterial.Builder("phosphorus", 15).build {
+        color = RagiColor.WHITE.rgb
+        formula = "P"
+        molar = 31.0
+        tempBoil = 550
+        tempMelt = 317
+    }
 
     @JvmField
-    val SULFUR = HiiragiMaterial.Builder("sulfur", 16)
-        .setColor(RagiColor.YELLOW)
-        .setFormula("S")
-        .setMolar(32.1)
-        .setTempBoil(718)
-        .setTempMelt(388)
-        .build()
+    val SULFUR = HiiragiMaterial.Builder("sulfur", 16).build {
+        color = RagiColor.YELLOW.rgb
+        formula = "S"
+        molar = 32.1
+        tempBoil = 718
+        tempMelt = 388
+    }
 
     @JvmField
-    val CHLORINE = HiiragiMaterial.Builder("chlorine", 17)
-        .setColor(RagiColor.YELLOW)
-        .setFormula("Cl")
-        .setMolar(35.5)
-        .setTempBoil(239)
-        .setTempMelt(171)
-        .build()
+    val CHLORINE = HiiragiMaterial.Builder("chlorine", 17).build {
+        color = RagiColor.YELLOW.rgb
+        formula = "Cl"
+        molar = 35.5
+        tempBoil = 239
+        tempMelt = 171
+    }
 
     @JvmField
-    val ARGON = HiiragiMaterial.Builder("argon", 18)
-        .setColor(RagiColor.GREEN)
-        .setFormula("Ar")
-        .setMolar(40.0)
-        .setTempBoil(87)
-        .setTempMelt(84)
-        .build()
+    val ARGON = HiiragiMaterial.Builder("argon", 18).build {
+        color = RagiColor.GREEN.rgb
+        formula = "Ar"
+        molar = 40.0
+        tempBoil = 87
+        tempMelt = 84
+    }
 
     // --4th Period--
     @JvmField
-    val POTASSIUM = HiiragiMaterial.Builder("potassium", 19)
-        .setColor(RagiColor.GRAY)
-        .setFormula("K")
-        .setMolar(39.1)
-        .setTempBoil(1032)
-        .setTempMelt(337)
-        .build()
+    val POTASSIUM = HiiragiMaterial.Builder("potassium", 19).build {
+        color = RagiColor.GRAY.rgb
+        formula = "K"
+        molar = 39.1
+        tempBoil = 1032
+        tempMelt = 337
+    }
 
     @JvmField
-    val CALCIUM = HiiragiMaterial.Builder("calcium", 20)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ca")
-        .setMolar(40.1)
-        .setTempBoil(1757)
-        .setTempMelt(1115)
-        .build()
+    val CALCIUM = HiiragiMaterial.Builder("calcium", 20).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ca"
+        molar = 40.1
+        tempBoil = 1757
+        tempMelt = 1115
+    }
 
     @JvmField
-    val SCANDIUM = HiiragiMaterial.Builder("scandium", 21)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Sc")
-        .setMolar(45.0)
-        .setTempBoil(3109)
-        .setTempMelt(1814)
-        .build()
+    val SCANDIUM = HiiragiMaterial.Builder("scandium", 21).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Sc"
+        molar = 45.0
+        tempBoil = 3109
+        tempMelt = 1814
+    }
 
     @JvmField
-    val TITANIUM = HiiragiMaterial.Builder("titanium", 22)
-        .setColor(RagiColor.LIGHT_PURPLE)
-        .setFormula("Ti")
-        .setMolar(47.9)
-        .setTempBoil(3560)
-        .setTempMelt(1941)
-        .build()
+    val TITANIUM = HiiragiMaterial.Builder("titanium", 22).build {
+        color = RagiColor.LIGHT_PURPLE.rgb
+        formula = "Ti"
+        molar = 47.9
+        tempBoil = 3560
+        tempMelt = 1941
+    }
 
     @JvmField
-    val VANADIUM = HiiragiMaterial.Builder("vanadium", 23)
-        .setColor(RagiColor.DARK_GRAY)
-        .setFormula("V")
-        .setMolar(50.9)
-        .setTempBoil(3680)
-        .setTempMelt(2183)
-        .build()
+    val VANADIUM = HiiragiMaterial.Builder("vanadium", 23).build {
+        color = RagiColor.DARK_GRAY.rgb
+        formula = "V"
+        molar = 50.9
+        tempBoil = 3680
+        tempMelt = 2183
+    }
 
     @JvmField
-    val CHROMIUM = HiiragiMaterial.Builder("chromium", 24)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Cr")
-        .setMolar(52.0)
-        .setTempBoil(2944)
-        .setTempMelt(2180)
-        .build()
+    val CHROMIUM = HiiragiMaterial.Builder("chromium", 24).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Cr"
+        molar = 52.0
+        tempBoil = 2944
+        tempMelt = 2180
+    }
 
     @JvmField
-    val MANGANESE = HiiragiMaterial.Builder("manganese", 25)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Mn")
-        .setMolar(54.9)
-        .setTempBoil(2334)
-        .setTempMelt(1519)
-        .build()
+    val MANGANESE = HiiragiMaterial.Builder("manganese", 25).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Mn"
+        molar = 54.9
+        tempBoil = 2334
+        tempMelt = 1519
+    }
 
     @JvmField
-    val IRON = HiiragiMaterial.Builder("iron", 26)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Fe")
-        .setMolar(55.8)
-        .setTempBoil(3134)
-        .setTempMelt(1811)
-        .build()
+    val IRON = HiiragiMaterial.Builder("iron", 26).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Fe"
+        molar = 55.8
+        tempBoil = 3134
+        tempMelt = 1811
+    }
 
     @JvmField
-    val COBALT = HiiragiMaterial.Builder("cobalt", 27)
-        .setColor(RagiColor.BLUE)
-        .setFormula("Co")
-        .setMolar(58.9)
-        .setTempBoil(3200)
-        .setTempMelt(1768)
-        .build()
+    val COBALT = HiiragiMaterial.Builder("cobalt", 27).build {
+        color = RagiColor.BLUE.rgb
+        formula = "Co"
+        molar = 58.9
+        tempBoil = 3200
+        tempMelt = 1768
+    }
 
     @JvmField
-    val NICKEL = HiiragiMaterial.Builder("nickel", 28)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ni")
-        .setMolar(58.7)
-        .setTempBoil(3186)
-        .setTempMelt(1728)
-        .build()
+    val NICKEL = HiiragiMaterial.Builder("nickel", 28).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ni"
+        molar = 58.7
+        tempBoil = 3186
+        tempMelt = 1728
+    }
 
     @JvmField
-    val COPPER = HiiragiMaterial.Builder("copper", 29)
-        .setColor(RagiColor.GOLD)
-        .setFormula("Cu")
-        .setMolar(63.5)
-        .setTempBoil(2835)
-        .setTempMelt(1358)
-        .build()
+    val COPPER = HiiragiMaterial.Builder("copper", 29).build {
+        color = RagiColor.GOLD.rgb
+        formula = "Cu"
+        molar = 63.5
+        tempBoil = 2835
+        tempMelt = 1358
+    }
 
     @JvmField
-    val ZINC = HiiragiMaterial.Builder("zinc", 30)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Zn")
-        .setMolar(65.4)
-        .setTempBoil(1180)
-        .setTempMelt(693)
-        .build()
+    val ZINC = HiiragiMaterial.Builder("zinc", 30).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Zn"
+        molar = 65.4
+        tempBoil = 1180
+        tempMelt = 693
+    }
 
     @JvmField
-    val GALLIUM = HiiragiMaterial.Builder("gallium", 31)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ga")
-        .setMolar(69.7)
-        .setTempBoil(2673)
-        .setTempMelt(303)
-        .build()
+    val GALLIUM = HiiragiMaterial.Builder("gallium", 31).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ga"
+        molar = 69.7
+        tempBoil = 2673
+        tempMelt = 303
+    }
 
     @JvmField
-    val GERMANIUM = HiiragiMaterial.Builder("germanium", 32)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ge")
-        .setMolar(72.6)
-        .setTempBoil(3106)
-        .setTempMelt(1211)
-        .build()
+    val GERMANIUM = HiiragiMaterial.Builder("germanium", 32).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ge"
+        molar = 72.6
+        tempBoil = 3106
+        tempMelt = 1211
+    }
 
     @JvmField
-    val ARSENIC = HiiragiMaterial.Builder("arsenic", 33)
-        .setColor(RagiColor.GRAY)
-        .setFormula("As")
-        .setMolar(74.9)
-        //.setTempBoil(887)
-        //.setTempMelt(1090)
-        .setTempSubl(887)
-        .build()
+    val ARSENIC = HiiragiMaterial.Builder("arsenic", 33).build {
+        color = RagiColor.GRAY.rgb
+        formula = "As"
+        molar = 74.9
+        //tempBoil = 887
+        //tempMelt = 1090
+        tempSubl = 887
+        }
 
     @JvmField
-    val SELENIUM = HiiragiMaterial.Builder("selenium", 34)
-        .setColor(RagiColor.BLACK)
-        .setFormula("Se")
-        .setMolar(74.9)
-        .setTempBoil(958)
-        .setTempMelt(453)
-        .build()
+    val SELENIUM = HiiragiMaterial.Builder("selenium", 34).build {
+        color = RagiColor.BLACK.rgb
+        formula = "Se"
+        molar = 74.9
+        tempBoil = 958
+        tempMelt = 453
+    }
 
     @JvmField
-    val BROMINE = HiiragiMaterial.Builder("bromine", 35)
-        .setColor(RagiColor.GOLD)
-        .setFormula("Br")
-        .setMolar(79.9)
-        .setTempBoil(332)
-        .setTempMelt(267)
-        .build()
+    val BROMINE = HiiragiMaterial.Builder("bromine", 35).build {
+        color = RagiColor.GOLD.rgb
+        formula = "Br"
+        molar = 79.9
+        tempBoil = 332
+        tempMelt = 267
+    }
 
     @JvmField
-    val KRYPTON = HiiragiMaterial.Builder("krypton", 36)
-        .setColor(RagiColor.DARK_GREEN)
-        .setFormula("Kr")
-        .setMolar(83.8)
-        .setTempBoil(120)
-        .setTempMelt(116)
-        .build()
+    val KRYPTON = HiiragiMaterial.Builder("krypton", 36).build {
+        color = RagiColor.DARK_GREEN.rgb
+        formula = "Kr"
+        molar = 83.8
+        tempBoil = 120
+        tempMelt = 116
+    }
 
     // --5th Period--
     @JvmField
-    val RUBIDIUM = HiiragiMaterial.Builder("rubidium", 37)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Rb")
-        .setMolar(85.5)
-        .setTempBoil(961)
-        .setTempMelt(312)
-        .build()
+    val RUBIDIUM = HiiragiMaterial.Builder("rubidium", 37).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Rb"
+        molar = 85.5
+        tempBoil = 961
+        tempMelt = 312
+    }
 
     @JvmField
-    val STRONTIUM = HiiragiMaterial.Builder("strontium", 38)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Sr")
-        .setMolar(87.6)
-        .setTempBoil(1655)
-        .setTempMelt(1050)
-        .build()
+    val STRONTIUM = HiiragiMaterial.Builder("strontium", 38).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Sr"
+        molar = 87.6
+        tempBoil = 1655
+        tempMelt = 1050
+    }
 
     @JvmField
-    val YTTRIUM = HiiragiMaterial.Builder("yttrium", 39)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Y")
-        .setMolar(88.9)
-        .setTempBoil(3609)
-        .setTempMelt(1799)
-        .build()
+    val YTTRIUM = HiiragiMaterial.Builder("yttrium", 39).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Y"
+        molar = 88.9
+        tempBoil = 3609
+        tempMelt = 1799
+    }
 
     @JvmField
-    val ZIRCONIUM = HiiragiMaterial.Builder("zirconium", 40)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Zr")
-        .setMolar(91.2)
-        .setTempBoil(4682)
-        .setTempMelt(2128)
-        .build()
+    val ZIRCONIUM = HiiragiMaterial.Builder("zirconium", 40).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Zr"
+        molar = 91.2
+        tempBoil = 4682
+        tempMelt = 2128
+    }
 
     @JvmField
-    val NIOBIUM = HiiragiMaterial.Builder("niobium", 41)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Nb")
-        .setMolar(92.9)
-        .setTempBoil(5017)
-        .setTempMelt(2750)
-        .build()
+    val NIOBIUM = HiiragiMaterial.Builder("niobium", 41).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Nb"
+        molar = 92.9
+        tempBoil = 5017
+        tempMelt = 2750
+    }
 
     @JvmField
-    val MOLYBDENUM = HiiragiMaterial.Builder("molybdenum", 42)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Mo")
-        .setMolar(96.0)
-        .setTempBoil(4912)
-        .setTempMelt(2896)
-        .build()
+    val MOLYBDENUM = HiiragiMaterial.Builder("molybdenum", 42).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Mo"
+        molar = 96.0
+        tempBoil = 4912
+        tempMelt = 2896
+    }
 
     @JvmField
-    val TECHNETIUM = HiiragiMaterial.Builder("technetium", 43)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Tc")
-        //.setMolar(97.0/98.0/99.0)
-        .setTempBoil(4538)
-        .setTempMelt(2430)
-        .build()
+    val TECHNETIUM = HiiragiMaterial.Builder("technetium", 43).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Tc"
+        //molar = 97.0/98.0/99.0
+        tempBoil = 4538
+        tempMelt = 2430
+    }
 
     @JvmField
-    val RUTHENIUM = HiiragiMaterial.Builder("ruthenium", 44)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ru")
-        .setMolar(101.1)
-        .setTempBoil(4423)
-        .setTempMelt(2607)
-        .build()
+    val RUTHENIUM = HiiragiMaterial.Builder("ruthenium", 44).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ru"
+        molar = 101.1
+        tempBoil = 4423
+        tempMelt = 2607
+    }
 
     @JvmField
-    val RHODIUM = HiiragiMaterial.Builder("rhodium", 45)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Rh")
-        .setMolar(102.9)
-        .setTempBoil(3968)
-        .setTempMelt(2237)
-        .build()
+    val RHODIUM = HiiragiMaterial.Builder("rhodium", 45).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Rh"
+        molar = 102.9
+        tempBoil = 3968
+        tempMelt = 2237
+    }
 
     @JvmField
-    val PALLADIUM = HiiragiMaterial.Builder("palladium", 46)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Pd")
-        .setMolar(106.4)
-        .setTempBoil(3236)
-        .setTempMelt(1828)
-        .build()
+    val PALLADIUM = HiiragiMaterial.Builder("palladium", 46).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Pd"
+        molar = 106.4
+        tempBoil = 3236
+        tempMelt = 1828
+    }
 
     @JvmField
-    val SILVER = HiiragiMaterial.Builder("silver", 47)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ag")
-        .setMolar(107.9)
-        .setTempBoil(2435)
-        .setTempMelt(1235)
-        .build()
+    val SILVER = HiiragiMaterial.Builder("silver", 47).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ag"
+        molar = 107.9
+        tempBoil = 2435
+        tempMelt = 1235
+    }
 
     @JvmField
-    val CADMIUM = HiiragiMaterial.Builder("cadmium", 48)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Cd")
-        .setMolar(112.4)
-        .setTempBoil(1040)
-        .setTempMelt(594)
-        .build()
+    val CADMIUM = HiiragiMaterial.Builder("cadmium", 48).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Cd"
+        molar = 112.4
+        tempBoil = 1040
+        tempMelt = 594
+    }
 
     @JvmField
-    val INDIUM = HiiragiMaterial.Builder("indium", 49)
-        .setColor(RagiColor.GRAY)
-        .setFormula("In")
-        .setMolar(114.8)
-        .setTempBoil(2345)
-        .setTempMelt(430)
-        .build()
+    val INDIUM = HiiragiMaterial.Builder("indium", 49).build {
+        color = RagiColor.GRAY.rgb
+        formula = "In"
+        molar = 114.8
+        tempBoil = 2345
+        tempMelt = 430
+    }
 
     @JvmField
-    val TIN = HiiragiMaterial.Builder("tin", 50)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Sn")
-        .setMolar(118.7)
-        .setTempBoil(2875)
-        .setTempMelt(505)
-        .build()
+    val TIN = HiiragiMaterial.Builder("tin", 50).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Sn"
+        molar = 118.7
+        tempBoil = 2875
+        tempMelt = 505
+    }
 
     @JvmField
-    val ANTIMONY = HiiragiMaterial.Builder("antimony", 51)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Sb")
-        .setMolar(121.8)
-        .setTempBoil(1860)
-        .setTempMelt(904)
-        .build()
+    val ANTIMONY = HiiragiMaterial.Builder("antimony", 51).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Sb"
+        molar = 121.8
+        tempBoil = 1860
+        tempMelt = 904
+    }
 
     @JvmField
-    val TELLURIUM = HiiragiMaterial.Builder("tellurium", 52)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Te")
-        .setMolar(127.6)
-        .setTempBoil(1261)
-        .setTempMelt(723)
-        .build()
+    val TELLURIUM = HiiragiMaterial.Builder("tellurium", 52).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Te"
+        molar = 127.6
+        tempBoil = 1261
+        tempMelt = 723
+    }
 
     @JvmField
-    val IODINE = HiiragiMaterial.Builder("iodine", 53)
-        .setColor(RagiColor.DARK_PURPLE)
-        .setFormula("I")
-        .setMolar(126.9)
-        .setTempBoil(457)
-        .setTempMelt(387)
-        .build()
+    val IODINE = HiiragiMaterial.Builder("iodine", 53).build {
+        color = RagiColor.DARK_PURPLE.rgb
+        formula = "I"
+        molar = 126.9
+        tempBoil = 457
+        tempMelt = 387
+    }
 
     @JvmField
-    val XENON = HiiragiMaterial.Builder("xenon", 54)
-        .setColor(RagiColor.AQUA)
-        .setFormula("Xe")
-        .setMolar(131.3)
-        .setTempBoil(165)
-        .setTempMelt(161)
-        .build()
+    val XENON = HiiragiMaterial.Builder("xenon", 54).build {
+        color = RagiColor.AQUA.rgb
+        formula = "Xe"
+        molar = 131.3
+        tempBoil = 165
+        tempMelt = 161
+    }
 
     // 6th Period
     @JvmField
-    val CAESIUM = HiiragiMaterial.Builder("caesium", 55)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Cs")
-        .setMolar(132.9)
-        .setTempBoil(944)
-        .setTempMelt(302)
-        .build()
+    val CAESIUM = HiiragiMaterial.Builder("caesium", 55).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Cs"
+        molar = 132.9
+        tempBoil = 944
+        tempMelt = 302
+    }
 
     @JvmField
-    val BARIUM = HiiragiMaterial.Builder("barium", 56)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ba")
-        .setMolar(137.3)
-        .setTempBoil(2170)
-        .setTempMelt(1000)
-        .build()
+    val BARIUM = HiiragiMaterial.Builder("barium", 56).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ba"
+        molar = 137.3
+        tempBoil = 2170
+        tempMelt = 1000
+    }
 
     // (Lanthanoid START)
     @JvmField
-    val LANTHANUM = HiiragiMaterial.Builder("lanthanum", 57)
-        .setColor(RagiColor.GRAY)
-        .setFormula("La")
-        .setMolar(138.9)
-        .setTempBoil(3737)
-        .setTempMelt(1193)
-        .build()
+    val LANTHANUM = HiiragiMaterial.Builder("lanthanum", 57).build {
+        color = RagiColor.GRAY.rgb
+        formula = "La"
+        molar = 138.9
+        tempBoil = 3737
+        tempMelt = 1193
+    }
 
     @JvmField
-    val CERIUM = HiiragiMaterial.Builder("cerium", 58)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ce")
-        .setMolar(140.1)
-        .setTempBoil(3716)
-        .setTempMelt(1068)
-        .build()
+    val CERIUM = HiiragiMaterial.Builder("cerium", 58).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ce"
+        molar = 140.1
+        tempBoil = 3716
+        tempMelt = 1068
+    }
 
     @JvmField
-    val PRASEODYMIUM = HiiragiMaterial.Builder("praseodymium", 59)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Pr")
-        .setMolar(140.9)
-        .setTempBoil(3793)
-        .setTempMelt(1208)
-        .build()
+    val PRASEODYMIUM = HiiragiMaterial.Builder("praseodymium", 59).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Pr"
+        molar = 140.9
+        tempBoil = 3793
+        tempMelt = 1208
+    }
 
     @JvmField
-    val NEODYMIUM = HiiragiMaterial.Builder("neodymium", 60)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Nd")
-        .setMolar(144.2)
-        .setTempBoil(3347)
-        .setTempMelt(1297)
-        .build()
+    val NEODYMIUM = HiiragiMaterial.Builder("neodymium", 60).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Nd"
+        molar = 144.2
+        tempBoil = 3347
+        tempMelt = 1297
+    }
 
     @JvmField
-    val PROMETHIUM = HiiragiMaterial.Builder("promethium", 61)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Pm")
-        //.setMolar(145.0)
-        .setTempBoil(3237)
-        .setTempMelt(1315)
-        .build()
+    val PROMETHIUM = HiiragiMaterial.Builder("promethium", 61).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Pm"
+        //molar = 145.0
+        tempBoil = 3237
+        tempMelt = 1315
+    }
 
     @JvmField
-    val SAMARIUM = HiiragiMaterial.Builder("samarium", 62)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Sm")
-        .setMolar(150.4)
-        .setTempBoil(2067)
-        .setTempMelt(1345)
-        .build()
+    val SAMARIUM = HiiragiMaterial.Builder("samarium", 62).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Sm"
+        molar = 150.4
+        tempBoil = 2067
+        tempMelt = 1345
+    }
 
     @JvmField
-    val EUROPIUM = HiiragiMaterial.Builder("europium", 63)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Eu")
-        .setMolar(152.0)
-        .setTempBoil(1802)
-        .setTempMelt(1099)
-        .build()
+    val EUROPIUM = HiiragiMaterial.Builder("europium", 63).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Eu"
+        molar = 152.0
+        tempBoil = 1802
+        tempMelt = 1099
+    }
 
     @JvmField
-    val GADOLINIUM = HiiragiMaterial.Builder("gadolinium", 64)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Gd")
-        .setMolar(157.3)
-        .setTempBoil(3546)
-        .setTempMelt(1585)
-        .build()
+    val GADOLINIUM = HiiragiMaterial.Builder("gadolinium", 64).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Gd"
+        molar = 157.3
+        tempBoil = 3546
+        tempMelt = 1585
+    }
 
     @JvmField
-    val TERBIUM = HiiragiMaterial.Builder("terbium", 65)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Tb")
-        .setMolar(158.9)
-        .setTempBoil(3503)
-        .setTempMelt(1629)
-        .build()
+    val TERBIUM = HiiragiMaterial.Builder("terbium", 65).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Tb"
+        molar = 158.9
+        tempBoil = 3503
+        tempMelt = 1629
+    }
 
     @JvmField
-    val DYSPROSIUM = HiiragiMaterial.Builder("dysprosium", 66)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Dy")
-        .setMolar(157.3)
-        .setTempBoil(2840)
-        .setTempMelt(1680)
-        .build()
+    val DYSPROSIUM = HiiragiMaterial.Builder("dysprosium", 66).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Dy"
+        molar = 157.3
+        tempBoil = 2840
+        tempMelt = 1680
+    }
 
     @JvmField
-    val HOLMIUM = HiiragiMaterial.Builder("holmium", 67)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ho")
-        .setMolar(164.9)
-        .setTempBoil(2993)
-        .setTempMelt(1734)
-        .build()
+    val HOLMIUM = HiiragiMaterial.Builder("holmium", 67).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ho"
+        molar = 164.9
+        tempBoil = 2993
+        tempMelt = 1734
+    }
 
     @JvmField
-    val ERBIUM = HiiragiMaterial.Builder("erbium", 68)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Er")
-        .setMolar(167.3)
-        .setTempBoil(3141)
-        .setTempMelt(1802)
-        .build()
+    val ERBIUM = HiiragiMaterial.Builder("erbium", 68).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Er"
+        molar = 167.3
+        tempBoil = 3141
+        tempMelt = 1802
+    }
 
     @JvmField
-    val THULIUM = HiiragiMaterial.Builder("thulium", 69)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Tm")
-        .setMolar(168.9)
-        .setTempBoil(2223)
-        .setTempMelt(1818)
-        .build()
+    val THULIUM = HiiragiMaterial.Builder("thulium", 69).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Tm"
+        molar = 168.9
+        tempBoil = 2223
+        tempMelt = 1818
+    }
 
     @JvmField
-    val YTTERBIUM = HiiragiMaterial.Builder("ytterbium", 70)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Yb")
-        .setMolar(173.0)
-        .setTempBoil(1469)
-        .setTempMelt(1097)
-        .build()
+    val YTTERBIUM = HiiragiMaterial.Builder("ytterbium", 70).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Yb"
+        molar = 173.0
+        tempBoil = 1469
+        tempMelt = 1097
+    }
 
     @JvmField
-    val LUTETIUM = HiiragiMaterial.Builder("lutetium", 71)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Lu")
-        .setMolar(175.0)
-        .setTempBoil(3675)
-        .setTempMelt(1925)
-        .build()
+    val LUTETIUM = HiiragiMaterial.Builder("lutetium", 71).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Lu"
+        molar = 175.0
+        tempBoil = 3675
+        tempMelt = 1925
+    }
     // (Lanthanoid END)
 
     @JvmField
-    val HAFNIUM = HiiragiMaterial.Builder("hafnium", 72)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Hf")
-        .setMolar(178.5)
-        .setTempBoil(4876)
-        .setTempMelt(2506)
-        .build()
+    val HAFNIUM = HiiragiMaterial.Builder("hafnium", 72).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Hf"
+        molar = 178.5
+        tempBoil = 4876
+        tempMelt = 2506
+    }
 
     @JvmField
-    val TANTALUM = HiiragiMaterial.Builder("tantalum", 73)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ta")
-        .setMolar(180.9)
-        .setTempBoil(5731)
-        .setTempMelt(3290)
-        .build()
+    val TANTALUM = HiiragiMaterial.Builder("tantalum", 73).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ta"
+        molar = 180.9
+        tempBoil = 5731
+        tempMelt = 3290
+    }
 
     @JvmField
-    val TUNGSTEN = HiiragiMaterial.Builder("tungsten", 74)
-        .setColor(RagiColor.GRAY)
-        .setFormula("W")
-        .setMolar(183.8)
-        .setTempBoil(5828)
-        .setTempMelt(3695)
-        .build()
+    val TUNGSTEN = HiiragiMaterial.Builder("tungsten", 74).build {
+        color = RagiColor.GRAY.rgb
+        formula = "W"
+        molar = 183.8
+        tempBoil = 5828
+        tempMelt = 3695
+    }
 
     @JvmField
-    val RHENIUM = HiiragiMaterial.Builder("rhenium", 75)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Re")
-        .setMolar(186.2)
-        .setTempBoil(5869)
-        .setTempMelt(3459)
-        .build()
+    val RHENIUM = HiiragiMaterial.Builder("rhenium", 75).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Re"
+        molar = 186.2
+        tempBoil = 5869
+        tempMelt = 3459
+    }
 
     @JvmField
-    val OSMIUM = HiiragiMaterial.Builder("osmium", 76)
-        .setColor(RagiColor.DARK_BLUE)
-        .setFormula("Os")
-        .setMolar(190.2)
-        .setTempBoil(5285)
-        .setTempMelt(3306)
-        .build()
+    val OSMIUM = HiiragiMaterial.Builder("osmium", 76).build {
+        color = RagiColor.DARK_BLUE.rgb
+        formula = "Os"
+        molar = 190.2
+        tempBoil = 5285
+        tempMelt = 3306
+    }
 
     @JvmField
-    val IRIDIUM = HiiragiMaterial.Builder("iridium", 77)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ir")
-        .setMolar(192.2)
-        .setTempBoil(4701)
-        .setTempMelt(2719)
-        .build()
+    val IRIDIUM = HiiragiMaterial.Builder("iridium", 77).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ir"
+        molar = 192.2
+        tempBoil = 4701
+        tempMelt = 2719
+    }
 
     @JvmField
-    val PLATINUM = HiiragiMaterial.Builder("platinum", 78)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Pt")
-        .setMolar(195.1)
-        .setTempBoil(4098)
-        .setTempMelt(2041)
-        .build()
+    val PLATINUM = HiiragiMaterial.Builder("platinum", 78).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Pt"
+        molar = 195.1
+        tempBoil = 4098
+        tempMelt = 2041
+    }
 
     @JvmField
-    val GOLD = HiiragiMaterial.Builder("gold", 79)
-        .setColor(RagiColor.GOLD)
-        .setFormula("Au")
-        .setMolar(197.0)
-        .setTempBoil(3129)
-        .setTempMelt(1337)
-        .build()
+    val GOLD = HiiragiMaterial.Builder("gold", 79).build {
+        color = RagiColor.GOLD.rgb
+        formula = "Au"
+        molar = 197.0
+        tempBoil = 3129
+        tempMelt = 1337
+    }
 
     @JvmField
-    val MERCURY = HiiragiMaterial.Builder("mercury", 80)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Hg")
-        .setMolar(200.6)
-        .setTempBoil(670)
-        .setTempMelt(234)
-        .build()
+    val MERCURY = HiiragiMaterial.Builder("mercury", 80).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Hg"
+        molar = 200.6
+        tempBoil = 670
+        tempMelt = 234
+    }
 
     @JvmField
-    val THALLIUM = HiiragiMaterial.Builder("thallium", 81)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Tl")
-        .setMolar(204.4)
-        .setTempBoil(1749)
-        .setTempMelt(577)
-        .build()
+    val THALLIUM = HiiragiMaterial.Builder("thallium", 81).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Tl"
+        molar = 204.4
+        tempBoil = 1749
+        tempMelt = 577
+    }
 
     @JvmField
-    val LEAD = HiiragiMaterial.Builder("lead", 82)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Pb")
-        .setMolar(207.2)
-        .setTempBoil(2022)
-        .setTempMelt(601)
-        .build()
+    val LEAD = HiiragiMaterial.Builder("lead", 82).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Pb"
+        molar = 207.2
+        tempBoil = 2022
+        tempMelt = 601
+    }
 
     @JvmField
-    val BISMUTH = HiiragiMaterial.Builder("bismuth", 83)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Bi")
-        .setMolar(209.0)
-        .setTempBoil(1837)
-        .setTempMelt(545)
-        .build()
+    val BISMUTH = HiiragiMaterial.Builder("bismuth", 83).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Bi"
+        molar = 209.0
+        tempBoil = 1837
+        tempMelt = 545
+    }
 
     @JvmField
-    val POLONIUM = HiiragiMaterial.Builder("polonium", 84)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Po")
-        //.setMolar(209.0/210.0)
-        .setTempBoil(1235)
-        .setTempMelt(527)
-        .build()
+    val POLONIUM = HiiragiMaterial.Builder("polonium", 84).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Po"
+        //molar = 209.0/210.0
+        tempBoil = 1235
+        tempMelt = 527
+    }
 
     @JvmField
-    val ASTATINE = HiiragiMaterial.Builder("astatine", 85)
-        .setColor(RagiColor.BLACK)
-        .setFormula("At")
-        //.setMolar(210.0)
-        .setTempBoil(610)
-        .setTempMelt(575)
-        .build()
+    val ASTATINE = HiiragiMaterial.Builder("astatine", 85).build {
+        color = RagiColor.BLACK.rgb
+        formula = "At"
+        //molar = 210.0
+        tempBoil = 610
+        tempMelt = 575
+    }
 
     @JvmField
-    val RADON = HiiragiMaterial.Builder("radon", 86)
-        .setColor(RagiColor.LIGHT_PURPLE)
-        .setFormula("Rn")
-        //.setMolar(222.0)
-        .setTempBoil(211)
-        .setTempMelt(202)
-        .build()
+    val RADON = HiiragiMaterial.Builder("radon", 86).build {
+        color = RagiColor.LIGHT_PURPLE.rgb
+        formula = "Rn"
+        //molar = 222.0
+        tempBoil = 211
+        tempMelt = 202
+    }
 
     // 7th Period
     @JvmField
-    val FRANCIUM = HiiragiMaterial.Builder("francium", 87)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Fr")
-        //.setMolar(223.0)
-        .setTempBoil(890)
-        .setTempMelt(281)
-        .build()
+    val FRANCIUM = HiiragiMaterial.Builder("francium", 87).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Fr"
+        //molar = 223.0
+        tempBoil = 890
+        tempMelt = 281
+    }
 
     @JvmField
-    val RADIUM = HiiragiMaterial.Builder("radium", 88)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Ra")
-        //.setMolar(226.0)
-        .setTempBoil(2010)
-        .setTempMelt(973)
-        .build()
+    val RADIUM = HiiragiMaterial.Builder("radium", 88).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Ra"
+        //molar = 226.0
+        tempBoil = 2010
+        tempMelt = 973
+    }
 
     // (Actinoid START)
     @JvmField
-    val ACTINIUM = HiiragiMaterial.Builder("actinium", 89)
-        .setColor(RagiColor.DARK_AQUA)
-        .setFormula("Ac")
-        //.setMolar(227.0)
-        .setTempBoil(3471)
-        .setTempMelt(1323)
-        .build()
+    val ACTINIUM = HiiragiMaterial.Builder("actinium", 89).build {
+        color = RagiColor.DARK_AQUA.rgb
+        formula = "Ac"
+        //molar = 227.0
+        tempBoil = 3471
+        tempMelt = 1323
+    }
 
     @JvmField
-    val THORIUM = HiiragiMaterial.Builder("thorium", 90)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Th")
-        .setMolar(232.0)
-        .setTempBoil(5061)
-        .setTempMelt(2115)
-        .build()
+    val THORIUM = HiiragiMaterial.Builder("thorium", 90).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Th"
+        molar = 232.0
+        tempBoil = 5061
+        tempMelt = 2115
+    }
 
     @JvmField
-    val PROTACTINIUM = HiiragiMaterial.Builder("protactinium", 91)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Pa")
-        .setMolar(231.0)
-        .setTempBoil(4300)
-        .setTempMelt(1841)
-        .build()
+    val PROTACTINIUM = HiiragiMaterial.Builder("protactinium", 91).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Pa"
+        molar = 231.0
+        tempBoil = 4300
+        tempMelt = 1841
+    }
 
     @JvmField
-    val URANIUM238 = HiiragiMaterial.Builder("uranium238", 92)
-        .setColor(RagiColor.GREEN)
-        .setFormula("U238")
-        .setMolar(238.0)
-        .setTempBoil(4404)
-        .setTempMelt(1405)
-        .build()
+    val URANIUM238 = HiiragiMaterial.Builder("uranium238", 92).build {
+        color = RagiColor.GREEN.rgb
+        formula = "U238"
+        molar = 238.0
+        tempBoil = 4404
+        tempMelt = 1405
+    }
 
     @JvmField
-    val NEPTUNIUM = HiiragiMaterial.Builder("neptunium", 93)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Np")
-        //.setMolar(237.0)
-        .setTempBoil(4273)
-        .setTempMelt(917)
-        .build()
+    val NEPTUNIUM = HiiragiMaterial.Builder("neptunium", 93).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Np"
+        //molar = 237.0
+        tempBoil = 4273
+        tempMelt = 917
+    }
 
     @JvmField
-    val PLUTONIUM244 = HiiragiMaterial.Builder("plutonium244", 94)
-        .setColor(RagiColor.DARK_RED)
-        .setFormula("Pu244")
-        .setMolar(244.1)
-        .setTempBoil(3501)
-        .setTempMelt(913)
-        .build()
+    val PLUTONIUM244 = HiiragiMaterial.Builder("plutonium244", 94).build {
+        color = RagiColor.DARK_RED.rgb
+        formula = "Pu244"
+        molar = 244.1
+        tempBoil = 3501
+        tempMelt = 913
+    }
 
     @JvmField
-    val AMERICIUM = HiiragiMaterial.Builder("americium", 95)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Am")
-        //.setMolar(243.0)
-        .setTempBoil(1880)
-        .setTempMelt(1449)
-        .build()
+    val AMERICIUM = HiiragiMaterial.Builder("americium", 95).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Am"
+        //molar = 243.0
+        tempBoil = 1880
+        tempMelt = 1449
+    }
 
     @JvmField
-    val CURIUM = HiiragiMaterial.Builder("curium", 96)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Cm")
-        //.setMolar(247.0)
-        .setTempBoil(3383)
-        .setTempMelt(1613)
-        .build()
+    val CURIUM = HiiragiMaterial.Builder("curium", 96).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Cm"
+        //molar = 247.0
+        tempBoil = 3383
+        tempMelt = 1613
+    }
 
     @JvmField
-    val BERKELIUM = HiiragiMaterial.Builder("berkelium", 97)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Bk")
-        //.setMolar(247.0)
-        .setTempBoil(2900)
-        .setTempMelt(1259)
-        .build()
+    val BERKELIUM = HiiragiMaterial.Builder("berkelium", 97).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Bk"
+        //molar = 247.0
+        tempBoil = 2900
+        tempMelt = 1259
+    }
 
     @JvmField
-    val CALIFORNIUM = HiiragiMaterial.Builder("californium", 98)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Cf")
-        //.setMolar(251.0/252.0)
-        .setTempBoil(1743)
-        .setTempMelt(1173)
-        .build()
+    val CALIFORNIUM = HiiragiMaterial.Builder("californium", 98).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Cf"
+        //molar = 251.0/252.0
+        tempBoil = 1743
+        tempMelt = 1173
+    }
 
     @JvmField
-    val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", 99)
-        .setColor(RagiColor.GRAY)
-        .setFormula("Es")
-        //.setMolar(252.0)
-        .setTempBoil(1269)
-        .setTempMelt(1133)
-        .build()
+    val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", 99).build {
+        color = RagiColor.GRAY.rgb
+        formula = "Es"
+        //molar = 252.0
+        tempBoil = 1269
+        tempMelt = 1133
+    }
 
     @JvmField
-    val FERMIUM = HiiragiMaterial.Builder("fermium", 100)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Fm")
-        //.setMolar(257.0)
-        //.setTempBoil()
-        //.setTempMelt(1125/1800)
-        .build()
+    val FERMIUM = HiiragiMaterial.Builder("fermium", 100).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Fm"
+        //molar = 257.0
+        //tempBoil = 
+        //tempMelt = 1125/1800
+        }
 
     @JvmField
-    val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", 101)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Md")
-        //.setMolar(258.0)
-        //.setTempBoil()
-        //.setTempMelt(1100)
-        .build()
+    val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", 101).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Md"
+        //molar = 258.0
+        //tempBoil = 
+        //tempMelt = 1100
+    }
 
     @JvmField
-    val NOBELIUM = HiiragiMaterial.Builder("nobelium", 102)
-        .setColor(RagiColor.WHITE)
-        .setFormula("No")
-        //.setMolar(259.0)
-        //.setTempBoil()
-        //.setTempMelt(1100)
-        .build()
+    val NOBELIUM = HiiragiMaterial.Builder("nobelium", 102).build {
+        color = RagiColor.WHITE.rgb
+        formula = "No"
+        //molar = 259.0
+        //tempBoil = 
+        //tempMelt = 1100
+    }
 
     @JvmField
-    val LAWRENCIUM = HiiragiMaterial.Builder("lawrencium", 103)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Lr")
-        //.setMolar(262.0/266.0)
-        //.setTempBoil()
-        //.setTempMelt(1900)
-        .build()
+    val LAWRENCIUM = HiiragiMaterial.Builder("lawrencium", 103).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Lr"
+        //molar = 262.0/266.0
+        //tempBoil = 
+        //tempMelt = 1900
+    }
     // (Actinoid END)
 
     @JvmField
-    val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", 104)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Lr")
-        //.setMolar(261.1/267.0)
-        //.setTempBoil(5800)
-        //.setTempMelt(2400)
-        .build()
+    val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", 104).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Lr"
+        //molar = 261.1/267.0
+        //tempBoil = 5800
+        //tempMelt = 2400
+    }
 
     @JvmField
-    val DUBNIUM = HiiragiMaterial.Builder("dubnium", 105)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Db")
-        //.setMolar(265.0/268.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val DUBNIUM = HiiragiMaterial.Builder("dubnium", 105).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Db"
+        //molar = 265.0/268.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", 106)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Sg")
-        //.setMolar(269.0/271.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", 106).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Sg"
+        //molar = 269.0/271.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val BOHRIUM = HiiragiMaterial.Builder("bohrium", 107)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Bh")
-        //.setMolar(270.0/272.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val BOHRIUM = HiiragiMaterial.Builder("bohrium", 107).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Bh"
+        //molar = 270.0/272.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val HASSIUM = HiiragiMaterial.Builder("hassium", 108)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Hs")
-        //.setMolar(269.0/277.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val HASSIUM = HiiragiMaterial.Builder("hassium", 108).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Hs"
+        //molar = 269.0/277.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", 109)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Mt")
-        //.setMolar(276.0/278.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", 109).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Mt"
+        //molar = 276.0/278.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", 110)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Ds")
-        //.setMolar(281.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", 110).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Ds"
+        //molar = 281.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", 111)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Rg")
-        //.setMolar(280.0/281.0/282.0)
-        //.setTempBoil()
-        //.setTempMelt()
-        .build()
+    val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", 111).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Rg"
+        //molar = 280.0/281.0/282.0
+        //tempBoil = 
+        //tempMelt = 
+    }
 
     @JvmField
-    val COPERNICIUM = HiiragiMaterial.Builder("copernicium", 112)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Cn")
-        //.setMolar(285.0)
-        //.setTempBoil(340)
-        //.setTempMelt(283)
-        .build()
+    val COPERNICIUM = HiiragiMaterial.Builder("copernicium", 112).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Cn"
+        //molar = 285.0
+        //tempBoil = 340
+        //tempMelt = 283
+    }
 
     @JvmField
-    val NIHONIUM = HiiragiMaterial.Builder("nihonium", 113)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Nh")
-        //.setMolar(278.0/286.0)
-        //.setTempBoil(1400)
-        //.setTempMelt(700)
-        .build()
+    val NIHONIUM = HiiragiMaterial.Builder("nihonium", 113).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Nh"
+        //molar = 278.0/286.0
+        //tempBoil = 1400
+        //tempMelt = 700
+    }
 
     @JvmField
-    val FLEROVIUM = HiiragiMaterial.Builder("flerovium", 114)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Fl")
-        //.setMolar(289.0)
-        //.setTempBoil()
-        //.setTempMelt(284)
-        .build()
+    val FLEROVIUM = HiiragiMaterial.Builder("flerovium", 114).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Fl"
+        //molar = 289.0
+        //tempBoil = 
+        //tempMelt = 284
+    }
 
     @JvmField
-    val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", 115)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Mc")
-        //.setMolar(289.0/290.0)
-        //.setTempBoil(1400)
-        //.setTempMelt(700)
-        .build()
+    val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", 115).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Mc"
+        //molar = 289.0/290.0
+        //tempBoil = 1400
+        //tempMelt = 700
+    }
 
     @JvmField
-    val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", 116)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Lv")
-        //.setMolar(293.0)
-        //.setTempBoil(1100)
-        //.setTempMelt(700)
-        .build()
+    val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", 116).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Lv"
+        //molar = 293.0
+        //tempBoil = 1100
+        //tempMelt = 700
+    }
 
     @JvmField
-    val TENNESSINE = HiiragiMaterial.Builder("tennessine", 117)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Ts")
-        //.setMolar(293.0/294.0)
-        //.setTempBoil(883)
-        //.setTempMelt(700)
-        .build()
+    val TENNESSINE = HiiragiMaterial.Builder("tennessine", 117).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Ts"
+        //molar = 293.0/294.0
+        //tempBoil = 883
+        //tempMelt = 700
+    }
 
     @JvmField
-    val OGANESSON = HiiragiMaterial.Builder("oganesson", 118)
-        .setColor(RagiColor.WHITE)
-        .setFormula("Og")
-        //.setMolar(294.0)
-        //.setTempBoil(450)
-        //.setTempMelt(352)
-        .build()
+    val OGANESSON = HiiragiMaterial.Builder("oganesson", 118).build {
+        color = RagiColor.WHITE.rgb
+        formula = "Og"
+        //molar = 294.0
+        //tempBoil = 450
+        //tempMelt = 352
+    }
+
 
     fun init() {
         // --1st Period--
