@@ -23,5 +23,4 @@ object MaterialRegistry {
     fun init() {
         MaterialElements.init()
     }
-
 }
