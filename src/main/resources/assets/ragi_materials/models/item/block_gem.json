@@ -2,7 +2,7 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "parent": "ragi_materials:item/block",
   "textures": {
-    "all": "ragi_materials:blocks/block_crystal",
-    "particle": "ragi_materials:blocks/block_crystal"
+    "all": "ragi_materials:blocks/block_gem",
+    "particle": "ragi_materials:blocks/block_gem"
   }
 }

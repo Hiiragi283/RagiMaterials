@@ -1,5 +1,6 @@
 package hiiragi283.material.material
 
+import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 
 /**
@@ -33,6 +34,7 @@ object MaterialElements {
     @JvmField
     val LITHIUM = HiiragiMaterial.Builder("lithium", 3).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Li"
         molar = 6.9
         tempBoil = 1560
@@ -42,6 +44,7 @@ object MaterialElements {
     @JvmField
     val BERYLLIUM = HiiragiMaterial.Builder("beryllium", 4).build {
         color = RagiColor.DARK_GREEN.rgb
+        crystalType = CrystalType.METAL
         formula = "Be"
         molar = 9.0
         tempBoil = 2742
@@ -51,6 +54,7 @@ object MaterialElements {
     @JvmField
     val BORON = HiiragiMaterial.Builder("boron", 5).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "B"
         molar = 10.8
         tempBoil = 4200
@@ -59,7 +63,7 @@ object MaterialElements {
 
     @JvmField
     val CARBON = HiiragiMaterial.Builder("carbon", 6).build {
-        color = RagiColor.BLACK.rgb
+        color = ColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY).rgb
         formula = "C"
         molar = 12.0
         //tempBoil = 4300
@@ -69,7 +73,7 @@ object MaterialElements {
 
     @JvmField
     val NITROGEN = HiiragiMaterial.Builder("nitrogen", 7).build {
-        color = RagiColor.DARK_AQUA.rgb
+        color = RagiColor.AQUA.rgb
         formula = "N"
         molar = 14.0
         tempBoil = 77
@@ -78,7 +82,6 @@ object MaterialElements {
 
     @JvmField
     val OXYGEN = HiiragiMaterial.Builder("oxygen", 8).build {
-        color = RagiColor.AQUA.rgb
         formula = "O"
         molar = 16.0
         tempBoil = 90
@@ -87,7 +90,7 @@ object MaterialElements {
 
     @JvmField
     val FLUORINE = HiiragiMaterial.Builder("fluorine", 9).build {
-        color = RagiColor.BLUE.rgb
+        color = RagiColor.GREEN.rgb
         formula = "F"
         molar = 19.0
         tempBoil = 85
@@ -96,7 +99,7 @@ object MaterialElements {
 
     @JvmField
     val NEON = HiiragiMaterial.Builder("neon", 10).build {
-        color = RagiColor.DARK_AQUA.rgb
+        color = RagiColor.LIGHT_PURPLE.rgb
         formula = "Ne"
         molar = 20.2
         tempBoil = 27
@@ -107,7 +110,8 @@ object MaterialElements {
 
     @JvmField
     val SODIUM = HiiragiMaterial.Builder("sodium", 11).build {
-        color = RagiColor.BLUE.rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 1, RagiColor.BLUE to 4).rgb
+        crystalType = CrystalType.METAL
         formula = "Na"
         molar = 23.0
         tempBoil = 1156
@@ -116,7 +120,8 @@ object MaterialElements {
 
     @JvmField
     val MAGNESIUM = HiiragiMaterial.Builder("magnesium", 12).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE).rgb
+        crystalType = CrystalType.METAL
         formula = "Mg"
         molar = 24.3
         tempBoil = 1363
@@ -125,7 +130,8 @@ object MaterialElements {
 
     @JvmField
     val ALUMINIUM = HiiragiMaterial.Builder("aluminium", 13).build {
-        color = RagiColor.AQUA.rgb
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 5).rgb
+        crystalType = CrystalType.METAL
         formula = "Al"
         molar = 27.0
         tempBoil = 2792
@@ -134,7 +140,8 @@ object MaterialElements {
 
     @JvmField
     val SILICON = HiiragiMaterial.Builder("silicon", 14).build {
-        color = RagiColor.DARK_GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.GRAY to 1, RagiColor.BLUE to 1).rgb
+        crystalType = CrystalType.METAL
         formula = "Si"
         molar = 28.1
         tempBoil = 3538
@@ -143,7 +150,7 @@ object MaterialElements {
 
     @JvmField
     val PHOSPHORUS = HiiragiMaterial.Builder("phosphorus", 15).build {
-        color = RagiColor.WHITE.rgb
+        color = RagiColor.YELLOW.rgb
         formula = "P"
         molar = 31.0
         tempBoil = 550
@@ -152,7 +159,7 @@ object MaterialElements {
 
     @JvmField
     val SULFUR = HiiragiMaterial.Builder("sulfur", 16).build {
-        color = RagiColor.YELLOW.rgb
+        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
         formula = "S"
         molar = 32.1
         tempBoil = 718
@@ -170,7 +177,7 @@ object MaterialElements {
 
     @JvmField
     val ARGON = HiiragiMaterial.Builder("argon", 18).build {
-        color = RagiColor.GREEN.rgb
+        color = RagiColor.LIGHT_PURPLE.rgb
         formula = "Ar"
         molar = 40.0
         tempBoil = 87
@@ -181,7 +188,8 @@ object MaterialElements {
 
     @JvmField
     val POTASSIUM = HiiragiMaterial.Builder("potassium", 19).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 2, RagiColor.BLUE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "K"
         molar = 39.1
         tempBoil = 1032
@@ -191,6 +199,7 @@ object MaterialElements {
     @JvmField
     val CALCIUM = HiiragiMaterial.Builder("calcium", 20).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ca"
         molar = 40.1
         tempBoil = 1757
@@ -200,6 +209,7 @@ object MaterialElements {
     @JvmField
     val SCANDIUM = HiiragiMaterial.Builder("scandium", 21).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Sc"
         molar = 45.0
         tempBoil = 3109
@@ -208,7 +218,8 @@ object MaterialElements {
 
     @JvmField
     val TITANIUM = HiiragiMaterial.Builder("titanium", 22).build {
-        color = RagiColor.LIGHT_PURPLE.rgb
+        color = ColorUtil.mixColor(RagiColor.GOLD to 1, RagiColor.WHITE to 2).rgb
+        crystalType = CrystalType.METAL
         formula = "Ti"
         molar = 47.9
         tempBoil = 3560
@@ -217,7 +228,8 @@ object MaterialElements {
 
     @JvmField
     val VANADIUM = HiiragiMaterial.Builder("vanadium", 23).build {
-        color = RagiColor.DARK_GRAY.rgb
+        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "V"
         molar = 50.9
         tempBoil = 3680
@@ -226,7 +238,8 @@ object MaterialElements {
 
     @JvmField
     val CHROMIUM = HiiragiMaterial.Builder("chromium", 24).build {
-        color = RagiColor.GRAY.rgb
+        color = RagiColor.GREEN.rgb
+        crystalType = CrystalType.METAL
         formula = "Cr"
         molar = 52.0
         tempBoil = 2944
@@ -235,7 +248,8 @@ object MaterialElements {
 
     @JvmField
     val MANGANESE = HiiragiMaterial.Builder("manganese", 25).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.RED, RagiColor.WHITE).rgb
+        crystalType = CrystalType.METAL
         formula = "Mn"
         molar = 54.9
         tempBoil = 2334
@@ -244,7 +258,8 @@ object MaterialElements {
 
     @JvmField
     val IRON = HiiragiMaterial.Builder("iron", 26).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.GRAY to 1, RagiColor.WHITE to 2).rgb
+        crystalType = CrystalType.METAL
         formula = "Fe"
         molar = 55.8
         tempBoil = 3134
@@ -254,6 +269,7 @@ object MaterialElements {
     @JvmField
     val COBALT = HiiragiMaterial.Builder("cobalt", 27).build {
         color = RagiColor.BLUE.rgb
+        crystalType = CrystalType.METAL
         formula = "Co"
         molar = 58.9
         tempBoil = 3200
@@ -262,7 +278,8 @@ object MaterialElements {
 
     @JvmField
     val NICKEL = HiiragiMaterial.Builder("nickel", 28).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.WHITE).rgb
+        crystalType = CrystalType.METAL
         formula = "Ni"
         molar = 58.7
         tempBoil = 3186
@@ -271,7 +288,8 @@ object MaterialElements {
 
     @JvmField
     val COPPER = HiiragiMaterial.Builder("copper", 29).build {
-        color = RagiColor.GOLD.rgb
+        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.RED).rgb
+        crystalType = CrystalType.METAL
         formula = "Cu"
         molar = 63.5
         tempBoil = 2835
@@ -280,7 +298,8 @@ object MaterialElements {
 
     @JvmField
     val ZINC = HiiragiMaterial.Builder("zinc", 30).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.GREEN to 1, RagiColor.WHITE to 2).rgb
+        crystalType = CrystalType.METAL
         formula = "Zn"
         molar = 65.4
         tempBoil = 1180
@@ -290,6 +309,7 @@ object MaterialElements {
     @JvmField
     val GALLIUM = HiiragiMaterial.Builder("gallium", 31).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ga"
         molar = 69.7
         tempBoil = 2673
@@ -299,6 +319,7 @@ object MaterialElements {
     @JvmField
     val GERMANIUM = HiiragiMaterial.Builder("germanium", 32).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ge"
         molar = 72.6
         tempBoil = 3106
@@ -308,6 +329,7 @@ object MaterialElements {
     @JvmField
     val ARSENIC = HiiragiMaterial.Builder("arsenic", 33).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "As"
         molar = 74.9
         //tempBoil = 887
@@ -317,7 +339,8 @@ object MaterialElements {
 
     @JvmField
     val SELENIUM = HiiragiMaterial.Builder("selenium", 34).build {
-        color = RagiColor.BLACK.rgb
+        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Se"
         molar = 74.9
         tempBoil = 958
@@ -335,7 +358,7 @@ object MaterialElements {
 
     @JvmField
     val KRYPTON = HiiragiMaterial.Builder("krypton", 36).build {
-        color = RagiColor.DARK_GREEN.rgb
+        color = RagiColor.LIGHT_PURPLE.rgb
         formula = "Kr"
         molar = 83.8
         tempBoil = 120
@@ -346,7 +369,8 @@ object MaterialElements {
 
     @JvmField
     val RUBIDIUM = HiiragiMaterial.Builder("rubidium", 37).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 3, RagiColor.BLUE to 2).rgb
+        crystalType = CrystalType.METAL
         formula = "Rb"
         molar = 85.5
         tempBoil = 961
@@ -356,6 +380,7 @@ object MaterialElements {
     @JvmField
     val STRONTIUM = HiiragiMaterial.Builder("strontium", 38).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Sr"
         molar = 87.6
         tempBoil = 1655
@@ -365,6 +390,7 @@ object MaterialElements {
     @JvmField
     val YTTRIUM = HiiragiMaterial.Builder("yttrium", 39).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Y"
         molar = 88.9
         tempBoil = 3609
@@ -374,6 +400,7 @@ object MaterialElements {
     @JvmField
     val ZIRCONIUM = HiiragiMaterial.Builder("zirconium", 40).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Zr"
         molar = 91.2
         tempBoil = 4682
@@ -383,6 +410,7 @@ object MaterialElements {
     @JvmField
     val NIOBIUM = HiiragiMaterial.Builder("niobium", 41).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Nb"
         molar = 92.9
         tempBoil = 5017
@@ -392,6 +420,7 @@ object MaterialElements {
     @JvmField
     val MOLYBDENUM = HiiragiMaterial.Builder("molybdenum", 42).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Mo"
         molar = 96.0
         tempBoil = 4912
@@ -401,6 +430,7 @@ object MaterialElements {
     @JvmField
     val TECHNETIUM = HiiragiMaterial.Builder("technetium", 43).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Tc"
         //molar = 97.0/98.0/99.0
         tempBoil = 4538
@@ -409,7 +439,8 @@ object MaterialElements {
 
     @JvmField
     val RUTHENIUM = HiiragiMaterial.Builder("ruthenium", 44).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.LIGHT_PURPLE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Ru"
         molar = 101.1
         tempBoil = 4423
@@ -418,7 +449,8 @@ object MaterialElements {
 
     @JvmField
     val RHODIUM = HiiragiMaterial.Builder("rhodium", 45).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.RED to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Rh"
         molar = 102.9
         tempBoil = 3968
@@ -427,7 +459,8 @@ object MaterialElements {
 
     @JvmField
     val PALLADIUM = HiiragiMaterial.Builder("palladium", 46).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.YELLOW to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Pd"
         molar = 106.4
         tempBoil = 3236
@@ -436,7 +469,8 @@ object MaterialElements {
 
     @JvmField
     val SILVER = HiiragiMaterial.Builder("silver", 47).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.AQUA to 1, RagiColor.WHITE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Ag"
         molar = 107.9
         tempBoil = 2435
@@ -446,6 +480,7 @@ object MaterialElements {
     @JvmField
     val CADMIUM = HiiragiMaterial.Builder("cadmium", 48).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Cd"
         molar = 112.4
         tempBoil = 1040
@@ -455,6 +490,7 @@ object MaterialElements {
     @JvmField
     val INDIUM = HiiragiMaterial.Builder("indium", 49).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "In"
         molar = 114.8
         tempBoil = 2345
@@ -463,7 +499,8 @@ object MaterialElements {
 
     @JvmField
     val TIN = HiiragiMaterial.Builder("tin", 50).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.AQUA to 1, RagiColor.WHITE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Sn"
         molar = 118.7
         tempBoil = 2875
@@ -473,6 +510,7 @@ object MaterialElements {
     @JvmField
     val ANTIMONY = HiiragiMaterial.Builder("antimony", 51).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Sb"
         molar = 121.8
         tempBoil = 1860
@@ -482,6 +520,7 @@ object MaterialElements {
     @JvmField
     val TELLURIUM = HiiragiMaterial.Builder("tellurium", 52).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Te"
         molar = 127.6
         tempBoil = 1261
@@ -499,7 +538,7 @@ object MaterialElements {
 
     @JvmField
     val XENON = HiiragiMaterial.Builder("xenon", 54).build {
-        color = RagiColor.AQUA.rgb
+        color = RagiColor.LIGHT_PURPLE.rgb
         formula = "Xe"
         molar = 131.3
         tempBoil = 165
@@ -510,7 +549,8 @@ object MaterialElements {
 
     @JvmField
     val CAESIUM = HiiragiMaterial.Builder("caesium", 55).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 4, RagiColor.BLUE to 1).rgb
+        crystalType = CrystalType.METAL
         formula = "Cs"
         molar = 132.9
         tempBoil = 944
@@ -520,6 +560,7 @@ object MaterialElements {
     @JvmField
     val BARIUM = HiiragiMaterial.Builder("barium", 56).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ba"
         molar = 137.3
         tempBoil = 2170
@@ -531,6 +572,7 @@ object MaterialElements {
     @JvmField
     val LANTHANUM = HiiragiMaterial.Builder("lanthanum", 57).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "La"
         molar = 138.9
         tempBoil = 3737
@@ -540,6 +582,7 @@ object MaterialElements {
     @JvmField
     val CERIUM = HiiragiMaterial.Builder("cerium", 58).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ce"
         molar = 140.1
         tempBoil = 3716
@@ -549,6 +592,7 @@ object MaterialElements {
     @JvmField
     val PRASEODYMIUM = HiiragiMaterial.Builder("praseodymium", 59).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Pr"
         molar = 140.9
         tempBoil = 3793
@@ -558,6 +602,7 @@ object MaterialElements {
     @JvmField
     val NEODYMIUM = HiiragiMaterial.Builder("neodymium", 60).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Nd"
         molar = 144.2
         tempBoil = 3347
@@ -567,6 +612,7 @@ object MaterialElements {
     @JvmField
     val PROMETHIUM = HiiragiMaterial.Builder("promethium", 61).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Pm"
         //molar = 145.0
         tempBoil = 3237
@@ -576,6 +622,7 @@ object MaterialElements {
     @JvmField
     val SAMARIUM = HiiragiMaterial.Builder("samarium", 62).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Sm"
         molar = 150.4
         tempBoil = 2067
@@ -585,6 +632,7 @@ object MaterialElements {
     @JvmField
     val EUROPIUM = HiiragiMaterial.Builder("europium", 63).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Eu"
         molar = 152.0
         tempBoil = 1802
@@ -594,6 +642,7 @@ object MaterialElements {
     @JvmField
     val GADOLINIUM = HiiragiMaterial.Builder("gadolinium", 64).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Gd"
         molar = 157.3
         tempBoil = 3546
@@ -603,6 +652,7 @@ object MaterialElements {
     @JvmField
     val TERBIUM = HiiragiMaterial.Builder("terbium", 65).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Tb"
         molar = 158.9
         tempBoil = 3503
@@ -612,6 +662,7 @@ object MaterialElements {
     @JvmField
     val DYSPROSIUM = HiiragiMaterial.Builder("dysprosium", 66).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Dy"
         molar = 157.3
         tempBoil = 2840
@@ -621,6 +672,7 @@ object MaterialElements {
     @JvmField
     val HOLMIUM = HiiragiMaterial.Builder("holmium", 67).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ho"
         molar = 164.9
         tempBoil = 2993
@@ -630,6 +682,7 @@ object MaterialElements {
     @JvmField
     val ERBIUM = HiiragiMaterial.Builder("erbium", 68).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Er"
         molar = 167.3
         tempBoil = 3141
@@ -639,6 +692,7 @@ object MaterialElements {
     @JvmField
     val THULIUM = HiiragiMaterial.Builder("thulium", 69).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Tm"
         molar = 168.9
         tempBoil = 2223
@@ -648,6 +702,7 @@ object MaterialElements {
     @JvmField
     val YTTERBIUM = HiiragiMaterial.Builder("ytterbium", 70).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Yb"
         molar = 173.0
         tempBoil = 1469
@@ -657,6 +712,7 @@ object MaterialElements {
     @JvmField
     val LUTETIUM = HiiragiMaterial.Builder("lutetium", 71).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Lu"
         molar = 175.0
         tempBoil = 3675
@@ -668,6 +724,7 @@ object MaterialElements {
     @JvmField
     val HAFNIUM = HiiragiMaterial.Builder("hafnium", 72).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Hf"
         molar = 178.5
         tempBoil = 4876
@@ -677,6 +734,7 @@ object MaterialElements {
     @JvmField
     val TANTALUM = HiiragiMaterial.Builder("tantalum", 73).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ta"
         molar = 180.9
         tempBoil = 5731
@@ -685,7 +743,8 @@ object MaterialElements {
 
     @JvmField
     val TUNGSTEN = HiiragiMaterial.Builder("tungsten", 74).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.DARK_GRAY to 1).rgb
+        crystalType = CrystalType.METAL
         formula = "W"
         molar = 183.8
         tempBoil = 5828
@@ -695,6 +754,7 @@ object MaterialElements {
     @JvmField
     val RHENIUM = HiiragiMaterial.Builder("rhenium", 75).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Re"
         molar = 186.2
         tempBoil = 5869
@@ -703,7 +763,8 @@ object MaterialElements {
 
     @JvmField
     val OSMIUM = HiiragiMaterial.Builder("osmium", 76).build {
-        color = RagiColor.DARK_BLUE.rgb
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Os"
         molar = 190.2
         tempBoil = 5285
@@ -712,7 +773,8 @@ object MaterialElements {
 
     @JvmField
     val IRIDIUM = HiiragiMaterial.Builder("iridium", 77).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.AQUA to 1, RagiColor.WHITE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Ir"
         molar = 192.2
         tempBoil = 4701
@@ -721,7 +783,8 @@ object MaterialElements {
 
     @JvmField
     val PLATINUM = HiiragiMaterial.Builder("platinum", 78).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.GREEN to 1, RagiColor.WHITE to 3).rgb
+        crystalType = CrystalType.METAL
         formula = "Pt"
         molar = 195.1
         tempBoil = 4098
@@ -730,7 +793,8 @@ object MaterialElements {
 
     @JvmField
     val GOLD = HiiragiMaterial.Builder("gold", 79).build {
-        color = RagiColor.GOLD.rgb
+        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
+        crystalType = CrystalType.METAL
         formula = "Au"
         molar = 197.0
         tempBoil = 3129
@@ -739,7 +803,6 @@ object MaterialElements {
 
     @JvmField
     val MERCURY = HiiragiMaterial.Builder("mercury", 80).build {
-        color = RagiColor.GRAY.rgb
         formula = "Hg"
         molar = 200.6
         tempBoil = 670
@@ -749,6 +812,7 @@ object MaterialElements {
     @JvmField
     val THALLIUM = HiiragiMaterial.Builder("thallium", 81).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Tl"
         molar = 204.4
         tempBoil = 1749
@@ -757,7 +821,8 @@ object MaterialElements {
 
     @JvmField
     val LEAD = HiiragiMaterial.Builder("lead", 82).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_GRAY, RagiColor.WHITE).rgb
+        crystalType = CrystalType.METAL
         formula = "Pb"
         molar = 207.2
         tempBoil = 2022
@@ -766,7 +831,8 @@ object MaterialElements {
 
     @JvmField
     val BISMUTH = HiiragiMaterial.Builder("bismuth", 83).build {
-        color = RagiColor.GRAY.rgb
+        color = RagiColor.AQUA.rgb
+        crystalType = CrystalType.METAL
         formula = "Bi"
         molar = 209.0
         tempBoil = 1837
@@ -776,6 +842,7 @@ object MaterialElements {
     @JvmField
     val POLONIUM = HiiragiMaterial.Builder("polonium", 84).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Po"
         //molar = 209.0/210.0
         tempBoil = 1235
@@ -804,7 +871,7 @@ object MaterialElements {
 
     @JvmField
     val FRANCIUM = HiiragiMaterial.Builder("francium", 87).build {
-        color = RagiColor.GRAY.rgb
+        color = RagiColor.DARK_BLUE.rgb
         formula = "Fr"
         //molar = 223.0
         tempBoil = 890
@@ -814,6 +881,7 @@ object MaterialElements {
     @JvmField
     val RADIUM = HiiragiMaterial.Builder("radium", 88).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ra"
         //molar = 226.0
         tempBoil = 2010
@@ -824,7 +892,8 @@ object MaterialElements {
 
     @JvmField
     val ACTINIUM = HiiragiMaterial.Builder("actinium", 89).build {
-        color = RagiColor.DARK_AQUA.rgb
+        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Ac"
         //molar = 227.0
         tempBoil = 3471
@@ -833,7 +902,8 @@ object MaterialElements {
 
     @JvmField
     val THORIUM = HiiragiMaterial.Builder("thorium", 90).build {
-        color = RagiColor.GRAY.rgb
+        color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.DARK_GREEN to 1, RagiColor.GRAY to 1).rgb
+        crystalType = CrystalType.METAL
         formula = "Th"
         molar = 232.0
         tempBoil = 5061
@@ -843,6 +913,7 @@ object MaterialElements {
     @JvmField
     val PROTACTINIUM = HiiragiMaterial.Builder("protactinium", 91).build {
         color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Pa"
         molar = 231.0
         tempBoil = 4300
@@ -852,6 +923,7 @@ object MaterialElements {
     @JvmField
     val URANIUM238 = HiiragiMaterial.Builder("uranium238", 92).build {
         color = RagiColor.GREEN.rgb
+        crystalType = CrystalType.METAL
         formula = "U238"
         molar = 238.0
         tempBoil = 4404
@@ -860,7 +932,8 @@ object MaterialElements {
 
     @JvmField
     val NEPTUNIUM = HiiragiMaterial.Builder("neptunium", 93).build {
-        color = RagiColor.GRAY.rgb
+        color = RagiColor.BLUE.rgb
+        crystalType = CrystalType.METAL
         formula = "Np"
         //molar = 237.0
         tempBoil = 4273
@@ -869,7 +942,8 @@ object MaterialElements {
 
     @JvmField
     val PLUTONIUM244 = HiiragiMaterial.Builder("plutonium244", 94).build {
-        color = RagiColor.DARK_RED.rgb
+        color = RagiColor.RED.rgb
+        crystalType = CrystalType.METAL
         formula = "Pu244"
         molar = 244.1
         tempBoil = 3501
@@ -878,7 +952,7 @@ object MaterialElements {
 
     @JvmField
     val AMERICIUM = HiiragiMaterial.Builder("americium", 95).build {
-        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Am"
         //molar = 243.0
         tempBoil = 1880
@@ -887,7 +961,7 @@ object MaterialElements {
 
     @JvmField
     val CURIUM = HiiragiMaterial.Builder("curium", 96).build {
-        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Cm"
         //molar = 247.0
         tempBoil = 3383
@@ -896,7 +970,7 @@ object MaterialElements {
 
     @JvmField
     val BERKELIUM = HiiragiMaterial.Builder("berkelium", 97).build {
-        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Bk"
         //molar = 247.0
         tempBoil = 2900
@@ -905,7 +979,7 @@ object MaterialElements {
 
     @JvmField
     val CALIFORNIUM = HiiragiMaterial.Builder("californium", 98).build {
-        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Cf"
         //molar = 251.0/252.0
         tempBoil = 1743
@@ -914,7 +988,7 @@ object MaterialElements {
 
     @JvmField
     val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", 99).build {
-        color = RagiColor.GRAY.rgb
+        crystalType = CrystalType.METAL
         formula = "Es"
         //molar = 252.0
         tempBoil = 1269
@@ -923,7 +997,7 @@ object MaterialElements {
 
     @JvmField
     val FERMIUM = HiiragiMaterial.Builder("fermium", 100).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Fm"
         //molar = 257.0
         //tempBoil =
@@ -932,7 +1006,7 @@ object MaterialElements {
 
     @JvmField
     val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", 101).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Md"
         //molar = 258.0
         //tempBoil =
@@ -941,7 +1015,7 @@ object MaterialElements {
 
     @JvmField
     val NOBELIUM = HiiragiMaterial.Builder("nobelium", 102).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "No"
         //molar = 259.0
         //tempBoil =
@@ -950,7 +1024,7 @@ object MaterialElements {
 
     @JvmField
     val LAWRENCIUM = HiiragiMaterial.Builder("lawrencium", 103).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Lr"
         //molar = 262.0/266.0
         //tempBoil =
@@ -961,7 +1035,7 @@ object MaterialElements {
 
     @JvmField
     val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", 104).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Lr"
         //molar = 261.1/267.0
         //tempBoil = 5800
@@ -970,7 +1044,7 @@ object MaterialElements {
 
     @JvmField
     val DUBNIUM = HiiragiMaterial.Builder("dubnium", 105).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Db"
         //molar = 265.0/268.0
         //tempBoil =
@@ -979,7 +1053,7 @@ object MaterialElements {
 
     @JvmField
     val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", 106).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Sg"
         //molar = 269.0/271.0
         //tempBoil =
@@ -988,7 +1062,7 @@ object MaterialElements {
 
     @JvmField
     val BOHRIUM = HiiragiMaterial.Builder("bohrium", 107).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Bh"
         //molar = 270.0/272.0
         //tempBoil =
@@ -997,7 +1071,7 @@ object MaterialElements {
 
     @JvmField
     val HASSIUM = HiiragiMaterial.Builder("hassium", 108).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Hs"
         //molar = 269.0/277.0
         //tempBoil =
@@ -1006,7 +1080,7 @@ object MaterialElements {
 
     @JvmField
     val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", 109).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Mt"
         //molar = 276.0/278.0
         //tempBoil =
@@ -1015,7 +1089,7 @@ object MaterialElements {
 
     @JvmField
     val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", 110).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Ds"
         //molar = 281.0
         //tempBoil =
@@ -1024,7 +1098,7 @@ object MaterialElements {
 
     @JvmField
     val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", 111).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Rg"
         //molar = 280.0/281.0/282.0
         //tempBoil =
@@ -1033,7 +1107,7 @@ object MaterialElements {
 
     @JvmField
     val COPERNICIUM = HiiragiMaterial.Builder("copernicium", 112).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Cn"
         //molar = 285.0
         //tempBoil = 340
@@ -1042,7 +1116,7 @@ object MaterialElements {
 
     @JvmField
     val NIHONIUM = HiiragiMaterial.Builder("nihonium", 113).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Nh"
         //molar = 278.0/286.0
         //tempBoil = 1400
@@ -1051,7 +1125,7 @@ object MaterialElements {
 
     @JvmField
     val FLEROVIUM = HiiragiMaterial.Builder("flerovium", 114).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Fl"
         //molar = 289.0
         //tempBoil =
@@ -1060,7 +1134,7 @@ object MaterialElements {
 
     @JvmField
     val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", 115).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Mc"
         //molar = 289.0/290.0
         //tempBoil = 1400
@@ -1069,7 +1143,7 @@ object MaterialElements {
 
     @JvmField
     val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", 116).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Lv"
         //molar = 293.0
         //tempBoil = 1100
@@ -1078,7 +1152,7 @@ object MaterialElements {
 
     @JvmField
     val TENNESSINE = HiiragiMaterial.Builder("tennessine", 117).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Ts"
         //molar = 293.0/294.0
         //tempBoil = 883
@@ -1087,7 +1161,7 @@ object MaterialElements {
 
     @JvmField
     val OGANESSON = HiiragiMaterial.Builder("oganesson", 118).build {
-        color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.METAL
         formula = "Og"
         //molar = 294.0
         //tempBoil = 450

@@ -1,9 +1,23 @@
 package hiiragi283.material.util
 
+import hiiragi283.material.RagiMaterials
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
+
+//クラフトレシピを削除するメソッド
+fun removeCrafting(registryName: ResourceLocation) {
+    CraftingManager.getRecipe(registryName)?.let {
+        removeRegistryEntry(ForgeRegistries.RECIPES, registryName)
+    } ?: RagiMaterials.LOGGER.debug("The recipe $registryName was not found...")
+}
+
+fun removeCrafting(registryName: String) {
+    removeCrafting(ResourceLocation((registryName)))
+}
 
 class CraftingBuilder(private val location: ResourceLocation, private val output: ItemStack) {
 
@@ -28,7 +42,7 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
     }
 
     fun buildShaped() {
-        GameRegistry.addShapedRecipe(location, location, output, *params.toTypedArray())
+        GameRegistry.addShapedRecipe(location, null, output, *params.toTypedArray())
     }
 
     //    Shapeless    //
@@ -40,7 +54,7 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
     }
 
     fun buildShapeless() {
-        GameRegistry.addShapelessRecipe(location, location, output, *ingredients.toTypedArray())
+        GameRegistry.addShapelessRecipe(location, null, output, *ingredients.toTypedArray())
     }
 
 }

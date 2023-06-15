@@ -1,15 +1,12 @@
 package hiiragi283.material.item
 
-import hiiragi283.material.init.RMItems
 import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.part.PartRegistry
 import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.RagiIngredient
 import net.minecraft.item.ItemStack
-import net.minecraftforge.oredict.OreDictionary
 
-object ItemMaterialPlate : ItemMaterialBase(PartRegistry.PLATE) {
+object ItemMaterialGear : ItemMaterialBase(PartRegistry.GEAR) {
 
     override fun isMatch(material: HiiragiMaterial): Boolean = super.isMatch(material) && material.isMetal()
 
@@ -20,9 +17,9 @@ object ItemMaterialPlate : ItemMaterialBase(PartRegistry.PLATE) {
             .filter { isMatch(it) }
             .forEach {
                 CraftingBuilder(ItemStack(this, 1, it.index))
-                    .addIngredient(RagiIngredient("ingot${it.getOreDictName()}"))
-                    .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
-                    .buildShapeless()
+                    .setPattern(" A ", "A A", " A ")
+                    .setIngredient('A', "ingot${it.getOreDictName()}")
+                    .buildShaped()
             }
     }
 

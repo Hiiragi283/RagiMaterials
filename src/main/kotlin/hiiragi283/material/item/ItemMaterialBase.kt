@@ -2,6 +2,7 @@ package hiiragi283.material.item
 
 import hiiragi283.material.client.RMModelManager
 import hiiragi283.material.creativetab.CreativeTabMaterial
+import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material_part.IMaterialPart
 import hiiragi283.material.material_part.MaterialPart
@@ -19,6 +20,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
 abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 32767), IMaterialPart<ItemStack> {
+
+    open fun isMatch(material: HiiragiMaterial): Boolean = material.isSolid()
 
     init {
         creativeTab = CreativeTabMaterial
@@ -53,7 +56,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
         MaterialRegistry.getMaterials()
-            .filter { it.isSolid() }
+            .filter { isMatch(it) }
             .map { ItemStack(this, 1, it.index) }
             .forEach { subItems.add(it) }
     }
@@ -62,7 +65,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     override fun registerMaterialPart() {
         MaterialRegistry.getMaterials()
-            .filter { it.isSolid() }
+            .filter { isMatch(it) }
             .map { MaterialPart(part, it) }
             .forEach {
                 MaterialPartRegistry.registerTag(ItemStack(this, 1, it.material.index), it)
@@ -71,7 +74,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     override fun registerOreDict() {
         MaterialRegistry.getMaterials()
-            .filter { it.isSolid() }
+            .filter { isMatch(it) }
             .map { MaterialPart(part, it) }
             .forEach {
                 OreDictionary.registerOre(it.getOreDictName(), ItemStack(this, 1, it.material.index))

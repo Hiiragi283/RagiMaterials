@@ -3,6 +3,7 @@
 package hiiragi283.material.util
 
 import hiiragi283.material.RagiMaterials
+import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.command.ICommandSender
 import net.minecraft.item.EnumRarity
@@ -13,11 +14,16 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryModifiable
 
-fun ItemStack.toBracket(): String = "<${this.item.registryName}:${this.metadata}> * ${this.count}"
+fun ItemStack.toLocation(): ResourceLocation = this.item.registryName!!.append(":" + this.metadata)
 
-fun ItemStack.toLocation(): ResourceLocation = this.item.registryName!!.append("_" + this.metadata)
+fun IBlockState.toLocation(): ResourceLocation =
+    this.block.registryName!!.append(":" + this.block.getMetaFromState(this))
 
-fun FluidStack.toBracket(): String = "<fluid:${this.fluid.name}> * ${this.amount}"
+fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
+    val location = ResourceLocation("fluid", this.fluid.name)
+    if (addAmount) location.append(":" + this.amount)
+    return location
+}
 
 //ResourceLocationの末尾に付け足す関数
 fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, this.path + path)

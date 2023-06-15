@@ -23,13 +23,25 @@ object PartRegistry {
     //    Parts    //
 
     @JvmField
+    val BLOCK = HiiragiPart("block", 9.0)
+
+    @JvmField
+    val GEM = HiiragiPart("gem", 1.0)
+
+    @JvmField
     val DUST = HiiragiPart("dust", 1.0)
 
     @JvmField
     val DUST_TINY = HiiragiPart("dust_tiny", 0.1)
 
     @JvmField
+    val GEAR = HiiragiPart("gear", 4.0)
+
+    @JvmField
     val INGOT = HiiragiPart("ingot", 1.0)
+
+    @JvmField
+    val NUGGET = HiiragiPart("nugget", 0.1)
 
     @JvmField
     val PLATE = HiiragiPart("plate", 1.0)
@@ -38,9 +50,13 @@ object PartRegistry {
     val STICK = HiiragiPart("stick", 0.5)
 
     fun init() {
+        registerPart(BLOCK)
+        registerPart(GEM)
         registerPart(DUST)
         registerPart(DUST_TINY)
+        registerPart(GEAR)
         registerPart(INGOT)
+        registerPart(NUGGET)
         registerPart(PLATE)
         registerPart(STICK)
     }

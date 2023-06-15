@@ -1,7 +1,7 @@
 package hiiragi283.material.material
 
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.util.ColorUtil
-import hiiragi283.material.util.RagiColor
 import kotlinx.serialization.Serializable
 import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
@@ -10,18 +10,21 @@ import java.awt.Color
  * @param name Name for this material
  * @param index Index for this material
  * @param color Material color for this material
+ * @param crystalType Type of crystal structure for this material
  * @param formula Chemical formula for this material
  * @param molar Molar Mass for this material
+ * @param standardState Standard State (under the condition with 1 atm and 298 K) for this material
  * @param tempBoil Boiling point with Kelvin Temperature for this material
  * @param tempBoil Melting point with Kelvin Temperature for this material
  * @param tempBoil Sublimation point with Kelvin Temperature for this material
  */
 
 @Serializable
-open class HiiragiMaterial(
+class HiiragiMaterial(
     val name: String,
     val index: Int,
     var color: Int = 0xFFFFFF,
+    var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
     var molar: Double = -1.0,
     var standardState: StandardState = StandardState.UNDEFINED,
@@ -41,6 +44,51 @@ open class HiiragiMaterial(
         val EMPTY = HiiragiMaterial("empty", -1)
     }
 
+    fun getOreDictName() = name.snakeToUpperCamelCase()
+
+    fun hasCrystal(): Boolean = crystalType.isCrystal
+
+    fun hasFormula(): Boolean = formula.isNotEmpty()
+
+    fun hasMolar(): Boolean = molar > 0.0
+
+    fun hasTempBoil(): Boolean = tempBoil >= 0
+
+    fun hasTempMelt(): Boolean = tempMelt >= 0
+
+    fun hasTempSubl(): Boolean = tempSubl >= 0
+
+    fun hasStandardState(): Boolean = standardState != StandardState.UNDEFINED
+
+    fun isEmpty(): Boolean = this == EMPTY
+
+    fun isGem(): Boolean = hasCrystal() && !isMetal()
+
+    fun isMetal(): Boolean = crystalType == CrystalType.METAL
+
+    fun isGas(): Boolean = standardState == StandardState.GAS
+
+    fun isLiquid(): Boolean = standardState == StandardState.LIQUID
+
+    fun isSolid(): Boolean = standardState == StandardState.SOLID
+
+    fun setCrystalType(type: CrystalType) = also {
+        if (it.isSolid()) {
+            crystalType = type
+        } else RagiMaterials.LOGGER.warn("This material has no solid state!")
+    }
+
+    //    General    //
+
+    override fun equals(other: Any?): Boolean =
+        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
+
+    override fun hashCode(): Int = name.hashCode()
+
+    override fun toString(): String = "Material:${this.name}"
+
+    //    Initializer    //
+
     fun addComponents(vararg pairs: Pair<HiiragiMaterial, Int>) = also {
         pairs.forEach { components[it.first] = it.second }
         initColor()
@@ -51,6 +99,11 @@ open class HiiragiMaterial(
     //色を自動で生成
     fun initColor() {
         color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
+    }
+
+    fun initCrystalType() {
+        //固相を持たない場合は強制的にNONE
+        if (!isSolid()) crystalType = CrystalType.NONE
     }
 
     //化学式を自動で生成
@@ -107,85 +160,36 @@ open class HiiragiMaterial(
         this.molar = subl
     }
 
-    fun hasFormula(): Boolean = formula.isBlank()
-
-    fun hasMolar(): Boolean = molar > 0.0
-
-    fun hasTempBoil(): Boolean = tempBoil >= 0
-
-    fun hasTempMelt(): Boolean = tempMelt >= 0
-
-    fun hasTempSubl(): Boolean = tempSubl >= 0
-
-    fun isEmpty(): Boolean = this == EMPTY
-
-    fun isGas(): Boolean = standardState == StandardState.GAS
-
-    fun isLiquid(): Boolean = standardState == StandardState.LIQUID
-
-    fun isSolid(): Boolean = standardState == StandardState.SOLID
-
-    fun getOreDictName() = name.snakeToUpperCamelCase()
-
-    //物質の標準状態での相を返すメソッド
-    fun getState(): StandardState {
+    fun initStandardState() {
+        //すでに初期化されている場合はパス
+        if (hasStandardState()) return
         //沸点と融点が有効な場合
         if (hasTempBoil() && hasTempMelt()) {
             //沸点が298 K以下 -> 標準状態で気体
-            if (tempBoil <= 298) return StandardState.GAS
+            if (tempBoil <= 298) {
+                standardState = StandardState.GAS
+                return
+            }
             //融点が常温以下 -> 標準状態で液体
-            else if (tempMelt <= 298) return StandardState.LIQUID
+            else if (tempMelt <= 298) {
+                standardState = StandardState.LIQUID
+                return
+            }
         }
         //それ以外は固体として扱う
-        return StandardState.SOLID
+        standardState = StandardState.SOLID
     }
-
-    //    General    //
-
-    override fun equals(other: Any?): Boolean =
-        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
-
-    override fun hashCode(): Int = name.hashCode()
-
-    override fun toString(): String = "Material:${this.name}"
 
     //    Builder    //
 
-    open class Builder(val name: String, private val index: Int) {
-
-        var color: Color = RagiColor.WHITE
-        var formula: String = ""
-        var molar: Double = -1.0
-        var tempBoil: Int = -1
-        var tempMelt: Int = -1
-        var tempSubl: Int = -1
-
-        fun setColor(color: Color) = also { this.color = color }
-        fun setFormula(formula: String) = also { this.formula = formula }
-        fun setMolar(molar: Double) = also { this.molar = molar }
-        fun setTempBoil(temp: Int) = also { this.tempBoil = temp }
-        fun setTempMelt(temp: Int) = also { this.tempMelt = temp }
-        fun setTempSubl(temp: Int) = also { this.tempSubl = temp }
-
-        open fun build(): HiiragiMaterial = HiiragiMaterial(
-            name,
-            index,
-            color.rgb,
-            formula,
-            molar,
-            StandardState.UNDEFINED,
-            tempBoil,
-            tempMelt,
-            tempSubl
-        ).also {
-            it.standardState = it.getState() //標準状態を初期化
-        }
+    open class Builder(private val name: String, private val index: Int) {
 
         fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
-            return HiiragiMaterial(name, index).also {
-                it.init()
-                it.standardState = it.getState() //標準状態を初期化
-            }
+            val material = HiiragiMaterial(name, index)
+            material.init()
+            material.initStandardState() //標準状態を初期化
+            material.initCrystalType() //結晶構造を初期化
+            return material
         }
 
     }
