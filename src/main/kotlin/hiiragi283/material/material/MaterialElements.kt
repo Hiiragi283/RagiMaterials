@@ -1,5 +1,6 @@
 package hiiragi283.material.material
 
+import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 
@@ -1168,6 +1169,35 @@ object MaterialElements {
         //tempMelt = 352
     }
 
+    //    Isotope    //
+
+    @JvmField
+    val DEUTERIUM = HiiragiMaterial.Builder("deuterium", 120).build {
+        color = HYDROGEN.color
+        formula = "D"
+        molar = 2.0
+        tempBoil = HYDROGEN.tempBoil
+        tempMelt = HYDROGEN.tempMelt
+    }
+
+    @JvmField
+    val TRITIUM = HiiragiMaterial.Builder("tritium", 121).build {
+        color = HYDROGEN.color
+        formula = "T"
+        molar = 3.0
+        tempBoil = HYDROGEN.tempBoil
+        tempMelt = HYDROGEN.tempMelt
+    }
+
+    @JvmField
+    val URANIUM235 = HiiragiMaterial.Builder("uranium235", 122).build {
+        color = URANIUM238.color
+        crystalType = URANIUM238.crystalType
+        formula = "U235"
+        molar = 235.0
+        tempBoil = URANIUM238.tempBoil
+        tempMelt = URANIUM238.tempMelt
+    }
 
     fun init() {
         // --1st Period--
@@ -1232,23 +1262,24 @@ object MaterialElements {
         // --6th Period--
         MaterialRegistry.registerMaterial(CAESIUM)
         MaterialRegistry.registerMaterial(BARIUM)
-        // (Lanthanoid START)
-        MaterialRegistry.registerMaterial(LANTHANUM)
-        MaterialRegistry.registerMaterial(CERIUM)
-        MaterialRegistry.registerMaterial(PRASEODYMIUM)
-        MaterialRegistry.registerMaterial(NEODYMIUM)
-        MaterialRegistry.registerMaterial(PROMETHIUM)
-        MaterialRegistry.registerMaterial(SAMARIUM)
-        MaterialRegistry.registerMaterial(EUROPIUM)
-        MaterialRegistry.registerMaterial(GADOLINIUM)
-        MaterialRegistry.registerMaterial(TERBIUM)
-        MaterialRegistry.registerMaterial(DYSPROSIUM)
-        MaterialRegistry.registerMaterial(HOLMIUM)
-        MaterialRegistry.registerMaterial(ERBIUM)
-        MaterialRegistry.registerMaterial(THULIUM)
-        MaterialRegistry.registerMaterial(YTTERBIUM)
-        MaterialRegistry.registerMaterial(LUTETIUM)
-        // (Lanthanoid END)
+        // --Lanthanides--
+        if (RMConfig.enableLanthanides) {
+            MaterialRegistry.registerMaterial(LANTHANUM)
+            MaterialRegistry.registerMaterial(CERIUM)
+            MaterialRegistry.registerMaterial(PRASEODYMIUM)
+            MaterialRegistry.registerMaterial(NEODYMIUM)
+            MaterialRegistry.registerMaterial(PROMETHIUM)
+            MaterialRegistry.registerMaterial(SAMARIUM)
+            MaterialRegistry.registerMaterial(EUROPIUM)
+            MaterialRegistry.registerMaterial(GADOLINIUM)
+            MaterialRegistry.registerMaterial(TERBIUM)
+            MaterialRegistry.registerMaterial(DYSPROSIUM)
+            MaterialRegistry.registerMaterial(HOLMIUM)
+            MaterialRegistry.registerMaterial(ERBIUM)
+            MaterialRegistry.registerMaterial(THULIUM)
+            MaterialRegistry.registerMaterial(YTTERBIUM)
+            MaterialRegistry.registerMaterial(LUTETIUM)
+        }
         MaterialRegistry.registerMaterial(HAFNIUM)
         MaterialRegistry.registerMaterial(TANTALUM)
         MaterialRegistry.registerMaterial(TUNGSTEN)
@@ -1264,40 +1295,46 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(POLONIUM)
         MaterialRegistry.registerMaterial(ASTATINE)
         MaterialRegistry.registerMaterial(RADON)
-        // --7th Period
+        // --7th Period--
         MaterialRegistry.registerMaterial(FRANCIUM)
         MaterialRegistry.registerMaterial(RADIUM)
-        // (Actinides START)
+        // --Actinides Start--
         MaterialRegistry.registerMaterial(ACTINIUM)
         MaterialRegistry.registerMaterial(THORIUM)
         MaterialRegistry.registerMaterial(PROTACTINIUM)
         MaterialRegistry.registerMaterial(URANIUM238)
         MaterialRegistry.registerMaterial(NEPTUNIUM)
         MaterialRegistry.registerMaterial(PLUTONIUM244)
-        MaterialRegistry.registerMaterial(AMERICIUM)
-        MaterialRegistry.registerMaterial(CURIUM)
-        MaterialRegistry.registerMaterial(BERKELIUM)
-        MaterialRegistry.registerMaterial(CALIFORNIUM)
-        MaterialRegistry.registerMaterial(EINSTEINIUM)
-        MaterialRegistry.registerMaterial(FERMIUM)
-        MaterialRegistry.registerMaterial(MENDELEVIUM)
-        MaterialRegistry.registerMaterial(NOBELIUM)
-        MaterialRegistry.registerMaterial(LAWRENCIUM)
-        // (Actinides END)
-        MaterialRegistry.registerMaterial(RUTHERFORDIUM)
-        MaterialRegistry.registerMaterial(DUBNIUM)
-        MaterialRegistry.registerMaterial(SEABORGIUM)
-        MaterialRegistry.registerMaterial(BOHRIUM)
-        MaterialRegistry.registerMaterial(HASSIUM)
-        MaterialRegistry.registerMaterial(MEITNERIUM)
-        MaterialRegistry.registerMaterial(DARMSTADTIUM)
-        MaterialRegistry.registerMaterial(ROENTGENIUM)
-        MaterialRegistry.registerMaterial(COPERNICIUM)
-        MaterialRegistry.registerMaterial(NIHONIUM)
-        MaterialRegistry.registerMaterial(FLEROVIUM)
-        MaterialRegistry.registerMaterial(MOSCOVIUM)
-        MaterialRegistry.registerMaterial(LIVERMORIUM)
-        MaterialRegistry.registerMaterial(TENNESSINE)
-        MaterialRegistry.registerMaterial(OGANESSON)
+        if (RMConfig.enableTransuraniumElement) {
+            MaterialRegistry.registerMaterial(AMERICIUM)
+            MaterialRegistry.registerMaterial(CURIUM)
+            MaterialRegistry.registerMaterial(BERKELIUM)
+            MaterialRegistry.registerMaterial(CALIFORNIUM)
+            MaterialRegistry.registerMaterial(EINSTEINIUM)
+            MaterialRegistry.registerMaterial(FERMIUM)
+            MaterialRegistry.registerMaterial(MENDELEVIUM)
+            MaterialRegistry.registerMaterial(NOBELIUM)
+            MaterialRegistry.registerMaterial(LAWRENCIUM)
+            // --Actinides End--
+            MaterialRegistry.registerMaterial(RUTHERFORDIUM)
+            MaterialRegistry.registerMaterial(DUBNIUM)
+            MaterialRegistry.registerMaterial(SEABORGIUM)
+            MaterialRegistry.registerMaterial(BOHRIUM)
+            MaterialRegistry.registerMaterial(HASSIUM)
+            MaterialRegistry.registerMaterial(MEITNERIUM)
+            MaterialRegistry.registerMaterial(DARMSTADTIUM)
+            MaterialRegistry.registerMaterial(ROENTGENIUM)
+            MaterialRegistry.registerMaterial(COPERNICIUM)
+            MaterialRegistry.registerMaterial(NIHONIUM)
+            MaterialRegistry.registerMaterial(FLEROVIUM)
+            MaterialRegistry.registerMaterial(MOSCOVIUM)
+            MaterialRegistry.registerMaterial(LIVERMORIUM)
+            MaterialRegistry.registerMaterial(TENNESSINE)
+            MaterialRegistry.registerMaterial(OGANESSON)
+        }
+        // --Isotope--
+        MaterialRegistry.registerMaterial(DEUTERIUM)
+        MaterialRegistry.registerMaterial(TRITIUM)
+        MaterialRegistry.registerMaterial(URANIUM235)
     }
 }

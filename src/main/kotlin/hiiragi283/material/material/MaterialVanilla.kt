@@ -1,0 +1,3 @@
+package hiiragi283.material.material
+
+object MaterialVanilla

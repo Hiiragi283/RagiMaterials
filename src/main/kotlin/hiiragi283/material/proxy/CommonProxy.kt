@@ -2,6 +2,8 @@ package hiiragi283.material.proxy
 
 import hiiragi283.material.RMEventHandler
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.config.RMConfig
+import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluid
 import hiiragi283.material.init.RMItems
 import hiiragi283.material.material.MaterialRegistry
@@ -23,6 +25,10 @@ abstract class CommonProxy : IProxy {
     }
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
+        //configから素材を登録
+        val jsonHandler = RMJSonHandler(event)
+        jsonHandler.writeJson()
+        jsonHandler.readJson()
         //液体の登録
         HiiragiFluid.register()
         //MaterialPartとの紐づけ
@@ -39,10 +45,9 @@ abstract class CommonProxy : IProxy {
     override fun onPostInit(event: FMLPostInitializationEvent) {}
 
     override fun onComplete(event: FMLLoadCompleteEvent) {
-        MaterialRegistry.getMaterials()
-            .forEach {
-                RagiMaterials.LOGGER.debug(Json.encodeToString(it))
-            }
+        if (RMConfig.printRegisteredMaterials) {
+            MaterialRegistry.getMaterials()
+                .forEach { RagiMaterials.LOGGER.debug(Json.encodeToString(it)) }
+        }
     }
-
 }

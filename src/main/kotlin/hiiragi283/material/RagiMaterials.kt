@@ -12,7 +12,7 @@ import java.awt.Color
 @Mod(
     modid = RagiMaterials.MODID,
     name = "RagiMaterials",
-    version = "v0.9.0a",
+    version = "0.9.0a",
     dependencies = "required-after:forgelin;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
