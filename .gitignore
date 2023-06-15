@@ -19,6 +19,6 @@ build
 
 # other
 eclipse
-client
+run
 server
 docs
