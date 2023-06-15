@@ -4,6 +4,7 @@ import hiiragi283.material.util.RagiColor
 
 /**
  * @author MrKono
+ * @author turtton
  */
 object MaterialElements {
 
@@ -16,7 +17,7 @@ object MaterialElements {
         molar = 1.0
         tempBoil = 20
         tempMelt = 14
-}
+    }
 
     @JvmField
     val HELIUM = HiiragiMaterial.Builder("helium", 2).build {
@@ -25,9 +26,10 @@ object MaterialElements {
         molar = 4.0
         tempBoil = 3
         tempMelt = 1
-}
-    
-    // --2nd Period--
+    }
+
+    //    2nd Period    //
+
     @JvmField
     val LITHIUM = HiiragiMaterial.Builder("lithium", 3).build {
         color = RagiColor.GRAY.rgb
@@ -63,7 +65,7 @@ object MaterialElements {
         //tempBoil = 4300
         //tempMelt = 4000
         tempSubl = 3915
-        }
+    }
 
     @JvmField
     val NITROGEN = HiiragiMaterial.Builder("nitrogen", 7).build {
@@ -101,7 +103,8 @@ object MaterialElements {
         tempMelt = 25
     }
 
-    // --3rd Period--
+    //    3rd Period    //
+
     @JvmField
     val SODIUM = HiiragiMaterial.Builder("sodium", 11).build {
         color = RagiColor.BLUE.rgb
@@ -174,7 +177,8 @@ object MaterialElements {
         tempMelt = 84
     }
 
-    // --4th Period--
+    //    4th Period    //
+
     @JvmField
     val POTASSIUM = HiiragiMaterial.Builder("potassium", 19).build {
         color = RagiColor.GRAY.rgb
@@ -309,7 +313,7 @@ object MaterialElements {
         //tempBoil = 887
         //tempMelt = 1090
         tempSubl = 887
-        }
+    }
 
     @JvmField
     val SELENIUM = HiiragiMaterial.Builder("selenium", 34).build {
@@ -338,7 +342,8 @@ object MaterialElements {
         tempMelt = 116
     }
 
-    // --5th Period--
+    //    5th Period    //
+
     @JvmField
     val RUBIDIUM = HiiragiMaterial.Builder("rubidium", 37).build {
         color = RagiColor.GRAY.rgb
@@ -501,7 +506,8 @@ object MaterialElements {
         tempMelt = 161
     }
 
-    // 6th Period
+    //    6th Period    //
+
     @JvmField
     val CAESIUM = HiiragiMaterial.Builder("caesium", 55).build {
         color = RagiColor.GRAY.rgb
@@ -520,7 +526,8 @@ object MaterialElements {
         tempMelt = 1000
     }
 
-    // (Lanthanoid START)
+    //    Lanthanides Start    //
+
     @JvmField
     val LANTHANUM = HiiragiMaterial.Builder("lanthanum", 57).build {
         color = RagiColor.GRAY.rgb
@@ -655,7 +662,8 @@ object MaterialElements {
         tempBoil = 3675
         tempMelt = 1925
     }
-    // (Lanthanoid END)
+
+    //    Lanthanides End    //
 
     @JvmField
     val HAFNIUM = HiiragiMaterial.Builder("hafnium", 72).build {
@@ -792,7 +800,8 @@ object MaterialElements {
         tempMelt = 202
     }
 
-    // 7th Period
+    //    7th Period    //
+
     @JvmField
     val FRANCIUM = HiiragiMaterial.Builder("francium", 87).build {
         color = RagiColor.GRAY.rgb
@@ -811,7 +820,8 @@ object MaterialElements {
         tempMelt = 973
     }
 
-    // (Actinoid START)
+    //    Actinides Start    //
+
     @JvmField
     val ACTINIUM = HiiragiMaterial.Builder("actinium", 89).build {
         color = RagiColor.DARK_AQUA.rgb
@@ -916,16 +926,16 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Fm"
         //molar = 257.0
-        //tempBoil = 
+        //tempBoil =
         //tempMelt = 1125/1800
-        }
+    }
 
     @JvmField
     val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", 101).build {
         color = RagiColor.WHITE.rgb
         formula = "Md"
         //molar = 258.0
-        //tempBoil = 
+        //tempBoil =
         //tempMelt = 1100
     }
 
@@ -934,7 +944,7 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "No"
         //molar = 259.0
-        //tempBoil = 
+        //tempBoil =
         //tempMelt = 1100
     }
 
@@ -943,10 +953,11 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Lr"
         //molar = 262.0/266.0
-        //tempBoil = 
+        //tempBoil =
         //tempMelt = 1900
     }
-    // (Actinoid END)
+
+    //    Actinides End    //
 
     @JvmField
     val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", 104).build {
@@ -962,8 +973,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Db"
         //molar = 265.0/268.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -971,8 +982,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Sg"
         //molar = 269.0/271.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -980,8 +991,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Bh"
         //molar = 270.0/272.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -989,8 +1000,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Hs"
         //molar = 269.0/277.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -998,8 +1009,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Mt"
         //molar = 276.0/278.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -1007,8 +1018,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Ds"
         //molar = 281.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -1016,8 +1027,8 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Rg"
         //molar = 280.0/281.0/282.0
-        //tempBoil = 
-        //tempMelt = 
+        //tempBoil =
+        //tempMelt =
     }
 
     @JvmField
@@ -1043,7 +1054,7 @@ object MaterialElements {
         color = RagiColor.WHITE.rgb
         formula = "Fl"
         //molar = 289.0
-        //tempBoil = 
+        //tempBoil =
         //tempMelt = 284
     }
 
