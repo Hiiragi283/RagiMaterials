@@ -20,31 +20,43 @@ import java.awt.Color
  */
 
 @Serializable
-class HiiragiMaterial(
+class HiiragiMaterial @JvmOverloads constructor(
     val name: String,
     val index: Int,
     var color: Int = 0xFFFFFF,
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
     var molar: Double = -1.0,
+    var partsAdditional: List<String> = listOf(),
     var standardState: StandardState = StandardState.UNDEFINED,
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
     var tempSubl: Int = -1
 ) {
 
-    private val components: MutableMap<HiiragiMaterial, Int>
-        get() = mutableMapOf(EMPTY to 1)
-
-    val translationKey: String
-        get() = "material.$name"
-
     companion object {
         @JvmField
         val EMPTY = HiiragiMaterial("empty", -1)
     }
 
+    fun addBracket(): HiiragiMaterial =
+        HiiragiMaterial(
+            name,
+            index,
+            color,
+            crystalType,
+            formula = "($formula)",
+            molar,
+            partsAdditional,
+            standardState,
+            tempBoil,
+            tempMelt,
+            tempSubl
+        )
+
     fun getOreDictName() = name.snakeToUpperCamelCase()
+
+    fun getTranslationKey(key: () -> String = { "material.$name" }): String = key()
 
     fun hasCrystal(): Boolean = crystalType.isCrystal
 
@@ -72,6 +84,8 @@ class HiiragiMaterial(
 
     fun isSolid(): Boolean = standardState == StandardState.SOLID
 
+    fun isAdditionalPart(part: String): Boolean = part in partsAdditional
+
     fun setCrystalType(type: CrystalType) = also {
         if (it.isSolid()) {
             crystalType = type
@@ -87,108 +101,120 @@ class HiiragiMaterial(
 
     override fun toString(): String = "Material:${this.name}"
 
-    //    Initializer    //
-
-    fun addComponents(vararg pairs: Pair<HiiragiMaterial, Int>) = also {
-        pairs.forEach { components[it.first] = it.second }
-        initColor()
-        initFormula()
-        initMolar()
-    }
-
-    //色を自動で生成
-    fun initColor() {
-        color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
-    }
-
-    fun initCrystalType() {
-        //固相を持たない場合は強制的にNONE
-        if (!isSolid()) crystalType = CrystalType.NONE
-    }
-
-    //化学式を自動で生成
-    fun initFormula() {
-        var result = ""
-        for ((material, weight) in components) {
-            //文字を代入する
-            result += material.formula
-            //化学式の下付き数字の桁数調整
-            val subscript1 = Char(2080 + (weight % 10))
-            val subscript10 = Char(2080 + (weight / 10))
-            //2桁目が0でない場合，下付き数字を2桁にする
-            val subscript =
-                if (subscript10 == '\u2080') subscript1.toString() else subscript10.toString() + subscript1
-            //下付き数字を代入する
-            if (weight > 1) result += subscript
-        }
-        formula = result
-    }
-
-    //分子量を自動で生成
-    fun initMolar() {
-        var molar = 0.0
-        components.toList().forEach {
-            molar += it.first.molar * it.second
-        }
-        this.molar = molar
-    }
-
-    //沸点を自動で生成
-    fun initTempBoil() {
-        var boil = 0.0
-        components.toList().forEach {
-            boil += it.first.tempBoil * it.second
-        }
-        this.molar = boil
-    }
-
-    //融点を自動で生成
-    fun initTempMelt() {
-        var melt = 0.0
-        components.toList().forEach {
-            melt += it.first.tempMelt * it.second
-        }
-        this.molar = melt
-    }
-
-    //昇華点を自動で生成
-    fun initTempSubl() {
-        var subl = 0.0
-        components.toList().forEach {
-            subl += it.first.tempSubl * it.second
-        }
-        this.molar = subl
-    }
-
-    fun initStandardState() {
-        //すでに初期化されている場合はパス
-        if (hasStandardState()) return
-        //沸点と融点が有効な場合
-        if (hasTempBoil() && hasTempMelt()) {
-            //沸点が298 K以下 -> 標準状態で気体
-            if (tempBoil <= 298) {
-                standardState = StandardState.GAS
-                return
-            }
-            //融点が常温以下 -> 標準状態で液体
-            else if (tempMelt <= 298) {
-                standardState = StandardState.LIQUID
-                return
-            }
-        }
-        //それ以外は固体として扱う
-        standardState = StandardState.SOLID
-    }
-
     //    Builder    //
 
     open class Builder(private val name: String, private val index: Int) {
 
+        private val components: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
+
+        fun addComponents(material: HiiragiMaterial, vararg pairs: Pair<HiiragiMaterial, Int>) = also {
+            components.putAll(pairs)
+            initColor(material)
+            initFormula(material)
+            initMolar(material)
+        }
+
+        //色を自動で生成
+        private fun initColor(material: HiiragiMaterial) {
+            material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
+        }
+
+        fun initCrystalType(material: HiiragiMaterial) {
+            //固相を持たない場合は強制的にNONE
+            if (!material.isSolid()) material.crystalType = CrystalType.NONE
+        }
+
+        //化学式を自動で生成
+        private fun initFormula(material: HiiragiMaterial) {
+            var result = ""
+            for ((material1, weight) in components) {
+                //化学式を持たない場合はパス
+                if (!material1.hasFormula()) continue
+                result += material1.formula
+                //値が1の場合はパス
+                if (weight == 1) continue
+                //化学式の下付き数字の桁数調整
+                val subscript1 = '\u2080' + (weight % 10)
+                val subscript10 = '\u2080' + (weight / 10)
+                //2桁目が0でない場合，下付き数字を2桁にする
+                result += StringBuilder().also {
+                    if (subscript10 != '\u2080') it.append(subscript10)
+                    it.append(subscript1)
+                }.toString()
+            }
+            material.formula = result
+        }
+
+        //分子量を自動で生成
+        private fun initMolar(material: HiiragiMaterial) {
+            var molar = 0.0
+            components.toList().forEach {
+                if (it.first.hasMolar()) molar += it.first.molar * it.second
+            }
+            material.molar = molar
+        }
+
+        //沸点を自動で生成
+        fun initTempBoil(material: HiiragiMaterial) {
+            var boil = 0
+            components.toList().forEach {
+                if (it.first.hasTempBoil()) boil += it.first.tempBoil * it.second
+            }
+            material.tempBoil = boil
+        }
+
+        //融点を自動で生成
+        fun initTempMelt(material: HiiragiMaterial) {
+            var melt = 0
+            components.toList().forEach {
+                if (it.first.hasTempMelt()) melt += it.first.tempMelt * it.second
+            }
+            material.tempMelt = melt
+        }
+
+        //昇華点を自動で生成
+        fun initTempSubl(material: HiiragiMaterial) {
+            var subl = 0
+            components.toList().forEach {
+                if (it.first.hasTempSubl()) subl += it.first.tempSubl * it.second
+            }
+            material.tempSubl = subl
+        }
+
+        fun initStandardState(material: HiiragiMaterial) {
+            //すでに初期化されている場合はパス
+            if (material.hasStandardState()) return
+            //沸点が有効かつ298 K以下 -> 標準状態で気体
+            if (material.hasTempBoil() && material.tempBoil <= 298) {
+                material.standardState = StandardState.GAS
+                return
+            }
+            //融点が有効かつ298以下 -> 標準状態で液体
+            if (material.hasTempMelt() && material.tempMelt <= 298) {
+                material.standardState = StandardState.LIQUID
+                return
+            }
+            //それ以外は固体として扱う
+            material.standardState = StandardState.SOLID
+        }
+
         fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
             val material = HiiragiMaterial(name, index)
             material.init()
-            material.initStandardState() //標準状態を初期化
-            material.initCrystalType() //結晶構造を初期化
+            initStandardState(material) //標準状態を初期化
+            initCrystalType(material) //結晶構造を初期化
+            return material
+        }
+
+        fun build(
+            vararg components: Pair<HiiragiMaterial, Int>,
+            init: HiiragiMaterial.() -> Unit = {}
+        ): HiiragiMaterial {
+            val material = HiiragiMaterial(name, index)
+            addComponents(material, *components)
+            material.init()
+            initStandardState(material) //標準状態を初期化
+            initCrystalType(material) //結晶構造を初期化
             return material
         }
 

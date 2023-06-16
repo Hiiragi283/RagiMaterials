@@ -1,7 +1,5 @@
-package hiiragi283.material.proxy
+package hiiragi283.material
 
-import hiiragi283.material.RMEventHandler
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluid
@@ -13,7 +11,7 @@ import kotlinx.serialization.json.Json
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.event.*
 
-abstract class CommonProxy : IProxy {
+object CommonProxy : IProxy {
 
     override fun onConstruct(event: FMLConstructionEvent) {
         //Eventの登録

@@ -21,7 +21,7 @@ item.ragi_materials.stick.name=%s棒
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
 tips.ragi_materials.property.formula=- 化学式: §b%s§r
 tips.ragi_materials.property.melt=- 融点: §b%s§r§7 K
-tips.ragi_materials.property.mol=- 分子量: §b%s§r§7 g/mol
+tips.ragi_materials.property.mol=- 重量: §b%s§r§7 Unit
 tips.ragi_materials.property.name=- 名称: §b%s§r§7
 tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 

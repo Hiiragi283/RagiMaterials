@@ -15,6 +15,8 @@ object ItemMaterialGem : ItemMaterialBase(PartRegistry.GEM) {
 
     override fun isMatch(material: HiiragiMaterial): Boolean = super.isMatch(material) && material.isGem()
 
+    override fun materialRecipe(material: HiiragiMaterial) {}
+
     //    IRMEntry    //
 
     @SideOnly(Side.CLIENT)

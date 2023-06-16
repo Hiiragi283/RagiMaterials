@@ -1,9 +1,6 @@
 package hiiragi283.material
 
-import hiiragi283.material.proxy.CommonProxy
-import hiiragi283.material.proxy.IProxy
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -26,30 +23,23 @@ object RagiMaterials : IProxy {
     @Mod.Instance(MODID)
     var INSTANCE: RagiMaterials = this
 
-    //Proxyの宣言
-    @SidedProxy(
-        clientSide = "hiiragi283.material.proxy.ClientProxy",
-        serverSide = "hiiragi283.material.proxy.ServerProxy"
-    )
-    lateinit var proxy: CommonProxy
-
     //各種変数の宣言
     val LOGGER: Logger by lazy { LogManager.getLogger(MODID) }
     val COLOR: Color by lazy { Color(255, 0, 31) }
 
     @Mod.EventHandler
-    override fun onConstruct(event: FMLConstructionEvent): Unit = proxy.onConstruct(event)
+    override fun onConstruct(event: FMLConstructionEvent): Unit = CommonProxy.onConstruct(event)
 
     @Mod.EventHandler
-    override fun onPreInit(event: FMLPreInitializationEvent): Unit = proxy.onPreInit(event)
+    override fun onPreInit(event: FMLPreInitializationEvent): Unit = CommonProxy.onPreInit(event)
 
     @Mod.EventHandler
-    override fun onInit(event: FMLInitializationEvent): Unit = proxy.onInit(event)
+    override fun onInit(event: FMLInitializationEvent): Unit = CommonProxy.onInit(event)
 
     @Mod.EventHandler
-    override fun onPostInit(event: FMLPostInitializationEvent): Unit = proxy.onPostInit(event)
+    override fun onPostInit(event: FMLPostInitializationEvent): Unit = CommonProxy.onPostInit(event)
 
     @Mod.EventHandler
-    override fun onComplete(event: FMLLoadCompleteEvent): Unit = proxy.onComplete(event)
+    override fun onComplete(event: FMLLoadCompleteEvent): Unit = CommonProxy.onComplete(event)
 
 }

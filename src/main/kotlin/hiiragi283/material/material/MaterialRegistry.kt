@@ -48,5 +48,6 @@ object MaterialRegistry {
 
     fun init() {
         MaterialElements.init()
+        MaterialCommon.init()
     }
 }

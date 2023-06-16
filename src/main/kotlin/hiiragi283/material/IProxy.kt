@@ -1,4 +1,4 @@
-package hiiragi283.material.proxy
+package hiiragi283.material
 
 import net.minecraftforge.fml.common.event.*
 

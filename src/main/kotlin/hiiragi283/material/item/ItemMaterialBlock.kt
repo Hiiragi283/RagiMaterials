@@ -1,7 +1,6 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.material.HiiragiMaterial
-import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material_part.MaterialPartRegistry
 import hiiragi283.material.part.PartRegistry
 import hiiragi283.material.util.CraftingBuilder
@@ -17,22 +16,18 @@ object ItemMaterialBlock : ItemMaterialBase(PartRegistry.BLOCK) {
     override fun isMatch(material: HiiragiMaterial): Boolean =
         super.isMatch(material) && (material.isMetal() || material.isGem())
 
-    //    IRMEntry    //
-
-    override fun registerRecipe() {
-        for (material in MaterialRegistry.getMaterials()) {
-            if (!material.isSolid()) return
-            if (material.isMetal()) {
-                CraftingBuilder(ItemStack(this, 1, material.index))
-                    .setPattern("AAA", "AAA", "AAA")
-                    .setIngredient('A', "ingot${material.getOreDictName()}")
-                    .buildShaped()
-            } else if (material.isGem()) {
-                CraftingBuilder(ItemStack(this, 1, material.index))
-                    .setPattern("AAA", "AAA", "AAA")
-                    .setIngredient('A', "gem${material.getOreDictName()}")
-                    .buildShaped()
-            }
+    override fun materialRecipe(material: HiiragiMaterial) {
+        if (!material.isSolid()) return
+        if (material.isMetal()) {
+            CraftingBuilder(ItemStack(this, 1, material.index))
+                .setPattern("AAA", "AAA", "AAA")
+                .setIngredient('A', "ingot${material.getOreDictName()}")
+                .buildShaped()
+        } else if (material.isGem()) {
+            CraftingBuilder(ItemStack(this, 1, material.index))
+                .setPattern("AAA", "AAA", "AAA")
+                .setIngredient('A', "gem${material.getOreDictName()}")
+                .buildShaped()
         }
     }
 

@@ -28,10 +28,6 @@ fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
 //ResourceLocationの末尾に付け足す関数
 fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, this.path + path)
 
-fun Boolean.toInt(): Int = if (this) 1 else 0
-
-fun Int.toBool(): Boolean = this % 2 != 0
-
 fun executeCommand(sender: ICommandSender, command: String) {
     Minecraft.getMinecraft().integratedServer?.getCommandManager()?.executeCommand(sender, command)
 }

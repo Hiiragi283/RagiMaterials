@@ -37,6 +37,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                     crystalType = CrystalType.METAL
                     formula = "Tsubasa"
                     molar = 110.9
+                    partsAdditional = listOf()
                     standardState = StandardState.SOLID
                     tempBoil = 1109
                     tempMelt = 283
@@ -45,7 +46,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                 sample.writeText(json.encodeToString(material), Charsets.UTF_8)
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            RagiMaterials.LOGGER.error(e)
         }
     }
 
@@ -58,7 +59,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                 ?.map { Json.decodeFromString<HiiragiMaterial>(it) } //Json String -> HiiragiMaterial
                 ?.forEach { MaterialRegistry.registerMaterial(it) } //MaterialRegistryに登録
         } catch (e: Exception) {
-            e.printStackTrace() //念のため例外処理
+            RagiMaterials.LOGGER.error(e) //念のため例外処理
         }
     }
 }

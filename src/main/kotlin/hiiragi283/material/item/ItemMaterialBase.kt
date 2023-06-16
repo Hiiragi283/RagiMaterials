@@ -38,7 +38,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
             if (material.hasFormula())
                 tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula))
             if (material.hasMolar())
-                tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar))
+                tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar * part.scale))
             if (material.hasTempMelt())
                 tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt))
             if (material.hasTempBoil())
@@ -50,13 +50,13 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        I18n.format(getPart(stack).translationKey, I18n.format(getMaterial(stack).translationKey))
+        I18n.format(getPart(stack).translationKey, I18n.format(getMaterial(stack).getTranslationKey()))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
         MaterialRegistry.getMaterials()
-            .filter { isMatch(it) }
+            .filter { isMatch(it) || it.isAdditionalPart(part.name) }
             .map { ItemStack(this, 1, it.index) }
             .forEach { subItems.add(it) }
     }
@@ -65,7 +65,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     override fun registerMaterialPart() {
         MaterialRegistry.getMaterials()
-            .filter { isMatch(it) }
+            .filter { isMatch(it) || it.isAdditionalPart(part.name) }
             .map { MaterialPart(part, it) }
             .forEach {
                 MaterialPartRegistry.registerTag(ItemStack(this, 1, it.material.index), it)
@@ -74,12 +74,20 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     override fun registerOreDict() {
         MaterialRegistry.getMaterials()
-            .filter { isMatch(it) }
+            .filter { isMatch(it) || it.isAdditionalPart(part.name) }
             .map { MaterialPart(part, it) }
             .forEach {
                 OreDictionary.registerOre(it.getOreDictName(), ItemStack(this, 1, it.material.index))
             }
     }
+
+    override fun registerRecipe() {
+        MaterialRegistry.getMaterials()
+            .filter { isMatch(it) || it.isAdditionalPart(part.name) }
+            .forEach { materialRecipe(it) }
+    }
+
+    abstract fun materialRecipe(material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
