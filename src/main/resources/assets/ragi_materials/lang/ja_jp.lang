@@ -1,4 +1,3 @@
-
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - ボトル
@@ -150,9 +149,20 @@ material.livermorium=リバモリウム
 material.tennessine=テネシン
 material.oganesson=オガネソン
 
+### Isotope ###
+
 material.deuterium=重水素
 material.tritium=三重水素
 material.uranium235=ウラン 235
+
+### Vanilla Elements ###
+
+material.redstone=レッドストーン
+material.lapis=ラピス
+material.glowstone=グロウストーン
+material.ender=エンダーパール
+
+### Common Materials ### 
 
 material.wood=木材
 material.water=水
@@ -192,8 +202,3 @@ material.invar=インバー
 material.brass=黄銅
 material.bronze=青銅
 material.electrum=エレクトラム
-
-material.redstone=レッドストーン
-material.lapis=ラピス
-material.glowstone=グロウストーン
-material.ender=エンダーパール

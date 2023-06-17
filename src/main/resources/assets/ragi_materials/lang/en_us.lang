@@ -1,4 +1,3 @@
-
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - Bottles
@@ -150,9 +149,20 @@ material.livermorium=Livermorium
 material.tennessine=Tennessine
 material.oganesson=Oganesson
 
+### Isotope ###
+
 material.deuterium=Deuterium
 material.tritium=Tritium
 material.uranium235=Uranium 235
+
+### Vanilla Elements ###
+
+material.redstone=Redstone
+material.lapis=Lapis
+material.glowstone=Glowstone
+material.ender=Ender
+
+### Common Materials ### 
 
 material.wood=Wood
 material.water=Water
@@ -192,8 +202,3 @@ material.invar=Invar
 material.brass=Brass
 material.bronze=Bronze
 material.electrum=Electrum
-
-material.redstone=Redstone
-material.lapis=Lapis
-material.glowstone=Glowstone
-material.ender=Ender
