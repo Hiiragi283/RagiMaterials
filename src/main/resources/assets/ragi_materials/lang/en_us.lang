@@ -158,7 +158,6 @@ material.uranium235=Uranium 235
 ### Vanilla Elements ###
 
 material.redstone=Redstone
-material.lapis=Lapis
 material.glowstone=Glowstone
 material.ender=Ender
 
@@ -202,3 +201,5 @@ material.invar=Invar
 material.brass=Brass
 material.bronze=Bronze
 material.electrum=Electrum
+
+material.lapis=Lapis

@@ -158,7 +158,6 @@ material.uranium235=ウラン 235
 ### Vanilla Elements ###
 
 material.redstone=レッドストーン
-material.lapis=ラピス
 material.glowstone=グロウストーン
 material.ender=エンダーパール
 
@@ -202,3 +201,5 @@ material.invar=インバー
 material.brass=黄銅
 material.bronze=青銅
 material.electrum=エレクトラム
+
+material.lapis=ラピス
