@@ -1,56 +1,44 @@
 package hiiragi283.material.item
 
-import hiiragi283.material.client.RMModelManager
-import hiiragi283.material.creativetab.CreativeTabMaterial
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material_part.IMaterialPart
 import hiiragi283.material.material_part.MaterialPart
 import hiiragi283.material.material_part.MaterialPartRegistry
 import hiiragi283.material.part.HiiragiPart
+import hiiragi283.material.util.RMModelManager
 import net.minecraft.client.renderer.color.ItemColors
-import net.minecraft.client.resources.I18n
-import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
-import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
+
+private val CREATIVE_TAB = object : CreativeTabs("${RagiMaterials.MODID}.material") {
+    override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
+}
 
 abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 32767), IMaterialPart<ItemStack> {
 
     open fun isMatch(material: HiiragiMaterial): Boolean = material.isSolid()
 
     init {
-        creativeTab = CreativeTabMaterial
+        creativeTab = CREATIVE_TAB
     }
 
     //    Client    //
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
-        val material = getMaterial(stack)
-        if (!material.isEmpty()) {
-            tooltip.add("§e=== Property ===")
-            tooltip.add(I18n.format("tips.ragi_materials.property.name", material.name))
-            if (material.hasFormula())
-                tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula))
-            if (material.hasMolar())
-                tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar * part.scale))
-            if (material.hasTempMelt())
-                tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt))
-            if (material.hasTempBoil())
-                tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.tempBoil))
-            if (material.hasTempSubl())
-                tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl))
-        }
-    }
+        getMaterial(stack).run { if (!this.isEmpty()) this.getTooltip(tooltip, part) }
+    }*/
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        I18n.format(getPart(stack).translationKey, I18n.format(getMaterial(stack).getTranslationKey()))
+        getPart(stack).getTranslatedName(getMaterial(stack))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
@@ -77,7 +65,8 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
             .filter { isMatch(it) || it.isAdditionalPart(part.name) }
             .map { MaterialPart(part, it) }
             .forEach {
-                OreDictionary.registerOre(it.getOreDictName(), ItemStack(this, 1, it.material.index))
+                OreDictionary.registerOre(it.getOreDict(), ItemStack(this, 1, it.material.index))
+                MaterialPartRegistry.registerTag(it.getOreDict(), it)
             }
     }
 

@@ -14,7 +14,7 @@ object MaterialPartRegistry {
     //    getMaterialPart    //
 
     @JvmStatic
-    fun getMaterialPart(location: String): MaterialPart =
+    fun getMaterialPart(location: String?): MaterialPart =
         TAG_TO_MATERIAL_PART.getOrDefault(location, MaterialPart.EMPTY)
 
     @JvmStatic

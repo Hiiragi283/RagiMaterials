@@ -1,10 +1,13 @@
 package hiiragi283.material.material
 
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.part.HiiragiPart
 import hiiragi283.material.util.ColorUtil
 import kotlinx.serialization.Serializable
+import net.minecraft.client.resources.I18n
 import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
+import kotlin.math.roundToInt
 
 /**
  * @param name Name for this material
@@ -13,6 +16,7 @@ import java.awt.Color
  * @param crystalType Type of crystal structure for this material
  * @param formula Chemical formula for this material
  * @param molar Molar Mass for this material
+ * @param partsAdditional List of the name of additional parts for this material
  * @param standardState Standard State (under the condition with 1 atm and 298 K) for this material
  * @param tempBoil Boiling point with Kelvin Temperature for this material
  * @param tempBoil Melting point with Kelvin Temperature for this material
@@ -56,7 +60,28 @@ class HiiragiMaterial @JvmOverloads constructor(
 
     fun getOreDictName() = name.snakeToUpperCamelCase()
 
+    fun getTooltip(tooltip: MutableList<String>, part: HiiragiPart = HiiragiPart.EMPTY) {
+        if (!isEmpty()) {
+            tooltip.add("§e=== Property ===")
+            tooltip.add(I18n.format("tips.ragi_materials.property.name", getTranslatedName()))
+            if (hasFormula())
+                tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
+            if (hasMolar())
+                tooltip.add(I18n.format("tips.ragi_materials.property.mol", getWeight(part.scale)))
+            if (hasTempMelt())
+                tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
+            if (hasTempBoil())
+                tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
+            if (hasTempSubl())
+                tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
+        }
+    }
+
+    fun getTranslatedName(name: () -> String = { I18n.format(getTranslationKey()) }): String = name()
+
     fun getTranslationKey(key: () -> String = { "material.$name" }): String = key()
+
+    fun getWeight(scale: Double): Double = (molar * scale * 10.0).roundToInt() / 10.0
 
     fun hasCrystal(): Boolean = crystalType.isCrystal
 
@@ -107,7 +132,7 @@ class HiiragiMaterial @JvmOverloads constructor(
 
         private val components: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
 
-        fun addComponents(material: HiiragiMaterial, vararg pairs: Pair<HiiragiMaterial, Int>) = also {
+        private fun addComponents(material: HiiragiMaterial, vararg pairs: Pair<HiiragiMaterial, Int>) = also {
             components.putAll(pairs)
             initColor(material)
             initFormula(material)
@@ -119,7 +144,7 @@ class HiiragiMaterial @JvmOverloads constructor(
             material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
         }
 
-        fun initCrystalType(material: HiiragiMaterial) {
+        private fun initCrystalType(material: HiiragiMaterial) {
             //固相を持たない場合は強制的にNONE
             if (!material.isSolid()) material.crystalType = CrystalType.NONE
         }
@@ -151,6 +176,7 @@ class HiiragiMaterial @JvmOverloads constructor(
             components.toList().forEach {
                 if (it.first.hasMolar()) molar += it.first.molar * it.second
             }
+            molar = (molar * 10.0).roundToInt() / 10.0 //小数点1桁まで
             material.molar = molar
         }
 

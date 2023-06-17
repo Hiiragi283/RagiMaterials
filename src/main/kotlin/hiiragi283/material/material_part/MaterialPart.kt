@@ -12,7 +12,7 @@ data class MaterialPart(val part: HiiragiPart, val material: HiiragiMaterial) : 
 
     fun isEmpty(): Boolean = this == EMPTY
 
-    fun getOreDictName(): String = StringBuilder().also {
+    fun getOreDict(): String = StringBuilder().also {
         it.append(part.getOreDictPrefix())
         it.append(material.getOreDictName())
     }.toString()

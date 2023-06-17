@@ -49,18 +49,6 @@ object MaterialCommon {
     //    Beryllium    //
 
     @JvmField
-    val EMERALD = HiiragiMaterial.Builder("emerald", 1040)
-        .build(
-            MaterialElements.BERYLLIUM to 3,
-            MaterialElements.ALUMINIUM to 2,
-            MaterialElements.SILICON to 6,
-            MaterialElements.OXYGEN to 16
-        ) {
-            color = RagiColor.GREEN.rgb
-            crystalType = CrystalType.EMERALD
-        }
-
-    @JvmField
     val AQUAMARINE = HiiragiMaterial.Builder("aquamarine", 1041)
         .build(
             MaterialElements.BERYLLIUM to 3,
@@ -69,6 +57,18 @@ object MaterialCommon {
             MaterialElements.OXYGEN to 16
         ) {
             color = RagiColor.AQUA.rgb
+            crystalType = CrystalType.EMERALD
+        }
+
+    @JvmField
+    val EMERALD = HiiragiMaterial.Builder("emerald", 1040)
+        .build(
+            MaterialElements.BERYLLIUM to 3,
+            MaterialElements.ALUMINIUM to 2,
+            MaterialElements.SILICON to 6,
+            MaterialElements.OXYGEN to 16
+        ) {
+            color = RagiColor.GREEN.rgb
             crystalType = CrystalType.EMERALD
         }
 
@@ -231,6 +231,7 @@ object MaterialCommon {
     val STONE = HiiragiMaterial.Builder("stone", 1148)
         .build(SILICATE to 1) {
             color = RagiColor.GRAY.rgb
+            partsAdditional = listOf("gear", "plate", "stick")
         }
 
     //    Sulfur    //
@@ -260,6 +261,7 @@ object MaterialCommon {
             PHOSPHATE.addBracket() to 3,
             HYDROXIDE to 1
         ) {
+            color = ColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE).rgb
             crystalType = CrystalType.EMERALD
         }
 
@@ -275,9 +277,7 @@ object MaterialCommon {
             MaterialElements.CALCIUM to 5,
             MaterialElements.CARBON to 1,
             MaterialElements.OXYGEN to 3
-        ) {
-            crystalType = CrystalType.EMERALD
-        }
+        )
 
     //    Titanium    //
 
@@ -323,7 +323,7 @@ object MaterialCommon {
         }
 
     @JvmField
-    val GLOWSTONE = HiiragiMaterial.Builder("glowstone", 203)
+    val GLOWSTONE = HiiragiMaterial.Builder("glowstone", 202)
         .build {
             color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
             crystalType = CrystalType.EMERALD
@@ -348,9 +348,8 @@ object MaterialCommon {
         val fields = this::class.java.declaredFields
         fields.forEach { it.isAccessible = true }
         fields.map { it.get(this) }
-            .forEach {
-                if (it is HiiragiMaterial) MaterialRegistry.registerMaterial(it)
-            }
+            .filterIsInstance<HiiragiMaterial>()
+            .forEach { MaterialRegistry.registerMaterial(it) }
     }
 
 }
