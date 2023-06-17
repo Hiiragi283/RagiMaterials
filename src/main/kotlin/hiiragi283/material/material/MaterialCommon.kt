@@ -274,9 +274,8 @@ object MaterialCommon {
     @JvmField
     val LIME = HiiragiMaterial.Builder("lime", 1202)
         .build(
-            MaterialElements.CALCIUM to 5,
-            MaterialElements.CARBON to 1,
-            MaterialElements.OXYGEN to 3
+            MaterialElements.CALCIUM to 1,
+            CARBONATE to 1
         )
 
     //    Titanium    //
