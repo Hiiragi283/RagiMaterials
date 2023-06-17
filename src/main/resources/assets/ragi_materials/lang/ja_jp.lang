@@ -1,12 +1,14 @@
 
 ##    CreativeTab    ##
 
+itemGroup.ragi_materials.bottle=RagiMaterials - ボトル
 itemGroup.ragi_materials.material=RagiMaterials
 
 ##    Item    ##
 
 item.forge_hammer_0.name=フォージハンマー
 item.ragi_materials.block.name=%sブロック
+item.ragi_materials.bottle.name=%sフルボトル
 item.ragi_materials.dust.name=%s粉末
 item.ragi_materials.dust_tiny.name=小さな%s粉末
 item.ragi_materials.gear.name=%sの歯車

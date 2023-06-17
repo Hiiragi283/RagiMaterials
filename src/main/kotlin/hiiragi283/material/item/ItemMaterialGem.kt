@@ -4,8 +4,11 @@ import hiiragi283.material.material.CrystalType
 import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material_part.MaterialPartRegistry
 import hiiragi283.material.part.PartRegistry
+import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.RagiIngredient
 import hiiragi283.material.util.append
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
@@ -15,7 +18,11 @@ object ItemMaterialGem : ItemMaterialBase(PartRegistry.GEM) {
 
     override fun isMatch(material: HiiragiMaterial): Boolean = super.isMatch(material) && material.isGem()
 
-    override fun materialRecipe(material: HiiragiMaterial) {}
+    override fun materialRecipe(material: HiiragiMaterial) {
+        CraftingBuilder(ItemStack(this, 9, material.index))
+            .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
+            .buildShapeless()
+    }
 
     //    IRMEntry    //
 

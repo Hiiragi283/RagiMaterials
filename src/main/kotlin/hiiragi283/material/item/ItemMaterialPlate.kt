@@ -10,14 +10,16 @@ import net.minecraftforge.oredict.OreDictionary
 
 object ItemMaterialPlate : ItemMaterialBase(PartRegistry.PLATE) {
 
-    override fun isMatch(material: HiiragiMaterial): Boolean = super.isMatch(material) && material.isMetal()
+    override fun isMatch(material: HiiragiMaterial): Boolean =
+        super.isMatch(material) && (material.isMetal() || material.isGem())
 
     override fun materialRecipe(material: HiiragiMaterial) {
-        CraftingBuilder(ItemStack(this, 1, material.index))
-            .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
-            .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
-            .buildShapeless()
-
+        if (material.isMetal()) {
+            CraftingBuilder(ItemStack(this, 1, material.index))
+                .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
+                .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
+                .buildShapeless()
+        }
     }
 
 }

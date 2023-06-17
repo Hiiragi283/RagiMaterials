@@ -1,4 +1,4 @@
-package hiiragi283.material.client
+package hiiragi283.material.util
 
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState

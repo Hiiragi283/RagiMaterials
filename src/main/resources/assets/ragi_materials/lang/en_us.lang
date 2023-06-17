@@ -1,12 +1,14 @@
 
 ##    CreativeTab    ##
 
+itemGroup.ragi_materials.bottle=RagiMaterials - Bottles
 itemGroup.ragi_materials.material=RagiMaterials
 
 ##    Item    ##
 
 item.forge_hammer_0.name=Forge Hammer
 item.ragi_materials.block.name=Block of %s
+item.ragi_materials.bottle.name=%s Full-Bottle
 item.ragi_materials.dust.name=%s Dust
 item.ragi_materials.dust_tiny.name=Tiny Pile of %s Dust
 item.ragi_materials.gear.name=%s Gear

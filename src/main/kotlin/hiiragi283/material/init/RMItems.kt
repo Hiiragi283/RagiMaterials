@@ -13,6 +13,7 @@ object RMItems : IRMEntry<Item> {
     val FORGE_HAMMER = ItemForgeHammer
 
     val MATERIAL_BLOCK = ItemMaterialBlock
+    val MATERIAL_BOTTLE = ItemMaterialBottle
     val MATERIAL_DUST = ItemMaterialDust
     val MATERIAL_DUST_TINY = ItemMaterialDustTiny
     val MATERIAL_GEAR = ItemMaterialGear
@@ -26,6 +27,7 @@ object RMItems : IRMEntry<Item> {
         FORGE_HAMMER.register(registry)
 
         MATERIAL_BLOCK.register(registry)
+        MATERIAL_BOTTLE.register(registry)
         MATERIAL_DUST.register(registry)
         MATERIAL_DUST_TINY.register(registry)
         MATERIAL_GEAR.register(registry)
@@ -37,6 +39,7 @@ object RMItems : IRMEntry<Item> {
 
     override fun registerMaterialPart() {
         MATERIAL_BLOCK.registerMaterialPart()
+        MATERIAL_BOTTLE.registerMaterialPart()
         MATERIAL_DUST.registerMaterialPart()
         MATERIAL_DUST_TINY.registerMaterialPart()
         MATERIAL_GEAR.registerMaterialPart()
@@ -48,6 +51,7 @@ object RMItems : IRMEntry<Item> {
 
     override fun registerOreDict() {
         MATERIAL_BLOCK.registerOreDict()
+        MATERIAL_BOTTLE.registerOreDict()
         MATERIAL_DUST.registerOreDict()
         MATERIAL_DUST_TINY.registerOreDict()
         MATERIAL_GEAR.registerOreDict()
@@ -61,6 +65,7 @@ object RMItems : IRMEntry<Item> {
         FORGE_HAMMER.registerRecipe()
 
         MATERIAL_BLOCK.registerRecipe()
+        //MATERIAL_CELL.registerRecipe()
         MATERIAL_DUST.registerRecipe()
         MATERIAL_DUST_TINY.registerRecipe()
         MATERIAL_GEAR.registerRecipe()
@@ -73,6 +78,7 @@ object RMItems : IRMEntry<Item> {
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
         MATERIAL_BLOCK.registerColorItem(itemColors)
+        MATERIAL_BOTTLE.registerColorItem(itemColors)
         MATERIAL_DUST.registerColorItem(itemColors)
         MATERIAL_DUST_TINY.registerColorItem(itemColors)
         MATERIAL_GEAR.registerColorItem(itemColors)
@@ -88,6 +94,7 @@ object RMItems : IRMEntry<Item> {
         FORGE_HAMMER.registerModel()
 
         MATERIAL_BLOCK.registerModel()
+        MATERIAL_BOTTLE.registerModel()
         MATERIAL_DUST.registerModel()
         MATERIAL_DUST_TINY.registerModel()
         MATERIAL_GEAR.registerModel()

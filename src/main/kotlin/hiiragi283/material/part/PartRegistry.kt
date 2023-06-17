@@ -26,7 +26,7 @@ object PartRegistry {
     val BLOCK = HiiragiPart("block", 9.0)
 
     @JvmField
-    val CELL = HiiragiPart("cell", 1.0)
+    val BOTTLE = HiiragiPart("bottle", 1.0)
 
     @JvmField
     val GEM = HiiragiPart("gem", 1.0)
