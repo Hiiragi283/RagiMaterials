@@ -31,11 +31,6 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     //    Client    //
 
-    /*@SideOnly(Side.CLIENT)
-    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
-        getMaterial(stack).run { if (!this.isEmpty()) this.getTooltip(tooltip, part) }
-    }*/
-
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
         getPart(stack).getTranslatedName(getMaterial(stack))

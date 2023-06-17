@@ -301,6 +301,57 @@ object MaterialCommon {
             crystalType = CrystalType.METAL
         }
 
+    //    Iron    //
+
+    @JvmField
+    val STEEL = HiiragiMaterial.Builder("steel", 1260)
+        .build(MaterialElements.IRON to 1, MaterialElements.CARBON to 4) {
+            color = RagiColor.GRAY.rgb
+            crystalType = CrystalType.METAL
+        }
+
+    //    Nickel    //
+
+    @JvmField
+    val CONSTANTAN = HiiragiMaterial.Builder("constantan", 1280)
+        .build(MaterialElements.NICKEL to 1, MaterialElements.COPPER to 1) {
+            crystalType = CrystalType.METAL
+        }
+
+    @JvmField
+    val INVAR = HiiragiMaterial.Builder("invar", 1281)
+        .build(MaterialElements.NICKEL to 2, MaterialElements.IRON to 1) {
+            color = ColorUtil.mixColor(
+                RagiColor.GREEN to 1,
+                RagiColor.GRAY to 3,
+                RagiColor.WHITE to 4
+            ).rgb
+            crystalType = CrystalType.METAL
+        }
+
+    //    Copper    //
+
+    @JvmField
+    val BRASS = HiiragiMaterial.Builder("brass", 1290)
+        .build(MaterialElements.COPPER to 3, MaterialElements.ZINC to 1) {
+            color = RagiColor.GOLD.rgb
+            crystalType = CrystalType.METAL
+        }
+
+    @JvmField
+    val BRONZE = HiiragiMaterial.Builder("bronze", 1291)
+        .build(MaterialElements.COPPER to 3, MaterialElements.TIN to 1) {
+            crystalType = CrystalType.METAL
+        }
+
+    //    Silver    //
+
+    val ELECTRUM = HiiragiMaterial.Builder("electrum", 1470)
+        .build(MaterialElements.SILVER to 1, MaterialElements.GOLD to 1) {
+            color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
+            crystalType = CrystalType.METAL
+        }
+
     //    Other    //
 
     @JvmField

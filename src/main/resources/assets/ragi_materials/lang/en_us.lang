@@ -186,6 +186,12 @@ material.gypsum=Gypsum
 material.lime=Lime
 material.rutile=Rutile
 material.stainless_steel=Stainless Steel
+material.steel=Steel
+material.constantan=Constantan
+material.invar=Invar
+material.brass=Brass
+material.bronze=Bronze
+material.electrum=Electrum
 
 material.redstone=Redstone
 material.lapis=Lapis
