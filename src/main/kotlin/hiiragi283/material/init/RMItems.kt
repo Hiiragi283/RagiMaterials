@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.item.Item
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 
 object RMItems : IRMEntry<Item> {
@@ -59,6 +60,17 @@ object RMItems : IRMEntry<Item> {
         MATERIAL_INGOT.registerOreDict()
         MATERIAL_NUGGET.registerOreDict()
         MATERIAL_PLATE.registerOreDict()
+
+        fun shareOredict(oredict1: String, oredict2: String) {
+            OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
+            OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
+        }
+
+        shareOredict("charcoal", "gemCharcoal")
+        shareOredict("coal", "gemCoal")
+        shareOredict("dustSaltpeter", "dustNiter")
+        shareOredict("enderpearl", "gemEnder")
+        shareOredict("fuelCoke", "gemCoke")
     }
 
     override fun registerRecipe() {

@@ -159,9 +159,9 @@ material.uranium235=ウラン 235
 
 material.redstone=レッドストーン
 material.glowstone=グロウストーン
-material.ender=エンダーパール
+material.ender=エンダー
 
-### Common Materials ### 
+### Common Materials ###
 
 material.wood=木材
 material.water=水
@@ -188,6 +188,7 @@ material.netherrack=ネザーラック
 material.obsidian=黒曜石
 material.quartz=水晶
 material.soul_sand=ソウルサンド
+material.stone=石
 material.sulfuric_acid=硫酸
 material.hydrogen_chloride=塩酸
 material.apatite=アパタイト

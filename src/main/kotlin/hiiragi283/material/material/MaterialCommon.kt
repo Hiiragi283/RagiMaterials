@@ -276,7 +276,9 @@ object MaterialCommon {
         .build(
             MaterialElements.CALCIUM to 1,
             CARBONATE to 1
-        )
+        ) {
+            color = RagiColor.WHITE.rgb
+        }
 
     //    Titanium    //
 

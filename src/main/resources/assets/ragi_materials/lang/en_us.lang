@@ -161,7 +161,7 @@ material.redstone=Redstone
 material.glowstone=Glowstone
 material.ender=Ender
 
-### Common Materials ### 
+### Common Materials ###
 
 material.wood=Wood
 material.water=Water
@@ -188,6 +188,7 @@ material.netherrack=Netherrack
 material.obsidian=Obsidian
 material.quartz=Quartz
 material.soul_sand=Soul Sand
+material.stone=Stone
 material.sulfuric_acid=Sulfuric Acid
 material.hydrogen_chloride=Hydrogen Chloride
 material.apatite=Apatite

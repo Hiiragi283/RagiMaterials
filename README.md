@@ -1,10 +1,15 @@
 # RagiMaterials for MC1.12.2-Forge
 
+![Periodic Table](https://github.com/Hiiragi283/RagiMaterials/blob/master/.github/images/periodic_table.png?raw=true)
+
 ## [日本語版はこちらへ](https://github.com/Hiiragi283/RagiMaterials/blob/master/README_jp.md)
 
 ## Overview
 
-- Minecraft Mod adding various materials and its usage for MC1.12
+- Minecraft Mod adding various materials for MC1.12
+    - All elements in the periodic table from Hydrogen to Oganesson !
+    - Many of common materials: wood, stone, steel, water, ...
+    - Custom materials can be registered by adding json file in `config/ragi_materials` !
 - **Requires _[Shadowfacts' Forgelin](https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)_**
 
 ## License

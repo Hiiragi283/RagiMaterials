@@ -24,7 +24,7 @@ object RagiMaterials : IProxy {
     var INSTANCE: RagiMaterials = this
 
     //各種変数の宣言
-    val LOGGER: Logger by lazy { LogManager.getLogger(MODID) }
+    val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
     val COLOR: Color by lazy { Color(255, 0, 31) }
 
     @Mod.EventHandler
