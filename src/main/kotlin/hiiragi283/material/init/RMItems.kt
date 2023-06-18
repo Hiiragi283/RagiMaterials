@@ -2,7 +2,9 @@ package hiiragi283.material.init
 
 import hiiragi283.material.item.*
 import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.init.Items
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
@@ -66,10 +68,19 @@ object RMItems : IRMEntry<Item> {
             OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
         }
 
-        shareOredict("charcoal", "gemCharcoal")
-        shareOredict("coal", "gemCoal")
+        fun registerOredict(oredict: String, item: Item, meta: Int = 0, share: String? = null) {
+            OreDictionary.registerOre(oredict, ItemStack(item, 1, meta))
+            share?.let { shareOredict(oredict, it) }
+        }
+
+        registerOredict("dustGunpowder", Items.GUNPOWDER, share = "gunpowder")
+        registerOredict("dustSugar", Items.SUGAR, share = "sugar")
+        registerOredict("gemCharcoal", Items.COAL, 1, share = "charcoal")
+        registerOredict("gemCoal", Items.COAL, share = "coal")
+        registerOredict("gemEnder", Items.ENDER_PEARL, share = "enderpearl")
+        registerOredict("stickWood", Items.STICK, share = "stick")
+
         shareOredict("dustSaltpeter", "dustNiter")
-        shareOredict("enderpearl", "gemEnder")
         shareOredict("fuelCoke", "gemCoke")
     }
 

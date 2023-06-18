@@ -100,6 +100,12 @@ object MaterialCommon {
             crystalType = CrystalType.DIAMOND
         }
 
+    @JvmField
+    val SUGAR = HiiragiMaterial.Builder("sugar", 1064)
+        .build(MaterialElements.CARBON to 6, MaterialElements.HYDROGEN to 12, MaterialElements.OXYGEN to 6) {
+            color = RagiColor.WHITE.rgb
+        }
+
     //    Nitrogen    //
 
     @JvmField
@@ -114,6 +120,12 @@ object MaterialCommon {
         .build(MaterialElements.HYDROGEN to 1, NITRATE to 1) {
             tempBoil = WATER.tempBoil
             tempMelt = WATER.tempMelt
+        }
+
+    @JvmField
+    val GUNPOWDER = HiiragiMaterial.Builder("gunpowder", 1072)
+        .build(NITER.addBracket() to 1, MaterialElements.CARBON to 1, MaterialElements.SULFUR to 1) {
+            color = RagiColor.DARK_GRAY.rgb
         }
 
     //    Fluorine    //

@@ -3,7 +3,6 @@ package hiiragi283.material.material
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.part.HiiragiPart
 import hiiragi283.material.util.ColorUtil
-import kotlinx.serialization.Serializable
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToUpperCamelCase
 import java.awt.Color
@@ -23,7 +22,7 @@ import kotlin.math.roundToInt
  * @param tempBoil Sublimation point with Kelvin Temperature for this material
  */
 
-@Serializable
+//@Serializable
 class HiiragiMaterial @JvmOverloads constructor(
     val name: String,
     val index: Int,

@@ -6,14 +6,15 @@ import hiiragi283.material.fluid.HiiragiFluid
 import hiiragi283.material.init.RMItems
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.part.PartRegistry
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.*
 
 object CommonProxy : IProxy {
 
     override fun onConstruct(event: FMLConstructionEvent) {
+        //Universal Bucketを有効化
+        FluidRegistry.enableUniversalBucket()
         //Eventの登録
         MinecraftForge.EVENT_BUS.register(RMEventHandler)
         //素材の登録
@@ -45,7 +46,7 @@ object CommonProxy : IProxy {
     override fun onComplete(event: FMLLoadCompleteEvent) {
         if (RMConfig.printRegisteredMaterials) {
             MaterialRegistry.getMaterials()
-                .forEach { RagiMaterials.LOGGER.debug(Json.encodeToString(it)) }
+                .forEach { RagiMaterials.LOGGER.debug(it.toString()) }
         }
     }
 }
