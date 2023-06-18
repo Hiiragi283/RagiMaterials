@@ -73,6 +73,23 @@ object RMItems : IRMEntry<Item> {
             share?.let { shareOredict(oredict, it) }
         }
 
+        fun shareMaterialOredict(material1: String, material2: String) {
+            OreDictionary.getOres("dust$material1").forEach { OreDictionary.registerOre("dust$material2", it) }
+            OreDictionary.getOres("dustTiny$material1").forEach { OreDictionary.registerOre("dustTiny$material2", it) }
+            OreDictionary.getOres("ingot$material1").forEach { OreDictionary.registerOre("ingot$material2", it) }
+            OreDictionary.getOres("nugget$material1").forEach { OreDictionary.registerOre("nugget$material2", it) }
+            OreDictionary.getOres("block$material1").forEach { OreDictionary.registerOre("block$material2", it) }
+            OreDictionary.getOres("plate$material1").forEach { OreDictionary.registerOre("plate$material2", it) }
+            OreDictionary.getOres("gear$material1").forEach { OreDictionary.registerOre("gear$material2", it) }
+            OreDictionary.getOres("dust$material2").forEach { OreDictionary.registerOre("dust$material1", it) }
+            OreDictionary.getOres("dustTiny$material2").forEach { OreDictionary.registerOre("dustTiny$material1", it) }
+            OreDictionary.getOres("ingot$material2").forEach { OreDictionary.registerOre("ingot$material1", it) }
+            OreDictionary.getOres("nugget$material2").forEach { OreDictionary.registerOre("nugget$material1", it) }
+            OreDictionary.getOres("block$material2").forEach { OreDictionary.registerOre("block$material1", it) }
+            OreDictionary.getOres("plate$material2").forEach { OreDictionary.registerOre("plate$material1", it) }
+            OreDictionary.getOres("gear$material2").forEach { OreDictionary.registerOre("gear$material1", it) }
+        }
+
         registerOredict("dustGunpowder", Items.GUNPOWDER, share = "gunpowder")
         registerOredict("dustSugar", Items.SUGAR, share = "sugar")
         registerOredict("gemCharcoal", Items.COAL, 1, share = "charcoal")
@@ -82,6 +99,9 @@ object RMItems : IRMEntry<Item> {
 
         shareOredict("dustSaltpeter", "dustNiter")
         shareOredict("fuelCoke", "gemCoke")
+
+        shareMaterialOredict("Aluminium", "Aluminum")
+        shareMaterialOredict("Uranium238", "Uranium")
     }
 
     override fun registerRecipe() {
