@@ -1,25 +1,19 @@
 package hiiragi283.material
 
+import hiiragi283.material.util.hiiragiId
+import net.devtech.arrp.api.RuntimeResourcePack
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
 object RagiMaterials : ModInitializer {
 
-    const val MOD_ID: String = "ragi_materials"
+    const val MODID = "ragi_materials"
 
-    const val MOD_NAME: String = "RagiMaterials"
-
-    val LOGGER: Logger = LogManager.getLogger(MOD_ID)
-
-    //    ModInitializer    //
+    val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
+    val RESOURCE_PACK: RuntimeResourcePack = RuntimeResourcePack.create(hiiragiId("runtime"))
 
     override fun onInitialize() {
-
-        //オブジェクトの生成を行う
-        RagiRegistry.load()
-        //オブジェクトの登録を行う
-        RagiRegistry.register()
 
     }
 }

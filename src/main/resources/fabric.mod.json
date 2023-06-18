@@ -10,16 +10,10 @@
   "contact": {
     "sources": "https://github.com/hiiragi283/RagiMaterials"
   },
-  "license": "All-Rights-Reserved",
-  "icon": "assets/ragi_materials/textures/icon.png",
+  "license": "AGPL v3",
+  "icon": "assets/ragi_materials/textures/logo.png",
   "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      {
-        "adapter": "kotlin",
-        "value": "hiiragi283.material.data.RagiMaterialsDataGen"
-      }
-    ],
     "client": [
       {
         "adapter": "kotlin",
