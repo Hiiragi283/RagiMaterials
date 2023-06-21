@@ -1,6 +1,6 @@
 # RagiMaterials for MC1.12.2-Forge
 
-![Periodic Table](https://github.com/Hiiragi283/RagiMaterials/blob/master/.github/images/periodic_table.png?raw=true)
+![Periodic Table](https://github.com/Hiiragi283/RagiMaterials/blob/1.12.2_forge/.github/images/periodic_table.png?raw=true)
 
 ## [日本語版はこちらへ](https://github.com/Hiiragi283/RagiMaterials/blob/master/README_jp.md)
 
