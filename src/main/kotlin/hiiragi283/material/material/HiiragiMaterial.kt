@@ -37,6 +37,9 @@ class HiiragiMaterial @JvmOverloads constructor(
     var tempSubl: Int = -1
 ) {
 
+    var translationKey: String = "material.$name"
+    var translatedName: String = I18n.format(translationKey)
+
     companion object {
         @JvmField
         val EMPTY = HiiragiMaterial("empty", -1)
@@ -62,7 +65,7 @@ class HiiragiMaterial @JvmOverloads constructor(
     fun getTooltip(tooltip: MutableList<String>, part: HiiragiPart = HiiragiPart.EMPTY) {
         if (!isEmpty()) {
             tooltip.add("§e=== Property ===")
-            tooltip.add(I18n.format("tips.ragi_materials.property.name", getTranslatedName()))
+            tooltip.add(I18n.format("tips.ragi_materials.property.name", translatedName))
             if (hasFormula())
                 tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
             if (hasMolar())
@@ -75,10 +78,6 @@ class HiiragiMaterial @JvmOverloads constructor(
                 tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
         }
     }
-
-    fun getTranslatedName(name: () -> String = { I18n.format(getTranslationKey()) }): String = name()
-
-    fun getTranslationKey(key: () -> String = { "material.$name" }): String = key()
 
     fun getWeight(scale: Double): Double = (molar * scale * 10.0).roundToInt() / 10.0
 

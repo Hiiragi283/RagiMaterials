@@ -33,7 +33,7 @@ abstract class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 3
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        getPart(stack).getTranslatedName(getMaterial(stack))
+        getPart(stack).translatedName(getMaterial(stack))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {

@@ -140,6 +140,17 @@ object MaterialElements {
     }
 
     @JvmField
+    @Deprecated("Alumin\"i\"um distortions.")
+    val ALUMINUM = HiiragiMaterial.Builder("aluminum", 13).build {
+        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 5).rgb
+        crystalType = CrystalType.METAL
+        formula = "Al"
+        molar = 27.0
+        tempBoil = 2792
+        tempMelt = 933
+    }
+
+    @JvmField
     val SILICON = HiiragiMaterial.Builder("silicon", 14).build {
         color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.GRAY to 1, RagiColor.BLUE to 1).rgb
         crystalType = CrystalType.METAL
@@ -239,6 +250,17 @@ object MaterialElements {
 
     @JvmField
     val CHROMIUM = HiiragiMaterial.Builder("chromium", 24).build {
+        color = RagiColor.GREEN.rgb
+        crystalType = CrystalType.METAL
+        formula = "Cr"
+        molar = 52.0
+        tempBoil = 2944
+        tempMelt = 2180
+    }
+
+    @JvmField
+    @Deprecated("CHROMIUM distortions.")
+    val CHROME = HiiragiMaterial.Builder("chrome", 24).build {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "Cr"
@@ -1216,6 +1238,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(SODIUM)
         MaterialRegistry.registerMaterial(MAGNESIUM)
         MaterialRegistry.registerMaterial(ALUMINIUM)
+        MaterialRegistry.registerMaterial(ALUMINUM)
         MaterialRegistry.registerMaterial(SILICON)
         MaterialRegistry.registerMaterial(PHOSPHORUS)
         MaterialRegistry.registerMaterial(SULFUR)
@@ -1228,6 +1251,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(TITANIUM)
         MaterialRegistry.registerMaterial(VANADIUM)
         MaterialRegistry.registerMaterial(CHROMIUM)
+        MaterialRegistry.registerMaterial(CHROME)
         MaterialRegistry.registerMaterial(MANGANESE)
         MaterialRegistry.registerMaterial(IRON)
         MaterialRegistry.registerMaterial(COBALT)

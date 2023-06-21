@@ -7,6 +7,9 @@ import rechellatek.snakeToLowerCamelCase
 
 data class HiiragiPart(val name: String, val scale: Double) {
 
+    var translationKey: String = "item.${RagiMaterials.MODID}.$name.name"
+    var translatedName: (HiiragiMaterial) -> String = { I18n.format(translationKey, it.translatedName) }
+
     companion object {
         @JvmField
         val EMPTY = HiiragiPart("empty", 0.0)
@@ -15,12 +18,5 @@ data class HiiragiPart(val name: String, val scale: Double) {
     fun isEmpty(): Boolean = this.name == "empty"
 
     fun getOreDictPrefix() = name.snakeToLowerCamelCase()
-
-    fun getTranslatedName(
-        material: HiiragiMaterial,
-        name: (HiiragiMaterial) -> String = { I18n.format(getTranslationKey(), it.getTranslatedName()) }
-    ): String = name(material)
-
-    fun getTranslationKey(key: () -> String = { "item.${RagiMaterials.MODID}.$name.name" }): String = key()
 
 }

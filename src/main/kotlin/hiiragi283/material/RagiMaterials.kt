@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.event.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.awt.Color
+import java.util.*
 
 @Mod(
     modid = RagiMaterials.MODID,
@@ -24,8 +25,9 @@ object RagiMaterials : IProxy {
     var INSTANCE: RagiMaterials = this
 
     //各種変数の宣言
-    val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
+    val CALENDAR: Calendar = Calendar.getInstance()
     val COLOR: Color by lazy { Color(255, 0, 31) }
+    val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
 
     @Mod.EventHandler
     override fun onConstruct(event: FMLConstructionEvent): Unit = CommonProxy.onConstruct(event)

@@ -28,16 +28,13 @@ object RMEventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     fun onTooltip(event: ItemTooltipEvent) {
-
         val stack = event.itemStack
         if (stack.isEmpty) return
-
         OreDictionary.getOreIDs(stack)
             .map { OreDictionary.getOreName(it) }
             .map { MaterialPartRegistry.getMaterialPart(it) }
-            .firstOrNull { !it.isEmpty() }
-            ?.let { it.material.getTooltip(event.toolTip, it.part) }
-
+            .filter { !it.isEmpty() }
+            .forEach { it.material.getTooltip(event.toolTip, it.part) }
     }
 
 }

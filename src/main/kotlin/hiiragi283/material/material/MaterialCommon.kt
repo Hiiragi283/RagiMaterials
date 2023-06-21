@@ -2,6 +2,7 @@ package hiiragi283.material.material
 
 import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
+import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
 
 object MaterialCommon {
@@ -44,6 +45,7 @@ object MaterialCommon {
             color = RagiColor.BLUE.rgb
             tempBoil = 373
             tempMelt = 273
+            if (isAprilFools()) translationKey = "material.dhmo"
         }
 
     //    Beryllium    //
