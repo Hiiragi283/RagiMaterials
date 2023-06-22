@@ -1,4 +1,4 @@
-# RagiMaterials for MC1.12.2-Forge
+# RagiMaterials for MC1.18.2-Fabric
 
 ![Periodic Table](https://github.com/Hiiragi283/RagiMaterials/blob/1.12.2_forge/.github/images/periodic_table.png?raw=true)
 
