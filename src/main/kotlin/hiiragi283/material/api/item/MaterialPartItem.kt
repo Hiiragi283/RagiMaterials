@@ -13,10 +13,11 @@ import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 
 class MaterialPartItem(
-    private val materialPart: MaterialPart
+    val material: HiiragiMaterial,
+    val part: HiiragiPart
 ) : HiiragiItem(FabricItemSettings()) {
 
-    constructor(material: HiiragiMaterial, part: HiiragiPart) : this(MaterialPart(material, part))
+    val materialPart: MaterialPart = MaterialPart(material, part)
 
     override fun appendTooltip(
         stack: ItemStack,
@@ -42,15 +43,9 @@ class MaterialPartItem(
     }
 
     override fun registerRecipe() {
-        getPart().recipes(getMaterial()).forEach {
+        part.recipes(material).forEach {
             RagiMaterials.RESOURCE_PACK.addRecipe(it.key, it.value)
         }
     }
-
-    //    MaterialPartItem    //
-
-    fun getMaterial(): HiiragiMaterial = materialPart.material
-
-    fun getPart(): HiiragiPart = materialPart.part
 
 }

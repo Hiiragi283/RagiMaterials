@@ -2,7 +2,7 @@ package hiiragi283.material.api
 
 interface IHiiragiEntry {
 
-    fun register()
+    fun register(path: String)
 
     fun registerTag() {}
 
