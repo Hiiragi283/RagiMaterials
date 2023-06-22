@@ -1,10 +1,10 @@
 @file:JvmName("HiiragiUtil")
 
-package hiiragi283.material.util
+package hiiragi283.material.common.util
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.common.RagiMaterials
 import net.minecraft.util.Identifier
 
 //    Identifier    //

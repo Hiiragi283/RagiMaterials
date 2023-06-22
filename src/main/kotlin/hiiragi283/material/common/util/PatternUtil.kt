@@ -1,6 +1,6 @@
 @file:JvmName("FileUtil")
 
-package hiiragi283.material.util
+package hiiragi283.material.common.util
 
 import net.devtech.arrp.json.recipe.JIngredient
 import net.devtech.arrp.json.recipe.JKeys

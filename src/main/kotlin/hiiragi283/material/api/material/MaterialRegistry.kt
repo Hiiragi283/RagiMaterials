@@ -1,6 +1,6 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.RagiMaterials
+import hiiragi283.material.common.RagiMaterials
 
 object MaterialRegistry {
 

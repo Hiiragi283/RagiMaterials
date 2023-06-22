@@ -1,8 +1,8 @@
 package hiiragi283.material.api.part
 
-import hiiragi283.material.RagiMaterials
-import hiiragi283.material.util.addTag
-import hiiragi283.material.util.get3x3
+import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.addTag
+import hiiragi283.material.common.util.get3x3
 import net.devtech.arrp.json.recipe.JKeys
 import net.devtech.arrp.json.recipe.JRecipe
 

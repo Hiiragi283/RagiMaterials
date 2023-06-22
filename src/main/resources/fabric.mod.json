@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "ragi_materials",
+  "id": "material",
   "version": "${version}",
   "name": "RagiMaterials",
   "description": "",
   "authors": [
-    "Hiiragi283"
+    "hiiragi283"
   ],
   "contact": {
-    "sources": "https://github.com/hiiragi283/RagiMaterials"
+    "repo": "https://github.com/hiiragi283/RagiMaterials"
   },
-  "license": "AGPL v3",
-  "icon": "assets/ragi_materials/textures/logo.png",
+  "license": "AGPL-3.0",
+  "icon": "assets/ragi_materials/textures/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
@@ -23,7 +23,7 @@
     "main": [
       {
         "adapter": "kotlin",
-        "value": "hiiragi283.material.RagiMaterials"
+        "value": "hiiragi283.material.common.RagiMaterials"
       }
     ]
   },
@@ -33,6 +33,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_version}",
+    "fabric-language-kotlin": ">=1.9.5+kotlin.1.8.22"
   }
 }

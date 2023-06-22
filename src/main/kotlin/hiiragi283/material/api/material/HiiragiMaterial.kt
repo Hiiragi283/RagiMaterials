@@ -1,7 +1,7 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.common.RagiMaterials
 import kotlinx.serialization.Serializable
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.text.LiteralText

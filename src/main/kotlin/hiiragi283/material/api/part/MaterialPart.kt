@@ -1,9 +1,9 @@
 package hiiragi283.material.api.part
 
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.util.commonId
-import hiiragi283.material.util.getItem
-import hiiragi283.material.util.materialPartId
+import hiiragi283.material.common.util.commonId
+import hiiragi283.material.common.util.getItem
+import hiiragi283.material.common.util.materialPartId
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
 import net.minecraft.item.Item

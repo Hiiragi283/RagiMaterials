@@ -1,9 +1,9 @@
 package hiiragi283.material.api.item
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.MaterialPart
+import hiiragi283.material.common.RagiMaterials
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.item.TooltipContext
@@ -42,7 +42,7 @@ class MaterialPartItem(
     }
 
     override fun registerRecipe() {
-        getPart().recipes(getMaterial()).forEach() {
+        getPart().recipes(getMaterial()).forEach {
             RagiMaterials.RESOURCE_PACK.addRecipe(it.key, it.value)
         }
     }

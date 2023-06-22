@@ -1,7 +1,7 @@
 package hiiragi283.material.api.part
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.common.RagiMaterials
 import net.devtech.arrp.json.recipe.JRecipe
 import net.minecraft.util.Identifier
 
