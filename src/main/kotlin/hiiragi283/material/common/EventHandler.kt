@@ -5,8 +5,7 @@ import net.minecraft.entity.ItemEntity
 import net.minecraft.util.TypeFilter
 import net.minecraft.world.explosion.Explosion
 
-
-object CommonEventHandler {
+object EventHandler {
 
     fun load() {
         //水中のItemEntityに対して爆発を起こすEvent

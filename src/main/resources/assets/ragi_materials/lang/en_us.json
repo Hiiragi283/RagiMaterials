@@ -1,0 +1,9 @@
+{
+  "item.ragi_materials.respawn_book": "[Dev] Respawn Book",
+  "tips.ragi_materials.property.boil": "- Boiling Point: §b%s§r§7 K",
+  "tips.ragi_materials.property.formula": "- Chemical Formula: §b%s§r",
+  "tips.ragi_materials.property.melt": "- Melting Point: §b%s§r§7 K",
+  "tips.ragi_materials.property.mol": "- Weight: §b%s§r§7 Unit",
+  "tips.ragi_materials.property.name": "- Name: §b%s§r§7",
+  "tips.ragi_materials.property.subl": "- Sublimation Point: §b%s§r§7 K"
+}

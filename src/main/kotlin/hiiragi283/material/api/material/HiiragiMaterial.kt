@@ -3,6 +3,8 @@ package hiiragi283.material.api.material
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
@@ -12,7 +14,6 @@ import kotlin.math.roundToInt
 
 /**
  * @param name Name for this material
- * @param index Index for this material
  * @param color Material color for this material
  * @param crystalType Type of crystal structure for this material
  * @param formula Chemical formula for this material
@@ -22,11 +23,13 @@ import kotlin.math.roundToInt
  * @param tempBoil Boiling point with Kelvin Temperature for this material
  * @param tempBoil Melting point with Kelvin Temperature for this material
  * @param tempBoil Sublimation point with Kelvin Temperature for this material
+ * @param translationKey Translation Key for this material: Default is "material.<name>"
  */
 
 @Serializable
-class HiiragiMaterial @JvmOverloads constructor(
+class HiiragiMaterial private constructor(
     val name: String,
+    val type: MaterialType,
     var color: Int = 0xFFFFFF,
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
@@ -35,17 +38,26 @@ class HiiragiMaterial @JvmOverloads constructor(
     var standardState: StandardState = StandardState.UNDEFINED,
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
-    var tempSubl: Int = -1
+    var tempSubl: Int = -1,
+    var translationKey: String = "material.$name",
 ) {
 
     companion object {
         @JvmField
-        val EMPTY = HiiragiMaterial("empty", -1)
+        val EMPTY = HiiragiMaterial("empty", MaterialType.INTERNAL)
+
+        private val serializer by lazy { Json { prettyPrint = true } }
+
+        @JvmStatic
+        fun fromJson(json: String): HiiragiMaterial = Json.decodeFromString(json)
     }
+
+    val json by lazy { serializer.encodeToString(this) }
 
     fun addBracket(): HiiragiMaterial =
         HiiragiMaterial(
             name,
+            type,
             color,
             crystalType,
             formula = "($formula)",
@@ -76,9 +88,7 @@ class HiiragiMaterial @JvmOverloads constructor(
         }
     }
 
-    fun getTranslatedName(name: () -> String = { I18n.translate(getTranslationKey()) }): String = name()
-
-    fun getTranslationKey(key: () -> String = { "material.$name" }): String = key()
+    fun getTranslatedName(name: () -> String = { I18n.translate(translationKey) }): String = name()
 
     fun getWeight(scale: Double): Double = (molar * scale * 10.0).roundToInt() / 10.0
 
@@ -100,7 +110,7 @@ class HiiragiMaterial @JvmOverloads constructor(
 
     fun isGem(): Boolean = hasCrystal() && !isMetal()
 
-    fun isMetal(): Boolean = crystalType == CrystalType.METAL
+    fun isMetal(): Boolean = type.isMetal
 
     fun isGas(): Boolean = standardState == StandardState.GAS
 
@@ -127,7 +137,7 @@ class HiiragiMaterial @JvmOverloads constructor(
 
     //    Builder    //
 
-    open class Builder(private val name: String, private val index: Int) {
+    open class Builder(private val name: String, private val type: MaterialType) {
 
         private val components: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
 
@@ -224,7 +234,7 @@ class HiiragiMaterial @JvmOverloads constructor(
         }
 
         fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
-            val material = HiiragiMaterial(name, index)
+            val material = HiiragiMaterial(name, type)
             material.init()
             initStandardState(material) //標準状態を初期化
             initCrystalType(material) //結晶構造を初期化
@@ -235,7 +245,7 @@ class HiiragiMaterial @JvmOverloads constructor(
             vararg components: Pair<HiiragiMaterial, Int>,
             init: HiiragiMaterial.() -> Unit = {}
         ): HiiragiMaterial {
-            val material = HiiragiMaterial(name, index)
+            val material = HiiragiMaterial(name, type)
             addComponents(material, *components)
             material.init()
             initStandardState(material) //標準状態を初期化

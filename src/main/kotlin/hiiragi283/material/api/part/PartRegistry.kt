@@ -1,10 +1,6 @@
 package hiiragi283.material.api.part
 
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.util.addTag
-import hiiragi283.material.common.util.get3x3
-import net.devtech.arrp.json.recipe.JKeys
-import net.devtech.arrp.json.recipe.JRecipe
 
 object PartRegistry {
 
@@ -18,54 +14,62 @@ object PartRegistry {
 
     @JvmStatic
     fun registerPart(part: HiiragiPart) {
+        //EMPTYを渡された場合はパス
+        if (part == HiiragiPart.EMPTY) return
         val name = part.name
-        //同じ名前で登録されていた場合，登録せずに警告を表示する
-        REGISTRY.putIfAbsent(name, part)
-            ?.let { RagiMaterials.LOGGER.warn("The part: $name has already registered!") }
-    }
-
-    //    Parts    //
-
-    @JvmField
-    val BLOCK = HiiragiPart.Builder("block", 9.0).build {
-        recipes = {
-            val materialPart = MaterialPart(it, this)
-            mapOf(
-                materialPart.getId() to JRecipe.shaped(
-                    get3x3('A'),
-                    JKeys.keys()
-                        .addTag("A", "c:iron_ingots"),
-                    materialPart.getResult()
-                )
-            )
+        //名前が空の場合はパス
+        if (name.isEmpty()) {
+            RagiMaterials.LOGGER.warn("The name of $part is empty!")
+            return
         }
+        val resultName = REGISTRY[name]
+        //同じ名前で登録されていた場合，登録せずに警告を表示する
+        if (resultName !== null) {
+            RagiMaterials.LOGGER.warn("The name of $part was already registered by $resultName!")
+            return
+        }
+        //重複しなかった場合のみ登録を行う
+        REGISTRY[name] = part
     }
 
-    @JvmField
-    val BOTTLE = HiiragiPart.Builder("bottle", 1.0).build()
+    //    Parts - Block   //
 
     @JvmField
-    val GEM = HiiragiPart.Builder("gem", 1.0).build()
+    val BLOCK = HiiragiPart.Builder("@_blocks", 9.0).build()
 
     @JvmField
-    val DUST = HiiragiPart.Builder("dust", 1.0).build()
+    val ORE = HiiragiPart.Builder("@_ores", 1.0).build()
 
     @JvmField
-    val DUST_TINY = HiiragiPart.Builder("dust_tiny", 0.1).build()
+    val ORE_BLOCK = HiiragiPart.Builder("raw_@_blocks", 9.0).build()
+
+    //    Parts - Item   //
 
     @JvmField
-    val GEAR = HiiragiPart.Builder("gear", 4.0).build()
+    val GEM = HiiragiPart.Builder("@_gems", 1.0).build()
 
     @JvmField
-    val INGOT = HiiragiPart.Builder("ingot", 1.0).build()
+    val DUST = HiiragiPart.Builder("@_dusts", 1.0).build()
 
     @JvmField
-    val NUGGET = HiiragiPart.Builder("nugget", 0.1).build()
+    val DUST_TINY = HiiragiPart.Builder("@_tiny_dusts", 0.1).build()
 
     @JvmField
-    val PLATE = HiiragiPart.Builder("plate", 1.0).build()
+    val GEAR = HiiragiPart.Builder("@_gears", 4.0).build()
 
     @JvmField
-    val STICK = HiiragiPart.Builder("stick", 0.5).build()
+    val INGOT = HiiragiPart.Builder("@_ingots", 1.0).build()
+
+    @JvmField
+    val NUGGET = HiiragiPart.Builder("@_nuggets", 0.1).build()
+
+    @JvmField
+    val PLATE = HiiragiPart.Builder("@_plates", 1.0).build()
+
+    @JvmField
+    val RAW_ORE = HiiragiPart.Builder("raw_@_ores", 1.0).build()
+
+    @JvmField
+    val ROD = HiiragiPart.Builder("@_rods", 0.5).build()
 
 }

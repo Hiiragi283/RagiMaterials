@@ -1,6 +1,6 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.common.item.RespawnCompassItem
+import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.common.util.hiiragiId
 import net.devtech.arrp.api.RRPCallback
 import net.devtech.arrp.api.RuntimeResourcePack
@@ -17,9 +17,13 @@ object RagiMaterials : ModInitializer {
 
     override fun onInitialize() {
 
-        RespawnCompassItem.register("respawn_compass")
+        MaterialElements.load()
+        LOGGER.info("Elemental materials registered!")
 
-        CommonEventHandler.load()
+        RagiRegistry.loadItems()
+        LOGGER.info("Items registered!")
+
+        EventHandler.load()
         LOGGER.info("Events registered!")
 
         RRPCallback.BEFORE_VANILLA.register { it.add(RESOURCE_PACK) }

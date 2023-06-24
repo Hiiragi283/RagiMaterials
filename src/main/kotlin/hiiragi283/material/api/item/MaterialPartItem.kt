@@ -2,22 +2,27 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.api.part.MaterialPart
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.commonId
+import hiiragi283.material.common.util.hiiragiId
+import net.devtech.arrp.json.models.JModel
+import net.devtech.arrp.json.models.JTextures
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
+import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 
-class MaterialPartItem(
+abstract class MaterialPartItem(
     val material: HiiragiMaterial,
     val part: HiiragiPart
 ) : HiiragiItem(FabricItemSettings()) {
 
-    val materialPart: MaterialPart = MaterialPart(material, part)
+    private val identifier: Identifier = part.getId(material)
+    private val tag: Identifier = part.getTag(material)
 
     override fun appendTooltip(
         stack: ItemStack,
@@ -25,27 +30,33 @@ class MaterialPartItem(
         tooltip: MutableList<Text>,
         context: TooltipContext
     ) {
+        material.appendTooltip(tooltip, part)
     }
 
-    override fun getName(): Text = materialPart.getName()
+    override fun getName(): Text = part.getName(material)
 
     //    HiiragiItem    //
 
-    override fun register() {
-        Registry.register(Registry.ITEM, materialPart.getId(), this)
+    fun register() {
+        Registry.register(Registry.ITEM, identifier, this)
     }
 
-    override fun registerTag() {
-        RagiMaterials.RESOURCE_PACK.addTag(
-            materialPart.getTag(),
-            JTag().add(materialPart.getId())
+    override fun registerModel() {
+        RagiMaterials.RESOURCE_PACK.addModel(
+            JModel.model()
+                .parent("item/generated")
+                .textures(
+                    JTextures()
+                        .layer0(getTexture())
+                ),
+            hiiragiId("item/" + identifier.path)
         )
     }
 
-    override fun registerRecipe() {
-        part.recipes(material).forEach {
-            RagiMaterials.RESOURCE_PACK.addRecipe(it.key, it.value)
-        }
+    abstract fun getTexture(): String
+
+    override fun registerTag() {
+        RagiMaterials.RESOURCE_PACK.addTag(commonId("items/" + tag.path), JTag().add(identifier))
     }
 
 }
