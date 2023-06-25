@@ -3,7 +3,6 @@ package hiiragi283.material.api.material
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.text.LiteralText
@@ -52,7 +51,7 @@ class HiiragiMaterial private constructor(
         fun fromJson(json: String): HiiragiMaterial = Json.decodeFromString(json)
     }
 
-    val json by lazy { serializer.encodeToString(this) }
+    override fun toString(): String = "Material:$name"
 
     fun addBracket(): HiiragiMaterial =
         HiiragiMaterial(
@@ -125,15 +124,6 @@ class HiiragiMaterial private constructor(
             crystalType = type
         } else RagiMaterials.LOGGER.warn("This material has no solid state!")
     }
-
-    //    General    //
-
-    override fun equals(other: Any?): Boolean =
-        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
-
-    override fun hashCode(): Int = name.hashCode()
-
-    override fun toString(): String = "Material:${this.name}"
 
     //    Builder    //
 

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "material",
+  "id": "ragi_materials",
   "version": "${version}",
   "name": "RagiMaterials",
   "description": "",
@@ -24,6 +24,12 @@
       {
         "adapter": "kotlin",
         "value": "hiiragi283.material.common.RagiMaterials"
+      }
+    ],
+    "preLaunch": [
+      {
+        "adapter": "kotlin",
+        "value": "hiiragi283.material.pre.RagiMaterialsPre"
       }
     ]
   },

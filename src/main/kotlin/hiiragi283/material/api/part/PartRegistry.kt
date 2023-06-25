@@ -1,6 +1,12 @@
 package hiiragi283.material.api.part
 
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.*
+import net.devtech.arrp.json.blockstate.JState
+import net.devtech.arrp.json.models.JModel
+import net.devtech.arrp.json.recipe.JIngredients
+import net.devtech.arrp.json.recipe.JKeys
+import net.devtech.arrp.json.recipe.JRecipe
 
 object PartRegistry {
 
@@ -32,44 +38,147 @@ object PartRegistry {
         REGISTRY[name] = part
     }
 
+    //    Parts    //
+
+    private val ingotFake = HiiragiPart.Builder("@_ingots", 1.0).build()
+    private val gemFake = HiiragiPart.Builder("@_gems", 1.0).build()
+
     //    Parts - Block   //
 
     @JvmField
-    val BLOCK = HiiragiPart.Builder("@_blocks", 9.0).build()
+    val BLOCK_METAL = HiiragiPart.Builder("@_blocks", 9.0).build {
+        model = JModel.model().parent(hiiragiId("item/metal_block").toString())
+        predicate = { it.isSolid() && it.isMetal() }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shaped") to JRecipe.shaped(
+                    get3x3('A'),
+                    JKeys.keys().addTag("A", ingotFake.getTag(it).toString()),
+                    this.getResult(it)
+                )
+            )
+        }
+        state = JState.state(
+            JState.variant(
+                JState.model(
+                    hiiragiId("block/metal_block")
+                )
+            )
+        )
+        type = PartType.BLOCK
+    }
 
     @JvmField
-    val ORE = HiiragiPart.Builder("@_ores", 1.0).build()
+    val BLOCK_GEM = HiiragiPart.Builder("@_blocks", 9.0).build {
+        predicate = { it.isSolid() && it.isGem() }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shaped") to JRecipe.shaped(
+                    get3x3('A'),
+                    JKeys.keys().addTag("A", gemFake.getTag(it).toString()),
+                    this.getResult(it)
+                )
+            )
+        }
+        type = PartType.BLOCK
+    }
+
 
     @JvmField
-    val ORE_BLOCK = HiiragiPart.Builder("raw_@_blocks", 9.0).build()
+    val ORE = HiiragiPart.Builder("@_ores", 1.0).build {
+        type = PartType.BLOCK
+    }
+
+    @JvmField
+    val ORE_BLOCK = HiiragiPart.Builder("raw_@_blocks", 9.0).build {
+        type = PartType.BLOCK
+    }
 
     //    Parts - Item   //
 
     @JvmField
-    val GEM = HiiragiPart.Builder("@_gems", 1.0).build()
+    val DUST = HiiragiPart.Builder("@_dusts", 1.0).build {
+        model = itemModelLayered { layer0("minecraft:item/sugar") }
+        predicate = { it.isSolid() }
+    }
 
     @JvmField
-    val DUST = HiiragiPart.Builder("@_dusts", 1.0).build()
+    val DUST_TINY = HiiragiPart.Builder("@_tiny_dusts", 0.1).build {
+        model = itemModelLayered { layer0("minecraft:item/sugar") }
+        predicate = { it.isSolid() }
+    }
 
     @JvmField
-    val DUST_TINY = HiiragiPart.Builder("@_tiny_dusts", 0.1).build()
+    val GEAR = HiiragiPart.Builder("@_gears", 4.0).build {
+        predicate = { it.isMetal() }
+    }
 
     @JvmField
-    val GEAR = HiiragiPart.Builder("@_gears", 4.0).build()
+    val GEM = HiiragiPart.Builder("@_gems", 1.0).build {
+        predicate = { it.isGem() }
+    }
 
     @JvmField
-    val INGOT = HiiragiPart.Builder("@_ingots", 1.0).build()
+    val INGOT = HiiragiPart.Builder("@_ingots", 1.0).build {
+        predicate = { it.isSolid() && it.isMetal() }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shaped") to JRecipe.shaped(
+                    get3x3('A'),
+                    JKeys.keys().addTag("A", NUGGET.getTag(it).toString()),
+                    this.getResult(it)
+                ),
+                this.getId(it).append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(BLOCK_METAL.getTag(it).toString()),
+                    this.getResult(it, 9)
+                )
+            )
+        }
+    }
 
     @JvmField
-    val NUGGET = HiiragiPart.Builder("@_nuggets", 0.1).build()
+    val NUGGET = HiiragiPart.Builder("@_nuggets", 0.1).build {
+        model = itemModelLayered { layer0("minecraft:item/iron_nugget") }
+        predicate = { it.isSolid() && it.isMetal() }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(ingotFake.getTag(it).toString()),
+                    this.getResult(it, 9)
+                )
+            )
+        }
+    }
 
     @JvmField
-    val PLATE = HiiragiPart.Builder("@_plates", 1.0).build()
+    val PLATE = HiiragiPart.Builder("@_plates", 1.0).build {
+        predicate = { it.isSolid() && it.isMetal() }
+    }
 
     @JvmField
     val RAW_ORE = HiiragiPart.Builder("raw_@_ores", 1.0).build()
 
     @JvmField
-    val ROD = HiiragiPart.Builder("@_rods", 0.5).build()
+    val ROD = HiiragiPart.Builder("@_rods", 0.5).build {
+        predicate = { it.isSolid() && it.isMetal() }
+    }
+
+    fun load() {
+        //Block Parts
+        registerPart(BLOCK_METAL)
+        //registerPart(BLOCK_GEM)
+        //registerPart(ORE)
+        //registerPart(ORE_BLOCK)
+        //Item Parts
+        registerPart(DUST)
+        //registerPart(DUST_TINY)
+        //registerPart(GEAR)
+        //registerPart(GEM)
+        registerPart(INGOT)
+        registerPart(NUGGET)
+        //registerPart(PLATE)
+        //registerPart(RAW_ORE)
+        //registerPart(ROD)
+    }
 
 }

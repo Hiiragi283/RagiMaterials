@@ -896,7 +896,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val AMERICIUM = HiiragiMaterial.Builder("americium", MaterialType.ACTINOID).build {
+    val AMERICIUM = HiiragiMaterial.Builder("americium", MaterialType.TRANS_URANIUM).build {
         formula = "Am"
         //molar = 243.0
         tempBoil = 1880
@@ -904,7 +904,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val CURIUM = HiiragiMaterial.Builder("curium", MaterialType.ACTINOID).build {
+    val CURIUM = HiiragiMaterial.Builder("curium", MaterialType.TRANS_URANIUM).build {
         formula = "Cm"
         //molar = 247.0
         tempBoil = 3383
@@ -912,7 +912,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val BERKELIUM = HiiragiMaterial.Builder("berkelium", MaterialType.ACTINOID).build {
+    val BERKELIUM = HiiragiMaterial.Builder("berkelium", MaterialType.TRANS_URANIUM).build {
         formula = "Bk"
         //molar = 247.0
         tempBoil = 2900
@@ -920,7 +920,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val CALIFORNIUM = HiiragiMaterial.Builder("californium", MaterialType.ACTINOID).build {
+    val CALIFORNIUM = HiiragiMaterial.Builder("californium", MaterialType.TRANS_URANIUM).build {
         formula = "Cf"
         //molar = 251.0/252.0
         tempBoil = 1743
@@ -928,7 +928,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", MaterialType.ACTINOID).build {
+    val EINSTEINIUM = HiiragiMaterial.Builder("einsteinium", MaterialType.TRANS_URANIUM).build {
         formula = "Es"
         //molar = 252.0
         tempBoil = 1269
@@ -936,7 +936,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val FERMIUM = HiiragiMaterial.Builder("fermium", MaterialType.ACTINOID).build {
+    val FERMIUM = HiiragiMaterial.Builder("fermium", MaterialType.TRANS_URANIUM).build {
         formula = "Fm"
         //molar = 257.0
         //tempBoil =
@@ -944,7 +944,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", MaterialType.ACTINOID).build {
+    val MENDELEVIUM = HiiragiMaterial.Builder("mendelevium", MaterialType.TRANS_URANIUM).build {
         formula = "Md"
         //molar = 258.0
         //tempBoil =
@@ -952,7 +952,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val NOBELIUM = HiiragiMaterial.Builder("nobelium", MaterialType.ACTINOID).build {
+    val NOBELIUM = HiiragiMaterial.Builder("nobelium", MaterialType.TRANS_URANIUM).build {
         formula = "No"
         //molar = 259.0
         //tempBoil =
@@ -960,7 +960,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val LAWRENCIUM = HiiragiMaterial.Builder("lawrencium", MaterialType.ACTINOID).build {
+    val LAWRENCIUM = HiiragiMaterial.Builder("lawrencium", MaterialType.TRANS_URANIUM).build {
         formula = "Lr"
         //molar = 262.0/266.0
         //tempBoil =
@@ -970,7 +970,7 @@ object MaterialElements {
     //    Actinides End    //
 
     @JvmField
-    val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", MaterialType.METAL).build {
+    val RUTHERFORDIUM = HiiragiMaterial.Builder("rutherfordium", MaterialType.TRANS_URANIUM).build {
         formula = "Lr"
         //molar = 261.1/267.0
         //tempBoil = 5800
@@ -978,7 +978,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val DUBNIUM = HiiragiMaterial.Builder("dubnium", MaterialType.METAL).build {
+    val DUBNIUM = HiiragiMaterial.Builder("dubnium", MaterialType.TRANS_URANIUM).build {
         formula = "Db"
         //molar = 265.0/268.0
         //tempBoil =
@@ -986,7 +986,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", MaterialType.METAL).build {
+    val SEABORGIUM = HiiragiMaterial.Builder("seaborgium", MaterialType.TRANS_URANIUM).build {
         formula = "Sg"
         //molar = 269.0/271.0
         //tempBoil =
@@ -994,7 +994,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val BOHRIUM = HiiragiMaterial.Builder("bohrium", MaterialType.METAL).build {
+    val BOHRIUM = HiiragiMaterial.Builder("bohrium", MaterialType.TRANS_URANIUM).build {
         formula = "Bh"
         //molar = 270.0/272.0
         //tempBoil =
@@ -1002,7 +1002,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val HASSIUM = HiiragiMaterial.Builder("hassium", MaterialType.METAL).build {
+    val HASSIUM = HiiragiMaterial.Builder("hassium", MaterialType.TRANS_URANIUM).build {
         formula = "Hs"
         //molar = 269.0/277.0
         //tempBoil =
@@ -1010,7 +1010,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", MaterialType.METAL).build {
+    val MEITNERIUM = HiiragiMaterial.Builder("meitnerium", MaterialType.TRANS_URANIUM).build {
         formula = "Mt"
         //molar = 276.0/278.0
         //tempBoil =
@@ -1018,7 +1018,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", MaterialType.METAL).build {
+    val DARMSTADTIUM = HiiragiMaterial.Builder("darmstadtium", MaterialType.TRANS_URANIUM).build {
         formula = "Ds"
         //molar = 281.0
         //tempBoil =
@@ -1026,7 +1026,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", MaterialType.METAL).build {
+    val ROENTGENIUM = HiiragiMaterial.Builder("roentgenium", MaterialType.TRANS_URANIUM).build {
         formula = "Rg"
         //molar = 280.0/281.0/282.0
         //tempBoil =
@@ -1034,7 +1034,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val COPERNICIUM = HiiragiMaterial.Builder("copernicium", MaterialType.METAL).build {
+    val COPERNICIUM = HiiragiMaterial.Builder("copernicium", MaterialType.TRANS_URANIUM).build {
         formula = "Cn"
         //molar = 285.0
         //tempBoil = 340
@@ -1042,7 +1042,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val NIHONIUM = HiiragiMaterial.Builder("nihonium", MaterialType.METAL).build {
+    val NIHONIUM = HiiragiMaterial.Builder("nihonium", MaterialType.TRANS_URANIUM).build {
         formula = "Nh"
         //molar = 278.0/286.0
         //tempBoil = 1400
@@ -1050,7 +1050,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val FLEROVIUM = HiiragiMaterial.Builder("flerovium", MaterialType.METAL).build {
+    val FLEROVIUM = HiiragiMaterial.Builder("flerovium", MaterialType.TRANS_URANIUM).build {
         formula = "Fl"
         //molar = 289.0
         //tempBoil =
@@ -1058,7 +1058,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", MaterialType.METAL).build {
+    val MOSCOVIUM = HiiragiMaterial.Builder("moscovium", MaterialType.TRANS_URANIUM).build {
         formula = "Mc"
         //molar = 289.0/290.0
         //tempBoil = 1400
@@ -1066,7 +1066,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", MaterialType.METAL).build {
+    val LIVERMORIUM = HiiragiMaterial.Builder("livermorium", MaterialType.TRANS_URANIUM).build {
         formula = "Lv"
         //molar = 293.0
         //tempBoil = 1100
@@ -1074,7 +1074,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val TENNESSINE = HiiragiMaterial.Builder("tennessine", MaterialType.METAL).build {
+    val TENNESSINE = HiiragiMaterial.Builder("tennessine", MaterialType.TRANS_URANIUM).build {
         formula = "Ts"
         //molar = 293.0/294.0
         //tempBoil = 883
@@ -1082,7 +1082,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val OGANESSON = HiiragiMaterial.Builder("oganesson", MaterialType.METAL).build {
+    val OGANESSON = HiiragiMaterial.Builder("oganesson", MaterialType.TRANS_URANIUM).build {
         formula = "Og"
         //molar = 294.0
         //tempBoil = 450

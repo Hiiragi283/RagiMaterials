@@ -13,6 +13,10 @@ fun get3x3(key: Char): JPattern = JPattern.pattern("$key$key$key", "$key$key$key
 
 //    Key    //
 
+fun JKeys.addItem(key: String, item: String): JKeys = also {
+    it.key(key, JIngredient.ingredient().item(item))
+}
+
 fun JKeys.addTag(key: String, tag: String): JKeys = also {
     it.key(key, JIngredient.ingredient().tag(tag))
 }

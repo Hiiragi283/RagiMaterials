@@ -15,20 +15,19 @@ object MaterialRegistry {
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
         //EMPTYを渡された場合はパス
-        if (material == HiiragiMaterial.EMPTY) return
+        if (material == HiiragiMaterial.EMPTY) {
+            RagiMaterials.LOGGER.error("$material is empty!")
+            return
+        }
         val name = material.name
         //名前が空の場合はパス
         if (name.isEmpty()) {
-            RagiMaterials.LOGGER.warn("The name of $material is empty!")
+            RagiMaterials.LOGGER.error("The name of $material is empty!")
             return
         }
         val resultName = REGISTRY[name]
-        //同じ名前で登録されていた場合，登録せずに警告を表示する
-        if (resultName !== null) {
-            RagiMaterials.LOGGER.warn("The name of $material was already registered by $resultName!")
-            return
-        }
-        //重複しなかった場合のみ登録を行う
+        //同じ名前で登録されていた場合，上書きの警告を表示する
+        if (resultName !== null) RagiMaterials.LOGGER.warn("$resultName will be replaced by $material!")
         REGISTRY[name] = material
     }
 }

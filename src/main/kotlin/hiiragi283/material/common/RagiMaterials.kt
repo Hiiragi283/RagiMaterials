@@ -1,6 +1,5 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.common.util.hiiragiId
 import net.devtech.arrp.api.RRPCallback
 import net.devtech.arrp.api.RuntimeResourcePack
@@ -17,8 +16,14 @@ object RagiMaterials : ModInitializer {
 
     override fun onInitialize() {
 
-        MaterialElements.load()
-        LOGGER.info("Elemental materials registered!")
+        RagiDataPackHandler.load()
+        LOGGER.info("Materials from data packs registered!")
+
+        RagiRegistry.loadBlocks()
+        LOGGER.info("Blocks registered!")
+
+        RagiRegistry.loadBlockItems()
+        LOGGER.info("BlockItems registered!")
 
         RagiRegistry.loadItems()
         LOGGER.info("Items registered!")

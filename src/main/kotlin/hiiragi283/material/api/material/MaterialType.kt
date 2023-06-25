@@ -1,6 +1,8 @@
 package hiiragi283.material.api.material
 
-enum class MaterialType(val isMetal: Boolean) {
+enum class MaterialType(
+    val isMetal: Boolean
+) {
     ACTINOID(true),
     ALKALI_METAL(true),
     ALKALINE_METAL(true),
@@ -8,5 +10,6 @@ enum class MaterialType(val isMetal: Boolean) {
     METAL(true),
     METALLOID(true),
     OTHER(false),
-    RARE_EARTH(true)
+    RARE_EARTH(true),
+    TRANS_URANIUM(false)
 }

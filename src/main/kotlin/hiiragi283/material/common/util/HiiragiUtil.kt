@@ -17,6 +17,8 @@ import net.minecraft.world.World
 
 fun Identifier.append(path: String) = Identifier(this.namespace, this.path + path)
 
+fun Identifier.appendBefore(path: String) = Identifier(this.namespace, path + this.path)
+
 fun commonId(path: String): Identifier = Identifier("c", path)
 
 fun hiiragiId(path: String): Identifier = Identifier(RagiMaterials.MODID, path)

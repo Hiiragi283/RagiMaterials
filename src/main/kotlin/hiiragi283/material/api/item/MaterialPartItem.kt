@@ -3,23 +3,18 @@ package hiiragi283.material.api.item
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.util.commonId
-import hiiragi283.material.common.util.hiiragiId
-import net.devtech.arrp.json.models.JModel
-import net.devtech.arrp.json.models.JTextures
+import hiiragi283.material.common.util.appendBefore
 import net.devtech.arrp.json.tags.JTag
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
-import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 
-abstract class MaterialPartItem(
+class MaterialPartItem(
     val material: HiiragiMaterial,
     val part: HiiragiPart
-) : HiiragiItem(FabricItemSettings()) {
+) : HiiragiItem() {
 
     private val identifier: Identifier = part.getId(material)
     private val tag: Identifier = part.getTag(material)
@@ -37,26 +32,17 @@ abstract class MaterialPartItem(
 
     //    HiiragiItem    //
 
-    fun register() {
-        Registry.register(Registry.ITEM, identifier, this)
-    }
+    fun register() = register(identifier.path)
 
     override fun registerModel() {
-        RagiMaterials.RESOURCE_PACK.addModel(
-            JModel.model()
-                .parent("item/generated")
-                .textures(
-                    JTextures()
-                        .layer0(getTexture())
-                ),
-            hiiragiId("item/" + identifier.path)
-        )
+        RagiMaterials.RESOURCE_PACK.addModel(part.model, identifier.appendBefore("item/"))
     }
 
-    abstract fun getTexture(): String
+    override fun registerRecipe(): Unit =
+        part.recipes(material).forEach(RagiMaterials.RESOURCE_PACK::addRecipe)
 
     override fun registerTag() {
-        RagiMaterials.RESOURCE_PACK.addTag(commonId("items/" + tag.path), JTag().add(identifier))
+        RagiMaterials.RESOURCE_PACK.addTag(tag.appendBefore("items/"), JTag().add(identifier))
     }
 
 }
