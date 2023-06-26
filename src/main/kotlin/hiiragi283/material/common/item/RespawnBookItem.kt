@@ -1,12 +1,16 @@
 package hiiragi283.material.common.item
 
 import hiiragi283.material.api.item.HiiragiItem
+import hiiragi283.material.common.RagiResourcePack
+import hiiragi283.material.common.util.LangType
+import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.playHypixel
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Hand
+import net.minecraft.util.Identifier
 import net.minecraft.util.Rarity
 import net.minecraft.util.TypedActionResult
 import net.minecraft.util.math.Vec3d
@@ -36,6 +40,18 @@ object RespawnBookItem : HiiragiItem(
         //SEを再生
         playHypixel(world, user.pos)
         return TypedActionResult.success(user.getStackInHand(hand))
+    }
+
+    //    HiiragiItem    //
+
+    override val identifier: Identifier = hiiragiId("respawn_book")
+
+    override fun registerTranslation() {
+        RagiResourcePack.addTranslation(LangType.EN_US) {
+            this.item(identifier, "[Dev] Respawn Book") }
+        RagiResourcePack.addTranslation(LangType.JA_JP) {
+            this.item(identifier, "[開発用] リスポーンの本")
+        }
     }
 
 }

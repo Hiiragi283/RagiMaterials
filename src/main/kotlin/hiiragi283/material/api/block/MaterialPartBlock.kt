@@ -2,8 +2,7 @@ package hiiragi283.material.api.block
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.util.appendBefore
+import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.minecraft.block.Material
@@ -18,7 +17,7 @@ data class MaterialPartBlock(
     val part: HiiragiPart
 ) : HiiragiBlock(FabricBlockSettings.of(Material.METAL)) {
 
-    val identifier: Identifier = part.getId(materialH)
+    override val identifier: Identifier = part.getId(materialH)
     private val tag: Identifier = part.getTag(materialH)
 
     override fun appendTooltip(
@@ -32,19 +31,15 @@ data class MaterialPartBlock(
 
     //    HiiragiBlock    //
 
-    fun register() = register(identifier.path)
-
-    override fun registerModel() {
-        RagiMaterials.RESOURCE_PACK.addBlockState(part.state, identifier)
-    }
+    override fun registerModel() = RagiResourcePack.addBlockState(identifier, part.state)
 
     override fun registerRecipe(): Unit =
-        part.recipes(materialH).forEach(RagiMaterials.RESOURCE_PACK::addRecipe)
+        part.recipes(materialH).forEach(RagiResourcePack::addRecipe)
 
 
     override fun registerTag() {
-        RagiMaterials.RESOURCE_PACK.addTag(tag.appendBefore("blocks/"), JTag().add(identifier))
-        RagiMaterials.RESOURCE_PACK.addTag(tag.appendBefore("items/"), JTag().add(identifier))
+        RagiResourcePack.addBlockTag(tag, JTag().add(identifier))
+        RagiResourcePack.addItemTag(tag, JTag().add(identifier))
     }
 
 }

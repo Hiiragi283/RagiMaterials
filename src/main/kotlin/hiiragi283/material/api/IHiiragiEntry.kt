@@ -1,12 +1,18 @@
 package hiiragi283.material.api
 
+import net.minecraft.util.Identifier
+
 interface IHiiragiEntry {
 
-    fun register(path: String)
+    val identifier: Identifier
+
+    fun register()
 
     fun registerModel() {}
 
     fun registerTag() {}
+
+    fun registerTranslation() {}
 
     fun registerRecipe() {}
 

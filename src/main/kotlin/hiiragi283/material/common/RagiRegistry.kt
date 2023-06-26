@@ -1,5 +1,6 @@
 package hiiragi283.material.common
 
+import hiiragi283.material.api.IHiiragiEntry
 import hiiragi283.material.api.block.MaterialPartBlock
 import hiiragi283.material.api.item.MaterialPartBlockItem
 import hiiragi283.material.api.item.MaterialPartItem
@@ -45,7 +46,7 @@ object RagiRegistry {
 
     fun loadItems() {
 
-        RespawnBookItem.register("respawn_book")
+        RespawnBookItem.register()
 
         //Initialize Material Items
         PartRegistry.getParts()
@@ -63,6 +64,13 @@ object RagiRegistry {
             it.registerRecipe()
             it.registerTag()
         }
+
+    }
+
+    fun initTranslation() {
+
+        MaterialRegistry.getMaterials().forEach(IHiiragiEntry::registerTranslation)
+        RagiMaterials.LOGGER.info("Material translation registered!")
 
     }
 

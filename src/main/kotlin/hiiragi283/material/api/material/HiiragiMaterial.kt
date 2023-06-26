@@ -1,14 +1,19 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.api.IHiiragiEntry
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.ColorUtil
+import hiiragi283.material.common.util.hiiragiId
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
+import net.minecraft.util.Identifier
 import rechellatek.snakeToUpperCamelCase
+import java.awt.Color
 import kotlin.math.roundToInt
 
 /**
@@ -39,7 +44,7 @@ class HiiragiMaterial private constructor(
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
     var translationKey: String = "material.$name",
-) {
+) : IHiiragiEntry {
 
     companion object {
         @JvmField
@@ -125,6 +130,15 @@ class HiiragiMaterial private constructor(
         } else RagiMaterials.LOGGER.warn("This material has no solid state!")
     }
 
+    //    IHiiragiEntry    //
+
+    override val identifier: Identifier
+        get() = hiiragiId(name)
+
+    override fun register() {
+        MaterialRegistry.registerMaterial(this)
+    }
+
     //    Builder    //
 
     open class Builder(private val name: String, private val type: MaterialType) {
@@ -140,7 +154,7 @@ class HiiragiMaterial private constructor(
 
         //色を自動で生成
         private fun initColor(material: HiiragiMaterial) {
-            //material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
+            material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
         }
 
         private fun initCrystalType(material: HiiragiMaterial) {

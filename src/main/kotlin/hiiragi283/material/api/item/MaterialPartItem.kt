@@ -2,8 +2,7 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.util.appendBefore
+import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
 import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
@@ -16,7 +15,7 @@ class MaterialPartItem(
     val part: HiiragiPart
 ) : HiiragiItem() {
 
-    private val identifier: Identifier = part.getId(material)
+    override val identifier: Identifier = part.getId(material)
     private val tag: Identifier = part.getTag(material)
 
     override fun appendTooltip(
@@ -32,17 +31,15 @@ class MaterialPartItem(
 
     //    HiiragiItem    //
 
-    fun register() = register(identifier.path)
-
     override fun registerModel() {
-        RagiMaterials.RESOURCE_PACK.addModel(part.model, identifier.appendBefore("item/"))
+        RagiResourcePack.addItemModel(identifier, part.model)
     }
 
     override fun registerRecipe(): Unit =
-        part.recipes(material).forEach(RagiMaterials.RESOURCE_PACK::addRecipe)
+        part.recipes(material).forEach(RagiResourcePack::addRecipe)
 
     override fun registerTag() {
-        RagiMaterials.RESOURCE_PACK.addTag(tag.appendBefore("items/"), JTag().add(identifier))
+        RagiResourcePack.addItemTag(tag, JTag().add(identifier))
     }
 
 }
