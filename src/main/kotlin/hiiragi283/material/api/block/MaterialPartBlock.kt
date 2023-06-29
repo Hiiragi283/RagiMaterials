@@ -1,10 +1,12 @@
 package hiiragi283.material.api.block
 
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialPart
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
+import net.minecraft.block.BlockState
 import net.minecraft.block.Material
 import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
@@ -12,10 +14,10 @@ import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.world.BlockView
 
-data class MaterialPartBlock(
+class MaterialPartBlock(
     val materialH: HiiragiMaterial,
     val part: HiiragiPart
-) : HiiragiBlock(FabricBlockSettings.of(Material.METAL)) {
+) : HiiragiBlock(FabricBlockSettings.of(Material.METAL)), MaterialPart<BlockState> {
 
     override val identifier: Identifier = part.getId(materialH)
     private val tag: Identifier = part.getTag(materialH)
@@ -41,5 +43,11 @@ data class MaterialPartBlock(
         RagiResourcePack.addBlockTag(tag, JTag().add(identifier))
         RagiResourcePack.addItemTag(tag, JTag().add(identifier))
     }
+
+    //    MaterialPart    //
+
+    override fun getMaterial(obj: BlockState): HiiragiMaterial = materialH
+
+    override fun getPart(obj: BlockState): HiiragiPart = part
 
 }

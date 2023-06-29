@@ -1,6 +1,8 @@
 package hiiragi283.material.api.part
 
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.common.RagiResourcePack
+import hiiragi283.material.common.util.LangType
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.itemModelLayered
@@ -46,9 +48,22 @@ class HiiragiPart private constructor(
 
     class Builder(private val name: String, private val scale: Double) {
 
+        //    Translation    //
+
+        private val translation: MutableMap<LangType, String> = mutableMapOf()
+
+        fun addTranslation(lang: LangType, name: String) = also {
+            translation[lang] = name
+        }
+
         fun build(init: HiiragiPart.() -> Unit = {}): HiiragiPart {
             val part = HiiragiPart(name, scale)
             part.init()
+            translation.forEach {
+                RagiResourcePack.addTranslation(it.key) {
+                    this.entry(part.translationKey, it.value)
+                }
+            }
             return part
         }
 

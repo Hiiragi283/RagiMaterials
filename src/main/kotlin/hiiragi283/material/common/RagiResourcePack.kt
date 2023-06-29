@@ -26,8 +26,13 @@ object RagiResourcePack {
         RESOURCE_PACK.addModel(model, identifier)
     }
 
+    fun addBlockModel(identifier: Identifier, model: JModel) {
+        addModel(identifier.appendBefore("block/"), model)
+    }
+
+
     fun addItemModel(identifier: Identifier, model: JModel) {
-        addModel(identifier.appendBefore("items/"), model)
+        addModel(identifier.appendBefore("item/"), model)
     }
 
     fun addRecipe(identifier: Identifier, recipe: JRecipe) {

@@ -1,6 +1,7 @@
 package hiiragi283.material.api.item
 
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialPart
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
@@ -13,7 +14,7 @@ import net.minecraft.world.World
 class MaterialPartItem(
     val material: HiiragiMaterial,
     val part: HiiragiPart
-) : HiiragiItem() {
+) : HiiragiItem(), MaterialPart<ItemStack> {
 
     override val identifier: Identifier = part.getId(material)
     private val tag: Identifier = part.getTag(material)
@@ -27,7 +28,7 @@ class MaterialPartItem(
         material.appendTooltip(tooltip, part)
     }
 
-    override fun getName(): Text = part.getName(material)
+    override fun getName(stack: ItemStack): Text = part.getName(material)
 
     //    HiiragiItem    //
 
@@ -41,5 +42,11 @@ class MaterialPartItem(
     override fun registerTag() {
         RagiResourcePack.addItemTag(tag, JTag().add(identifier))
     }
+
+    //    MaterialPart    //
+
+    override fun getMaterial(obj: ItemStack): HiiragiMaterial = material
+
+    override fun getPart(obj: ItemStack): HiiragiPart = part
 
 }

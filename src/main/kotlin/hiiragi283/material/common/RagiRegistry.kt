@@ -1,6 +1,5 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.api.IHiiragiEntry
 import hiiragi283.material.api.block.MaterialPartBlock
 import hiiragi283.material.api.item.MaterialPartBlockItem
 import hiiragi283.material.api.item.MaterialPartItem
@@ -16,14 +15,13 @@ object RagiRegistry {
 
     fun loadBlocks() {
         //Initialize Material Blocks
-        PartRegistry.getParts()
-            .filter { it.type == PartType.BLOCK }
-            .forEach { part ->
-                MaterialRegistry.getMaterials()
-                    .filter { part.predicate(it) }
-                    .map { MaterialPartBlock(it, part) }
-                    .forEach { materialBlockSet.add(it) }
-            }
+        MaterialRegistry.getMaterials().forEach { material ->
+            PartRegistry.getParts()
+                .filter { it.type == PartType.BLOCK }
+                .filter { it.predicate(material) }
+                .map { MaterialPartBlock(material, it) }
+                .forEach { materialBlockSet.add(it) }
+        }
 
         materialBlockSet.forEach {
             it.register()
@@ -49,14 +47,13 @@ object RagiRegistry {
         RespawnBookItem.register()
 
         //Initialize Material Items
-        PartRegistry.getParts()
-            .filter { it.type == PartType.ITEM }
-            .forEach { part ->
-                MaterialRegistry.getMaterials()
-                    .filter { part.predicate(it) }
-                    .map { MaterialPartItem(it, part) }
-                    .forEach { materialItemSet.add(it) }
-            }
+        MaterialRegistry.getMaterials().forEach { material ->
+            PartRegistry.getParts()
+                .filter { it.type == PartType.ITEM }
+                .filter { it.predicate(material) }
+                .map { MaterialPartItem(material, it) }
+                .forEach { materialItemSet.add(it) }
+        }
 
         materialItemSet.forEach {
             it.register()
@@ -64,13 +61,6 @@ object RagiRegistry {
             it.registerRecipe()
             it.registerTag()
         }
-
-    }
-
-    fun initTranslation() {
-
-        MaterialRegistry.getMaterials().forEach(IHiiragiEntry::registerTranslation)
-        RagiMaterials.LOGGER.info("Material translation registered!")
 
     }
 

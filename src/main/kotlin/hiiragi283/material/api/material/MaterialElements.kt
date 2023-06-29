@@ -1,6 +1,7 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.common.util.ColorUtil
+import hiiragi283.material.common.util.LangType
 import hiiragi283.material.common.util.RagiColor
 
 /**
@@ -12,33 +13,42 @@ object MaterialElements {
     //    1st Period    //
 
     @JvmField
-    val HYDROGEN = HiiragiMaterial.Builder("hydrogen", MaterialType.OTHER).build {
-        color = RagiColor.BLUE.rgb
-        formula = "H"
-        molar = 1.0
-        tempBoil = 20
-        tempMelt = 14
-    }
+    val HYDROGEN = HiiragiMaterial.Builder("hydrogen", MaterialType.OTHER)
+        .addTranslation(LangType.EN_US, "Hydrogen")
+        .addTranslation(LangType.JA_JP, "水素")
+        .build {
+            color = RagiColor.BLUE.rgb
+            formula = "H"
+            molar = 1.0
+            tempBoil = 20
+            tempMelt = 14
+        }
 
     @JvmField
-    val HELIUM = HiiragiMaterial.Builder("helium", MaterialType.OTHER).build {
-        color = RagiColor.YELLOW.rgb
-        formula = "He"
-        molar = 4.0
-        tempBoil = 3
-        tempMelt = 1
-    }
+    val HELIUM = HiiragiMaterial.Builder("helium", MaterialType.OTHER)
+        .addTranslation(LangType.EN_US, "Helium")
+        .addTranslation(LangType.JA_JP, "ヘリウム")
+        .build {
+            color = RagiColor.YELLOW.rgb
+            formula = "He"
+            molar = 4.0
+            tempBoil = 3
+            tempMelt = 1
+        }
 
     //    2nd Period    //
 
     @JvmField
-    val LITHIUM = HiiragiMaterial.Builder("lithium", MaterialType.ALKALI_METAL).build {
-        color = RagiColor.GRAY.rgb
-        formula = "Li"
-        molar = 6.9
-        tempBoil = 1560
-        tempMelt = 454
-    }
+    val LITHIUM = HiiragiMaterial.Builder("lithium", MaterialType.ALKALI_METAL)
+        .addTranslation(LangType.EN_US, "Lithium")
+        .addTranslation(LangType.JA_JP, "リチウム")
+        .build {
+            color = RagiColor.GRAY.rgb
+            formula = "Li"
+            molar = 6.9
+            tempBoil = 1560
+            tempMelt = 454
+        }
 
     @JvmField
     val BERYLLIUM = HiiragiMaterial.Builder("beryllium", MaterialType.ALKALINE_METAL).build {

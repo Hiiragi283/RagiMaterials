@@ -12,8 +12,6 @@ interface IHiiragiEntry {
 
     fun registerTag() {}
 
-    fun registerTranslation() {}
-
     fun registerRecipe() {}
 
 }

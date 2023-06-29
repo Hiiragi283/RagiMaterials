@@ -3,7 +3,9 @@ package hiiragi283.material.api.material
 import hiiragi283.material.api.IHiiragiEntry
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.RagiResourcePack
 import hiiragi283.material.common.util.ColorUtil
+import hiiragi283.material.common.util.LangType
 import hiiragi283.material.common.util.hiiragiId
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -78,17 +80,17 @@ class HiiragiMaterial private constructor(
     fun appendTooltip(tooltip: MutableList<Text>, part: HiiragiPart = HiiragiPart.EMPTY) {
         if (!isEmpty()) {
             tooltip.add(LiteralText("§e=== Property ==="))
-            tooltip.add(TranslatableText("tips.ragi_materials.property.name", getTranslatedName()))
+            tooltip.add(TranslatableText("tips.ragi_materials.property.name", "§b${getTranslatedName()}"))
             if (hasFormula())
-                tooltip.add(TranslatableText("tips.ragi_materials.property.formula", formula))
+                tooltip.add(TranslatableText("tips.ragi_materials.property.formula", "§b${formula}"))
             if (hasMolar())
-                tooltip.add(TranslatableText("tips.ragi_materials.property.mol", getWeight(part.scale)))
+                tooltip.add(TranslatableText("tips.ragi_materials.property.mol", "§b${getWeight(part.scale)}"))
             if (hasTempMelt())
-                tooltip.add(TranslatableText("tips.ragi_materials.property.melt", tempMelt))
+                tooltip.add(TranslatableText("tips.ragi_materials.property.melt", "§b${tempMelt}"))
             if (hasTempBoil())
-                tooltip.add(TranslatableText("tips.ragi_materials.property.boil", tempBoil))
+                tooltip.add(TranslatableText("tips.ragi_materials.property.boil", "§b${tempBoil}"))
             if (hasTempSubl())
-                tooltip.add(TranslatableText("tips.ragi_materials.property.subl", tempSubl))
+                tooltip.add(TranslatableText("tips.ragi_materials.property.subl", "§b${tempSubl}"))
         }
     }
 
@@ -142,6 +144,8 @@ class HiiragiMaterial private constructor(
     //    Builder    //
 
     open class Builder(private val name: String, private val type: MaterialType) {
+
+        //    Components    //
 
         private val components: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
 
@@ -237,11 +241,20 @@ class HiiragiMaterial private constructor(
             material.standardState = StandardState.SOLID
         }
 
+        //    Translation    //
+
+        private val translation: MutableMap<LangType, String> = mutableMapOf()
+
+        fun addTranslation(lang: LangType, name: String) = also {
+            translation[lang] = name
+        }
+
+        //    Build    //
+
         fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
             val material = HiiragiMaterial(name, type)
             material.init()
-            initStandardState(material) //標準状態を初期化
-            initCrystalType(material) //結晶構造を初期化
+            buildInit(material)
             return material
         }
 
@@ -252,10 +265,20 @@ class HiiragiMaterial private constructor(
             val material = HiiragiMaterial(name, type)
             addComponents(material, *components)
             material.init()
-            initStandardState(material) //標準状態を初期化
-            initCrystalType(material) //結晶構造を初期化
+            buildInit(material)
             return material
         }
+
+        private fun buildInit(material: HiiragiMaterial) {
+            initStandardState(material) //標準状態を初期化
+            initCrystalType(material) //結晶構造を初期化
+            translation.forEach {
+                RagiResourcePack.addTranslation(it.key) {
+                    this.entry(material.translationKey, it.value)
+                }
+            } //翻訳を登録
+        }
+
 
     }
 

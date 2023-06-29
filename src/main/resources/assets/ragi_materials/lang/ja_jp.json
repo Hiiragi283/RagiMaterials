@@ -1,0 +1,9 @@
+{
+  "item.ragi_materials.respawn_book": "[開発用] リスポーンの本",
+  "tips.ragi_materials.property.boil": "- 沸点: %s§r K",
+  "tips.ragi_materials.property.formula": "- 化学式: %s§r",
+  "tips.ragi_materials.property.melt": "- 融点: %s§r K",
+  "tips.ragi_materials.property.mol": "- 質量: %s§r Unit",
+  "tips.ragi_materials.property.name": "- 名称: %s§r",
+  "tips.ragi_materials.property.subl": "- 昇華点: %s§r K"
+}

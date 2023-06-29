@@ -24,11 +24,8 @@ object RagiMaterials : ModInitializer {
         RagiRegistry.loadItems()
         LOGGER.info("Items registered!")
 
-        EventHandler.load()
+        RagiEventHandler.load()
         LOGGER.info("Events registered!")
-
-        RagiRegistry.initTranslation()
-        LOGGER.info("Translation registered!")
 
         RagiResourcePack.register()
         LOGGER.info("ResourcePack registered!")
