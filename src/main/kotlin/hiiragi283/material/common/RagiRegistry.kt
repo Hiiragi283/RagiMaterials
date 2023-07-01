@@ -1,5 +1,6 @@
 package hiiragi283.material.common
 
+import hiiragi283.material.api.IHiiragiEntry
 import hiiragi283.material.api.block.MaterialPartBlock
 import hiiragi283.material.api.item.MaterialPartBlockItem
 import hiiragi283.material.api.item.MaterialPartItem
@@ -13,6 +14,17 @@ object RagiRegistry {
     val materialBlockSet: MutableSet<MaterialPartBlock> = mutableSetOf()
     val materialItemSet: MutableSet<MaterialPartItem> = mutableSetOf()
 
+    private fun register(entry: IHiiragiEntry) {
+        entry.register()
+        entry.registerModel()
+        entry.registerRecipe()
+        entry.registerTag()
+    }
+
+    private fun register(sets: Set<IHiiragiEntry>) {
+        sets.forEach(::register)
+    }
+
     fun loadBlocks() {
         //Initialize Material Blocks
         MaterialRegistry.getMaterials().forEach { material ->
@@ -20,14 +32,10 @@ object RagiRegistry {
                 .filter { it.type == PartType.BLOCK }
                 .filter { it.predicate(material) }
                 .map { MaterialPartBlock(material, it) }
-                .forEach { materialBlockSet.add(it) }
-        }
-
-        materialBlockSet.forEach {
-            it.register()
-            it.registerModel()
-            it.registerRecipe()
-            it.registerTag()
+                .forEach {
+                    materialBlockSet.add(it)
+                    register(it)
+                }
         }
 
     }
@@ -36,10 +44,7 @@ object RagiRegistry {
         //Initialize Material BlockItems
         materialBlockSet
             .map(::MaterialPartBlockItem)
-            .forEach {
-                it.register()
-                it.registerModel()
-            }
+            .forEach(::register)
     }
 
     fun loadItems() {
@@ -52,16 +57,11 @@ object RagiRegistry {
                 .filter { it.type == PartType.ITEM }
                 .filter { it.predicate(material) }
                 .map { MaterialPartItem(material, it) }
-                .forEach { materialItemSet.add(it) }
+                .forEach {
+                    materialItemSet.add(it)
+                    register(it)
+                }
         }
-
-        materialItemSet.forEach {
-            it.register()
-            it.registerModel()
-            it.registerRecipe()
-            it.registerTag()
-        }
-
     }
 
 }

@@ -3,9 +3,7 @@ package hiiragi283.material.api.material
 import hiiragi283.material.api.IHiiragiEntry
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.RagiResourcePack
 import hiiragi283.material.common.util.ColorUtil
-import hiiragi283.material.common.util.LangType
 import hiiragi283.material.common.util.hiiragiId
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -241,14 +239,6 @@ class HiiragiMaterial private constructor(
             material.standardState = StandardState.SOLID
         }
 
-        //    Translation    //
-
-        private val translation: MutableMap<LangType, String> = mutableMapOf()
-
-        fun addTranslation(lang: LangType, name: String) = also {
-            translation[lang] = name
-        }
-
         //    Build    //
 
         fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
@@ -272,13 +262,7 @@ class HiiragiMaterial private constructor(
         private fun buildInit(material: HiiragiMaterial) {
             initStandardState(material) //標準状態を初期化
             initCrystalType(material) //結晶構造を初期化
-            translation.forEach {
-                RagiResourcePack.addTranslation(it.key) {
-                    this.entry(material.translationKey, it.value)
-                }
-            } //翻訳を登録
         }
-
 
     }
 

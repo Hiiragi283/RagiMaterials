@@ -1,5 +1,6 @@
 package hiiragi283.material.common
 
+import hiiragi283.material.pre.loadRMInitializer
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -12,8 +13,8 @@ object RagiMaterials : ModInitializer {
 
     override fun onInitialize() {
 
-        RagiDataPackHandler.load()
-        LOGGER.info("Materials from data packs registered!")
+        loadRMInitializer()
+        LOGGER.info("RMInitializer called!")
 
         RagiRegistry.loadBlocks()
         LOGGER.info("Blocks registered!")

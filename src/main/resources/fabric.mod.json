@@ -31,6 +31,12 @@
         "adapter": "kotlin",
         "value": "hiiragi283.material.pre.RagiMaterialsPre"
       }
+    ],
+    "ragi_materials": [
+      {
+        "adapter": "kotlin",
+        "value": "hiiragi283.material.api.RMInitializerImpl"
+      }
     ]
   },
   "mixins": [
