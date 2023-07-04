@@ -944,10 +944,21 @@ object MaterialElements {
     }
 
     @JvmField
+    val URANIUM = HiiragiMaterial.Builder("uranium", 92).build {
+        color = RagiColor.GREEN.rgb
+        crystalType = CrystalType.METAL
+        formula = "U"
+        molar = 238.0
+        tempBoil = 4404
+        tempMelt = 1405
+    }
+
+    @JvmField
+    @Deprecated("URANIUM distortions.")
     val URANIUM238 = HiiragiMaterial.Builder("uranium238", 92).build {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
-        formula = "U238"
+        formula = "U"
         molar = 238.0
         tempBoil = 4404
         tempMelt = 1405
@@ -1326,6 +1337,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(ACTINIUM)
         MaterialRegistry.registerMaterial(THORIUM)
         MaterialRegistry.registerMaterial(PROTACTINIUM)
+        MaterialRegistry.registerMaterial(URANIUM)
         MaterialRegistry.registerMaterial(URANIUM238)
         MaterialRegistry.registerMaterial(NEPTUNIUM)
         MaterialRegistry.registerMaterial(PLUTONIUM244)

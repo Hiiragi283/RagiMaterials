@@ -1,5 +1,6 @@
 package hiiragi283.material.material
 
+import com.google.gson.GsonBuilder
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.part.HiiragiPart
 import hiiragi283.material.util.ColorUtil
@@ -43,6 +44,14 @@ class HiiragiMaterial @JvmOverloads constructor(
     companion object {
         @JvmField
         val EMPTY = HiiragiMaterial("empty", -1)
+
+        private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+
+        private val gson = GsonBuilder().create()
+
+        @JvmStatic
+        fun fromJson(json: String): HiiragiMaterial = gson.fromJson(json, HiiragiMaterial::class.java)
+
     }
 
     fun addBracket(): HiiragiMaterial =
@@ -114,6 +123,8 @@ class HiiragiMaterial @JvmOverloads constructor(
             crystalType = type
         } else RagiMaterials.LOGGER.warn("This material has no solid state!")
     }
+
+    fun toJson(isPretty: Boolean): String = if (isPretty) gsonPretty.toJson(this) else gson.toJson(this)
 
     //    General    //
 

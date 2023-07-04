@@ -3,6 +3,7 @@ package hiiragi283.material.config
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.material.CrystalType
 import hiiragi283.material.material.HiiragiMaterial
+import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.material.StandardState
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
@@ -38,8 +39,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                     tempBoil = 1109
                     tempMelt = 283
                 }
-                /*val json = Json { prettyPrint = true }
-                sample.writeText(json.encodeToString(material), Charsets.UTF_8)*/
+                sample.writeText(material.toJson(true), Charsets.UTF_8)
             }
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e)
@@ -52,8 +52,8 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             configs.listFiles()
                 ?.filter { it.exists() && it.canRead() } //存在している && 読み取り可能
                 ?.map { it.readText() } //Stringを読み取る
-            //?.map { Json.decodeFromString<HiiragiMaterial>(it) } //Json String -> HiiragiMaterial
-            //?.forEach { MaterialRegistry.registerMaterial(it) } //MaterialRegistryに登録
+                ?.map { HiiragiMaterial.fromJson(it) } //Json String -> HiiragiMaterial
+                ?.forEach { MaterialRegistry.registerMaterial(it) } //MaterialRegistryに登録
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e) //念のため例外処理
         }

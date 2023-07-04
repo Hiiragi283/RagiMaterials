@@ -46,7 +46,7 @@ object CommonProxy : IProxy {
     override fun onComplete(event: FMLLoadCompleteEvent) {
         if (RMConfig.printRegisteredMaterials) {
             MaterialRegistry.getMaterials()
-                .forEach { RagiMaterials.LOGGER.debug(it.toString()) }
+                .forEach { RagiMaterials.LOGGER.debug(it.toJson(false)) }
         }
     }
 }
