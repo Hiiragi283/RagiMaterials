@@ -1,6 +1,6 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.IHiiragiEntry
+import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.ColorUtil
@@ -22,7 +22,6 @@ import kotlin.math.roundToInt
  * @param crystalType Type of crystal structure for this material
  * @param formula Chemical formula for this material
  * @param molar Molar Mass for this material
- * @param partsAdditional List of the name of additional parts for this material
  * @param standardState Standard State (under the condition with 1 atm and 298 K) for this material
  * @param tempBoil Boiling point with Kelvin Temperature for this material
  * @param tempBoil Melting point with Kelvin Temperature for this material
@@ -38,13 +37,12 @@ class HiiragiMaterial private constructor(
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
     var molar: Double = -1.0,
-    var partsAdditional: List<String> = listOf(),
     var standardState: StandardState = StandardState.UNDEFINED,
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
     var translationKey: String = "material.$name",
-) : IHiiragiEntry {
+) : HiiragiEntry {
 
     companion object {
         @JvmField
@@ -66,7 +64,6 @@ class HiiragiMaterial private constructor(
             crystalType,
             formula = "($formula)",
             molar,
-            partsAdditional,
             standardState,
             tempBoil,
             tempMelt,
@@ -112,7 +109,7 @@ class HiiragiMaterial private constructor(
 
     fun isEmpty(): Boolean = this == EMPTY
 
-    fun isGem(): Boolean = hasCrystal() && !isMetal()
+    fun isGem(): Boolean = type.isGem
 
     fun isMetal(): Boolean = type.isMetal
 
@@ -122,15 +119,13 @@ class HiiragiMaterial private constructor(
 
     fun isSolid(): Boolean = standardState == StandardState.SOLID
 
-    fun isAdditionalPart(part: String): Boolean = part in partsAdditional
-
     fun setCrystalType(type: CrystalType) = also {
         if (it.isSolid()) {
             crystalType = type
         } else RagiMaterials.LOGGER.warn("This material has no solid state!")
     }
 
-    //    IHiiragiEntry    //
+    //    HiiragiEntry    //
 
     override val identifier: Identifier
         get() = hiiragiId(name)

@@ -12,6 +12,8 @@ import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.BlockRenderView
 import net.minecraft.world.BlockView
 
 class MaterialPartBlock(
@@ -45,6 +47,11 @@ class MaterialPartBlock(
     }
 
     //    MaterialPart    //
+
+    override fun getColor(state: BlockState, view: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int =
+        getMaterial(state).color
+
+    override fun getColor(stack: ItemStack, tintIndex: Int): Int = materialH.color
 
     override fun getMaterial(obj: BlockState): HiiragiMaterial = materialH
 

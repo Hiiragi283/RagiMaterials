@@ -17,6 +17,7 @@ object RagiEventHandler {
                 .forEach {
                     val item = it.stack.item
                     if (item is MaterialPart<*>) {
+                        @Suppress("UNCHECKED_CAST")
                         val type = (item as MaterialPart<ItemStack>).getMaterial(it.stack).type
                         if (type == MaterialType.ALKALI_METAL || type == MaterialType.ALKALINE_METAL)
                             world.createExplosion(null, it.x, it.y, it.z, 3.0f, Explosion.DestructionType.BREAK)

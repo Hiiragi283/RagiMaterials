@@ -2,7 +2,7 @@ package hiiragi283.material.api
 
 import net.minecraft.util.Identifier
 
-interface IHiiragiEntry {
+interface HiiragiEntry {
 
     val identifier: Identifier
 

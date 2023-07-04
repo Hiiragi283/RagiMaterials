@@ -18,7 +18,7 @@ object RagiResourcePack {
         RESOURCE_PACK.addBlockState(state, identifier)
     }
 
-    fun addModel(identifier: Identifier, model: JModel) {
+    private fun addModel(identifier: Identifier, model: JModel) {
         RESOURCE_PACK.addModel(model, identifier)
     }
 
@@ -35,7 +35,7 @@ object RagiResourcePack {
         RESOURCE_PACK.addRecipe(identifier, recipe)
     }
 
-    fun addTag(identifier: Identifier, tag: JTag) {
+    private fun addTag(identifier: Identifier, tag: JTag) {
         RESOURCE_PACK.addTag(identifier, tag)
     }
 

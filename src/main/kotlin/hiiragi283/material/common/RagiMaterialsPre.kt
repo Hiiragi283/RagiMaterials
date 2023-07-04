@@ -1,4 +1,4 @@
-package hiiragi283.material.pre
+package hiiragi283.material.common
 
 import hiiragi283.material.api.RMInitializer
 import net.fabricmc.loader.api.FabricLoader

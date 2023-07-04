@@ -29,7 +29,7 @@
     "preLaunch": [
       {
         "adapter": "kotlin",
-        "value": "hiiragi283.material.pre.RagiMaterialsPre"
+        "value": "hiiragi283.material.common.RagiMaterialsPre"
       }
     ],
     "ragi_materials": [

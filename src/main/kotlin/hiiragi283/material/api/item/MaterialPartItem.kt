@@ -45,6 +45,8 @@ class MaterialPartItem(
 
     //    MaterialPart    //
 
+    override fun getColor(stack: ItemStack, tintIndex: Int): Int = getMaterial(stack).color
+
     override fun getMaterial(obj: ItemStack): HiiragiMaterial = material
 
     override fun getPart(obj: ItemStack): HiiragiPart = part
