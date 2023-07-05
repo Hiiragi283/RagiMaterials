@@ -4,7 +4,6 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.material.CrystalType
 import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.StandardState
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
 
@@ -35,11 +34,10 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                     formula = "Tsubasa"
                     molar = 110.9
                     partsAdditional = listOf()
-                    standardState = StandardState.SOLID
                     tempBoil = 1109
                     tempMelt = 283
                 }
-                sample.writeText(material.toJson(true), Charsets.UTF_8)
+                sample.writeText(HiiragiMaterial.EMPTY.toJson(true), Charsets.UTF_8)
             }
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e)

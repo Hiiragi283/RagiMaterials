@@ -2,7 +2,7 @@ package hiiragi283.material.fluid
 
 import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.StandardState
+import hiiragi283.material.material.MaterialState
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
@@ -13,20 +13,18 @@ class HiiragiFluid private constructor(val material: HiiragiMaterial) : Fluid(ma
 
     init {
         color = material.color
-        when (material.standardState) {
-            //標準状態が未定義 -> パス
-            StandardState.UNDEFINED -> {}
+        when (material.getState()) {
             //標準状態で固体 -> 温度は融点に等しい
-            StandardState.SOLID -> {
+            MaterialState.SOLID -> {
                 temperature = material.tempMelt
                 luminosity = 15
             }
             //標準状態で液体 -> 温度は298 K
-            StandardState.LIQUID -> {
+            MaterialState.LIQUID -> {
                 temperature = 298
             }
             //標準状態で気体 -> 温度は298 K
-            StandardState.GAS -> {
+            MaterialState.GAS -> {
                 temperature = 298
                 isGaseous = true
                 density *= -1 //密度を負にすると上に落ちる

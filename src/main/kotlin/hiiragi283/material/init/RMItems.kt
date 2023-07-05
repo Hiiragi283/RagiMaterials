@@ -1,7 +1,13 @@
 package hiiragi283.material.init
 
-import hiiragi283.material.item.*
+import hiiragi283.material.RagiMaterials
+import hiiragi283.material.item.ItemBookRespawn
+import hiiragi283.material.item.ItemForgeHammer
+import hiiragi283.material.item.ItemMaterialBase
+import hiiragi283.material.material.MaterialElements
+import hiiragi283.material.part.PartRegistry
 import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -10,22 +16,29 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 
-object RMItems : IRMEntry<Item> {
+object RMItems : RMEntry<Item> {
 
     val BOOK_RESPAWN = ItemBookRespawn
     val FORGE_HAMMER = ItemForgeHammer
 
-    val MATERIAL_BLOCK = ItemMaterialBlock
-    val MATERIAL_BOTTLE = ItemMaterialBottle
-    val MATERIAL_DUST = ItemMaterialDust
-    val MATERIAL_DUST_TINY = ItemMaterialDustTiny
-    val MATERIAL_GEAR = ItemMaterialGear
-    val MATERIAL_GEM = ItemMaterialGem
-    val MATERIAL_INGOT = ItemMaterialIngot
-    val MATERIAL_NUGGET = ItemMaterialNugget
-    val MATERIAL_PLATE = ItemMaterialPlate
+    val MATERIAL_BLOCK = ItemMaterialBase(PartRegistry.BLOCK)
+    val MATERIAL_BOTTLE = ItemMaterialBase(PartRegistry.BOTTLE)
+    val MATERIAL_DUST = ItemMaterialBase(PartRegistry.DUST)
+    val MATERIAL_DUST_TINY = ItemMaterialBase(PartRegistry.DUST_TINY)
+    val MATERIAL_GEAR = ItemMaterialBase(PartRegistry.GEAR)
+    val MATERIAL_GEM = ItemMaterialBase(PartRegistry.GEM)
+    val MATERIAL_INGOT = ItemMaterialBase(PartRegistry.INGOT)
+    val MATERIAL_NUGGET = ItemMaterialBase(PartRegistry.NUGGET)
+    val MATERIAL_PLATE = ItemMaterialBase(PartRegistry.PLATE)
+
 
     override fun register(registry: IForgeRegistry<Item>) {
+
+        MATERIAL_BOTTLE.setCreativeTab(object : CreativeTabs("${RagiMaterials.MODID}.bottle") {
+            override fun createIcon(): ItemStack =
+                ItemStack(MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
+        })
+
         BOOK_RESPAWN.register(registry)
         FORGE_HAMMER.register(registry)
 

@@ -12,34 +12,25 @@ import kotlin.math.roundToInt
 /**
  * @param name Name for this material
  * @param index Index for this material
- * @param color Material color for this material
- * @param crystalType Type of crystal structure for this material
- * @param formula Chemical formula for this material
- * @param molar Molar Mass for this material
- * @param partsAdditional List of the name of additional parts for this material
- * @param standardState Standard State (under the condition with 1 atm and 298 K) for this material
- * @param tempBoil Boiling point with Kelvin Temperature for this material
- * @param tempBoil Melting point with Kelvin Temperature for this material
- * @param tempBoil Sublimation point with Kelvin Temperature for this material
  */
 
-//@Serializable
-class HiiragiMaterial @JvmOverloads constructor(
+data class HiiragiMaterial(
     val name: String,
-    val index: Int,
-    var color: Int = 0xFFFFFF,
-    var crystalType: CrystalType = CrystalType.NONE,
-    var formula: String = "",
-    var molar: Double = -1.0,
-    var partsAdditional: List<String> = listOf(),
-    var standardState: StandardState = StandardState.UNDEFINED,
-    var tempBoil: Int = -1,
-    var tempMelt: Int = -1,
-    var tempSubl: Int = -1
+    val index: Int
 ) {
 
+    var color: Int = 0xFFFFFF
+    var crystalType: CrystalType = CrystalType.NONE
+    var formula: String = ""
+    var molar: Double = -1.0
+    var partsAdditional: List<String> = listOf()
+    var tempBoil: Int = -1
+    var tempMelt: Int = -1
+    var tempSubl: Int = -1
     var translationKey: String = "material.$name"
-    var translatedName: String = I18n.format(translationKey)
+
+    val translatedName: String
+        get() = I18n.format(translationKey)
 
     companion object {
         @JvmField
@@ -54,22 +45,18 @@ class HiiragiMaterial @JvmOverloads constructor(
 
     }
 
-    fun addBracket(): HiiragiMaterial =
-        HiiragiMaterial(
-            name,
-            index,
-            color,
-            crystalType,
-            formula = "($formula)",
-            molar,
-            partsAdditional,
-            standardState,
-            tempBoil,
-            tempMelt,
-            tempSubl
-        )
+    fun addBracket(): HiiragiMaterial = copy().also { formula = "($formula)" }
 
     fun getOreDictName() = name.snakeToUpperCamelCase()
+
+    fun getState(): MaterialState {
+        //沸点が有効かつ298 K以下 -> 標準状態で気体
+        if (hasTempBoil() && tempBoil <= 298) return MaterialState.GAS
+        //融点が有効かつ298以下 -> 標準状態で液体
+        if (hasTempMelt() && tempMelt <= 298) return MaterialState.LIQUID
+        //それ以外は固体として扱う
+        return MaterialState.SOLID
+    }
 
     fun getTooltip(tooltip: MutableList<String>, part: HiiragiPart = HiiragiPart.EMPTY) {
         if (!isEmpty()) {
@@ -102,19 +89,17 @@ class HiiragiMaterial @JvmOverloads constructor(
 
     fun hasTempSubl(): Boolean = tempSubl >= 0
 
-    fun hasStandardState(): Boolean = standardState != StandardState.UNDEFINED
-
     fun isEmpty(): Boolean = this == EMPTY
 
     fun isGem(): Boolean = hasCrystal() && !isMetal()
 
     fun isMetal(): Boolean = crystalType == CrystalType.METAL
 
-    fun isGas(): Boolean = standardState == StandardState.GAS
+    fun isGas(): Boolean = getState() == MaterialState.GAS
 
-    fun isLiquid(): Boolean = standardState == StandardState.LIQUID
+    fun isLiquid(): Boolean = getState() == MaterialState.LIQUID
 
-    fun isSolid(): Boolean = standardState == StandardState.SOLID
+    fun isSolid(): Boolean = getState() == MaterialState.SOLID
 
     fun isAdditionalPart(part: String): Boolean = part in partsAdditional
 
@@ -127,11 +112,6 @@ class HiiragiMaterial @JvmOverloads constructor(
     fun toJson(isPretty: Boolean): String = if (isPretty) gsonPretty.toJson(this) else gson.toJson(this)
 
     //    General    //
-
-    override fun equals(other: Any?): Boolean =
-        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
-
-    override fun hashCode(): Int = name.hashCode()
 
     override fun toString(): String = "Material:${this.name}"
 
@@ -150,7 +130,7 @@ class HiiragiMaterial @JvmOverloads constructor(
 
         //色を自動で生成
         private fun initColor(material: HiiragiMaterial) {
-            material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }.toMap()).rgb
+            material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }).rgb
         }
 
         private fun initCrystalType(material: HiiragiMaterial) {
@@ -182,9 +162,9 @@ class HiiragiMaterial @JvmOverloads constructor(
         //分子量を自動で生成
         private fun initMolar(material: HiiragiMaterial) {
             var molar = 0.0
-            components.toList().forEach {
-                if (it.first.hasMolar()) molar += it.first.molar * it.second
-            }
+            components
+                .filter { it.key.hasMolar() }
+                .forEach { molar += it.key.tempSubl * it.value }
             molar = (molar * 10.0).roundToInt() / 10.0 //小数点1桁まで
             material.molar = molar
         }
@@ -192,52 +172,34 @@ class HiiragiMaterial @JvmOverloads constructor(
         //沸点を自動で生成
         fun initTempBoil(material: HiiragiMaterial) {
             var boil = 0
-            components.toList().forEach {
-                if (it.first.hasTempBoil()) boil += it.first.tempBoil * it.second
-            }
+            components
+                .filter { it.key.hasTempBoil() }
+                .forEach { boil += it.key.tempSubl * it.value }
             material.tempBoil = boil
         }
 
         //融点を自動で生成
         fun initTempMelt(material: HiiragiMaterial) {
             var melt = 0
-            components.toList().forEach {
-                if (it.first.hasTempMelt()) melt += it.first.tempMelt * it.second
-            }
+            components
+                .filter { it.key.hasTempMelt() }
+                .forEach { melt += it.key.tempSubl * it.value }
             material.tempMelt = melt
         }
 
         //昇華点を自動で生成
         fun initTempSubl(material: HiiragiMaterial) {
             var subl = 0
-            components.toList().forEach {
-                if (it.first.hasTempSubl()) subl += it.first.tempSubl * it.second
-            }
+            components
+                .filter { it.key.hasTempSubl() }
+                .forEach { subl += it.key.tempSubl * it.value }
             material.tempSubl = subl
-        }
-
-        fun initStandardState(material: HiiragiMaterial) {
-            //すでに初期化されている場合はパス
-            if (material.hasStandardState()) return
-            //沸点が有効かつ298 K以下 -> 標準状態で気体
-            if (material.hasTempBoil() && material.tempBoil <= 298) {
-                material.standardState = StandardState.GAS
-                return
-            }
-            //融点が有効かつ298以下 -> 標準状態で液体
-            if (material.hasTempMelt() && material.tempMelt <= 298) {
-                material.standardState = StandardState.LIQUID
-                return
-            }
-            //それ以外は固体として扱う
-            material.standardState = StandardState.SOLID
         }
 
         fun build(init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
             val material = HiiragiMaterial(name, index)
             material.init()
-            initStandardState(material) //標準状態を初期化
-            initCrystalType(material) //結晶構造を初期化
+            initBuild(material)
             return material
         }
 
@@ -248,9 +210,13 @@ class HiiragiMaterial @JvmOverloads constructor(
             val material = HiiragiMaterial(name, index)
             addComponents(material, *components)
             material.init()
-            initStandardState(material) //標準状態を初期化
-            initCrystalType(material) //結晶構造を初期化
+            initBuild(material)
             return material
+        }
+
+        private fun initBuild(material: HiiragiMaterial) {
+            //initStandardState(material) //標準状態を初期化
+            initCrystalType(material) //結晶構造を初期化
         }
 
     }

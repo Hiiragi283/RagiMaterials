@@ -1,7 +1,7 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.init.IRMEntry
+import hiiragi283.material.init.RMEntry
 import hiiragi283.material.util.RMModelManager
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -11,14 +11,14 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 
-abstract class RMItemBase(ID: String, private var maxMeta: Int) : Item(), IRMEntry<Item> {
+abstract class RMItemBase(id: String, private var maxMeta: Int) : Item(), RMEntry<Item> {
 
     init {
-        setRegistryName(RagiMaterials.MODID, ID)
+        setRegistryName(RagiMaterials.MODID, id)
         creativeTab = CreativeTabs.MISC
         hasSubtypes = maxMeta > 0
         maxMeta = 0.coerceAtLeast(maxMeta)
-        translationKey = ID
+        translationKey = id
     }
 
     //    General    //
@@ -44,7 +44,7 @@ abstract class RMItemBase(ID: String, private var maxMeta: Int) : Item(), IRMEnt
         }
     }
 
-    //    IRMEntry    //
+    //    RMEntry    //
 
     override fun register(registry: IForgeRegistry<Item>) {
         registry.register(this)

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 
-interface IRMEntry<T : IForgeRegistryEntry<T>> {
+interface RMEntry<T : IForgeRegistryEntry<T>> {
 
     fun register(registry: IForgeRegistry<T>)
 

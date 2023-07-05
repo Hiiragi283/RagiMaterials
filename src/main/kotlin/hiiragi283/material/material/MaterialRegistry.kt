@@ -26,14 +26,9 @@ object MaterialRegistry {
             return
         }
 
-        //同じ名前で登録されていた場合はパス
+        //同じ名前で登録されていた場合は警告する
         val resultName = REGISTRY[name]
-        if (resultName !== null) {
-            RagiMaterials.LOGGER.warn("The name of $material was already registered by $resultName!")
-            return
-        }
-        //どちらも重複しなかった場合のみ登録を行う
-        REGISTRY[name] = material
+        if (resultName !== null) RagiMaterials.LOGGER.warn("$resultName will be overrided!")
 
         //番号が0 <= index <= 2767でない場合はパス
         val index = material.index
@@ -42,13 +37,12 @@ object MaterialRegistry {
             return
         }
 
-        //同じ番号で登録されていた場合はパス
+        //同じ番号で登録されていた場合は警告
         val resultIndex = INDEX_TO_MATERIAL[index]
-        if (resultIndex !== null) {
-            RagiMaterials.LOGGER.warn("The index of $material was already registered by $resultIndex!")
-            return
-        }
-        //どちらも重複しなかった場合のみ登録を行う
+        if (resultIndex !== null) RagiMaterials.LOGGER.warn("The index: $index will be overrided by $material")
+
+        //登録を行う
+        REGISTRY[name] = material
         INDEX_TO_MATERIAL[index] = material
     }
 

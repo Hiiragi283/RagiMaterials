@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 fun removeCrafting(registryName: ResourceLocation) {
     CraftingManager.getRecipe(registryName)?.let {
         removeRegistryEntry(ForgeRegistries.RECIPES, registryName)
-    } ?: RagiMaterials.LOGGER.debug("The recipe $registryName was not found...")
+    } ?: RagiMaterials.LOGGER.debug("The recipe {} was not found...", registryName)
 }
 
 fun removeCrafting(registryName: String) {

@@ -10,28 +10,26 @@ object ColorUtil {
         var redAve = 0
         var greenAve = 0
         var blueAve = 0
-        for (color in colors) {
-            redAve += color.red
-            greenAve += color.green
-            blueAve += color.blue
+        colors.forEach {
+            redAve += it.red
+            greenAve += it.green
+            blueAve += it.blue
         }
         return Color(redAve / colors.size, greenAve / colors.size, blueAve / colors.size)
     }
 
     //可変長配列用
-    fun mixColor(vararg colors: Color): Color {
-        return mixColor(colors.toSet())
-    }
+    fun mixColor(vararg colors: Color): Color = mixColor(colors.toList())
 
     //複数の色を比率を指定して混合するメソッド
-    fun mixColor(vararg colors: Pair<Color, Int>): Color {
+    fun mixColor(colors: Map<Color, Int>): Color {
         var redSum = 0
         var greenSum = 0
         var blueSum = 0
         var weightSum = 0
-        for (pair in colors) {
-            val color = pair.first
-            val weight = pair.second
+        colors.forEach {
+            val color = it.key
+            val weight = it.value
             //RGB値にweightをかけた値を加算していく
             redSum += color.red * weight
             greenSum += color.green * weight
@@ -45,8 +43,11 @@ object ColorUtil {
         ) else RagiColor.WHITE
     }
 
-    //Map用
-    fun mixColor(colors: Map<Color, Int>): Color = mixColor(*colors.toList().toTypedArray())
+    //List用
+    fun mixColor(colors: List<Pair<Color, Int>>): Color = mixColor(colors.toMap())
+
+    //可変長配列用
+    fun mixColor(vararg colors: Pair<Color, Int>): Color = mixColor(colors.toMap())
 
     //混合色から元の色を取得するメソッド
     fun getColorDif(colorMixed: Color, colorBase1: Color): Color {
