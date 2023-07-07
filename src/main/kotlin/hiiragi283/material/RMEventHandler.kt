@@ -1,6 +1,5 @@
 package hiiragi283.material
 
-import hiiragi283.material.init.RMItems
 import hiiragi283.material.material_part.MaterialPartRegistry
 import net.minecraft.item.Item
 import net.minecraftforge.client.event.ColorHandlerEvent

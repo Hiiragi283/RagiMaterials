@@ -7,7 +7,13 @@ import hiiragi283.material.util.RMModelManager
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
 
-class HiiragiPart private constructor(val name: String, val scale: Double) {
+fun partOf(name: String, scale: Double, init: HiiragiPart.() -> Unit = {}): HiiragiPart {
+    val part = HiiragiPart(name, scale)
+    part.init()
+    return part
+}
+
+class HiiragiPart internal constructor(val name: String, val scale: Double) {
 
     var isMatch: (HiiragiMaterial) -> Boolean = { true }
     var model: (ItemMaterialBase) -> Unit = { RMModelManager.setModelSame(it) }
@@ -24,15 +30,5 @@ class HiiragiPart private constructor(val name: String, val scale: Double) {
     fun isEmpty(): Boolean = this.name == "empty"
 
     fun getOreDictPrefix() = name.snakeToLowerCamelCase()
-
-    class Builder(val name: String, val scale: Double) {
-
-        fun build(init: HiiragiPart.() -> Unit = {}): HiiragiPart {
-            val part = HiiragiPart(name, scale)
-            part.init()
-            return part
-        }
-
-    }
 
 }

@@ -1,6 +1,5 @@
-package hiiragi283.material.init
+package hiiragi283.material
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
 import hiiragi283.material.item.ItemMaterialBase

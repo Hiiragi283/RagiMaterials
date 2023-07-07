@@ -1,7 +1,7 @@
 package hiiragi283.material.part
 
+import hiiragi283.material.RMItems
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.init.RMItems
 import hiiragi283.material.material.CrystalType
 import hiiragi283.material.material_part.MaterialPartRegistry
 import hiiragi283.material.util.CraftingBuilder
@@ -35,7 +35,7 @@ object PartRegistry {
     //    Parts    //
 
     @JvmField
-    val BLOCK = HiiragiPart.Builder("block", 9.0).build {
+    val BLOCK = partOf("block", 9.0) {
         isMatch = { it.isSolid() && (it.isMetal() || it.isGem()) }
         model = {
             val common = ModelResourceLocation(it.registryName!!.append("_material"), "inventory")
@@ -69,10 +69,10 @@ object PartRegistry {
     }
 
     @JvmField
-    val BOTTLE = HiiragiPart.Builder("bottle", 1.0).build()
+    val BOTTLE = partOf("bottle", 1.0)
 
     @JvmField
-    val DUST = HiiragiPart.Builder("dust", 1.0).build {
+    val DUST = partOf("dust", 1.0) {
         isMatch = { it.isSolid() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 1, material.index))
@@ -83,7 +83,7 @@ object PartRegistry {
     }
 
     @JvmField
-    val DUST_TINY = HiiragiPart.Builder("dust_tiny", 0.1).build {
+    val DUST_TINY = partOf("dust_tiny", 0.1) {
         isMatch = { it.isSolid() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 9, material.index))
@@ -93,7 +93,7 @@ object PartRegistry {
     }
 
     @JvmField
-    val GEAR = HiiragiPart.Builder("gear", 4.0).build {
+    val GEAR = partOf("gear", 4.0) {
         isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 1, material.index))
@@ -104,7 +104,7 @@ object PartRegistry {
     }
 
     @JvmField
-    val GEM = HiiragiPart.Builder("gem", 1.0).build {
+    val GEM = partOf("gem", 1.0) {
         isMatch = { it.isSolid() && it.isGem() }
         model = { item ->
             fun getLocation(crystalType: CrystalType) = item.registryName!!.append("_" + crystalType.texture)
@@ -136,7 +136,7 @@ object PartRegistry {
 
 
     @JvmField
-    val INGOT = HiiragiPart.Builder("ingot", 1.0).build {
+    val INGOT = partOf("ingot", 1.0) {
         isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             //nugget -> ingot
@@ -153,7 +153,7 @@ object PartRegistry {
     }
 
     @JvmField
-    val NUGGET = HiiragiPart.Builder("nugget", 0.1).build {
+    val NUGGET = partOf("nugget", 0.1) {
         isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 9, material.index))
@@ -163,7 +163,7 @@ object PartRegistry {
     }
 
     @JvmField
-    val PLATE = HiiragiPart.Builder("plate", 1.0).build {
+    val PLATE = partOf("plate", 1.0) {
         isMatch = { it.isSolid() && (it.isMetal() || it.isGem()) }
         recipe = { item, material ->
             if (material.isMetal()) {
@@ -176,7 +176,7 @@ object PartRegistry {
     }
 
     @JvmField
-    val STICK = HiiragiPart.Builder("stick", 0.5).build {
+    val STICK = partOf("stick", 0.5) {
         isMatch = { it.isSolid() && it.isMetal() }
     }
 

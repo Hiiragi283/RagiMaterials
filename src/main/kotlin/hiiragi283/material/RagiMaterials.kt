@@ -3,7 +3,6 @@ package hiiragi283.material
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluid
-import hiiragi283.material.init.RMItems
 import hiiragi283.material.material.MaterialRegistry
 import hiiragi283.material.part.PartRegistry
 import net.minecraftforge.common.MinecraftForge

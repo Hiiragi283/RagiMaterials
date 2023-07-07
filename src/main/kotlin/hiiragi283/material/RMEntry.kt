@@ -1,4 +1,4 @@
-package hiiragi283.material.init
+package hiiragi283.material
 
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors

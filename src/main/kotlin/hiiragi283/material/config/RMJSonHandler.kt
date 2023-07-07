@@ -4,6 +4,7 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.material.CrystalType
 import hiiragi283.material.material.HiiragiMaterial
 import hiiragi283.material.material.MaterialRegistry
+import hiiragi283.material.material.materialOf
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
 
@@ -28,7 +29,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             if (!sample.exists()) sample.createNewFile()
             //書き込み可能な場合
             if (sample.canWrite()) {
-                val material = HiiragiMaterial.Builder("hiiragi", -1).build {
+                val material = materialOf("hiiragi", -1) {
                     color = RagiMaterials.COLOR.rgb
                     crystalType = CrystalType.METAL
                     formula = "Tsubasa"

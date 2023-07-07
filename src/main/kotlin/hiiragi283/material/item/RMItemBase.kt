@@ -1,7 +1,7 @@
 package hiiragi283.material.item
 
+import hiiragi283.material.RMEntry
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.init.RMEntry
 import hiiragi283.material.util.RMModelManager
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item

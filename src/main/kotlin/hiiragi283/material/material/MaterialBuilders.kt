@@ -1,0 +1,138 @@
+@file:JvmName("MaterialBuilders")
+
+package hiiragi283.material.material
+
+import hiiragi283.material.util.ColorUtil
+import java.awt.Color
+import kotlin.math.roundToInt
+
+//    Material    //
+
+fun materialOf(name: String, index: Int, init: HiiragiMaterial.() -> Unit = {}): HiiragiMaterial {
+    val material = HiiragiMaterial(name, index)
+    material.init()
+    return material
+}
+
+//    Compound    //
+
+fun compoundOf(
+    name: String,
+    index: Int,
+    components: Map<HiiragiMaterial, Int>,
+    init: HiiragiMaterial.() -> Unit = {}
+): HiiragiMaterial {
+    val compound = HiiragiMaterial(name, index)
+    initCompound(compound, components)
+    compound.init()
+    return compound
+}
+
+private fun initCompound(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    initColor(material, components)
+    initFormula(material, components)
+    initMolar(material, components)
+}
+
+//色を自動で生成
+private fun initColor(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }).rgb
+}
+
+private fun initCrystalType(material: HiiragiMaterial) {
+    //固相を持たない場合は強制的にNONE
+    if (!material.isSolid()) material.crystalType = CrystalType.NONE
+}
+
+//化学式を自動で生成
+private fun initFormula(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    val builder = StringBuilder()
+    for ((material1, weight) in components) {
+        //化学式を持たない場合はパス
+        if (!material1.hasFormula()) continue
+        builder.append(material1.formula)
+        //値が1の場合はパス
+        if (weight == 1) continue
+        //化学式の下付き数字の桁数調整
+        val subscript1 = '\u2080' + (weight % 10)
+        val subscript10 = '\u2080' + (weight / 10)
+        //2桁目が0でない場合，下付き数字を2桁にする
+        builder.append(
+            StringBuilder().also {
+                if (subscript10 != '\u2080') it.append(subscript10)
+                it.append(subscript1)
+            }
+        )
+    }
+    material.formula = builder.toString()
+}
+
+//分子量を自動で生成
+private fun initMolar(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    var molar = 0.0
+    components
+        .filter { it.key.hasMolar() }
+        .forEach { molar += it.key.molar * it.value }
+    molar = (molar * 10.0).roundToInt() / 10.0 //小数点1桁まで
+    material.molar = molar
+}
+
+//沸点を自動で生成
+private fun initTempBoil(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    var boil = 0
+    components
+        .filter { it.key.hasTempBoil() }
+        .forEach { boil += it.key.tempBoil * it.value }
+    material.tempBoil = boil
+}
+
+//融点を自動で生成
+private fun initTempMelt(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    var melt = 0
+    components
+        .filter { it.key.hasTempMelt() }
+        .forEach { melt += it.key.tempMelt * it.value }
+    material.tempMelt = melt
+}
+
+//昇華点を自動で生成
+private fun initTempSubl(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    var subl = 0
+    components
+        .filter { it.key.hasTempSubl() }
+        .forEach { subl += it.key.tempSubl * it.value }
+    material.tempSubl = subl
+}
+
+//    Mixture    //
+
+fun mixtureOf(
+    name: String,
+    index: Int,
+    components: List<HiiragiMaterial>,
+    init: HiiragiMaterial.() -> Unit = {}
+): HiiragiMaterial {
+    val mixture = HiiragiMaterial(name, index)
+    initMixture(mixture, components)
+    mixture.init()
+    return mixture
+}
+
+private fun initMixture(material: HiiragiMaterial, components: List<HiiragiMaterial>) {
+    initFormula(material, components)
+    material.molar = -1.0 //Invalidate molar
+}
+
+private fun initFormula(material: HiiragiMaterial, components: List<HiiragiMaterial>) {
+    val builder = StringBuilder("(")
+    components
+        .map { "${it.formula}, " }
+        .forEach { builder.append(it) }
+    builder.setLength(builder.length - 2) //末尾の", "を取り除く
+    builder.append(")")
+    material.formula = builder.toString()
+}
+
+//    Formula String    //
+
+fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial.EMPTY.copy(formula = formula)
