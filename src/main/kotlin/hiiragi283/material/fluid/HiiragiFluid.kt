@@ -1,8 +1,8 @@
 package hiiragi283.material.fluid
 
-import hiiragi283.material.material.HiiragiMaterial
-import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.MaterialState
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.material.MaterialState
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry

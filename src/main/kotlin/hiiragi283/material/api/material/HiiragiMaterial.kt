@@ -1,8 +1,8 @@
-package hiiragi283.material.material
+package hiiragi283.material.api.material
 
 import com.google.gson.GsonBuilder
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.part.HiiragiPart
+import hiiragi283.material.api.part.HiiragiPart
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToUpperCamelCase
 import kotlin.math.roundToInt

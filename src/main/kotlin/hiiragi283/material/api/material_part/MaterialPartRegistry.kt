@@ -1,4 +1,4 @@
-package hiiragi283.material.material_part
+package hiiragi283.material.api.material_part
 
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.util.toLocation

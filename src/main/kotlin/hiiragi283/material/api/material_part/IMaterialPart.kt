@@ -1,7 +1,7 @@
-package hiiragi283.material.material_part
+package hiiragi283.material.api.material_part
 
-import hiiragi283.material.material.HiiragiMaterial
-import hiiragi283.material.part.HiiragiPart
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.HiiragiPart
 
 interface IMaterialPart<T : Any> {
 

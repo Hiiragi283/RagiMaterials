@@ -1,7 +1,7 @@
-package hiiragi283.material.item
+package hiiragi283.material.api.item
 
-import hiiragi283.material.RMEntry
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.util.RMModelManager
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 
-abstract class RMItemBase(id: String, private var maxMeta: Int) : Item(), RMEntry<Item> {
+abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), HiiragiEntry<Item> {
 
     init {
         setRegistryName(RagiMaterials.MODID, id)
@@ -44,7 +44,7 @@ abstract class RMItemBase(id: String, private var maxMeta: Int) : Item(), RMEntr
         }
     }
 
-    //    RMEntry    //
+    //    HiiragiEntry    //
 
     override fun register(registry: IForgeRegistry<Item>) {
         registry.register(this)

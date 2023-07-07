@@ -1,6 +1,6 @@
 @file:JvmName("MaterialBuilders")
 
-package hiiragi283.material.material
+package hiiragi283.material.api.material
 
 import hiiragi283.material.util.ColorUtil
 import java.awt.Color

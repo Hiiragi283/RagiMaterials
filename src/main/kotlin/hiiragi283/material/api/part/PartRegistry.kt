@@ -1,9 +1,9 @@
-package hiiragi283.material.part
+package hiiragi283.material.api.part
 
 import hiiragi283.material.RMItems
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.material.CrystalType
-import hiiragi283.material.material_part.MaterialPartRegistry
+import hiiragi283.material.api.material.CrystalType
+import hiiragi283.material.api.material_part.MaterialPartRegistry
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.RagiIngredient
 import hiiragi283.material.util.append

@@ -1,10 +1,11 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.HiiragiEntry
+import hiiragi283.material.api.item.ItemMaterial
+import hiiragi283.material.api.material.MaterialElements
+import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
-import hiiragi283.material.item.ItemMaterialBase
-import hiiragi283.material.material.MaterialElements
-import hiiragi283.material.part.PartRegistry
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
@@ -15,20 +16,20 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 
-object RMItems : RMEntry<Item> {
+object RMItems : HiiragiEntry<Item> {
 
     val BOOK_RESPAWN = ItemBookRespawn
     val FORGE_HAMMER = ItemForgeHammer
 
-    val MATERIAL_BLOCK = ItemMaterialBase(PartRegistry.BLOCK)
-    val MATERIAL_BOTTLE = ItemMaterialBase(PartRegistry.BOTTLE)
-    val MATERIAL_DUST = ItemMaterialBase(PartRegistry.DUST)
-    val MATERIAL_DUST_TINY = ItemMaterialBase(PartRegistry.DUST_TINY)
-    val MATERIAL_GEAR = ItemMaterialBase(PartRegistry.GEAR)
-    val MATERIAL_GEM = ItemMaterialBase(PartRegistry.GEM)
-    val MATERIAL_INGOT = ItemMaterialBase(PartRegistry.INGOT)
-    val MATERIAL_NUGGET = ItemMaterialBase(PartRegistry.NUGGET)
-    val MATERIAL_PLATE = ItemMaterialBase(PartRegistry.PLATE)
+    val MATERIAL_BLOCK = ItemMaterial(PartRegistry.BLOCK)
+    val MATERIAL_BOTTLE = ItemMaterial(PartRegistry.BOTTLE)
+    val MATERIAL_DUST = ItemMaterial(PartRegistry.DUST)
+    val MATERIAL_DUST_TINY = ItemMaterial(PartRegistry.DUST_TINY)
+    val MATERIAL_GEAR = ItemMaterial(PartRegistry.GEAR)
+    val MATERIAL_GEM = ItemMaterial(PartRegistry.GEM)
+    val MATERIAL_INGOT = ItemMaterial(PartRegistry.INGOT)
+    val MATERIAL_NUGGET = ItemMaterial(PartRegistry.NUGGET)
+    val MATERIAL_PLATE = ItemMaterial(PartRegistry.PLATE)
 
 
     override fun register(registry: IForgeRegistry<Item>) {

@@ -1,4 +1,4 @@
-package hiiragi283.material
+package hiiragi283.material.api
 
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 
-interface RMEntry<T : IForgeRegistryEntry<T>> {
+interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun register(registry: IForgeRegistry<T>)
 

@@ -1,11 +1,11 @@
-package hiiragi283.material.item
+package hiiragi283.material.api.item
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material_part.IMaterialPart
-import hiiragi283.material.material_part.MaterialPart
-import hiiragi283.material.material_part.MaterialPartRegistry
-import hiiragi283.material.part.HiiragiPart
+import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.material_part.IMaterialPart
+import hiiragi283.material.api.material_part.MaterialPart
+import hiiragi283.material.api.material_part.MaterialPartRegistry
+import hiiragi283.material.api.part.HiiragiPart
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
@@ -19,7 +19,7 @@ private val CREATIVE_TAB = object : CreativeTabs("${RagiMaterials.MODID}.materia
     override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
 }
 
-open class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 32767), IMaterialPart<ItemStack> {
+open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767), IMaterialPart<ItemStack> {
 
     init {
         creativeTab = CREATIVE_TAB
@@ -40,7 +40,7 @@ open class ItemMaterialBase(val part: HiiragiPart) : RMItemBase(part.name, 32767
             .forEach { subItems.add(it) }
     }
 
-    //    RMEntry    //
+    //    HiiragiEntry    //
 
     override fun registerMaterialPart() {
         MaterialRegistry.getMaterials()

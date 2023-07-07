@@ -1,10 +1,10 @@
 package hiiragi283.material.config
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.material.CrystalType
-import hiiragi283.material.material.HiiragiMaterial
-import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.material.materialOf
+import hiiragi283.material.api.material.CrystalType
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.material.materialOf
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
 

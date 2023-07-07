@@ -1,7 +1,7 @@
-package hiiragi283.material.material_part
+package hiiragi283.material.api.material_part
 
-import hiiragi283.material.material.HiiragiMaterial
-import hiiragi283.material.part.HiiragiPart
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.HiiragiPart
 
 data class MaterialPart(val part: HiiragiPart, val material: HiiragiMaterial) : IMaterialPart<MaterialPart> {
 

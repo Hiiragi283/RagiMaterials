@@ -1,10 +1,10 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluid
-import hiiragi283.material.material.MaterialRegistry
-import hiiragi283.material.part.PartRegistry
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Mod
@@ -26,10 +26,6 @@ object RagiMaterials {
 
     //MOD IDの宣言
     const val MODID = "ragi_materials"
-
-    //Instanceの宣言
-    @Mod.Instance(MODID)
-    var INSTANCE: RagiMaterials = this
 
     //各種変数の宣言
     val CALENDAR: Calendar = Calendar.getInstance()
