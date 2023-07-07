@@ -21,6 +21,7 @@
 - Special thanks for the people helped me!
     - [a1lic](https://github.com/a1lic)
     - [defeatedcrow](https://github.com/defeatedcrow)
+    - [HalsekiRaika(RechellaTek)](https://github.com/HalsekiRaika)
     - [karakufire](https://github.com/karakufire)
     - [Ko_no](https://github.com/MrKono)
     - [Sayamame-beans](https://github.com/Sayamame-beans)
