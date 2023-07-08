@@ -130,7 +130,8 @@ object MaterialElements {
     }
 
     @JvmField
-    val ALUMINIUM = materialOf("aluminium", 13) {
+    @Deprecated("Alumin\"i\"um distortions.")
+    val ALUMINUM = materialOf("aluminum", 13) {
         color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 5).rgb
         crystalType = CrystalType.METAL
         formula = "Al"
@@ -140,8 +141,7 @@ object MaterialElements {
     }
 
     @JvmField
-    @Deprecated("Alumin\"i\"um distortions.")
-    val ALUMINUM = materialOf("aluminum", 13) {
+    val ALUMINIUM = materialOf("aluminium", 13) {
         color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 5).rgb
         crystalType = CrystalType.METAL
         formula = "Al"
@@ -249,7 +249,8 @@ object MaterialElements {
     }
 
     @JvmField
-    val CHROMIUM = materialOf("chromium", 24) {
+    @Deprecated("CHROMIUM distortions.")
+    val CHROME = materialOf("chrome", 24) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "Cr"
@@ -259,8 +260,7 @@ object MaterialElements {
     }
 
     @JvmField
-    @Deprecated("CHROMIUM distortions.")
-    val CHROME = materialOf("chrome", 24) {
+    val CHROMIUM = materialOf("chromium", 24) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "Cr"
@@ -944,7 +944,8 @@ object MaterialElements {
     }
 
     @JvmField
-    val URANIUM = materialOf("uranium", 92) {
+    @Deprecated("URANIUM distortions.")
+    val URANIUM238 = materialOf("uranium238", 92) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "U"
@@ -954,8 +955,7 @@ object MaterialElements {
     }
 
     @JvmField
-    @Deprecated("URANIUM distortions.")
-    val URANIUM238 = materialOf("uranium238", 92) {
+    val URANIUM = materialOf("uranium", 92) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "U"

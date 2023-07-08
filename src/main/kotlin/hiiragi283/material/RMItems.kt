@@ -3,6 +3,9 @@ package hiiragi283.material
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.item.ItemMaterial
 import hiiragi283.material.api.material.MaterialElements
+import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.material_part.MaterialPart
+import hiiragi283.material.api.material_part.MaterialPartRegistry
 import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
@@ -18,19 +21,41 @@ import net.minecraftforge.registries.IForgeRegistry
 
 object RMItems : HiiragiEntry<Item> {
 
+    @JvmField
     val BOOK_RESPAWN = ItemBookRespawn
+
+    @JvmField
     val FORGE_HAMMER = ItemForgeHammer
 
+    @JvmField
     val MATERIAL_BLOCK = ItemMaterial(PartRegistry.BLOCK)
+
+    @JvmField
     val MATERIAL_BOTTLE = ItemMaterial(PartRegistry.BOTTLE)
+
+    @JvmField
     val MATERIAL_DUST = ItemMaterial(PartRegistry.DUST)
+
+    @JvmField
     val MATERIAL_DUST_TINY = ItemMaterial(PartRegistry.DUST_TINY)
+
+    @JvmField
     val MATERIAL_GEAR = ItemMaterial(PartRegistry.GEAR)
+
+    @JvmField
     val MATERIAL_GEM = ItemMaterial(PartRegistry.GEM)
+
+    @JvmField
     val MATERIAL_INGOT = ItemMaterial(PartRegistry.INGOT)
+
+    @JvmField
     val MATERIAL_NUGGET = ItemMaterial(PartRegistry.NUGGET)
+
+    @JvmField
     val MATERIAL_PLATE = ItemMaterial(PartRegistry.PLATE)
 
+    @JvmField
+    val MATERIAL_STICK = ItemMaterial(PartRegistry.STICK)
 
     override fun register(registry: IForgeRegistry<Item>) {
 
@@ -51,18 +76,15 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_INGOT.register(registry)
         MATERIAL_NUGGET.register(registry)
         MATERIAL_PLATE.register(registry)
+        MATERIAL_STICK.register(registry)
     }
 
-    override fun registerMaterialPart() {
-        MATERIAL_BLOCK.registerMaterialPart()
-        MATERIAL_BOTTLE.registerMaterialPart()
-        MATERIAL_DUST.registerMaterialPart()
-        MATERIAL_DUST_TINY.registerMaterialPart()
-        MATERIAL_GEAR.registerMaterialPart()
-        MATERIAL_GEM.registerMaterialPart()
-        MATERIAL_INGOT.registerMaterialPart()
-        MATERIAL_NUGGET.registerMaterialPart()
-        MATERIAL_PLATE.registerMaterialPart()
+    fun registerMaterialPart() {
+        PartRegistry.getParts().forEach { part ->
+            MaterialRegistry.getMaterials()
+                .map { MaterialPart(part, it) }
+                .forEach { MaterialPartRegistry.registerTag(it.getOreDict(), it) }
+        }
     }
 
     override fun registerOreDict() {
@@ -75,6 +97,7 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_INGOT.registerOreDict()
         MATERIAL_NUGGET.registerOreDict()
         MATERIAL_PLATE.registerOreDict()
+        MATERIAL_STICK.registerOreDict()
 
         fun shareOredict(oredict1: String, oredict2: String) {
             OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
@@ -109,6 +132,7 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_INGOT.registerRecipe()
         MATERIAL_NUGGET.registerRecipe()
         MATERIAL_PLATE.registerRecipe()
+        MATERIAL_STICK.registerRecipe()
     }
 
     @SideOnly(Side.CLIENT)
@@ -122,6 +146,7 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_INGOT.registerColorItem(itemColors)
         MATERIAL_NUGGET.registerColorItem(itemColors)
         MATERIAL_PLATE.registerColorItem(itemColors)
+        MATERIAL_STICK.registerColorItem(itemColors)
     }
 
     @SideOnly(Side.CLIENT)
@@ -138,6 +163,7 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_INGOT.registerModel()
         MATERIAL_NUGGET.registerModel()
         MATERIAL_PLATE.registerModel()
+        MATERIAL_STICK.registerModel()
     }
 
 }

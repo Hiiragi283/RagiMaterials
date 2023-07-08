@@ -36,8 +36,10 @@ object MaterialPartRegistry {
 
     @JvmStatic
     fun registerTag(location: String, materialPart: MaterialPart) {
-        TAG_TO_MATERIAL_PART.putIfAbsent(location, materialPart)
-            ?.let { RagiMaterials.LOGGER.warn("The location: $location has already registered!") }
+        TAG_TO_MATERIAL_PART[location]?.let {
+            RagiMaterials.LOGGER.warn("The material part: $it will be overrided by $location!")
+        }
+        TAG_TO_MATERIAL_PART[location] = materialPart
     }
 
     @JvmStatic

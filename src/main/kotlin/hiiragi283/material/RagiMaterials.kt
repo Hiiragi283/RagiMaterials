@@ -47,9 +47,10 @@ object RagiMaterials {
     @Mod.EventHandler
     fun onPreInit(event: FMLPreInitializationEvent) {
         //configから素材を登録
-        val jsonHandler = RMJSonHandler(event)
-        jsonHandler.writeJson()
-        jsonHandler.readJson()
+        RMJSonHandler(event).run {
+            this.writeJson()
+            this.readJson()
+        }
         //液体の登録
         HiiragiFluid.register()
         //MaterialPartとの紐づけ
@@ -71,8 +72,7 @@ object RagiMaterials {
     @Mod.EventHandler
     fun onComplete(event: FMLLoadCompleteEvent) {
         if (RMConfig.printRegisteredMaterials) {
-            MaterialRegistry.getMaterials()
-                .forEach { LOGGER.debug(it.toJson(false)) }
+            MaterialRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
         }
     }
 

@@ -31,4 +31,9 @@ class HiiragiPart internal constructor(val name: String, val scale: Double) {
 
     fun getOreDictPrefix() = name.snakeToLowerCamelCase()
 
+    fun getOreDict(material: HiiragiMaterial): String = StringBuilder().also {
+        it.append(this.getOreDictPrefix())
+        it.append(material.getOreDictName())
+    }.toString()
+
 }

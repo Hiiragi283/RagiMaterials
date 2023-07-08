@@ -3,6 +3,7 @@ package hiiragi283.material.api.part
 import hiiragi283.material.RMItems
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.CrystalType
+import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.material_part.MaterialPartRegistry
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.RagiIngredient
@@ -27,12 +28,14 @@ object PartRegistry {
     @JvmStatic
     fun registerPart(part: HiiragiPart) {
         val name = part.name
-        //同じ名前で登録されていた場合，登録せずに警告を表示する
-        REGISTRY.putIfAbsent(name, part)
-            ?.let { RagiMaterials.LOGGER.warn("The part: $name has already registered!") }
+        REGISTRY[name]?.let { RagiMaterials.LOGGER.warn("The part: $name will be overrided!") }
+        REGISTRY[name] = part
     }
 
     //    Parts    //
+
+    @JvmField
+    val COMMON: (Double) -> HiiragiPart = { partOf("common", it) }
 
     @JvmField
     val BLOCK = partOf("block", 9.0) {
@@ -72,6 +75,12 @@ object PartRegistry {
     val BOTTLE = partOf("bottle", 1.0)
 
     @JvmField
+    val CLUMP = partOf("clump", 1.0)
+
+    @JvmField
+    val CRYSTAL = partOf("crystal", 1.0)
+
+    @JvmField
     val DUST = partOf("dust", 1.0) {
         isMatch = { it.isSolid() }
         recipe = { item, material ->
@@ -81,6 +90,9 @@ object PartRegistry {
                 .buildShaped()
         }
     }
+
+    @JvmField
+    val DUST_DIRTY = partOf("dust_dirty", 1.0)
 
     @JvmField
     val DUST_TINY = partOf("dust_tiny", 0.1) {
@@ -107,24 +119,20 @@ object PartRegistry {
     val GEM = partOf("gem", 1.0) {
         isMatch = { it.isSolid() && it.isGem() }
         model = { item ->
-            fun getLocation(crystalType: CrystalType) = item.registryName!!.append("_" + crystalType.texture)
-
-            fun getModelLocation(crystalType: CrystalType) =
-                ModelResourceLocation(getLocation(crystalType), "inventory")
 
             val locations: MutableList<ResourceLocation> = mutableListOf()
 
             CrystalType.values()
                 .filter { it.texture.isNotEmpty() }
-                .map { getLocation(it) }
+                .map { item.registryName!!.append("_" + it.texture) }
                 .forEach { locations.add(it) }
 
             ModelLoader.registerItemVariants(item, *locations.toTypedArray())
 
             ModelLoader.setCustomMeshDefinition(item) { stack ->
-                val material = MaterialPartRegistry.getMaterialPart(stack).material
-                if (item.part.isMatch(material)) getModelLocation(material.crystalType)
-                else getModelLocation(CrystalType.CUBIC)
+                val material = MaterialRegistry.getMaterial(stack.metadata)
+                val type = if (item.part.isMatch(material)) material.crystalType else CrystalType.CUBIC
+                type.getLocation(item)
             }
         }
         recipe = { item, material ->
@@ -153,6 +161,9 @@ object PartRegistry {
     }
 
     @JvmField
+    val LOG = partOf("log", 4.0)
+
+    @JvmField
     val NUGGET = partOf("nugget", 0.1) {
         isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
@@ -161,6 +172,12 @@ object PartRegistry {
                 .buildShapeless()
         }
     }
+
+    @JvmField
+    val ORE = partOf("ore", -1.0)
+
+    @JvmField
+    val PLANK = partOf("plank", 1.0)
 
     @JvmField
     val PLATE = partOf("plate", 1.0) {
@@ -176,20 +193,31 @@ object PartRegistry {
     }
 
     @JvmField
+    val SHARD = partOf("shard", 1.0)
+
+    @JvmField
     val STICK = partOf("stick", 0.5) {
         isMatch = { it.isSolid() && it.isMetal() }
+        recipe = { item, material ->
+            if (material.isMetal()) {
+                CraftingBuilder(ItemStack(item, 4, material.index))
+                    .setPattern("AB", "A ")
+                    .setIngredient('A', "ingot${material.getOreDictName()}")
+                    .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
+                    .buildShaped()
+            }
+        }
     }
 
+    @JvmField
+    val STONE = partOf("stone", 1.0)
+
     fun init() {
-        registerPart(BLOCK)
-        registerPart(GEM)
-        registerPart(DUST)
-        registerPart(DUST_TINY)
-        registerPart(GEAR)
-        registerPart(INGOT)
-        registerPart(NUGGET)
-        registerPart(PLATE)
-        registerPart(STICK)
+        val fields = this::class.java.declaredFields
+        fields.forEach { it.isAccessible = true }
+        fields.map { it.get(this) }
+            .filterIsInstance<HiiragiPart>()
+            .forEach { registerPart(it) }
     }
 
 }

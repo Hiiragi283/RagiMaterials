@@ -1,7 +1,9 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.material_part.MaterialPart
 import hiiragi283.material.api.material_part.MaterialPartRegistry
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
@@ -27,13 +29,15 @@ object RMEventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     fun onTooltip(event: ItemTooltipEvent) {
-        val stack = event.itemStack
-        if (stack.isEmpty) return
-        OreDictionary.getOreIDs(stack)
-            .map { OreDictionary.getOreName(it) }
-            .map { MaterialPartRegistry.getMaterialPart(it) }
-            .filter { !it.isEmpty() }
-            .forEach { it.material.getTooltip(event.toolTip, it.part) }
+
+        event.itemStack
+            .takeUnless(ItemStack::isEmpty)
+            ?.let(OreDictionary::getOreIDs)
+            ?.map(OreDictionary::getOreName)
+            ?.map(MaterialPartRegistry::getMaterialPart)
+            ?.filterNot(MaterialPart::isEmpty)
+            ?.forEach { it.material.getTooltip(event.toolTip, it.part) }
+
     }
 
 }

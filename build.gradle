@@ -230,6 +230,7 @@ idea {
 tasks.named("processIdeaSettings").configure {
     dependsOn("injectTags")
 }
+
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"

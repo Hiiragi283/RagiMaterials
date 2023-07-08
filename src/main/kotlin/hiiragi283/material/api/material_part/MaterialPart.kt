@@ -3,7 +3,7 @@ package hiiragi283.material.api.material_part
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 
-data class MaterialPart(val part: HiiragiPart, val material: HiiragiMaterial) : IMaterialPart<MaterialPart> {
+data class MaterialPart(val part: HiiragiPart, val material: HiiragiMaterial) {
 
     companion object {
         @JvmField
@@ -17,8 +17,6 @@ data class MaterialPart(val part: HiiragiPart, val material: HiiragiMaterial) : 
         it.append(material.getOreDictName())
     }.toString()
 
-    //    IMaterialPart    //
-
-    override fun getMaterialPart(obj: MaterialPart): MaterialPart = this
+    override fun toString(): String = "${part.name}:${material.name}"
 
 }

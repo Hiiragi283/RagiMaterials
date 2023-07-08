@@ -7,10 +7,15 @@ import net.minecraft.client.resources.I18n
 import rechellatek.snakeToUpperCamelCase
 import kotlin.math.roundToInt
 
-/**
- * @param name Name for this material
- * @param index Index for this material
- */
+/*
+  === Index Range ===
+          <= -1 ... Not registered
+        1 ~ 118 ... Periodic Table
+      120 ~ 199 ... Isotopes
+    1000 ~ 1900 ... Integration for other mods
+  10010 ~ 11899 ... Compounds (1 + Atomic Number + Index)
+       >= 32768 ... Not registered
+*/
 
 data class HiiragiMaterial internal constructor(
     val name: String,
@@ -60,20 +65,19 @@ data class HiiragiMaterial internal constructor(
     }
 
     fun getTooltip(tooltip: MutableList<String>, part: HiiragiPart = HiiragiPart.EMPTY) {
-        if (!isEmpty()) {
-            tooltip.add("§e=== Property ===")
-            tooltip.add(I18n.format("tips.ragi_materials.property.name", translatedName))
-            if (hasFormula())
-                tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
-            if (hasMolar())
-                tooltip.add(I18n.format("tips.ragi_materials.property.mol", getWeight(part.scale)))
-            if (hasTempMelt())
-                tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
-            if (hasTempBoil())
-                tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
-            if (hasTempSubl())
-                tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
-        }
+        if (isEmpty()) return
+        tooltip.add("§e=== Property ===")
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", translatedName))
+        if (hasFormula())
+            tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
+        if (hasMolar() && getWeight(part.scale) > 0.0)
+            tooltip.add(I18n.format("tips.ragi_materials.property.mol", getWeight(part.scale)))
+        if (hasTempMelt())
+            tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
+        if (hasTempBoil())
+            tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
+        if (hasTempSubl())
+            tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
     }
 
     fun getWeight(scale: Double): Double = (molar * scale * 10.0).roundToInt() / 10.0

@@ -11,7 +11,11 @@ object MaterialRegistry {
     fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
 
     @JvmStatic
-    fun getMaterialFromName(name: String) = REGISTRY.getOrDefault(name, HiiragiMaterial.EMPTY)
+    fun getMaterial(name: String) = REGISTRY.getOrDefault(name, HiiragiMaterial.EMPTY)
+
+    @Deprecated("")
+    @JvmStatic
+    fun getMaterial(index: Int) = INDEX_TO_MATERIAL.getOrDefault(index, HiiragiMaterial.EMPTY)
 
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
@@ -49,5 +53,6 @@ object MaterialRegistry {
     fun init() {
         MaterialElements.init()
         MaterialCommon.init()
+        MaterialIntegration.init()
     }
 }
