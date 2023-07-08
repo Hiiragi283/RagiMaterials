@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "hiiragi283.material.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinEntitySheep"
+  ],
+  "server": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
