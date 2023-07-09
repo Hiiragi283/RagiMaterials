@@ -5,6 +5,7 @@ import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluid
+import hiiragi283.material.integration.RMIntegrationCore
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Mod
@@ -55,6 +56,8 @@ object RagiMaterials {
         HiiragiFluid.register()
         //MaterialPartとの紐づけ
         RMItems.registerMaterialPart()
+        //連携の登録
+        RMIntegrationCore.onPreInit()
     }
 
     @Mod.EventHandler
@@ -63,10 +66,14 @@ object RagiMaterials {
         RMItems.registerOreDict()
         //レシピの登録
         RMItems.registerRecipe()
+        //連携の登録
+        RMIntegrationCore.onInit()
     }
 
     @Mod.EventHandler
     fun onPostInit(event: FMLPostInitializationEvent) {
+        //連携の登録
+        RMIntegrationCore.onPostInit()
     }
 
     @Mod.EventHandler

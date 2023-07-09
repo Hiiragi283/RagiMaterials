@@ -136,3 +136,31 @@ private fun initFormula(material: HiiragiMaterial, components: List<HiiragiMater
 //    Formula String    //
 
 fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial.EMPTY.copy(formula = formula)
+
+//    Hydrate    //
+
+fun hydrateOf(
+    name: String,
+    index: Int,
+    parent: HiiragiMaterial,
+    amountWater: Int,
+    init: HiiragiMaterial.() -> Unit = {}
+): HiiragiMaterial {
+    val hydrate = HiiragiMaterial(name, index)
+    initHydrate(hydrate, parent, amountWater)
+    hydrate.init()
+    return hydrate
+}
+
+fun initHydrate(material: HiiragiMaterial, parent: HiiragiMaterial, amountWater: Int) {
+    initFormula(material, parent, amountWater)
+    material.molar = parent.molar + amountWater * MaterialCommon.WATER.molar
+}
+
+fun initFormula(material: HiiragiMaterial, parent: HiiragiMaterial, amountWater: Int) {
+    val builder = StringBuilder(parent.formula)
+    builder.append("・")
+    builder.append(amountWater)
+    builder.append(MaterialCommon.WATER.formula)
+    material.formula = builder.toString()
+}

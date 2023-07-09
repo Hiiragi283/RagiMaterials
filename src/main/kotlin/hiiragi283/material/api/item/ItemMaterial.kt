@@ -32,8 +32,9 @@ open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
         MaterialRegistry.getMaterials()
-            .filter { part.isMatch(it) || it.isAdditionalPart(part.name) }
+            .filter { it.isSolid() && part.isValid(it) }
             .map { ItemStack(this, 1, it.index) }
+            .filter { it.metadata != 0 }
             .forEach { subItems.add(it) }
     }
 
@@ -41,7 +42,7 @@ open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
 
     override fun registerOreDict() {
         MaterialRegistry.getMaterials()
-            .filter { part.isMatch(it) || it.isAdditionalPart(part.name) }
+            .filter { it.isSolid() && part.isValid(it) }
             .forEach {
                 OreDictionary.registerOre(part.getOreDict(it), ItemStack(this, 1, it.index))
             }
@@ -49,7 +50,7 @@ open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
 
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
-            .filter { part.isMatch(it) || it.isAdditionalPart(part.name) }
+            .filter { it.isSolid() && part.isValid(it) }
             .forEach { part.recipe(this, it) }
     }
 

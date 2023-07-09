@@ -158,12 +158,6 @@ material.deuterium=Deuterium
 material.tritium=Tritium
 material.uranium235=Uranium 235
 
-### Vanilla Elements ###
-
-material.redstone=Redstone
-material.glowstone=Glowstone
-material.ender=Ender
-
 ### Common Materials ###
 
 material.wood=Wood
@@ -175,6 +169,7 @@ material.charcoal=Charcoal
 material.coke=Coke
 material.diamond=Diamond
 material.sugar=Sugar
+material.amber=Amber
 material.niter=Niter
 material.nitric_acid=Nitric Acid
 material.gunpowder=Gunpowder
@@ -182,6 +177,9 @@ material.cryolite=Cryolite
 material.fluorite=Fluorite
 material.hydrogen_fluoride=Hydrogen Fluoride
 material.salt=Salt
+material.olivine=Olivine
+material.peridot=Peridot
+material.alumina=Alumina
 material.bauxite=Bauxite
 material.ruby=Ruby
 material.sapphire=Sapphire
@@ -207,7 +205,38 @@ material.invar=Invar
 material.brass=Brass
 material.bronze=Bronze
 material.electrum=Electrum
-
-material.lapis=Lapis
+material.cinnabar=Cinnabar
 
 material.dhmo=DHMO
+
+### Vanilla Materials ###
+
+material.redstone=Redstone
+material.lapis=Lapis
+material.glowstone=Glowstone
+material.ender=Ender
+
+### Integration Materials ###
+
+material.mithril=Mana Infused
+material.signalum=Signalum
+material.lumium=Lumium
+material.enderium=Enderium
+material.pyrotheum=Pyrotheum
+material.cryotheum=Cryotheum
+material.aerotheum=Aerotheum
+material.petrotheum=Petrotheum
+
+material.refined_obsidian=Refined Obsidian
+material.refined_glowstone=Refined Glowstone
+
+material.electrical_steel=Electrical Steel
+material.energetic_alloy=Energetic Alloy
+material.vibrant_alloy=Vibrant Alloy
+material.redstone_alloy=Redstone Alloy
+material.conductive_iron=Conductive Iron
+material.pulsating_iron=Pulsating Iron
+material.dark_steel=Dark Steel
+material.soularium=Soularium
+material.end_steel=End Steel
+material.construction_alloy=Iron Alloy

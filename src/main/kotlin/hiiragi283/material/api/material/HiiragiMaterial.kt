@@ -5,7 +5,6 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.part.HiiragiPart
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToUpperCamelCase
-import kotlin.math.roundToInt
 
 /*
   === Index Range ===
@@ -30,7 +29,7 @@ data class HiiragiMaterial internal constructor(
     var translationKey: String = "material.$name"
 ) {
 
-    var partsAdditional: List<String> = listOf()
+    val validParts: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
 
     val translatedName: String
         get() = I18n.format(translationKey)
@@ -70,8 +69,8 @@ data class HiiragiMaterial internal constructor(
         tooltip.add(I18n.format("tips.ragi_materials.property.name", translatedName))
         if (hasFormula())
             tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
-        if (hasMolar() && getWeight(part.scale) > 0.0)
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", getWeight(part.scale)))
+        if (hasMolar() && part.hasScale())
+            tooltip.add(I18n.format("tips.ragi_materials.property.mol", part.getWeight(this)))
         if (hasTempMelt())
             tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
         if (hasTempBoil())
@@ -79,10 +78,6 @@ data class HiiragiMaterial internal constructor(
         if (hasTempSubl())
             tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
     }
-
-    fun getWeight(scale: Double): Double = (molar * scale * 10.0).roundToInt() / 10.0
-
-    fun hasCrystal(): Boolean = crystalType.isCrystal
 
     fun hasFormula(): Boolean = formula.isNotEmpty()
 
@@ -96,7 +91,7 @@ data class HiiragiMaterial internal constructor(
 
     fun isEmpty(): Boolean = this.name == "empty"
 
-    fun isGem(): Boolean = hasCrystal() && !isMetal()
+    fun isGem(): Boolean = crystalType.isCrystal && !isMetal()
 
     fun isMetal(): Boolean = crystalType == CrystalType.METAL
 
@@ -105,8 +100,6 @@ data class HiiragiMaterial internal constructor(
     fun isLiquid(): Boolean = getState() == MaterialState.LIQUID
 
     fun isSolid(): Boolean = getState() == MaterialState.SOLID
-
-    fun isAdditionalPart(part: String): Boolean = part in partsAdditional
 
     fun setCrystalType(type: CrystalType) = also {
         if (it.isSolid()) {

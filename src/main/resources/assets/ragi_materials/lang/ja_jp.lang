@@ -158,12 +158,6 @@ material.deuterium=重水素
 material.tritium=三重水素
 material.uranium235=ウラン 235
 
-### Vanilla Elements ###
-
-material.redstone=レッドストーン
-material.glowstone=グロウストーン
-material.ender=エンダー
-
 ### Common Materials ###
 
 material.wood=木材
@@ -175,6 +169,7 @@ material.charcoal=木炭
 material.coke=コークス
 material.diamond=ダイヤモンド
 material.sugar=砂糖
+material.amber=琥珀
 material.niter=硝石
 material.nitric_acid=硝酸
 material.gunpowder=火薬
@@ -182,6 +177,9 @@ material.cryolite=氷晶石
 material.fluorite=蛍石
 material.hydrogen_fluoride=フッ化水素
 material.salt=塩
+material.olivine=カンラン石
+material.peridot=ペリドット
+material.alumina=アルミナ
 material.bauxite=ボーキサイト
 material.ruby=ルビー
 material.sapphire=サファイア
@@ -207,7 +205,38 @@ material.invar=インバー
 material.brass=黄銅
 material.bronze=青銅
 material.electrum=エレクトラム
-
-material.lapis=ラピス
+material.cinnabar=辰砂
 
 material.dhmo=DHMO (一水素化二酸素)
+
+### Vanilla Elements ###
+
+material.redstone=レッドストーン
+material.lapis=ラピス
+material.glowstone=グロウストーン
+material.ender=エンダー
+
+### Integration Materials ###
+
+material.mithril=マナ含浸金属
+material.signalum=シグナルム
+material.lumium=ルミウム
+material.enderium=エンダリウム
+material.pyrotheum=パイロジウム
+material.cryotheum=クリオジウム
+material.aerotheum=エアロジウム
+material.petrotheum=ペトロジウム
+
+material.refined_obsidian=精製黒曜石
+material.refined_glowstone=精製グロウストーン
+
+material.electrical_steel=電炉鋼
+material.energetic_alloy=エナジェティック合金
+material.vibrant_alloy=ヴァイブラント合金
+material.redstone_alloy=レッドストーン合金
+material.conductive_iron=電導鉄
+material.pulsating_iron=脈動鉄
+material.dark_steel=ダークスチール
+material.soularium=ソウラリウム
+material.end_steel=エンドスチール
+material.construction_alloy=鉄合金

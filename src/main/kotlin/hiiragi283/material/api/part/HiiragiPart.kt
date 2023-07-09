@@ -6,6 +6,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.util.RMModelManager
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
+import kotlin.math.roundToInt
 
 fun partOf(name: String, scale: Double, init: HiiragiPart.() -> Unit = {}): HiiragiPart {
     val part = HiiragiPart(name, scale)
@@ -15,7 +16,6 @@ fun partOf(name: String, scale: Double, init: HiiragiPart.() -> Unit = {}): Hiir
 
 class HiiragiPart internal constructor(val name: String, val scale: Double) {
 
-    var isMatch: (HiiragiMaterial) -> Boolean = { true }
     var model: (ItemMaterial) -> Unit = { RMModelManager.setModelSame(it) }
     var recipe: (ItemMaterial, HiiragiMaterial) -> Unit = { _, _ -> }
 
@@ -35,5 +35,11 @@ class HiiragiPart internal constructor(val name: String, val scale: Double) {
         it.append(this.getOreDictPrefix())
         it.append(material.getOreDictName())
     }.toString()
+
+    fun getWeight(material: HiiragiMaterial): Double = (material.molar * scale * 10.0).roundToInt() / 10.0
+
+    fun hasScale(): Boolean = scale > 0.0
+
+    fun isValid(material: HiiragiMaterial): Boolean = name in material.validParts
 
 }

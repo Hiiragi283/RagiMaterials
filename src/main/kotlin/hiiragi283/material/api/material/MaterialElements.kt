@@ -40,6 +40,7 @@ object MaterialElements {
         molar = 6.9
         tempBoil = 1560
         tempMelt = 454
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -50,6 +51,7 @@ object MaterialElements {
         molar = 9.0
         tempBoil = 2742
         tempMelt = 1560
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -60,6 +62,7 @@ object MaterialElements {
         molar = 10.8
         tempBoil = 4200
         tempMelt = 2349
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -70,6 +73,7 @@ object MaterialElements {
         //tempBoil = 4300
         //tempMelt = 4000
         tempSubl = 3915
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -117,6 +121,7 @@ object MaterialElements {
         molar = 23.0
         tempBoil = 1156
         tempMelt = 371
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -127,6 +132,7 @@ object MaterialElements {
         molar = 24.3
         tempBoil = 1363
         tempMelt = 923
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -138,6 +144,7 @@ object MaterialElements {
         molar = 27.0
         tempBoil = 2792
         tempMelt = 933
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -148,6 +155,7 @@ object MaterialElements {
         molar = 27.0
         tempBoil = 2792
         tempMelt = 933
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -158,6 +166,7 @@ object MaterialElements {
         molar = 28.1
         tempBoil = 3538
         tempMelt = 1687
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -167,6 +176,7 @@ object MaterialElements {
         molar = 31.0
         tempBoil = 550
         tempMelt = 317
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -176,6 +186,7 @@ object MaterialElements {
         molar = 32.1
         tempBoil = 718
         tempMelt = 388
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -206,6 +217,7 @@ object MaterialElements {
         molar = 39.1
         tempBoil = 1032
         tempMelt = 337
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -216,6 +228,7 @@ object MaterialElements {
         molar = 40.1
         tempBoil = 1757
         tempMelt = 1115
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -226,6 +239,7 @@ object MaterialElements {
         molar = 45.0
         tempBoil = 3109
         tempMelt = 1814
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -236,6 +250,7 @@ object MaterialElements {
         molar = 47.9
         tempBoil = 3560
         tempMelt = 1941
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -246,6 +261,7 @@ object MaterialElements {
         molar = 50.9
         tempBoil = 3680
         tempMelt = 2183
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -257,6 +273,7 @@ object MaterialElements {
         molar = 52.0
         tempBoil = 2944
         tempMelt = 2180
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -267,6 +284,7 @@ object MaterialElements {
         molar = 52.0
         tempBoil = 2944
         tempMelt = 2180
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -277,6 +295,7 @@ object MaterialElements {
         molar = 54.9
         tempBoil = 2334
         tempMelt = 1519
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -287,6 +306,7 @@ object MaterialElements {
         molar = 55.8
         tempBoil = 3134
         tempMelt = 1811
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -297,6 +317,7 @@ object MaterialElements {
         molar = 58.9
         tempBoil = 3200
         tempMelt = 1768
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -307,6 +328,7 @@ object MaterialElements {
         molar = 58.7
         tempBoil = 3186
         tempMelt = 1728
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -317,6 +339,7 @@ object MaterialElements {
         molar = 63.5
         tempBoil = 2835
         tempMelt = 1358
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -327,6 +350,7 @@ object MaterialElements {
         molar = 65.4
         tempBoil = 1180
         tempMelt = 693
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -337,6 +361,7 @@ object MaterialElements {
         molar = 69.7
         tempBoil = 2673
         tempMelt = 303
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -347,6 +372,7 @@ object MaterialElements {
         molar = 72.6
         tempBoil = 3106
         tempMelt = 1211
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -358,6 +384,7 @@ object MaterialElements {
         //tempBoil = 887
         //tempMelt = 1090
         tempSubl = 887
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -368,6 +395,7 @@ object MaterialElements {
         molar = 74.9
         tempBoil = 958
         tempMelt = 453
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -398,6 +426,7 @@ object MaterialElements {
         molar = 85.5
         tempBoil = 961
         tempMelt = 312
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -408,6 +437,7 @@ object MaterialElements {
         molar = 87.6
         tempBoil = 1655
         tempMelt = 1050
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -418,6 +448,7 @@ object MaterialElements {
         molar = 88.9
         tempBoil = 3609
         tempMelt = 1799
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -428,6 +459,7 @@ object MaterialElements {
         molar = 91.2
         tempBoil = 4682
         tempMelt = 2128
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -438,6 +470,7 @@ object MaterialElements {
         molar = 92.9
         tempBoil = 5017
         tempMelt = 2750
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -448,6 +481,7 @@ object MaterialElements {
         molar = 96.0
         tempBoil = 4912
         tempMelt = 2896
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -458,6 +492,7 @@ object MaterialElements {
         //molar = 97.0/98.0/99.0
         tempBoil = 4538
         tempMelt = 2430
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -468,6 +503,7 @@ object MaterialElements {
         molar = 101.1
         tempBoil = 4423
         tempMelt = 2607
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -478,6 +514,7 @@ object MaterialElements {
         molar = 102.9
         tempBoil = 3968
         tempMelt = 2237
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -488,6 +525,7 @@ object MaterialElements {
         molar = 106.4
         tempBoil = 3236
         tempMelt = 1828
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -498,6 +536,7 @@ object MaterialElements {
         molar = 107.9
         tempBoil = 2435
         tempMelt = 1235
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -508,6 +547,7 @@ object MaterialElements {
         molar = 112.4
         tempBoil = 1040
         tempMelt = 594
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -518,6 +558,7 @@ object MaterialElements {
         molar = 114.8
         tempBoil = 2345
         tempMelt = 430
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -528,6 +569,7 @@ object MaterialElements {
         molar = 118.7
         tempBoil = 2875
         tempMelt = 505
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -538,6 +580,7 @@ object MaterialElements {
         molar = 121.8
         tempBoil = 1860
         tempMelt = 904
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -548,6 +591,7 @@ object MaterialElements {
         molar = 127.6
         tempBoil = 1261
         tempMelt = 723
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -557,6 +601,7 @@ object MaterialElements {
         molar = 126.9
         tempBoil = 457
         tempMelt = 387
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -578,6 +623,7 @@ object MaterialElements {
         molar = 132.9
         tempBoil = 944
         tempMelt = 302
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -588,6 +634,7 @@ object MaterialElements {
         molar = 137.3
         tempBoil = 2170
         tempMelt = 1000
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Lanthanides Start    //
@@ -600,6 +647,7 @@ object MaterialElements {
         molar = 138.9
         tempBoil = 3737
         tempMelt = 1193
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -610,6 +658,7 @@ object MaterialElements {
         molar = 140.1
         tempBoil = 3716
         tempMelt = 1068
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -620,6 +669,7 @@ object MaterialElements {
         molar = 140.9
         tempBoil = 3793
         tempMelt = 1208
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -630,6 +680,7 @@ object MaterialElements {
         molar = 144.2
         tempBoil = 3347
         tempMelt = 1297
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -640,6 +691,7 @@ object MaterialElements {
         //molar = 145.0
         tempBoil = 3237
         tempMelt = 1315
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -650,6 +702,7 @@ object MaterialElements {
         molar = 150.4
         tempBoil = 2067
         tempMelt = 1345
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -660,6 +713,7 @@ object MaterialElements {
         molar = 152.0
         tempBoil = 1802
         tempMelt = 1099
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -670,6 +724,7 @@ object MaterialElements {
         molar = 157.3
         tempBoil = 3546
         tempMelt = 1585
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -680,6 +735,7 @@ object MaterialElements {
         molar = 158.9
         tempBoil = 3503
         tempMelt = 1629
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -690,6 +746,7 @@ object MaterialElements {
         molar = 157.3
         tempBoil = 2840
         tempMelt = 1680
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -700,6 +757,7 @@ object MaterialElements {
         molar = 164.9
         tempBoil = 2993
         tempMelt = 1734
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -710,6 +768,7 @@ object MaterialElements {
         molar = 167.3
         tempBoil = 3141
         tempMelt = 1802
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -720,6 +779,7 @@ object MaterialElements {
         molar = 168.9
         tempBoil = 2223
         tempMelt = 1818
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -730,6 +790,7 @@ object MaterialElements {
         molar = 173.0
         tempBoil = 1469
         tempMelt = 1097
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -740,6 +801,7 @@ object MaterialElements {
         molar = 175.0
         tempBoil = 3675
         tempMelt = 1925
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Lanthanides End    //
@@ -752,6 +814,7 @@ object MaterialElements {
         molar = 178.5
         tempBoil = 4876
         tempMelt = 2506
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -762,6 +825,7 @@ object MaterialElements {
         molar = 180.9
         tempBoil = 5731
         tempMelt = 3290
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -772,6 +836,7 @@ object MaterialElements {
         molar = 183.8
         tempBoil = 5828
         tempMelt = 3695
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -782,6 +847,7 @@ object MaterialElements {
         molar = 186.2
         tempBoil = 5869
         tempMelt = 3459
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -792,6 +858,7 @@ object MaterialElements {
         molar = 190.2
         tempBoil = 5285
         tempMelt = 3306
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -802,6 +869,7 @@ object MaterialElements {
         molar = 192.2
         tempBoil = 4701
         tempMelt = 2719
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -812,6 +880,7 @@ object MaterialElements {
         molar = 195.1
         tempBoil = 4098
         tempMelt = 2041
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -822,6 +891,7 @@ object MaterialElements {
         molar = 197.0
         tempBoil = 3129
         tempMelt = 1337
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -830,6 +900,7 @@ object MaterialElements {
         molar = 200.6
         tempBoil = 670
         tempMelt = 234
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -840,6 +911,7 @@ object MaterialElements {
         molar = 204.4
         tempBoil = 1749
         tempMelt = 577
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -850,6 +922,7 @@ object MaterialElements {
         molar = 207.2
         tempBoil = 2022
         tempMelt = 601
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -860,6 +933,7 @@ object MaterialElements {
         molar = 209.0
         tempBoil = 1837
         tempMelt = 545
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -870,6 +944,7 @@ object MaterialElements {
         //molar = 209.0/210.0
         tempBoil = 1235
         tempMelt = 527
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -879,6 +954,7 @@ object MaterialElements {
         //molar = 210.0
         tempBoil = 610
         tempMelt = 575
+        validParts.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -899,6 +975,7 @@ object MaterialElements {
         //molar = 223.0
         tempBoil = 890
         tempMelt = 281
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -909,6 +986,7 @@ object MaterialElements {
         //molar = 226.0
         tempBoil = 2010
         tempMelt = 973
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Actinides Start    //
@@ -921,6 +999,7 @@ object MaterialElements {
         //molar = 227.0
         tempBoil = 3471
         tempMelt = 1323
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -931,6 +1010,7 @@ object MaterialElements {
         molar = 232.0
         tempBoil = 5061
         tempMelt = 2115
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -941,6 +1021,7 @@ object MaterialElements {
         molar = 231.0
         tempBoil = 4300
         tempMelt = 1841
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -952,6 +1033,7 @@ object MaterialElements {
         molar = 238.0
         tempBoil = 4404
         tempMelt = 1405
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -962,6 +1044,7 @@ object MaterialElements {
         molar = 238.0
         tempBoil = 4404
         tempMelt = 1405
+        validParts.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -972,6 +1055,7 @@ object MaterialElements {
         //molar = 237.0
         tempBoil = 4273
         tempMelt = 917
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -982,6 +1066,7 @@ object MaterialElements {
         molar = 244.1
         tempBoil = 3501
         tempMelt = 913
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -991,6 +1076,7 @@ object MaterialElements {
         //molar = 243.0
         tempBoil = 1880
         tempMelt = 1449
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1000,6 +1086,7 @@ object MaterialElements {
         //molar = 247.0
         tempBoil = 3383
         tempMelt = 1613
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1009,6 +1096,7 @@ object MaterialElements {
         //molar = 247.0
         tempBoil = 2900
         tempMelt = 1259
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1018,6 +1106,7 @@ object MaterialElements {
         //molar = 251.0/252.0
         tempBoil = 1743
         tempMelt = 1173
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1027,6 +1116,7 @@ object MaterialElements {
         //molar = 252.0
         tempBoil = 1269
         tempMelt = 1133
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1036,6 +1126,7 @@ object MaterialElements {
         //molar = 257.0
         //tempBoil =
         //tempMelt = 1125/1800
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1045,6 +1136,7 @@ object MaterialElements {
         //molar = 258.0
         //tempBoil =
         //tempMelt = 1100
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1054,6 +1146,7 @@ object MaterialElements {
         //molar = 259.0
         //tempBoil =
         //tempMelt = 1100
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1063,6 +1156,7 @@ object MaterialElements {
         //molar = 262.0/266.0
         //tempBoil =
         //tempMelt = 1900
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Actinides End    //
@@ -1074,6 +1168,7 @@ object MaterialElements {
         //molar = 261.1/267.0
         //tempBoil = 5800
         //tempMelt = 2400
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1083,6 +1178,7 @@ object MaterialElements {
         //molar = 265.0/268.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1092,6 +1188,7 @@ object MaterialElements {
         //molar = 269.0/271.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1101,6 +1198,7 @@ object MaterialElements {
         //molar = 270.0/272.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1110,6 +1208,7 @@ object MaterialElements {
         //molar = 269.0/277.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1119,6 +1218,7 @@ object MaterialElements {
         //molar = 276.0/278.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1128,6 +1228,7 @@ object MaterialElements {
         //molar = 281.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1137,6 +1238,7 @@ object MaterialElements {
         //molar = 280.0/281.0/282.0
         //tempBoil =
         //tempMelt =
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1146,6 +1248,7 @@ object MaterialElements {
         //molar = 285.0
         //tempBoil = 340
         //tempMelt = 283
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1155,6 +1258,7 @@ object MaterialElements {
         //molar = 278.0/286.0
         //tempBoil = 1400
         //tempMelt = 700
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1164,6 +1268,7 @@ object MaterialElements {
         //molar = 289.0
         //tempBoil =
         //tempMelt = 284
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1173,6 +1278,7 @@ object MaterialElements {
         //molar = 289.0/290.0
         //tempBoil = 1400
         //tempMelt = 700
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1182,6 +1288,7 @@ object MaterialElements {
         //molar = 293.0
         //tempBoil = 1100
         //tempMelt = 700
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1191,6 +1298,7 @@ object MaterialElements {
         //molar = 293.0/294.0
         //tempBoil = 883
         //tempMelt = 700
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -1200,6 +1308,7 @@ object MaterialElements {
         //molar = 294.0
         //tempBoil = 450
         //tempMelt = 352
+        validParts.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Isotope    //
@@ -1230,6 +1339,7 @@ object MaterialElements {
         molar = 235.0
         tempBoil = URANIUM238.tempBoil
         tempMelt = URANIUM238.tempMelt
+        validParts.addAll(URANIUM238.validParts)
     }
 
     fun init() {

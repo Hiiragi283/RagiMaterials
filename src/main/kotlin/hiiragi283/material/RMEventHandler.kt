@@ -31,6 +31,11 @@ object RMEventHandler {
     fun onTooltip(event: ItemTooltipEvent) {
 
         event.itemStack
+            .let(MaterialPartRegistry::getMaterialParts)
+            .filterNot(MaterialPart::isEmpty)
+            .forEach { it.material.getTooltip(event.toolTip, it.part) }
+
+        event.itemStack
             .takeUnless(ItemStack::isEmpty)
             ?.let(OreDictionary::getOreIDs)
             ?.map(OreDictionary::getOreName)

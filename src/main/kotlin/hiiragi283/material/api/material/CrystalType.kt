@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 
 enum class CrystalType(val isCrystal: Boolean, val texture: String) {
-    AMORPHOUS(false, "amorphous"),
+    AMORPHOUS(true, "amorphous"),
     COAL(true, "coal"),
     CUBIC(true, "cubic"),
     DIAMOND(true, "diamond"),

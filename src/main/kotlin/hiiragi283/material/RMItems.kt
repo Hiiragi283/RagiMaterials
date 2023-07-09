@@ -11,12 +11,10 @@ import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 
 object RMItems : HiiragiEntry<Item> {
@@ -98,26 +96,6 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_NUGGET.registerOreDict()
         MATERIAL_PLATE.registerOreDict()
         MATERIAL_STICK.registerOreDict()
-
-        fun shareOredict(oredict1: String, oredict2: String) {
-            OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
-            OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
-        }
-
-        fun registerOredict(oredict: String, item: Item, meta: Int = 0, share: String? = null) {
-            OreDictionary.registerOre(oredict, ItemStack(item, 1, meta))
-            share?.let { shareOredict(oredict, it) }
-        }
-
-        registerOredict("dustGunpowder", Items.GUNPOWDER, share = "gunpowder")
-        registerOredict("dustSugar", Items.SUGAR, share = "sugar")
-        registerOredict("gemCharcoal", Items.COAL, 1, share = "charcoal")
-        registerOredict("gemCoal", Items.COAL, share = "coal")
-        registerOredict("gemEnder", Items.ENDER_PEARL, share = "enderpearl")
-        registerOredict("stickWood", Items.STICK, share = "stick")
-
-        shareOredict("dustSaltpeter", "dustNiter")
-        shareOredict("fuelCoke", "gemCoke")
     }
 
     override fun registerRecipe() {

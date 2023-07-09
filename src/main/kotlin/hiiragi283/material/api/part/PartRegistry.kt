@@ -4,7 +4,6 @@ import hiiragi283.material.RMItems
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.CrystalType
 import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.api.material_part.MaterialPartRegistry
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.RagiIngredient
 import hiiragi283.material.util.append
@@ -38,8 +37,10 @@ object PartRegistry {
     val COMMON: (Double) -> HiiragiPart = { partOf("common", it) }
 
     @JvmField
+    val BALL = partOf("ball", 0.2)
+
+    @JvmField
     val BLOCK = partOf("block", 9.0) {
-        isMatch = { it.isSolid() && (it.isMetal() || it.isGem()) }
         model = {
             val common = ModelResourceLocation(it.registryName!!.append("_material"), "inventory")
             val gem = ModelResourceLocation(it.registryName!!.append("_gem"), "inventory")
@@ -48,7 +49,7 @@ object PartRegistry {
             ModelLoader.registerItemVariants(it, common, gem, metal)
 
             ModelLoader.setCustomMeshDefinition(it) { stack ->
-                val material = MaterialPartRegistry.getMaterialPart(stack).material
+                val material = MaterialRegistry.getMaterial(stack.metadata)
                 if (material.isMetal()) metal
                 else if (material.isGem()) gem
                 else common
@@ -78,11 +79,16 @@ object PartRegistry {
     val CLUMP = partOf("clump", 1.0)
 
     @JvmField
+    val CLUSTER = partOf("cluster", 2.0)
+
+    @JvmField
+    val COIN = partOf("coin", 0.3)
+
+    @JvmField
     val CRYSTAL = partOf("crystal", 1.0)
 
     @JvmField
     val DUST = partOf("dust", 1.0) {
-        isMatch = { it.isSolid() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 1, material.index))
                 .setPattern("AAA", "AAA", "AAA")
@@ -96,7 +102,6 @@ object PartRegistry {
 
     @JvmField
     val DUST_TINY = partOf("dust_tiny", 0.1) {
-        isMatch = { it.isSolid() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 9, material.index))
                 .addIngredient(RagiIngredient("dust${material.getOreDictName()}"))
@@ -106,7 +111,6 @@ object PartRegistry {
 
     @JvmField
     val GEAR = partOf("gear", 4.0) {
-        isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 1, material.index))
                 .setPattern(" A ", "A A", " A ")
@@ -117,7 +121,6 @@ object PartRegistry {
 
     @JvmField
     val GEM = partOf("gem", 1.0) {
-        isMatch = { it.isSolid() && it.isGem() }
         model = { item ->
 
             val locations: MutableList<ResourceLocation> = mutableListOf()
@@ -131,7 +134,7 @@ object PartRegistry {
 
             ModelLoader.setCustomMeshDefinition(item) { stack ->
                 val material = MaterialRegistry.getMaterial(stack.metadata)
-                val type = if (item.part.isMatch(material)) material.crystalType else CrystalType.CUBIC
+                val type = if (material.isGem()) material.crystalType else CrystalType.CUBIC
                 type.getLocation(item)
             }
         }
@@ -145,7 +148,6 @@ object PartRegistry {
 
     @JvmField
     val INGOT = partOf("ingot", 1.0) {
-        isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             //nugget -> ingot
             CraftingBuilder(ItemStack(item, 1, material.index))
@@ -165,7 +167,6 @@ object PartRegistry {
 
     @JvmField
     val NUGGET = partOf("nugget", 0.1) {
-        isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 9, material.index))
                 .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
@@ -181,7 +182,6 @@ object PartRegistry {
 
     @JvmField
     val PLATE = partOf("plate", 1.0) {
-        isMatch = { it.isSolid() && (it.isMetal() || it.isGem()) }
         recipe = { item, material ->
             if (material.isMetal()) {
                 CraftingBuilder(ItemStack(item, 1, material.index))
@@ -197,7 +197,6 @@ object PartRegistry {
 
     @JvmField
     val STICK = partOf("stick", 0.5) {
-        isMatch = { it.isSolid() && it.isMetal() }
         recipe = { item, material ->
             if (material.isMetal()) {
                 CraftingBuilder(ItemStack(item, 4, material.index))

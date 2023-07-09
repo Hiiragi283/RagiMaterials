@@ -34,6 +34,9 @@ object MaterialRegistry {
         val resultName = REGISTRY[name]
         if (resultName !== null) RagiMaterials.LOGGER.warn("$resultName will be overrided!")
 
+        //登録を行う
+        REGISTRY[name] = material
+
         //番号が0 <= index <= 2767でない場合はパス
         val index = material.index
         if (index !in 0..32767) {
@@ -46,7 +49,6 @@ object MaterialRegistry {
         if (resultIndex !== null) RagiMaterials.LOGGER.warn("The index: $index will be overrided by $material")
 
         //登録を行う
-        REGISTRY[name] = material
         INDEX_TO_MATERIAL[index] = material
     }
 
