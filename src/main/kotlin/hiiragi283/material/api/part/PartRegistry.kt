@@ -1,222 +1,52 @@
 package hiiragi283.material.api.part
 
-import hiiragi283.material.RMItems
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.material.CrystalType
-import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.RagiIngredient
-import hiiragi283.material.util.append
-import hiiragi283.material.util.toLocation
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import hiiragi283.material.util.toItemStack
+import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.oredict.OreDictionary
 
 object PartRegistry {
 
     private val REGISTRY: HashMap<String, HiiragiPart> = hashMapOf()
 
-    @JvmStatic
-    fun getParts(): Collection<HiiragiPart> = REGISTRY.values
+    //    getMaterialPart    //
 
     @JvmStatic
-    fun getPart(name: String) = REGISTRY.getOrDefault(name, HiiragiPart.EMPTY)
+    fun getPart(oredict: String): HiiragiPart = REGISTRY.getOrDefault(oredict, HiiragiPart.EMPTY)
 
     @JvmStatic
-    fun registerPart(part: HiiragiPart) {
-        val name = part.name
-        REGISTRY[name]?.let { RagiMaterials.LOGGER.warn("The part: $name will be overrided!") }
-        REGISTRY[name] = part
+    fun getParts(oredict: String): List<HiiragiPart> = listOf(getPart(oredict)).filterNot(HiiragiPart::isEmpty)
+
+    @JvmStatic
+    fun getParts(oredicts: Collection<String>): List<HiiragiPart> =
+        oredicts.map(::getPart).filterNot(HiiragiPart::isEmpty)
+
+    //ItemStackに変換した後，鉱石辞書から取得する
+    @JvmStatic
+    fun getParts(state: IBlockState): List<HiiragiPart> {
+        return state
+            .let(IBlockState::toItemStack)
+            .let(this::getParts)
     }
 
-    //    Parts    //
-
-    @JvmField
-    val COMMON: (Double) -> HiiragiPart = { partOf("common", it) }
-
-    @JvmField
-    val BALL = partOf("ball", 0.2)
-
-    @JvmField
-    val BLOCK = partOf("block", 9.0) {
-        model = {
-            val common = ModelResourceLocation(it.registryName!!.append("_material"), "inventory")
-            val gem = ModelResourceLocation(it.registryName!!.append("_gem"), "inventory")
-            val metal = ModelResourceLocation(it.registryName!!.append("_metal"), "inventory")
-
-            ModelLoader.registerItemVariants(it, common, gem, metal)
-
-            ModelLoader.setCustomMeshDefinition(it) { stack ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                if (material.isMetal()) metal
-                else if (material.isGem()) gem
-                else common
-            }
-        }
-        recipe = { item, material ->
-            if (material.isSolid()) {
-                if (material.isMetal()) {
-                    CraftingBuilder(ItemStack(item, 1, material.index))
-                        .setPattern("AAA", "AAA", "AAA")
-                        .setIngredient('A', "ingot${material.getOreDictName()}")
-                        .buildShaped()
-                } else if (material.isGem()) {
-                    CraftingBuilder(ItemStack(item, 1, material.index))
-                        .setPattern("AAA", "AAA", "AAA")
-                        .setIngredient('A', "gem${material.getOreDictName()}")
-                        .buildShaped()
-                }
-            }
-        }
+    //鉱石辞書から取得する
+    @JvmStatic
+    fun getParts(stack: ItemStack): List<HiiragiPart> {
+        return OreDictionary.getOreIDs(stack)
+            .map(OreDictionary::getOreName)
+            .map(PartRegistry::getPart)
+            .filterNot(HiiragiPart::isEmpty)
     }
 
-    @JvmField
-    val BOTTLE = partOf("bottle", 1.0)
+    //    registerTag    //
 
-    @JvmField
-    val CLUMP = partOf("clump", 1.0)
-
-    @JvmField
-    val CLUSTER = partOf("cluster", 2.0)
-
-    @JvmField
-    val COIN = partOf("coin", 0.3)
-
-    @JvmField
-    val CRYSTAL = partOf("crystal", 1.0)
-
-    @JvmField
-    val DUST = partOf("dust", 1.0) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', "dustTiny${material.getOreDictName()}")
-                .buildShaped()
+    @JvmStatic
+    fun registerTag(oredict: String, hiiragiPart: HiiragiPart) {
+        REGISTRY[oredict]?.let {
+            RagiMaterials.LOGGER.warn("The part: $it will be overrided by $oredict!")
         }
-    }
-
-    @JvmField
-    val DUST_DIRTY = partOf("dust_dirty", 1.0)
-
-    @JvmField
-    val DUST_TINY = partOf("dust_tiny", 0.1) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 9, material.index))
-                .addIngredient(RagiIngredient("dust${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
-
-    @JvmField
-    val GEAR = partOf("gear", 4.0) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .setPattern(" A ", "A A", " A ")
-                .setIngredient('A', "ingot${material.getOreDictName()}")
-                .buildShaped()
-        }
-    }
-
-    @JvmField
-    val GEM = partOf("gem", 1.0) {
-        model = { item ->
-
-            val locations: MutableList<ResourceLocation> = mutableListOf()
-
-            CrystalType.values()
-                .filter { it.texture.isNotEmpty() }
-                .map { item.registryName!!.append("_" + it.texture) }
-                .forEach { locations.add(it) }
-
-            ModelLoader.registerItemVariants(item, *locations.toTypedArray())
-
-            ModelLoader.setCustomMeshDefinition(item) { stack ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                val type = if (material.isGem()) material.crystalType else CrystalType.CUBIC
-                type.getLocation(item)
-            }
-        }
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 9, material.index))
-                .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
-
-
-    @JvmField
-    val INGOT = partOf("ingot", 1.0) {
-        recipe = { item, material ->
-            //nugget -> ingot
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', "nugget${material.getOreDictName()}")
-                .buildShaped()
-            //block -> ingot
-            val ingot9 = ItemStack(item, 9, material.index)
-            CraftingBuilder(ingot9.toLocation().append("_alt"), ingot9)
-                .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
-
-    @JvmField
-    val LOG = partOf("log", 4.0)
-
-    @JvmField
-    val NUGGET = partOf("nugget", 0.1) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 9, material.index))
-                .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
-
-    @JvmField
-    val ORE = partOf("ore", -1.0)
-
-    @JvmField
-    val PLANK = partOf("plank", 1.0)
-
-    @JvmField
-    val PLATE = partOf("plate", 1.0) {
-        recipe = { item, material ->
-            if (material.isMetal()) {
-                CraftingBuilder(ItemStack(item, 1, material.index))
-                    .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
-                    .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
-                    .buildShapeless()
-            }
-        }
-    }
-
-    @JvmField
-    val SHARD = partOf("shard", 1.0)
-
-    @JvmField
-    val STICK = partOf("stick", 0.5) {
-        recipe = { item, material ->
-            if (material.isMetal()) {
-                CraftingBuilder(ItemStack(item, 4, material.index))
-                    .setPattern("AB", "A ")
-                    .setIngredient('A', "ingot${material.getOreDictName()}")
-                    .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
-                    .buildShaped()
-            }
-        }
-    }
-
-    @JvmField
-    val STONE = partOf("stone", 1.0)
-
-    fun init() {
-        val fields = this::class.java.declaredFields
-        fields.forEach { it.isAccessible = true }
-        fields.map { it.get(this) }
-            .filterIsInstance<HiiragiPart>()
-            .forEach { registerPart(it) }
+        REGISTRY[oredict] = hiiragiPart
     }
 
 }

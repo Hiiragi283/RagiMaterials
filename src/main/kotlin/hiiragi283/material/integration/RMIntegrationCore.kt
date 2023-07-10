@@ -2,9 +2,9 @@ package hiiragi283.material.integration
 
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialIntegration
-import hiiragi283.material.api.material_part.MaterialPart
-import hiiragi283.material.api.material_part.MaterialPartRegistry
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
+import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.config.enableBotania
 import hiiragi283.material.config.enableEIO
 import hiiragi283.material.config.enableThaum
@@ -35,55 +35,55 @@ object RMIntegrationCore {
     fun onPostInit() {
         if (enableBotania()) {
             OreDictUtil.register(
-                PartRegistry.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
+                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
                 getBlock("botania:storage"),
                 0
             )
             OreDictUtil.register(
-                PartRegistry.BLOCK.getOreDict(MaterialIntegration.TERRASTEEL),
+                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.TERRASTEEL),
                 getBlock("botania:storage"),
                 1
             )
             OreDictUtil.register(
-                PartRegistry.BLOCK.getOreDict(MaterialIntegration.ELEMENTIUM),
+                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.ELEMENTIUM),
                 getBlock("botania:storage"),
                 2
             )
             OreDictUtil.register(
-                PartRegistry.BLOCK.getOreDict(MaterialIntegration.MANA_DIAMOND),
+                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.MANA_DIAMOND),
                 getBlock("botania:storage"),
                 3
             )
             OreDictUtil.register(
-                PartRegistry.BLOCK.getOreDict(MaterialIntegration.DRAGONSTONE),
+                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.DRAGONSTONE),
                 getBlock("botania:storage"),
                 4
             )
 
             OreDictUtil.register(
-                PartRegistry.GEM.getOreDict(MaterialIntegration.MANA_DIAMOND),
+                ShapeRegistry.GEM.getOreDict(MaterialIntegration.MANA_DIAMOND),
                 getItem("botania:manaresource"),
                 2,
                 "manaDiamond"
             )
             OreDictUtil.register(
-                PartRegistry.GEM.getOreDict(MaterialIntegration.DRAGONSTONE),
+                ShapeRegistry.GEM.getOreDict(MaterialIntegration.DRAGONSTONE),
                 getItem("botania:manaresource"),
                 9,
                 "elvenDragonstone"
             )
         }
         if (enableEIO()) {
-            MaterialPartRegistry.registerTag(
+            PartRegistry.registerTag(
                 "nuggetEnderpearl",
-                MaterialPart(PartRegistry.NUGGET, MaterialIntegration.ENDER_PEARL)
+                HiiragiPart(ShapeRegistry.NUGGET, MaterialIntegration.ENDER_PEARL)
             )
         }
         if (enableThaum()) {
-            MaterialPartRegistry.registerTag("quicksilver", MaterialPart(PartRegistry.GEM, MaterialCommon.CINNABAR))
-            MaterialPartRegistry.registerTag(
+            PartRegistry.registerTag("quicksilver", HiiragiPart(ShapeRegistry.GEM, MaterialCommon.CINNABAR))
+            PartRegistry.registerTag(
                 "nuggetQuicksilver",
-                MaterialPart(PartRegistry.NUGGET, MaterialCommon.CINNABAR)
+                HiiragiPart(ShapeRegistry.NUGGET, MaterialCommon.CINNABAR)
             )
         }
     }

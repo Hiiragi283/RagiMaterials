@@ -2,13 +2,14 @@
 
 ![Periodic Table](https://github.com/Hiiragi283/RagiMaterials/blob/1.12.2_forge/.github/images/periodic_table.png?raw=true)
 
+## **前提modとして _[Forgelin-Continuous](https://www.curseforge.com/minecraft/mc-mods/forgelin-continuous)_ が必要です!!**
+
 ## 概要
 
 - Minecraft MC1.12にさまざな素材を追加するmod
-    - 水素からオガネソンまでを含むすべての元素！
-    - 木材，石，鋼鉄，水などといった汎用的な素材
-    - `config/ragi_materials`フォルダ内にJsonファイルを追加することで素材を追加できます！
-- **前提modとして _[Shadowfacts' Forgelin](https://www.curseforge.com/minecraft/mc-mods/shadowfacts-forgelin)_ が必要です**
+  - 水素からオガネソンまでを含むすべての元素！
+  - 木材，石，鋼鉄，水などといった汎用的な素材
+  - `config/ragi_materials`フォルダ内にJsonファイルを追加することで素材を追加できます！
 
 ## ライセンス
 

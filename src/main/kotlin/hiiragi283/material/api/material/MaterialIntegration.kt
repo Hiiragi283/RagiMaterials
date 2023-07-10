@@ -17,15 +17,15 @@ object MaterialIntegration {
         molar = 112.2
         tempBoil = 1201
         tempMelt = 1122
-        validParts.addAll(MaterialType.SOLID)
-        validParts.add("block")
+        validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("block")
     }
 
     @JvmField
     val LAPIS = materialOf("lapis", 1001) {
         color = RagiColor.BLUE.rgb
         crystalType = CrystalType.LAPIS
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     @JvmField
@@ -36,7 +36,7 @@ object MaterialIntegration {
         molar = 112.2
         tempBoil = 1201
         tempMelt = 1122
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -47,7 +47,7 @@ object MaterialIntegration {
         molar = 112.2
         tempBoil = 1201
         tempMelt = 1122
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     //    Thermal Series    //
@@ -56,7 +56,7 @@ object MaterialIntegration {
     val MITHRIL = materialOf("mithril", 1100) {
         color = ColorUtil.mixColor(RagiColor.BLUE, RagiColor.AQUA, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -67,7 +67,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.RED, RagiColor.YELLOW).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -78,7 +78,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -89,7 +89,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.DARK_GREEN to 1, RagiColor.BLUE to 1).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -139,7 +139,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.DARK_RED to 2, RagiColor.BLUE to 5, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -150,7 +150,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.YELLOW to 2, RagiColor.WHITE to 1).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Ender IO    //
@@ -163,7 +163,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.GRAY to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -174,7 +174,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.RED).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -185,7 +185,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.GREEN, RagiColor.YELLOW).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -196,7 +196,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.DARK_RED, RagiColor.RED).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -207,7 +207,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.RED to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -218,7 +218,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.GREEN to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -229,7 +229,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_GRAY to 3).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -240,7 +240,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 5, RagiColor.GOLD to 1).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -251,7 +251,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -262,7 +262,7 @@ object MaterialIntegration {
     ) {
         color = ColorUtil.mixColor(RagiColor.BLUE, RagiColor.GREEN, RagiColor.RED).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_COMMON)
+        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Thaumcraft    //
@@ -272,7 +272,7 @@ object MaterialIntegration {
         color = ColorUtil.mixColor(RagiColor.DARK_RED to 2, RagiColor.BLUE to 5, RagiColor.WHITE to 4).rgb
         crystalType = CrystalType.METAL
         formula = "✡"
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -280,7 +280,7 @@ object MaterialIntegration {
         color = ColorUtil.mixColor(RagiColor.BLACK to 4, RagiColor.DARK_PURPLE to 1, RagiColor.BLUE to 1).rgb
         crystalType = CrystalType.METAL
         formula = "Vm9pZA=="
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Botania    //
@@ -292,37 +292,46 @@ object MaterialIntegration {
 
     @JvmField
     val MANASTEEL = mixtureOf("manasteel", 1500, listOf(MaterialElements.IRON, MANA)) {
-        color = ColorUtil.mixColor(RagiColor.BLUE, RagiColor.WHITE).rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 1, RagiColor.AQUA to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1502, listOf(MaterialCommon.DIAMOND, MANA)) {
-        color = ColorUtil.mixColor(RagiColor.AQUA, RagiColor.WHITE).rgb
+        color = ColorUtil.mixColor(RagiColor.AQUA to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.DIAMOND
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     @JvmField
     val TERRASTEEL = mixtureOf("terrasteel", 1503, listOf(MaterialElements.IRON, MANA)) {
-        color = RagiColor.GREEN.rgb
+        color = ColorUtil.mixColor(RagiColor.DARK_GREEN, RagiColor.GREEN).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val ELEMENTIUM = mixtureOf("elven_elementium", 1504, listOf(MaterialElements.IRON, MANA)) {
-        color = ColorUtil.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE).rgb
+        color = RagiColor.LIGHT_PURPLE.rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1505, listOf(MaterialCommon.DIAMOND, MANA)) {
-        color = ColorUtil.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE).rgb
+        color = RagiColor.LIGHT_PURPLE.rgb
         crystalType = CrystalType.DIAMOND
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
+    }
+
+    //    Embers    //
+
+    @JvmField
+    val DAWNSTONE = compoundOf("dawnstone", 1600, mapOf(MaterialElements.COPPER to 1, MaterialElements.GOLD to 1)) {
+        color = ColorUtil.mixColor(RagiColor.GOLD to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
+        crystalType = CrystalType.METAL
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     fun init() {
@@ -371,6 +380,10 @@ object MaterialIntegration {
             MaterialRegistry.registerMaterial(TERRASTEEL)
             MaterialRegistry.registerMaterial(ELEMENTIUM)
             MaterialRegistry.registerMaterial(DRAGONSTONE)
+        }
+        if (enableEmbers()) {
+            RagiMaterials.LOGGER.info("Enabled integration: Embers")
+            MaterialRegistry.registerMaterial(DAWNSTONE)
         }
     }
 

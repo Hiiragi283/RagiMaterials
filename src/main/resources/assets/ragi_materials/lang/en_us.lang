@@ -6,16 +6,29 @@ itemGroup.ragi_materials.material=RagiMaterials
 ##    Item    ##
 
 item.forge_hammer_0.name=Forge Hammer
+item.ragi_materials.ball.name=%s Grinding Ball
 item.ragi_materials.block.name=Block of %s
 item.ragi_materials.bottle.name=%s Full-Bottle
+item.ragi_materials.clump.name=%s Clump
+item.ragi_materials.cluster.name=Native %s Cluster
+item.ragi_materials.coin.name=%s Coin
+item.ragi_materials.crushed.name=Crushed %s Ore
+item.ragi_materials.crushed_purified.name=Purified Crushed %s Ore
+item.ragi_materials.crystal.name=%s Crystal
 item.ragi_materials.dust.name=%s Dust
+item.ragi_materials.dust_dirty.name=Dirty %s Dust
 item.ragi_materials.dust_tiny.name=Tiny Pile of %s Dust
 item.ragi_materials.gear.name=%s Gear
 item.ragi_materials.gem.name=%s Gem
 item.ragi_materials.ingot.name=%s Ingot
 item.ragi_materials.nugget.name=%s Nugget
+item.ragi_materials.ore.name=%s Ore
+item.ragi_materials.plank.name=%s Plank
 item.ragi_materials.plate.name=%s Plate
+item.ragi_materials.plate_dense.name=Dense %s Plate
+item.ragi_materials.shard.name=%s Shard
 item.ragi_materials.stick.name=%s Stick
+item.ragi_materials.stone.name=%s Stone
 
 ##    Tooltip    ##
 
@@ -170,6 +183,7 @@ material.coke=Coke
 material.diamond=Diamond
 material.sugar=Sugar
 material.amber=Amber
+material.ash=Ash
 material.niter=Niter
 material.nitric_acid=Nitric Acid
 material.gunpowder=Gunpowder
@@ -214,11 +228,11 @@ material.dhmo=DHMO
 material.redstone=Redstone
 material.lapis=Lapis
 material.glowstone=Glowstone
-material.ender=Ender
+material.enderpearl=Ender Pearl
 
 ### Integration Materials ###
 
-material.mithril=Mana Infused
+material.mithril=Mana Infused Metal
 material.signalum=Signalum
 material.lumium=Lumium
 material.enderium=Enderium
@@ -240,3 +254,14 @@ material.dark_steel=Dark Steel
 material.soularium=Soularium
 material.end_steel=End Steel
 material.construction_alloy=Iron Alloy
+
+material.thaumium=Thaumium
+material.void=Void Metal
+
+material.manasteel=Manasteel
+material.mana_diamond=Mana Diamond
+material.terrasteel=Terrasteel
+material.elven_elementium=Elementium
+material.elven_dragonstone=Dragonstone
+
+material.dawnstone=Dawnstone

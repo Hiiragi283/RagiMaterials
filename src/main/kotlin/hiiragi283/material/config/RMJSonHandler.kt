@@ -1,8 +1,7 @@
 package hiiragi283.material.config
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.material.*
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
 
@@ -26,7 +25,18 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             //サンプルファイルがない場合は新規作成
             if (!sample.exists()) sample.createNewFile()
             //書き込み可能な場合
-            if (sample.canWrite()) sample.writeText(HiiragiMaterial.EMPTY.toJson(true), Charsets.UTF_8)
+            if (sample.canWrite()) {
+                val material = materialOf("hiiragi", -1) {
+                    color = RagiMaterials.COLOR.rgb
+                    crystalType = CrystalType.METAL
+                    formula = "HIIRAGI"
+                    molar = 110.9
+                    tempBoil = 1109
+                    tempMelt = 283
+                    validShapes.addAll(MaterialType.WILDCARD)
+                }
+                sample.writeText(material.toJson(true), Charsets.UTF_8)
+            }
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e)
         }

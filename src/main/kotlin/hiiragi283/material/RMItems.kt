@@ -4,9 +4,9 @@ import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.item.ItemMaterial
 import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.api.material_part.MaterialPart
-import hiiragi283.material.api.material_part.MaterialPartRegistry
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
+import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
 import net.minecraft.client.renderer.color.ItemColors
@@ -26,34 +26,34 @@ object RMItems : HiiragiEntry<Item> {
     val FORGE_HAMMER = ItemForgeHammer
 
     @JvmField
-    val MATERIAL_BLOCK = ItemMaterial(PartRegistry.BLOCK)
+    val MATERIAL_BLOCK = ItemMaterial(ShapeRegistry.BLOCK)
 
     @JvmField
-    val MATERIAL_BOTTLE = ItemMaterial(PartRegistry.BOTTLE)
+    val MATERIAL_BOTTLE = ItemMaterial(ShapeRegistry.BOTTLE)
 
     @JvmField
-    val MATERIAL_DUST = ItemMaterial(PartRegistry.DUST)
+    val MATERIAL_DUST = ItemMaterial(ShapeRegistry.DUST)
 
     @JvmField
-    val MATERIAL_DUST_TINY = ItemMaterial(PartRegistry.DUST_TINY)
+    val MATERIAL_DUST_TINY = ItemMaterial(ShapeRegistry.DUST_TINY)
 
     @JvmField
-    val MATERIAL_GEAR = ItemMaterial(PartRegistry.GEAR)
+    val MATERIAL_GEAR = ItemMaterial(ShapeRegistry.GEAR)
 
     @JvmField
-    val MATERIAL_GEM = ItemMaterial(PartRegistry.GEM)
+    val MATERIAL_GEM = ItemMaterial(ShapeRegistry.GEM)
 
     @JvmField
-    val MATERIAL_INGOT = ItemMaterial(PartRegistry.INGOT)
+    val MATERIAL_INGOT = ItemMaterial(ShapeRegistry.INGOT)
 
     @JvmField
-    val MATERIAL_NUGGET = ItemMaterial(PartRegistry.NUGGET)
+    val MATERIAL_NUGGET = ItemMaterial(ShapeRegistry.NUGGET)
 
     @JvmField
-    val MATERIAL_PLATE = ItemMaterial(PartRegistry.PLATE)
+    val MATERIAL_PLATE = ItemMaterial(ShapeRegistry.PLATE)
 
     @JvmField
-    val MATERIAL_STICK = ItemMaterial(PartRegistry.STICK)
+    val MATERIAL_STICK = ItemMaterial(ShapeRegistry.STICK)
 
     override fun register(registry: IForgeRegistry<Item>) {
 
@@ -78,10 +78,10 @@ object RMItems : HiiragiEntry<Item> {
     }
 
     fun registerMaterialPart() {
-        PartRegistry.getParts().forEach { part ->
+        ShapeRegistry.getShapes().forEach { shape ->
             MaterialRegistry.getMaterials()
-                .map { MaterialPart(part, it) }
-                .forEach { MaterialPartRegistry.registerTag(it.getOreDict(), it) }
+                .map { HiiragiPart(shape, it) }
+                .forEach { PartRegistry.registerTag(it.getOreDict(), it) }
         }
     }
 

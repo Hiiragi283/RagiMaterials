@@ -9,6 +9,7 @@ plugins {
     id 'com.gtnewhorizons.retrofuturagradle' version '1.3.16'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'org.jetbrains.kotlin.jvm' version '1.8.22'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.0'
 }
 
 version = project.mod_version
@@ -106,14 +107,15 @@ dependencies {
     }
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
 
     runtimeOnly rfg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479")
-    runtimeOnly rfg.deobf("curse.maven:had-enough-items-557549:4451828")
+    implementation rfg.deobf("curse.maven:had-enough-items-557549:4451828")
     runtimeOnly rfg.deobf("curse.maven:infinity-item-editor-290958:3802759")
     runtimeOnly rfg.deobf("curse.maven:itemzoom-261725:2643616")
-    runtimeOnly rfg.deobf("curse.maven:jei-integration-265917:2951731")
+    //runtimeOnly rfg.deobf("curse.maven:jei-integration-265917:2951731")
     runtimeOnly rfg.deobf("curse.maven:placebo-283644:2694382")
-    runtimeOnly rfg.deobf("curse.maven:shadowfacts-forgelin-248453:2785465")
+    runtimeOnly rfg.deobf("curse.maven:forgelin-continuous-456403:4528552")
     runtimeOnly rfg.deobf("curse.maven:the-one-probe-245211:2667280")
 
     //Botania
@@ -126,6 +128,9 @@ dependencies {
     implementation rfg.deobf("curse.maven:endercore-231868:2972849")
     implementation rfg.deobf("curse.maven:ender-io-64578:3328811")
 
+    //Industrial Craft 2
+    implementation rfg.deobf("curse.maven:industrial-craft-242638:3838713")
+
     //Mekanism
     implementation rfg.deobf("curse.maven:mekanism-ce-399904:4557906")
 
@@ -134,7 +139,7 @@ dependencies {
     implementation rfg.deobf("curse.maven:thaumcraft-223628:2629023")
 
     //Thermal Series
-    implementation rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
+    runtimeOnly rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
     implementation rfg.deobf("curse.maven:cofh-core-69162:2920433")
     implementation rfg.deobf("curse.maven:cofh-world-271384:2920434")
     implementation rfg.deobf("curse.maven:redstone-flux-270789:2920436")

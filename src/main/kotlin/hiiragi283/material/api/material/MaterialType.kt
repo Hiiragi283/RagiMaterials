@@ -6,6 +6,31 @@ object MaterialType {
     val INTERNAL: Set<String> = setOf("bottle")
 
     @JvmField
+    val WILDCARD: Set<String> = setOf(
+        "ball",
+        "block",
+        "bottle",
+        "clump",
+        "cluster",
+        "coin",
+        "crystal",
+        "dust",
+        "dust_dirty",
+        "dust_tiny",
+        "gear",
+        "gem",
+        "ingot",
+        "log",
+        "nugget",
+        "ore",
+        "plank",
+        "plate",
+        "shard",
+        "stick",
+        "stone"
+    )
+
+    @JvmField
     val SOLID: Set<String> = setOf(
         "dust",
         "dust_tiny",

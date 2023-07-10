@@ -6,16 +6,29 @@ itemGroup.ragi_materials.material=RagiMaterials
 ##    Item    ##
 
 item.forge_hammer_0.name=フォージハンマー
+item.ragi_materials.ball.name=%sの粉砕用ボール
 item.ragi_materials.block.name=%sブロック
 item.ragi_materials.bottle.name=%sフルボトル
-item.ragi_materials.dust.name=%s粉末
-item.ragi_materials.dust_tiny.name=小さな%s粉末
+item.ragi_materials.clump.name=%sの塊
+item.ragi_materials.cluster.name=自然%sクラスター
+item.ragi_materials.coin.name=%sのコイン
+item.ragi_materials.crushed.name=粉砕された%s鉱石
+item.ragi_materials.crushed_purified.name=粉砕された洗浄済み%s鉱石
+item.ragi_materials.crystal.name=%sの結晶
+item.ragi_materials.dust.name=%sの粉
+item.ragi_materials.dust_dirty.name=汚れた%sの粉
+item.ragi_materials.dust_tiny.name=小さな%sの粉
 item.ragi_materials.gear.name=%sの歯車
 item.ragi_materials.gem.name=%s結晶
 item.ragi_materials.ingot.name=%sインゴット
 item.ragi_materials.nugget.name=%sナゲット
-item.ragi_materials.plate.name=%s板
-item.ragi_materials.stick.name=%s棒
+item.ragi_materials.ore.name=%s鉱石
+item.ragi_materials.plank.name=%sの木材
+item.ragi_materials.plate.name=%sの板
+item.ragi_materials.plate_dense.name=厚い%sの板
+item.ragi_materials.shard.name=%sの欠片
+item.ragi_materials.stick.name=%sの棒
+item.ragi_materials.stone.name=%s石
 
 ##    Tooltip    ##
 
@@ -170,6 +183,7 @@ material.coke=コークス
 material.diamond=ダイヤモンド
 material.sugar=砂糖
 material.amber=琥珀
+material.ash=灰
 material.niter=硝石
 material.nitric_acid=硝酸
 material.gunpowder=火薬
@@ -214,7 +228,7 @@ material.dhmo=DHMO (一水素化二酸素)
 material.redstone=レッドストーン
 material.lapis=ラピス
 material.glowstone=グロウストーン
-material.ender=エンダー
+material.enderpearl=エンダーパール
 
 ### Integration Materials ###
 
@@ -240,3 +254,14 @@ material.dark_steel=ダークスチール
 material.soularium=ソウラリウム
 material.end_steel=エンドスチール
 material.construction_alloy=鉄合金
+
+material.thaumium=魔導金属
+material.void=虚無鋼
+
+material.manasteel=マナスチール
+material.mana_diamond=マナダイアモンド
+material.terrasteel=テラスチール
+material.elven_elementium=エレメンチウム
+material.elven_dragonstone=ドラゴンストーン
+
+material.dawnstone=暁石

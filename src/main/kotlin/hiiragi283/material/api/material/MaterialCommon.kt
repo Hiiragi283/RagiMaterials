@@ -31,9 +31,9 @@ object MaterialCommon {
     val WOOD =
         mixtureOf("wood", 10100, listOf(MaterialElements.CARBON, MaterialElements.HYDROGEN, MaterialElements.OXYGEN)) {
             color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
-            validParts.addAll(MaterialType.SOLID)
-            validParts.add("gear")
-            validParts.add("plate")
+            validShapes.addAll(MaterialType.SOLID)
+            validShapes.add("gear")
+            validShapes.add("plate")
         }
 
     @JvmField
@@ -57,7 +57,7 @@ object MaterialCommon {
     ) {
         color = RagiColor.AQUA.rgb
         crystalType = CrystalType.EMERALD
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     @JvmField
@@ -71,7 +71,7 @@ object MaterialCommon {
     ) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     //    Carbon    //
@@ -79,27 +79,27 @@ object MaterialCommon {
     @JvmField
     val COAL = compoundOf("coal", 10600, mapOf(MaterialElements.CARBON to 1)) {
         crystalType = CrystalType.COAL
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     @JvmField
     val CHARCOAL = compoundOf("charcoal", 10601, mapOf(MaterialElements.CARBON to 1)) {
         crystalType = CrystalType.COAL
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     @JvmField
     val COKE = compoundOf("coke", 10602, mapOf(MaterialElements.CARBON to 1)) {
         color = RagiColor.DARK_GRAY.rgb
         crystalType = CrystalType.COAL
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     @JvmField
     val DIAMOND = compoundOf("diamond", 10603, mapOf(MaterialElements.CARBON to 1)) {
         color = RagiColor.AQUA.rgb
         crystalType = CrystalType.DIAMOND
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     @JvmField
@@ -109,22 +109,29 @@ object MaterialCommon {
         mapOf(MaterialElements.CARBON to 6, MaterialElements.HYDROGEN to 12, MaterialElements.OXYGEN to 6)
     ) {
         color = RagiColor.WHITE.rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val AMBER = compoundOf("amber", 10605, mapOf(WOOD to 1)) {
         color = RagiColor.GOLD.rgb
         crystalType = CrystalType.AMORPHOUS
-        validParts.addAll(MaterialType.GEM_4x)
+        validShapes.addAll(MaterialType.GEM_4x)
     }
+
+    @JvmField
+    val ASH =
+        mixtureOf("ash", 10606, listOf(MaterialElements.CARBON, MaterialElements.SODIUM, MaterialElements.POTASSIUM)) {
+            color = RagiColor.GRAY.rgb
+            validShapes.addAll(MaterialType.SOLID)
+        }
 
     //    Nitrogen    //
 
     @JvmField
     val NITER = compoundOf("niter", 10700, mapOf(MaterialElements.POTASSIUM to 1, NITRATE to 1)) {
         color = RagiColor.WHITE.rgb
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
 
@@ -141,7 +148,7 @@ object MaterialCommon {
         mapOf(NITER.addBracket() to 1, MaterialElements.CARBON to 1, MaterialElements.SULFUR to 1)
     ) {
         color = RagiColor.DARK_GRAY.rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     //    Fluorine    //
@@ -154,14 +161,14 @@ object MaterialCommon {
     ) {
         color = RagiColor.WHITE.rgb
         crystalType = CrystalType.CUBIC
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     @JvmField
     val FLUORITE = compoundOf("fluorite", 10901, mapOf(MaterialElements.CALCIUM to 1, MaterialElements.FLUORINE to 2)) {
         color = ColorUtil.mixColor(RagiColor.GREEN, RagiColor.AQUA).rgb
         crystalType = CrystalType.CUBIC
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     @JvmField
@@ -177,7 +184,7 @@ object MaterialCommon {
     val SALT = compoundOf("salt", 11100, mapOf(MaterialElements.SODIUM to 1, MaterialElements.CHLORINE to 1)) {
         color = RagiColor.WHITE.rgb
         crystalType = CrystalType.CUBIC
-        validParts.addAll(MaterialType.GEM_4x)
+        validShapes.addAll(MaterialType.GEM_4x)
     }
 
     //    Magnesium    //
@@ -186,14 +193,14 @@ object MaterialCommon {
     val OLIVINE = compoundOf("olivine", 11200, mapOf(MaterialElements.MAGNESIUM to 2, SILICATE to 1)) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     @JvmField
     val PERIDOT = compoundOf("peridot", 11201, mapOf(MaterialElements.MAGNESIUM to 2, SILICATE to 1)) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     //    Aluminium    //
@@ -201,27 +208,27 @@ object MaterialCommon {
     @JvmField
     val ALUMINA = compoundOf("alumina", 11300, mapOf(MaterialElements.ALUMINIUM to 2, MaterialElements.OXYGEN to 3)) {
         color = RagiColor.WHITE.rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val BAUXITE = hydrateOf("bauxite", 11301, ALUMINA, 2) {
         color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1).rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val RUBY = compoundOf("ruby", 11302, mapOf(ALUMINA to 1)) {
         color = RagiColor.RED.rgb
         crystalType = CrystalType.RUBY
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     @JvmField
     val SAPPHIRE = compoundOf("sapphire", 11303, mapOf(ALUMINA to 1)) {
         color = RagiColor.BLUE.rgb
         crystalType = CrystalType.RUBY
-        validParts.addAll(MaterialType.GEM_9xADVANCED)
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
     //    Silicon    //
@@ -229,19 +236,19 @@ object MaterialCommon {
     @JvmField
     val CLAY = mixtureOf("clay", 11400, listOf(ALUMINA, SILICATE)) {
         color = ColorUtil.mixColor(RagiColor.GRAY to 2, RagiColor.AQUA to 1).rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val END_STONE = compoundOf("end_stone", 11401, mapOf(SILICATE to 1)) {
         color = ColorUtil.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3).rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val GLASS = compoundOf("glass", 11402, mapOf(SILICATE to 1)) {
         color = RagiColor.WHITE.rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -253,35 +260,35 @@ object MaterialCommon {
     @JvmField
     val NETHERRACK = compoundOf("netherrack", 11404, mapOf(SILICATE to 1)) {
         color = RagiColor.DARK_RED.rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val OBSIDIAN = compoundOf("obsidian", 11405, mapOf(SILICATE to 1)) {
         color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1).rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val QUARTZ = compoundOf("quartz", 11406, mapOf(SILICATE to 1)) {
         color = RagiColor.WHITE.rgb
         crystalType = CrystalType.QUARTZ
-        validParts.addAll(MaterialType.GEM_4xADVANCED)
+        validShapes.addAll(MaterialType.GEM_4xADVANCED)
     }
 
     @JvmField
     val SOUL_SAND = compoundOf("soul_sand", 11407, mapOf(SILICATE to 1)) {
         color = ColorUtil.mixColor(RagiColor.BLACK to 5, RagiColor.GOLD to 1).rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val STONE = compoundOf("stone", 11408, mapOf(SILICATE to 1)) {
         color = RagiColor.GRAY.rgb
-        validParts.addAll(MaterialType.SOLID)
-        validParts.add("gear")
-        validParts.add("plate")
-        validParts.add("stick")
+        validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("gear")
+        validShapes.add("plate")
+        validShapes.add("stick")
     }
 
     //    Sulfur    //
@@ -312,19 +319,19 @@ object MaterialCommon {
         ) {
             color = ColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE).rgb
             crystalType = CrystalType.EMERALD
-            validParts.addAll(MaterialType.GEM_9x)
+            validShapes.addAll(MaterialType.GEM_9x)
         }
 
     @JvmField
     val GYPSUM = compoundOf("gypsum", 12001, mapOf(MaterialElements.CALCIUM to 1, SULFATE to 1)) {
         crystalType = CrystalType.CUBIC
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     @JvmField
     val LIME = compoundOf("lime", 12002, mapOf(MaterialElements.CALCIUM to 1, CARBONATE to 1)) {
         color = RagiColor.WHITE.rgb
-        validParts.addAll(MaterialType.SOLID)
+        validShapes.addAll(MaterialType.SOLID)
     }
 
     //    Titanium    //
@@ -333,7 +340,7 @@ object MaterialCommon {
     val RUTILE = compoundOf("rutile", 12200, mapOf(MaterialElements.TITANIUM to 1, MaterialElements.OXYGEN to 2)) {
         color = RagiColor.YELLOW.rgb
         crystalType = CrystalType.QUARTZ
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     //    Chromium    //
@@ -350,7 +357,7 @@ object MaterialCommon {
     {
         color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Iron    //
@@ -359,7 +366,7 @@ object MaterialCommon {
     val STEEL = mixtureOf("steel", 12600, listOf(MaterialElements.IRON, MaterialElements.CARBON)) {
         color = RagiColor.GRAY.rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Nickel    //
@@ -368,7 +375,7 @@ object MaterialCommon {
     val CONSTANTAN =
         compoundOf("constantan", 12800, mapOf(MaterialElements.NICKEL to 1, MaterialElements.COPPER to 1)) {
             crystalType = CrystalType.METAL
-            validParts.addAll(MaterialType.METAL_ADVANCED)
+            validShapes.addAll(MaterialType.METAL_ADVANCED)
         }
 
     @JvmField
@@ -379,7 +386,7 @@ object MaterialCommon {
             RagiColor.WHITE to 4
         ).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Copper    //
@@ -388,13 +395,13 @@ object MaterialCommon {
     val BRASS = compoundOf("brass", 12900, mapOf(MaterialElements.COPPER to 3, MaterialElements.ZINC to 1)) {
         color = RagiColor.GOLD.rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val BRONZE = compoundOf("bronze", 12901, mapOf(MaterialElements.COPPER to 3, MaterialElements.TIN to 1)) {
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Silver    //
@@ -402,7 +409,7 @@ object MaterialCommon {
     val ELECTRUM = compoundOf("electrum", 14700, mapOf(MaterialElements.SILVER to 1, MaterialElements.GOLD to 1)) {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
-        validParts.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Mercury    //
@@ -410,15 +417,16 @@ object MaterialCommon {
     val CINNABAR = compoundOf("cinnabar", 18000, mapOf(MaterialElements.MERCURY to 1, MaterialElements.SULFUR to 1)) {
         color = RagiColor.RED.rgb
         crystalType = CrystalType.EMERALD
-        validParts.addAll(MaterialType.GEM_9x)
+        validShapes.addAll(MaterialType.GEM_9x)
     }
 
     fun init() {
-        val fields = this::class.java.declaredFields
-        fields.forEach { it.isAccessible = true }
-        fields.map { it.get(this) }
+        this::class.java.declaredFields
+            .map { it.also { it.isAccessible = true } }
+            .map { it.get(this) }
             .filterIsInstance<HiiragiMaterial>()
-            .forEach { MaterialRegistry.registerMaterial(it) }
+            .forEach(MaterialRegistry::registerMaterial)
+
     }
 
 }

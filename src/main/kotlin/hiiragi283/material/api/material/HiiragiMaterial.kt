@@ -1,8 +1,11 @@
 package hiiragi283.material.api.material
 
-import com.google.gson.GsonBuilder
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.shape.HiiragiShape
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToUpperCamelCase
 
@@ -16,6 +19,7 @@ import rechellatek.snakeToUpperCamelCase
        >= 32768 ... Not registered
 */
 
+@Serializable
 data class HiiragiMaterial internal constructor(
     val name: String,
     val index: Int,
@@ -29,7 +33,7 @@ data class HiiragiMaterial internal constructor(
     var translationKey: String = "material.$name"
 ) {
 
-    val validParts: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
+    val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
 
     val translatedName: String
         get() = I18n.format(translationKey)
@@ -41,12 +45,10 @@ data class HiiragiMaterial internal constructor(
         @JvmField
         val UNKNOWN = formulaOf("?")
 
-        private val gsonPretty = GsonBuilder().setPrettyPrinting().create()
-
-        private val gson = GsonBuilder().create()
+        private val pretty = Json { prettyPrint = true }
 
         @JvmStatic
-        fun fromJson(json: String): HiiragiMaterial = gson.fromJson(json, HiiragiMaterial::class.java)
+        fun fromJson(json: String): HiiragiMaterial = Json.decodeFromString(json)
 
     }
 
@@ -63,14 +65,14 @@ data class HiiragiMaterial internal constructor(
         return MaterialState.SOLID
     }
 
-    fun getTooltip(tooltip: MutableList<String>, part: HiiragiPart = HiiragiPart.EMPTY) {
+    fun getTooltip(tooltip: MutableList<String>, shape: HiiragiShape = HiiragiShape.EMPTY) {
         if (isEmpty()) return
         tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", translatedName))
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.translatedName(this)))
         if (hasFormula())
             tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
-        if (hasMolar() && part.hasScale())
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", part.getWeight(this)))
+        if (hasMolar() && shape.hasScale())
+            tooltip.add(I18n.format("tips.ragi_materials.property.mol", shape.getWeight(this)))
         if (hasTempMelt())
             tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
         if (hasTempBoil())
@@ -107,7 +109,7 @@ data class HiiragiMaterial internal constructor(
         } else RagiMaterials.LOGGER.warn("This material has no solid state!")
     }
 
-    fun toJson(isPretty: Boolean): String = if (isPretty) gsonPretty.toJson(this) else gson.toJson(this)
+    fun toJson(isPretty: Boolean): String = if (isPretty) pretty.encodeToString(this) else Json.encodeToString(this)
 
     //    General    //
 

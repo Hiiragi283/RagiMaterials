@@ -14,6 +14,21 @@ fun materialOf(name: String, index: Int, init: HiiragiMaterial.() -> Unit = {}):
     return material
 }
 
+//    Isotope    //
+
+fun isotopeOf(name: String, index: Int, parent: HiiragiMaterial, init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
+    val isotope = HiiragiMaterial(name, index).also {
+        it.color = parent.color
+        it.crystalType = parent.crystalType
+        it.tempBoil = parent.tempBoil
+        it.tempMelt = parent.tempMelt
+        it.tempSubl = parent.tempSubl
+        it.validShapes.addAll(parent.validShapes)
+    }
+    isotope.init()
+    return isotope
+}
+
 //    Compound    //
 
 fun compoundOf(

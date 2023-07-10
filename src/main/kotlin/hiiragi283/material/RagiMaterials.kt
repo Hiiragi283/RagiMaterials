@@ -1,7 +1,7 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.api.part.PartRegistry
+import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluid
@@ -19,9 +19,9 @@ import java.util.*
     modid = RagiMaterials.MODID,
     name = "RagiMaterials",
     version = "1.0.0-pre2",
-    dependencies = "required-after:forgelin;after:jei",
+    dependencies = "required-after:forgelin_continuous;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
-    modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
+    modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
 )
 object RagiMaterials {
 
@@ -42,7 +42,7 @@ object RagiMaterials {
         //素材の登録
         MaterialRegistry.init()
         //部品の登録
-        PartRegistry.init()
+        ShapeRegistry.init()
     }
 
     @Mod.EventHandler

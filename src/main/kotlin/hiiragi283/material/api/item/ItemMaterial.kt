@@ -2,7 +2,7 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Items
@@ -16,7 +16,7 @@ private val CREATIVE_TAB = object : CreativeTabs("${RagiMaterials.MODID}.materia
     override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
 }
 
-open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
+open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767) {
 
     init {
         creativeTab = CREATIVE_TAB
@@ -26,13 +26,13 @@ open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        part.translatedName(MaterialRegistry.getMaterial(stack.metadata))
+        shape.translatedName(MaterialRegistry.getMaterial(stack.metadata))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
         MaterialRegistry.getMaterials()
-            .filter { it.isSolid() && part.isValid(it) }
+            .filter { it.isSolid() && shape.isValid(it) }
             .map { ItemStack(this, 1, it.index) }
             .filter { it.metadata != 0 }
             .forEach { subItems.add(it) }
@@ -42,16 +42,16 @@ open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
 
     override fun registerOreDict() {
         MaterialRegistry.getMaterials()
-            .filter { it.isSolid() && part.isValid(it) }
+            .filter { it.isSolid() && shape.isValid(it) }
             .forEach {
-                OreDictionary.registerOre(part.getOreDict(it), ItemStack(this, 1, it.index))
+                OreDictionary.registerOre(shape.getOreDict(it), ItemStack(this, 1, it.index))
             }
     }
 
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
-            .filter { it.isSolid() && part.isValid(it) }
-            .forEach { part.recipe(this, it) }
+            .filter { it.isSolid() && shape.isValid(it) }
+            .forEach { shape.recipe(this, it) }
     }
 
     @SideOnly(Side.CLIENT)
@@ -63,6 +63,6 @@ open class ItemMaterial(val part: HiiragiPart) : HiiragiItem(part.name, 32767) {
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = part.model(this)
+    override fun registerModel() = shape.model(this)
 
 }
