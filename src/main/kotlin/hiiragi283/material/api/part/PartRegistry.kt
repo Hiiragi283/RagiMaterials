@@ -33,10 +33,11 @@ object PartRegistry {
     //鉱石辞書から取得する
     @JvmStatic
     fun getParts(stack: ItemStack): List<HiiragiPart> {
-        return OreDictionary.getOreIDs(stack)
-            .map(OreDictionary::getOreName)
-            .map(PartRegistry::getPart)
-            .filterNot(HiiragiPart::isEmpty)
+        return stack.takeUnless(ItemStack::isEmpty)
+            ?.let(OreDictionary::getOreIDs)
+            ?.map(OreDictionary::getOreName)
+            ?.map(PartRegistry::getPart)
+            ?.filterNot(HiiragiPart::isEmpty) ?: listOf()
     }
 
     //    registerTag    //
