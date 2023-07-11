@@ -57,15 +57,15 @@ object ShapeRegistry {
         }
         recipe = { item, material ->
             if (material.isSolid()) {
-                if (material.isMetal()) {
-                    CraftingBuilder(ItemStack(item, 1, material.index))
-                        .setPattern("AAA", "AAA", "AAA")
-                        .setIngredient('A', "ingot${material.getOreDictName()}")
-                        .buildShaped()
-                } else if (material.isGem()) {
+                if (material.isGem()) {
                     CraftingBuilder(ItemStack(item, 1, material.index))
                         .setPattern("AAA", "AAA", "AAA")
                         .setIngredient('A', "gem${material.getOreDictName()}")
+                        .buildShaped()
+                } else {
+                    CraftingBuilder(ItemStack(item, 1, material.index))
+                        .setPattern("AAA", "AAA", "AAA")
+                        .setIngredient('A', "ingot${material.getOreDictName()}")
                         .buildShaped()
                 }
             }

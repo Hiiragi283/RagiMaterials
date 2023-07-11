@@ -1,6 +1,8 @@
 package hiiragi283.material.api.part
 
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.util.toItemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
@@ -48,6 +50,22 @@ object PartRegistry {
             RagiMaterials.LOGGER.warn("The part: $it will be overrided by $oredict!")
         }
         REGISTRY[oredict] = hiiragiPart
+    }
+
+    @JvmStatic
+    fun registerTag(oredicts: Collection<String>, hiiragiPart: HiiragiPart) {
+        oredicts.forEach { registerTag(it, hiiragiPart) }
+    }
+
+    //    init    //
+
+    fun init() {
+        REGISTRY.clear()
+        ShapeRegistry.getShapes().forEach { shape ->
+            MaterialRegistry.getMaterials()
+                .map { HiiragiPart(shape, it) }
+                .forEach { registerTag(it.getOreDicts(), it) }
+        }
     }
 
 }

@@ -136,23 +136,12 @@ object MaterialElements {
     }
 
     @JvmField
-    @Deprecated("Alumin\"i\"um distortions.")
-    val ALUMINUM = materialOf("aluminum", 13) {
-        color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 5).rgb
-        crystalType = CrystalType.METAL
-        formula = "Al"
-        molar = 27.0
-        tempBoil = 2792
-        tempMelt = 933
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
-    }
-
-    @JvmField
     val ALUMINIUM = materialOf("aluminium", 13) {
         color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.WHITE to 5).rgb
         crystalType = CrystalType.METAL
         formula = "Al"
         molar = 27.0
+        oreDictAlt = "aluminum"
         tempBoil = 2792
         tempMelt = 933
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -265,23 +254,12 @@ object MaterialElements {
     }
 
     @JvmField
-    @Deprecated("CHROMIUM distortions.")
-    val CHROME = materialOf("chrome", 24) {
-        color = RagiColor.GREEN.rgb
-        crystalType = CrystalType.METAL
-        formula = "Cr"
-        molar = 52.0
-        tempBoil = 2944
-        tempMelt = 2180
-        validShapes.addAll(MaterialType.METAL_COMMON)
-    }
-
-    @JvmField
     val CHROMIUM = materialOf("chromium", 24) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "Cr"
         molar = 52.0
+        oreDictAlt = "chrome"
         tempBoil = 2944
         tempMelt = 2180
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -1025,18 +1003,6 @@ object MaterialElements {
     }
 
     @JvmField
-    @Deprecated("URANIUM distortions.")
-    val URANIUM238 = materialOf("uranium238", 92) {
-        color = RagiColor.GREEN.rgb
-        crystalType = CrystalType.METAL
-        formula = "U"
-        molar = 238.0
-        tempBoil = 4404
-        tempMelt = 1405
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
-    }
-
-    @JvmField
     val URANIUM = materialOf("uranium", 92) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
@@ -1348,7 +1314,6 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(SODIUM)
         MaterialRegistry.registerMaterial(MAGNESIUM)
         MaterialRegistry.registerMaterial(ALUMINIUM)
-        MaterialRegistry.registerMaterial(ALUMINUM)
         MaterialRegistry.registerMaterial(SILICON)
         MaterialRegistry.registerMaterial(PHOSPHORUS)
         MaterialRegistry.registerMaterial(SULFUR)
@@ -1361,7 +1326,6 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(TITANIUM)
         MaterialRegistry.registerMaterial(VANADIUM)
         MaterialRegistry.registerMaterial(CHROMIUM)
-        MaterialRegistry.registerMaterial(CHROME)
         MaterialRegistry.registerMaterial(MANGANESE)
         MaterialRegistry.registerMaterial(IRON)
         MaterialRegistry.registerMaterial(COBALT)
@@ -1437,7 +1401,6 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(THORIUM)
         MaterialRegistry.registerMaterial(PROTACTINIUM)
         MaterialRegistry.registerMaterial(URANIUM)
-        MaterialRegistry.registerMaterial(URANIUM238)
         MaterialRegistry.registerMaterial(NEPTUNIUM)
         MaterialRegistry.registerMaterial(PLUTONIUM244)
         if (RMConfig.enableTransuraniumElement) {

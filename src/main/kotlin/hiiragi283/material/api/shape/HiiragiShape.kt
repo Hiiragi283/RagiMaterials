@@ -29,12 +29,18 @@ class HiiragiShape internal constructor(val name: String, val scale: Double) {
 
     fun isEmpty(): Boolean = this.name == "empty"
 
-    fun getOreDictPrefix() = name.snakeToLowerCamelCase()
-
     fun getOreDict(material: HiiragiMaterial): String = StringBuilder().also {
-        it.append(this.getOreDictPrefix())
+        it.append(name.snakeToLowerCamelCase())
         it.append(material.getOreDictName())
     }.toString()
+
+    fun getOreDictAlt(material: HiiragiMaterial): String = StringBuilder().also {
+        it.append(name.snakeToLowerCamelCase())
+        it.append(material.getOreDictNameAlt())
+    }.toString()
+
+    fun getOreDicts(material: HiiragiMaterial): List<String> =
+        listOf(getOreDict(material), getOreDictAlt(material)).filter(String::isNotEmpty)
 
     fun getWeight(material: HiiragiMaterial): Double = (material.molar * scale * 10.0).roundToInt() / 10.0
 

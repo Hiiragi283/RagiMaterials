@@ -1,7 +1,7 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.config.*
+import hiiragi283.material.integration.RMIntegrationCore
 import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 
@@ -45,6 +45,7 @@ object MaterialIntegration {
         crystalType = CrystalType.EMERALD
         formula = "En"
         molar = 112.2
+        oreDictAlt = "ender_pearl"
         tempBoil = 1201
         tempMelt = 1122
         validShapes.addAll(MaterialType.SOLID)
@@ -339,7 +340,7 @@ object MaterialIntegration {
         MaterialRegistry.registerMaterial(LAPIS)
         MaterialRegistry.registerMaterial(GLOWSTONE)
         MaterialRegistry.registerMaterial(ENDER_PEARL)
-        if (enableTE()) {
+        if (RMIntegrationCore.enableTE()) {
             RagiMaterials.LOGGER.info("Enabled integration: Thermal Series")
             MaterialRegistry.registerMaterial(MITHRIL)
             MaterialRegistry.registerMaterial(SIGNALUM)
@@ -350,12 +351,12 @@ object MaterialIntegration {
             MaterialRegistry.registerMaterial(AEROTHEUM)
             MaterialRegistry.registerMaterial(PETROTHEUM)
         }
-        if (enableMek()) {
+        if (RMIntegrationCore.enableMek()) {
             RagiMaterials.LOGGER.info("Enabled integration: Mekanism")
             MaterialRegistry.registerMaterial(OBSIDIAN_REFINED)
             MaterialRegistry.registerMaterial(GLOWSTONE_REFINED)
         }
-        if (enableEIO()) {
+        if (RMIntegrationCore.enableEIO()) {
             RagiMaterials.LOGGER.info("Enabled integration: Ender IO")
             MaterialRegistry.registerMaterial(ELECTRICAL_STEEL)
             MaterialRegistry.registerMaterial(ENERGETIC_ALLOY)
@@ -368,12 +369,12 @@ object MaterialIntegration {
             MaterialRegistry.registerMaterial(END_STEEL)
             MaterialRegistry.registerMaterial(IRON_ALLOY)
         }
-        if (enableThaum()) {
+        if (RMIntegrationCore.enableThaum()) {
             RagiMaterials.LOGGER.info("Enabled integration: Thaumcraft")
             MaterialRegistry.registerMaterial(THAUMIUM)
             MaterialRegistry.registerMaterial(VOID_METAL)
         }
-        if (enableBotania()) {
+        if (RMIntegrationCore.enableBotania()) {
             RagiMaterials.LOGGER.info("Enabled integration: Botania")
             MaterialRegistry.registerMaterial(MANASTEEL)
             MaterialRegistry.registerMaterial(MANA_DIAMOND)
@@ -381,7 +382,7 @@ object MaterialIntegration {
             MaterialRegistry.registerMaterial(ELEMENTIUM)
             MaterialRegistry.registerMaterial(DRAGONSTONE)
         }
-        if (enableEmbers()) {
+        if (RMIntegrationCore.enableEmbers()) {
             RagiMaterials.LOGGER.info("Enabled integration: Embers")
             MaterialRegistry.registerMaterial(DAWNSTONE)
         }

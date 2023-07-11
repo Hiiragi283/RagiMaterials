@@ -1,6 +1,7 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
@@ -55,7 +56,7 @@ object RagiMaterials {
         //液体の登録
         HiiragiFluid.register()
         //MaterialPartとの紐づけ
-        RMItems.registerMaterialPart()
+        PartRegistry.init()
         //連携の登録
         RMIntegrationCore.onPreInit()
     }

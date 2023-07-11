@@ -27,6 +27,7 @@ data class HiiragiMaterial internal constructor(
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
     var molar: Double = -1.0,
+    var oreDictAlt: String = "",
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
@@ -56,6 +57,8 @@ data class HiiragiMaterial internal constructor(
 
     fun getOreDictName() = name.snakeToUpperCamelCase()
 
+    fun getOreDictNameAlt() = oreDictAlt.snakeToUpperCamelCase()
+
     fun getState(): MaterialState {
         //沸点が有効かつ298 K以下 -> 標準状態で気体
         if (hasTempBoil() && tempBoil <= 298) return MaterialState.GAS
@@ -80,6 +83,8 @@ data class HiiragiMaterial internal constructor(
         if (hasTempSubl())
             tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
     }
+
+    fun hasOreDictAlt(): Boolean = oreDictAlt.isNotEmpty()
 
     fun hasFormula(): Boolean = formula.isNotEmpty()
 

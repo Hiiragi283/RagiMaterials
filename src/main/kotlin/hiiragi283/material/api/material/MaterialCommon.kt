@@ -126,11 +126,31 @@ object MaterialCommon {
             validShapes.addAll(MaterialType.SOLID)
         }
 
+    @JvmField
+    val RUBBER = polymerOf("rubber", 10607, mapOf(MaterialElements.CARBON to 5, MaterialElements.HYDROGEN to 8)) {
+        color = ColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY).rgb
+        validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("block")
+        validShapes.add("ingot")
+        validShapes.add("plate")
+    }
+
+    @JvmField
+    val PLASTIC = polymerOf("plastic", 10608, mapOf(MaterialElements.CARBON to 2, MaterialElements.HYDROGEN to 4)) {
+        color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
+        oreDictAlt = "polyethylene"
+        validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("block")
+        validShapes.add("ingot")
+        validShapes.add("plate")
+    }
+
     //    Nitrogen    //
 
     @JvmField
     val NITER = compoundOf("niter", 10700, mapOf(MaterialElements.POTASSIUM to 1, NITRATE to 1)) {
         color = RagiColor.WHITE.rgb
+        oreDictAlt = "saltpeter"
         validShapes.addAll(MaterialType.GEM_9x)
     }
 
@@ -189,17 +209,18 @@ object MaterialCommon {
 
     //    Magnesium    //
 
-    @JvmField
+    /*@JvmField
     val OLIVINE = compoundOf("olivine", 11200, mapOf(MaterialElements.MAGNESIUM to 2, SILICATE to 1)) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
-    }
+    }*/
 
     @JvmField
-    val PERIDOT = compoundOf("peridot", 11201, mapOf(MaterialElements.MAGNESIUM to 2, SILICATE to 1)) {
+    val PERIDOT = compoundOf("peridot", 11200, mapOf(MaterialElements.MAGNESIUM to 2, SILICATE to 1)) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
+        oreDictAlt = "olivine"
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
@@ -273,6 +294,7 @@ object MaterialCommon {
     val QUARTZ = compoundOf("quartz", 11406, mapOf(SILICATE to 1)) {
         color = RagiColor.WHITE.rgb
         crystalType = CrystalType.QUARTZ
+        oreDictAlt = "nether_quartz"
         validShapes.addAll(MaterialType.GEM_4xADVANCED)
     }
 

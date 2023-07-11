@@ -32,6 +32,7 @@ object MaterialType {
 
     @JvmField
     val SOLID: Set<String> = setOf(
+        "cluster",
         "dust",
         "dust_tiny",
         "ore"
@@ -80,6 +81,7 @@ object MaterialType {
     val METAL_ADVANCED: Set<String> = METAL_COMMON.toMutableSet().also {
         it.addAll(
             setOf(
+                "ball",
                 "coin",
                 "gear",
                 "plate",

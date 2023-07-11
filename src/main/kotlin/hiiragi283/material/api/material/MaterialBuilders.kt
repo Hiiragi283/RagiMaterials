@@ -179,3 +179,19 @@ fun initFormula(material: HiiragiMaterial, parent: HiiragiMaterial, amountWater:
     builder.append(MaterialCommon.WATER.formula)
     material.formula = builder.toString()
 }
+
+//    Polymer    //
+
+fun polymerOf(
+    name: String,
+    index: Int,
+    monomar: Map<HiiragiMaterial, Int>,
+    init: HiiragiMaterial.() -> Unit = {}
+): HiiragiMaterial {
+    val polymer = HiiragiMaterial(name, index)
+    initCompound(polymer, monomar)
+    polymer.formula = "(${polymer.formula})n"
+    polymer.molar = -1.0 //Invalidate molar
+    polymer.init()
+    return polymer
+}

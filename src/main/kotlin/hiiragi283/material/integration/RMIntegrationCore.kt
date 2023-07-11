@@ -1,34 +1,51 @@
 package hiiragi283.material.integration
 
 import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialIntegration
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.api.shape.ShapeRegistry
-import hiiragi283.material.config.enableBotania
-import hiiragi283.material.config.enableEIO
-import hiiragi283.material.config.enableThaum
 import hiiragi283.material.util.OreDictUtil
 import hiiragi283.material.util.getBlock
 import hiiragi283.material.util.getItem
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
+import net.minecraftforge.fml.common.Loader
 
 object RMIntegrationCore {
+
+    fun enableBotania() = Loader.isModLoaded("botania")
+    fun enableEIO() = Loader.isModLoaded("enderio")
+    fun enableEmbers() = Loader.isModLoaded("embers")
+    fun enableIC2() = Loader.isModLoaded("ic2")
+    fun enableMek() = Loader.isModLoaded("mekanism")
+    fun enableTE() = Loader.isModLoaded("thermalfoundation")
+    fun enableThaum() = Loader.isModLoaded("thaumcraft")
 
     fun onPreInit() {}
 
     fun onInit() {
-        OreDictUtil.register("stoneStone", Blocks.STONE)
+        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.STONE), Blocks.STONE)
+        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
+        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
 
-        OreDictUtil.register("dustGunpowder", Items.GUNPOWDER, share = "gunpowder")
-        OreDictUtil.register("dustSugar", Items.SUGAR, share = "sugar")
-        OreDictUtil.register("gemCharcoal", Items.COAL, 1, share = "charcoal")
-        OreDictUtil.register("gemCoal", Items.COAL, share = "coal")
-        OreDictUtil.register("gemEnder", Items.ENDER_PEARL, share = "enderpearl")
-        OreDictUtil.register("stickWood", Items.STICK, share = "stick")
+        OreDictUtil.register(
+            ShapeRegistry.DUST.getOreDict(MaterialCommon.GUNPOWDER),
+            Items.GUNPOWDER,
+            share = "gunpowder"
+        )
+        OreDictUtil.register(ShapeRegistry.DUST.getOreDict(MaterialCommon.SUGAR), Items.SUGAR, share = "sugar")
+        OreDictUtil.register(ShapeRegistry.GEM.getOreDict(MaterialCommon.CHARCOAL), Items.COAL, 1, share = "charcoal")
+        OreDictUtil.register(ShapeRegistry.GEM.getOreDict(MaterialCommon.COAL), Items.COAL, share = "coal")
+        OreDictUtil.register(
+            ShapeRegistry.GEM.getOreDict(MaterialIntegration.ENDER_PEARL),
+            Items.ENDER_PEARL,
+            share = "enderpearl"
+        )
+        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.WOOD), Items.STICK, share = "stick")
 
-        OreDictUtil.shareOredict("dustSaltpeter", "dustNiter")
+        //OreDictUtil.shareOredict("dustSaltpeter", "dustNiter")
         OreDictUtil.shareOredict("fuelCoke", "gemCoke")
     }
 
@@ -74,9 +91,84 @@ object RMIntegrationCore {
             )
         }
         if (enableEIO()) {
-            PartRegistry.registerTag(
-                "nuggetEnderpearl",
-                HiiragiPart(ShapeRegistry.NUGGET, MaterialIntegration.ENDER_PEARL)
+            OreDictUtil.register(
+                ShapeRegistry.BALL.getOreDict(MaterialIntegration.SIGNALUM),
+                getItem("enderio:item_material"),
+                57
+            )
+            OreDictUtil.register(
+                ShapeRegistry.BALL.getOreDict(MaterialIntegration.LUMIUM),
+                getItem("enderio:item_material"),
+                58
+            )
+            OreDictUtil.register(
+                ShapeRegistry.BALL.getOreDict(MaterialIntegration.ENDERIUM),
+                getItem("enderio:item_material"),
+                59
+            )
+        }
+        if (enableIC2()) {
+            OreDictUtil.register(
+                ShapeRegistry.INGOT.getOreDict(MaterialCommon.RUBBER),
+                getItem("ic2:crafting"),
+                0,
+                "itemRubber"
+            )
+            OreDictUtil.register(
+                ShapeRegistry.DUST.getOreDict(MaterialIntegration.ENDER_PEARL),
+                getItem("ic2:dust"),
+                31,
+                "dustEnderPearl"
+            )
+            OreDictUtil.register(
+                ShapeRegistry.DUST.getOreDict(MaterialCommon.EMERALD),
+                getItem("ic2:dust"),
+                34
+            )
+            OreDictUtil.register(
+                ShapeRegistry.DUST_TINY.getOreDict(MaterialCommon.EMERALD),
+                getItem("ic2:dust"),
+                35
+            )
+            OreDictUtil.register(
+                ShapeRegistry.DUST.getOreDict(MaterialCommon.ASH),
+                getItem("ic2:misc_resource"),
+                0,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.DUST_TINY.getOreDict(MaterialElements.IODINE),
+                getItem("ic2:misc_resource"),
+                6,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.INGOT.getOreDict(MaterialElements.URANIUM235),
+                getItem("ic2:nuclear"),
+                1,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.INGOT.getOreDict(MaterialElements.URANIUM),
+                getItem("ic2:nuclear"),
+                2,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.INGOT.getOreDict(MaterialElements.PLUTONIUM244),
+                getItem("ic2:nuclear"),
+                3,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.NUGGET.getOreDict(MaterialElements.URANIUM235),
+                getItem("ic2:nuclear"),
+                5,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.NUGGET.getOreDict(MaterialElements.URANIUM),
+                getItem("ic2:nuclear"),
+                6,
+            )
+            OreDictUtil.register(
+                ShapeRegistry.NUGGET.getOreDict(MaterialElements.PLUTONIUM244),
+                getItem("ic2:nuclear"),
+                6,
             )
         }
         if (enableThaum()) {

@@ -3,9 +3,6 @@ package hiiragi283.material
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.item.ItemMaterial
 import hiiragi283.material.api.material.MaterialElements
-import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
@@ -75,14 +72,6 @@ object RMItems : HiiragiEntry<Item> {
         MATERIAL_NUGGET.register(registry)
         MATERIAL_PLATE.register(registry)
         MATERIAL_STICK.register(registry)
-    }
-
-    fun registerMaterialPart() {
-        ShapeRegistry.getShapes().forEach { shape ->
-            MaterialRegistry.getMaterials()
-                .map { HiiragiPart(shape, it) }
-                .forEach { PartRegistry.registerTag(it.getOreDict(), it) }
-        }
     }
 
     override fun registerOreDict() {
