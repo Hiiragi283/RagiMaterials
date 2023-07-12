@@ -1,44 +1,32 @@
 package hiiragi283.material.api.block
 
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialPart
-import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.IHiiragiPart
+import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.minecraft.block.BlockState
 import net.minecraft.block.Material
-import net.minecraft.client.item.TooltipContext
 import net.minecraft.item.ItemStack
-import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.BlockRenderView
-import net.minecraft.world.BlockView
 
 class MaterialPartBlock(
     val materialH: HiiragiMaterial,
-    val part: HiiragiPart
-) : HiiragiBlock(FabricBlockSettings.of(Material.METAL)), MaterialPart<BlockState> {
+    val shape: HiiragiShape
+) : HiiragiBlock(FabricBlockSettings.of(Material.METAL)), IHiiragiPart.BLOCK {
 
-    override val identifier: Identifier = part.getId(materialH)
-    private val tag: Identifier = part.getTag(materialH)
-
-    override fun appendTooltip(
-        stack: ItemStack,
-        world: BlockView?,
-        tooltip: MutableList<Text>,
-        options: TooltipContext?
-    ) {
-        materialH.appendTooltip(tooltip, part)
-    }
+    override val identifier: Identifier = shape.getId(materialH)
+    private val tag: Identifier = shape.getTag(materialH)
 
     //    HiiragiBlock    //
 
-    override fun registerModel() = RagiResourcePack.addBlockState(identifier, part.state)
+    override fun registerModel() = RagiResourcePack.addBlockState(identifier, shape.state)
 
     override fun registerRecipe(): Unit =
-        part.recipes(materialH).forEach(RagiResourcePack::addRecipe)
+        shape.recipes(materialH).forEach(RagiResourcePack::addRecipe)
 
 
     override fun registerTag() {
@@ -46,7 +34,7 @@ class MaterialPartBlock(
         RagiResourcePack.addItemTag(tag, JTag().add(identifier))
     }
 
-    //    MaterialPart    //
+    //    IHiiragiPart    //
 
     override fun getColor(state: BlockState, view: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int =
         getMaterial(state).color
@@ -55,6 +43,6 @@ class MaterialPartBlock(
 
     override fun getMaterial(obj: BlockState): HiiragiMaterial = materialH
 
-    override fun getPart(obj: BlockState): HiiragiPart = part
+    override fun getShape(obj: BlockState): HiiragiShape = shape
 
 }

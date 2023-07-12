@@ -1,5 +1,6 @@
 package hiiragi283.material.common
 
+import hiiragi283.material.api.part.PartRegistry
 import net.fabricmc.api.ModInitializer
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -15,20 +16,20 @@ object RagiMaterials : ModInitializer {
         loadRMInitializer()
         LOGGER.info("RMInitializer called!")
 
+        PartRegistry.init()
+        LOGGER.info("PartRegistry initialized!")
+
         RagiRegistry.loadBlocks()
-        LOGGER.info("Blocks registered!")
+        LOGGER.info("Blocks and BlockItems registered!")
 
-        RagiRegistry.loadFluids()
+        //RagiRegistry.loadFluids()
         LOGGER.info("Fluids and Buckets registered!")
-
-        RagiRegistry.loadBlockItems()
-        LOGGER.info("BlockItems registered!")
 
         RagiRegistry.loadItems()
         LOGGER.info("Items registered!")
 
-        RagiEventHandler.load()
-        LOGGER.info("Events registered!")
+        RagiEventHandler.loadCommon()
+        LOGGER.info("Common Events registered!")
 
         RagiResourcePack.register()
         LOGGER.info("ResourcePack registered!")

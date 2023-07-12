@@ -2,8 +2,8 @@ package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialPart
-import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.IHiiragiPart
+import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.hiiragiId
 import net.minecraft.fluid.EmptyFluid
@@ -15,7 +15,7 @@ import net.minecraft.util.registry.Registry
 
 class MaterialFluid(
     val material: HiiragiMaterial
-) : EmptyFluid(), HiiragiEntry, MaterialPart<Fluid> {
+) : EmptyFluid(), HiiragiEntry, IHiiragiPart.FLUID {
 
     //    EmptyFluid    //
 
@@ -43,10 +43,10 @@ class MaterialFluid(
         bucket.registerTag()
     }
 
-    //    MaterialPart    //
+    //    IHiiragiPart    //
 
     override fun getMaterial(obj: Fluid): HiiragiMaterial = material
 
-    override fun getPart(obj: Fluid): HiiragiPart = HiiragiPart.EMPTY
+    override fun getShape(obj: Fluid): HiiragiShape = HiiragiShape.EMPTY
 
 }
