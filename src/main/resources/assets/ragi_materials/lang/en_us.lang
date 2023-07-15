@@ -6,29 +6,33 @@ itemGroup.ragi_materials.material=RagiMaterials
 ##    Item    ##
 
 item.forge_hammer_0.name=Forge Hammer
-item.ragi_materials.ball.name=%s Grinding Ball
-item.ragi_materials.block.name=Block of %s
-item.ragi_materials.bottle.name=%s Full-Bottle
-item.ragi_materials.clump.name=%s Clump
-item.ragi_materials.cluster.name=Native %s Cluster
-item.ragi_materials.coin.name=%s Coin
-item.ragi_materials.crushed.name=Crushed %s Ore
-item.ragi_materials.crushed_purified.name=Purified Crushed %s Ore
-item.ragi_materials.crystal.name=%s Crystal
-item.ragi_materials.dust.name=%s Dust
-item.ragi_materials.dust_dirty.name=Dirty %s Dust
-item.ragi_materials.dust_tiny.name=Tiny Pile of %s Dust
-item.ragi_materials.gear.name=%s Gear
-item.ragi_materials.gem.name=%s Gem
-item.ragi_materials.ingot.name=%s Ingot
-item.ragi_materials.nugget.name=%s Nugget
-item.ragi_materials.ore.name=%s Ore
-item.ragi_materials.plank.name=%s Plank
-item.ragi_materials.plate.name=%s Plate
-item.ragi_materials.plate_dense.name=Dense %s Plate
-item.ragi_materials.shard.name=%s Shard
-item.ragi_materials.stick.name=%s Stick
-item.ragi_materials.stone.name=%s Stone
+
+##    Shape    ##
+
+shape.ball=%s Grinding Ball
+shape.block=Block of %s
+shape.bottle=%s Full-Bottle
+shape.clump=%s Clump
+shape.cluster=Native %s Cluster
+shape.coin=%s Coin
+shape.crushed=Crushed %s Ore
+shape.crushed_purified=Purified Crushed %s Ore
+shape.crystal=%s Crystal
+shape.dust=%s Dust
+shape.dust_dirty=Dirty %s Dust
+shape.dust_tiny=Tiny Pile of %s Dust
+shape.gear=%s Gear
+shape.gem=%s Gem
+shape.ingot=%s Ingot
+shape.nugget=%s Nugget
+shape.ore=%s Ore
+shape.plank=%s
+shape.plate=%s Plate
+shape.plate_dense=Dense %s Plate
+shape.sand=%s
+shape.shard=%s Shard
+shape.stick=%s Stick
+shape.stone=%s
 
 ##    Tooltip    ##
 

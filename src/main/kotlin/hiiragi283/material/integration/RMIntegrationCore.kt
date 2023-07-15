@@ -26,9 +26,9 @@ object RMIntegrationCore {
     fun onPreInit() {}
 
     fun onInit() {
-        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.STONE), Blocks.STONE)
-        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
-        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
+        OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
+        OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
+        OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
 
         OreDictUtil.register(
             ShapeRegistry.DUST.getOreDict(MaterialCommon.GUNPOWDER),

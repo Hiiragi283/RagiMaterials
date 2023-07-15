@@ -8,7 +8,7 @@ plugins {
     id 'eclipse'
     id 'com.gtnewhorizons.retrofuturagradle' version '1.3.16'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.22'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.0'
 }
 
@@ -106,8 +106,8 @@ dependencies {
         implementation 'zone.rong:mixinbooter:7.1'
     }
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 
     runtimeOnly rfg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479")
     implementation rfg.deobf("curse.maven:had-enough-items-557549:4451828")
@@ -115,7 +115,7 @@ dependencies {
     runtimeOnly rfg.deobf("curse.maven:itemzoom-261725:2643616")
     //runtimeOnly rfg.deobf("curse.maven:jei-integration-265917:2951731")
     runtimeOnly rfg.deobf("curse.maven:placebo-283644:2694382")
-    runtimeOnly rfg.deobf("curse.maven:forgelin-continuous-456403:4528552")
+    runtimeOnly rfg.deobf("curse.maven:forgelin-continuous-456403:4635770")
     runtimeOnly rfg.deobf("curse.maven:the-one-probe-245211:2667280")
 
     //Botania

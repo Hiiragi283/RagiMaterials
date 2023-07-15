@@ -9,6 +9,7 @@ import hiiragi283.material.fluid.HiiragiFluid
 import hiiragi283.material.integration.RMIntegrationCore
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.*
 import org.apache.logging.log4j.LogManager
@@ -19,8 +20,8 @@ import java.util.*
 @Mod(
     modid = RagiMaterials.MODID,
     name = "RagiMaterials",
-    version = "1.0.0-pre2",
-    dependencies = "required-after:forgelin_continuous;after:jei",
+    version = "1.0.0-pre4",
+    dependencies = "required-after:forgelin_continuous;after:gregtech;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
 )
@@ -33,6 +34,18 @@ object RagiMaterials {
     val CALENDAR: Calendar = Calendar.getInstance()
     val COLOR: Color by lazy { Color(255, 0, 31) }
     val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
+
+    init {
+        if (Loader.isModLoaded("gregtech")) {
+            throw RuntimeException(
+                "\n" +
+                        "=====================================================\n" +
+                        "RagiMaterials detected GregTech in this environment!!\n" +
+                        "Remove RagiMaterials or GregTech from mods folder\n" +
+                        "====================================================="
+            )
+        }
+    }
 
     @Mod.EventHandler
     fun onConstruct(event: FMLConstructionEvent) {

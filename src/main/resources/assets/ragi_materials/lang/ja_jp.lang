@@ -6,29 +6,33 @@ itemGroup.ragi_materials.material=RagiMaterials
 ##    Item    ##
 
 item.forge_hammer_0.name=フォージハンマー
-item.ragi_materials.ball.name=%sの粉砕用ボール
-item.ragi_materials.block.name=%sブロック
-item.ragi_materials.bottle.name=%sフルボトル
-item.ragi_materials.clump.name=%sの塊
-item.ragi_materials.cluster.name=自然%sクラスター
-item.ragi_materials.coin.name=%sのコイン
-item.ragi_materials.crushed.name=粉砕された%s鉱石
-item.ragi_materials.crushed_purified.name=粉砕された洗浄済み%s鉱石
-item.ragi_materials.crystal.name=%sの結晶
-item.ragi_materials.dust.name=%sの粉
-item.ragi_materials.dust_dirty.name=汚れた%sの粉
-item.ragi_materials.dust_tiny.name=小さな%sの粉
-item.ragi_materials.gear.name=%sの歯車
-item.ragi_materials.gem.name=%s結晶
-item.ragi_materials.ingot.name=%sインゴット
-item.ragi_materials.nugget.name=%sナゲット
-item.ragi_materials.ore.name=%s鉱石
-item.ragi_materials.plank.name=%sの木材
-item.ragi_materials.plate.name=%sの板
-item.ragi_materials.plate_dense.name=厚い%sの板
-item.ragi_materials.shard.name=%sの欠片
-item.ragi_materials.stick.name=%sの棒
-item.ragi_materials.stone.name=%s石
+
+##    Shape    ##
+
+shape.ball=%sの粉砕用ボール
+shape.block=%sブロック
+shape.bottle=%sフルボトル
+shape.clump=%sの塊
+shape.cluster=自然%sクラスター
+shape.coin=%sのコイン
+shape.crushed=粉砕された%s鉱石
+shape.crushed_purified=粉砕された洗浄済み%s鉱石
+shape.crystal=%sの結晶
+shape.dust=%sの粉
+shape.dust_dirty=汚れた%sの粉
+shape.dust_tiny=小さな%sの粉
+shape.gear=%sの歯車
+shape.gem=%s結晶
+shape.ingot=%sインゴット
+shape.nugget=%sナゲット
+shape.ore=%s鉱石
+shape.plank=%s
+shape.plate=%sの板
+shape.plate_dense=厚い%sの板
+shape.sand=%s
+shape.shard=%sの欠片
+shape.stick=%sの棒
+shape.stone=%s
 
 ##    Tooltip    ##
 

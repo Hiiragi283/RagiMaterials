@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryModifiable
 
-fun ItemStack.toLocation(): ResourceLocation = this.item.registryName!!.append(":" + this.metadata)
+fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.registryName!!.append(split + this.metadata)
 
 fun IBlockState.toLocation(): ResourceLocation =
     this.block.registryName!!.append(":" + this.block.getMetaFromState(this))

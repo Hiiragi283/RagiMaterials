@@ -159,7 +159,7 @@ object ShapeRegistry {
                 .buildShaped()
             //block -> ingot
             val ingot9 = ItemStack(item, 9, material.index)
-            CraftingBuilder(ingot9.toLocation().append("_alt"), ingot9)
+            CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
                 .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
                 .buildShapeless()
         }
@@ -200,6 +200,9 @@ object ShapeRegistry {
 
     @JvmField
     val PURIFIED = shapeOf("crushed_purified", 1.0)
+
+    @JvmField
+    val SAND = shapeOf("sand", 1.0)
 
     @JvmField
     val SHARD = shapeOf("shard", 1.0)

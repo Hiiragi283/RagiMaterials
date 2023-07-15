@@ -1,6 +1,5 @@
 package hiiragi283.material.api.shape
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.item.ItemMaterial
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.util.RMModelManager
@@ -19,7 +18,7 @@ class HiiragiShape internal constructor(val name: String, val scale: Double) {
     var model: (ItemMaterial) -> Unit = { RMModelManager.setModelSame(it) }
     var recipe: (ItemMaterial, HiiragiMaterial) -> Unit = { _, _ -> }
 
-    var translationKey: String = "item.${RagiMaterials.MODID}.$name.name"
+    var translationKey: String = "shape.$name"
     var translatedName: (HiiragiMaterial) -> String = { I18n.format(translationKey, it.translatedName) }
 
     companion object {
@@ -34,10 +33,11 @@ class HiiragiShape internal constructor(val name: String, val scale: Double) {
         it.append(material.getOreDictName())
     }.toString()
 
-    fun getOreDictAlt(material: HiiragiMaterial): String = StringBuilder().also {
-        it.append(name.snakeToLowerCamelCase())
-        it.append(material.getOreDictNameAlt())
-    }.toString()
+    fun getOreDictAlt(material: HiiragiMaterial): String =
+        if (material.hasOreDictAlt()) StringBuilder().also {
+            it.append(name.snakeToLowerCamelCase())
+            it.append(material.getOreDictNameAlt())
+        }.toString() else ""
 
     fun getOreDicts(material: HiiragiMaterial): List<String> =
         listOf(getOreDict(material), getOreDictAlt(material)).filter(String::isNotEmpty)
