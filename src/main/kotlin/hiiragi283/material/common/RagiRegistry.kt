@@ -1,10 +1,10 @@
 package hiiragi283.material.common
 
 import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.api.block.MaterialPartBlock
+import hiiragi283.material.api.block.createMaterialBlock
 import hiiragi283.material.api.fluid.MaterialFluid
-import hiiragi283.material.api.item.MaterialPartBlockItem
-import hiiragi283.material.api.item.MaterialPartItem
+import hiiragi283.material.api.item.createMaterialBlockItem
+import hiiragi283.material.api.item.createMaterialItem
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.ShapeRegistry
@@ -12,27 +12,17 @@ import hiiragi283.material.common.item.RespawnBookItem
 
 object RagiRegistry {
 
-    private fun register(entry: HiiragiEntry) {
-        entry.register()
-        entry.registerModel()
-        entry.registerRecipe()
-        entry.registerTag()
-    }
-
-    private fun register(sets: Set<HiiragiEntry>) {
-        sets.forEach(::register)
-    }
-
     fun loadBlocks() {
         //Initialize Material Blocks
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
                 .filter { it.type == HiiragiShape.Type.BLOCK }
                 .filter { it.isValid(material) }
-                .map { MaterialPartBlock(material, it) }
                 .forEach {
-                    register(it)
-                    register(MaterialPartBlockItem(it))
+                    createMaterialBlock(material, it).also { block ->
+                        block.register()
+                        createMaterialBlockItem(material, it, block).register()
+                    }
                 }
         }
     }
@@ -41,7 +31,7 @@ object RagiRegistry {
         //Initialize Fluids and Buckets
         MaterialRegistry.getMaterials()
             .map(::MaterialFluid)
-            .forEach(::register)
+            .forEach(HiiragiEntry::register)
     }
 
     fun loadItems() {
@@ -53,8 +43,8 @@ object RagiRegistry {
             ShapeRegistry.getShapes()
                 .filter { it.type == HiiragiShape.Type.ITEM }
                 .filter { it.isValid(material) }
-                .map { MaterialPartItem(material, it) }
-                .forEach(::register)
+                .map { createMaterialItem(material, it) }
+                .forEach(HiiragiEntry::register)
         }
     }
 

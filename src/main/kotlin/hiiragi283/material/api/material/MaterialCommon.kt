@@ -155,7 +155,7 @@ object MaterialCommon {
         color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
     }
 
-    fun init() {
+    fun register() {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }

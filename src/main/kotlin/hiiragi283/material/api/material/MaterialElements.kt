@@ -1295,7 +1295,7 @@ object MaterialElements {
         molar = 235.0
     }
 
-    fun init() {
+    fun register() {
         // --1st Period--
         MaterialRegistry.registerMaterial(HYDROGEN)
         MaterialRegistry.registerMaterial(HELIUM)

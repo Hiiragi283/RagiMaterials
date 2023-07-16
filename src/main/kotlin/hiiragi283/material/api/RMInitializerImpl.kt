@@ -8,10 +8,10 @@ object RMInitializerImpl : RMInitializer {
 
     override fun onInitialize() {
         MaterialRegistry.init()
-        RagiMaterials.LOGGER.info("HiiragiMaterial registered!")
+        RagiMaterials.LOGGER.info("HiiragiMaterial initialized!")
 
         ShapeRegistry.init()
-        RagiMaterials.LOGGER.info("HiiragiShape registered!")
+        RagiMaterials.LOGGER.info("HiiragiShape initialized!")
     }
 
 }

@@ -13,36 +13,38 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.BlockRenderView
 
-class MaterialPartBlock(
-    val materialH: HiiragiMaterial,
-    val shape: HiiragiShape
+fun createMaterialBlock(
+    material: HiiragiMaterial,
+    shape: HiiragiShape
+): MaterialPartBlock {
+
+    val identifier: Identifier = shape.getId(material)
+    val tag: Identifier = shape.getTag(material)
+
+    val block = MaterialPartBlock(identifier)
+    block.blockColor = { _, _, _, _ -> material.color }
+    block.itemColor = { _, _ -> material.color }
+
+    RagiResourcePack.addBlockState(identifier, shape.state)
+    shape.recipes(material).forEach(RagiResourcePack::addRecipe)
+    RagiResourcePack.addBlockTag(tag, JTag().add(identifier))
+    RagiResourcePack.addItemTag(tag, JTag().add(identifier))
+
+    return block
+}
+
+class MaterialPartBlock internal constructor(
+    override val identifier: Identifier
 ) : HiiragiBlock(FabricBlockSettings.of(Material.METAL)), IHiiragiPart.BLOCK {
 
-    override val identifier: Identifier = shape.getId(materialH)
-    private val tag: Identifier = shape.getTag(materialH)
-
-    //    HiiragiBlock    //
-
-    override fun registerModel() = RagiResourcePack.addBlockState(identifier, shape.state)
-
-    override fun registerRecipe(): Unit =
-        shape.recipes(materialH).forEach(RagiResourcePack::addRecipe)
-
-
-    override fun registerTag() {
-        RagiResourcePack.addBlockTag(tag, JTag().add(identifier))
-        RagiResourcePack.addItemTag(tag, JTag().add(identifier))
-    }
+    var blockColor: (BlockState, BlockRenderView?, BlockPos?, Int) -> Int = { state, view, pos, tintIndex -> -1 }
+    var itemColor: (ItemStack, Int) -> Int = { stack, tintIndex -> -1 }
 
     //    IHiiragiPart    //
 
     override fun getColor(state: BlockState, view: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int =
-        getMaterial(state).color
+        blockColor(state, view, pos, tintIndex)
 
-    override fun getColor(stack: ItemStack, tintIndex: Int): Int = materialH.color
-
-    override fun getMaterial(obj: BlockState): HiiragiMaterial = materialH
-
-    override fun getShape(obj: BlockState): HiiragiShape = shape
+    override fun getColor(stack: ItemStack, tintIndex: Int): Int = itemColor(stack, tintIndex)
 
 }

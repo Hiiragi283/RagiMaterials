@@ -9,7 +9,7 @@ import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
-import net.minecraft.text.Text
+import net.minecraft.client.resource.language.I18n
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
 import kotlin.math.roundToInt
@@ -41,11 +41,14 @@ class HiiragiShape internal constructor(
 
     override fun toString(): String = "Part:$name"
 
-    fun getName(material: HiiragiMaterial): Text = TranslatableText(translationKey, material.getTranslatedName())
+    fun getName(material: HiiragiMaterial): String = I18n.translate(translationKey, material.getTranslatedName())
 
     fun getId(material: HiiragiMaterial): Identifier = hiiragiId(replacedName(material))
 
     fun getTag(material: HiiragiMaterial): Identifier = commonId(replacedName(material))
+
+    fun getText(material: HiiragiMaterial): TranslatableText =
+        TranslatableText(translationKey, material.getTranslatedName())
 
     fun getResult(material: HiiragiMaterial, count: Int = 1): JStackedResult =
         JResult.stackedResult(getId(material).toString(), count)

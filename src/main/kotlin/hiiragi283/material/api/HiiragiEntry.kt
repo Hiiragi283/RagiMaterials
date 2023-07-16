@@ -8,10 +8,4 @@ interface HiiragiEntry {
 
     fun register()
 
-    fun registerModel() {}
-
-    fun registerTag() {}
-
-    fun registerRecipe() {}
-
 }

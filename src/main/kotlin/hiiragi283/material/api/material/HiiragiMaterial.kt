@@ -58,7 +58,7 @@ data class HiiragiMaterial internal constructor(
     fun appendTooltip(tooltip: MutableList<Text>, shape: HiiragiShape = HiiragiShape.EMPTY) {
         if (isEmpty()) return
         tooltip.add(LiteralText("§e=== Property ==="))
-        tooltip.add(TranslatableText("tips.ragi_materials.property.name", shape.getName(this)))
+        tooltip.add(TranslatableText("tips.ragi_materials.property.name", "§b${shape.getName(this)}"))
         if (hasFormula())
             tooltip.add(TranslatableText("tips.ragi_materials.property.formula", "§b${formula}"))
         if (hasMolar() && shape.hasScale())

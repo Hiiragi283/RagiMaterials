@@ -3,7 +3,6 @@ package hiiragi283.material.api.fluid
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.IHiiragiPart
-import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.RagiResourcePack
 import hiiragi283.material.common.util.commonId
@@ -38,22 +37,14 @@ class MaterialBucketItem(fluid: Fluid, val material: HiiragiMaterial) : BucketIt
     override fun register() {
         Registry.register(Registry.ITEM, identifier, this)
         RagiMaterials.LOGGER.debug("The bucket item ${identifier.path} registered!")
-    }
 
-    override fun registerModel() {
         RagiResourcePack.addItemModel(identifier, model)
-    }
 
-    override fun registerTag() {
         RagiResourcePack.addItemTag(commonId(identifier.path), JTag().add(identifier))
     }
 
     //    IHiiragiPart    //
 
     override fun getColor(stack: ItemStack, tintIndex: Int): Int = if (tintIndex == 1) material.color else -1
-
-    override fun getMaterial(obj: ItemStack): HiiragiMaterial = material
-
-    override fun getShape(obj: ItemStack): HiiragiShape = HiiragiShape.EMPTY
 
 }

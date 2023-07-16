@@ -37,14 +37,14 @@ object MaterialRegistry {
 
     fun init() {
         REGISTRY.clear()
-        MaterialElements.init()
+        MaterialElements.register()
         RagiMaterials.LOGGER.info("Elemental Materials registered!")
 
-        MaterialCommon.init()
+        MaterialCommon.register()
         RagiMaterials.LOGGER.info("Common Materials registered!")
 
         RagiDataPackHandler.load()
-        RagiMaterials.LOGGER.info("Materials from data packs registered!")
+        RagiMaterials.LOGGER.info("Materials from data packs loaded!")
     }
 
 }

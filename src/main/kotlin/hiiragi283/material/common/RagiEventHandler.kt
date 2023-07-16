@@ -1,6 +1,5 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.api.part.IHiiragiPart
 import hiiragi283.material.api.part.PartRegistry
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
@@ -17,12 +16,11 @@ object RagiEventHandler {
         ServerTickEvents.START_WORLD_TICK.register(ServerTickEvents.StartWorldTick { world ->
             world.getEntitiesByType(TypeFilter.instanceOf(ItemEntity::class.java)) { it.isSubmergedInWater }
                 .forEach {
-                    val stack = it.stack
-                    val item = stack.item
-                    if (item is IHiiragiPart.ITEM) {
-                        if (item.getMaterial(it.stack).property.isActiveToWater)
-                            world.createExplosion(null, it.x, it.y, it.z, 3.0f, Explosion.DestructionType.BREAK)
-                    }
+                    val list = PartRegistry.getParts(it.stack)
+                        .map { part -> part.material.property }
+                        .filter { property -> property.isActiveToWater }
+                    if (list.isNotEmpty())
+                        world.createExplosion(null, it.x, it.y, it.z, 3.0f, Explosion.DestructionType.BREAK)
                 }
         })
     }
