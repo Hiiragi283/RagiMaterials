@@ -75,7 +75,7 @@ object MaterialIntegration {
     val LUMIUM = compoundOf(
         "lumium",
         1012,
-        mapOf(MaterialElements.TIN to 4, MaterialElements.SILVER to 1, GLOWSTONE to 10)
+        mapOf(MaterialElements.TIN to 4, MaterialElements.SILVER to 1, GLOWSTONE to 4)
     ) {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL

@@ -129,6 +129,7 @@ object MaterialCommon {
     @JvmField
     val RUBBER = polymerOf("rubber", 10607, mapOf(MaterialElements.CARBON to 5, MaterialElements.HYDROGEN to 8)) {
         color = ColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY).rgb
+        formula = "(CC(=C)C=C)n"
         validShapes.addAll(MaterialType.SOLID)
         validShapes.add("block")
         validShapes.add("ingot")

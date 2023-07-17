@@ -1025,7 +1025,7 @@ object MaterialElements {
     }
 
     @JvmField
-    val PLUTONIUM244 = materialOf("plutonium244", 94) {
+    val PLUTONIUM = materialOf("plutonium", 94) {
         color = RagiColor.RED.rgb
         crystalType = CrystalType.METAL
         formula = "Pu244"
@@ -1402,7 +1402,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(PROTACTINIUM)
         MaterialRegistry.registerMaterial(URANIUM)
         MaterialRegistry.registerMaterial(NEPTUNIUM)
-        MaterialRegistry.registerMaterial(PLUTONIUM244)
+        MaterialRegistry.registerMaterial(PLUTONIUM)
         if (RMConfig.enableTransuraniumElement) {
             MaterialRegistry.registerMaterial(AMERICIUM)
             MaterialRegistry.registerMaterial(CURIUM)

@@ -1,15 +1,15 @@
 import org.jetbrains.gradle.ext.Gradle
 
 plugins {
-    id 'java'
-    id 'java-library'
-    id 'maven-publish'
-    id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.7'
-    id 'eclipse'
-    id 'com.gtnewhorizons.retrofuturagradle' version '1.3.20'
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.0'
+    id("com.gtnewhorizons.retrofuturagradle") version "1.3.20"
+    id("com.matthewprenger.cursegradle") version "1.4.0"
+    id("eclipse")
+    id("java")
+    id("java-library")
+    id("maven-publish")
+    id("org.jetbrains.gradle.plugin.idea-ext") version("1.1.7")
+    id("org.jetbrains.kotlin.jvm") version "1.8.22"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.22"
 }
 
 version = project.mod_version
@@ -29,7 +29,7 @@ java {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+    options.encoding = "UTF-8"
 }
 
 configurations {
@@ -38,60 +38,60 @@ configurations {
 }
 
 minecraft {
-    mcVersion = '1.12.2'
+    mcVersion = "1.12.2"
 
     // MCP Mappings
-    mcpMappingChannel = 'stable'
-    mcpMappingVersion = '39'
+    mcpMappingChannel = "stable"
+    mcpMappingVersion = "39"
 
     // Set username here, the UUID will be looked up automatically
-    username = 'Hiiragi283'
+    username = "Hiiragi283"
 
     // Add any additional tweaker classes here
-    // extraTweakClasses.add('org.spongepowered.asm.launch.MixinTweaker')
+    // extraTweakClasses.add("org.spongepowered.asm.launch.MixinTweaker")
 
     // Add various JVM arguments here for runtime
     def args = ["-ea:${project.group}"]
     if (project.use_coremod.toBoolean()) {
-        args << '-Dfml.coreMods.load=' + coremod_plugin_class_name
+        args << "-Dfml.coreMods.load=" + coremod_plugin_class_name
     }
     if (project.use_mixins.toBoolean()) {
-        args << '-Dmixin.hotSwap=true'
-        args << '-Dmixin.checks.interfaces=true'
-        args << '-Dmixin.debug.export=true'
+        args << "-Dmixin.hotSwap=true"
+        args << "-Dmixin.checks.interfaces=true"
+        args << "-Dmixin.debug.export=true"
     }
     extraRunJvmArguments.addAll(args)
 
-    // Include and use dependencies' Access Transformer files
+    // Include and use dependencies" Access Transformer files
     useDependencyAccessTransformers = true
 
     // Add any properties you want to swap out for a dynamic value at build time here
     // Any properties here will be added to a class at build time, the name can be configured below
     // Example:
-    // injectedTags.put('VERSION', project.version)
-    // injectedTags.put('MOD_ID', project.archives_base_name)
+    // injectedTags.put("VERSION", project.version)
+    // injectedTags.put("MOD_ID", project.archives_base_name)
 }
 
 // Generate a group.archives_base_name.Tags class
 tasks.injectTags.configure {
-    // Change Tags class' name here:
-    outputClassName.set("${project.group}.${project.archives_base_name}.Tags")
+    // Change Tags class" name here:
+    outputClassName.set("${project.group}.${archives_base_name}.Tags")
 }
 
 repositories {
     maven {
-        name 'CleanroomMC Maven'
-        url 'https://maven.cleanroommc.com'
+        name "CleanroomMC Maven"
+        url "https://maven.cleanroommc.com"
     }
     maven {
-        name 'SpongePowered Maven'
-        url 'https://repo.spongepowered.org/maven'
+        name "SpongePowered Maven"
+        url "https://repo.spongepowered.org/maven"
     }
     maven {
-        name 'CurseMaven'
-        url 'https://cursemaven.com'
+        name "CurseMaven"
+        url "https://cursemaven.com"
         content {
-            includeGroup 'curse.maven'
+            includeGroup "curse.maven"
         }
     }
     mavenLocal()
@@ -100,61 +100,74 @@ repositories {
 
 dependencies {
     if (project.use_assetmover.toBoolean()) {
-        implementation 'com.cleanroommc:assetmover:2.5'
+        implementation "com.cleanroommc:assetmover:2.5"
     }
     if (project.use_mixins.toBoolean()) {
-        implementation 'zone.rong:mixinbooter:7.1'
+        implementation "zone.rong:mixinbooter:7.1"
     }
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
-    runtimeOnly rfg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479")
-    implementation rfg.deobf("curse.maven:had-enough-items-557549:4451828")
-    runtimeOnly rfg.deobf("curse.maven:infinity-item-editor-290958:3802759")
-    runtimeOnly rfg.deobf("curse.maven:itemzoom-261725:2643616")
-    //runtimeOnly rfg.deobf("curse.maven:jei-integration-265917:2951731")
-    runtimeOnly rfg.deobf("curse.maven:placebo-283644:2694382")
-    runtimeOnly rfg.deobf("curse.maven:forgelin-continuous-456403:4635770")
-    runtimeOnly rfg.deobf("curse.maven:the-one-probe-245211:2667280")
+    runtimeOnly(rfg.deobf("curse.maven:baubles-227083:2518667"))
+    runtimeOnly(rfg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479"))
+    runtimeOnly(rfg.deobf("curse.maven:forgelin-continuous-456403:4528552"))
+    runtimeOnly(rfg.deobf("curse.maven:had-enough-items-557549:4451828"))
+    runtimeOnly(rfg.deobf("curse.maven:infinity-item-editor-290958:3802759"))
+    runtimeOnly(rfg.deobf("curse.maven:itemzoom-261725:2643616"))
+    runtimeOnly(rfg.deobf("curse.maven:placebo-283644:2694382"))
+    runtimeOnly(rfg.deobf("curse.maven:the-one-probe-245211:2667280"))
 
     //Botania
-    implementation rfg.deobf("curse.maven:botania-225643:3330934")
+    if (enable_botania) {
+        implementation(rfg.deobf("curse.maven:botania-225643:3330934"))
+    }
 
     //Embers
-    implementation rfg.deobf("curse.maven:embers-rekindled-300777:3695248")
+    if (enable_embers) {
+        implementation(rfg.deobf("curse.maven:embers-rekindled-300777:3695248"))
+    }
 
     //Ender IO
-    implementation rfg.deobf("curse.maven:endercore-231868:2972849")
-    implementation rfg.deobf("curse.maven:ender-io-64578:3328811")
+    if (enable_ender_io) {
+        implementation(rfg.deobf("curse.maven:endercore-231868:2972849"))
+        implementation(rfg.deobf("curse.maven:ender-io-64578:3328811"))
+    }
 
     //Industrial Craft 2
-    implementation rfg.deobf("curse.maven:industrial-craft-242638:3838713")
+    if (enable_ic2_ex) {
+        implementation(rfg.deobf("curse.maven:industrial-craft-242638:3838713"))
+    }
 
     //Mekanism
-    implementation rfg.deobf("curse.maven:mekanism-ce-399904:4557906")
+    if (enable_mekanism) {
+        implementation(rfg.deobf("curse.maven:mekanism-ce-399904:4557906"))
+    }
 
     //Thaumcraft
-    implementation rfg.deobf("curse.maven:baubles-227083:2518667")
-    implementation rfg.deobf("curse.maven:thaumcraft-223628:2629023")
+    if (enable_thaum) {
+        implementation(rfg.deobf("curse.maven:thaumcraft-223628:2629023"))
+    }
 
     //Thermal Series
-    runtimeOnly rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848")
-    implementation rfg.deobf("curse.maven:cofh-core-69162:2920433")
-    implementation rfg.deobf("curse.maven:cofh-world-271384:2920434")
-    implementation rfg.deobf("curse.maven:redstone-flux-270789:2920436")
-    implementation rfg.deobf("curse.maven:thermal-expansion-69163:2926431")
-    implementation rfg.deobf("curse.maven:thermal-foundation-222880:2926428")
+    if (enable_thermal) {
+        runtimeOnly(rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848"))
+        implementation(rfg.deobf("curse.maven:cofh-core-69162:2920433"))
+        implementation(rfg.deobf("curse.maven:cofh-world-271384:2920434"))
+        implementation(rfg.deobf("curse.maven:redstone-flux-270789:2920436"))
+        implementation(rfg.deobf("curse.maven:thermal-expansion-69163:2926431"))
+        implementation(rfg.deobf("curse.maven:thermal-foundation-222880:2926428"))
+    }
 
     if (project.use_mixins.toBoolean()) {
         // Change your mixin refmap name here:
-        String mixin = modUtils.enableMixins('org.spongepowered:mixin:0.8.3', "mixins.${project.archives_base_name}.refmap.json")
+        String mixin = modUtils.enableMixins("org.spongepowered:mixin:0.8.3", "mixins.${project.archives_base_name}.refmap.json")
         api(mixin) {
             transitive = false
         }
-        annotationProcessor 'org.ow2.asm:asm-debug-all:5.2'
-        annotationProcessor 'com.google.guava:guava:24.1.1-jre'
-        annotationProcessor 'com.google.code.gson:gson:2.8.6'
+        annotationProcessor "org.ow2.asm:asm-debug-all:5.2"
+        annotationProcessor "com.google.guava:guava:24.1.1-jre"
+        annotationProcessor "com.google.code.gson:gson:2.8.6"
         annotationProcessor(mixin) {
             transitive = false
         }
@@ -174,35 +187,35 @@ if (project.use_access_transformer.toBoolean()) {
 
 processResources {
     // This will ensure that this task is redone when the versions change
-    inputs.property 'version', project.version
-    inputs.property 'mcversion', project.minecraft.version
+    inputs.property "version", project.version
+    inputs.property "mcversion", minecraft_version
 
     // Replace various properties in mcmod.info and pack.mcmeta if applicable
-    filesMatching(['mcmod.info', 'pack.mcmeta']) { fcd ->
+    filesMatching(["mcmod.info", "pack.mcmeta"]) { fcd ->
         // Replace version and mcversion
         fcd.expand(
-                'version': project.version,
-                'mcversion': project.minecraft.version
+                "version": project.version,
+                "mcversion": minecraft_version
         )
     }
 
-    if (project.use_access_transformer.toBoolean()) {
-        rename '(.+_at.cfg)', 'META-INF/$1' // Make sure Access Transformer files are in META-INF folder
+    if (use_access_transformer.toBoolean()) {
+        rename "(.+_at.cfg)", "META-INF/$it" // Make sure Access Transformer files are in META-INF folder
     }
 }
 
 jar {
     manifest {
         def attribute_map = [:]
-        if (project.use_coremod.toBoolean()) {
-            attribute_map['FMLCorePlugin'] = project.coremod_plugin_class_name
-            if (project.include_mod.toBoolean()) {
-                attribute_map['FMLCorePluginContainsFMLMod'] = true
-                attribute_map['ForceLoadAsMod'] = project.gradle.startParameter.taskNames[0] == "build"
+        if (use_coremod.toBoolean()) {
+            attribute_map["FMLCorePlugin"] = coremod_plugin_class_name
+            if (include_mod.toBoolean()) {
+                attribute_map["FMLCorePluginContainsFMLMod"] = true
+                attribute_map["ForceLoadAsMod"] = project.gradle.startParameter.taskNames[0] == "build"
             }
         }
-        if (project.use_access_transformer.toBoolean()) {
-            attribute_map['FMLAT'] = project.archives_base_name + '_at.cfg'
+        if (use_access_transformer.toBoolean()) {
+            attribute_map["FMLAT"] = archives_base_name + "_at.cfg"
         }
         attributes(attribute_map)
     }
@@ -234,7 +247,7 @@ idea {
                 afterEvaluate {
                     javacAdditionalOptions = "-encoding utf8"
                     moduleJavacAdditionalOptions = [
-                            (project.name + ".main"): tasks.compileJava.options.compilerArgs.collect { '"' + it + '"' }.join(' ')
+                            (project.name + ".main"): tasks.compileJava.options.compilerArgs.collect { """ + it + """ }.join(" ")
                     ]
                 }
             }

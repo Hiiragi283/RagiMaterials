@@ -151,7 +151,7 @@ object RMIntegrationCore {
                 2,
             )
             OreDictUtil.register(
-                ShapeRegistry.INGOT.getOreDict(MaterialElements.PLUTONIUM244),
+                ShapeRegistry.INGOT.getOreDict(MaterialElements.PLUTONIUM),
                 getItem("ic2:nuclear"),
                 3,
             )
@@ -166,7 +166,7 @@ object RMIntegrationCore {
                 6,
             )
             OreDictUtil.register(
-                ShapeRegistry.NUGGET.getOreDict(MaterialElements.PLUTONIUM244),
+                ShapeRegistry.NUGGET.getOreDict(MaterialElements.PLUTONIUM),
                 getItem("ic2:nuclear"),
                 6,
             )
