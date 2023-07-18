@@ -20,7 +20,7 @@ import java.util.*
 @Mod(
     modid = RagiMaterials.MODID,
     name = "RagiMaterials",
-    version = "1.0.0-pre4",
+    version = "1.0.0-pre5",
     dependencies = "required-after:forgelin_continuous;after:gregtech;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
