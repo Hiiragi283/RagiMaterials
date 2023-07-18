@@ -1,7 +1,5 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.RagiMaterials
-import hiiragi283.material.integration.RMIntegrationCore
 import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 
@@ -226,7 +224,7 @@ object MaterialIntegration {
     val DARK_STEEL = mixtureOf(
         "dark_steel",
         1036,
-        listOf(MaterialElements.IRON, MaterialElements.CARBON, MaterialCommon.OBSIDIAN.addBracket())
+        listOf(MaterialElements.IRON, MaterialElements.CARBON, MaterialCommon.OBSIDIAN)
     ) {
         color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_GRAY to 3).rgb
         crystalType = CrystalType.METAL
@@ -335,57 +333,59 @@ object MaterialIntegration {
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
-    fun init() {
-        MaterialRegistry.registerMaterial(REDSTONE)
-        MaterialRegistry.registerMaterial(LAPIS)
-        MaterialRegistry.registerMaterial(GLOWSTONE)
-        MaterialRegistry.registerMaterial(ENDER_PEARL)
-        if (RMIntegrationCore.enableTE()) {
-            RagiMaterials.LOGGER.info("Enabled integration: Thermal Series")
-            MaterialRegistry.registerMaterial(MITHRIL)
-            MaterialRegistry.registerMaterial(SIGNALUM)
-            MaterialRegistry.registerMaterial(LUMIUM)
-            MaterialRegistry.registerMaterial(ENDERIUM)
-            MaterialRegistry.registerMaterial(PYROTHEUM)
-            MaterialRegistry.registerMaterial(CRYOTHEUM)
-            MaterialRegistry.registerMaterial(AEROTHEUM)
-            MaterialRegistry.registerMaterial(PETROTHEUM)
-        }
-        if (RMIntegrationCore.enableMek()) {
-            RagiMaterials.LOGGER.info("Enabled integration: Mekanism")
-            MaterialRegistry.registerMaterial(OBSIDIAN_REFINED)
-            MaterialRegistry.registerMaterial(GLOWSTONE_REFINED)
-        }
-        if (RMIntegrationCore.enableEIO()) {
-            RagiMaterials.LOGGER.info("Enabled integration: Ender IO")
-            MaterialRegistry.registerMaterial(ELECTRICAL_STEEL)
-            MaterialRegistry.registerMaterial(ENERGETIC_ALLOY)
-            MaterialRegistry.registerMaterial(VIBRANT_ALLOY)
-            MaterialRegistry.registerMaterial(REDSTONE_ALLOY)
-            MaterialRegistry.registerMaterial(CONDUCTIVE_IRON)
-            MaterialRegistry.registerMaterial(PULSATING_IRON)
-            MaterialRegistry.registerMaterial(DARK_STEEL)
-            MaterialRegistry.registerMaterial(SOULARIUM)
-            MaterialRegistry.registerMaterial(END_STEEL)
-            MaterialRegistry.registerMaterial(IRON_ALLOY)
-        }
-        if (RMIntegrationCore.enableThaum()) {
-            RagiMaterials.LOGGER.info("Enabled integration: Thaumcraft")
-            MaterialRegistry.registerMaterial(THAUMIUM)
-            MaterialRegistry.registerMaterial(VOID_METAL)
-        }
-        if (RMIntegrationCore.enableBotania()) {
-            RagiMaterials.LOGGER.info("Enabled integration: Botania")
-            MaterialRegistry.registerMaterial(MANASTEEL)
-            MaterialRegistry.registerMaterial(MANA_DIAMOND)
-            MaterialRegistry.registerMaterial(TERRASTEEL)
-            MaterialRegistry.registerMaterial(ELEMENTIUM)
-            MaterialRegistry.registerMaterial(DRAGONSTONE)
-        }
-        if (RMIntegrationCore.enableEmbers()) {
-            RagiMaterials.LOGGER.info("Enabled integration: Embers")
-            MaterialRegistry.registerMaterial(DAWNSTONE)
-        }
+    //    Project Red: Core    //
+
+    @JvmField
+    val ELECTROTINE = materialOf("electrotine", 1070) {
+        color = ColorUtil.mixColor(RagiColor.DARK_AQUA, RagiColor.BLUE, RagiColor.AQUA).rgb
+        formula = "Er"
+        molar = 112.2
+        tempBoil = 1201
+        tempMelt = 1122
+        validShapes.addAll(MaterialType.SOLID)
     }
+
+    @JvmField
+    val RED_ALLOY = compoundOf("red_alloy", 1071, mapOf(MaterialElements.IRON to 1, REDSTONE to 8)) {
+        color = RagiColor.DARK_RED.rgb
+        crystalType = CrystalType.METAL
+        validShapes.addAll(MaterialType.METAL_COMMON)
+    }
+
+    @JvmField
+    val ELECTROTINE_ALLOY = compoundOf("electrotine_alloy", 1072, mapOf(MaterialElements.IRON to 1, ELECTROTINE to 8)) {
+        color = ColorUtil.mixColor(RagiColor.DARK_AQUA, RagiColor.BLUE, RagiColor.AQUA).rgb
+        crystalType = CrystalType.METAL
+        validShapes.addAll(MaterialType.METAL_COMMON)
+    }
+
+    //    Tinker's Construct    //
+
+    @JvmField
+    val ARDITE = materialOf("ardite", 1080) {
+        color = ColorUtil.mixColor(RagiColor.DARK_RED to 2, RagiColor.GOLD to 1).rgb
+        crystalType = CrystalType.METAL
+        formula = "Ad"
+        molar = 116.0
+        tempBoil = 5000
+        tempMelt = 3000
+        validShapes.addAll(MaterialType.METAL_COMMON)
+    }
+
+    @JvmField
+    val MANYULLYN = compoundOf("manyullyn", 1081, mapOf(MaterialElements.COBALT to 1, ARDITE to 1)) {
+        color = ColorUtil.mixColor(RagiColor.DARK_RED to 2, RagiColor.BLUE to 5, RagiColor.WHITE to 2).rgb
+        crystalType = CrystalType.METAL
+        validShapes.addAll(MaterialType.METAL_COMMON)
+    }
+
+    @JvmField
+    val ALUMINIUM_BRASS =
+        compoundOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
+            color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
+            crystalType = CrystalType.METAL
+            oreDictAlt = "alubrass"
+            validShapes.addAll(MaterialType.METAL_ADVANCED)
+        }
 
 }

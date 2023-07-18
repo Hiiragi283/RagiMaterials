@@ -110,6 +110,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     runtimeOnly(rfg.deobf("curse.maven:baubles-227083:2518667"))
+    runtimeOnly(rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848"))
     runtimeOnly(rfg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479"))
     runtimeOnly(rfg.deobf("curse.maven:forgelin-continuous-456403:4528552"))
     runtimeOnly(rfg.deobf("curse.maven:had-enough-items-557549:4451828"))
@@ -119,44 +120,61 @@ dependencies {
     runtimeOnly(rfg.deobf("curse.maven:the-one-probe-245211:2667280"))
 
     //Botania
-    if (enable_botania) {
+    if (enable_botania.toBoolean()) {
         implementation(rfg.deobf("curse.maven:botania-225643:3330934"))
     }
 
     //Embers
-    if (enable_embers) {
+    if (enable_embers.toBoolean()) {
         implementation(rfg.deobf("curse.maven:embers-rekindled-300777:3695248"))
     }
 
     //Ender IO
-    if (enable_ender_io) {
+    if (enable_ender_io.toBoolean()) {
         implementation(rfg.deobf("curse.maven:endercore-231868:2972849"))
         implementation(rfg.deobf("curse.maven:ender-io-64578:3328811"))
     }
 
     //Industrial Craft 2
-    if (enable_ic2_ex) {
+    if (enable_ic2_ex.toBoolean()) {
         implementation(rfg.deobf("curse.maven:industrial-craft-242638:3838713"))
     }
 
     //Mekanism
-    if (enable_mekanism) {
+    if (enable_mekanism.toBoolean()) {
         implementation(rfg.deobf("curse.maven:mekanism-ce-399904:4557906"))
     }
 
+    //Project Red
+    if (enable_project_red.toBoolean()) {
+        implementation(rfg.deobf("curse.maven:cb-multipart-258426:2755790"))
+        implementation(rfg.deobf("curse.maven:mrtjpcore-229002:2735197"))
+        implementation(rfg.deobf("curse.maven:project-red-core-228702:2745545"))
+    }
+
+    //RailCraft
+    if (enable_railcraft.toBoolean()) {
+        implementation(rfg.deobf("curse.maven:railcraft-51195:3853491"))
+    }
+
     //Thaumcraft
-    if (enable_thaum) {
+    if (enable_thaum.toBoolean()) {
         implementation(rfg.deobf("curse.maven:thaumcraft-223628:2629023"))
     }
 
     //Thermal Series
-    if (enable_thermal) {
-        runtimeOnly(rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848"))
+    if (enable_thermal.toBoolean()) {
         implementation(rfg.deobf("curse.maven:cofh-core-69162:2920433"))
         implementation(rfg.deobf("curse.maven:cofh-world-271384:2920434"))
         implementation(rfg.deobf("curse.maven:redstone-flux-270789:2920436"))
         implementation(rfg.deobf("curse.maven:thermal-expansion-69163:2926431"))
         implementation(rfg.deobf("curse.maven:thermal-foundation-222880:2926428"))
+    }
+
+    //Tinker's Construct
+    if (enable_tcon.toBoolean()) {
+        implementation(rfg.deobf("curse.maven:mantle-74924:2713386"))
+        implementation(rfg.deobf("curse.maven:tinkers-construct-74072:2902483"))
     }
 
     if (project.use_mixins.toBoolean()) {

@@ -1,11 +1,14 @@
 package hiiragi283.material.integration
 
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialIntegration
+import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.api.shape.ShapeRegistry
+import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.OreDictUtil
 import hiiragi283.material.util.getBlock
 import hiiragi283.material.util.getItem
@@ -15,15 +18,84 @@ import net.minecraftforge.fml.common.Loader
 
 object RMIntegrationCore {
 
-    fun enableBotania() = Loader.isModLoaded("botania")
-    fun enableEIO() = Loader.isModLoaded("enderio")
-    fun enableEmbers() = Loader.isModLoaded("embers")
-    fun enableIC2() = Loader.isModLoaded("ic2")
-    fun enableMek() = Loader.isModLoaded("mekanism")
-    fun enableTE() = Loader.isModLoaded("thermalfoundation")
-    fun enableThaum() = Loader.isModLoaded("thaumcraft")
+    private fun enableIntegration(name: String, config: Boolean): Boolean =
+        RMConfig.INTEGRATION.forceIntegration || (Loader.isModLoaded(name) && config)
 
-    fun onPreInit() {}
+    private val botania by lazy { enableIntegration("botania", RMConfig.INTEGRATION.botania) }
+    private val enderIO by lazy { enableIntegration("enderio", RMConfig.INTEGRATION.enderIO) }
+    private val embers by lazy { enableIntegration("embers", RMConfig.INTEGRATION.embers) }
+    private val ic2Ex by lazy { enableIntegration("ic2", RMConfig.INTEGRATION.ic2Ex) }
+    private val mekanism by lazy { enableIntegration("mekanism", RMConfig.INTEGRATION.mekanism) }
+    private val projectRed by lazy { enableIntegration("projectred-core", RMConfig.INTEGRATION.projectRed) }
+    private val railCraft by lazy { enableIntegration("railcraft", RMConfig.INTEGRATION.railCraft) }
+    private val thermal by lazy { enableIntegration("thermalfoundation", RMConfig.INTEGRATION.thermal) }
+    private val thaum by lazy { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
+    private val tCon by lazy { enableIntegration("tconstruct", RMConfig.INTEGRATION.tCon) }
+
+    fun onPreInit() {
+        MaterialRegistry.registerMaterial(MaterialIntegration.REDSTONE)
+        MaterialRegistry.registerMaterial(MaterialIntegration.LAPIS)
+        MaterialRegistry.registerMaterial(MaterialIntegration.GLOWSTONE)
+        MaterialRegistry.registerMaterial(MaterialIntegration.ENDER_PEARL)
+        if (thermal) {
+            RagiMaterials.LOGGER.info("Enabled integration: Thermal Series")
+            MaterialRegistry.registerMaterial(MaterialIntegration.MITHRIL)
+            MaterialRegistry.registerMaterial(MaterialIntegration.SIGNALUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.LUMIUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.ENDERIUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.PYROTHEUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.CRYOTHEUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.AEROTHEUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.PETROTHEUM)
+        }
+        if (mekanism) {
+            RagiMaterials.LOGGER.info("Enabled integration: Mekanism")
+            MaterialRegistry.registerMaterial(MaterialIntegration.OBSIDIAN_REFINED)
+            MaterialRegistry.registerMaterial(MaterialIntegration.GLOWSTONE_REFINED)
+        }
+        if (enderIO) {
+            RagiMaterials.LOGGER.info("Enabled integration: Ender IO")
+            MaterialRegistry.registerMaterial(MaterialIntegration.ELECTRICAL_STEEL)
+            MaterialRegistry.registerMaterial(MaterialIntegration.ENERGETIC_ALLOY)
+            MaterialRegistry.registerMaterial(MaterialIntegration.VIBRANT_ALLOY)
+            MaterialRegistry.registerMaterial(MaterialIntegration.REDSTONE_ALLOY)
+            MaterialRegistry.registerMaterial(MaterialIntegration.CONDUCTIVE_IRON)
+            MaterialRegistry.registerMaterial(MaterialIntegration.PULSATING_IRON)
+            MaterialRegistry.registerMaterial(MaterialIntegration.DARK_STEEL)
+            MaterialRegistry.registerMaterial(MaterialIntegration.SOULARIUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.END_STEEL)
+            MaterialRegistry.registerMaterial(MaterialIntegration.IRON_ALLOY)
+        }
+        if (thaum) {
+            RagiMaterials.LOGGER.info("Enabled integration: Thaumcraft")
+            MaterialRegistry.registerMaterial(MaterialIntegration.THAUMIUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.VOID_METAL)
+        }
+        if (botania) {
+            RagiMaterials.LOGGER.info("Enabled integration: Botania")
+            MaterialRegistry.registerMaterial(MaterialIntegration.MANASTEEL)
+            MaterialRegistry.registerMaterial(MaterialIntegration.MANA_DIAMOND)
+            MaterialRegistry.registerMaterial(MaterialIntegration.TERRASTEEL)
+            MaterialRegistry.registerMaterial(MaterialIntegration.ELEMENTIUM)
+            MaterialRegistry.registerMaterial(MaterialIntegration.DRAGONSTONE)
+        }
+        if (embers) {
+            RagiMaterials.LOGGER.info("Enabled integration: Embers")
+            MaterialRegistry.registerMaterial(MaterialIntegration.DAWNSTONE)
+        }
+        if (projectRed) {
+            RagiMaterials.LOGGER.info("Enabled integration: ProjectRed")
+            MaterialRegistry.registerMaterial(MaterialIntegration.ELECTROTINE)
+            MaterialRegistry.registerMaterial(MaterialIntegration.RED_ALLOY)
+            MaterialRegistry.registerMaterial(MaterialIntegration.ELECTROTINE_ALLOY)
+        }
+        if (tCon) {
+            RagiMaterials.LOGGER.info("Enabled integration: Tinker's Construct")
+            MaterialRegistry.registerMaterial(MaterialIntegration.ARDITE)
+            MaterialRegistry.registerMaterial(MaterialIntegration.MANYULLYN)
+            MaterialRegistry.registerMaterial(MaterialIntegration.ALUMINIUM_BRASS)
+        }
+    }
 
     fun onInit() {
         OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
@@ -50,7 +122,7 @@ object RMIntegrationCore {
     }
 
     fun onPostInit() {
-        if (enableBotania()) {
+        if (botania) {
             OreDictUtil.register(
                 ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
                 getBlock("botania:storage"),
@@ -90,7 +162,7 @@ object RMIntegrationCore {
                 "elvenDragonstone"
             )
         }
-        if (enableEIO()) {
+        if (enderIO) {
             OreDictUtil.register(
                 ShapeRegistry.BALL.getOreDict(MaterialIntegration.SIGNALUM),
                 getItem("enderio:item_material"),
@@ -107,7 +179,7 @@ object RMIntegrationCore {
                 59
             )
         }
-        if (enableIC2()) {
+        if (ic2Ex) {
             OreDictUtil.register(
                 ShapeRegistry.INGOT.getOreDict(MaterialCommon.RUBBER),
                 getItem("ic2:crafting"),
@@ -171,7 +243,7 @@ object RMIntegrationCore {
                 6,
             )
         }
-        if (enableThaum()) {
+        if (thaum) {
             PartRegistry.registerTag("quicksilver", HiiragiPart(ShapeRegistry.GEM, MaterialCommon.CINNABAR))
             PartRegistry.registerTag(
                 "nuggetQuicksilver",

@@ -68,14 +68,14 @@ object RagiMaterials {
         }
         //液体の登録
         HiiragiFluid.register()
-        //MaterialPartとの紐づけ
-        PartRegistry.init()
         //連携の登録
         RMIntegrationCore.onPreInit()
     }
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
+        //MaterialPartとの紐づけ
+        PartRegistry.init()
         //鉱石辞書の登録
         RMItems.registerOreDict()
         //レシピの登録
@@ -92,7 +92,7 @@ object RagiMaterials {
 
     @Mod.EventHandler
     fun onComplete(event: FMLLoadCompleteEvent) {
-        if (RMConfig.printRegisteredMaterials) {
+        if (RMConfig.MISC.printMaterials) {
             MaterialRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
         }
     }

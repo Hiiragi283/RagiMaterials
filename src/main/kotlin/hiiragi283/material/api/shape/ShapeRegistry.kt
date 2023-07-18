@@ -181,6 +181,9 @@ object ShapeRegistry {
     val ORE = shapeOf("ore", -1.0)
 
     @JvmField
+    val ORE_POOR = shapeOf("ore_poor", -1.0)
+
+    @JvmField
     val PLANK = shapeOf("plank", 1.0)
 
     @JvmField

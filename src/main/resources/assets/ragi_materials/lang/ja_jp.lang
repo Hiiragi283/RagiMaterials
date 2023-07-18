@@ -26,6 +26,7 @@ shape.gem=%s結晶
 shape.ingot=%sインゴット
 shape.nugget=%sナゲット
 shape.ore=%s鉱石
+shape.ore_poor=粗悪な%s鉱石
 shape.plank=%s
 shape.plate=%sの板
 shape.plate_dense=厚い%sの板
@@ -271,3 +272,11 @@ material.elven_elementium=エレメンチウム
 material.elven_dragonstone=ドラゴンストーン
 
 material.dawnstone=暁石
+
+material.electrotine=ニコライト
+material.red_alloy=赤合金
+material.electrotine_alloy=青合金
+
+material.ardite=アーダイト
+material.manyullyn=マニュリン
+material.aluminium_brass=アルミ黄銅

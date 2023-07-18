@@ -18,7 +18,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
     //"instance/config/ragi_materials"フォルダ内にサンプルファイルを生成する
     fun writeJson() {
         //サンプルを生成しない場合はパス
-        if (!RMConfig.generateSampleJson) return
+        if (!RMConfig.MISC.sampleJson) return
         val sample = File(configs, "/example.json")
         //ファイルを新規作成
         try {

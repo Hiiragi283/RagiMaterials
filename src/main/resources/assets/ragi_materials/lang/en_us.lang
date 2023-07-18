@@ -26,6 +26,7 @@ shape.gem=%s Gem
 shape.ingot=%s Ingot
 shape.nugget=%s Nugget
 shape.ore=%s Ore
+shape.ore_poor=Poor %s Ore
 shape.plank=%s
 shape.plate=%s Plate
 shape.plate_dense=Dense %s Plate
@@ -271,3 +272,11 @@ material.elven_elementium=Elementium
 material.elven_dragonstone=Dragonstone
 
 material.dawnstone=Dawnstone
+
+material.electrotine=Electrotine
+material.red_alloy=Red Alloy
+material.electrotine_alloy=Electrotine Alloy
+
+material.ardite=Ardite
+material.manyullyn=Manyullyn
+material.aluminium_brass=Aluminium Brass

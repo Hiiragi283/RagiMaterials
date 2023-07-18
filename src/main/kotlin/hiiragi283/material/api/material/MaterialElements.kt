@@ -1361,7 +1361,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(CAESIUM)
         MaterialRegistry.registerMaterial(BARIUM)
         // --Lanthanides--
-        if (RMConfig.enableLanthanides) {
+        if (RMConfig.MISC.lanthanoides) {
             MaterialRegistry.registerMaterial(LANTHANUM)
             MaterialRegistry.registerMaterial(CERIUM)
             MaterialRegistry.registerMaterial(PRASEODYMIUM)
@@ -1403,7 +1403,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(URANIUM)
         MaterialRegistry.registerMaterial(NEPTUNIUM)
         MaterialRegistry.registerMaterial(PLUTONIUM)
-        if (RMConfig.enableTransuraniumElement) {
+        if (RMConfig.MISC.transUran) {
             MaterialRegistry.registerMaterial(AMERICIUM)
             MaterialRegistry.registerMaterial(CURIUM)
             MaterialRegistry.registerMaterial(BERKELIUM)
