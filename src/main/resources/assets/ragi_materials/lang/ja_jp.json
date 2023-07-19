@@ -1,6 +1,8 @@
 {
   "item.ragi_materials.material_bucket": "%s入りバケツ",
   "item.ragi_materials.respawn_book": "[開発用] リスポーンの本",
+  "itemGroup.ragi_materials.material_block": "素材ブロック",
+  "itemGroup.ragi_materials.material_item": "素材アイテム",
   "material.actinium": "アクチニウム",
   "material.aluminium": "アルミニウム",
   "material.americium": "アメリシウム",
@@ -171,6 +173,7 @@
   "shape.block": "%sブロック",
   "shape.dust": "%sの粉末",
   "shape.dust_tiny": "小さな%sの粉末",
+  "shape.empty": "%s",
   "shape.gear": "%sの歯車",
   "shape.gem": "%s結晶",
   "shape.ingot": "%sインゴット",

@@ -9,6 +9,8 @@ import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
+import net.minecraft.client.color.block.BlockColorProvider
+import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
@@ -26,6 +28,8 @@ class HiiragiShape internal constructor(
     val scale: Double
 ) {
 
+    var blockColor: (HiiragiMaterial) -> BlockColorProvider = { BlockColorProvider { _, _, _, _ -> it.color } }
+    var itemColor: (HiiragiMaterial) -> ItemColorProvider = { ItemColorProvider { _, _ -> it.color } }
     var model: JModel = itemModelLayered { layer0("minecraft:item/iron_ingot") }
     var recipes: (HiiragiMaterial) -> Map<Identifier, JRecipe> = { mapOf() }
     var state: JState = JState()

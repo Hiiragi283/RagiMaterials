@@ -1,7 +1,6 @@
 package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.common.RagiMaterials
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.fluid.FlowableFluid
@@ -9,13 +8,12 @@ import net.minecraft.fluid.Fluid
 import net.minecraft.fluid.FluidState
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
-import net.minecraft.util.registry.Registry
 import net.minecraft.world.BlockView
 import net.minecraft.world.WorldAccess
 import net.minecraft.world.WorldView
 
 
-abstract class HiiragiFluid : FlowableFluid(), HiiragiEntry {
+abstract class HiiragiFluid : FlowableFluid(), HiiragiEntry.FLUID {
 
     //    FlowableFluid    //
 
@@ -42,12 +40,5 @@ abstract class HiiragiFluid : FlowableFluid(), HiiragiEntry {
     override fun isInfinite(): Boolean = false
 
     override fun matchesType(fluid: Fluid?): Boolean = fluid == still || fluid == flowing
-
-    //    HiiragiEntry    //
-
-    override fun register() {
-        Registry.register(Registry.FLUID, identifier, this)
-        RagiMaterials.LOGGER.debug("The fluid ${identifier.path} registered!")
-    }
 
 }

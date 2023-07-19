@@ -35,7 +35,7 @@ data class HiiragiMaterial internal constructor(
     var translationKey: String = "material.$name",
 ) {
 
-    val property: MaterialProperty = MaterialProperty.EMPTY
+    var property: MaterialProperty = MaterialProperty.EMPTY
     val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
 
     companion object {

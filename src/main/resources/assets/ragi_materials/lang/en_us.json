@@ -1,6 +1,8 @@
 {
   "item.ragi_materials.material_bucket": "%s Bucket",
   "item.ragi_materials.respawn_book": "[Dev] Respawn Book",
+  "itemGroup.ragi_materials.material_block": "Material Block",
+  "itemGroup.ragi_materials.material_item": "Material Item",
   "material.actinium": "Actinium",
   "material.aluminium": "Aluminium",
   "material.americium": "Americium",
@@ -171,6 +173,7 @@
   "shape.block": "Block of %s",
   "shape.dust": "%s Dust",
   "shape.dust_tiny": "Tiny Dust of %s",
+  "shape.empty": "%s",
   "shape.gear": "%s Gear",
   "shape.gem": "%s Crystal",
   "shape.ingot": "%s Ingot",

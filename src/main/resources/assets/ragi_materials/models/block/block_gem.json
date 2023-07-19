@@ -1,6 +1,6 @@
 {
   "parent": "ragi_materials:block/all_tintindex",
   "textures": {
-    "all": "block/iron_block"
+    "all": "ragi_materials:block/block_gem"
   }
 }

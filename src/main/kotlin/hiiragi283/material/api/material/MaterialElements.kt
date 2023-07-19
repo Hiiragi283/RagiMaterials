@@ -38,6 +38,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Li"
         molar = 6.9
+        property = MaterialProperty.ALKALI_METAL
         tempBoil = 1560
         tempMelt = 454
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -49,6 +50,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Be"
         molar = 9.0
+        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 2742
         tempMelt = 1560
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -119,6 +121,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Na"
         molar = 23.0
+        property = MaterialProperty.ALKALI_METAL
         tempBoil = 1156
         tempMelt = 371
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -214,6 +217,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Ca"
         molar = 40.1
+        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 1757
         tempMelt = 1115
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -400,6 +404,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Rb"
         molar = 85.5
+        property = MaterialProperty.ALKALI_METAL
         tempBoil = 961
         tempMelt = 312
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -411,6 +416,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Sr"
         molar = 87.6
+        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 1655
         tempMelt = 1050
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -597,6 +603,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Cs"
         molar = 132.9
+        property = MaterialProperty.ALKALI_METAL
         tempBoil = 944
         tempMelt = 302
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -608,6 +615,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Ba"
         molar = 137.3
+        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 2170
         tempMelt = 1000
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -949,6 +957,7 @@ object MaterialElements {
         color = RagiColor.DARK_BLUE.rgb
         formula = "Fr"
         //molar = 223.0
+        property = MaterialProperty.ALKALI_METAL
         tempBoil = 890
         tempMelt = 281
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -960,6 +969,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Ra"
         //molar = 226.0
+        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 2010
         tempMelt = 973
         validShapes.addAll(MaterialType.METAL_COMMON)

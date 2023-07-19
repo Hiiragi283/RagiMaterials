@@ -1,9 +1,8 @@
 package hiiragi283.material.client
 
+import hiiragi283.material.api.HiiragiBlockItem
 import hiiragi283.material.api.block.MaterialPartBlock
-import hiiragi283.material.api.item.HiiragiBlockItem
 import hiiragi283.material.api.item.MaterialPartItem
-import hiiragi283.material.api.part.IHiiragiPart
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
@@ -35,10 +34,11 @@ object RagiColorProvider {
         ColorProviderRegistry.BLOCK.register(
             BlockColorProvider { state, world, pos, tintIndex ->
                 val block = state.block
-                if (block is IHiiragiPart.BLOCK) return@BlockColorProvider block.getColor(state, world, pos, tintIndex)
+                if (block is BlockColorProvider) return@BlockColorProvider block.getColor(state, world, pos, tintIndex)
                 -1
             }, *blocks
         )
+
     }
 
     private fun registerBlockItem() {
@@ -48,7 +48,7 @@ object RagiColorProvider {
                     val item = stack.item
                     if (item is HiiragiBlockItem) {
                         val block = item.block
-                        if (block is IHiiragiPart.BLOCK) return@ItemColorProvider block.getColor(stack, tintIndex)
+                        if (block is ItemColorProvider) return@ItemColorProvider block.getColor(stack, tintIndex)
                     }
                 }
                 -1
@@ -61,7 +61,7 @@ object RagiColorProvider {
             ItemColorProvider { stack, tintIndex ->
                 if (!stack.isEmpty) {
                     val item = stack.item
-                    if (item is IHiiragiPart.ITEM) return@ItemColorProvider item.getColor(stack, tintIndex)
+                    if (item is ItemColorProvider) return@ItemColorProvider item.getColor(stack, tintIndex)
                 }
                 -1
             }, *items

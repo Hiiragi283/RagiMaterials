@@ -1,11 +1,14 @@
 package hiiragi283.material.api.shape
 
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.item.ForgeFileItem
+import hiiragi283.material.common.item.ForgeHammerItem
 import hiiragi283.material.common.util.*
 import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JIngredients
 import net.devtech.arrp.json.recipe.JKeys
+import net.devtech.arrp.json.recipe.JPattern
 import net.devtech.arrp.json.recipe.JRecipe
 
 object ShapeRegistry {
@@ -40,6 +43,7 @@ object ShapeRegistry {
 
     //    Shapes    //
 
+    private val dustFake = shapeOf("dust", "@_dusts", 1.0)
     private val ingotFake = shapeOf("ingot", "@_ingots", 1.0)
     private val gemFake = shapeOf("gems", "@_gems", 1.0)
 
@@ -47,7 +51,7 @@ object ShapeRegistry {
 
     @JvmField
     val BLOCK_METAL = shapeOf("block", "@_blocks", 9.0) {
-        model = JModel.model().parent(hiiragiId("item/metal_block").toString())
+        model = JModel.model().parent(hiiragiId("block/block_metal").toString())
         recipes = {
             mapOf(
                 this.getId(it).append("_shaped") to JRecipe.shaped(
@@ -60,7 +64,7 @@ object ShapeRegistry {
         state = JState.state(
             JState.variant(
                 JState.model(
-                    hiiragiId("block/metal_block")
+                    hiiragiId("block/block_metal")
                 )
             )
         )
@@ -69,6 +73,7 @@ object ShapeRegistry {
 
     @JvmField
     val BLOCK_GEM = shapeOf("block", "@_blocks", 9.0) {
+        model = JModel.model().parent(hiiragiId("block/block_gem").toString())
         recipes = {
             mapOf(
                 this.getId(it).append("_shaped") to JRecipe.shaped(
@@ -78,6 +83,13 @@ object ShapeRegistry {
                 )
             )
         }
+        state = JState.state(
+            JState.variant(
+                JState.model(
+                    hiiragiId("block/block_gem")
+                )
+            )
+        )
         type = HiiragiShape.Type.BLOCK
     }
 
@@ -97,16 +109,45 @@ object ShapeRegistry {
     @JvmField
     val DUST = shapeOf("dust", "@_dusts", 1.0) {
         model = itemModelLayered { layer0("minecraft:item/sugar") }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shaped") to JRecipe.shaped(
+                    get3x3('A'),
+                    JKeys.keys().addTag("A", DUST_TINY.getTag(it).toString()),
+                    this.getResult(it)
+                )
+            )
+        }
+
     }
 
     @JvmField
     val DUST_TINY = shapeOf("dust_tiny", "@_tiny_dusts", 0.1) {
-        model = itemModelLayered { layer0("minecraft:item/sugar") }
+        model = itemModelLayered { layer0("ragi_materials:item/dust_tiny") }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(dustFake.getTag(it).toString()),
+                    this.getResult(it, 9)
+                )
+            )
+        }
     }
 
     @JvmField
-    val GEAR = shapeOf("gears", "@_gears", 4.0) {
+    val GEAR = shapeOf("gear", "@_gears", 4.0) {
         model = itemModelLayered { layer0("ragi_materials:item/gear") }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shaped") to JRecipe.shaped(
+                    JPattern.pattern(" A ", "ABA", " A "),
+                    JKeys.keys()
+                        .addTag("A", ingotFake.getTag(it).toString())
+                        .addItem("B", ForgeHammerItem),
+                    this.getResult(it)
+                )
+            )
+        }
     }
 
     @JvmField
@@ -145,6 +186,17 @@ object ShapeRegistry {
     @JvmField
     val PLATE = shapeOf("plate", "@_plates", 1.0) {
         model = itemModelLayered { layer0("ragi_materials:item/plate") }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients()
+                        .addTag(ingotFake.getTag(it).toString())
+                        .addItem(ForgeHammerItem),
+                    this.getResult(it)
+                )
+            )
+
+        }
     }
 
     @JvmField
@@ -153,6 +205,17 @@ object ShapeRegistry {
     @JvmField
     val ROD = shapeOf("rod", "@_rods", 0.5) {
         model = itemModelLayered { layer0("ragi_materials:item/rod") }
+        recipes = {
+            mapOf(
+                this.getId(it).append("_shaped") to JRecipe.shaped(
+                    JPattern.pattern("AB", "A "),
+                    JKeys.keys()
+                        .addTag("A", ingotFake.getTag(it).toString())
+                        .addItem("B", ForgeFileItem),
+                    this.getResult(it, 4)
+                )
+            )
+        }
     }
 
     fun init() {
@@ -160,18 +223,18 @@ object ShapeRegistry {
         REGISTRY.clear()
 
         registerShape(BLOCK_METAL)
-        //registerPart(BLOCK_GEM)
-        //registerPart(ORE)
-        //registerPart(ORE_BLOCK)
+        //registerShape(BLOCK_GEM)
+        //registerShape(ORE)
+        //registerShape(ORE_BLOCK)
 
         registerShape(DUST)
-        //registerPart(DUST_TINY)
+        registerShape(DUST_TINY)
         registerShape(GEAR)
-        //registerPart(GEM)
+        //registerShape(GEM)
         registerShape(INGOT)
         registerShape(NUGGET)
         registerShape(PLATE)
-        //registerPart(RAW_ORE)
+        //registerShape(RAW_ORE)
         registerShape(ROD)
     }
 

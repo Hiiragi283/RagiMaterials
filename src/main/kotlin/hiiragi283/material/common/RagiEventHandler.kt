@@ -16,11 +16,18 @@ object RagiEventHandler {
         ServerTickEvents.START_WORLD_TICK.register(ServerTickEvents.StartWorldTick { world ->
             world.getEntitiesByType(TypeFilter.instanceOf(ItemEntity::class.java)) { it.isSubmergedInWater }
                 .forEach {
-                    val list = PartRegistry.getParts(it.stack)
-                        .map { part -> part.material.property }
-                        .filter { property -> property.isActiveToWater }
-                    if (list.isNotEmpty())
-                        world.createExplosion(null, it.x, it.y, it.z, 3.0f, Explosion.DestructionType.BREAK)
+                    PartRegistry.getParts(it.stack)
+                        .firstOrNull { part -> part.material.property.isActiveToWater }
+                        ?.let { part ->
+                            world.createExplosion(
+                                null,
+                                it.x,
+                                it.y,
+                                it.z,
+                                part.shape.scale.toFloat(),
+                                Explosion.DestructionType.DESTROY
+                            )
+                        }
                 }
         })
     }

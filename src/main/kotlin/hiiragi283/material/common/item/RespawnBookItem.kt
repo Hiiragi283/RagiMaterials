@@ -1,8 +1,10 @@
 package hiiragi283.material.common.item
 
-import hiiragi283.material.api.item.HiiragiItem
+import hiiragi283.material.api.HiiragiItem
+import hiiragi283.material.common.RagiResourcePack
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.playHypixel
+import net.devtech.arrp.json.models.JModel
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemGroup
@@ -16,7 +18,7 @@ import net.minecraft.world.World
 
 object RespawnBookItem : HiiragiItem(
     FabricItemSettings()
-        .group(ItemGroup.TOOLS)
+        .group(ItemGroup.MISC)
         .rarity(Rarity.EPIC)
 ) {
 
@@ -40,8 +42,15 @@ object RespawnBookItem : HiiragiItem(
         return TypedActionResult.success(user.getStackInHand(hand))
     }
 
-    //    HiiragiItem    //
+    //    HiiragiEntry    //
 
-    override val identifier: Identifier = hiiragiId("respawn_book")
+    override fun getIdentifier(): Identifier = hiiragiId("respawn_book")
+
+    override fun register() {
+        super.register()
+
+        RagiResourcePack.addItemModel(getIdentifier(), JModel.model().parent("item/writable_book"))
+
+    }
 
 }
