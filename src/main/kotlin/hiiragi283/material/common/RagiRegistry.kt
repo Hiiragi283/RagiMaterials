@@ -1,10 +1,8 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.api.block.createMaterialBlock
+import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.fluid.MaterialFluid
-import hiiragi283.material.api.item.createMaterialBlockItem
-import hiiragi283.material.api.item.createMaterialItem
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.ShapeRegistry
@@ -20,20 +18,15 @@ object RagiRegistry {
             ShapeRegistry.getShapes()
                 .filter { it.type == HiiragiShape.Type.BLOCK }
                 .filter { it.isValid(material) }
-                .forEach {
-                    createMaterialBlock(material, it).also { block ->
-                        block.register()
-                        createMaterialBlockItem(material, it, block).register()
-                    }
-                }
+                .map { MaterialBlock.of(material, it) }
         }
     }
 
     fun loadFluids() {
         //Initialize Fluids and Buckets
         MaterialRegistry.getMaterials()
-            .map(::MaterialFluid)
-            .forEach(HiiragiEntry<*>::register)
+            .map { MaterialFluid(it) }
+            .forEach { it.register() }
     }
 
     fun loadItems() {
@@ -47,8 +40,8 @@ object RagiRegistry {
             ShapeRegistry.getShapes()
                 .filter { it.type == HiiragiShape.Type.ITEM }
                 .filter { it.isValid(material) }
-                .map { createMaterialItem(material, it) }
-                .forEach(HiiragiEntry<*>::register)
+                .map { MaterialItem.of(material, it) }
+                .forEach { it.register() }
         }
     }
 

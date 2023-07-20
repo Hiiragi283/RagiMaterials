@@ -45,11 +45,11 @@ class HiiragiShape internal constructor(
 
     override fun toString(): String = "Part:$name"
 
-    fun getName(material: HiiragiMaterial): String = I18n.translate(translationKey, material.getTranslatedName())
+    fun getCommonTag(material: HiiragiMaterial): Identifier = commonId(replacedName(material))
 
     fun getId(material: HiiragiMaterial): Identifier = hiiragiId(replacedName(material))
 
-    fun getTag(material: HiiragiMaterial): Identifier = commonId(replacedName(material))
+    fun getName(material: HiiragiMaterial): String = I18n.translate(translationKey, material.getTranslatedName())
 
     fun getText(material: HiiragiMaterial): TranslatableText =
         TranslatableText(translationKey, material.getTranslatedName())

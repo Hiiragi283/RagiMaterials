@@ -2,7 +2,7 @@ package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.RagiItemGroup
 import hiiragi283.material.common.RagiResourcePack
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
@@ -12,38 +12,45 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.fluid.Fluid
 import net.minecraft.item.BucketItem
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
-class MaterialBucketItem(fluid: Fluid, val material: HiiragiMaterial) : BucketItem(fluid, FabricItemSettings()),
-    HiiragiEntry.ITEM, ItemColorProvider {
+abstract class MaterialBucketItem(fluid: Fluid) :
+    BucketItem(fluid, FabricItemSettings().group(RagiItemGroup.MATERIAL_ITEM)), HiiragiEntry.ITEM, ItemColorProvider {
 
-    override fun getName(stack: ItemStack): Text =
-        TranslatableText("item.ragi_materials.material_bucket", material.getTranslatedName())
+    companion object {
 
-    //    HiiragiEntry    //
+        @JvmStatic
+        fun of(fluid: Fluid, material: HiiragiMaterial): MaterialBucketItem = object : MaterialBucketItem(fluid) {
 
-    override fun getIdentifier(): Identifier = hiiragiId("${material.name}_buckets")
+            override fun getName(stack: ItemStack): Text =
+                TranslatableText("item.ragi_materials.material_bucket", material.getTranslatedName())
 
-    private val model = itemModelLayered {
-        layer0("minecraft:item/bucket")
-        layer1("ragi_materials:item/bucket_layer")
+            //    HiiragiEntry    //
+
+            override fun getIdentifier(): Identifier = hiiragiId("${material.name}_buckets")
+
+            override fun register(): Item {
+
+                RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
+                    layer0("minecraft:item/bucket")
+                    layer1("ragi_materials:item/bucket_layer")
+                })
+                RagiResourcePack.addItemTag(commonId(getIdentifier().path), JTag().add(getIdentifier()))
+
+                return Registry.register(Registry.ITEM, getIdentifier(), this)
+            }
+
+            //    IHiiragiPart    //
+
+            override fun getColor(stack: ItemStack, tintIndex: Int): Int = if (tintIndex == 1) material.color else -1
+
+        }
+
     }
-
-    override fun register() {
-        Registry.register(Registry.ITEM, getIdentifier(), this)
-        RagiMaterials.LOGGER.debug("The bucket item ${getIdentifier().path} registered!")
-
-        RagiResourcePack.addItemModel(getIdentifier(), model)
-
-        RagiResourcePack.addItemTag(commonId(getIdentifier().path), JTag().add(getIdentifier()))
-    }
-
-    //    IHiiragiPart    //
-
-    override fun getColor(stack: ItemStack, tintIndex: Int): Int = if (tintIndex == 1) material.color else -1
 
 }

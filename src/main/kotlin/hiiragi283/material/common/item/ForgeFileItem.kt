@@ -13,6 +13,7 @@ import net.devtech.arrp.json.recipe.JPattern
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
@@ -34,8 +35,7 @@ object ForgeFileItem : HiiragiItem(
 
     override fun getIdentifier(): Identifier = hiiragiId("forge_file")
 
-    override fun register() {
-        super.register()
+    override fun register(): Item {
 
         RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
             layer0("minecraft:item/stick")
@@ -46,11 +46,13 @@ object ForgeFileItem : HiiragiItem(
             getIdentifier(), JRecipe.shaped(
                 JPattern.pattern("A", "A", "B"),
                 JKeys.keys()
-                    .addTag("A", ShapeRegistry.PLATE.getTag(MaterialElements.IRON).toString())
+                    .addTag("A", ShapeRegistry.PLATE.getCommonTag(MaterialElements.IRON).toString())
                     .addItem("B", Items.STICK),
                 JResult.item(this)
             )
         )
+
+        return super.register()
     }
 
 }

@@ -12,6 +12,7 @@ import net.devtech.arrp.json.recipe.JPattern
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Identifier
@@ -32,8 +33,7 @@ object ForgeHammerItem : HiiragiItem(
 
     override fun getIdentifier(): Identifier = hiiragiId("forge_hammer")
 
-    override fun register() {
-        super.register()
+    override fun register(): Item {
 
         RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
             layer0("minecraft:item/oak_sign")
@@ -44,11 +44,13 @@ object ForgeHammerItem : HiiragiItem(
             getIdentifier(), JRecipe.shaped(
                 JPattern.pattern("AAA", "AAA", " B "),
                 JKeys.keys()
-                    .addTag("A", ShapeRegistry.INGOT.getTag(MaterialElements.IRON).toString())
+                    .addTag("A", ShapeRegistry.INGOT.getCommonTag(MaterialElements.IRON).toString())
                     .addTag("B", "minecraft:signs"),
                 JResult.item(this)
             )
         )
+
+        return super.register()
     }
 
 }

@@ -1,6 +1,5 @@
 package hiiragi283.material.api.fluid
 
-import hiiragi283.material.api.HiiragiEntry
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.fluid.FlowableFluid
@@ -13,7 +12,7 @@ import net.minecraft.world.WorldAccess
 import net.minecraft.world.WorldView
 
 
-abstract class HiiragiFluid : FlowableFluid(), HiiragiEntry.FLUID {
+abstract class HiiragiFluid : FlowableFluid() {
 
     //    FlowableFluid    //
 

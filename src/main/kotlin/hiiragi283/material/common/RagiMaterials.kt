@@ -23,7 +23,7 @@ object RagiMaterials : ModInitializer {
         RagiRegistry.loadBlocks()
         LOGGER.info("Blocks and BlockItems registered!")
 
-        //RagiRegistry.loadFluids()
+        RagiRegistry.loadFluids()
         LOGGER.info("Fluids and Buckets registered!")
 
         RagiRegistry.loadItems()

@@ -56,7 +56,7 @@ object ShapeRegistry {
             mapOf(
                 this.getId(it).append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", ingotFake.getTag(it).toString()),
+                    JKeys.keys().addTag("A", ingotFake.getCommonTag(it)),
                     this.getResult(it)
                 )
             )
@@ -78,7 +78,7 @@ object ShapeRegistry {
             mapOf(
                 this.getId(it).append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", gemFake.getTag(it).toString()),
+                    JKeys.keys().addTag("A", gemFake.getCommonTag(it)),
                     this.getResult(it)
                 )
             )
@@ -113,7 +113,7 @@ object ShapeRegistry {
             mapOf(
                 this.getId(it).append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", DUST_TINY.getTag(it).toString()),
+                    JKeys.keys().addTag("A", DUST_TINY.getCommonTag(it)),
                     this.getResult(it)
                 )
             )
@@ -127,7 +127,7 @@ object ShapeRegistry {
         recipes = {
             mapOf(
                 this.getId(it).append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(dustFake.getTag(it).toString()),
+                    JIngredients.ingredients().addTag(dustFake.getCommonTag(it)),
                     this.getResult(it, 9)
                 )
             )
@@ -142,7 +142,7 @@ object ShapeRegistry {
                 this.getId(it).append("_shaped") to JRecipe.shaped(
                     JPattern.pattern(" A ", "ABA", " A "),
                     JKeys.keys()
-                        .addTag("A", ingotFake.getTag(it).toString())
+                        .addTag("A", ingotFake.getCommonTag(it))
                         .addItem("B", ForgeHammerItem),
                     this.getResult(it)
                 )
@@ -159,11 +159,11 @@ object ShapeRegistry {
             mapOf(
                 this.getId(it).append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", NUGGET.getTag(it).toString()),
+                    JKeys.keys().addTag("A", NUGGET.getCommonTag(it)),
                     this.getResult(it)
                 ),
                 this.getId(it).append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(BLOCK_METAL.getTag(it).toString()),
+                    JIngredients.ingredients().addTag(BLOCK_METAL.getCommonTag(it)),
                     this.getResult(it, 9)
                 )
             )
@@ -176,7 +176,7 @@ object ShapeRegistry {
         recipes = {
             mapOf(
                 this.getId(it).append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(ingotFake.getTag(it).toString()),
+                    JIngredients.ingredients().addTag(ingotFake.getCommonTag(it)),
                     this.getResult(it, 9)
                 )
             )
@@ -190,7 +190,7 @@ object ShapeRegistry {
             mapOf(
                 this.getId(it).append("_shapeless") to JRecipe.shapeless(
                     JIngredients.ingredients()
-                        .addTag(ingotFake.getTag(it).toString())
+                        .addTag(ingotFake.getCommonTag(it))
                         .addItem(ForgeHammerItem),
                     this.getResult(it)
                 )
@@ -210,7 +210,7 @@ object ShapeRegistry {
                 this.getId(it).append("_shaped") to JRecipe.shaped(
                     JPattern.pattern("AB", "A "),
                     JKeys.keys()
-                        .addTag("A", ingotFake.getTag(it).toString())
+                        .addTag("A", ingotFake.getCommonTag(it))
                         .addItem("B", ForgeFileItem),
                     this.getResult(it, 4)
                 )

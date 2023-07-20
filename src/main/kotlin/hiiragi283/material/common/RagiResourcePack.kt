@@ -47,6 +47,11 @@ object RagiResourcePack {
         addTag(identifier.appendBefore("items/"), tag)
     }
 
+    fun addMaterialTag(identifier: Identifier, tag: JTag) {
+        addTag(identifier.appendBefore("material/"), tag)
+    }
+
+
     fun register() {
         RRPCallback.BEFORE_VANILLA.register { it.add(RESOURCE_PACK) }
         RagiMaterials.LOGGER.info("The resource pack registered!")

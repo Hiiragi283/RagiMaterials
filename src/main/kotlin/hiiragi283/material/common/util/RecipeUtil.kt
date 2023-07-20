@@ -7,6 +7,7 @@ import net.devtech.arrp.json.recipe.JIngredients
 import net.devtech.arrp.json.recipe.JKeys
 import net.devtech.arrp.json.recipe.JPattern
 import net.minecraft.item.Item
+import net.minecraft.util.Identifier
 
 //    Pattern    //
 
@@ -22,6 +23,11 @@ fun JKeys.addTag(key: String, tag: String): JKeys = also {
     it.key(key, JIngredient.ingredient().tag(tag))
 }
 
+fun JKeys.addTag(key: String, tag: Identifier): JKeys = also {
+    it.key(key, JIngredient.ingredient().tag(tag.toString()))
+}
+
+
 //    Ingredient    //
 
 fun JIngredients.addItem(item: Item) = also {
@@ -30,4 +36,8 @@ fun JIngredients.addItem(item: Item) = also {
 
 fun JIngredients.addTag(tag: String) = also {
     it.add(JIngredient.ingredient().tag(tag))
+}
+
+fun JIngredients.addTag(tag: Identifier) = also {
+    it.add(JIngredient.ingredient().tag(tag.toString()))
 }

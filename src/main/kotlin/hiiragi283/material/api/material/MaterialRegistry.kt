@@ -2,16 +2,31 @@ package hiiragi283.material.api.material
 
 import hiiragi283.material.common.RagiDataPackHandler
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.hiiragiId
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder
+import net.minecraft.tag.TagKey
+import net.minecraft.util.registry.Registry
+import net.minecraft.util.registry.RegistryKey
+import net.minecraft.util.registry.SimpleRegistry
 
 object MaterialRegistry {
 
-    private val REGISTRY: LinkedHashMap<String, HiiragiMaterial> = linkedMapOf()
+    private val REGISTRY: SimpleRegistry<HiiragiMaterial> = FabricRegistryBuilder.createSimple(
+        HiiragiMaterial::class.java,
+        hiiragiId("material")
+    ).buildAndRegister()
+
+    val KEY: RegistryKey<out Registry<HiiragiMaterial>>? = REGISTRY.key
+
+    init {
+        TagKey.of(KEY, hiiragiId("test"))
+    }
 
     @JvmStatic
-    fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
+    fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.entrySet.map { it.value }
 
     @JvmStatic
-    fun getMaterial(name: String) = REGISTRY.getOrDefault(name, HiiragiMaterial.EMPTY)
+    fun getMaterial(name: String) = REGISTRY.get(hiiragiId(name)) ?: HiiragiMaterial.EMPTY
 
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
@@ -29,14 +44,16 @@ object MaterialRegistry {
             return
         }
 
-        val resultName = REGISTRY[name]
         //同じ名前で登録されていた場合，上書きの警告を表示する
-        if (resultName !== null) RagiMaterials.LOGGER.warn("$resultName will be replaced by $material!")
-        REGISTRY[name] = material
+        if (getMaterial(material.name) !== HiiragiMaterial.EMPTY) {
+            RagiMaterials.LOGGER.warn("$material has been registered!")
+            return
+        }
+
+        Registry.register(REGISTRY, hiiragiId(material.name), material)
     }
 
     fun init() {
-        REGISTRY.clear()
         MaterialElements.register()
         RagiMaterials.LOGGER.info("Elemental Materials registered!")
 

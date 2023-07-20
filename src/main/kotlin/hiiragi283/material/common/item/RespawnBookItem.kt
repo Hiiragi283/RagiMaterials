@@ -7,6 +7,7 @@ import hiiragi283.material.common.util.playHypixel
 import net.devtech.arrp.json.models.JModel
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Hand
@@ -46,11 +47,11 @@ object RespawnBookItem : HiiragiItem(
 
     override fun getIdentifier(): Identifier = hiiragiId("respawn_book")
 
-    override fun register() {
-        super.register()
+    override fun register(): Item {
 
         RagiResourcePack.addItemModel(getIdentifier(), JModel.model().parent("item/writable_book"))
 
+        return super.register()
     }
 
 }

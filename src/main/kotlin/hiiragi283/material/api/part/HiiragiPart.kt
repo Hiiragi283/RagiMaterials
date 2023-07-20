@@ -15,7 +15,8 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
     fun isEmpty(): Boolean = this == EMPTY
 
-    fun <T : Any> getTagKey(registry: RegistryKey<Registry<T>>): TagKey<T> = TagKey.of(registry, shape.getTag(material))
+    fun <T : Any> getTagKey(registry: RegistryKey<Registry<T>>): TagKey<T> =
+        TagKey.of(registry, shape.getCommonTag(material))
 
     override fun toString(): String = "${shape.name}:${material.name}"
 

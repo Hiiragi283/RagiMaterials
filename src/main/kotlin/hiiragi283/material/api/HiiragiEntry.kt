@@ -1,7 +1,6 @@
 package hiiragi283.material.api
 
 import hiiragi283.material.api.fluid.HiiragiFluid
-import hiiragi283.material.common.RagiMaterials
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.minecraft.block.Block
@@ -17,32 +16,23 @@ interface HiiragiEntry<T : Any> {
 
     fun getIdentifier(): Identifier
 
-    fun register()
+    fun register(): T
 
     interface BLOCK : HiiragiEntry<Block> {
 
-        override fun register() {
-            Registry.register(Registry.BLOCK, getIdentifier(), this as Block)
-            RagiMaterials.LOGGER.debug("The block ${getIdentifier().path} registered!")
-        }
+        override fun register(): Block = Registry.register(Registry.BLOCK, getIdentifier(), this as Block)
 
     }
 
-    interface FLUID : HiiragiEntry<FLUID> {
+    interface FLUID : HiiragiEntry<Fluid> {
 
-        override fun register() {
-            Registry.register(Registry.FLUID, getIdentifier(), this as Fluid)
-            RagiMaterials.LOGGER.debug("The fluid ${getIdentifier().path} registered!")
-        }
+        override fun register(): Fluid = Registry.register(Registry.FLUID, getIdentifier(), this as Fluid)
 
     }
 
     interface ITEM : HiiragiEntry<Item> {
 
-        override fun register() {
-            Registry.register(Registry.ITEM, getIdentifier(), this as Item)
-            RagiMaterials.LOGGER.debug("The item ${getIdentifier().path} registered!")
-        }
+        override fun register(): Item = Registry.register(Registry.ITEM, getIdentifier(), this as Item)
 
     }
 

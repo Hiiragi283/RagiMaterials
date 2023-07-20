@@ -2,10 +2,12 @@ package hiiragi283.material.api.material
 
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.hiiragiId
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resource.language.I18n
+import net.minecraft.tag.TagKey
 import net.minecraft.text.LiteralText
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
@@ -49,6 +51,7 @@ data class HiiragiMaterial internal constructor(
 
         @JvmStatic
         fun fromJson(json: String): HiiragiMaterial = Json.decodeFromString(json)
+
     }
 
     override fun toString(): String = "material:$name"
@@ -79,6 +82,8 @@ data class HiiragiMaterial internal constructor(
         //それ以外は固体として扱う
         return MaterialState.SOLID
     }
+
+    fun getTag(): TagKey<HiiragiMaterial> = TagKey.of(MaterialRegistry.KEY, hiiragiId(name))
 
     fun getTranslatedName(): String = I18n.translate(translationKey)
 
