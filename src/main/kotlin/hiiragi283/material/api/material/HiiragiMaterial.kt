@@ -3,7 +3,6 @@ package hiiragi283.material.api.material
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.shape.HiiragiShape
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resources.I18n
@@ -71,7 +70,7 @@ data class HiiragiMaterial internal constructor(
     fun getTooltip(tooltip: MutableList<String>, shape: HiiragiShape = HiiragiShape.EMPTY) {
         if (isEmpty()) return
         tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.translatedName(this)))
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.getTranslatedName(this)))
         if (hasFormula())
             tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
         if (hasMolar() && shape.hasScale())

@@ -26,7 +26,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        shape.translatedName(MaterialRegistry.getMaterial(stack.metadata))
+        shape.getTranslatedName(MaterialRegistry.getMaterial(stack.metadata))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
@@ -51,7 +51,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
-            .forEach { shape.recipe(this, it) }
+            .forEach { shape.getRecipe(this, it) }
     }
 
     @SideOnly(Side.CLIENT)
@@ -63,6 +63,6 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = shape.model(this)
+    override fun registerModel() = shape.getModel(this)
 
 }

@@ -5,7 +5,10 @@ import hiiragi283.material.RagiMaterials
 object MaterialRegistry {
 
     private val REGISTRY: LinkedHashMap<String, HiiragiMaterial> = linkedMapOf()
+    private val CACHE: HashMap<Int, HiiragiMaterial> = hashMapOf()
     private val INDEX_TO_MATERIAL: HashMap<Int, HiiragiMaterial> = hashMapOf()
+
+    private var isLocked: Boolean = false
 
     @JvmStatic
     fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
@@ -20,6 +23,11 @@ object MaterialRegistry {
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
 
+        if (isLocked) {
+            RagiMaterials.LOGGER.warn("MaterialRegistry is already locked!")
+            return
+        }
+
         //EMPTYを渡された場合はパス
         if (material == HiiragiMaterial.EMPTY) return
 
@@ -30,9 +38,11 @@ object MaterialRegistry {
             return
         }
 
-        //同じ名前で登録されていた場合は警告する
-        val resultName = REGISTRY[name]
-        if (resultName !== null) RagiMaterials.LOGGER.warn("$resultName will be overrided!")
+        //同じ名前で登録されていた場合はパス
+        if (REGISTRY[name] !== null) {
+            RagiMaterials.LOGGER.warn("$material is already registered!")
+            return
+        }
 
         //登録を行う
         REGISTRY[name] = material
@@ -44,16 +54,29 @@ object MaterialRegistry {
             return
         }
 
-        //同じ番号で登録されていた場合は警告
-        val resultIndex = INDEX_TO_MATERIAL[index]
-        if (resultIndex !== null) RagiMaterials.LOGGER.warn("The index: $index will be overrided by $material")
+        //同じ番号で登録されていた場合はパス
+        if (CACHE[index] !== null) {
+            RagiMaterials.LOGGER.warn("The index: $index is already registered by $material")
+            return
+        }
 
-        //登録を行う
-        INDEX_TO_MATERIAL[index] = material
+        //CACHEに保存する
+        CACHE[index] = material
+
     }
 
     fun init() {
-        MaterialElements.init()
-        MaterialCommon.init()
+        MaterialElements.register()
+        MaterialCommon.register()
     }
+
+    fun lock() {
+        //CACHEを消す
+        CACHE.clear()
+        //indexを昇順に並べて代入する
+        INDEX_TO_MATERIAL.putAll(REGISTRY.map { it.value.index to it.value }.toMap().toSortedMap())
+        //レジストリへの登録を停止する
+        isLocked = true
+    }
+
 }

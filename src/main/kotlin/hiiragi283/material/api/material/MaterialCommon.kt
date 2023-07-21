@@ -443,7 +443,7 @@ object MaterialCommon {
         validShapes.addAll(MaterialType.GEM_9x)
     }
 
-    fun init() {
+    fun register() {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }

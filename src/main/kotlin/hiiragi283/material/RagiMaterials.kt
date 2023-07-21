@@ -5,7 +5,7 @@ import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
-import hiiragi283.material.fluid.HiiragiFluid
+import hiiragi283.material.fluid.HiiragiFluids
 import hiiragi283.material.integration.RMIntegrationCore
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
@@ -20,7 +20,7 @@ import java.util.*
 @Mod(
     modid = RagiMaterials.MODID,
     name = "RagiMaterials",
-    version = "1.0.0-pre5",
+    version = Reference.VERSION,
     dependencies = "required-after:forgelin_continuous;after:gregtech;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
@@ -67,13 +67,17 @@ object RagiMaterials {
             this.readJson()
         }
         //液体の登録
-        HiiragiFluid.register()
+        HiiragiFluids.register()
         //連携の登録
         RMIntegrationCore.onPreInit()
     }
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
+        //以降の素材登録を停止
+        MaterialRegistry.lock()
+        //以降の部品登録を停止
+        ShapeRegistry.lock()
         //MaterialPartとの紐づけ
         PartRegistry.init()
         //鉱石辞書の登録

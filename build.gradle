@@ -68,14 +68,14 @@ minecraft {
     // Add any properties you want to swap out for a dynamic value at build time here
     // Any properties here will be added to a class at build time, the name can be configured below
     // Example:
-    // injectedTags.put("VERSION", project.version)
+    injectedTags.put("VERSION", project.version)
     // injectedTags.put("MOD_ID", project.archives_base_name)
 }
 
 // Generate a group.archives_base_name.Tags class
 tasks.injectTags.configure {
     // Change Tags class" name here:
-    outputClassName.set("${project.group}.${archives_base_name}.Tags")
+    outputClassName.set("${project.group}.Reference")
 }
 
 repositories {

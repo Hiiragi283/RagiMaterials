@@ -18,6 +18,8 @@ object ShapeRegistry {
 
     private val REGISTRY: HashMap<String, HiiragiShape> = hashMapOf()
 
+    private var isLocked: Boolean = false
+
     @JvmStatic
     fun getShapes(): Collection<HiiragiShape> = REGISTRY.values
 
@@ -26,9 +28,19 @@ object ShapeRegistry {
 
     @JvmStatic
     fun registerShape(shape: HiiragiShape) {
+
+        if (isLocked) {
+            RagiMaterials.LOGGER.warn("ShapeRegistry is already locked!")
+            return
+        }
+
         val name = shape.name
-        REGISTRY[name]?.let { RagiMaterials.LOGGER.warn("The shape: $name will be overrided!") }
+        REGISTRY[name]?.let {
+            RagiMaterials.LOGGER.warn("$shape is already registered!")
+            return
+        }
         REGISTRY[name] = shape
+
     }
 
     //    Shapes    //
@@ -40,21 +52,9 @@ object ShapeRegistry {
     val BALL = shapeOf("ball", 0.2)
 
     @JvmField
-    val BLOCK = shapeOf("block", 9.0) {
-        model = {
-            val common = ModelResourceLocation(it.registryName!!.append("_material"), "inventory")
-            val gem = ModelResourceLocation(it.registryName!!.append("_gem"), "inventory")
-            val metal = ModelResourceLocation(it.registryName!!.append("_metal"), "inventory")
-
-            ModelLoader.registerItemVariants(it, common, gem, metal)
-
-            ModelLoader.setCustomMeshDefinition(it) { stack ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                if (material.isMetal()) metal
-                else if (material.isGem()) gem
-                else common
-            }
-        }
+    val BLOCK = shapeOf(
+        "block",
+        9.0,
         recipe = { item, material ->
             if (material.isSolid()) {
                 if (material.isGem()) {
@@ -69,8 +69,22 @@ object ShapeRegistry {
                         .buildShaped()
                 }
             }
+        },
+        model = {
+            val common = ModelResourceLocation(it.registryName!!.append("_material"), "inventory")
+            val gem = ModelResourceLocation(it.registryName!!.append("_gem"), "inventory")
+            val metal = ModelResourceLocation(it.registryName!!.append("_metal"), "inventory")
+
+            ModelLoader.registerItemVariants(it, common, gem, metal)
+
+            ModelLoader.setCustomMeshDefinition(it) { stack ->
+                val material = MaterialRegistry.getMaterial(stack.metadata)
+                if (material.isMetal()) metal
+                else if (material.isGem()) gem
+                else common
+            }
         }
-    }
+    )
 
     @JvmField
     val BOTTLE = shapeOf("bottle", 1.0)
@@ -91,39 +105,40 @@ object ShapeRegistry {
     val CRYSTAL = shapeOf("crystal", 1.0)
 
     @JvmField
-    val DUST = shapeOf("dust", 1.0) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', "dustTiny${material.getOreDictName()}")
-                .buildShaped()
-        }
-    }
+    val DUST = shapeOf("dust", 1.0, recipe = { item, material ->
+        CraftingBuilder(ItemStack(item, 1, material.index))
+            .setPattern("AAA", "AAA", "AAA")
+            .setIngredient('A', "dustTiny${material.getOreDictName()}")
+            .buildShaped()
+    })
 
     @JvmField
     val DUST_DIRTY = shapeOf("dust_dirty", 1.0)
 
     @JvmField
-    val DUST_TINY = shapeOf("dust_tiny", 0.1) {
+    val DUST_TINY = shapeOf("dust_tiny", 0.1, recipe = { item, material ->
+        CraftingBuilder(ItemStack(item, 9, material.index))
+            .addIngredient(RagiIngredient("dust${material.getOreDictName()}"))
+            .buildShapeless()
+    })
+
+    @JvmField
+    val GEAR = shapeOf("gear", 4.0, recipe = { item, material ->
+        CraftingBuilder(ItemStack(item, 1, material.index))
+            .setPattern(" A ", "A A", " A ")
+            .setIngredient('A', "ingot${material.getOreDictName()}")
+            .buildShaped()
+    })
+
+    @JvmField
+    val GEM = shapeOf(
+        "gem",
+        1.0,
         recipe = { item, material ->
             CraftingBuilder(ItemStack(item, 9, material.index))
-                .addIngredient(RagiIngredient("dust${material.getOreDictName()}"))
+                .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
                 .buildShapeless()
-        }
-    }
-
-    @JvmField
-    val GEAR = shapeOf("gear", 4.0) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .setPattern(" A ", "A A", " A ")
-                .setIngredient('A', "ingot${material.getOreDictName()}")
-                .buildShaped()
-        }
-    }
-
-    @JvmField
-    val GEM = shapeOf("gem", 1.0) {
+        },
         model = { item ->
 
             val locations: MutableList<ResourceLocation> = mutableListOf()
@@ -141,41 +156,31 @@ object ShapeRegistry {
                 type.getLocation(item)
             }
         }
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 9, material.index))
-                .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
-
+    )
 
     @JvmField
-    val INGOT = shapeOf("ingot", 1.0) {
-        recipe = { item, material ->
-            //nugget -> ingot
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', "nugget${material.getOreDictName()}")
-                .buildShaped()
-            //block -> ingot
-            val ingot9 = ItemStack(item, 9, material.index)
-            CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
-                .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
+    val INGOT = shapeOf("ingot", 1.0, recipe = { item, material ->
+        //nugget -> ingot
+        CraftingBuilder(ItemStack(item, 1, material.index))
+            .setPattern("AAA", "AAA", "AAA")
+            .setIngredient('A', "nugget${material.getOreDictName()}")
+            .buildShaped()
+        //block -> ingot
+        val ingot9 = ItemStack(item, 9, material.index)
+        CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
+            .addIngredient(RagiIngredient("block${material.getOreDictName()}"))
+            .buildShapeless()
+    })
 
     @JvmField
     val LOG = shapeOf("log", 4.0)
 
     @JvmField
-    val NUGGET = shapeOf("nugget", 0.1) {
-        recipe = { item, material ->
-            CraftingBuilder(ItemStack(item, 9, material.index))
-                .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
-                .buildShapeless()
-        }
-    }
+    val NUGGET = shapeOf("nugget", 0.1, recipe = { item, material ->
+        CraftingBuilder(ItemStack(item, 9, material.index))
+            .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
+            .buildShapeless()
+    })
 
     @JvmField
     val ORE = shapeOf("ore", -1.0)
@@ -187,16 +192,14 @@ object ShapeRegistry {
     val PLANK = shapeOf("plank", 1.0)
 
     @JvmField
-    val PLATE = shapeOf("plate", 1.0) {
-        recipe = { item, material ->
-            if (material.isMetal()) {
-                CraftingBuilder(ItemStack(item, 1, material.index))
-                    .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
-                    .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
-                    .buildShapeless()
-            }
+    val PLATE = shapeOf("plate", 1.0, recipe = { item, material ->
+        if (material.isMetal()) {
+            CraftingBuilder(ItemStack(item, 1, material.index))
+                .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
+                .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
+                .buildShapeless()
         }
-    }
+    })
 
     @JvmField
     val PLATE_DENSE = shapeOf("plate_dense", 9.0)
@@ -211,17 +214,15 @@ object ShapeRegistry {
     val SHARD = shapeOf("shard", 1.0)
 
     @JvmField
-    val STICK = shapeOf("stick", 0.5) {
-        recipe = { item, material ->
-            if (material.isMetal()) {
-                CraftingBuilder(ItemStack(item, 4, material.index))
-                    .setPattern("AB", "A ")
-                    .setIngredient('A', "ingot${material.getOreDictName()}")
-                    .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
-                    .buildShaped()
-            }
+    val STICK = shapeOf("stick", 0.5, recipe = { item, material ->
+        if (material.isMetal()) {
+            CraftingBuilder(ItemStack(item, 4, material.index))
+                .setPattern("AB", "A ")
+                .setIngredient('A', "ingot${material.getOreDictName()}")
+                .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
+                .buildShaped()
         }
-    }
+    })
 
     @JvmField
     val STONE = shapeOf("stone", 1.0)
@@ -233,4 +234,10 @@ object ShapeRegistry {
             .filterIsInstance<HiiragiShape>()
             .forEach(::registerShape)
     }
+
+    fun lock() {
+        //レジストリへの登録を停止する
+        isLocked = true
+    }
+
 }

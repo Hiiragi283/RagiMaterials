@@ -7,23 +7,30 @@ import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
 import kotlin.math.roundToInt
 
-fun shapeOf(name: String, scale: Double, init: HiiragiShape.() -> Unit = {}): HiiragiShape {
-    val shape = HiiragiShape(name, scale)
-    shape.init()
-    return shape
+fun shapeOf(
+    name: String,
+    scale: Double,
+    model: (ItemMaterial) -> Unit = { RMModelManager.setModelSame(it) },
+    recipe: (ItemMaterial, HiiragiMaterial) -> Unit = { _, _ -> },
+): HiiragiShape {
+    return object : HiiragiShape(name, scale) {
+
+        override fun getModel(item: ItemMaterial) = model(item)
+
+        override fun getRecipe(item: ItemMaterial, material: HiiragiMaterial) = recipe(item, material)
+
+    }
 }
 
-class HiiragiShape internal constructor(val name: String, val scale: Double) {
+abstract class HiiragiShape internal constructor(val name: String, val scale: Double) {
 
-    var model: (ItemMaterial) -> Unit = { RMModelManager.setModelSame(it) }
-    var recipe: (ItemMaterial, HiiragiMaterial) -> Unit = { _, _ -> }
+    open fun getModel(item: ItemMaterial): Unit = RMModelManager.setModelSame(item)
 
-    var translationKey: String = "shape.$name"
-    var translatedName: (HiiragiMaterial) -> String = { I18n.format(translationKey, it.translatedName) }
+    abstract fun getRecipe(item: ItemMaterial, material: HiiragiMaterial)
 
     companion object {
         @JvmField
-        val EMPTY = HiiragiShape("empty", 0.0)
+        val EMPTY = shapeOf("empty", 0.0)
     }
 
     fun isEmpty(): Boolean = this.name == "empty"
@@ -41,6 +48,8 @@ class HiiragiShape internal constructor(val name: String, val scale: Double) {
 
     fun getOreDicts(material: HiiragiMaterial): List<String> =
         listOf(getOreDict(material), getOreDictAlt(material)).filter(String::isNotEmpty)
+
+    fun getTranslatedName(material: HiiragiMaterial): String = I18n.format("shape.$name", material.translatedName)
 
     fun getWeight(material: HiiragiMaterial): Double = (material.molar * scale * 10.0).roundToInt() / 10.0
 

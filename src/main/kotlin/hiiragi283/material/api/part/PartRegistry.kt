@@ -12,6 +12,8 @@ object PartRegistry {
 
     private val REGISTRY: HashMap<String, HiiragiPart> = hashMapOf()
 
+    private var hasInit: Boolean = false
+
     //    getMaterialPart    //
 
     @JvmStatic
@@ -57,9 +59,13 @@ object PartRegistry {
         oredicts.forEach { registerTag(it, hiiragiPart) }
     }
 
-    //    init    //
-
     fun init() {
+
+        if (hasInit) {
+            RagiMaterials.LOGGER.warn("PartRegistry is already initialized!")
+            return
+        }
+
         REGISTRY.clear()
         ShapeRegistry.getShapes().forEach { shape ->
             MaterialRegistry.getMaterials()
