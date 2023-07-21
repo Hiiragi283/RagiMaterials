@@ -35,6 +35,8 @@ object ForgeHammerItem : HiiragiItem(
 
     override fun register(): Item {
 
+        val item = super.register()
+
         RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
             layer0("minecraft:item/oak_sign")
             layer1("ragi_materials:item/forge_hammer")
@@ -50,7 +52,7 @@ object ForgeHammerItem : HiiragiItem(
             )
         )
 
-        return super.register()
+        return item
     }
 
 }

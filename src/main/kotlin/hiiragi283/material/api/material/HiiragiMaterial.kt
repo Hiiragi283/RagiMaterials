@@ -1,16 +1,10 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.util.hiiragiId
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resource.language.I18n
-import net.minecraft.tag.TagKey
-import net.minecraft.text.LiteralText
-import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
 
 /**
  * @param name Name for this material
@@ -58,22 +52,6 @@ data class HiiragiMaterial internal constructor(
 
     fun addBracket(): HiiragiMaterial = copy(formula = "($formula)")
 
-    fun appendTooltip(tooltip: MutableList<Text>, shape: HiiragiShape = HiiragiShape.EMPTY) {
-        if (isEmpty()) return
-        tooltip.add(LiteralText("§e=== Property ==="))
-        tooltip.add(TranslatableText("tips.ragi_materials.property.name", "§b${shape.getName(this)}"))
-        if (hasFormula())
-            tooltip.add(TranslatableText("tips.ragi_materials.property.formula", "§b${formula}"))
-        if (hasMolar() && shape.hasScale())
-            tooltip.add(TranslatableText("tips.ragi_materials.property.mol", "§b${shape.getWeight(this)}"))
-        if (hasTempMelt())
-            tooltip.add(TranslatableText("tips.ragi_materials.property.melt", "§b${tempMelt}"))
-        if (hasTempBoil())
-            tooltip.add(TranslatableText("tips.ragi_materials.property.boil", "§b${tempBoil}"))
-        if (hasTempSubl())
-            tooltip.add(TranslatableText("tips.ragi_materials.property.subl", "§b${tempSubl}"))
-    }
-
     fun getState(): MaterialState {
         //沸点が有効かつ298 K以下 -> 標準状態で気体
         if (hasTempBoil() && tempBoil <= 298) return MaterialState.GAS
@@ -82,8 +60,6 @@ data class HiiragiMaterial internal constructor(
         //それ以外は固体として扱う
         return MaterialState.SOLID
     }
-
-    fun getTag(): TagKey<HiiragiMaterial> = TagKey.of(MaterialRegistry.KEY, hiiragiId(name))
 
     fun getTranslatedName(): String = I18n.translate(translationKey)
 

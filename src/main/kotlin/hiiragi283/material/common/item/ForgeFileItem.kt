@@ -37,6 +37,8 @@ object ForgeFileItem : HiiragiItem(
 
     override fun register(): Item {
 
+        val item = super.register()
+
         RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
             layer0("minecraft:item/stick")
             layer1("ragi_materials:item/forge_hammer")
@@ -52,7 +54,7 @@ object ForgeFileItem : HiiragiItem(
             )
         )
 
-        return super.register()
+        return item
     }
 
 }

@@ -4,11 +4,14 @@ import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.MaterialRegistry
+import hiiragi283.material.api.part.with
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.common.item.ForgeFileItem
 import hiiragi283.material.common.item.ForgeHammerItem
 import hiiragi283.material.common.item.RespawnBookItem
+import hiiragi283.material.common.util.hiiragiId
+import net.devtech.arrp.json.tags.JTag
 
 object RagiRegistry {
 
@@ -17,8 +20,9 @@ object RagiRegistry {
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
                 .filter { it.type == HiiragiShape.Type.BLOCK }
-                .filter { it.isValid(material) }
-                .map { MaterialBlock.of(material, it) }
+                .map { it with material }
+                .filterNot { it.isEmpty() }
+                .map { MaterialBlock.of(it) }
         }
     }
 
@@ -39,10 +43,28 @@ object RagiRegistry {
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
                 .filter { it.type == HiiragiShape.Type.ITEM }
-                .filter { it.isValid(material) }
-                .map { MaterialItem.of(material, it) }
+                .map { it with material }
+                .filterNot { it.isEmpty() }
+                .map { MaterialItem.of(it) }
                 .forEach { it.register() }
         }
+    }
+
+    fun loadMaterialTags() {
+
+        MaterialRegistry.getMaterials().forEach { material ->
+
+            val jTag = JTag.tag()
+
+            ShapeRegistry.getShapes()
+                .map { it with material }
+                .filterNot { it.isEmpty() }
+                .forEach { jTag.tag(it.getTadId()) }
+
+            RagiResourcePack.addItemTag(hiiragiId(material.name), jTag)
+
+        }
+
     }
 
 }

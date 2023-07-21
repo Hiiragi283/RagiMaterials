@@ -43,11 +43,19 @@ object PartRegistry {
     //    registerTag    //
 
     @JvmStatic
-    fun registerTag(tag: TagKey<*>, hiiragiPart: HiiragiPart) {
-        REGISTRY[tag]?.let {
-            RagiMaterials.LOGGER.warn("The part: $it will be overrided by $tag!")
+    fun registerTag(tag: TagKey<*>, part: HiiragiPart) {
+
+        if (part.isEmpty()) {
+            RagiMaterials.LOGGER.warn("Empty part will not be registered!")
+            return
         }
-        REGISTRY[tag] = hiiragiPart
+
+        REGISTRY[tag]?.let {
+            RagiMaterials.LOGGER.warn("$tag is already registered!")
+        }
+
+        REGISTRY[tag] = part
+
     }
 
     //    init    //
@@ -56,7 +64,8 @@ object PartRegistry {
         REGISTRY.clear()
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
-                .map { HiiragiPart(it, material) }
+                .map { it with material }
+                .filterNot { it.isEmpty() }
                 .forEach {
                     registerTag(it.getTagKey(Registry.BLOCK_KEY), it)
                     registerTag(it.getTagKey(Registry.ITEM_KEY), it)

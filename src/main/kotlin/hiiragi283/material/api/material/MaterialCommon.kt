@@ -153,6 +153,9 @@ object MaterialCommon {
     @JvmStatic
     val WOOD = mixtureOf("wood", listOf(MaterialElements.CARBON, MaterialElements.HYDROGEN, MaterialElements.OXYGEN)) {
         color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
+        validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("gear")
+        validShapes.add("plate")
     }
 
     fun register() {

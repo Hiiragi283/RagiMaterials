@@ -4,9 +4,7 @@ import hiiragi283.material.common.RagiDataPackHandler
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.hiiragiId
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder
-import net.minecraft.tag.TagKey
 import net.minecraft.util.registry.Registry
-import net.minecraft.util.registry.RegistryKey
 import net.minecraft.util.registry.SimpleRegistry
 
 object MaterialRegistry {
@@ -15,12 +13,6 @@ object MaterialRegistry {
         HiiragiMaterial::class.java,
         hiiragiId("material")
     ).buildAndRegister()
-
-    val KEY: RegistryKey<out Registry<HiiragiMaterial>>? = REGISTRY.key
-
-    init {
-        TagKey.of(KEY, hiiragiId("test"))
-    }
 
     @JvmStatic
     fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.entrySet.map { it.value }

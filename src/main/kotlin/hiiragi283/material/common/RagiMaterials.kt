@@ -23,11 +23,14 @@ object RagiMaterials : ModInitializer {
         RagiRegistry.loadBlocks()
         LOGGER.info("Blocks and BlockItems registered!")
 
-        RagiRegistry.loadFluids()
+        //RagiRegistry.loadFluids()
         LOGGER.info("Fluids and Buckets registered!")
 
         RagiRegistry.loadItems()
         LOGGER.info("Items registered!")
+
+        RagiRegistry.loadMaterialTags()
+        LOGGER.info("Material Tags are added to Material Items!")
 
         RagiIntegrationCore.init()
         LOGGER.info("Integrations initialized!")

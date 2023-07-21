@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.minecraft.entity.ItemEntity
 import net.minecraft.util.TypeFilter
-import net.minecraft.world.explosion.Explosion
 
 object RagiEventHandler {
 
@@ -16,18 +15,7 @@ object RagiEventHandler {
         ServerTickEvents.START_WORLD_TICK.register(ServerTickEvents.StartWorldTick { world ->
             world.getEntitiesByType(TypeFilter.instanceOf(ItemEntity::class.java)) { it.isSubmergedInWater }
                 .forEach {
-                    PartRegistry.getParts(it.stack)
-                        .firstOrNull { part -> part.material.property.isActiveToWater }
-                        ?.let { part ->
-                            world.createExplosion(
-                                null,
-                                it.x,
-                                it.y,
-                                it.z,
-                                part.shape.scale.toFloat(),
-                                Explosion.DestructionType.DESTROY
-                            )
-                        }
+                    PartRegistry.getParts(it.stack).forEach { part -> part.doExplosion(world, it) }
                 }
         })
     }
@@ -36,7 +24,7 @@ object RagiEventHandler {
     fun loadClient() {
         //ItemStack -> TagKey -> HiiragiPartから素材の情報をツールチップに追加するEvent
         ItemTooltipCallback.EVENT.register(ItemTooltipCallback { stack, _, lines ->
-            PartRegistry.getParts(stack).forEach { it.material.appendTooltip(lines, it.shape) }
+            PartRegistry.getParts(stack).forEach { it.appendTooltip(lines) }
         })
     }
 

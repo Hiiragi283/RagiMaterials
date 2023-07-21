@@ -51,7 +51,7 @@ class MaterialFluid(val material: HiiragiMaterial = HiiragiMaterial.EMPTY) : Flu
 
     override fun toBlockState(state: FluidState): BlockState = Blocks.AIR.defaultState
 
-    override fun isStill(state: FluidState): Boolean = false
+    override fun isStill(state: FluidState): Boolean = true
 
     override fun getLevel(state: FluidState): Int = 0
 

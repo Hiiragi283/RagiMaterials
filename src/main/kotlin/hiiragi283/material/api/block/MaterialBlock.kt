@@ -2,8 +2,7 @@ package hiiragi283.material.api.block
 
 import hiiragi283.material.api.HiiragiBlock
 import hiiragi283.material.api.item.MaterialBlockItem
-import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
@@ -22,13 +21,12 @@ abstract class MaterialBlock : HiiragiBlock(FabricBlockSettings.of(Material.META
     companion object {
 
         @JvmStatic
-        fun of(
-            material: HiiragiMaterial,
-            shape: HiiragiShape,
-        ): MaterialBlock {
+        fun of(part: HiiragiPart): MaterialBlock {
 
-            val identifier: Identifier = shape.getId(material)
-            val tag: Identifier = shape.getCommonTag(material)
+            val identifier: Identifier = part.getId()
+            val material = part.material
+            val shape = part.shape
+            val tag: Identifier = part.getTadId()
 
             val block = object : MaterialBlock() {
 
@@ -50,7 +48,6 @@ abstract class MaterialBlock : HiiragiBlock(FabricBlockSettings.of(Material.META
             val jTag = JTag().add(identifier)
             RagiResourcePack.addBlockTag(tag, jTag)
             RagiResourcePack.addItemTag(tag, jTag)
-            RagiResourcePack.addMaterialTag(material.getTag().id, jTag)
 
             return block
         }
