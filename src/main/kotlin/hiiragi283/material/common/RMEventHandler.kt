@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.minecraft.entity.ItemEntity
 import net.minecraft.util.TypeFilter
 
-object RagiEventHandler {
+object RMEventHandler {
 
     fun loadCommon() {
         //水中のアルカリ金属またはアルカリ土類金属に対して爆発を起こすEvent

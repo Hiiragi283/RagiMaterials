@@ -2,8 +2,9 @@ package hiiragi283.material.common.item
 
 import hiiragi283.material.api.HiiragiItem
 import hiiragi283.material.api.material.MaterialElements
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.ShapeRegistry
-import hiiragi283.material.common.RagiResourcePack
+import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.util.addTag
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.itemModelLayered
@@ -37,16 +38,16 @@ object ForgeHammerItem : HiiragiItem(
 
         val item = super.register()
 
-        RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
+        RMResourcePack.addItemModel(getIdentifier(), itemModelLayered {
             layer0("minecraft:item/oak_sign")
             layer1("ragi_materials:item/forge_hammer")
         })
 
-        RagiResourcePack.addRecipe(
+        RMResourcePack.addRecipe(
             getIdentifier(), JRecipe.shaped(
                 JPattern.pattern("AAA", "AAA", " B "),
                 JKeys.keys()
-                    .addTag("A", ShapeRegistry.INGOT.getCommonTag(MaterialElements.IRON).toString())
+                    .addTag("A", HiiragiPart.of(ShapeRegistry.PLATE, MaterialElements.IRON).getTadId().toString())
                     .addTag("B", "minecraft:signs"),
                 JResult.item(this)
             )

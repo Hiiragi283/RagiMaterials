@@ -9,7 +9,7 @@ import net.minecraft.resource.ResourceManager
 import net.minecraft.resource.ResourceType
 import net.minecraft.util.Identifier
 
-object RagiDataPackHandler {
+object RMResourceHandler {
 
     fun load() {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(

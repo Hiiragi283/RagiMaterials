@@ -1,27 +1,22 @@
 package hiiragi283.material.client
 
-import hiiragi283.material.api.HiiragiBlockItem
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.item.MaterialItem
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
-import net.minecraft.client.color.block.BlockColorProvider
-import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.util.registry.Registry
 
 @Environment(EnvType.CLIENT)
-object RagiColorProvider {
+object RMColorProvider {
 
-    private val blocks = Registry.BLOCK.entrySet
+    private val blocks: Collection<MaterialBlock> = Registry.BLOCK.entrySet
         .map { it.value }
         .filterIsInstance<MaterialBlock>()
-        .toTypedArray()
 
-    private val items = Registry.ITEM.entrySet
+    private val items: Collection<MaterialItem> = Registry.ITEM.entrySet
         .map { it.value }
         .filterIsInstance<MaterialItem>()
-        .toTypedArray()
 
     fun load() {
         registerBlock()
@@ -31,18 +26,23 @@ object RagiColorProvider {
 
     private fun registerBlock() {
 
-        ColorProviderRegistry.BLOCK.register(
+        blocks.forEach { ColorProviderRegistry.BLOCK.register(it, it) }
+
+        /*ColorProviderRegistry.BLOCK.register(
             BlockColorProvider { state, world, pos, tintIndex ->
                 val block = state.block
                 if (block is BlockColorProvider) return@BlockColorProvider block.getColor(state, world, pos, tintIndex)
                 -1
             }, *blocks
-        )
+        )*/
 
     }
 
     private fun registerBlockItem() {
-        ColorProviderRegistry.ITEM.register(
+
+        blocks.forEach { ColorProviderRegistry.ITEM.register(it, it) }
+
+        /*ColorProviderRegistry.ITEM.register(
             ItemColorProvider { stack, tintIndex ->
                 if (!stack.isEmpty) {
                     val item = stack.item
@@ -53,10 +53,15 @@ object RagiColorProvider {
                 }
                 -1
             }, *blocks
-        )
+        )*/
+
     }
 
     private fun registerItem() {
+
+        items.forEach { ColorProviderRegistry.ITEM.register(it, it) }
+
+        /*
         ColorProviderRegistry.ITEM.register(
             ItemColorProvider { stack, tintIndex ->
                 if (!stack.isEmpty) {
@@ -65,7 +70,8 @@ object RagiColorProvider {
                 }
                 -1
             }, *items
-        )
+        )*/
+
     }
 
 }

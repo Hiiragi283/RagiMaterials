@@ -3,9 +3,9 @@ package hiiragi283.material.api.item
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.HiiragiItem
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.common.RagiItemGroup
+import hiiragi283.material.common.RMItemGroup
+import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.RagiResourcePack
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.client.color.item.ItemColorProvider
@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 
-abstract class MaterialItem(settings: FabricItemSettings = FabricItemSettings().group(RagiItemGroup.MATERIAL_ITEM)) :
+abstract class MaterialItem(settings: FabricItemSettings = FabricItemSettings().group(RMItemGroup.MATERIAL_ITEM)) :
     HiiragiItem(settings), ItemColorProvider {
 
     companion object {
@@ -26,8 +26,6 @@ abstract class MaterialItem(settings: FabricItemSettings = FabricItemSettings().
         fun of(part: HiiragiPart): MaterialItem {
 
             val identifier: Identifier = part.getId()
-            val shape = part.shape
-            val material = part.material
 
             val item = object : MaterialItem(), HiiragiEntry.ITEM {
 
@@ -36,7 +34,7 @@ abstract class MaterialItem(settings: FabricItemSettings = FabricItemSettings().
                 override fun getName(stack: ItemStack): TranslatableText = part.getText()
 
                 override fun getColor(stack: ItemStack, tintIndex: Int): Int =
-                    shape.itemColor(material).getColor(stack, tintIndex)
+                    part.getItemColor().getColor(stack, tintIndex)
 
                 override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
                     if (!world.isClient) {
@@ -47,9 +45,9 @@ abstract class MaterialItem(settings: FabricItemSettings = FabricItemSettings().
 
             }
 
-            RagiResourcePack.addItemModel(identifier, shape.model)
-            shape.recipes(material).forEach(RagiResourcePack::addRecipe)
-            RagiResourcePack.addItemTag(part.getTadId(), JTag().add(identifier))
+            RMResourcePack.addItemModel(identifier, part.shape.getModel())
+            part.getRecipe().forEach(RMResourcePack::addRecipe)
+            RMResourcePack.addItemTag(part.getTadId(), JTag().add(identifier))
 
             return item
         }

@@ -10,7 +10,7 @@ import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.tags.JTag
 import net.minecraft.util.Identifier
 
-object RagiResourcePack {
+object RMResourcePack {
 
     private val RESOURCE_PACK: RuntimeResourcePack = RuntimeResourcePack.create(hiiragiId("runtime"))
 

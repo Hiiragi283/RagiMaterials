@@ -1,24 +1,17 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.common.RagiDataPackHandler
+import hiiragi283.material.common.RMResourceHandler
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.util.hiiragiId
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder
-import net.minecraft.util.registry.Registry
-import net.minecraft.util.registry.SimpleRegistry
 
 object MaterialRegistry {
 
-    private val REGISTRY: SimpleRegistry<HiiragiMaterial> = FabricRegistryBuilder.createSimple(
-        HiiragiMaterial::class.java,
-        hiiragiId("material")
-    ).buildAndRegister()
+    private val REGISTRY: HashMap<String, HiiragiMaterial> = hashMapOf()
 
     @JvmStatic
-    fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.entrySet.map { it.value }
+    fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
 
     @JvmStatic
-    fun getMaterial(name: String) = REGISTRY.get(hiiragiId(name)) ?: HiiragiMaterial.EMPTY
+    fun getMaterial(name: String) = REGISTRY.getOrDefault(name, HiiragiMaterial.EMPTY)
 
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
@@ -42,7 +35,8 @@ object MaterialRegistry {
             return
         }
 
-        Registry.register(REGISTRY, hiiragiId(material.name), material)
+        REGISTRY[material.name] = material
+
     }
 
     fun init() {
@@ -52,7 +46,7 @@ object MaterialRegistry {
         MaterialCommon.register()
         RagiMaterials.LOGGER.info("Common Materials registered!")
 
-        RagiDataPackHandler.load()
+        RMResourceHandler.load()
         RagiMaterials.LOGGER.info("Materials from data packs loaded!")
     }
 

@@ -5,8 +5,11 @@ import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
+import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
+import net.minecraft.client.color.block.BlockColorProvider
+import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.entity.Entity
 import net.minecraft.tag.TagKey
@@ -76,7 +79,13 @@ data class HiiragiPart private constructor(val shape: HiiragiShape, val material
 
     fun getId(): Identifier = hiiragiId(replacedName)
 
+    fun getBlockColor(): BlockColorProvider = shape.getBlockColor(material)
+
+    fun getItemColor(): ItemColorProvider = shape.getItemColor(material)
+
     fun getName(): String = I18n.translate(shape.getTranslationKey(), material.getTranslatedName())
+
+    fun getRecipe(): Map<Identifier, JRecipe> = shape.getRecipe(this)
 
     fun getResult(count: Int = 1): JStackedResult = JResult.stackedResult(getId().toString(), count)
 
@@ -85,5 +94,9 @@ data class HiiragiPart private constructor(val shape: HiiragiShape, val material
     fun <T : Any> getTagKey(registry: RegistryKey<Registry<T>>): TagKey<T> = TagKey.of(registry, commonId(replacedName))
 
     fun getText(): TranslatableText = TranslatableText(shape.getTranslationKey(), material.getTranslatedName())
+
+    fun setMaterial(material: HiiragiMaterial): HiiragiPart = of(shape, material)
+
+    fun setShape(shape: HiiragiShape): HiiragiPart = of(shape, material)
 
 }

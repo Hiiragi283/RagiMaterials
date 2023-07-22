@@ -54,173 +54,193 @@ object ShapeRegistry {
     //    Shapes - Block   //
 
     @JvmField
-    val BLOCK_METAL = shapeOf("block", "@_blocks", 9.0) {
-        model = JModel.model().parent(hiiragiId("block/block_metal").toString())
+    val BLOCK_METAL = shapeOf(
+        "block",
+        "@_blocks",
+        9.0,
+        model = JModel.model().parent(hiiragiId("block/block_metal").toString()),
         recipes = {
             mapOf(
-                this.getId(it).append("_shaped") to JRecipe.shaped(
+                it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", ingotFake.getCommonTag(it)),
-                    this.getResult(it)
+                    JKeys.keys().addTag("A", it.setShape(ingotFake).getTadId()),
+                    it.getResult()
                 )
             )
-        }
+        },
         state = JState.state(
             JState.variant(
                 JState.model(
                     hiiragiId("block/block_metal")
                 )
             )
-        )
-        type = HiiragiShape.Type.BLOCK
-    }
+        ),
+        type = ShapeType.BLOCK
+    )
 
     @JvmField
-    val BLOCK_GEM = shapeOf("block", "@_blocks", 9.0) {
-        model = JModel.model().parent(hiiragiId("block/block_gem").toString())
+    val BLOCK_GEM = shapeOf(
+        "block",
+        "@_blocks",
+        9.0,
+        model = JModel.model().parent(hiiragiId("block/block_gem").toString()),
         recipes = {
             mapOf(
-                this.getId(it).append("_shaped") to JRecipe.shaped(
+                it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", gemFake.getCommonTag(it)),
-                    this.getResult(it)
+                    JKeys.keys().addTag("A", it.setShape(gemFake).getTadId()),
+                    it.getResult()
                 )
             )
-        }
+        },
         state = JState.state(
             JState.variant(
                 JState.model(
                     hiiragiId("block/block_gem")
                 )
             )
-        )
-        type = HiiragiShape.Type.BLOCK
-    }
-
-
-    @JvmField
-    val ORE = shapeOf("ore", "@_ores", 1.0) {
-        type = HiiragiShape.Type.BLOCK
-    }
+        ),
+        type = ShapeType.BLOCK
+    )
 
     @JvmField
-    val ORE_BLOCK = shapeOf("raw_block", "raw_@_blocks", 9.0) {
-        type = HiiragiShape.Type.BLOCK
-    }
+    val ORE = shapeOf("ore", "@_ores", 1.0, type = ShapeType.BLOCK)
+
+    @JvmField
+    val ORE_BLOCK = shapeOf("raw_block", "raw_@_blocks", 9.0, type = ShapeType.BLOCK)
 
     //    Shapes - Item   //
 
     @JvmField
-    val DUST = shapeOf("dust", "@_dusts", 1.0) {
-        model = itemModelLayered { layer0("minecraft:item/sugar") }
+    val DUST = shapeOf(
+        "dust",
+        "@_dusts",
+        1.0,
+        model = itemModelLayered { layer0("ragi_materials:item/dust") },
         recipes = {
             mapOf(
-                this.getId(it).append("_shaped") to JRecipe.shaped(
+                it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", DUST_TINY.getCommonTag(it)),
-                    this.getResult(it)
+                    JKeys.keys().addTag("A", it.setShape(DUST_TINY).getTadId()),
+                    it.getResult()
                 )
             )
         }
-
-    }
+    )
 
     @JvmField
-    val DUST_TINY = shapeOf("dust_tiny", "@_tiny_dusts", 0.1) {
-        model = itemModelLayered { layer0("ragi_materials:item/dust_tiny") }
+    val DUST_TINY = shapeOf(
+        "dust_tiny",
+        "@_tiny_dusts",
+        0.1,
+        model = itemModelLayered { layer0("ragi_materials:item/dust_tiny") },
         recipes = {
             mapOf(
-                this.getId(it).append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(dustFake.getCommonTag(it)),
-                    this.getResult(it, 9)
+                it.getId().append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(it.setShape(dustFake).getTadId()),
+                    it.getResult(9)
                 )
             )
         }
-    }
+    )
 
     @JvmField
-    val GEAR = shapeOf("gear", "@_gears", 4.0) {
-        model = itemModelLayered { layer0("ragi_materials:item/gear") }
+    val GEAR = shapeOf(
+        "gear",
+        "@_gears",
+        4.0,
+        model = itemModelLayered { layer0("ragi_materials:item/gear") },
         recipes = {
             mapOf(
-                this.getId(it).append("_shaped") to JRecipe.shaped(
+                it.getId().append("_shaped") to JRecipe.shaped(
                     JPattern.pattern(" A ", "ABA", " A "),
                     JKeys.keys()
-                        .addTag("A", ingotFake.getCommonTag(it))
+                        .addTag("A", it.setShape(ingotFake).getTadId())
                         .addItem("B", ForgeHammerItem),
-                    this.getResult(it)
+                    it.getResult()
                 )
             )
         }
-    }
+    )
 
     @JvmField
     val GEM = shapeOf("gem", "@_gems", 1.0)
 
     @JvmField
-    val INGOT = shapeOf("ingot", "@_ingots", 1.0) {
+    val INGOT = shapeOf(
+        "ingot",
+        "@_ingots",
+        1.0,
         recipes = {
             mapOf(
-                this.getId(it).append("_shaped") to JRecipe.shaped(
+                it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", NUGGET.getCommonTag(it)),
-                    this.getResult(it)
+                    JKeys.keys().addTag("A", it.setShape(NUGGET).getTadId()),
+                    it.getResult()
                 ),
-                this.getId(it).append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(BLOCK_METAL.getCommonTag(it)),
-                    this.getResult(it, 9)
+                it.getId().append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(it.setShape(BLOCK_METAL).getTadId()),
+                    it.getResult(9)
                 )
             )
         }
-    }
+    )
 
     @JvmField
-    val NUGGET = shapeOf("nugget", "@_nuggets", 0.1) {
-        model = itemModelLayered { layer0("minecraft:item/iron_nugget") }
+    val NUGGET = shapeOf(
+        "nugget",
+        "@_nuggets",
+        0.1,
+        model = itemModelLayered { layer0("minecraft:item/iron_nugget") },
         recipes = {
             mapOf(
-                this.getId(it).append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(ingotFake.getCommonTag(it)),
-                    this.getResult(it, 9)
+                it.getId().append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(it.setShape(ingotFake).getTadId()),
+                    it.getResult(9)
                 )
             )
         }
-    }
+    )
 
     @JvmField
-    val PLATE = shapeOf("plate", "@_plates", 1.0) {
-        model = itemModelLayered { layer0("ragi_materials:item/plate") }
+    val PLATE = shapeOf(
+        "plate",
+        "@_plates",
+        1.0,
+        model = itemModelLayered { layer0("ragi_materials:item/plate") },
         recipes = {
             mapOf(
-                this.getId(it).append("_shapeless") to JRecipe.shapeless(
+                it.getId().append("_shapeless") to JRecipe.shapeless(
                     JIngredients.ingredients()
-                        .addTag(ingotFake.getCommonTag(it))
+                        .addTag(it.setShape(ingotFake).getTadId())
                         .addItem(ForgeHammerItem),
-                    this.getResult(it)
+                    it.getResult()
                 )
             )
-
         }
-    }
+    )
 
     @JvmField
     val RAW_ORE = shapeOf("raw_ore", "raw_@_ores", 1.0)
 
     @JvmField
-    val ROD = shapeOf("rod", "@_rods", 0.5) {
-        model = itemModelLayered { layer0("ragi_materials:item/rod") }
+    val ROD = shapeOf(
+        "rod",
+        "@_rods",
+        0.5,
+        model = itemModelLayered { layer0("ragi_materials:item/rod") },
         recipes = {
             mapOf(
-                this.getId(it).append("_shaped") to JRecipe.shaped(
+                it.getId().append("_shaped") to JRecipe.shaped(
                     JPattern.pattern("AB", "A "),
                     JKeys.keys()
-                        .addTag("A", ingotFake.getCommonTag(it))
+                        .addTag("A", it.setShape(ingotFake).getTadId())
                         .addItem("B", ForgeFileItem),
-                    this.getResult(it, 4)
+                    it.getResult(4)
                 )
             )
         }
-    }
+    )
 
     fun init() {
 

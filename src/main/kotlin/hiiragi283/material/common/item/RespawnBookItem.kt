@@ -1,7 +1,7 @@
 package hiiragi283.material.common.item
 
 import hiiragi283.material.api.HiiragiItem
-import hiiragi283.material.common.RagiResourcePack
+import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.playHypixel
 import net.devtech.arrp.json.models.JModel
@@ -49,7 +49,7 @@ object RespawnBookItem : HiiragiItem(
 
     override fun register(): Item {
 
-        RagiResourcePack.addItemModel(getIdentifier(), JModel.model().parent("item/writable_book"))
+        RMResourcePack.addItemModel(getIdentifier(), JModel.model().parent("item/writable_book"))
 
         return super.register()
     }

@@ -7,7 +7,7 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 
-object RagiItemGroup {
+object RMItemGroup {
 
     val MATERIAL_BLOCk: ItemGroup by lazy {
         FabricItemGroupBuilder.create(hiiragiId("material_block"))

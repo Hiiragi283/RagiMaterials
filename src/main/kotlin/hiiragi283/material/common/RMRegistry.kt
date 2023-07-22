@@ -5,21 +5,21 @@ import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.part.with
-import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.ShapeRegistry
+import hiiragi283.material.api.shape.ShapeType
 import hiiragi283.material.common.item.ForgeFileItem
 import hiiragi283.material.common.item.ForgeHammerItem
 import hiiragi283.material.common.item.RespawnBookItem
 import hiiragi283.material.common.util.hiiragiId
 import net.devtech.arrp.json.tags.JTag
 
-object RagiRegistry {
+object RMRegistry {
 
     fun loadBlocks() {
         //Initialize Material Blocks
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
-                .filter { it.type == HiiragiShape.Type.BLOCK }
+                .filter { it.getType() == ShapeType.BLOCK }
                 .map { it with material }
                 .filterNot { it.isEmpty() }
                 .map { MaterialBlock.of(it) }
@@ -42,7 +42,7 @@ object RagiRegistry {
         //Initialize Material Items
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
-                .filter { it.type == HiiragiShape.Type.ITEM }
+                .filter { it.getType() == ShapeType.ITEM }
                 .map { it with material }
                 .filterNot { it.isEmpty() }
                 .map { MaterialItem.of(it) }
@@ -61,7 +61,7 @@ object RagiRegistry {
                 .filterNot { it.isEmpty() }
                 .forEach { jTag.tag(it.getTadId()) }
 
-            RagiResourcePack.addItemTag(hiiragiId(material.name), jTag)
+            RMResourcePack.addItemTag(hiiragiId(material.name), jTag)
 
         }
 

@@ -20,25 +20,25 @@ object RagiMaterials : ModInitializer {
         PartRegistry.init()
         LOGGER.info("PartRegistry initialized!")
 
-        RagiRegistry.loadBlocks()
+        RMRegistry.loadBlocks()
         LOGGER.info("Blocks and BlockItems registered!")
 
-        //RagiRegistry.loadFluids()
+        //RMRegistry.loadFluids()
         LOGGER.info("Fluids and Buckets registered!")
 
-        RagiRegistry.loadItems()
+        RMRegistry.loadItems()
         LOGGER.info("Items registered!")
 
-        RagiRegistry.loadMaterialTags()
+        RMRegistry.loadMaterialTags()
         LOGGER.info("Material Tags are added to Material Items!")
 
         RagiIntegrationCore.init()
         LOGGER.info("Integrations initialized!")
 
-        RagiEventHandler.loadCommon()
+        RMEventHandler.loadCommon()
         LOGGER.info("Common Events registered!")
 
-        RagiResourcePack.register()
+        RMResourcePack.register()
         LOGGER.info("ResourcePack registered!")
 
     }

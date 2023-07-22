@@ -2,8 +2,8 @@ package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.common.RagiItemGroup
-import hiiragi283.material.common.RagiResourcePack
+import hiiragi283.material.common.RMItemGroup
+import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.itemModelLayered
@@ -20,7 +20,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
 abstract class MaterialBucketItem(fluid: Fluid) :
-    BucketItem(fluid, FabricItemSettings().group(RagiItemGroup.MATERIAL_ITEM)), HiiragiEntry.ITEM, ItemColorProvider {
+    BucketItem(fluid, FabricItemSettings().group(RMItemGroup.MATERIAL_ITEM)), HiiragiEntry.ITEM, ItemColorProvider {
 
     companion object {
 
@@ -36,11 +36,11 @@ abstract class MaterialBucketItem(fluid: Fluid) :
 
             override fun register(): Item {
 
-                RagiResourcePack.addItemModel(getIdentifier(), itemModelLayered {
+                RMResourcePack.addItemModel(getIdentifier(), itemModelLayered {
                     layer0("minecraft:item/bucket")
                     layer1("ragi_materials:item/bucket_layer")
                 })
-                RagiResourcePack.addItemTag(commonId(getIdentifier().path), JTag().add(getIdentifier()))
+                RMResourcePack.addItemTag(commonId(getIdentifier().path), JTag().add(getIdentifier()))
 
                 return Registry.register(Registry.ITEM, getIdentifier(), this)
             }
