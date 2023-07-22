@@ -2,13 +2,13 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.HiiragiItem
+import hiiragi283.material.api.RMItemColorProvider
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RMItemGroup
 import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.RagiMaterials
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.text.TranslatableText
@@ -18,7 +18,7 @@ import net.minecraft.util.TypedActionResult
 import net.minecraft.world.World
 
 abstract class MaterialItem(settings: FabricItemSettings = FabricItemSettings().group(RMItemGroup.MATERIAL_ITEM)) :
-    HiiragiItem(settings), ItemColorProvider {
+    HiiragiItem(settings), RMItemColorProvider {
 
     companion object {
 

@@ -3,7 +3,7 @@ package hiiragi283.material.api.material
 object MaterialType {
 
     @JvmField
-    val INTERNAL: Set<String> = setOf("bottle")
+    val INTERNAL: Set<String> = setOf("bottle", "wildcard")
 
     @JvmField
     val WILDCARD: Set<String> = setOf(

@@ -8,7 +8,6 @@ import hiiragi283.material.common.util.hiiragiId
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
-import net.minecraft.client.color.block.BlockColorProvider
 import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.entity.Entity
@@ -35,7 +34,7 @@ data class HiiragiPart private constructor(val shape: HiiragiShape, val material
 
         @JvmStatic
         fun of(shape: HiiragiShape, material: HiiragiMaterial): HiiragiPart =
-            if (shape.name in material.validShapes) HiiragiPart(shape, material) else {
+            if (shape.isValid(material)) HiiragiPart(shape, material) else {
                 RagiMaterials.LOGGER.warn("${shape.name}:${material.name} will be empty!")
                 EMPTY
             }
@@ -78,8 +77,6 @@ data class HiiragiPart private constructor(val shape: HiiragiShape, val material
     fun isEmpty(): Boolean = this == EMPTY
 
     fun getId(): Identifier = hiiragiId(replacedName)
-
-    fun getBlockColor(): BlockColorProvider = shape.getBlockColor(material)
 
     fun getItemColor(): ItemColorProvider = shape.getItemColor(material)
 

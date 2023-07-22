@@ -64,6 +64,7 @@ object PartRegistry {
         REGISTRY.clear()
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
+                .filter { it.isValid(material) }
                 .map { it with material }
                 .filterNot { it.isEmpty() }
                 .forEach {

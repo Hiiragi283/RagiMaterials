@@ -1,7 +1,7 @@
 package hiiragi283.material.client
 
+import hiiragi283.material.api.RMItemColorProvider
 import hiiragi283.material.api.block.MaterialBlock
-import hiiragi283.material.api.item.MaterialItem
 import net.fabricmc.api.EnvType
 import net.fabricmc.api.Environment
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
@@ -14,11 +14,11 @@ object RMColorProvider {
         .map { it.value }
         .filterIsInstance<MaterialBlock>()
 
-    private val items: Collection<MaterialItem> = Registry.ITEM.entrySet
+    private val items = Registry.ITEM.entrySet
         .map { it.value }
-        .filterIsInstance<MaterialItem>()
+        .filterIsInstance<RMItemColorProvider>()
 
-    fun load() {
+    fun register() {
         registerBlock()
         registerBlockItem()
         registerItem()

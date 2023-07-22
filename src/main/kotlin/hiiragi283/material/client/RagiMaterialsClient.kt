@@ -12,8 +12,11 @@ object RagiMaterialsClient : ClientModInitializer {
     @Environment(EnvType.CLIENT)
     override fun onInitializeClient() {
 
-        RMColorProvider.load()
+        RMColorProvider.register()
         RagiMaterials.LOGGER.info("Color Provider registered!")
+
+        RMRenderHandler.load()
+        RagiMaterials.LOGGER.info("Custom Render loaded!")
 
         RMEventHandler.loadClient()
         RagiMaterials.LOGGER.info("Client Events registered!")

@@ -14,9 +14,13 @@ object RMResourcePack {
 
     private val RESOURCE_PACK: RuntimeResourcePack = RuntimeResourcePack.create(hiiragiId("runtime"))
 
+    //    BlockState    //
+
     fun addBlockState(identifier: Identifier, state: JState) {
         RESOURCE_PACK.addBlockState(state, identifier)
     }
+
+    //    Model    //
 
     private fun addModel(identifier: Identifier, model: JModel) {
         RESOURCE_PACK.addModel(model, identifier)
@@ -31,9 +35,13 @@ object RMResourcePack {
         addModel(identifier.appendBefore("item/"), model)
     }
 
+    //    Recipe    //
+
     fun addRecipe(identifier: Identifier, recipe: JRecipe) {
         RESOURCE_PACK.addRecipe(identifier, recipe)
     }
+
+    //    Tag    //
 
     private fun addTag(identifier: Identifier, tag: JTag) {
         RESOURCE_PACK.addTag(identifier, tag)
@@ -46,6 +54,8 @@ object RMResourcePack {
     fun addItemTag(identifier: Identifier, tag: JTag) {
         addTag(identifier.appendBefore("items/"), tag)
     }
+
+    //    Register    //
 
     fun register() {
         RRPCallback.BEFORE_VANILLA.register { it.add(RESOURCE_PACK) }

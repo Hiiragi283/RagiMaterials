@@ -5,7 +5,7 @@ import hiiragi283.material.common.RagiMaterials
 
 object MaterialRegistry {
 
-    private val REGISTRY: HashMap<String, HiiragiMaterial> = hashMapOf()
+    private val REGISTRY: LinkedHashMap<String, HiiragiMaterial> = linkedMapOf()
 
     @JvmStatic
     fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values

@@ -1,7 +1,9 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.api.item.HiiragiToolMaterial
 import hiiragi283.material.common.util.ColorUtil
 import hiiragi283.material.common.util.RagiColor
+import net.minecraft.item.ToolMaterials
 
 
 /**
@@ -165,6 +167,7 @@ object MaterialElements {
         color = RagiColor.YELLOW.rgb
         formula = "P"
         molar = 31.0
+        property.hasOre = true
         tempBoil = 550
         tempMelt = 317
         validShapes.addAll(MaterialType.SOLID)
@@ -175,6 +178,7 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
         formula = "S"
         molar = 32.1
+        property.hasOre = true
         tempBoil = 718
         tempMelt = 388
         validShapes.addAll(MaterialType.SOLID)
@@ -284,8 +288,10 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Fe"
         molar = 55.8
+        property.hasOre = true
         tempBoil = 3134
         tempMelt = 1811
+        toolProperty = HiiragiToolMaterial.copy(ToolMaterials.IRON)
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -295,6 +301,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Co"
         molar = 58.9
+        property.hasOre = true
         tempBoil = 3200
         tempMelt = 1768
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -306,6 +313,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Ni"
         molar = 58.7
+        property.hasOre = true
         tempBoil = 3186
         tempMelt = 1728
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -317,6 +325,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Cu"
         molar = 63.5
+        property.hasOre = true
         tempBoil = 2835
         tempMelt = 1358
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -328,6 +337,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Zn"
         molar = 65.4
+        property.hasOre = true
         tempBoil = 1180
         tempMelt = 693
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -516,6 +526,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Ag"
         molar = 107.9
+        property.hasOre = true
         tempBoil = 2435
         tempMelt = 1235
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -549,6 +560,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Sn"
         molar = 118.7
+        property.hasOre = true
         tempBoil = 2875
         tempMelt = 505
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -818,8 +830,10 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "W"
         molar = 183.8
+        property.hasOre = true
         tempBoil = 5828
         tempMelt = 3695
+        toolProperty = HiiragiToolMaterial.copy(ToolMaterials.DIAMOND)
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -873,8 +887,10 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Au"
         molar = 197.0
+        property.hasOre = true
         tempBoil = 3129
         tempMelt = 1337
+        toolProperty = HiiragiToolMaterial.copy(ToolMaterials.GOLD)
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -904,6 +920,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Pb"
         molar = 207.2
+        property.hasOre = true
         tempBoil = 2022
         tempMelt = 601
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -915,6 +932,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Bi"
         molar = 209.0
+        property.hasOre = true
         tempBoil = 1837
         tempMelt = 545
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -994,6 +1012,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Th"
         molar = 232.0
+        property.hasOre = true
         tempBoil = 5061
         tempMelt = 2115
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -1016,6 +1035,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "U"
         molar = 238.0
+        property.hasOre = true
         tempBoil = 4404
         tempMelt = 1405
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -1033,10 +1053,10 @@ object MaterialElements {
     }
 
     @JvmField
-    val PLUTONIUM244 = materialOf("plutonium244") {
+    val PLUTONIUM = materialOf("plutonium") {
         color = RagiColor.RED.rgb
         crystalType = CrystalType.METAL
-        formula = "Pu244"
+        formula = "Pu"
         molar = 244.1
         tempBoil = 3501
         tempMelt = 913
@@ -1410,7 +1430,7 @@ object MaterialElements {
         MaterialRegistry.registerMaterial(PROTACTINIUM)
         MaterialRegistry.registerMaterial(URANIUM)
         MaterialRegistry.registerMaterial(NEPTUNIUM)
-        MaterialRegistry.registerMaterial(PLUTONIUM244)
+        MaterialRegistry.registerMaterial(PLUTONIUM)
         //if (RMConfig.enableTransuraniumElement) {
         MaterialRegistry.registerMaterial(AMERICIUM)
         MaterialRegistry.registerMaterial(CURIUM)

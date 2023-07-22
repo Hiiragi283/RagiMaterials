@@ -9,16 +9,12 @@ import net.minecraft.item.Items
 
 object RMItemGroup {
 
-    val MATERIAL_BLOCk: ItemGroup by lazy {
-        FabricItemGroupBuilder.create(hiiragiId("material_block"))
-            .icon { ItemStack(Blocks.IRON_BLOCK) }
-            .build()
-    }
+    val MATERIAL_BLOCk: ItemGroup = FabricItemGroupBuilder.create(hiiragiId("material_block"))
+        .icon { ItemStack(Blocks.IRON_BLOCK) }
+        .build()
 
+    val MATERIAL_ITEM: ItemGroup = FabricItemGroupBuilder.create(hiiragiId("material_item"))
+        .icon { ItemStack(Items.IRON_INGOT) }
+        .build()
 
-    val MATERIAL_ITEM: ItemGroup by lazy {
-        FabricItemGroupBuilder.create(hiiragiId("material_item"))
-            .icon { ItemStack(Items.IRON_INGOT) }
-            .build()
-    }
 }

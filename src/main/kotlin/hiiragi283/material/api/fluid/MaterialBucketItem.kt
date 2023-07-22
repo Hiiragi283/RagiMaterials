@@ -1,6 +1,7 @@
 package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.HiiragiEntry
+import hiiragi283.material.api.RMItemColorProvider
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.common.RMItemGroup
 import hiiragi283.material.common.RMResourcePack
@@ -9,7 +10,6 @@ import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.itemModelLayered
 import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.fluid.Fluid
 import net.minecraft.item.BucketItem
 import net.minecraft.item.Item
@@ -20,7 +20,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
 abstract class MaterialBucketItem(fluid: Fluid) :
-    BucketItem(fluid, FabricItemSettings().group(RMItemGroup.MATERIAL_ITEM)), HiiragiEntry.ITEM, ItemColorProvider {
+    BucketItem(fluid, FabricItemSettings().group(RMItemGroup.MATERIAL_ITEM)), HiiragiEntry.ITEM, RMItemColorProvider {
 
     companion object {
 

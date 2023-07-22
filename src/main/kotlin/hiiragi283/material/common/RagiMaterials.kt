@@ -27,10 +27,11 @@ object RagiMaterials : ModInitializer {
         LOGGER.info("Fluids and Buckets registered!")
 
         RMRegistry.loadItems()
+        RMRegistry.loadToolItems()
         LOGGER.info("Items registered!")
 
-        RMRegistry.loadMaterialTags()
-        LOGGER.info("Material Tags are added to Material Items!")
+        RMRegistry.loadTags()
+        LOGGER.info("Tags are registered!")
 
         RagiIntegrationCore.init()
         LOGGER.info("Integrations initialized!")

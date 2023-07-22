@@ -13,11 +13,11 @@ object RagiIntegrationCore {
 
         //    Minecraft    //
 
-        PartRegistry.registerTag(BlockTags.PLANKS, HiiragiShape.EMPTY with MaterialCommon.WOOD)
-        PartRegistry.registerTag(BlockTags.LOGS, HiiragiShape.EMPTY with MaterialCommon.WOOD)
+        PartRegistry.registerTag(BlockTags.PLANKS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
+        PartRegistry.registerTag(BlockTags.LOGS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
 
-        PartRegistry.registerTag(ItemTags.PLANKS, HiiragiShape.EMPTY with MaterialCommon.WOOD)
-        PartRegistry.registerTag(ItemTags.LOGS, HiiragiShape.EMPTY with MaterialCommon.WOOD)
+        PartRegistry.registerTag(ItemTags.PLANKS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
+        PartRegistry.registerTag(ItemTags.LOGS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
 
     }
 

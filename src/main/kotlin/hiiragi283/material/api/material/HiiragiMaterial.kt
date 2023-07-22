@@ -1,5 +1,6 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.api.item.HiiragiToolMaterial
 import hiiragi283.material.common.RagiMaterials
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -32,6 +33,7 @@ data class HiiragiMaterial internal constructor(
 ) {
 
     var property: MaterialProperty = MaterialProperty.EMPTY
+    var toolProperty: HiiragiToolMaterial = HiiragiToolMaterial.EMPTY
     val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
 
     companion object {
@@ -69,11 +71,15 @@ data class HiiragiMaterial internal constructor(
 
     fun hasMolar(): Boolean = molar > 0.0
 
+    fun hasOre(): Boolean = property.hasOre
+
     fun hasTempBoil(): Boolean = tempBoil >= 0
 
     fun hasTempMelt(): Boolean = tempMelt >= 0
 
     fun hasTempSubl(): Boolean = tempSubl >= 0
+
+    fun hasToolProperty(): Boolean = toolProperty != HiiragiToolMaterial.EMPTY
 
     fun isEmpty(): Boolean = this == EMPTY
 

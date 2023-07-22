@@ -1,10 +1,7 @@
 package hiiragi283.material.api.shape
 
 import hiiragi283.material.common.RagiMaterials
-import hiiragi283.material.common.item.ForgeFileItem
-import hiiragi283.material.common.item.ForgeHammerItem
 import hiiragi283.material.common.util.*
-import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JIngredients
 import net.devtech.arrp.json.recipe.JKeys
@@ -13,7 +10,7 @@ import net.devtech.arrp.json.recipe.JRecipe
 
 object ShapeRegistry {
 
-    private val REGISTRY: HashMap<String, HiiragiShape> = hashMapOf()
+    private val REGISTRY: LinkedHashMap<String, HiiragiShape> = linkedMapOf()
 
     @JvmStatic
     fun getShapes(): Collection<HiiragiShape> = REGISTRY.values
@@ -54,29 +51,7 @@ object ShapeRegistry {
     //    Shapes - Block   //
 
     @JvmField
-    val BLOCK_METAL = shapeOf(
-        "block",
-        "@_blocks",
-        9.0,
-        model = JModel.model().parent(hiiragiId("block/block_metal").toString()),
-        recipes = {
-            mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(ingotFake).getTadId()),
-                    it.getResult()
-                )
-            )
-        },
-        state = JState.state(
-            JState.variant(
-                JState.model(
-                    hiiragiId("block/block_metal")
-                )
-            )
-        ),
-        type = ShapeType.BLOCK
-    )
+    val BLOCK_METAL = shapeOf("block", "@_blocks", 9.0)
 
     @JvmField
     val BLOCK_GEM = shapeOf(
@@ -93,6 +68,12 @@ object ShapeRegistry {
                 )
             )
         },
+        /*settings = {
+            FabricBlockSettings.of(Material.AMETHYST)
+                .requiresTool()
+                .sounds(BlockSoundGroup.AMETHYST_BLOCK)
+                .strength(1.5f)
+        },
         state = JState.state(
             JState.variant(
                 JState.model(
@@ -100,14 +81,27 @@ object ShapeRegistry {
                 )
             )
         ),
-        type = ShapeType.BLOCK
+        type = ShapeType.BLOCK*/
     )
 
     @JvmField
-    val ORE = shapeOf("ore", "@_ores", 1.0, type = ShapeType.BLOCK)
+    val ORE = shapeOf(
+        "ore",
+        "@_ores",
+        1.0,
+        model = JModel.model().parent(hiiragiId("block/ore_stone").toString()),
+        /*state = JState.state(
+            JState.variant(
+                JState.model(
+                    hiiragiId("block/ore_stone")
+                )
+            )
+        ),
+        type = ShapeType.BLOCK*/
+    )
 
     @JvmField
-    val ORE_BLOCK = shapeOf("raw_block", "raw_@_blocks", 9.0, type = ShapeType.BLOCK)
+    val ORE_BLOCK = shapeOf("raw_block", "raw_@_blocks", 9.0)
 
     //    Shapes - Item   //
 
@@ -156,7 +150,7 @@ object ShapeRegistry {
                     JPattern.pattern(" A ", "ABA", " A "),
                     JKeys.keys()
                         .addTag("A", it.setShape(ingotFake).getTadId())
-                        .addItem("B", ForgeHammerItem),
+                        .addTag("B", commonId("hammers")),
                     it.getResult()
                 )
             )
@@ -213,7 +207,7 @@ object ShapeRegistry {
                 it.getId().append("_shapeless") to JRecipe.shapeless(
                     JIngredients.ingredients()
                         .addTag(it.setShape(ingotFake).getTadId())
-                        .addItem(ForgeHammerItem),
+                        .addTag(commonId("hammers")),
                     it.getResult()
                 )
             )
@@ -235,7 +229,7 @@ object ShapeRegistry {
                     JPattern.pattern("AB", "A "),
                     JKeys.keys()
                         .addTag("A", it.setShape(ingotFake).getTadId())
-                        .addItem("B", ForgeFileItem),
+                        .addTag("B", commonId("files")),
                     it.getResult(4)
                 )
             )
@@ -245,11 +239,6 @@ object ShapeRegistry {
     fun init() {
 
         REGISTRY.clear()
-
-        registerShape(BLOCK_METAL)
-        //registerShape(BLOCK_GEM)
-        //registerShape(ORE)
-        //registerShape(ORE_BLOCK)
 
         registerShape(DUST)
         registerShape(DUST_TINY)

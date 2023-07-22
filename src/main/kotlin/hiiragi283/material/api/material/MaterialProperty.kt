@@ -16,6 +16,7 @@ data class MaterialProperty internal constructor(
 ) {
 
     var burnTime: Int = 0
+    var hasOre: Boolean = false
 
     companion object {
 
