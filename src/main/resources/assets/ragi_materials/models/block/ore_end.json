@@ -1,0 +1,6 @@
+{
+  "parent": "ragi_materials:block/ore_base",
+  "textures": {
+    "stone": "block/end_stone"
+  }
+}

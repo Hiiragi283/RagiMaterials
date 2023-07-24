@@ -2,13 +2,11 @@ package hiiragi283.material.api.part
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
-import net.minecraft.client.color.item.ItemColorProvider
 import net.minecraft.client.resource.language.I18n
 import net.minecraft.entity.Entity
 import net.minecraft.tag.TagKey
@@ -22,22 +20,16 @@ import net.minecraft.world.World
 import net.minecraft.world.explosion.Explosion
 import kotlin.math.roundToInt
 
-infix fun HiiragiShape.with(material: HiiragiMaterial): HiiragiPart = HiiragiPart.of(this, material)
+infix fun HiiragiShape.with(material: HiiragiMaterial): HiiragiPart = HiiragiPart(this, material)
 
-data class HiiragiPart private constructor(val shape: HiiragiShape, val material: HiiragiMaterial) {
+data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
-    private val replacedName: String = shape.prefix.replace("@", material.name)
+    private val replacedId: String = shape.prefixId.replace("@", material.name)
+    private val replacedTag: String = shape.prefixTag.replace("@", material.name)
     private val weight: Double =
         if (material.hasMolar() && shape.hasScale()) (material.molar * shape.scale * 10.0).roundToInt() / 10.0 else 0.0
 
     companion object {
-
-        @JvmStatic
-        fun of(shape: HiiragiShape, material: HiiragiMaterial): HiiragiPart =
-            if (shape.isValid(material)) HiiragiPart(shape, material) else {
-                RagiMaterials.LOGGER.warn("${shape.name}:${material.name} will be empty!")
-                EMPTY
-            }
 
         @JvmField
         val EMPTY = HiiragiPart(HiiragiShape.EMPTY, HiiragiMaterial.EMPTY)
@@ -76,9 +68,9 @@ data class HiiragiPart private constructor(val shape: HiiragiShape, val material
 
     fun isEmpty(): Boolean = this == EMPTY
 
-    fun getId(): Identifier = hiiragiId(replacedName)
+    fun isValid(): Boolean = shape.isValid(material)
 
-    fun getItemColor(): ItemColorProvider = shape.getItemColor(material)
+    fun getId(): Identifier = hiiragiId(replacedId)
 
     fun getName(): String = I18n.translate(shape.getTranslationKey(), material.getTranslatedName())
 
@@ -86,14 +78,14 @@ data class HiiragiPart private constructor(val shape: HiiragiShape, val material
 
     fun getResult(count: Int = 1): JStackedResult = JResult.stackedResult(getId().toString(), count)
 
-    fun getTadId(): Identifier = commonId(replacedName)
+    fun getTadId(): Identifier = commonId(replacedTag)
 
-    fun <T : Any> getTagKey(registry: RegistryKey<Registry<T>>): TagKey<T> = TagKey.of(registry, commonId(replacedName))
+    fun <T : Any> getTagKey(registry: RegistryKey<Registry<T>>): TagKey<T> = TagKey.of(registry, commonId(replacedTag))
 
     fun getText(): TranslatableText = TranslatableText(shape.getTranslationKey(), material.getTranslatedName())
 
-    fun setMaterial(material: HiiragiMaterial): HiiragiPart = of(shape, material)
+    fun setMaterial(material: HiiragiMaterial): HiiragiPart = HiiragiPart(shape, material)
 
-    fun setShape(shape: HiiragiShape): HiiragiPart = of(shape, material)
+    fun setShape(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, material)
 
 }

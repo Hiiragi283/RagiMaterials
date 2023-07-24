@@ -8,7 +8,6 @@ import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.itemModelLayered
-import net.devtech.arrp.json.tags.JTag
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.fluid.Fluid
 import net.minecraft.item.BucketItem
@@ -40,7 +39,7 @@ abstract class MaterialBucketItem(fluid: Fluid) :
                     layer0("minecraft:item/bucket")
                     layer1("ragi_materials:item/bucket_layer")
                 })
-                RMResourcePack.addItemTag(commonId(getIdentifier().path), JTag().add(getIdentifier()))
+                RMResourcePack.addItemTag(commonId(getIdentifier().path), getIdentifier())
 
                 return Registry.register(Registry.ITEM, getIdentifier(), this)
             }

@@ -6,36 +6,13 @@ object MaterialType {
     val INTERNAL: Set<String> = setOf("bottle", "wildcard")
 
     @JvmField
-    val WILDCARD: Set<String> = setOf(
-        "ball",
-        "block",
-        "bottle",
-        "clump",
-        "cluster",
-        "coin",
-        "crystal",
-        "dust",
-        "dust_dirty",
-        "dust_tiny",
-        "gear",
-        "gem",
-        "ingot",
-        "log",
-        "nugget",
-        "ore",
-        "plank",
-        "plate",
-        "shard",
-        "rod",
-        "stone"
-    )
-
-    @JvmField
     val SOLID: Set<String> = setOf(
-        "cluster",
         "dust",
         "dust_tiny",
-        "ore"
+        "ore_deep",
+        "ore_end",
+        "ore_nether",
+        "ore_stone"
     )
 
     @JvmField
@@ -51,7 +28,7 @@ object MaterialType {
 
     @JvmField
     val GEM_9x: Set<String> = GEM_4x.toMutableSet().also {
-        it.add("block")
+        it.add("block_gem")
         it.add("gem")
     }
 
@@ -65,14 +42,9 @@ object MaterialType {
     val METAL_COMMON: Set<String> = SOLID.toMutableSet().also {
         it.addAll(
             setOf(
-                "block",
-                "clump",
-                "cluster",
-                "crystal",
-                "dust_dirty",
+                "block_metal",
                 "ingot",
-                "nugget",
-                "shard"
+                "nugget"
             )
         )
     }
@@ -81,8 +53,6 @@ object MaterialType {
     val METAL_ADVANCED: Set<String> = METAL_COMMON.toMutableSet().also {
         it.addAll(
             setOf(
-                "ball",
-                "coin",
                 "gear",
                 "plate",
                 "rod"

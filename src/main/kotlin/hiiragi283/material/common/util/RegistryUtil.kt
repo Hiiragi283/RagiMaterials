@@ -11,4 +11,6 @@ fun getBlock(identifier: Identifier) = Registry.BLOCK.get(identifier)
 
 fun getItem(identifier: Identifier) = Registry.ITEM.get(identifier)
 
+fun <T : Any> getRegistryEntries(registry: Registry<T>): List<T> = registry.entrySet.map { it.value }
+
 fun BlockState.toItemStack(count: Int = 1): ItemStack = ItemStack(this.block, count)

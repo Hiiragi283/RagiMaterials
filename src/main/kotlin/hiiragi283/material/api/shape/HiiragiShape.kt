@@ -3,46 +3,60 @@ package hiiragi283.material.api.shape
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.util.itemModelLayered
+import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JRecipe
-import net.minecraft.client.color.item.ItemColorProvider
+import net.minecraft.block.AbstractBlock
+import net.minecraft.block.Blocks
 import net.minecraft.util.Identifier
 
 fun shapeOf(
     name: String,
-    prefix: String,
     scale: Double,
-    itemColor: (HiiragiMaterial) -> ItemColorProvider = { ItemColorProvider { _, _ -> it.color } },
+    prefixId: String,
+    prefixTag: String = prefixId,
+    blockSettings: AbstractBlock.Settings = AbstractBlock.Settings.copy(Blocks.AIR),
     model: JModel = itemModelLayered { layer0("minecraft:item/iron_ingot") },
-    recipes: (HiiragiPart) -> Map<Identifier, JRecipe> = { mapOf() }
-): HiiragiShape = object : HiiragiShape(name, prefix, scale) {
+    recipes: (HiiragiPart) -> Map<Identifier, JRecipe> = { mapOf() },
+    state: JState = JState(),
+    type: ShapeType = ShapeType.ITEM
+): HiiragiShape = object : HiiragiShape(name, scale, prefixId, prefixTag) {
 
-    override fun getItemColor(material: HiiragiMaterial): ItemColorProvider = itemColor(material)
+    override fun getBlockSettings(): AbstractBlock.Settings = blockSettings
 
     override fun getModel(): JModel = model
 
     override fun getRecipe(part: HiiragiPart): Map<Identifier, JRecipe> = recipes(part)
 
+    override fun getState(): JState = state
+
+    override fun getType(): ShapeType = type
+
 }
 
 abstract class HiiragiShape internal constructor(
     val name: String,
-    val prefix: String,
-    val scale: Double
+    val scale: Double,
+    val prefixId: String,
+    val prefixTag: String = prefixId
 ) {
 
-    abstract fun getItemColor(material: HiiragiMaterial): ItemColorProvider
+    abstract fun getBlockSettings(): AbstractBlock.Settings
 
     abstract fun getModel(): JModel
 
     abstract fun getRecipe(part: HiiragiPart): Map<Identifier, JRecipe>
 
+    abstract fun getState(): JState
+
+    abstract fun getType(): ShapeType
+
     companion object {
         @JvmField
-        val EMPTY = shapeOf("empty", "", 0.0)
+        val EMPTY = shapeOf("empty", 0.0, "")
 
         @JvmField
-        val WILDCARD = shapeOf("wildcard", "", 0.0)
+        val WILDCARD = shapeOf("wildcard", 0.0, "")
     }
 
     override fun toString(): String = "Part:$name"
