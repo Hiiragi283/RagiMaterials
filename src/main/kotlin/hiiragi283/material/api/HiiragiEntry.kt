@@ -1,6 +1,7 @@
 package hiiragi283.material.api
 
 import hiiragi283.material.api.fluid.HiiragiFluid
+import net.fabricmc.fabric.api.item.v1.FabricItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.minecraft.block.Block
@@ -8,7 +9,6 @@ import net.minecraft.block.Blocks
 import net.minecraft.block.FluidBlock
 import net.minecraft.fluid.Fluid
 import net.minecraft.item.*
-import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
@@ -16,23 +16,39 @@ interface HiiragiEntry<T : Any> {
 
     fun getIdentifier(): Identifier
 
+    fun getObject(): T
+
     fun register(): T
 
     interface BLOCK : HiiragiEntry<Block> {
 
-        override fun register(): Block = Registry.register(Registry.BLOCK, getIdentifier(), this as Block)
+        override fun getObject(): Block = this as Block
+
+        override fun register(): Block = Registry.register(Registry.BLOCK, getIdentifier(), getObject())
 
     }
 
     interface FLUID : HiiragiEntry<Fluid> {
 
-        override fun register(): Fluid = Registry.register(Registry.FLUID, getIdentifier(), this as Fluid)
+        override fun getObject(): Fluid = this as Fluid
+
+        override fun register(): Fluid = Registry.register(Registry.FLUID, getIdentifier(), getObject())
 
     }
 
     interface ITEM : HiiragiEntry<Item> {
 
-        override fun register(): Item = Registry.register(Registry.ITEM, getIdentifier(), this as Item)
+        override fun getObject(): Item = this as Item
+
+        override fun register(): Item = Registry.register(Registry.ITEM, getIdentifier(), getObject())
+
+        interface TOOL : ITEM, FabricItem {
+
+            override fun getRecipeRemainder(stack: ItemStack): ItemStack =
+                if (this is ToolItem && stack.damage < this.material.durability) stack.copy()
+                    .also { it.damage += 1 } else ItemStack.EMPTY
+
+        }
 
     }
 
@@ -40,7 +56,7 @@ interface HiiragiEntry<T : Any> {
 
 //    Block    //
 
-abstract class HiiragiBlock(settings: FabricBlockSettings) : Block(settings), HiiragiEntry.BLOCK
+abstract class HiiragiBlock(settings: Settings) : Block(settings), HiiragiEntry.BLOCK
 
 abstract class HiiragiFluidBlock(
     fluid: HiiragiFluid,
@@ -56,70 +72,7 @@ abstract class HiiragiItem(settings: FabricItemSettings = FabricItemSettings()) 
 
 //    Item - Tool    //
 
-abstract class HiiragiAxeItem(
-    material: ToolMaterial,
-    attackDamage: Float = 0.0f,
-    attackSpeed: Float = -3.0f,
-    settings: FabricItemSettings = FabricItemSettings().group(ItemGroup.TOOLS)
-) : AxeItem(material, attackDamage, attackSpeed, settings), HiiragiEntry.ITEM {
-
-    override fun getRecipeRemainder(stack: ItemStack): ItemStack {
-        val damage = stack.damage
-        return if (damage >= this.material.durability) ItemStack.EMPTY else stack.copy().also { it.damage += 1 }
-    }
-
-}
-
 abstract class HiiragiCraftingToolItem(
     material: ToolMaterial,
     settings: FabricItemSettings = FabricItemSettings().group(ItemGroup.TOOLS)
-) : ToolItem(material, settings), HiiragiEntry.ITEM {
-
-    override fun getRecipeRemainder(stack: ItemStack): ItemStack {
-        val damage = stack.damage
-        return if (damage >= this.material.durability) ItemStack.EMPTY else stack.copy().also { it.damage += 1 }
-    }
-
-}
-
-abstract class HiiragiHoeItem(
-    material: ToolMaterial,
-    attackDamage: Int = 0,
-    attackSpeed: Float = -3.0f,
-    settings: FabricItemSettings = FabricItemSettings().group(ItemGroup.TOOLS)
-) : HoeItem(material, attackDamage, attackSpeed, settings), HiiragiEntry.ITEM {
-
-    override fun getRecipeRemainder(stack: ItemStack): ItemStack {
-        val damage = stack.damage
-        return if (damage >= this.material.durability) ItemStack.EMPTY else stack.copy().also { it.damage += 1 }
-    }
-
-}
-
-abstract class HiiragiPickaxeItem(
-    material: ToolMaterial,
-    attackDamage: Int = 0,
-    attackSpeed: Float = -3.0f,
-    settings: FabricItemSettings = FabricItemSettings().group(ItemGroup.TOOLS)
-) : PickaxeItem(material, attackDamage, attackSpeed, settings), HiiragiEntry.ITEM {
-
-    override fun getRecipeRemainder(stack: ItemStack): ItemStack {
-        val damage = stack.damage
-        return if (damage >= this.material.durability) ItemStack.EMPTY else stack.copy().also { it.damage += 1 }
-    }
-
-}
-
-abstract class HiiragiShovelItem(
-    material: ToolMaterial,
-    attackDamage: Float = 0.0f,
-    attackSpeed: Float = -3.0f,
-    settings: FabricItemSettings = FabricItemSettings().group(ItemGroup.TOOLS)
-) : ShovelItem(material, attackDamage, attackSpeed, settings), HiiragiEntry.ITEM {
-
-    override fun getRecipeRemainder(stack: ItemStack): ItemStack {
-        val damage = stack.damage
-        return if (damage >= this.material.durability) ItemStack.EMPTY else stack.copy().also { it.damage += 1 }
-    }
-
-}
+) : ToolItem(material, settings), HiiragiEntry.ITEM.TOOL

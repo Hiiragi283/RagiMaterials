@@ -21,7 +21,10 @@ object RagiMaterials : ModInitializer {
         LOGGER.info("PartRegistry initialized!")
 
         RMRegistry.loadBlocks()
-        LOGGER.info("Blocks and BlockItems registered!")
+        LOGGER.info("Blocks registered!")
+
+        RMRegistry.loadBlockItems()
+        LOGGER.info("BlockItems registered!")
 
         //RMRegistry.loadFluids()
         LOGGER.info("Fluids and Buckets registered!")
@@ -30,8 +33,8 @@ object RagiMaterials : ModInitializer {
         RMRegistry.loadToolItems()
         LOGGER.info("Items registered!")
 
-        RMRegistry.loadTags()
-        LOGGER.info("Tags are registered!")
+        //RMRegistry.loadTags()
+        //LOGGER.info("Tags are registered!")
 
         RagiIntegrationCore.init()
         LOGGER.info("Integrations initialized!")

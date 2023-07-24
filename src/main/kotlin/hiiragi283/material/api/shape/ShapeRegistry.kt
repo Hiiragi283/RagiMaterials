@@ -2,11 +2,14 @@ package hiiragi283.material.api.shape
 
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.*
+import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JIngredients
 import net.devtech.arrp.json.recipe.JKeys
 import net.devtech.arrp.json.recipe.JPattern
 import net.devtech.arrp.json.recipe.JRecipe
+import net.minecraft.block.AbstractBlock
+import net.minecraft.block.Blocks
 
 object ShapeRegistry {
 
@@ -44,20 +47,38 @@ object ShapeRegistry {
 
     //    Shapes    //
 
-    private val dustFake = shapeOf("dust", "@_dusts", 1.0)
-    private val ingotFake = shapeOf("ingot", "@_ingots", 1.0)
-    private val gemFake = shapeOf("gems", "@_gems", 1.0)
+    private val dustFake = shapeOf("dust", 1.0, "@_dusts")
+    private val ingotFake = shapeOf("ingot", 1.0, "@_ingots")
+    private val gemFake = shapeOf("gems", 1.0, "@_gems")
 
     //    Shapes - Block   //
 
     @JvmField
-    val BLOCK_METAL = shapeOf("block", "@_blocks", 9.0)
+    val BLOCK_METAL = shapeOf(
+        "block_metal",
+        9.0,
+        "@_blocks",
+        blockSettings = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK),
+        model = JModel.model().parent(hiiragiId("block/block_metal").toString()),
+        recipes = {
+            mapOf(
+                it.getId().append("_shaped") to JRecipe.shaped(
+                    get3x3('A'),
+                    JKeys.keys().addTag("A", it.setShape(ingotFake).getTadId()),
+                    it.getResult()
+                )
+            )
+        },
+        state = JState.state(JState.variant(JState.model(hiiragiId("block/block_metal")))),
+        type = ShapeType.BLOCK
+    )
 
     @JvmField
     val BLOCK_GEM = shapeOf(
-        "block",
-        "@_blocks",
+        "block_gem",
         9.0,
+        "@_blocks",
+        blockSettings = AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK),
         model = JModel.model().parent(hiiragiId("block/block_gem").toString()),
         recipes = {
             mapOf(
@@ -68,48 +89,81 @@ object ShapeRegistry {
                 )
             )
         },
-        /*settings = {
-            FabricBlockSettings.of(Material.AMETHYST)
-                .requiresTool()
-                .sounds(BlockSoundGroup.AMETHYST_BLOCK)
-                .strength(1.5f)
-        },
-        state = JState.state(
-            JState.variant(
-                JState.model(
-                    hiiragiId("block/block_gem")
-                )
-            )
-        ),
-        type = ShapeType.BLOCK*/
+        state = JState.state(JState.variant(JState.model(hiiragiId("block/block_gem")))),
+        type = ShapeType.BLOCK
     )
 
     @JvmField
-    val ORE = shapeOf(
-        "ore",
-        "@_ores",
+    val ORE_STONE = shapeOf(
+        "ore_stone",
         1.0,
+        "@_ores",
+        blockSettings = AbstractBlock.Settings.copy(Blocks.STONE),
         model = JModel.model().parent(hiiragiId("block/ore_stone").toString()),
-        /*state = JState.state(
-            JState.variant(
-                JState.model(
-                    hiiragiId("block/ore_stone")
-                )
-            )
-        ),
-        type = ShapeType.BLOCK*/
+        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_stone")))),
+        type = ShapeType.BLOCK
     )
 
     @JvmField
-    val ORE_BLOCK = shapeOf("raw_block", "raw_@_blocks", 9.0)
+    val ORE_NETHER = shapeOf(
+        "ore_nether",
+        1.0,
+        "nether_@_ore",
+        "@_ores",
+        blockSettings = AbstractBlock.Settings.copy(Blocks.NETHERRACK)
+            .hardness(3.0f)
+            .nonOpaque()
+            .resistance(6.0f),
+        model = JModel.model().parent(hiiragiId("block/ore_nether").toString()),
+        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_nether")))),
+        type = ShapeType.BLOCK
+    )
+
+    @JvmField
+    val ORE_END = shapeOf(
+        "ore_end",
+        1.0,
+        "end_@_ore",
+        "@_ores",
+        blockSettings = AbstractBlock.Settings.copy(Blocks.END_STONE)
+            .hardness(3.0f)
+            .nonOpaque()
+            .resistance(6.0f),
+        model = JModel.model().parent(hiiragiId("block/ore_end").toString()),
+        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_end")))),
+        type = ShapeType.BLOCK
+    )
+
+    @JvmField
+    val ORE_DEEP = shapeOf(
+        "ore_deep",
+        1.0,
+        "deep_@_ore",
+        "@_ores",
+        blockSettings = AbstractBlock.Settings.copy(Blocks.DEEPSLATE)
+            .hardness(3.0f)
+            .nonOpaque()
+            .resistance(6.0f),
+        model = JModel.model().parent(hiiragiId("block/ore_deep").toString()),
+        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_deep")))),
+        type = ShapeType.BLOCK
+    )
+
+    @JvmField
+    val BLOCK_RAW_ORE = shapeOf(
+        "raw_block",
+        9.0,
+        "raw_@_blocks",
+        type = ShapeType.BLOCK
+    )
 
     //    Shapes - Item   //
 
     @JvmField
     val DUST = shapeOf(
         "dust",
-        "@_dusts",
         1.0,
+        "@_dusts",
         model = itemModelLayered { layer0("ragi_materials:item/dust") },
         recipes = {
             mapOf(
@@ -125,8 +179,8 @@ object ShapeRegistry {
     @JvmField
     val DUST_TINY = shapeOf(
         "dust_tiny",
-        "@_tiny_dusts",
         0.1,
+        "@_tiny_dusts",
         model = itemModelLayered { layer0("ragi_materials:item/dust_tiny") },
         recipes = {
             mapOf(
@@ -141,8 +195,8 @@ object ShapeRegistry {
     @JvmField
     val GEAR = shapeOf(
         "gear",
-        "@_gears",
         4.0,
+        "@_gears",
         model = itemModelLayered { layer0("ragi_materials:item/gear") },
         recipes = {
             mapOf(
@@ -158,13 +212,13 @@ object ShapeRegistry {
     )
 
     @JvmField
-    val GEM = shapeOf("gem", "@_gems", 1.0)
+    val GEM = shapeOf("gem", 1.0, "@_gems")
 
     @JvmField
     val INGOT = shapeOf(
         "ingot",
-        "@_ingots",
         1.0,
+        "@_ingots",
         recipes = {
             mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
@@ -183,8 +237,8 @@ object ShapeRegistry {
     @JvmField
     val NUGGET = shapeOf(
         "nugget",
-        "@_nuggets",
         0.1,
+        "@_nuggets",
         model = itemModelLayered { layer0("minecraft:item/iron_nugget") },
         recipes = {
             mapOf(
@@ -199,8 +253,8 @@ object ShapeRegistry {
     @JvmField
     val PLATE = shapeOf(
         "plate",
-        "@_plates",
         1.0,
+        "@_plates",
         model = itemModelLayered { layer0("ragi_materials:item/plate") },
         recipes = {
             mapOf(
@@ -215,13 +269,13 @@ object ShapeRegistry {
     )
 
     @JvmField
-    val RAW_ORE = shapeOf("raw_ore", "raw_@_ores", 1.0)
+    val RAW_ORE = shapeOf("raw_ore", 1.0, "raw_@_ores")
 
     @JvmField
     val ROD = shapeOf(
         "rod",
-        "@_rods",
         0.5,
+        "@_rods",
         model = itemModelLayered { layer0("ragi_materials:item/rod") },
         recipes = {
             mapOf(
@@ -239,6 +293,12 @@ object ShapeRegistry {
     fun init() {
 
         REGISTRY.clear()
+
+        registerShape(BLOCK_METAL)
+        registerShape(ORE_STONE)
+        registerShape(ORE_NETHER)
+        registerShape(ORE_END)
+        registerShape(ORE_DEEP)
 
         registerShape(DUST)
         registerShape(DUST_TINY)

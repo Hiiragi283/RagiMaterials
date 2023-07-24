@@ -1,34 +1,40 @@
 package hiiragi283.material.common
 
 import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.api.block.createMetalBlock
-import hiiragi283.material.api.block.createOreBlock
+import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.item.*
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.part.with
 import hiiragi283.material.api.shape.ShapeRegistry
+import hiiragi283.material.api.shape.ShapeType
 import hiiragi283.material.common.item.RespawnBookItem
-import hiiragi283.material.common.util.TagUtil
-import hiiragi283.material.common.util.commonId
-import hiiragi283.material.common.util.hiiragiId
-import net.minecraft.util.Identifier
+import hiiragi283.material.common.util.getRegistryEntries
+import net.minecraft.util.registry.Registry
 
 object RMRegistry {
 
     fun loadBlocks() {
+
         //Initialize Material Blocks
-        MaterialRegistry.getMaterials()
-            .filter { it.isMetal() }
-            .map { createMetalBlock(it) }
-            .forEach { it?.register() }
+        MaterialRegistry.getMaterials().forEach { material ->
+            ShapeRegistry.getShapes()
+                .filter { it.getType() == ShapeType.BLOCK && it.isValid(material) }
+                .map { it with material }
+                .map { MaterialBlock(it) }
+                .forEach { it.register() }
+        }
 
-        //Initialize Material Ore Blocks
-        MaterialRegistry.getMaterials()
-            .filter { it.hasOre() }
-            .map { createOreBlock(it) }
-            .forEach { it?.register() }
+    }
 
+    fun loadBlockItems() {
+        //Initialize BlockItems
+        getRegistryEntries(Registry.BLOCK)
+            .filterIsInstance<HiiragiEntry.BLOCK>()
+            .map { it.getObject() }
+            .filterIsInstance<MaterialBlock>()
+            .map { MaterialBlockItem(it) }
+            .forEach { it.register() }
     }
 
     fun loadFluids() {
@@ -45,12 +51,9 @@ object RMRegistry {
         //Initialize Material Items
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
-                .asSequence()
-                .filter { it.isValid(material) }
+                .filter { it.getType() == ShapeType.ITEM && it.isValid(material) }
                 .map { it with material }
-                .filterNot { it.isEmpty() }
-                .map { MaterialItem.of(it) }
-                .toList()
+                .map { MaterialItem(it) }
                 .forEach { it.register() }
         }
     }
@@ -61,32 +64,18 @@ object RMRegistry {
             .filter { it.hasToolProperty() }
             .flatMap {
                 listOf(
-                    createMaterialAxe(it),
-                    createMaterialFile(it),
-                    createMaterialHammer(it),
-                    createMaterialHoe(it),
-                    createMaterialPickaxe(it),
-                    createMaterialShovel(it)
+                    MaterialAxeItem(it),
+                    MaterialFileItem(it),
+                    MaterialHammerItem(it),
+                    MaterialHoeItem(it),
+                    MaterialPickaxeItem(it),
+                    MaterialShovelItem(it)
                 )
             }
             .forEach { it.register() }
     }
 
-    private val TOOL_TAGS: Map<String, MutableList<Identifier>> = mapOf(
-        "axes" to mutableListOf(),
-        "files" to mutableListOf(),
-        "hammers" to mutableListOf(),
-        "hoes" to mutableListOf(),
-        "pickaxes" to mutableListOf(),
-        "shovels" to mutableListOf(),
-        "swords" to mutableListOf()
-    )
-
-    fun addToolTag(name: String, tool: HiiragiEntry.ITEM) {
-        TOOL_TAGS[name]?.add(tool.getIdentifier())
-    }
-
-    fun loadTags() {
+    /*fun loadTags() {
         //Initialize Material Item Tags
         MaterialRegistry.getMaterials().forEach { material ->
             RMResourcePack.addItemTag(
@@ -99,11 +88,6 @@ object RMRegistry {
                     .let { TagUtil.addTags(it) }
             )
         }
-
-        //Initialize Material Tool Tags
-        TOOL_TAGS.forEach {
-            RMResourcePack.addItemTag(commonId(it.key), TagUtil.addIds(it.value))
-        }
-    }
+    }*/
 
 }
