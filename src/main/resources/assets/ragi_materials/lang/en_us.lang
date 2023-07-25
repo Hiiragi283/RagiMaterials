@@ -24,6 +24,7 @@ shape.dust_tiny=Tiny Pile of %s Dust
 shape.gear=%s Gear
 shape.gem=%s Gem
 shape.ingot=%s Ingot
+shape.log=%s Log
 shape.nugget=%s Nugget
 shape.ore=%s Ore
 shape.ore_poor=Poor %s Ore

@@ -1,26 +1,24 @@
 package hiiragi283.material.api.item
 
-import hiiragi283.material.RagiMaterials
+import hiiragi283.material.RMCreativeTabs
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
-private val CREATIVE_TAB = object : CreativeTabs("${RagiMaterials.MODID}.material") {
-    override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
-}
-
 open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767) {
 
     init {
-        creativeTab = CREATIVE_TAB
+        creativeTab = RMCreativeTabs.MATERIAL
     }
+
+    fun getItemStack(material: HiiragiMaterial, amount: Int = 1): ItemStack = ItemStack(this, amount, material.index)
 
     //    Client    //
 
@@ -33,7 +31,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
         if (!isInCreativeTab(tab)) return
         MaterialRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
-            .map { ItemStack(this, 1, it.index) }
+            .map { getItemStack(it) }
             .filter { it.metadata != 0 }
             .forEach { subItems.add(it) }
     }
@@ -43,9 +41,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
     override fun registerOreDict() {
         MaterialRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
-            .forEach {
-                OreDictionary.registerOre(shape.getOreDict(it), ItemStack(this, 1, it.index))
-            }
+            .forEach { OreDictionary.registerOre(shape.getOreDict(it), getItemStack(it)) }
     }
 
     override fun registerRecipe() {

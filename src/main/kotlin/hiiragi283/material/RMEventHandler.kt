@@ -41,7 +41,7 @@ object RMEventHandler {
     @SubscribeEvent
     fun onTooltip(event: ItemTooltipEvent) {
 
-        PartRegistry.getParts(event.itemStack).forEach { it.material.getTooltip(event.toolTip, it.shape) }
+        PartRegistry.getParts(event.itemStack).forEach { it.getTooltip(event.toolTip) }
 
     }
 

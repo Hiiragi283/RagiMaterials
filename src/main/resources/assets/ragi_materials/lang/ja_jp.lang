@@ -24,6 +24,7 @@ shape.dust_tiny=小さな%sの粉
 shape.gear=%sの歯車
 shape.gem=%s結晶
 shape.ingot=%sインゴット
+shape.log=%sの原木
 shape.nugget=%sナゲット
 shape.ore=%s鉱石
 shape.ore_poor=粗悪な%s鉱石

@@ -35,6 +35,8 @@ object RagiMaterials {
     val COLOR: Color by lazy { Color(255, 0, 31) }
     val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
 
+    private lateinit var jsonHandler: RMJSonHandler
+
     init {
         if (Loader.isModLoaded("gregtech")) {
             throw RuntimeException(
@@ -61,11 +63,8 @@ object RagiMaterials {
 
     @Mod.EventHandler
     fun onPreInit(event: FMLPreInitializationEvent) {
-        //configから素材を登録
-        RMJSonHandler(event).run {
-            this.writeJson()
-            this.readJson()
-        }
+        //他modとの連携のためタイミングをずらす
+        jsonHandler = RMJSonHandler(event)
         //液体の登録
         HiiragiFluids.register()
         //連携の登録
@@ -74,6 +73,9 @@ object RagiMaterials {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
+        //configから素材を登録
+        jsonHandler.writeJson()
+        jsonHandler.readJson()
         //以降の素材登録を停止
         MaterialRegistry.lock()
         //以降の部品登録を停止

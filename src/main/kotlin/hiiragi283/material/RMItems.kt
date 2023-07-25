@@ -2,14 +2,11 @@ package hiiragi283.material
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.item.ItemMaterial
-import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
 import net.minecraft.client.renderer.color.ItemColors
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
@@ -54,10 +51,7 @@ object RMItems : HiiragiEntry<Item> {
 
     override fun register(registry: IForgeRegistry<Item>) {
 
-        MATERIAL_BOTTLE.setCreativeTab(object : CreativeTabs("${RagiMaterials.MODID}.bottle") {
-            override fun createIcon(): ItemStack =
-                ItemStack(MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
-        })
+        MATERIAL_BOTTLE.setCreativeTab(RMCreativeTabs.BOTTLE)
 
         BOOK_RESPAWN.register(registry)
         FORGE_HAMMER.register(registry)

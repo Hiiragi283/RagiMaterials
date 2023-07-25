@@ -1,6 +1,5 @@
 package hiiragi283.material.api.shape
 
-import hiiragi283.material.RMItems
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.CrystalType
 import hiiragi283.material.api.material.MaterialRegistry
@@ -12,7 +11,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.oredict.OreDictionary
 
 object ShapeRegistry {
 
@@ -123,12 +121,15 @@ object ShapeRegistry {
     })
 
     @JvmField
-    val GEAR = shapeOf("gear", 4.0, recipe = { item, material ->
-        CraftingBuilder(ItemStack(item, 1, material.index))
-            .setPattern(" A ", "A A", " A ")
-            .setIngredient('A', "ingot${material.getOreDictName()}")
-            .buildShaped()
-    })
+    val GEAR = shapeOf(
+        "gear", 4.0,
+        /*recipe = { item, material ->
+               CraftingBuilder(ItemStack(item, 1, material.index))
+                   .setPattern(" A ", "A A", " A ")
+                   .setIngredient('A', "ingot${material.getOreDictName()}")
+                   .buildShaped()
+           }*/
+    )
 
     @JvmField
     val GEM = shapeOf(
@@ -192,14 +193,17 @@ object ShapeRegistry {
     val PLANK = shapeOf("plank", 1.0)
 
     @JvmField
-    val PLATE = shapeOf("plate", 1.0, recipe = { item, material ->
-        if (material.isMetal()) {
-            CraftingBuilder(ItemStack(item, 1, material.index))
-                .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
-                .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
-                .buildShapeless()
-        }
-    })
+    val PLATE = shapeOf(
+        "plate", 1.0,
+        /*recipe = { item, material ->
+               if (material.isMetal()) {
+                   CraftingBuilder(ItemStack(item, 1, material.index))
+                       .addIngredient(RagiIngredient("ingot${material.getOreDictName()}"))
+                       .addIngredient(RagiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
+                       .buildShapeless()
+               }
+           }*/
+    )
 
     @JvmField
     val PLATE_DENSE = shapeOf("plate_dense", 9.0)
@@ -214,15 +218,18 @@ object ShapeRegistry {
     val SHARD = shapeOf("shard", 1.0)
 
     @JvmField
-    val STICK = shapeOf("stick", 0.5, recipe = { item, material ->
-        if (material.isMetal()) {
-            CraftingBuilder(ItemStack(item, 4, material.index))
-                .setPattern("AB", "A ")
-                .setIngredient('A', "ingot${material.getOreDictName()}")
-                .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
-                .buildShaped()
-        }
-    })
+    val STICK = shapeOf(
+        "stick", 0.5,
+        /*recipe = { item, material ->
+               if (material.isMetal()) {
+                   CraftingBuilder(ItemStack(item, 4, material.index))
+                       .setPattern("AB", "A ")
+                       .setIngredient('A', "ingot${material.getOreDictName()}")
+                       .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
+                       .buildShaped()
+               }
+           }*/
+    )
 
     @JvmField
     val STONE = shapeOf("stone", 1.0)

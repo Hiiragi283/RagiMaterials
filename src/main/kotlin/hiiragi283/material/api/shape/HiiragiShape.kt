@@ -5,7 +5,6 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.util.RMModelManager
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
-import kotlin.math.roundToInt
 
 fun shapeOf(
     name: String,
@@ -24,7 +23,7 @@ fun shapeOf(
 
 abstract class HiiragiShape internal constructor(val name: String, val scale: Double) {
 
-    open fun getModel(item: ItemMaterial): Unit = RMModelManager.setModelSame(item)
+    abstract fun getModel(item: ItemMaterial)
 
     abstract fun getRecipe(item: ItemMaterial, material: HiiragiMaterial)
 
@@ -40,18 +39,22 @@ abstract class HiiragiShape internal constructor(val name: String, val scale: Do
         it.append(material.getOreDictName())
     }.toString()
 
-    fun getOreDictAlt(material: HiiragiMaterial): String =
-        if (material.hasOreDictAlt()) StringBuilder().also {
-            it.append(name.snakeToLowerCamelCase())
-            it.append(material.getOreDictNameAlt())
-        }.toString() else ""
+    fun getOreDicts(material: HiiragiMaterial): List<String> {
+        val list: MutableList<String> = mutableListOf()
+        list.add(getOreDict(material))
+        if (material.hasOreDictAlt()) {
+            material.getOreDictNameAlt().forEach { oreDict ->
+                list.add(StringBuilder().also {
+                    it.append(name.snakeToLowerCamelCase())
+                    it.append(oreDict)
+                }.toString())
+            }
+        }
+        return list.filter(String::isNotEmpty)
+    }
 
-    fun getOreDicts(material: HiiragiMaterial): List<String> =
-        listOf(getOreDict(material), getOreDictAlt(material)).filter(String::isNotEmpty)
 
     fun getTranslatedName(material: HiiragiMaterial): String = I18n.format("shape.$name", material.translatedName)
-
-    fun getWeight(material: HiiragiMaterial): Double = (material.molar * scale * 10.0).roundToInt() / 10.0
 
     fun hasScale(): Boolean = scale > 0.0
 

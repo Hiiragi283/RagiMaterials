@@ -1,34 +1,13 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.api.shape.ShapeRegistry
+
 object MaterialType {
 
     @JvmField
     val INTERNAL: Set<String> = setOf("bottle")
 
-    @JvmField
-    val WILDCARD: Set<String> = setOf(
-        "ball",
-        "block",
-        "bottle",
-        "clump",
-        "cluster",
-        "coin",
-        "crystal",
-        "dust",
-        "dust_dirty",
-        "dust_tiny",
-        "gear",
-        "gem",
-        "ingot",
-        "log",
-        "nugget",
-        "ore",
-        "plank",
-        "plate",
-        "shard",
-        "stick",
-        "stone"
-    )
+    val WILDCARD: Set<String> by lazy { ShapeRegistry.getShapes().map { it.name }.toSet() }
 
     @JvmField
     val SOLID: Set<String> = setOf(
@@ -86,6 +65,18 @@ object MaterialType {
                 "gear",
                 "plate",
                 "stick"
+            )
+        )
+    }
+
+    @JvmField
+    val WOOD: Set<String> = SOLID.toMutableSet().also {
+        it.addAll(
+            setOf(
+                "gear",
+                "log",
+                "plank",
+                "plate"
             )
         )
     }

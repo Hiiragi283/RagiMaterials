@@ -43,7 +43,7 @@ object MaterialIntegration {
         crystalType = CrystalType.EMERALD
         formula = "En"
         molar = 112.2
-        oreDictAlt = "ender_pearl"
+        oreDictAlt = mutableListOf("ender_pearl", "ender")
         tempBoil = 1201
         tempMelt = 1122
         validShapes.addAll(MaterialType.SOLID)
@@ -384,7 +384,12 @@ object MaterialIntegration {
         compoundOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
             color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
             crystalType = CrystalType.METAL
-            oreDictAlt = "alubrass"
+            oreDictAlt = mutableListOf(
+                "aluminum_brass",
+                "aluminiumbrass",
+                "aluminumbrass",
+                "alubrass"
+            )
             validShapes.addAll(MaterialType.METAL_ADVANCED)
         }
 

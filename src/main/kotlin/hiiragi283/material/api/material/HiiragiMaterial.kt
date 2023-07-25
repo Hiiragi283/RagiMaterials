@@ -1,7 +1,6 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.shape.HiiragiShape
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -26,7 +25,7 @@ data class HiiragiMaterial internal constructor(
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
     var molar: Double = -1.0,
-    var oreDictAlt: String = "",
+    var oreDictAlt: MutableList<String> = mutableListOf(),
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
@@ -54,9 +53,9 @@ data class HiiragiMaterial internal constructor(
 
     fun addBracket(): HiiragiMaterial = copy(formula = "($formula)")
 
-    fun getOreDictName() = name.snakeToUpperCamelCase()
+    fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
-    fun getOreDictNameAlt() = oreDictAlt.snakeToUpperCamelCase()
+    fun getOreDictNameAlt(): List<String> = oreDictAlt.map { it.snakeToUpperCamelCase() }
 
     fun getState(): MaterialState {
         //沸点が有効かつ298 K以下 -> 標準状態で気体
@@ -65,22 +64,6 @@ data class HiiragiMaterial internal constructor(
         if (hasTempMelt() && tempMelt <= 298) return MaterialState.LIQUID
         //それ以外は固体として扱う
         return MaterialState.SOLID
-    }
-
-    fun getTooltip(tooltip: MutableList<String>, shape: HiiragiShape = HiiragiShape.EMPTY) {
-        if (isEmpty()) return
-        tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.getTranslatedName(this)))
-        if (hasFormula())
-            tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
-        if (hasMolar() && shape.hasScale())
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", shape.getWeight(this)))
-        if (hasTempMelt())
-            tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
-        if (hasTempBoil())
-            tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
-        if (hasTempSubl())
-            tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
     }
 
     fun hasOreDictAlt(): Boolean = oreDictAlt.isNotEmpty()

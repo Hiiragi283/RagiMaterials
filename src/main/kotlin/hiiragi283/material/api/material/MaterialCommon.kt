@@ -31,9 +31,7 @@ object MaterialCommon {
     val WOOD =
         mixtureOf("wood", 10100, listOf(MaterialElements.CARBON, MaterialElements.HYDROGEN, MaterialElements.OXYGEN)) {
             color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
-            validShapes.addAll(MaterialType.SOLID)
-            validShapes.add("gear")
-            validShapes.add("plate")
+            validShapes.addAll(MaterialType.WOOD)
         }
 
     @JvmField
@@ -139,7 +137,7 @@ object MaterialCommon {
     @JvmField
     val PLASTIC = polymerOf("plastic", 10608, mapOf(MaterialElements.CARBON to 2, MaterialElements.HYDROGEN to 4)) {
         color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
-        oreDictAlt = "polyethylene"
+        oreDictAlt = mutableListOf("polyethylene")
         validShapes.addAll(MaterialType.SOLID)
         validShapes.add("block")
         validShapes.add("ingot")
@@ -151,7 +149,7 @@ object MaterialCommon {
     @JvmField
     val NITER = compoundOf("niter", 10700, mapOf(MaterialElements.POTASSIUM to 1, NITRATE to 1)) {
         color = RagiColor.WHITE.rgb
-        oreDictAlt = "saltpeter"
+        oreDictAlt = mutableListOf("saltpeter")
         validShapes.addAll(MaterialType.GEM_9x)
     }
 
@@ -221,7 +219,7 @@ object MaterialCommon {
     val PERIDOT = compoundOf("peridot", 11200, mapOf(MaterialElements.MAGNESIUM to 2, SILICATE to 1)) {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
-        oreDictAlt = "olivine"
+        oreDictAlt = mutableListOf("olivine")
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
 
@@ -295,7 +293,7 @@ object MaterialCommon {
     val QUARTZ = compoundOf("quartz", 11406, mapOf(SILICATE to 1)) {
         color = RagiColor.WHITE.rgb
         crystalType = CrystalType.QUARTZ
-        oreDictAlt = "nether_quartz"
+        oreDictAlt = mutableListOf("nether_quartz")
         validShapes.addAll(MaterialType.GEM_4xADVANCED)
     }
 

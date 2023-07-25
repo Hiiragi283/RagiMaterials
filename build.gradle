@@ -179,7 +179,7 @@ dependencies {
 
     if (project.use_mixins.toBoolean()) {
         // Change your mixin refmap name here:
-        String mixin = modUtils.enableMixins("org.spongepowered:mixin:0.8.3", "mixins.${project.archives_base_name}.refmap.json")
+        String mixin = modUtils.enableMixins("org.spongepowered:mixin:0.8.3", "mixins.ragi_materials.refmap.json")
         api(mixin) {
             transitive = false
         }
@@ -233,7 +233,7 @@ jar {
             }
         }
         if (use_access_transformer.toBoolean()) {
-            attribute_map["FMLAT"] = archives_base_name + "_at.cfg"
+            attribute_map["FMLAT"] = "ragi_materials_at.cfg"
         }
         attributes(attribute_map)
     }

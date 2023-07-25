@@ -141,7 +141,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Al"
         molar = 27.0
-        oreDictAlt = "aluminum"
+        oreDictAlt = mutableListOf("aluminum")
         tempBoil = 2792
         tempMelt = 933
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -259,7 +259,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Cr"
         molar = 52.0
-        oreDictAlt = "chrome"
+        oreDictAlt = mutableListOf("chrome")
         tempBoil = 2944
         tempMelt = 2180
         validShapes.addAll(MaterialType.METAL_COMMON)

@@ -47,7 +47,7 @@ object MaterialRegistry {
         //登録を行う
         REGISTRY[name] = material
 
-        //番号が0 <= index <= 2767でない場合はパス
+        //番号が0 <= index <= 32767でない場合はパス
         val index = material.index
         if (index !in 0..32767) {
             RagiMaterials.LOGGER.warn("The index of $material is not in 0 to 32767!")
