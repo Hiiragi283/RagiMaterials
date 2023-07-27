@@ -1,5 +1,6 @@
 package hiiragi283.material.api
 
+import hiiragi283.material.api.block.MinableType
 import hiiragi283.material.api.fluid.HiiragiFluid
 import net.fabricmc.fabric.api.item.v1.FabricItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
@@ -8,7 +9,10 @@ import net.minecraft.block.Block
 import net.minecraft.block.Blocks
 import net.minecraft.block.FluidBlock
 import net.minecraft.fluid.Fluid
-import net.minecraft.item.*
+import net.minecraft.item.BlockItem
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.item.ToolItem
 import net.minecraft.util.Identifier
 import net.minecraft.util.registry.Registry
 
@@ -21,6 +25,8 @@ interface HiiragiEntry<T : Any> {
     fun register(): T
 
     interface BLOCK : HiiragiEntry<Block> {
+
+        fun getMinableType(): MinableType
 
         override fun getObject(): Block = this as Block
 
@@ -69,10 +75,3 @@ abstract class HiiragiBlockItem(block: Block, settings: FabricItemSettings = Fab
     BlockItem(block, settings), HiiragiEntry.ITEM
 
 abstract class HiiragiItem(settings: FabricItemSettings = FabricItemSettings()) : Item(settings), HiiragiEntry.ITEM
-
-//    Item - Tool    //
-
-abstract class HiiragiCraftingToolItem(
-    material: ToolMaterial,
-    settings: FabricItemSettings = FabricItemSettings().group(ItemGroup.TOOLS)
-) : ToolItem(material, settings), HiiragiEntry.ITEM.TOOL

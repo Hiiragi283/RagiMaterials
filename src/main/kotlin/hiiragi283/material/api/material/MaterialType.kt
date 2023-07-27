@@ -8,11 +8,7 @@ object MaterialType {
     @JvmField
     val SOLID: Set<String> = setOf(
         "dust",
-        "dust_tiny",
-        "ore_deep",
-        "ore_end",
-        "ore_nether",
-        "ore_stone"
+        "dust_tiny"
     )
 
     @JvmField
@@ -56,6 +52,18 @@ object MaterialType {
                 "gear",
                 "plate",
                 "rod"
+            )
+        )
+    }
+
+    @JvmField
+    val WOOD: Set<String> = SOLID.toMutableSet().also {
+        it.addAll(
+            setOf(
+                "gear",
+                "log",
+                "plank",
+                "plate"
             )
         )
     }

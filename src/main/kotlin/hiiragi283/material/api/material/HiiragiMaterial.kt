@@ -2,10 +2,12 @@ package hiiragi283.material.api.material
 
 import hiiragi283.material.api.item.HiiragiToolMaterial
 import hiiragi283.material.common.RagiMaterials
+import hiiragi283.material.common.util.hiiragiId
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resource.language.I18n
+import net.minecraft.util.Identifier
 
 /**
  * @param name Name for this material
@@ -22,9 +24,12 @@ import net.minecraft.client.resource.language.I18n
 @Serializable
 data class HiiragiMaterial internal constructor(
     val name: String,
+    var burnTime: Int = -1,
     var color: Int = 0xFFFFFF,
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
+    var hasOre: Boolean = false,
+    var isActiveToWater: Boolean = false,
     var molar: Double = -1.0,
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
@@ -32,9 +37,17 @@ data class HiiragiMaterial internal constructor(
     var translationKey: String = "material.$name",
 ) {
 
-    var property: MaterialProperty = MaterialProperty.EMPTY
     var toolProperty: HiiragiToolMaterial = HiiragiToolMaterial.EMPTY
     val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
+
+    init {
+        if (hasOre) {
+            validShapes.add("ore_deep")
+            validShapes.add("ore_end")
+            validShapes.add("ore_nether")
+            validShapes.add("ore_stone")
+        }
+    }
 
     companion object {
         @JvmField
@@ -63,6 +76,8 @@ data class HiiragiMaterial internal constructor(
         return MaterialState.SOLID
     }
 
+    fun getTagId(): Identifier = hiiragiId(name)
+
     fun getTranslatedName(): String = I18n.translate(translationKey)
 
     fun hasCrystal(): Boolean = crystalType.isCrystal
@@ -70,8 +85,6 @@ data class HiiragiMaterial internal constructor(
     fun hasFormula(): Boolean = formula.isNotEmpty()
 
     fun hasMolar(): Boolean = molar > 0.0
-
-    fun hasOre(): Boolean = property.hasOre
 
     fun hasTempBoil(): Boolean = tempBoil >= 0
 
@@ -83,9 +96,9 @@ data class HiiragiMaterial internal constructor(
 
     fun isEmpty(): Boolean = this == EMPTY
 
-    fun isGem(): Boolean = property.isGem
+    fun isGem(): Boolean = crystalType.isCrystal
 
-    fun isMetal(): Boolean = property.isMetal
+    fun isMetal(): Boolean = crystalType == CrystalType.METAL && !isGem()
 
     fun isGas(): Boolean = getState() == MaterialState.GAS
 

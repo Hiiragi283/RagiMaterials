@@ -4,6 +4,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
+import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.recipe.JRecipe
 import net.devtech.arrp.json.recipe.JResult
 import net.devtech.arrp.json.recipe.JStackedResult
@@ -19,8 +20,6 @@ import net.minecraft.util.registry.RegistryKey
 import net.minecraft.world.World
 import net.minecraft.world.explosion.Explosion
 import kotlin.math.roundToInt
-
-infix fun HiiragiShape.with(material: HiiragiMaterial): HiiragiPart = HiiragiPart(this, material)
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
@@ -55,7 +54,7 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     }
 
     fun doExplosion(world: World, entity: Entity) {
-        if (!material.property.isActiveToWater) return
+        if (!material.isActiveToWater) return
         world.createExplosion(
             null,
             entity.x,
@@ -78,7 +77,9 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
     fun getResult(count: Int = 1): JStackedResult = JResult.stackedResult(getId().toString(), count)
 
-    fun getTadId(): Identifier = commonId(replacedTag)
+    fun getState(): JState = shape.getState(this)
+
+    fun getCommonId(): Identifier = commonId(replacedTag)
 
     fun <T : Any> getTagKey(registry: RegistryKey<Registry<T>>): TagKey<T> = TagKey.of(registry, commonId(replacedTag))
 

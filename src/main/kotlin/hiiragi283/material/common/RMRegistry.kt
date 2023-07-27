@@ -1,40 +1,44 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.block.MaterialBlock
+import hiiragi283.material.api.block.registerMaterialOreBlocks
+import hiiragi283.material.api.block.registerMaterialStorageBlocks
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.item.*
 import hiiragi283.material.api.material.MaterialRegistry
-import hiiragi283.material.api.part.with
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.api.shape.ShapeType
 import hiiragi283.material.common.item.RespawnBookItem
-import hiiragi283.material.common.util.getRegistryEntries
+import hiiragi283.material.common.util.hiiragiId
 import net.minecraft.util.registry.Registry
 
 object RMRegistry {
 
     fun loadBlocks() {
 
-        //Initialize Material Blocks
-        MaterialRegistry.getMaterials().forEach { material ->
-            ShapeRegistry.getShapes()
-                .filter { it.getType() == ShapeType.BLOCK && it.isValid(material) }
-                .map { it with material }
-                .map { MaterialBlock(it) }
-                .forEach { it.register() }
-        }
+        //Initialize Material Storage Blocks
+        MaterialRegistry.getMaterials()
+            .filter { "block_metal" in it.validShapes || "block_gem" in it.validShapes }
+            .forEach { registerMaterialStorageBlocks(it) }
+
+        //Initialize Material Ore Blocks
+        MaterialRegistry.getMaterials()
+            .filter { it.hasOre }
+            .forEach { registerMaterialOreBlocks(it) }
 
     }
 
     fun loadBlockItems() {
         //Initialize BlockItems
-        getRegistryEntries(Registry.BLOCK)
-            .filterIsInstance<HiiragiEntry.BLOCK>()
-            .map { it.getObject() }
-            .filterIsInstance<MaterialBlock>()
-            .map { MaterialBlockItem(it) }
-            .forEach { it.register() }
+        MaterialRegistry.getMaterials().forEach { material ->
+            ShapeRegistry.getShapes()
+                .filter { it.getType() == ShapeType.BLOCK }
+                .map { Registry.BLOCK.get(HiiragiPart(it, material).getId()) }
+                .filterIsInstance<MaterialBlock>()
+                .map { MaterialBlockItem(it) }
+                .forEach { it.register() }
+        }
     }
 
     fun loadFluids() {
@@ -52,7 +56,7 @@ object RMRegistry {
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
                 .filter { it.getType() == ShapeType.ITEM && it.isValid(material) }
-                .map { it with material }
+                .map { HiiragiPart(it, material) }
                 .map { MaterialItem(it) }
                 .forEach { it.register() }
         }
@@ -75,19 +79,26 @@ object RMRegistry {
             .forEach { it.register() }
     }
 
-    /*fun loadTags() {
+    fun loadTags() {
+
+        //Initialize Material Block Tags
+        MaterialRegistry.getMaterials().forEach { material ->
+            ShapeRegistry.getShapes()
+                .filter { it.getType() == ShapeType.BLOCK }
+                .map { HiiragiPart(it, material) }
+        }
+
         //Initialize Material Item Tags
         MaterialRegistry.getMaterials().forEach { material ->
-            RMResourcePack.addItemTag(
-                hiiragiId(material.name),
-                ShapeRegistry.getShapes()
-                    .filter { it.isValid(material) }
-                    .map { it with material }
-                    .filterNot { it.isEmpty() }
-                    .map { it.getTadId() }
-                    .let { TagUtil.addTags(it) }
-            )
+            ShapeRegistry.getShapes()
+                .filter { it.isValid(material) }
+                .map { HiiragiPart(it, material) }
+                .filterNot { it.isEmpty() }
+                .map { it.getCommonId() }
+                .forEach {
+                    RMResourcePack.addItemTag(hiiragiId(material.name), it, true)
+                }
         }
-    }*/
+    }
 
 }

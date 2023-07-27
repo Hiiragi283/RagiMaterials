@@ -7,7 +7,8 @@ object TagUtil {
 
     fun addTags(tags: Collection<Identifier>): JTag {
         val jTag = JTag.tag()
-        tags.forEach { jTag.tag(it) }
+        tags.forEach { jTag.
+        tag(it) }
         return jTag
     }
 

@@ -33,8 +33,8 @@ object RagiMaterials : ModInitializer {
         RMRegistry.loadToolItems()
         LOGGER.info("Items registered!")
 
-        //RMRegistry.loadTags()
-        //LOGGER.info("Tags are registered!")
+        RMRegistry.loadTags()
+        LOGGER.info("Tags are registered!")
 
         RagiIntegrationCore.init()
         LOGGER.info("Integrations initialized!")

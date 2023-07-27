@@ -2,7 +2,6 @@ package hiiragi283.material.api.shape
 
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.*
-import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JIngredients
 import net.devtech.arrp.json.recipe.JKeys
@@ -59,17 +58,17 @@ object ShapeRegistry {
         9.0,
         "@_blocks",
         blockSettings = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK),
-        model = JModel.model().parent(hiiragiId("block/block_metal").toString()),
+        model = JModel.model(hiiragiId("block/block_metal")),
         recipes = {
             mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(ingotFake).getTadId()),
+                    JKeys.keys().addTag("A", it.setShape(ingotFake).getCommonId()),
                     it.getResult()
                 )
             )
         },
-        state = JState.state(JState.variant(JState.model(hiiragiId("block/block_metal")))),
+        state = { StateUtil.createSimple(hiiragiId("block/block_metal")) },
         type = ShapeType.BLOCK
     )
 
@@ -79,17 +78,17 @@ object ShapeRegistry {
         9.0,
         "@_blocks",
         blockSettings = AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK),
-        model = JModel.model().parent(hiiragiId("block/block_gem").toString()),
+        model = JModel.model(hiiragiId("block/block_gem")),
         recipes = {
             mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(gemFake).getTadId()),
+                    JKeys.keys().addTag("A", it.setShape(gemFake).getCommonId()),
                     it.getResult()
                 )
             )
         },
-        state = JState.state(JState.variant(JState.model(hiiragiId("block/block_gem")))),
+        state = { StateUtil.createSimple(hiiragiId("block/block_gem")) },
         type = ShapeType.BLOCK
     )
 
@@ -99,8 +98,8 @@ object ShapeRegistry {
         1.0,
         "@_ores",
         blockSettings = AbstractBlock.Settings.copy(Blocks.STONE),
-        model = JModel.model().parent(hiiragiId("block/ore_stone").toString()),
-        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_stone")))),
+        model = JModel.model(hiiragiId("block/ore_stone")),
+        state = { StateUtil.createSimple(hiiragiId("block/ore_stone")) },
         type = ShapeType.BLOCK
     )
 
@@ -114,8 +113,8 @@ object ShapeRegistry {
             .hardness(3.0f)
             .nonOpaque()
             .resistance(6.0f),
-        model = JModel.model().parent(hiiragiId("block/ore_nether").toString()),
-        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_nether")))),
+        model = JModel.model(hiiragiId("block/ore_nether")),
+        state = { StateUtil.createSimple(hiiragiId("block/ore_nether")) },
         type = ShapeType.BLOCK
     )
 
@@ -129,8 +128,8 @@ object ShapeRegistry {
             .hardness(3.0f)
             .nonOpaque()
             .resistance(6.0f),
-        model = JModel.model().parent(hiiragiId("block/ore_end").toString()),
-        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_end")))),
+        model = JModel.model(hiiragiId("block/ore_end")),
+        state = { StateUtil.createSimple(hiiragiId("block/ore_end")) },
         type = ShapeType.BLOCK
     )
 
@@ -144,8 +143,8 @@ object ShapeRegistry {
             .hardness(3.0f)
             .nonOpaque()
             .resistance(6.0f),
-        model = JModel.model().parent(hiiragiId("block/ore_deep").toString()),
-        state = JState.state(JState.variant(JState.model(hiiragiId("block/ore_deep")))),
+        model = JModel.model(hiiragiId("block/ore_deep")),
+        state = { StateUtil.createSimple(hiiragiId("block/ore_deep")) },
         type = ShapeType.BLOCK
     )
 
@@ -164,12 +163,12 @@ object ShapeRegistry {
         "dust",
         1.0,
         "@_dusts",
-        model = itemModelLayered { layer0("ragi_materials:item/dust") },
+        model = ModelUtil.getItemModel { layer0("ragi_materials:item/dust") },
         recipes = {
             mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(DUST_TINY).getTadId()),
+                    JKeys.keys().addTag("A", it.setShape(DUST_TINY).getCommonId()),
                     it.getResult()
                 )
             )
@@ -181,11 +180,11 @@ object ShapeRegistry {
         "dust_tiny",
         0.1,
         "@_tiny_dusts",
-        model = itemModelLayered { layer0("ragi_materials:item/dust_tiny") },
+        model = ModelUtil.getItemModel { layer0("ragi_materials:item/dust_tiny") },
         recipes = {
             mapOf(
                 it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(dustFake).getTadId()),
+                    JIngredients.ingredients().addTag(it.setShape(dustFake).getCommonId()),
                     it.getResult(9)
                 )
             )
@@ -197,22 +196,35 @@ object ShapeRegistry {
         "gear",
         4.0,
         "@_gears",
-        model = itemModelLayered { layer0("ragi_materials:item/gear") },
+        model = ModelUtil.getItemModel { layer0("ragi_materials:item/gear") },
         recipes = {
-            mapOf(
+            if (it.material.isMetal()) mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
                     JPattern.pattern(" A ", "ABA", " A "),
                     JKeys.keys()
-                        .addTag("A", it.setShape(ingotFake).getTadId())
+                        .addTag("A", it.setShape(ingotFake).getCommonId())
                         .addTag("B", commonId("hammers")),
                     it.getResult()
                 )
-            )
+            ) else mapOf()
         }
     )
 
     @JvmField
-    val GEM = shapeOf("gem", 1.0, "@_gems")
+    val GEM = shapeOf(
+        "gem",
+        1.0,
+        "@_gems",
+        model = ModelUtil.getItemModel { layer0("minecraft:item/quartz") },
+        recipes = {
+            mapOf(
+                it.getId().append("_shapeless") to JRecipe.shapeless(
+                    JIngredients.ingredients().addTag(it.setShape(BLOCK_GEM).getCommonId()),
+                    it.getResult(9)
+                )
+            )
+        }
+    )
 
     @JvmField
     val INGOT = shapeOf(
@@ -223,11 +235,11 @@ object ShapeRegistry {
             mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
                     get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(NUGGET).getTadId()),
+                    JKeys.keys().addTag("A", it.setShape(NUGGET).getCommonId()),
                     it.getResult()
                 ),
                 it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(BLOCK_METAL).getTadId()),
+                    JIngredients.ingredients().addTag(it.setShape(BLOCK_METAL).getCommonId()),
                     it.getResult(9)
                 )
             )
@@ -239,11 +251,11 @@ object ShapeRegistry {
         "nugget",
         0.1,
         "@_nuggets",
-        model = itemModelLayered { layer0("minecraft:item/iron_nugget") },
+        model = ModelUtil.getItemModel { layer0("minecraft:item/iron_nugget") },
         recipes = {
             mapOf(
                 it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(ingotFake).getTadId()),
+                    JIngredients.ingredients().addTag(it.setShape(ingotFake).getCommonId()),
                     it.getResult(9)
                 )
             )
@@ -255,12 +267,13 @@ object ShapeRegistry {
         "plate",
         1.0,
         "@_plates",
-        model = itemModelLayered { layer0("ragi_materials:item/plate") },
+        model = ModelUtil.getItemModel { layer0("ragi_materials:item/plate") },
         recipes = {
+            val base = if (it.material.isGem()) gemFake else ingotFake
             mapOf(
                 it.getId().append("_shapeless") to JRecipe.shapeless(
                     JIngredients.ingredients()
-                        .addTag(it.setShape(ingotFake).getTadId())
+                        .addTag(it.setShape(base).getCommonId())
                         .addTag(commonId("hammers")),
                     it.getResult()
                 )
@@ -276,13 +289,14 @@ object ShapeRegistry {
         "rod",
         0.5,
         "@_rods",
-        model = itemModelLayered { layer0("ragi_materials:item/rod") },
+        model = ModelUtil.getItemModel { layer0("ragi_materials:item/rod") },
         recipes = {
+            val base = if (it.material.isGem()) gemFake else ingotFake
             mapOf(
                 it.getId().append("_shaped") to JRecipe.shaped(
                     JPattern.pattern("AB", "A "),
                     JKeys.keys()
-                        .addTag("A", it.setShape(ingotFake).getTadId())
+                        .addTag("A", it.setShape(base).getCommonId())
                         .addTag("B", commonId("files")),
                     it.getResult(4)
                 )
@@ -303,7 +317,7 @@ object ShapeRegistry {
         registerShape(DUST)
         registerShape(DUST_TINY)
         registerShape(GEAR)
-        //registerShape(GEM)
+        registerShape(GEM)
         registerShape(INGOT)
         registerShape(NUGGET)
         registerShape(PLATE)

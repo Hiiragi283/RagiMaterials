@@ -39,8 +39,8 @@ object MaterialElements {
         color = RagiColor.GRAY.rgb
         crystalType = CrystalType.METAL
         formula = "Li"
+        isActiveToWater = true
         molar = 6.9
-        property = MaterialProperty.ALKALI_METAL
         tempBoil = 1560
         tempMelt = 454
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -51,8 +51,8 @@ object MaterialElements {
         color = RagiColor.DARK_GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "Be"
+        isActiveToWater = true
         molar = 9.0
-        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 2742
         tempMelt = 1560
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -122,8 +122,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 1, RagiColor.BLUE to 4).rgb
         crystalType = CrystalType.METAL
         formula = "Na"
+        isActiveToWater = true
         molar = 23.0
-        property = MaterialProperty.ALKALI_METAL
         tempBoil = 1156
         tempMelt = 371
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -134,6 +134,7 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.LIGHT_PURPLE, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
         formula = "Mg"
+        isActiveToWater = true
         molar = 24.3
         tempBoil = 1363
         tempMelt = 923
@@ -166,8 +167,8 @@ object MaterialElements {
     val PHOSPHORUS = materialOf("phosphorus") {
         color = RagiColor.YELLOW.rgb
         formula = "P"
+        hasOre = true
         molar = 31.0
-        property.hasOre = true
         tempBoil = 550
         tempMelt = 317
         validShapes.addAll(MaterialType.SOLID)
@@ -177,8 +178,8 @@ object MaterialElements {
     val SULFUR = materialOf("sulfur") {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
         formula = "S"
+        hasOre = true
         molar = 32.1
-        property.hasOre = true
         tempBoil = 718
         tempMelt = 388
         validShapes.addAll(MaterialType.SOLID)
@@ -209,6 +210,7 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 2, RagiColor.BLUE to 3).rgb
         crystalType = CrystalType.METAL
         formula = "K"
+        isActiveToWater = true
         molar = 39.1
         tempBoil = 1032
         tempMelt = 337
@@ -220,8 +222,8 @@ object MaterialElements {
         color = RagiColor.GRAY.rgb
         crystalType = CrystalType.METAL
         formula = "Ca"
+        isActiveToWater = true
         molar = 40.1
-        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 1757
         tempMelt = 1115
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -287,8 +289,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.GRAY to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
         formula = "Fe"
+        hasOre = true
         molar = 55.8
-        property.hasOre = true
         tempBoil = 3134
         tempMelt = 1811
         toolProperty = HiiragiToolMaterial.copy(ToolMaterials.IRON)
@@ -300,8 +302,8 @@ object MaterialElements {
         color = RagiColor.BLUE.rgb
         crystalType = CrystalType.METAL
         formula = "Co"
+        hasOre = true
         molar = 58.9
-        property.hasOre = true
         tempBoil = 3200
         tempMelt = 1768
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -312,8 +314,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
         formula = "Ni"
+        hasOre = true
         molar = 58.7
-        property.hasOre = true
         tempBoil = 3186
         tempMelt = 1728
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -324,8 +326,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.RED).rgb
         crystalType = CrystalType.METAL
         formula = "Cu"
+        hasOre = true
         molar = 63.5
-        property.hasOre = true
         tempBoil = 2835
         tempMelt = 1358
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -336,8 +338,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.GREEN to 1, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
         formula = "Zn"
+        hasOre = true
         molar = 65.4
-        property.hasOre = true
         tempBoil = 1180
         tempMelt = 693
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -413,8 +415,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 3, RagiColor.BLUE to 2).rgb
         crystalType = CrystalType.METAL
         formula = "Rb"
+        isActiveToWater = true
         molar = 85.5
-        property = MaterialProperty.ALKALI_METAL
         tempBoil = 961
         tempMelt = 312
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -425,8 +427,8 @@ object MaterialElements {
         color = RagiColor.GRAY.rgb
         crystalType = CrystalType.METAL
         formula = "Sr"
+        isActiveToWater = true
         molar = 87.6
-        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 1655
         tempMelt = 1050
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -525,8 +527,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.AQUA to 1, RagiColor.WHITE to 3).rgb
         crystalType = CrystalType.METAL
         formula = "Ag"
+        hasOre = true
         molar = 107.9
-        property.hasOre = true
         tempBoil = 2435
         tempMelt = 1235
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -559,8 +561,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.BLUE to 1, RagiColor.AQUA to 1, RagiColor.WHITE to 3).rgb
         crystalType = CrystalType.METAL
         formula = "Sn"
+        hasOre = true
         molar = 118.7
-        property.hasOre = true
         tempBoil = 2875
         tempMelt = 505
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -614,8 +616,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 4, RagiColor.BLUE to 1).rgb
         crystalType = CrystalType.METAL
         formula = "Cs"
+        isActiveToWater = true
         molar = 132.9
-        property = MaterialProperty.ALKALI_METAL
         tempBoil = 944
         tempMelt = 302
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -626,8 +628,8 @@ object MaterialElements {
         color = RagiColor.GRAY.rgb
         crystalType = CrystalType.METAL
         formula = "Ba"
+        isActiveToWater = true
         molar = 137.3
-        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 2170
         tempMelt = 1000
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -829,8 +831,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.DARK_GRAY to 1).rgb
         crystalType = CrystalType.METAL
         formula = "W"
+        hasOre = true
         molar = 183.8
-        property.hasOre = true
         tempBoil = 5828
         tempMelt = 3695
         toolProperty = HiiragiToolMaterial.copy(ToolMaterials.DIAMOND)
@@ -886,8 +888,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
         crystalType = CrystalType.METAL
         formula = "Au"
+        hasOre = true
         molar = 197.0
-        property.hasOre = true
         tempBoil = 3129
         tempMelt = 1337
         toolProperty = HiiragiToolMaterial.copy(ToolMaterials.GOLD)
@@ -900,7 +902,6 @@ object MaterialElements {
         molar = 200.6
         tempBoil = 670
         tempMelt = 234
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -919,8 +920,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.DARK_BLUE, RagiColor.DARK_GRAY, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
         formula = "Pb"
+        hasOre = true
         molar = 207.2
-        property.hasOre = true
         tempBoil = 2022
         tempMelt = 601
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -931,8 +932,8 @@ object MaterialElements {
         color = RagiColor.AQUA.rgb
         crystalType = CrystalType.METAL
         formula = "Bi"
+        hasOre = true
         molar = 209.0
-        property.hasOre = true
         tempBoil = 1837
         tempMelt = 545
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -974,11 +975,10 @@ object MaterialElements {
     val FRANCIUM = materialOf("francium") {
         color = RagiColor.DARK_BLUE.rgb
         formula = "Fr"
+        isActiveToWater = true
         //molar = 223.0
-        property = MaterialProperty.ALKALI_METAL
         tempBoil = 890
         tempMelt = 281
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -986,8 +986,8 @@ object MaterialElements {
         color = RagiColor.GRAY.rgb
         crystalType = CrystalType.METAL
         formula = "Ra"
+        isActiveToWater = true
         //molar = 226.0
-        property = MaterialProperty.ALKALINE_METAL
         tempBoil = 2010
         tempMelt = 973
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -1011,8 +1011,8 @@ object MaterialElements {
         color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.DARK_GREEN to 1, RagiColor.GRAY to 1).rgb
         crystalType = CrystalType.METAL
         formula = "Th"
+        hasOre = true
         molar = 232.0
-        property.hasOre = true
         tempBoil = 5061
         tempMelt = 2115
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -1034,8 +1034,8 @@ object MaterialElements {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.METAL
         formula = "U"
+        hasOre = true
         molar = 238.0
-        property.hasOre = true
         tempBoil = 4404
         tempMelt = 1405
         validShapes.addAll(MaterialType.METAL_ADVANCED)

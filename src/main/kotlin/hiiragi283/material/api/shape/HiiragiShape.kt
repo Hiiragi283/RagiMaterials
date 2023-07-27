@@ -2,7 +2,8 @@ package hiiragi283.material.api.shape
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.common.util.itemModelLayered
+import hiiragi283.material.common.util.ModelUtil
+import hiiragi283.material.common.util.StateUtil
 import net.devtech.arrp.json.blockstate.JState
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JRecipe
@@ -16,9 +17,9 @@ fun shapeOf(
     prefixId: String,
     prefixTag: String = prefixId,
     blockSettings: AbstractBlock.Settings = AbstractBlock.Settings.copy(Blocks.AIR),
-    model: JModel = itemModelLayered { layer0("minecraft:item/iron_ingot") },
+    model: JModel = ModelUtil.getItemModel { layer0("minecraft:item/iron_ingot") },
     recipes: (HiiragiPart) -> Map<Identifier, JRecipe> = { mapOf() },
-    state: JState = JState(),
+    state: (HiiragiPart) -> JState = { StateUtil.createSimple(it.getId()) },
     type: ShapeType = ShapeType.ITEM
 ): HiiragiShape = object : HiiragiShape(name, scale, prefixId, prefixTag) {
 
@@ -28,7 +29,7 @@ fun shapeOf(
 
     override fun getRecipe(part: HiiragiPart): Map<Identifier, JRecipe> = recipes(part)
 
-    override fun getState(): JState = state
+    override fun getState(part: HiiragiPart): JState = state(part)
 
     override fun getType(): ShapeType = type
 
@@ -47,7 +48,7 @@ abstract class HiiragiShape internal constructor(
 
     abstract fun getRecipe(part: HiiragiPart): Map<Identifier, JRecipe>
 
-    abstract fun getState(): JState
+    abstract fun getState(part: HiiragiPart): JState
 
     abstract fun getType(): ShapeType
 

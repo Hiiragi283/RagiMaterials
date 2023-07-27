@@ -1,8 +1,8 @@
 package hiiragi283.material.integration
 
 import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
-import hiiragi283.material.api.part.with
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.tag.BlockTags
 import net.minecraft.tag.ItemTags
@@ -13,11 +13,11 @@ object RagiIntegrationCore {
 
         //    Minecraft    //
 
-        PartRegistry.registerTag(BlockTags.PLANKS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
-        PartRegistry.registerTag(BlockTags.LOGS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
+        PartRegistry.registerTag(BlockTags.PLANKS, HiiragiPart(HiiragiShape.WILDCARD, MaterialCommon.WOOD))
+        PartRegistry.registerTag(BlockTags.LOGS, HiiragiPart(HiiragiShape.WILDCARD, MaterialCommon.WOOD))
 
-        PartRegistry.registerTag(ItemTags.PLANKS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
-        PartRegistry.registerTag(ItemTags.LOGS, HiiragiShape.WILDCARD with MaterialCommon.WOOD)
+        PartRegistry.registerTag(ItemTags.PLANKS, HiiragiPart(HiiragiShape.WILDCARD, MaterialCommon.WOOD))
+        PartRegistry.registerTag(ItemTags.LOGS, HiiragiPart(HiiragiShape.WILDCARD, MaterialCommon.WOOD))
 
     }
 

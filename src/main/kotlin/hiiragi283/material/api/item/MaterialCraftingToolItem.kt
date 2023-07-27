@@ -37,7 +37,6 @@ abstract class MaterialCraftingToolItem(
         getRecipes().forEach(RMResourcePack::addRecipe)
 
         RMResourcePack.addItemTag(commonId("${type}s"), getIdentifier())
-        RMResourcePack.addItemTag(hiiragiId(material.name), getIdentifier())
 
         return item
     }

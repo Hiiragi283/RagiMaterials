@@ -36,20 +36,22 @@ open class MaterialShovelItem(
 
         val item = super.register()
 
-        RMResourcePack.addItemModel(getIdentifier(), itemModelLayered { layer0("minecraft:item/iron_shovel") })
+        RMResourcePack.addItemModel(
+            getIdentifier(),
+            ModelUtil.getItemModel { layer0("minecraft:item/iron_shovel") }
+        )
 
         RMResourcePack.addRecipe(
             getIdentifier(), JRecipe.shaped(
                 JPattern.pattern("A", "B", "B"),
                 JKeys.keys()
-                    .addTag("A", HiiragiPart(ShapeRegistry.INGOT, material).getTadId().toString())
+                    .addTag("A", HiiragiPart(ShapeRegistry.INGOT, material).getCommonId().toString())
                     .addItem("B", Items.STICK),
                 JResult.item(item)
             )
         )
 
         RMResourcePack.addItemTag(commonId("shovels"), getIdentifier())
-        RMResourcePack.addItemTag(hiiragiId(material.name), getIdentifier())
 
         return item
     }

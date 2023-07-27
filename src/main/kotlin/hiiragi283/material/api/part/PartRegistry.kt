@@ -65,7 +65,7 @@ object PartRegistry {
         MaterialRegistry.getMaterials().forEach { material ->
             ShapeRegistry.getShapes()
                 .filter { it.isValid(material) }
-                .map { it with material }
+                .map { HiiragiPart(it, material) }
                 .filterNot { it.isEmpty() }
                 .forEach {
                     registerTag(it.getTagKey(Registry.BLOCK_KEY), it)

@@ -3,9 +3,9 @@ package hiiragi283.material.api.item
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.ShapeRegistry
+import hiiragi283.material.common.util.ModelUtil
 import hiiragi283.material.common.util.addItem
 import hiiragi283.material.common.util.addTag
-import hiiragi283.material.common.util.itemModelLayered
 import net.devtech.arrp.json.models.JModel
 import net.devtech.arrp.json.recipe.JKeys
 import net.devtech.arrp.json.recipe.JPattern
@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier
 
 open class MaterialFileItem(material: HiiragiMaterial) : MaterialCraftingToolItem("file", material) {
 
-    override fun getModel(): JModel = itemModelLayered {
+    override fun getModel(): JModel = ModelUtil.getItemModel {
         layer0("minecraft:item/stick")
         layer1("ragi_materials:item/$type")
     }
@@ -25,7 +25,7 @@ open class MaterialFileItem(material: HiiragiMaterial) : MaterialCraftingToolIte
         getIdentifier() to JRecipe.shaped(
             JPattern.pattern("A", "A", "B"),
             JKeys.keys()
-                .addTag("A", HiiragiPart(ShapeRegistry.PLATE, material).getTadId().toString())
+                .addTag("A", HiiragiPart(ShapeRegistry.PLATE, material).getCommonId().toString())
                 .addItem("B", Items.STICK),
             JResult.item(this)
         )

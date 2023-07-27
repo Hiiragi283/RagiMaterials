@@ -31,8 +31,8 @@ open class MaterialItem(val part: HiiragiPart) :
 
         RMResourcePack.addItemModel(getIdentifier(), part.shape.getModel())
         part.getRecipe().forEach(RMResourcePack::addRecipe)
-        RMResourcePack.addItemTag(part.getTadId(), getIdentifier())
-        RMResourcePack.addItemTag(hiiragiId(part.material.name), getIdentifier())
+        RMResourcePack.addItemTag(part.getCommonId(), getIdentifier())
+        RMResourcePack.addItemTag(hiiragiId(part.material.name), part.getCommonId(), true)
 
         return item
 

@@ -4,7 +4,7 @@ import hiiragi283.material.api.HiiragiBlock
 import hiiragi283.material.api.RMItemColorProvider
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RMResourcePack
-import hiiragi283.material.common.util.hiiragiId
+import hiiragi283.material.common.util.LootTableUtil
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.client.color.block.BlockColorProvider
@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.BlockRenderView
 
-open class MaterialBlock(
+abstract class MaterialBlock(
     val part: HiiragiPart,
     settings: Settings = part.shape.getBlockSettings()
 ) : HiiragiBlock(settings), BlockColorProvider, RMItemColorProvider {
@@ -32,17 +32,13 @@ open class MaterialBlock(
 
         val block = super.register()
 
-        RMResourcePack.addBlockState(getIdentifier(), part.shape.getState())
+        RMResourcePack.addBlockState(getIdentifier(), part.getState())
+
+        RMResourcePack.addBlockLootTable(getIdentifier(), LootTableUtil.createSimple(getIdentifier()))
 
         RMResourcePack.addItemModel(getIdentifier(), part.shape.getModel())
 
         part.getRecipe().forEach(RMResourcePack::addRecipe)
-
-        val tag = part.getTadId()
-        RMResourcePack.addBlockTag(tag, getIdentifier())
-        RMResourcePack.addItemTag(tag, getIdentifier())
-        RMResourcePack.addBlockTag(hiiragiId(part.material.name), getIdentifier())
-        RMResourcePack.addItemTag(hiiragiId(part.material.name), getIdentifier())
 
         return block
     }

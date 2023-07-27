@@ -5,9 +5,8 @@ import hiiragi283.material.api.RMItemColorProvider
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.common.RMItemGroup
 import hiiragi283.material.common.RMResourcePack
-import hiiragi283.material.common.util.commonId
+import hiiragi283.material.common.util.ModelUtil
 import hiiragi283.material.common.util.hiiragiId
-import hiiragi283.material.common.util.itemModelLayered
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.fluid.Fluid
 import net.minecraft.item.BucketItem
@@ -35,11 +34,10 @@ abstract class MaterialBucketItem(fluid: Fluid) :
 
             override fun register(): Item {
 
-                RMResourcePack.addItemModel(getIdentifier(), itemModelLayered {
+                RMResourcePack.addItemModel(getIdentifier(), ModelUtil.getItemModel {
                     layer0("minecraft:item/bucket")
                     layer1("ragi_materials:item/bucket_layer")
                 })
-                RMResourcePack.addItemTag(commonId(getIdentifier().path), getIdentifier())
 
                 return Registry.register(Registry.ITEM, getIdentifier(), this)
             }
