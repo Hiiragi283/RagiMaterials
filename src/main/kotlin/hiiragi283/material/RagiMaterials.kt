@@ -35,8 +35,6 @@ object RagiMaterials {
     val COLOR: Color by lazy { Color(255, 0, 31) }
     val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
 
-    private lateinit var jsonHandler: RMJSonHandler
-
     init {
         if (Loader.isModLoaded("gregtech")) {
             throw RuntimeException(
@@ -55,16 +53,19 @@ object RagiMaterials {
         FluidRegistry.enableUniversalBucket()
         //Eventの登録
         MinecraftForge.EVENT_BUS.register(RMEventHandler)
-        //素材の登録
+        //素材レジストリの生成
         MaterialRegistry.init()
-        //部品の登録
+        //形状レジストリの生成
         ShapeRegistry.init()
     }
 
     @Mod.EventHandler
     fun onPreInit(event: FMLPreInitializationEvent) {
-        //他modとの連携のためタイミングをずらす
-        jsonHandler = RMJSonHandler(event)
+        //configから素材を取得
+        RMJSonHandler(event).run {
+            this.writeJson()
+            this.readJson()
+        }
         //液体の登録
         HiiragiFluids.register()
         //連携の登録
@@ -73,13 +74,6 @@ object RagiMaterials {
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        //configから素材を登録
-        jsonHandler.writeJson()
-        jsonHandler.readJson()
-        //以降の素材登録を停止
-        MaterialRegistry.lock()
-        //以降の部品登録を停止
-        ShapeRegistry.lock()
         //MaterialPartとの紐づけ
         PartRegistry.init()
         //鉱石辞書の登録

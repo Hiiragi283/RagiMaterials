@@ -1,10 +1,10 @@
 package hiiragi283.material.integration
 
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialIntegration
-import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
 import hiiragi283.material.api.shape.ShapeRegistry
@@ -15,6 +15,7 @@ import hiiragi283.material.util.getItem
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader
+import net.minecraftforge.registries.IForgeRegistry
 
 object RMIntegrationCore {
 
@@ -32,70 +33,73 @@ object RMIntegrationCore {
     private val thaum by lazy { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
     private val tCon by lazy { enableIntegration("tconstruct", RMConfig.INTEGRATION.tCon) }
 
-    fun onPreInit() {
-        MaterialRegistry.registerMaterial(MaterialIntegration.REDSTONE)
-        MaterialRegistry.registerMaterial(MaterialIntegration.LAPIS)
-        MaterialRegistry.registerMaterial(MaterialIntegration.GLOWSTONE)
-        MaterialRegistry.registerMaterial(MaterialIntegration.ENDER_PEARL)
+    fun onPreInit() {}
+
+    fun register(registry: IForgeRegistry<HiiragiMaterial>) {
+        registry.register(MaterialIntegration.REDSTONE)
+        registry.register(MaterialIntegration.LAPIS)
+        registry.register(MaterialIntegration.GLOWSTONE)
+        registry.register(MaterialIntegration.ENDER_PEARL)
         if (thermal) {
             RagiMaterials.LOGGER.info("Enabled integration: Thermal Series")
-            MaterialRegistry.registerMaterial(MaterialIntegration.MITHRIL)
-            MaterialRegistry.registerMaterial(MaterialIntegration.SIGNALUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.LUMIUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.ENDERIUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.PYROTHEUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.CRYOTHEUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.AEROTHEUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.PETROTHEUM)
+            registry.register(MaterialIntegration.MITHRIL)
+            registry.register(MaterialIntegration.SIGNALUM)
+            registry.register(MaterialIntegration.LUMIUM)
+            registry.register(MaterialIntegration.ENDERIUM)
+            registry.register(MaterialIntegration.PYROTHEUM)
+            registry.register(MaterialIntegration.CRYOTHEUM)
+            registry.register(MaterialIntegration.AEROTHEUM)
+            registry.register(MaterialIntegration.PETROTHEUM)
         }
         if (mekanism) {
             RagiMaterials.LOGGER.info("Enabled integration: Mekanism")
-            MaterialRegistry.registerMaterial(MaterialIntegration.OBSIDIAN_REFINED)
-            MaterialRegistry.registerMaterial(MaterialIntegration.GLOWSTONE_REFINED)
+            registry.register(MaterialIntegration.OBSIDIAN_REFINED)
+            registry.register(MaterialIntegration.GLOWSTONE_REFINED)
         }
         if (enderIO) {
             RagiMaterials.LOGGER.info("Enabled integration: Ender IO")
-            MaterialRegistry.registerMaterial(MaterialIntegration.ELECTRICAL_STEEL)
-            MaterialRegistry.registerMaterial(MaterialIntegration.ENERGETIC_ALLOY)
-            MaterialRegistry.registerMaterial(MaterialIntegration.VIBRANT_ALLOY)
-            MaterialRegistry.registerMaterial(MaterialIntegration.REDSTONE_ALLOY)
-            MaterialRegistry.registerMaterial(MaterialIntegration.CONDUCTIVE_IRON)
-            MaterialRegistry.registerMaterial(MaterialIntegration.PULSATING_IRON)
-            MaterialRegistry.registerMaterial(MaterialIntegration.DARK_STEEL)
-            MaterialRegistry.registerMaterial(MaterialIntegration.SOULARIUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.END_STEEL)
-            MaterialRegistry.registerMaterial(MaterialIntegration.IRON_ALLOY)
+            registry.register(MaterialIntegration.ELECTRICAL_STEEL)
+            registry.register(MaterialIntegration.ENERGETIC_ALLOY)
+            registry.register(MaterialIntegration.VIBRANT_ALLOY)
+            registry.register(MaterialIntegration.REDSTONE_ALLOY)
+            registry.register(MaterialIntegration.CONDUCTIVE_IRON)
+            registry.register(MaterialIntegration.PULSATING_IRON)
+            registry.register(MaterialIntegration.DARK_STEEL)
+            registry.register(MaterialIntegration.SOULARIUM)
+            registry.register(MaterialIntegration.END_STEEL)
+            registry.register(MaterialIntegration.IRON_ALLOY)
         }
         if (thaum) {
             RagiMaterials.LOGGER.info("Enabled integration: Thaumcraft")
-            MaterialRegistry.registerMaterial(MaterialIntegration.THAUMIUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.VOID_METAL)
+            registry.register(MaterialIntegration.THAUMIUM)
+            registry.register(MaterialIntegration.VOID_METAL)
         }
         if (botania) {
             RagiMaterials.LOGGER.info("Enabled integration: Botania")
-            MaterialRegistry.registerMaterial(MaterialIntegration.MANASTEEL)
-            MaterialRegistry.registerMaterial(MaterialIntegration.MANA_DIAMOND)
-            MaterialRegistry.registerMaterial(MaterialIntegration.TERRASTEEL)
-            MaterialRegistry.registerMaterial(MaterialIntegration.ELEMENTIUM)
-            MaterialRegistry.registerMaterial(MaterialIntegration.DRAGONSTONE)
+            registry.register(MaterialIntegration.MANASTEEL)
+            registry.register(MaterialIntegration.MANA_DIAMOND)
+            registry.register(MaterialIntegration.TERRASTEEL)
+            registry.register(MaterialIntegration.ELEMENTIUM)
+            registry.register(MaterialIntegration.DRAGONSTONE)
         }
         if (embers) {
             RagiMaterials.LOGGER.info("Enabled integration: Embers")
-            MaterialRegistry.registerMaterial(MaterialIntegration.DAWNSTONE)
+            registry.register(MaterialIntegration.DAWNSTONE)
         }
         if (projectRed) {
             RagiMaterials.LOGGER.info("Enabled integration: ProjectRed")
-            MaterialRegistry.registerMaterial(MaterialIntegration.ELECTROTINE)
-            MaterialRegistry.registerMaterial(MaterialIntegration.RED_ALLOY)
-            MaterialRegistry.registerMaterial(MaterialIntegration.ELECTROTINE_ALLOY)
+            registry.register(MaterialIntegration.ELECTROTINE)
+            registry.register(MaterialIntegration.RED_ALLOY)
+            registry.register(MaterialIntegration.ELECTROTINE_ALLOY)
         }
         if (tCon) {
             RagiMaterials.LOGGER.info("Enabled integration: Tinker's Construct")
-            MaterialRegistry.registerMaterial(MaterialIntegration.ARDITE)
-            MaterialRegistry.registerMaterial(MaterialIntegration.MANYULLYN)
-            MaterialRegistry.registerMaterial(MaterialIntegration.ALUMINIUM_BRASS)
+            registry.register(MaterialIntegration.ARDITE)
+            registry.register(MaterialIntegration.MANYULLYN)
+            registry.register(MaterialIntegration.ALUMINIUM_BRASS)
         }
     }
+
 
     fun onInit() {
         OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)

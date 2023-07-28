@@ -1,9 +1,12 @@
 package hiiragi283.material.api.shape
 
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.item.ItemMaterial
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.util.RMModelManager
 import net.minecraft.client.resources.I18n
+import net.minecraft.util.ResourceLocation
+import net.minecraftforge.registries.IForgeRegistryEntry
 import rechellatek.snakeToLowerCamelCase
 
 fun shapeOf(
@@ -21,7 +24,8 @@ fun shapeOf(
     }
 }
 
-abstract class HiiragiShape internal constructor(val name: String, val scale: Double) {
+abstract class HiiragiShape internal constructor(val name: String, val scale: Double) :
+    IForgeRegistryEntry<HiiragiShape> {
 
     abstract fun getModel(item: ItemMaterial)
 
@@ -59,5 +63,19 @@ abstract class HiiragiShape internal constructor(val name: String, val scale: Do
     fun hasScale(): Boolean = scale > 0.0
 
     fun isValid(material: HiiragiMaterial): Boolean = name in material.validShapes
+
+    //    IForgeRegistryEntry    //
+
+    private val location: ResourceLocation
+        get() = ResourceLocation(RagiMaterials.MODID, name)
+
+    override fun getRegistryName(): ResourceLocation = location
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getRegistryType(): Class<HiiragiShape> = this::class.java as Class<HiiragiShape>
+
+    override fun setRegistryName(name: ResourceLocation): HiiragiShape {
+        throw IllegalArgumentException("Cannot override Registry Name!")
+    }
 
 }
