@@ -11,20 +11,35 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.registries.IForgeRegistry
+import net.minecraftforge.registries.RegistryBuilder
 
 object ShapeRegistry {
 
-    private val REGISTRY: HashMap<String, HiiragiShape> = hashMapOf()
+    fun init() {}
 
-    private var isLocked: Boolean = false
+    private val SHAPE = ResourceLocation(RagiMaterials.MODID, "shape")
+
+    private val REGISTRY: IForgeRegistry<HiiragiShape> = RegistryBuilder<HiiragiShape>()
+        .disableOverrides()
+        .disableSaving()
+        .setDefaultKey(ResourceLocation(RagiMaterials.MODID, "empty"))
+        .setName(SHAPE)
+        .setType(HiiragiShape::class.java)
+        .create()
+
+    //private val REGISTRY_OLD: HashMap<String, HiiragiShape> = hashMapOf()
+
+    //private var isLocked: Boolean = false
 
     @JvmStatic
-    fun getShapes(): Collection<HiiragiShape> = REGISTRY.values
+    fun getShapes(): Collection<HiiragiShape> = REGISTRY.valuesCollection
 
     @JvmStatic
-    fun getShape(name: String) = REGISTRY.getOrDefault(name, HiiragiShape.EMPTY)
+    fun getShape(name: String): HiiragiShape =
+        REGISTRY.getValue(ResourceLocation(RagiMaterials.MODID, name)) ?: HiiragiShape.EMPTY
 
-    @JvmStatic
+    /*@JvmStatic
     fun registerShape(shape: HiiragiShape) {
 
         if (isLocked) {
@@ -33,13 +48,13 @@ object ShapeRegistry {
         }
 
         val name = shape.name
-        REGISTRY[name]?.let {
+        REGISTRY_OLD[name]?.let {
             RagiMaterials.LOGGER.warn("$shape is already registered!")
             return
         }
-        REGISTRY[name] = shape
+        REGISTRY_OLD[name] = shape
 
-    }
+    }*/
 
     //    Shapes    //
 
@@ -234,17 +249,17 @@ object ShapeRegistry {
     @JvmField
     val STONE = shapeOf("stone", 1.0)
 
-    fun init() {
+    fun register(registry: IForgeRegistry<HiiragiShape>) {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiShape>()
-            .forEach(::registerShape)
+            .forEach { registry.register(it) }
     }
 
-    fun lock() {
+    /*fun lock() {
         //レジストリへの登録を停止する
         isLocked = true
-    }
+    }*/
 
 }

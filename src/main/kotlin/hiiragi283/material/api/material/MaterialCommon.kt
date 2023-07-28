@@ -4,6 +4,7 @@ import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.registries.IForgeRegistry
 
 object MaterialCommon {
 
@@ -441,13 +442,12 @@ object MaterialCommon {
         validShapes.addAll(MaterialType.GEM_9x)
     }
 
-    fun register() {
+    fun register(registry: IForgeRegistry<HiiragiMaterial>) {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiMaterial>()
-            .forEach(MaterialRegistry::registerMaterial)
-
+            .forEach { registry.register(it) }
     }
 
 }

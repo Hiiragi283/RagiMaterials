@@ -5,6 +5,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import net.minecraft.client.resources.I18n
+import net.minecraft.util.ResourceLocation
+import net.minecraftforge.registries.IForgeRegistryEntry
 import rechellatek.snakeToUpperCamelCase
 
 /*
@@ -30,7 +32,7 @@ data class HiiragiMaterial internal constructor(
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
     var translationKey: String = "material.$name"
-) {
+) : IForgeRegistryEntry<HiiragiMaterial> {
 
     val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
 
@@ -101,5 +103,19 @@ data class HiiragiMaterial internal constructor(
     //    General    //
 
     override fun toString(): String = "Material:${this.name}"
+
+    //    IForgeRegistryEntry    //
+
+    private val location: ResourceLocation
+        get() = ResourceLocation(RagiMaterials.MODID, name)
+
+    override fun getRegistryName(): ResourceLocation = location
+
+    @Suppress("UNCHECKED_CAST")
+    override fun getRegistryType(): Class<HiiragiMaterial> = this::class.java as Class<HiiragiMaterial>
+
+    override fun setRegistryName(name: ResourceLocation): HiiragiMaterial {
+        throw IllegalArgumentException("Cannot override Registry Name!")
+    }
 
 }

@@ -1,8 +1,12 @@
 package hiiragi283.material.config
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.material.*
+import hiiragi283.material.api.material.CrystalType
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialType
+import hiiragi283.material.api.material.materialOf
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.registries.IForgeRegistry
 import java.io.File
 
 class RMJSonHandler(event: FMLPreInitializationEvent) {
@@ -13,6 +17,16 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
     init {
         //フォルダがない場合は生成する
         if (!configs.exists()) configs.mkdirs()
+    }
+
+    companion object {
+
+        private val CACHE: MutableList<HiiragiMaterial> = mutableListOf()
+
+        fun register(registry: IForgeRegistry<HiiragiMaterial>) {
+            CACHE.forEach { registry.register(it) }
+        }
+
     }
 
     //"instance/config/ragi_materials"フォルダ内にサンプルファイルを生成する
@@ -49,9 +63,10 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                 ?.filter { it.exists() && it.canRead() } //存在している && 読み取り可能
                 ?.map { it.readText() } //Stringを読み取る
                 ?.map { HiiragiMaterial.fromJson(it) } //Json String -> HiiragiMaterial
-                ?.forEach { MaterialRegistry.registerMaterial(it) } //MaterialRegistryに登録
+                ?.forEach { CACHE.add(it) } //CACHEに一時保存
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e) //念のため例外処理
         }
     }
+
 }
