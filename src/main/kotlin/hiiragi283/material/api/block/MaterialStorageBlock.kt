@@ -1,12 +1,14 @@
 package hiiragi283.material.api.block
 
+import hiiragi283.material.api.item.MaterialBlockItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.RagiMaterials
 import net.minecraft.block.Block
-import net.minecraft.util.Identifier
+import net.minecraft.tag.BlockTags
+import net.minecraft.util.registry.Registry
 
 fun registerMaterialStorageBlocks(material: HiiragiMaterial) {
 
@@ -22,17 +24,27 @@ fun registerMaterialStorageBlocks(material: HiiragiMaterial) {
 
     list.map(::MaterialStorageBlock).forEach { it.register() }
 
-    list.map { it.getCommonId() }.forEach { RMResourcePack.addBlockTag(Identifier("mineable/pickaxe"), it, true) }
+    list.map { it.getCommonId() }.forEach {
+        RMResourcePack.addBlockTag(BlockTags.PICKAXE_MINEABLE) {
+            this.addTag(it)
+        }
+    }
 
 }
 
 class MaterialStorageBlock(part: HiiragiPart) : MaterialBlock(part) {
 
-    override fun getMinableType(): MinableType = MinableType.PICKAXE
-
     override fun register(): Block {
 
-        RMResourcePack.addBlockAndItemTag(part.getCommonId(), getIdentifier())
+        RMResourcePack.addBlockTag(part.getTagKey(Registry.BLOCK_KEY)) {
+            this.add(getIdentifier())
+        }
+
+        RMResourcePack.addItemTag(part.getTagKey(Registry.ITEM_KEY)) {
+            this.add(getIdentifier())
+        }
+
+        MaterialBlockItem(this).register()
 
         return super.register()
     }

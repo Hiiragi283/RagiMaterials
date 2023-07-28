@@ -23,6 +23,49 @@ object MaterialCommon {
     @JvmField
     val SULFATE = compoundOf("sulfate", mapOf(MaterialElements.SULFUR to 1, MaterialElements.OXYGEN to 4))
 
+    //    Vanilla    //
+
+    @JvmField
+    val REDSTONE = materialOf("redstone") {
+        color = RagiColor.DARK_RED.rgb
+        crystalType = CrystalType.EMERALD
+        formula = "Rs"
+        molar = 112.2
+        tempBoil = 1201
+        tempMelt = 1122
+        validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("block")
+    }
+
+    @JvmField
+    val LAPIS = materialOf("lapis") {
+        color = RagiColor.BLUE.rgb
+        crystalType = CrystalType.LAPIS
+        validShapes.addAll(MaterialType.GEM_9xADVANCED)
+    }
+
+    @JvmField
+    val GLOWSTONE = materialOf("glowstone") {
+        color = ColorUtil.mixColor(RagiColor.GOLD to 1, RagiColor.YELLOW to 2).rgb
+        crystalType = CrystalType.EMERALD
+        formula = "Gl"
+        molar = 112.2
+        tempBoil = 1201
+        tempMelt = 1122
+        validShapes.addAll(MaterialType.SOLID)
+    }
+
+    @JvmField
+    val ENDER_PEARL = materialOf("enderpearl") {
+        color = ColorUtil.mixColor(RagiColor.DARK_GREEN to 1, RagiColor.BLUE to 1).rgb
+        crystalType = CrystalType.EMERALD
+        formula = "En"
+        molar = 112.2
+        tempBoil = 1201
+        tempMelt = 1122
+        validShapes.addAll(MaterialType.SOLID)
+    }
+
     //    Hydrogen    //
 
     @JvmField
@@ -150,6 +193,7 @@ object MaterialCommon {
     @JvmField
     val NITER = compoundOf("niter", mapOf(MaterialElements.POTASSIUM to 1, NITRATE to 1)) {
         color = RagiColor.WHITE.rgb
+        crystalType = CrystalType.CUBIC
         hasOre = true
         validShapes.addAll(MaterialType.GEM_9x)
     }
@@ -320,6 +364,14 @@ object MaterialCommon {
         validShapes.add("gear")
         validShapes.add("plate")
         validShapes.add("stick")
+    }
+
+    @JvmField
+    val AMETHYST = compoundOf("amethyst", mapOf(SILICATE to 1)) {
+        color = RagiColor.LIGHT_PURPLE.rgb
+        crystalType = CrystalType.QUARTZ
+        hasOre = true
+        validShapes.addAll(MaterialType.GEM_4xADVANCED)
     }
 
     //    Sulfur    //

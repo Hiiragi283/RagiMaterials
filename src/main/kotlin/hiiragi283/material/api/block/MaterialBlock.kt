@@ -2,12 +2,14 @@ package hiiragi283.material.api.block
 
 import hiiragi283.material.api.HiiragiBlock
 import hiiragi283.material.api.RMItemColorProvider
+import hiiragi283.material.api.item.MaterialItemConvertible
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.RMResourcePack
-import hiiragi283.material.common.util.LootTableUtil
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.client.color.block.BlockColorProvider
+import net.minecraft.data.client.BlockStateModelGenerator
+import net.minecraft.data.server.BlockLootTableGenerator
 import net.minecraft.item.ItemStack
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
@@ -17,7 +19,9 @@ import net.minecraft.world.BlockRenderView
 abstract class MaterialBlock(
     val part: HiiragiPart,
     settings: Settings = part.shape.getBlockSettings()
-) : HiiragiBlock(settings), BlockColorProvider, RMItemColorProvider {
+) : HiiragiBlock(settings), BlockColorProvider, RMItemColorProvider, MaterialItemConvertible {
+
+    override fun asPart(): HiiragiPart = part
 
     override fun getColor(state: BlockState, world: BlockRenderView?, pos: BlockPos?, tintIndex: Int): Int =
         part.material.color
@@ -32,13 +36,17 @@ abstract class MaterialBlock(
 
         val block = super.register()
 
-        RMResourcePack.addBlockState(getIdentifier(), part.getState())
+        RMResourcePack.addBlockState(
+            getIdentifier(),
+            BlockStateModelGenerator.createSingletonBlockState(block, part.shape.getState())
+        )
 
-        RMResourcePack.addBlockLootTable(getIdentifier(), LootTableUtil.createSimple(getIdentifier()))
+        RMResourcePack.addBlockLootTable(
+            getIdentifier(),
+            BlockLootTableGenerator.drops(this).build()
+        )
 
         RMResourcePack.addItemModel(getIdentifier(), part.shape.getModel())
-
-        part.getRecipe().forEach(RMResourcePack::addRecipe)
 
         return block
     }

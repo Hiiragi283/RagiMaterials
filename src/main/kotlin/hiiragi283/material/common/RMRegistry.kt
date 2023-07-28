@@ -1,6 +1,5 @@
 package hiiragi283.material.common
 
-import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.block.registerMaterialOreBlocks
 import hiiragi283.material.api.block.registerMaterialStorageBlocks
 import hiiragi283.material.api.fluid.MaterialFluid
@@ -10,8 +9,8 @@ import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.api.shape.ShapeType
 import hiiragi283.material.common.item.RespawnBookItem
+import hiiragi283.material.common.util.TagUtil
 import hiiragi283.material.common.util.hiiragiId
-import net.minecraft.util.registry.Registry
 
 object RMRegistry {
 
@@ -27,18 +26,6 @@ object RMRegistry {
             .filter { it.hasOre }
             .forEach { registerMaterialOreBlocks(it) }
 
-    }
-
-    fun loadBlockItems() {
-        //Initialize BlockItems
-        MaterialRegistry.getMaterials().forEach { material ->
-            ShapeRegistry.getShapes()
-                .filter { it.getType() == ShapeType.BLOCK }
-                .map { Registry.BLOCK.get(HiiragiPart(it, material).getId()) }
-                .filterIsInstance<MaterialBlock>()
-                .map { MaterialBlockItem(it) }
-                .forEach { it.register() }
-        }
     }
 
     fun loadFluids() {
@@ -96,7 +83,9 @@ object RMRegistry {
                 .filterNot { it.isEmpty() }
                 .map { it.getCommonId() }
                 .forEach {
-                    RMResourcePack.addItemTag(hiiragiId(material.name), it, true)
+                    RMResourcePack.addItemTag(TagUtil.getItemTag(hiiragiId(material.name))) {
+                        this.addTag(it)
+                    }
                 }
         }
     }

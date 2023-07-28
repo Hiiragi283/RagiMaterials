@@ -27,18 +27,19 @@ object PartRegistry {
 
     //TagKeyから取得する
     @JvmStatic
-    fun getParts(state: BlockState): List<HiiragiPart> = getPartsFromStream(state.streamTags())
+    fun getParts(state: BlockState): Set<HiiragiPart> = getPartsFromStream(state.streamTags())
 
     //TagKeyから取得する
     @JvmStatic
-    fun getParts(stack: ItemStack): List<HiiragiPart> =
+    fun getParts(stack: ItemStack): Set<HiiragiPart> =
         stack.takeUnless(ItemStack::isEmpty)
             ?.let(ItemStack::streamTags)
-            ?.let(::getPartsFromStream) ?: listOf()
+            ?.let(::getPartsFromStream) ?: setOf()
 
-    private fun <T : Any> getPartsFromStream(stream: Stream<TagKey<T>>): List<HiiragiPart> = stream.toList()
+    private fun <T : Any> getPartsFromStream(stream: Stream<TagKey<T>>): Set<HiiragiPart> = stream.toList()
         .map(PartRegistry::getPart)
         .filterNot(HiiragiPart::isEmpty)
+        .toSet()
 
     //    registerTag    //
 
@@ -56,6 +57,11 @@ object PartRegistry {
 
         REGISTRY[tag] = part
 
+    }
+
+    @JvmStatic
+    fun registerTags(map: Map<TagKey<*>, HiiragiPart>) {
+        map.forEach(::registerTag)
     }
 
     //    init    //

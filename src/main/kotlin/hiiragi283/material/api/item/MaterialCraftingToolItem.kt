@@ -4,15 +4,15 @@ import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.RMItemColorProvider
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.common.RMResourcePack
-import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
-import net.devtech.arrp.json.models.JModel
-import net.devtech.arrp.json.recipe.JRecipe
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
 import net.minecraft.item.*
+import net.minecraft.tag.TagKey
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
+import pers.solid.brrp.v1.model.ModelJsonBuilder
 
 abstract class MaterialCraftingToolItem(
     val type: String,
@@ -36,13 +36,17 @@ abstract class MaterialCraftingToolItem(
 
         getRecipes().forEach(RMResourcePack::addRecipe)
 
-        RMResourcePack.addItemTag(commonId("${type}s"), getIdentifier())
+        RMResourcePack.addItemTag(getTag()) {
+            this.add(getIdentifier())
+        }
 
         return item
     }
 
-    abstract fun getModel(): JModel
+    abstract fun getModel(): ModelJsonBuilder
 
-    abstract fun getRecipes(): Map<Identifier, JRecipe>
+    abstract fun getRecipes(): Map<Identifier, CraftingRecipeJsonBuilder>
+
+    abstract fun getTag(): TagKey<Item>
 
 }

@@ -1,14 +1,12 @@
 package hiiragi283.material.api.part
 
+import hiiragi283.material.api.item.MaterialItemConvertible
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.common.util.commonId
 import hiiragi283.material.common.util.hiiragiId
-import net.devtech.arrp.json.blockstate.JState
-import net.devtech.arrp.json.recipe.JRecipe
-import net.devtech.arrp.json.recipe.JResult
-import net.devtech.arrp.json.recipe.JStackedResult
 import net.minecraft.client.resource.language.I18n
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
 import net.minecraft.entity.Entity
 import net.minecraft.tag.TagKey
 import net.minecraft.text.LiteralText
@@ -21,7 +19,7 @@ import net.minecraft.world.World
 import net.minecraft.world.explosion.Explosion
 import kotlin.math.roundToInt
 
-data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
+data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) : PartConvertible {
 
     private val replacedId: String = shape.prefixId.replace("@", material.name)
     private val replacedTag: String = shape.prefixTag.replace("@", material.name)
@@ -73,11 +71,7 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
     fun getName(): String = I18n.translate(shape.getTranslationKey(), material.getTranslatedName())
 
-    fun getRecipe(): Map<Identifier, JRecipe> = shape.getRecipe(this)
-
-    fun getResult(count: Int = 1): JStackedResult = JResult.stackedResult(getId().toString(), count)
-
-    fun getState(): JState = shape.getState(this)
+    fun getRecipe(output: MaterialItemConvertible): Map<Identifier, CraftingRecipeJsonBuilder> = shape.getRecipe(output)
 
     fun getCommonId(): Identifier = commonId(replacedTag)
 
@@ -88,5 +82,9 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     fun setMaterial(material: HiiragiMaterial): HiiragiPart = HiiragiPart(shape, material)
 
     fun setShape(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, material)
+
+    //    PartConvertible    //
+
+    override fun asPart(): HiiragiPart = this
 
 }

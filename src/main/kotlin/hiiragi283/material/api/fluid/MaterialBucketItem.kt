@@ -34,10 +34,10 @@ abstract class MaterialBucketItem(fluid: Fluid) :
 
             override fun register(): Item {
 
-                RMResourcePack.addItemModel(getIdentifier(), ModelUtil.getItemModel {
-                    layer0("minecraft:item/bucket")
-                    layer1("ragi_materials:item/bucket_layer")
-                })
+                RMResourcePack.addItemModel(
+                    getIdentifier(),
+                    ModelUtil.createSimple("item/bucket", "ragi_materials:item/bucket_layer")
+                )
 
                 return Registry.register(Registry.ITEM, getIdentifier(), this)
             }

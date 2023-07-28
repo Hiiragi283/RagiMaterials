@@ -1,15 +1,14 @@
 package hiiragi283.material.api.shape
 
+import hiiragi283.material.api.item.MaterialItemConvertible
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.common.util.ModelUtil
-import hiiragi283.material.common.util.StateUtil
-import net.devtech.arrp.json.blockstate.JState
-import net.devtech.arrp.json.models.JModel
-import net.devtech.arrp.json.recipe.JRecipe
+import hiiragi283.material.common.util.hiiragiId
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Blocks
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
 import net.minecraft.util.Identifier
+import pers.solid.brrp.v1.model.ModelJsonBuilder
 
 fun shapeOf(
     name: String,
@@ -17,19 +16,20 @@ fun shapeOf(
     prefixId: String,
     prefixTag: String = prefixId,
     blockSettings: AbstractBlock.Settings = AbstractBlock.Settings.copy(Blocks.AIR),
-    model: JModel = ModelUtil.getItemModel { layer0("minecraft:item/iron_ingot") },
-    recipes: (HiiragiPart) -> Map<Identifier, JRecipe> = { mapOf() },
-    state: (HiiragiPart) -> JState = { StateUtil.createSimple(it.getId()) },
+    model: ModelJsonBuilder = ModelUtil.createSimple("item/iron_ingot"),
+    recipes: (MaterialItemConvertible) -> Map<Identifier, CraftingRecipeJsonBuilder> = { mapOf() },
+    state: Identifier = hiiragiId("block/block_metal"),
     type: ShapeType = ShapeType.ITEM
 ): HiiragiShape = object : HiiragiShape(name, scale, prefixId, prefixTag) {
 
     override fun getBlockSettings(): AbstractBlock.Settings = blockSettings
 
-    override fun getModel(): JModel = model
+    override fun getModel(): ModelJsonBuilder = model
 
-    override fun getRecipe(part: HiiragiPart): Map<Identifier, JRecipe> = recipes(part)
+    override fun getRecipe(output: MaterialItemConvertible): Map<Identifier, CraftingRecipeJsonBuilder> =
+        recipes(output)
 
-    override fun getState(part: HiiragiPart): JState = state(part)
+    override fun getState(): Identifier = state
 
     override fun getType(): ShapeType = type
 
@@ -44,11 +44,11 @@ abstract class HiiragiShape internal constructor(
 
     abstract fun getBlockSettings(): AbstractBlock.Settings
 
-    abstract fun getModel(): JModel
+    abstract fun getModel(): ModelJsonBuilder
 
-    abstract fun getRecipe(part: HiiragiPart): Map<Identifier, JRecipe>
+    abstract fun getRecipe(output: MaterialItemConvertible): Map<Identifier, CraftingRecipeJsonBuilder>
 
-    abstract fun getState(part: HiiragiPart): JState
+    abstract fun getState(): Identifier
 
     abstract fun getType(): ShapeType
 

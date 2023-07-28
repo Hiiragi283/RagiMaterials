@@ -4,7 +4,6 @@ import hiiragi283.material.api.HiiragiItem
 import hiiragi283.material.common.RMResourcePack
 import hiiragi283.material.common.util.hiiragiId
 import hiiragi283.material.common.util.playHypixel
-import net.devtech.arrp.json.models.JModel
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
@@ -16,6 +15,7 @@ import net.minecraft.util.Rarity
 import net.minecraft.util.TypedActionResult
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import pers.solid.brrp.v1.model.ModelJsonBuilder
 
 object RespawnBookItem : HiiragiItem(
     FabricItemSettings()
@@ -49,7 +49,7 @@ object RespawnBookItem : HiiragiItem(
 
     override fun register(): Item {
 
-        RMResourcePack.addItemModel(getIdentifier(), JModel.model().parent("item/writable_book"))
+        RMResourcePack.addItemModel(getIdentifier(), ModelJsonBuilder.create("item/writable_book"))
 
         return super.register()
     }

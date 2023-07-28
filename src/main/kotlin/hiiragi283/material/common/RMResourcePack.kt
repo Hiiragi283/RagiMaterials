@@ -2,106 +2,83 @@ package hiiragi283.material.common
 
 import hiiragi283.material.common.util.appendBefore
 import hiiragi283.material.common.util.hiiragiId
-import net.devtech.arrp.api.RRPCallback
-import net.devtech.arrp.api.RuntimeResourcePack
-import net.devtech.arrp.json.blockstate.JState
-import net.devtech.arrp.json.loot.JLootTable
-import net.devtech.arrp.json.models.JModel
-import net.devtech.arrp.json.recipe.JRecipe
-import net.devtech.arrp.json.tags.JTag
+import net.minecraft.block.Block
+import net.minecraft.data.client.BlockStateSupplier
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
+import net.minecraft.data.server.recipe.RecipeJsonProvider
+import net.minecraft.item.Item
+import net.minecraft.loot.LootTable
+import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
+import pers.solid.brrp.v1.api.RuntimeResourcePack
+import pers.solid.brrp.v1.fabric.api.RRPCallback
+import pers.solid.brrp.v1.model.ModelJsonBuilder
+import pers.solid.brrp.v1.tag.IdentifiedTagBuilder
 
 object RMResourcePack {
 
     private val RESOURCE_PACK: RuntimeResourcePack = RuntimeResourcePack.create(hiiragiId("runtime"))
 
+    private val TAG_REGISTRY: HashMap<TagKey<*>, IdentifiedTagBuilder<*>> = hashMapOf()
+
+    fun register() {
+        TAG_REGISTRY.forEach { RESOURCE_PACK.addTag(it.key, it.value) }
+        RRPCallback.AFTER_VANILLA.register { it.add(RESOURCE_PACK) }
+    }
+
     //    BlockState    //
 
-    fun addBlockState(identifier: Identifier, state: JState) {
-        RESOURCE_PACK.addBlockState(state, identifier)
+    fun addBlockState(identifier: Identifier, state: BlockStateSupplier) {
+        RESOURCE_PACK.addBlockState(identifier, state)
     }
 
     //    LootTable    //
 
-    private fun addLootTable(identifier: Identifier, lootTable: JLootTable) {
+    private fun addLootTable(identifier: Identifier, lootTable: LootTable) {
         RESOURCE_PACK.addLootTable(identifier, lootTable)
     }
 
-    fun addBlockLootTable(identifier: Identifier, lootTable: JLootTable) {
-        addLootTable(identifier.appendBefore("block/"), lootTable)
+    fun addBlockLootTable(identifier: Identifier, lootTable: LootTable) {
+        addLootTable(identifier.appendBefore("blocks/"), lootTable)
     }
 
     //    Model    //
 
-    private fun addModel(identifier: Identifier, model: JModel) {
-        RESOURCE_PACK.addModel(model, identifier)
+    private fun addModel(identifier: Identifier, model: ModelJsonBuilder) {
+        RESOURCE_PACK.addModel(identifier, model)
     }
 
-    fun addBlockModel(identifier: Identifier, model: JModel) {
+    fun addBlockModel(identifier: Identifier, model: ModelJsonBuilder) {
         addModel(identifier.appendBefore("block/"), model)
     }
 
 
-    fun addItemModel(identifier: Identifier, model: JModel) {
+    fun addItemModel(identifier: Identifier, model: ModelJsonBuilder) {
         addModel(identifier.appendBefore("item/"), model)
     }
 
     //    Recipe    //
 
-    fun addRecipe(identifier: Identifier, recipe: JRecipe) {
+    fun addRecipe(identifier: Identifier, recipe: RecipeJsonProvider) {
         RESOURCE_PACK.addRecipe(identifier, recipe)
+    }
+
+    fun addRecipe(identifier: Identifier, recipe: CraftingRecipeJsonBuilder) {
+        RESOURCE_PACK.addRecipeAndAdvancement(identifier, recipe)
     }
 
     //    Tag    //
 
-    private val REGISTRY: HashMap<Identifier, MutableList<Identifier>> = hashMapOf()
-
-    private fun addTag(identifier: Identifier, tag: Identifier, isTag: Boolean = false) {
-        val list = REGISTRY[identifier] ?: mutableListOf()
-        if (isTag) list.add(tag) else list.add(tag)
-        REGISTRY[identifier] = list
+    fun addBlockTag(tagKey: TagKey<Block>, init: IdentifiedTagBuilder<*>.() -> Unit) {
+        val builder = TAG_REGISTRY[tagKey] ?: IdentifiedTagBuilder.createBlock(tagKey)
+        builder.init()
+        TAG_REGISTRY[tagKey] = builder
     }
 
-    fun addBlockTag(identifier: Identifier, tag: Identifier, isTag: Boolean = false) {
-        addTag(identifier.appendBefore("blocks/"), tag, isTag)
-    }
-
-    fun addBlockAndItemTag(identifier: Identifier, tag: Identifier, isTag: Boolean = false) {
-        addBlockTag(identifier, tag, isTag)
-        addItemTag(identifier, tag, isTag)
-    }
-
-    fun addItemTag(identifier: Identifier, tag: Identifier, isTag: Boolean = false) {
-        addTag(identifier.appendBefore("items/"), tag, isTag)
-    }
-
-    /*private fun addTag(identifier: Identifier, tag: JTag) {
-        RESOURCE_PACK.addTag(identifier, tag)
-    }
-
-    fun addBlockTag(identifier: Identifier, tag: JTag) {
-        addTag(identifier.appendBefore("blocks/"), tag)
-    }
-
-    fun addBlockAndItemTag(identifier: Identifier, tag: JTag) {
-        addBlockTag(identifier, tag)
-        addItemTag(identifier, tag)
-    }
-
-    fun addItemTag(identifier: Identifier, tag: JTag) {
-        addTag(identifier.appendBefore("items/"), tag)
-    }*/
-
-    //    Register    //
-
-    fun register() {
-        for ((id, list) in REGISTRY) {
-            val jTag = JTag.tag()
-            list.forEach { jTag.add(it) }
-            RESOURCE_PACK.addTag(id, jTag)
-        }
-        RRPCallback.AFTER_VANILLA.register { it.add(RESOURCE_PACK) }
-        RagiMaterials.LOGGER.info("The resource pack registered!")
+    fun addItemTag(tagKey: TagKey<Item>, init: IdentifiedTagBuilder<*>.() -> Unit) {
+        val builder = TAG_REGISTRY[tagKey] ?: IdentifiedTagBuilder.createItem(tagKey)
+        builder.init()
+        TAG_REGISTRY[tagKey] = builder
     }
 
 }

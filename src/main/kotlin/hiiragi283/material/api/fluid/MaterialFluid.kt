@@ -20,6 +20,8 @@ import net.minecraft.world.WorldView
 
 class MaterialFluid(val material: HiiragiMaterial = HiiragiMaterial.EMPTY) : Fluid(), HiiragiEntry.FLUID {
 
+    override fun asItem(): Item = bucket
+
     override fun getIdentifier(): Identifier = hiiragiId(material.name)
 
     private val bucket = MaterialBucketItem.of(this, material)

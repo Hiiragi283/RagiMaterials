@@ -1,18 +1,19 @@
 package hiiragi283.material.api.shape
 
+import hiiragi283.material.common.RMTags
 import hiiragi283.material.common.RagiMaterials
 import hiiragi283.material.common.util.*
-import net.devtech.arrp.json.models.JModel
-import net.devtech.arrp.json.recipe.JIngredients
-import net.devtech.arrp.json.recipe.JKeys
-import net.devtech.arrp.json.recipe.JPattern
-import net.devtech.arrp.json.recipe.JRecipe
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Blocks
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder
+import net.minecraft.util.registry.Registry
+import pers.solid.brrp.v1.model.ModelJsonBuilder
 
 object ShapeRegistry {
 
     private val REGISTRY: LinkedHashMap<String, HiiragiShape> = linkedMapOf()
+    private var isLocked: Boolean = false
 
     @JvmStatic
     fun getShapes(): Collection<HiiragiShape> = REGISTRY.values
@@ -22,6 +23,13 @@ object ShapeRegistry {
 
     @JvmStatic
     fun registerShape(shape: HiiragiShape) {
+
+        //ロックされている場合はパス
+        if (isLocked) {
+            RagiMaterials.LOGGER.error("ShapeRegistry is already locked!")
+            RagiMaterials.LOGGER.error("Shapes should be registered at \"ragi_materials\" entrypoint")
+            return
+        }
 
         //EMPTYを渡された場合はパス
         if (shape == HiiragiShape.EMPTY) return
@@ -58,17 +66,16 @@ object ShapeRegistry {
         9.0,
         "@_blocks",
         blockSettings = AbstractBlock.Settings.copy(Blocks.IRON_BLOCK),
-        model = JModel.model(hiiragiId("block/block_metal")),
+        model = ModelJsonBuilder().parent(hiiragiId("block/block_metal")),
         recipes = {
             mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(ingotFake).getCommonId()),
-                    it.getResult()
-                )
+                it.asPart().getId().append("_shaped") to ShapedRecipeJsonBuilder.create(it)
+                    .get3x3('A')
+                    .input('A', it.asPart().setShape(ingotFake).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(ingotFake, it.asPart().material)
             )
         },
-        state = { StateUtil.createSimple(hiiragiId("block/block_metal")) },
+        state = hiiragiId("block/block_metal"),
         type = ShapeType.BLOCK
     )
 
@@ -78,17 +85,16 @@ object ShapeRegistry {
         9.0,
         "@_blocks",
         blockSettings = AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK),
-        model = JModel.model(hiiragiId("block/block_gem")),
+        model = ModelJsonBuilder().parent(hiiragiId("block/block_gem")),
         recipes = {
             mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(gemFake).getCommonId()),
-                    it.getResult()
-                )
+                it.asPart().getId().append("_shaped") to ShapedRecipeJsonBuilder.create(it)
+                    .get3x3('A')
+                    .input('A', it.asPart().setShape(gemFake).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(gemFake, it.asPart().material)
             )
         },
-        state = { StateUtil.createSimple(hiiragiId("block/block_gem")) },
+        state = hiiragiId("block/block_gem"),
         type = ShapeType.BLOCK
     )
 
@@ -98,8 +104,8 @@ object ShapeRegistry {
         1.0,
         "@_ores",
         blockSettings = AbstractBlock.Settings.copy(Blocks.STONE),
-        model = JModel.model(hiiragiId("block/ore_stone")),
-        state = { StateUtil.createSimple(hiiragiId("block/ore_stone")) },
+        model = ModelJsonBuilder().parent(hiiragiId("block/ore_stone")),
+        state = hiiragiId("block/ore_stone"),
         type = ShapeType.BLOCK
     )
 
@@ -113,8 +119,8 @@ object ShapeRegistry {
             .hardness(3.0f)
             .nonOpaque()
             .resistance(6.0f),
-        model = JModel.model(hiiragiId("block/ore_nether")),
-        state = { StateUtil.createSimple(hiiragiId("block/ore_nether")) },
+        model = ModelJsonBuilder().parent(hiiragiId("block/ore_nether")),
+        state = hiiragiId("block/ore_nether"),
         type = ShapeType.BLOCK
     )
 
@@ -128,8 +134,8 @@ object ShapeRegistry {
             .hardness(3.0f)
             .nonOpaque()
             .resistance(6.0f),
-        model = JModel.model(hiiragiId("block/ore_end")),
-        state = { StateUtil.createSimple(hiiragiId("block/ore_end")) },
+        model = ModelJsonBuilder().parent(hiiragiId("block/ore_end")),
+        state = hiiragiId("block/ore_end"),
         type = ShapeType.BLOCK
     )
 
@@ -143,8 +149,8 @@ object ShapeRegistry {
             .hardness(3.0f)
             .nonOpaque()
             .resistance(6.0f),
-        model = JModel.model(hiiragiId("block/ore_deep")),
-        state = { StateUtil.createSimple(hiiragiId("block/ore_deep")) },
+        model = ModelJsonBuilder().parent(hiiragiId("block/ore_deep")),
+        state = hiiragiId("block/ore_deep"),
         type = ShapeType.BLOCK
     )
 
@@ -163,14 +169,13 @@ object ShapeRegistry {
         "dust",
         1.0,
         "@_dusts",
-        model = ModelUtil.getItemModel { layer0("ragi_materials:item/dust") },
+        model = ModelUtil.createSimple(hiiragiId("item/dust")),
         recipes = {
             mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(DUST_TINY).getCommonId()),
-                    it.getResult()
-                )
+                it.asPart().getId().append("_shaped") to ShapedRecipeJsonBuilder.create(it)
+                    .get3x3('A')
+                    .input('A', it.asPart().setShape(DUST_TINY).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(DUST_TINY, it.asPart().material)
             )
         }
     )
@@ -180,13 +185,12 @@ object ShapeRegistry {
         "dust_tiny",
         0.1,
         "@_tiny_dusts",
-        model = ModelUtil.getItemModel { layer0("ragi_materials:item/dust_tiny") },
+        model = ModelUtil.createSimple(hiiragiId("item/dust_tiny")),
         recipes = {
             mapOf(
-                it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(dustFake).getCommonId()),
-                    it.getResult(9)
-                )
+                it.asPart().getId().append("_shapeless") to ShapelessRecipeJsonBuilder.create(it, 9)
+                    .input(it.asPart().setShape(dustFake).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(dustFake, it.asPart().material)
             )
         }
     )
@@ -196,17 +200,17 @@ object ShapeRegistry {
         "gear",
         4.0,
         "@_gears",
-        model = ModelUtil.getItemModel { layer0("ragi_materials:item/gear") },
+        model = ModelUtil.createSimple(hiiragiId("item/gear")),
         recipes = {
-            if (it.material.isMetal()) mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    JPattern.pattern(" A ", "ABA", " A "),
-                    JKeys.keys()
-                        .addTag("A", it.setShape(ingotFake).getCommonId())
-                        .addTag("B", commonId("hammers")),
-                    it.getResult()
-                )
-            ) else mapOf()
+            mapOf(
+                it.asPart().getId().append("_shaped") to ShapedRecipeJsonBuilder.create(it)
+                    .pattern(" A ")
+                    .pattern("ABA")
+                    .pattern(" A ")
+                    .input('A', it.asPart().setShape(ingotFake).getTagKey(Registry.ITEM_KEY))
+                    .input('B', RMTags.HAMMERS)
+                    .criterionFromMaterial(ingotFake, it.asPart().material)
+            )
         }
     )
 
@@ -215,13 +219,12 @@ object ShapeRegistry {
         "gem",
         1.0,
         "@_gems",
-        model = ModelUtil.getItemModel { layer0("minecraft:item/quartz") },
+        model = ModelUtil.createSimple("item/quartz"),
         recipes = {
             mapOf(
-                it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(BLOCK_GEM).getCommonId()),
-                    it.getResult(9)
-                )
+                it.asPart().getId().append("_shapeless") to ShapelessRecipeJsonBuilder.create(it, 9)
+                    .input(it.asPart().setShape(BLOCK_GEM).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(BLOCK_GEM, it.asPart().material)
             )
         }
     )
@@ -233,15 +236,13 @@ object ShapeRegistry {
         "@_ingots",
         recipes = {
             mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    get3x3('A'),
-                    JKeys.keys().addTag("A", it.setShape(NUGGET).getCommonId()),
-                    it.getResult()
-                ),
-                it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(BLOCK_METAL).getCommonId()),
-                    it.getResult(9)
-                )
+                it.asPart().getId().append("_shaped") to ShapedRecipeJsonBuilder.create(it)
+                    .get3x3('A')
+                    .input('A', it.asPart().setShape(NUGGET).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(NUGGET, it.asPart().material),
+                it.asPart().getId().append("_shapeless") to ShapelessRecipeJsonBuilder.create(it, 9)
+                    .input(it.asPart().setShape(BLOCK_METAL).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(BLOCK_METAL, it.asPart().material)
             )
         }
     )
@@ -251,13 +252,12 @@ object ShapeRegistry {
         "nugget",
         0.1,
         "@_nuggets",
-        model = ModelUtil.getItemModel { layer0("minecraft:item/iron_nugget") },
+        model = ModelUtil.createSimple("item/iron_nugget"),
         recipes = {
             mapOf(
-                it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients().addTag(it.setShape(ingotFake).getCommonId()),
-                    it.getResult(9)
-                )
+                it.asPart().getId().append("_shapeless") to ShapelessRecipeJsonBuilder.create(it, 9)
+                    .input(it.asPart().setShape(ingotFake).getTagKey(Registry.ITEM_KEY))
+                    .criterionFromMaterial(ingotFake, it.asPart().material)
             )
         }
     )
@@ -267,16 +267,15 @@ object ShapeRegistry {
         "plate",
         1.0,
         "@_plates",
-        model = ModelUtil.getItemModel { layer0("ragi_materials:item/plate") },
+        model = ModelUtil.createSimple(hiiragiId("item/plate")),
         recipes = {
-            val base = if (it.material.isGem()) gemFake else ingotFake
+            val material = it.asPart().material
+            val base = if (material.isGem()) gemFake else ingotFake
             mapOf(
-                it.getId().append("_shapeless") to JRecipe.shapeless(
-                    JIngredients.ingredients()
-                        .addTag(it.setShape(base).getCommonId())
-                        .addTag(commonId("hammers")),
-                    it.getResult()
-                )
+                it.asPart().getId().append("_shapeless") to ShapelessRecipeJsonBuilder.create(it)
+                    .input(it.asPart().setShape(base).getTagKey(Registry.ITEM_KEY))
+                    .input(RMTags.HAMMERS)
+                    .criterionFromMaterial(base, material)
             )
         }
     )
@@ -289,17 +288,17 @@ object ShapeRegistry {
         "rod",
         0.5,
         "@_rods",
-        model = ModelUtil.getItemModel { layer0("ragi_materials:item/rod") },
+        model = ModelUtil.createSimple(hiiragiId("item/rod")),
         recipes = {
-            val base = if (it.material.isGem()) gemFake else ingotFake
+            val material = it.asPart().material
+            val base = if (material.isGem()) gemFake else ingotFake
             mapOf(
-                it.getId().append("_shaped") to JRecipe.shaped(
-                    JPattern.pattern("AB", "A "),
-                    JKeys.keys()
-                        .addTag("A", it.setShape(base).getCommonId())
-                        .addTag("B", commonId("files")),
-                    it.getResult(4)
-                )
+                it.asPart().getId().append("_shaped") to ShapedRecipeJsonBuilder.create(it, 4)
+                    .pattern("AB")
+                    .pattern("A ")
+                    .input('A', it.asPart().setShape(base).getTagKey(Registry.ITEM_KEY))
+                    .input('B', RMTags.FILES)
+                    .criterionFromMaterial(base, material)
             )
         }
     )
@@ -323,6 +322,10 @@ object ShapeRegistry {
         registerShape(PLATE)
         //registerShape(RAW_ORE)
         registerShape(ROD)
+    }
+
+    fun lock() {
+        isLocked = true
     }
 
 }

@@ -6,6 +6,7 @@ import hiiragi283.material.common.RagiMaterials
 object MaterialRegistry {
 
     private val REGISTRY: LinkedHashMap<String, HiiragiMaterial> = linkedMapOf()
+    private var isLocked: Boolean = false
 
     @JvmStatic
     fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
@@ -15,6 +16,13 @@ object MaterialRegistry {
 
     @JvmStatic
     fun registerMaterial(material: HiiragiMaterial) {
+
+        //ロックされている場合はパス
+        if (isLocked) {
+            RagiMaterials.LOGGER.error("MaterialRegistry is already locked!")
+            RagiMaterials.LOGGER.error("Materials should be registered at \"ragi_materials\" entrypoint")
+            return
+        }
 
         //EMPTYを渡された場合はパス
         if (material == HiiragiMaterial.EMPTY) {
@@ -48,6 +56,10 @@ object MaterialRegistry {
 
         RMResourceHandler.load()
         RagiMaterials.LOGGER.info("Materials from data packs loaded!")
+    }
+
+    fun lock() {
+        isLocked = true
     }
 
 }

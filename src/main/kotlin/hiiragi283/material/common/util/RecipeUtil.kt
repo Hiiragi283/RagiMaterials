@@ -1,43 +1,31 @@
-@file:JvmName("FileUtil")
+@file:JvmName("RecipeUtil")
 
 package hiiragi283.material.common.util
 
-import net.devtech.arrp.json.recipe.JIngredient
-import net.devtech.arrp.json.recipe.JIngredients
-import net.devtech.arrp.json.recipe.JKeys
-import net.devtech.arrp.json.recipe.JPattern
-import net.minecraft.item.Item
-import net.minecraft.util.Identifier
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.shape.HiiragiShape
+import net.minecraft.data.server.recipe.CraftingRecipeJsonBuilder
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
+import net.minecraft.util.registry.Registry
+import pers.solid.brrp.v1.recipe.RecipeJsonBuilderExtension
 
 //    Pattern    //
 
-fun get3x3(key: Char): JPattern = JPattern.pattern("$key$key$key", "$key$key$key", "$key$key$key")
-
-//    Key    //
-
-fun JKeys.addItem(key: String, item: Item): JKeys = also {
-    it.key(key, JIngredient.ingredient().item(item))
+fun ShapedRecipeJsonBuilder.get3x3(key: Char) = also {
+    it.pattern("$key$key$key")
+    it.pattern("$key$key$key")
+    it.pattern("$key$key$key")
 }
 
-fun JKeys.addTag(key: String, tag: String): JKeys = also {
-    it.key(key, JIngredient.ingredient().tag(tag))
-}
+//    Criterion    //
 
-fun JKeys.addTag(key: String, tag: Identifier): JKeys = also {
-    it.key(key, JIngredient.ingredient().tag(tag.toString()))
-}
-
-
-//    Ingredient    //
-
-fun JIngredients.addItem(item: Item) = also {
-    it.add(JIngredient.ingredient().item(item))
-}
-
-fun JIngredients.addTag(tag: String) = also {
-    it.add(JIngredient.ingredient().tag(tag))
-}
-
-fun JIngredients.addTag(tag: Identifier) = also {
-    it.add(JIngredient.ingredient().tag(tag.toString()))
+fun CraftingRecipeJsonBuilder.criterionFromMaterial(
+    shape: HiiragiShape,
+    material: HiiragiMaterial
+) = also {
+    if (it is RecipeJsonBuilderExtension<*>) it.criterionFromItemTag(
+        "has_${shape.name}",
+        HiiragiPart(shape, material).getTagKey(Registry.ITEM_KEY)
+    )
 }

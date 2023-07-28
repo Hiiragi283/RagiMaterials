@@ -6,16 +6,17 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.ShapeRegistry
 import hiiragi283.material.common.RMResourcePack
-import hiiragi283.material.common.util.*
-import net.devtech.arrp.json.recipe.JKeys
-import net.devtech.arrp.json.recipe.JPattern
-import net.devtech.arrp.json.recipe.JRecipe
-import net.devtech.arrp.json.recipe.JResult
+import hiiragi283.material.common.util.ModelUtil
+import hiiragi283.material.common.util.criterionFromMaterial
+import hiiragi283.material.common.util.hiiragiId
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
 import net.minecraft.item.*
 import net.minecraft.text.Text
 import net.minecraft.text.TranslatableText
 import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
 
 open class MaterialHoeItem(
     val material: HiiragiMaterial,
@@ -36,19 +37,22 @@ open class MaterialHoeItem(
 
         val item = super.register()
 
-        RMResourcePack.addItemModel(getIdentifier(), ModelUtil.getItemModel { layer0("minecraft:item/iron_hoe") })
+        RMResourcePack.addItemModel(getIdentifier(), ModelUtil.createSimple("item/iron_hoe"))
 
         RMResourcePack.addRecipe(
-            getIdentifier(), JRecipe.shaped(
-                JPattern.pattern("AA", "B ", "B "),
-                JKeys.keys()
-                    .addTag("A", HiiragiPart(ShapeRegistry.INGOT, material).getCommonId().toString())
-                    .addItem("B", Items.STICK),
-                JResult.item(item)
-            )
+            getIdentifier(),
+            ShapedRecipeJsonBuilder.create(item)
+                .pattern("AA")
+                .pattern(" B")
+                .pattern(" B")
+                .input('A', HiiragiPart(ShapeRegistry.INGOT, material).getTagKey(Registry.ITEM_KEY))
+                .input('B', Items.STICK)
+                .criterionFromMaterial(ShapeRegistry.INGOT, material)
         )
 
-        RMResourcePack.addItemTag(commonId("hoes"), getIdentifier())
+        RMResourcePack.addItemTag(ConventionalItemTags.HOES) {
+            this.add(getIdentifier())
+        }
 
         return item
     }
