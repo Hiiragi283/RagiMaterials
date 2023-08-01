@@ -7,7 +7,7 @@ import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialIntegration
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartRegistry
-import hiiragi283.material.api.shape.ShapeRegistry
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.OreDictUtil
 import hiiragi283.material.util.getBlock
@@ -15,7 +15,6 @@ import hiiragi283.material.util.getItem
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader
-import net.minecraftforge.registries.IForgeRegistry
 
 object RMIntegrationCore {
 
@@ -35,91 +34,91 @@ object RMIntegrationCore {
 
     fun onPreInit() {}
 
-    fun register(registry: IForgeRegistry<HiiragiMaterial>) {
-        registry.register(MaterialIntegration.REDSTONE)
-        registry.register(MaterialIntegration.LAPIS)
-        registry.register(MaterialIntegration.GLOWSTONE)
-        registry.register(MaterialIntegration.ENDER_PEARL)
+    fun register(registry: MutableList<HiiragiMaterial>) {
+        registry.add(MaterialIntegration.REDSTONE)
+        registry.add(MaterialIntegration.LAPIS)
+        registry.add(MaterialIntegration.GLOWSTONE)
+        registry.add(MaterialIntegration.ENDER_PEARL)
         if (thermal) {
             RagiMaterials.LOGGER.info("Enabled integration: Thermal Series")
-            registry.register(MaterialIntegration.MITHRIL)
-            registry.register(MaterialIntegration.SIGNALUM)
-            registry.register(MaterialIntegration.LUMIUM)
-            registry.register(MaterialIntegration.ENDERIUM)
-            registry.register(MaterialIntegration.PYROTHEUM)
-            registry.register(MaterialIntegration.CRYOTHEUM)
-            registry.register(MaterialIntegration.AEROTHEUM)
-            registry.register(MaterialIntegration.PETROTHEUM)
+            registry.add(MaterialIntegration.MITHRIL)
+            registry.add(MaterialIntegration.SIGNALUM)
+            registry.add(MaterialIntegration.LUMIUM)
+            registry.add(MaterialIntegration.ENDERIUM)
+            registry.add(MaterialIntegration.PYROTHEUM)
+            registry.add(MaterialIntegration.CRYOTHEUM)
+            registry.add(MaterialIntegration.AEROTHEUM)
+            registry.add(MaterialIntegration.PETROTHEUM)
         }
         if (mekanism) {
             RagiMaterials.LOGGER.info("Enabled integration: Mekanism")
-            registry.register(MaterialIntegration.OBSIDIAN_REFINED)
-            registry.register(MaterialIntegration.GLOWSTONE_REFINED)
+            registry.add(MaterialIntegration.OBSIDIAN_REFINED)
+            registry.add(MaterialIntegration.GLOWSTONE_REFINED)
         }
         if (enderIO) {
             RagiMaterials.LOGGER.info("Enabled integration: Ender IO")
-            registry.register(MaterialIntegration.ELECTRICAL_STEEL)
-            registry.register(MaterialIntegration.ENERGETIC_ALLOY)
-            registry.register(MaterialIntegration.VIBRANT_ALLOY)
-            registry.register(MaterialIntegration.REDSTONE_ALLOY)
-            registry.register(MaterialIntegration.CONDUCTIVE_IRON)
-            registry.register(MaterialIntegration.PULSATING_IRON)
-            registry.register(MaterialIntegration.DARK_STEEL)
-            registry.register(MaterialIntegration.SOULARIUM)
-            registry.register(MaterialIntegration.END_STEEL)
-            registry.register(MaterialIntegration.IRON_ALLOY)
+            registry.add(MaterialIntegration.ELECTRICAL_STEEL)
+            registry.add(MaterialIntegration.ENERGETIC_ALLOY)
+            registry.add(MaterialIntegration.VIBRANT_ALLOY)
+            registry.add(MaterialIntegration.REDSTONE_ALLOY)
+            registry.add(MaterialIntegration.CONDUCTIVE_IRON)
+            registry.add(MaterialIntegration.PULSATING_IRON)
+            registry.add(MaterialIntegration.DARK_STEEL)
+            registry.add(MaterialIntegration.SOULARIUM)
+            registry.add(MaterialIntegration.END_STEEL)
+            registry.add(MaterialIntegration.IRON_ALLOY)
         }
         if (thaum) {
             RagiMaterials.LOGGER.info("Enabled integration: Thaumcraft")
-            registry.register(MaterialIntegration.THAUMIUM)
-            registry.register(MaterialIntegration.VOID_METAL)
+            registry.add(MaterialIntegration.THAUMIUM)
+            registry.add(MaterialIntegration.VOID_METAL)
         }
         if (botania) {
             RagiMaterials.LOGGER.info("Enabled integration: Botania")
-            registry.register(MaterialIntegration.MANASTEEL)
-            registry.register(MaterialIntegration.MANA_DIAMOND)
-            registry.register(MaterialIntegration.TERRASTEEL)
-            registry.register(MaterialIntegration.ELEMENTIUM)
-            registry.register(MaterialIntegration.DRAGONSTONE)
+            registry.add(MaterialIntegration.MANASTEEL)
+            registry.add(MaterialIntegration.MANA_DIAMOND)
+            registry.add(MaterialIntegration.TERRASTEEL)
+            registry.add(MaterialIntegration.ELEMENTIUM)
+            registry.add(MaterialIntegration.DRAGONSTONE)
         }
         if (embers) {
             RagiMaterials.LOGGER.info("Enabled integration: Embers")
-            registry.register(MaterialIntegration.DAWNSTONE)
+            registry.add(MaterialIntegration.DAWNSTONE)
         }
         if (projectRed) {
             RagiMaterials.LOGGER.info("Enabled integration: ProjectRed")
-            registry.register(MaterialIntegration.ELECTROTINE)
-            registry.register(MaterialIntegration.RED_ALLOY)
-            registry.register(MaterialIntegration.ELECTROTINE_ALLOY)
+            registry.add(MaterialIntegration.ELECTROTINE)
+            registry.add(MaterialIntegration.RED_ALLOY)
+            registry.add(MaterialIntegration.ELECTROTINE_ALLOY)
         }
         if (tCon) {
             RagiMaterials.LOGGER.info("Enabled integration: Tinker's Construct")
-            registry.register(MaterialIntegration.ARDITE)
-            registry.register(MaterialIntegration.MANYULLYN)
-            registry.register(MaterialIntegration.ALUMINIUM_BRASS)
+            registry.add(MaterialIntegration.ARDITE)
+            registry.add(MaterialIntegration.MANYULLYN)
+            registry.add(MaterialIntegration.ALUMINIUM_BRASS)
         }
     }
 
 
     fun onInit() {
-        OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
-        OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
-        OreDictUtil.register(ShapeRegistry.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
+        OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
+        OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
+        OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
 
         OreDictUtil.register(
-            ShapeRegistry.DUST.getOreDict(MaterialCommon.GUNPOWDER),
+            HiiragiShapes.DUST.getOreDict(MaterialCommon.GUNPOWDER),
             Items.GUNPOWDER,
             share = "gunpowder"
         )
-        OreDictUtil.register(ShapeRegistry.DUST.getOreDict(MaterialCommon.SUGAR), Items.SUGAR, share = "sugar")
-        OreDictUtil.register(ShapeRegistry.GEM.getOreDict(MaterialCommon.CHARCOAL), Items.COAL, 1, share = "charcoal")
-        OreDictUtil.register(ShapeRegistry.GEM.getOreDict(MaterialCommon.COAL), Items.COAL, share = "coal")
+        OreDictUtil.register(HiiragiShapes.DUST.getOreDict(MaterialCommon.SUGAR), Items.SUGAR, share = "sugar")
+        OreDictUtil.register(HiiragiShapes.GEM.getOreDict(MaterialCommon.CHARCOAL), Items.COAL, 1, share = "charcoal")
+        OreDictUtil.register(HiiragiShapes.GEM.getOreDict(MaterialCommon.COAL), Items.COAL, share = "coal")
         OreDictUtil.register(
-            ShapeRegistry.GEM.getOreDict(MaterialIntegration.ENDER_PEARL),
+            HiiragiShapes.GEM.getOreDict(MaterialIntegration.ENDER_PEARL),
             Items.ENDER_PEARL,
             share = "enderpearl"
         )
-        OreDictUtil.register(ShapeRegistry.STICK.getOreDict(MaterialCommon.WOOD), Items.STICK, share = "stick")
+        OreDictUtil.register(HiiragiShapes.STICK.getOreDict(MaterialCommon.WOOD), Items.STICK, share = "stick")
 
         //OreDictUtil.shareOredict("dustSaltpeter", "dustNiter")
         OreDictUtil.shareOredict("fuelCoke", "gemCoke")
@@ -128,39 +127,39 @@ object RMIntegrationCore {
     fun onPostInit() {
         if (botania) {
             OreDictUtil.register(
-                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
+                HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
                 getBlock("botania:storage"),
                 0
             )
             OreDictUtil.register(
-                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.TERRASTEEL),
+                HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.TERRASTEEL),
                 getBlock("botania:storage"),
                 1
             )
             OreDictUtil.register(
-                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.ELEMENTIUM),
+                HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.ELEMENTIUM),
                 getBlock("botania:storage"),
                 2
             )
             OreDictUtil.register(
-                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.MANA_DIAMOND),
+                HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANA_DIAMOND),
                 getBlock("botania:storage"),
                 3
             )
             OreDictUtil.register(
-                ShapeRegistry.BLOCK.getOreDict(MaterialIntegration.DRAGONSTONE),
+                HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.DRAGONSTONE),
                 getBlock("botania:storage"),
                 4
             )
 
             OreDictUtil.register(
-                ShapeRegistry.GEM.getOreDict(MaterialIntegration.MANA_DIAMOND),
+                HiiragiShapes.GEM.getOreDict(MaterialIntegration.MANA_DIAMOND),
                 getItem("botania:manaresource"),
                 2,
                 "manaDiamond"
             )
             OreDictUtil.register(
-                ShapeRegistry.GEM.getOreDict(MaterialIntegration.DRAGONSTONE),
+                HiiragiShapes.GEM.getOreDict(MaterialIntegration.DRAGONSTONE),
                 getItem("botania:manaresource"),
                 9,
                 "elvenDragonstone"
@@ -168,90 +167,90 @@ object RMIntegrationCore {
         }
         if (enderIO) {
             OreDictUtil.register(
-                ShapeRegistry.BALL.getOreDict(MaterialIntegration.SIGNALUM),
+                HiiragiShapes.BALL.getOreDict(MaterialIntegration.SIGNALUM),
                 getItem("enderio:item_material"),
                 57
             )
             OreDictUtil.register(
-                ShapeRegistry.BALL.getOreDict(MaterialIntegration.LUMIUM),
+                HiiragiShapes.BALL.getOreDict(MaterialIntegration.LUMIUM),
                 getItem("enderio:item_material"),
                 58
             )
             OreDictUtil.register(
-                ShapeRegistry.BALL.getOreDict(MaterialIntegration.ENDERIUM),
+                HiiragiShapes.BALL.getOreDict(MaterialIntegration.ENDERIUM),
                 getItem("enderio:item_material"),
                 59
             )
         }
         if (ic2Ex) {
             OreDictUtil.register(
-                ShapeRegistry.INGOT.getOreDict(MaterialCommon.RUBBER),
+                HiiragiShapes.INGOT.getOreDict(MaterialCommon.RUBBER),
                 getItem("ic2:crafting"),
                 0,
                 "itemRubber"
             )
             OreDictUtil.register(
-                ShapeRegistry.DUST.getOreDict(MaterialIntegration.ENDER_PEARL),
+                HiiragiShapes.DUST.getOreDict(MaterialIntegration.ENDER_PEARL),
                 getItem("ic2:dust"),
                 31,
                 "dustEnderPearl"
             )
             OreDictUtil.register(
-                ShapeRegistry.DUST.getOreDict(MaterialCommon.EMERALD),
+                HiiragiShapes.DUST.getOreDict(MaterialCommon.EMERALD),
                 getItem("ic2:dust"),
                 34
             )
             OreDictUtil.register(
-                ShapeRegistry.DUST_TINY.getOreDict(MaterialCommon.EMERALD),
+                HiiragiShapes.DUST_TINY.getOreDict(MaterialCommon.EMERALD),
                 getItem("ic2:dust"),
                 35
             )
             OreDictUtil.register(
-                ShapeRegistry.DUST.getOreDict(MaterialCommon.ASH),
+                HiiragiShapes.DUST.getOreDict(MaterialCommon.ASH),
                 getItem("ic2:misc_resource"),
                 0,
             )
             OreDictUtil.register(
-                ShapeRegistry.DUST_TINY.getOreDict(MaterialElements.IODINE),
+                HiiragiShapes.DUST_TINY.getOreDict(MaterialElements.IODINE),
                 getItem("ic2:misc_resource"),
                 6,
             )
             OreDictUtil.register(
-                ShapeRegistry.INGOT.getOreDict(MaterialElements.URANIUM235),
+                HiiragiShapes.INGOT.getOreDict(MaterialElements.URANIUM235),
                 getItem("ic2:nuclear"),
                 1,
             )
             OreDictUtil.register(
-                ShapeRegistry.INGOT.getOreDict(MaterialElements.URANIUM),
+                HiiragiShapes.INGOT.getOreDict(MaterialElements.URANIUM),
                 getItem("ic2:nuclear"),
                 2,
             )
             OreDictUtil.register(
-                ShapeRegistry.INGOT.getOreDict(MaterialElements.PLUTONIUM),
+                HiiragiShapes.INGOT.getOreDict(MaterialElements.PLUTONIUM),
                 getItem("ic2:nuclear"),
                 3,
             )
             OreDictUtil.register(
-                ShapeRegistry.NUGGET.getOreDict(MaterialElements.URANIUM235),
+                HiiragiShapes.NUGGET.getOreDict(MaterialElements.URANIUM235),
                 getItem("ic2:nuclear"),
                 5,
             )
             OreDictUtil.register(
-                ShapeRegistry.NUGGET.getOreDict(MaterialElements.URANIUM),
+                HiiragiShapes.NUGGET.getOreDict(MaterialElements.URANIUM),
                 getItem("ic2:nuclear"),
                 6,
             )
             OreDictUtil.register(
-                ShapeRegistry.NUGGET.getOreDict(MaterialElements.PLUTONIUM),
+                HiiragiShapes.NUGGET.getOreDict(MaterialElements.PLUTONIUM),
                 getItem("ic2:nuclear"),
                 6,
             )
         }
         if (thaum) {
-            PartRegistry.registerTag("quicksilver", HiiragiPart(ShapeRegistry.GEM, MaterialCommon.CINNABAR))
+            PartRegistry.registerTag("quicksilver", HiiragiPart(HiiragiShapes.GEM, MaterialCommon.CINNABAR))
             PartRegistry.registerTag(
                 "nuggetQuicksilver",
-                HiiragiPart(ShapeRegistry.NUGGET, MaterialCommon.CINNABAR)
+                HiiragiPart(HiiragiShapes.NUGGET, MaterialCommon.CINNABAR)
             )
         }
     }

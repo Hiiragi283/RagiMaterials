@@ -1,20 +1,17 @@
 package hiiragi283.material.api.item
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.util.RMModelManager
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.registries.IForgeRegistry
 
-abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), HiiragiEntry<Item> {
+abstract class HiiragiItem(val modid: String, id: String, private var maxMeta: Int) : Item(), HiiragiEntry.ITEM {
 
     init {
-        setRegistryName(RagiMaterials.MODID, id)
+        setRegistryName(modid, id)
         creativeTab = CreativeTabs.MISC
         hasSubtypes = maxMeta > 0
         maxMeta = 0.coerceAtLeast(maxMeta)
@@ -23,7 +20,7 @@ abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), Hiira
 
     //    General    //
 
-    override fun getCreatorModId(stack: ItemStack): String = RagiMaterials.MODID
+    override fun getCreatorModId(stack: ItemStack): String = modid
 
     override fun getMetadata(damage: Int): Int = if (damage in 0..maxMeta) damage else maxMeta
 
@@ -43,15 +40,5 @@ abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), Hiira
             }
         }
     }
-
-    //    HiiragiEntry    //
-
-    override fun register(registry: IForgeRegistry<Item>) {
-        registry.register(this)
-        RagiMaterials.LOGGER.debug("The item $registryName was registered!")
-    }
-
-    @SideOnly(Side.CLIENT)
-    override fun registerModel(): Unit = RMModelManager.setModel(this)
 
 }

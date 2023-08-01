@@ -1,18 +1,18 @@
 package hiiragi283.material.config
 
+import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.CrystalType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialType
 import hiiragi283.material.api.material.materialOf
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
-import net.minecraftforge.registries.IForgeRegistry
 import java.io.File
 
 class RMJSonHandler(event: FMLPreInitializationEvent) {
 
     //"instance/config/ragi_materials"のディレクトリを取得
-    private val configs = File(event.modConfigurationDirectory, RagiMaterials.MODID)
+    private val configs = File(event.modConfigurationDirectory, RMReference.MOD_ID)
 
     init {
         //フォルダがない場合は生成する
@@ -23,8 +23,8 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
 
         private val CACHE: MutableList<HiiragiMaterial> = mutableListOf()
 
-        fun register(registry: IForgeRegistry<HiiragiMaterial>) {
-            CACHE.forEach { registry.register(it) }
+        fun register(registry: MutableList<HiiragiMaterial>) {
+            CACHE.forEach { registry.add(it) }
         }
 
     }
@@ -32,7 +32,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
     //"instance/config/ragi_materials"フォルダ内にサンプルファイルを生成する
     fun writeJson() {
         //サンプルを生成しない場合はパス
-        if (!RMConfig.MISC.sampleJson) return
+        if (!RMConfig.MATERIAL.sampleJson) return
         val sample = File(configs, "/example.json")
         //ファイルを新規作成
         try {

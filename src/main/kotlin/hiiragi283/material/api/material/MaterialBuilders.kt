@@ -8,6 +8,11 @@ import kotlin.math.roundToInt
 
 //    Material    //
 
+/**
+ * Creates new simple material
+ * @param init Initialize a property of this material
+ * @sample [MaterialElements.HYDROGEN]
+ */
 fun materialOf(name: String, index: Int, init: HiiragiMaterial.() -> Unit = {}): HiiragiMaterial {
     val material = HiiragiMaterial(name, index)
     material.init()
@@ -16,6 +21,12 @@ fun materialOf(name: String, index: Int, init: HiiragiMaterial.() -> Unit = {}):
 
 //    Isotope    //
 
+/**
+ * Creates new isotope material
+ * @param parent Material from which properties are copied.
+ * @param init Initialize a property of this material
+ * @sample [MaterialElements.DEUTERIUM]
+ */
 fun isotopeOf(name: String, index: Int, parent: HiiragiMaterial, init: HiiragiMaterial.() -> Unit): HiiragiMaterial {
     val isotope = HiiragiMaterial(name, index).also {
         it.color = parent.color
@@ -31,6 +42,12 @@ fun isotopeOf(name: String, index: Int, parent: HiiragiMaterial, init: HiiragiMa
 
 //    Compound    //
 
+/**
+ * Creates new compound material
+ * @param components Map of [HiiragiMaterial] and [Int] which represents the composition of this material
+ * @param init Initialize a property of this material
+ * @sample [MaterialCommon.WATER]
+ */
 fun compoundOf(
     name: String,
     index: Int,
@@ -121,6 +138,12 @@ private fun initTempSubl(material: HiiragiMaterial, components: Map<HiiragiMater
 
 //    Mixture    //
 
+/**
+ * Creates new mixture material
+ * @param components List of [HiiragiMaterial] which represents the composition of this material
+ * @param init Initialize a property of this material
+ * @sample [MaterialCommon.WOOD]
+ */
 fun mixtureOf(
     name: String,
     index: Int,
@@ -150,10 +173,20 @@ private fun initFormula(material: HiiragiMaterial, components: List<HiiragiMater
 
 //    Formula String    //
 
+/**
+ * Creates new material only contains chemical formula
+ * @sample [HiiragiMaterial.UNKNOWN]
+ */
 fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial.EMPTY.copy(formula = formula)
 
 //    Hydrate    //
 
+/**
+ * Creates new mixture material
+ * @param parent Dehydrated material
+ * @param init Initialize a property of this material
+ * @sample [MaterialCommon.BAUXITE]
+ */
 fun hydrateOf(
     name: String,
     index: Int,
@@ -182,6 +215,12 @@ fun initFormula(material: HiiragiMaterial, parent: HiiragiMaterial, amountWater:
 
 //    Polymer    //
 
+/**
+ * Creates new polymer material
+ * @param monomar Map of [HiiragiMaterial] and [Int] which represents the monomar of this material
+ * @param init Initialize a property of this material
+ * @sample [MaterialCommon.PLASTIC]
+ */
 fun polymerOf(
     name: String,
     index: Int,

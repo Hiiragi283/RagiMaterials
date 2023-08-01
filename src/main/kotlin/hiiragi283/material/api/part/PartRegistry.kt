@@ -12,41 +12,72 @@ object PartRegistry {
 
     private val REGISTRY: HashMap<String, HiiragiPart> = hashMapOf()
 
-    private var hasInit: Boolean = false
+    fun init() {
+        ShapeRegistry.getShapes().forEach { shape ->
+            MaterialRegistry.getMaterials()
+                .map { HiiragiPart(shape, it) }
+                .forEach { registerTag(it.getOreDicts(), it) }
+        }
+    }
 
-    //    getMaterialPart    //
-
+    /**
+     * Returns [HiiragiPart] with given Ore Dictionary name from [REGISTRY]
+     * @return [HiiragiPart.EMPTY] if there is no material with given name
+     */
     @JvmStatic
     fun getPart(oredict: String): HiiragiPart = REGISTRY.getOrDefault(oredict, HiiragiPart.EMPTY)
 
+    /**
+     * Returns list of [HiiragiPart] with given Ore Dictionary name from [REGISTRY]
+     * @return a new list excluded [HiiragiPart.EMPTY]
+     */
     @JvmStatic
     fun getParts(oredict: String): List<HiiragiPart> = listOf(getPart(oredict)).filterNot(HiiragiPart::isEmpty)
 
+    /**
+     * Returns list of [HiiragiPart] with given list of Ore Dictionary names from [REGISTRY]
+     * @return a new list excluded [HiiragiPart.EMPTY]
+     */
     @JvmStatic
     fun getParts(oredicts: Collection<String>): List<HiiragiPart> =
         oredicts.map(::getPart).filterNot(HiiragiPart::isEmpty)
 
-    //ItemStackに変換した後，鉱石辞書から取得する
+    /**
+     * Returns list of [HiiragiPart] with given [IBlockState]
+     *
+     * The state will be converted into [ItemStack], then get entries by [getParts]
+     * @return a new list excluded [HiiragiPart.EMPTY]
+     */
     @JvmStatic
-    fun getParts(state: IBlockState): Set<HiiragiPart> {
+    fun getParts(state: IBlockState): List<HiiragiPart> {
         return state
             .let(IBlockState::toItemStack)
             .let(this::getParts)
     }
 
-    //鉱石辞書から取得する
+    /**
+     * Returns list of [HiiragiPart] with given [ItemStack]
+     *
+     * The stack will be converted into Ore Dictionary names, then get entries from [REGISTRY]
+     *
+     * @return a new list excluded [HiiragiPart.EMPTY]
+     */
     @JvmStatic
-    fun getParts(stack: ItemStack): Set<HiiragiPart> {
+    fun getParts(stack: ItemStack): List<HiiragiPart> {
         return stack.takeUnless(ItemStack::isEmpty)
             ?.let(OreDictionary::getOreIDs)
             ?.map(OreDictionary::getOreName)
             ?.map(PartRegistry::getPart)
-            ?.filterNot(HiiragiPart::isEmpty)
-            ?.toSet() ?: setOf()
+            ?.filterNot(HiiragiPart::isEmpty) ?: listOf()
     }
 
     //    registerTag    //
 
+    /**
+     * Registers [HiiragiPart] with given Ore Dictionary name
+     *
+     * Will be skipped if [HiiragiPart.EMPTY] given or the same oredict is already registered
+     */
     @JvmStatic
     fun registerTag(oredict: String, part: HiiragiPart) {
 
@@ -57,30 +88,18 @@ object PartRegistry {
 
         REGISTRY[oredict]?.let {
             RagiMaterials.LOGGER.warn("The part: $it will be overrided by $oredict!")
+            return
         }
 
         REGISTRY[oredict] = part
     }
 
+    /**
+     * Registers the same [HiiragiPart] for each Ore Dictionary names
+     */
     @JvmStatic
     fun registerTag(oredicts: Collection<String>, part: HiiragiPart) {
         oredicts.forEach { registerTag(it, part) }
-    }
-
-    fun init() {
-
-        if (hasInit) {
-            RagiMaterials.LOGGER.warn("PartRegistry is already initialized!")
-            return
-        }
-
-        REGISTRY.clear()
-        ShapeRegistry.getShapes().forEach { shape ->
-            MaterialRegistry.getMaterials()
-                .map { HiiragiPart(shape, it) }
-                .filterNot { it.isEmpty() }
-                .forEach { registerTag(it.getOreDicts(), it) }
-        }
     }
 
 }

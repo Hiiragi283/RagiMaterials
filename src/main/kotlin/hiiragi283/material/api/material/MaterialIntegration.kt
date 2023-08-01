@@ -1,5 +1,6 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 
@@ -16,7 +17,9 @@ object MaterialIntegration {
         tempBoil = 1201
         tempMelt = 1122
         validShapes.addAll(MaterialType.SOLID)
-        validShapes.add("block")
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("dust")
+        }
     }
 
     @JvmField
@@ -24,6 +27,10 @@ object MaterialIntegration {
         color = RagiColor.BLUE.rgb
         crystalType = CrystalType.LAPIS
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("block")
+            validShapes.remove("gem")
+        }
     }
 
     @JvmField
@@ -35,6 +42,9 @@ object MaterialIntegration {
         tempBoil = 1201
         tempMelt = 1122
         validShapes.addAll(MaterialType.SOLID)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("dust")
+        }
     }
 
     @JvmField
@@ -64,7 +74,7 @@ object MaterialIntegration {
         1011,
         mapOf(MaterialElements.COPPER to 4, MaterialElements.GOLD to 1, REDSTONE to 10)
     ) {
-        color = ColorUtil.mixColor(RagiColor.RED, RagiColor.YELLOW).rgb
+        color = 0xFF9E08
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
@@ -75,7 +85,7 @@ object MaterialIntegration {
         1012,
         mapOf(MaterialElements.TIN to 4, MaterialElements.SILVER to 1, GLOWSTONE to 4)
     ) {
-        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
+        color = 0xDFE58F
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
@@ -97,7 +107,7 @@ object MaterialIntegration {
         1014,
         mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialElements.SULFUR to 1)
     ) {
-        color = ColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE).rgb
+        color = RagiColor.YELLOW.rgb
     }
 
     @JvmField
@@ -106,7 +116,7 @@ object MaterialIntegration {
         1015,
         mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommon.WATER.addBracket() to 1)
     ) {
-        color = ColorUtil.mixColor(RagiColor.AQUA, RagiColor.WHITE).rgb
+        color = RagiColor.AQUA.rgb
     }
 
     @JvmField
@@ -147,7 +157,7 @@ object MaterialIntegration {
         1021,
         mapOf(GLOWSTONE to 1, MaterialElements.OSMIUM to 1)
     ) {
-        color = ColorUtil.mixColor(RagiColor.YELLOW to 2, RagiColor.WHITE to 1).rgb
+        color = RagiColor.YELLOW.rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
@@ -291,14 +301,14 @@ object MaterialIntegration {
 
     @JvmField
     val MANASTEEL = mixtureOf("manasteel", 1050, listOf(MaterialElements.IRON, MANA)) {
-        color = ColorUtil.mixColor(RagiColor.DARK_BLUE to 1, RagiColor.AQUA to 1, RagiColor.WHITE to 2).rgb
+        color = 0x8CAFF1
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommon.DIAMOND, MANA)) {
-        color = ColorUtil.mixColor(RagiColor.AQUA to 1, RagiColor.WHITE to 2).rgb
+        color = 0x69F2FF
         crystalType = CrystalType.DIAMOND
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
@@ -312,14 +322,14 @@ object MaterialIntegration {
 
     @JvmField
     val ELEMENTIUM = mixtureOf("elven_elementium", 1054, listOf(MaterialElements.IRON, MANA)) {
-        color = RagiColor.LIGHT_PURPLE.rgb
+        color = 0xF697CB
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommon.DIAMOND, MANA)) {
-        color = RagiColor.LIGHT_PURPLE.rgb
+        color = 0xF697CB
         crystalType = CrystalType.DIAMOND
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }

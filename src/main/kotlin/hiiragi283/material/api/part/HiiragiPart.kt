@@ -1,6 +1,6 @@
 package hiiragi283.material.api.part
 
-import hiiragi283.material.RagiMaterials
+import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.client.resources.I18n
@@ -8,6 +8,9 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.registry.GameRegistry
 import kotlin.math.roundToInt
 
+/**
+ * Pair of [HiiragiShape] and [HiiragiMaterial]
+ */
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
     private val weight: Double = (material.molar * shape.scale * 10.0).roundToInt() / 10.0
@@ -18,16 +21,10 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
     }
 
-    fun isEmpty(): Boolean = this == EMPTY
-
-    fun isValid(): Boolean = !isEmpty() && shape.isValid(material)
-
-    fun getDefaultItemStack(): ItemStack =
-        GameRegistry.makeItemStack("${RagiMaterials.MODID}:${shape.name}", material.index, 1, null)
-
-    fun getOreDicts(): List<String> = shape.getOreDicts(material)
-
-    fun getTooltip(tooltip: MutableList<String>) {
+    /**
+     * Adds tips for [tooltip]
+     */
+    fun addTooltip(tooltip: MutableList<String>) {
         if (isEmpty()) return
         tooltip.add("§e=== Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.getTranslatedName(material)))
@@ -42,6 +39,24 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
         if (material.hasTempSubl())
             tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl))
     }
+
+    /**
+     * Returns true if this object equals [EMPTY]
+     */
+    fun isEmpty(): Boolean = this == EMPTY
+
+    /**
+     * Returns ItemStack with given shape and material.
+     *
+     * Will return [ItemStack.EMPTY] if item with [HiiragiShape.name] is not registered
+     */
+    fun getDefaultItemStack(amount: Int = 1): ItemStack =
+        GameRegistry.makeItemStack("${RMReference.MOD_ID}:${shape.name}", material.index, amount, null)
+
+    /**
+     * Returns list of All Ore Dictionaries from [shape] and [material]
+     */
+    fun getOreDicts(): List<String> = shape.getOreDicts(material)
 
     override fun toString(): String = "${shape.name}:${material.name}"
 

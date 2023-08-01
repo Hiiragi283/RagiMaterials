@@ -23,7 +23,7 @@ object MaterialType {
     }
 
     @JvmField
-    val GEM_4xADVANCED: Set<String> = SOLID.toMutableSet().also {
+    val GEM_4xADVANCED: Set<String> = GEM_4x.toMutableSet().also {
         it.add("plate")
         it.add("stick")
     }

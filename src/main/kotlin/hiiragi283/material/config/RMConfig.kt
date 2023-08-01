@@ -1,18 +1,18 @@
 package hiiragi283.material.config
 
-import hiiragi283.material.RagiMaterials
+import hiiragi283.material.RMReference
 import net.minecraftforge.common.config.Config
 
-@Config(modid = RagiMaterials.MODID)
+@Config(modid = RMReference.MOD_ID)
 object RMConfig {
 
     @Config.Name("Integration")
     @JvmField
     val INTEGRATION = Integration()
 
-    @Config.Name("Misc")
+    @Config.Name("Material")
     @JvmField
-    val MISC = Misc()
+    val MATERIAL = Material()
 
     class Integration {
 
@@ -73,7 +73,12 @@ object RMConfig {
 
     }
 
-    class Misc {
+    class Material {
+
+        @Config.Name("Disable Vanilla Parts")
+        @Config.RequiresMcRestart
+        @JvmField
+        var disableVanillaParts: Boolean = false
 
         @Config.Name("Enable Lanthanides")
         @Config.RequiresMcRestart

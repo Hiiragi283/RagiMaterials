@@ -1,10 +1,10 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.ColorUtil
 import hiiragi283.material.util.RagiColor
 import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
-import net.minecraftforge.registries.IForgeRegistry
 
 object MaterialCommon {
 
@@ -71,6 +71,11 @@ object MaterialCommon {
         color = RagiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("block")
+            validShapes.remove("gem")
+        }
+
     }
 
     //    Carbon    //
@@ -79,12 +84,20 @@ object MaterialCommon {
     val COAL = compoundOf("coal", 10600, mapOf(MaterialElements.CARBON to 1)) {
         crystalType = CrystalType.COAL
         validShapes.addAll(MaterialType.GEM_9x)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("block")
+            validShapes.remove("gem")
+        }
     }
 
     @JvmField
     val CHARCOAL = compoundOf("charcoal", 10601, mapOf(MaterialElements.CARBON to 1)) {
         crystalType = CrystalType.COAL
         validShapes.addAll(MaterialType.GEM_9x)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            //validShapes.remove("block")
+            validShapes.remove("gem")
+        }
     }
 
     @JvmField
@@ -99,6 +112,10 @@ object MaterialCommon {
         color = RagiColor.AQUA.rgb
         crystalType = CrystalType.DIAMOND
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("block")
+            validShapes.remove("gem")
+        }
     }
 
     @JvmField
@@ -109,6 +126,9 @@ object MaterialCommon {
     ) {
         color = RagiColor.WHITE.rgb
         validShapes.addAll(MaterialType.SOLID)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("dust")
+        }
     }
 
     @JvmField
@@ -169,6 +189,9 @@ object MaterialCommon {
     ) {
         color = RagiColor.DARK_GRAY.rgb
         validShapes.addAll(MaterialType.SOLID)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("dust")
+        }
     }
 
     //    Fluorine    //
@@ -296,6 +319,9 @@ object MaterialCommon {
         crystalType = CrystalType.QUARTZ
         oreDictAlt = mutableListOf("nether_quartz")
         validShapes.addAll(MaterialType.GEM_4xADVANCED)
+        if (RMConfig.MATERIAL.disableVanillaParts) {
+            validShapes.remove("gem")
+        }
     }
 
     @JvmField
@@ -442,12 +468,12 @@ object MaterialCommon {
         validShapes.addAll(MaterialType.GEM_9x)
     }
 
-    fun register(registry: IForgeRegistry<HiiragiMaterial>) {
+    fun register(registry: MutableList<HiiragiMaterial>) {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiMaterial>()
-            .forEach { registry.register(it) }
+            .forEach { registry.add(it) }
     }
 
 }

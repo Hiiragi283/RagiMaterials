@@ -1,48 +1,70 @@
 package hiiragi283.material.api.shape
 
-import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.item.ItemMaterial
+import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.util.RMModelManager
+import hiiragi283.material.util.HiiragiModelManager
 import net.minecraft.client.resources.I18n
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.registries.IForgeRegistryEntry
 import rechellatek.snakeToLowerCamelCase
 
+/**
+ * Creates new shape
+ */
 fun shapeOf(
     name: String,
     scale: Double,
-    model: (ItemMaterial) -> Unit = { RMModelManager.setModelSame(it) },
-    recipe: (ItemMaterial, HiiragiMaterial) -> Unit = { _, _ -> },
+    model: (HiiragiEntry<*>) -> Unit = { HiiragiModelManager.setModelSame(it.getItem()) },
+    recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> },
 ): HiiragiShape {
     return object : HiiragiShape(name, scale) {
 
-        override fun getModel(item: ItemMaterial) = model(item)
+        override fun registerModel(entry: HiiragiEntry<*>) = model(entry)
 
-        override fun getRecipe(item: ItemMaterial, material: HiiragiMaterial) = recipe(item, material)
+        override fun registerRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) = recipe(entry, material)
 
     }
 }
 
-abstract class HiiragiShape internal constructor(val name: String, val scale: Double) :
-    IForgeRegistryEntry<HiiragiShape> {
+/**
+ * An object which represents the shape of [net.minecraft.item.Item]
+ *
+ * Should be registered in [net.minecraftforge.event.RegistryEvent.Register]<[HiiragiShape]>
+ */
 
-    abstract fun getModel(item: ItemMaterial)
+abstract class HiiragiShape internal constructor(val name: String, val scale: Double) {
 
-    abstract fun getRecipe(item: ItemMaterial, material: HiiragiMaterial)
+    /**
+     * Registers model on [net.minecraftforge.client.event.ModelRegistryEvent]
+     */
+    abstract fun registerModel(entry: HiiragiEntry<*>)
+
+    /**
+     * Registers recipes for [entry] with [material]
+     */
+    abstract fun registerRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial)
 
     companion object {
         @JvmField
         val EMPTY = shapeOf("empty", 0.0)
     }
 
+    /**
+     * Returns true if [name] equals "empty"
+     */
     fun isEmpty(): Boolean = this.name == "empty"
 
+    /**
+     * Returns primal Ore Dictionary name with given [material]
+     * @return a String value
+     */
     fun getOreDict(material: HiiragiMaterial): String = StringBuilder().also {
         it.append(name.snakeToLowerCamelCase())
         it.append(material.getOreDictName())
     }.toString()
 
+    /**
+     * Returns all Ore Dictionary name with given [material]
+     * @return a list of String
+     */
     fun getOreDicts(material: HiiragiMaterial): List<String> {
         val list: MutableList<String> = mutableListOf()
         list.add(getOreDict(material))
@@ -57,25 +79,20 @@ abstract class HiiragiShape internal constructor(val name: String, val scale: Do
         return list.filter(String::isNotEmpty)
     }
 
+    /**
+     * Returns translated name with given [material]
+     */
+    fun getTranslatedName(material: HiiragiMaterial): String =
+        I18n.format("shape.$name", I18n.format(material.translationKey))
 
-    fun getTranslatedName(material: HiiragiMaterial): String = I18n.format("shape.$name", material.translatedName)
-
+    /**
+     * Returns true if [scale] is bigger than 0.0
+     */
     fun hasScale(): Boolean = scale > 0.0
 
+    /**
+     * Returns true if [HiiragiMaterial.validShapes] contains this [name]
+     */
     fun isValid(material: HiiragiMaterial): Boolean = name in material.validShapes
-
-    //    IForgeRegistryEntry    //
-
-    private val location: ResourceLocation
-        get() = ResourceLocation(RagiMaterials.MODID, name)
-
-    override fun getRegistryName(): ResourceLocation = location
-
-    @Suppress("UNCHECKED_CAST")
-    override fun getRegistryType(): Class<HiiragiShape> = this::class.java as Class<HiiragiShape>
-
-    override fun setRegistryName(name: ResourceLocation): HiiragiShape {
-        throw IllegalArgumentException("Cannot override Registry Name!")
-    }
 
 }

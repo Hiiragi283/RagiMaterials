@@ -1,5 +1,6 @@
 package hiiragi283.material.item
 
+import hiiragi283.material.RMReference
 import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.util.executeCommand
 import net.minecraft.entity.player.EntityPlayer
@@ -10,7 +11,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 
-object ItemBookRespawn : HiiragiItem("book_respawn", 0) {
+object ItemBookRespawn : HiiragiItem(RMReference.MOD_ID, "book_respawn", 0) {
 
     //    General    //
 

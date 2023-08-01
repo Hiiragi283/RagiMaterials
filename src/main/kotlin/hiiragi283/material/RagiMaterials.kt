@@ -7,7 +7,6 @@ import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.fluid.HiiragiFluids
 import hiiragi283.material.integration.RMIntegrationCore
-import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
@@ -18,22 +17,19 @@ import java.awt.Color
 import java.util.*
 
 @Mod(
-    modid = RagiMaterials.MODID,
-    name = "RagiMaterials",
-    version = Reference.VERSION,
+    modid = RMReference.MOD_ID,
+    name = RMReference.MOD_NAME,
+    version = RMReference.VERSION,
     dependencies = "required-after:forgelin_continuous;after:gregtech;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
 )
 object RagiMaterials {
 
-    //MOD IDの宣言
-    const val MODID = "ragi_materials"
-
     //各種変数の宣言
     val CALENDAR: Calendar = Calendar.getInstance()
     val COLOR: Color by lazy { Color(255, 0, 31) }
-    val LOGGER: Logger = LogManager.getLogger("RagiMaterials")
+    val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
 
     init {
         if (Loader.isModLoaded("gregtech")) {
@@ -51,12 +47,6 @@ object RagiMaterials {
     fun onConstruct(event: FMLConstructionEvent) {
         //Universal Bucketを有効化
         FluidRegistry.enableUniversalBucket()
-        //Eventの登録
-        MinecraftForge.EVENT_BUS.register(RMEventHandler)
-        //素材レジストリの生成
-        MaterialRegistry.init()
-        //形状レジストリの生成
-        ShapeRegistry.init()
     }
 
     @Mod.EventHandler
@@ -66,19 +56,23 @@ object RagiMaterials {
             this.writeJson()
             this.readJson()
         }
-        //液体の登録
-        HiiragiFluids.register()
         //連携の登録
         RMIntegrationCore.onPreInit()
     }
 
     @Mod.EventHandler
     fun onInit(event: FMLInitializationEvent) {
-        //MaterialPartとの紐づけ
+        //素材レジストリの初期化
+        MaterialRegistry.init()
+        //形状レジストリの初期化
+        ShapeRegistry.init()
+        //部品レジストリの初期化
         PartRegistry.init()
         //鉱石辞書の登録
+        RMBlocks.registerOreDict()
         RMItems.registerOreDict()
         //レシピの登録
+        RMBlocks.registerRecipe()
         RMItems.registerRecipe()
         //連携の登録
         RMIntegrationCore.onInit()
@@ -86,13 +80,15 @@ object RagiMaterials {
 
     @Mod.EventHandler
     fun onPostInit(event: FMLPostInitializationEvent) {
+        //液体の登録
+        HiiragiFluids.register()
         //連携の登録
         RMIntegrationCore.onPostInit()
     }
 
     @Mod.EventHandler
     fun onComplete(event: FMLLoadCompleteEvent) {
-        if (RMConfig.MISC.printMaterials) {
+        if (RMConfig.MATERIAL.printMaterials) {
             MaterialRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
         }
     }

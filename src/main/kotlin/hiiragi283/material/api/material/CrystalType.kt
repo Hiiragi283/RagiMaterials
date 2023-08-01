@@ -11,8 +11,8 @@ enum class CrystalType(val isCrystal: Boolean, val texture: String) {
     DIAMOND(true, "diamond"),
     EMERALD(true, "emerald"),
     LAPIS(true, "lapis"),
-    METAL(true, ""),
-    NONE(false, ""),
+    METAL(true, "cubic"),
+    NONE(false, "cubic"),
     QUARTZ(true, "quartz"),
     RUBY(true, "ruby");
 

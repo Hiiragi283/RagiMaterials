@@ -1,67 +1,81 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.RagiMaterials
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.registries.IForgeRegistry
-import net.minecraftforge.registries.IForgeRegistryInternal
-import net.minecraftforge.registries.RegistryBuilder
-import net.minecraftforge.registries.RegistryManager
+import hiiragi283.material.api.event.RMEventFactory
 
 object MaterialRegistry {
 
-    fun init() {}
+    private val REGISTRY: LinkedHashMap<String, HiiragiMaterial> = linkedMapOf()
+    private val CACHE: HashMap<Int, HiiragiMaterial> = hashMapOf()
+    private val INDEX_MAP: HashMap<Int, HiiragiMaterial> = hashMapOf()
 
-    private val MATERIAL = ResourceLocation(RagiMaterials.MODID, "material")
-    private val INDEX = ResourceLocation(RagiMaterials.MODID, "index_to_material")
+    fun init() {
+        val list: MutableList<HiiragiMaterial> = mutableListOf()
+        RMEventFactory.registerMaterial(list)
+        list.forEach { registerMaterial(it) }
+        //CACHEを消す
+        CACHE.clear()
+        //indexを昇順に並べて代入する
+        INDEX_MAP.putAll(REGISTRY.map { it.value.index to it.value }.toMap().toSortedMap())
+    }
 
-    private val REGISTRY: IForgeRegistry<HiiragiMaterial> = RegistryBuilder<HiiragiMaterial>()
-        .addCallback(CallBacks)
-        .disableOverrides()
-        .disableSaving()
-        .setDefaultKey(ResourceLocation(RagiMaterials.MODID, "empty"))
-        .setName(MATERIAL)
-        .setType(HiiragiMaterial::class.java)
-        .create()
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getIndexMap(owner: IForgeRegistry<HiiragiMaterial> = REGISTRY): HashMap<Int, HiiragiMaterial>? =
-        owner.getSlaveMap(INDEX, HashMap::class.java) as? HashMap<Int, HiiragiMaterial>
-
+    /**
+     * Returns a collection of [HiiragiMaterial] which registered in [REGISTRY]
+     */
     @JvmStatic
-    fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.valuesCollection
+    fun getMaterials(): Collection<HiiragiMaterial> = REGISTRY.values
 
+    /**
+     * Returns [HiiragiMaterial] with given name from [REGISTRY]
+     * @return [HiiragiMaterial.EMPTY] if there is no material with given name
+     */
     @JvmStatic
-    fun getMaterial(name: String): HiiragiMaterial =
-        REGISTRY.getValue(ResourceLocation(RagiMaterials.MODID, name)) ?: HiiragiMaterial.EMPTY
+    fun getMaterial(name: String): HiiragiMaterial = REGISTRY.getOrDefault(name, HiiragiMaterial.EMPTY)
 
+    /**
+     * Returns [HiiragiMaterial] with given index from [INDEX_MAP]
+     * @return [HiiragiMaterial.EMPTY] if there is no material with given index
+     */
     @Deprecated("")
     @JvmStatic
-    fun getMaterial(index: Int): HiiragiMaterial = getIndexMap()?.get(index) ?: HiiragiMaterial.EMPTY
+    fun getMaterial(index: Int): HiiragiMaterial = INDEX_MAP.getOrDefault(index, HiiragiMaterial.EMPTY)
 
-    private object CallBacks : IForgeRegistry.AddCallback<HiiragiMaterial>,
-        IForgeRegistry.CreateCallback<HiiragiMaterial> {
+    private fun registerMaterial(material: HiiragiMaterial) {
 
-        //    AddCallback    //
+        //EMPTYを渡された場合はパス
+        if (material == HiiragiMaterial.EMPTY) return
 
-        override fun onAdd(
-            owner: IForgeRegistryInternal<HiiragiMaterial>,
-            stage: RegistryManager,
-            id: Int,
-            obj: HiiragiMaterial,
-            oldObj: HiiragiMaterial?
-        ) {
-            if (oldObj == null) {
-                getIndexMap(owner)?.set(obj.index, obj)
-            } else {
-                throw IllegalArgumentException("The index: ${obj.index} of $obj is duplicated with $oldObj!")
-            }
+        //名前が空の場合はパス
+        val name = material.name
+        if (name.isEmpty()) {
+            RagiMaterials.LOGGER.warn("The name of $material is empty!")
+            return
         }
 
-        //    CreateCallback    //
-
-        override fun onCreate(owner: IForgeRegistryInternal<HiiragiMaterial>, stage: RegistryManager) {
-            owner.setSlaveMap(INDEX, hashMapOf<Int, HiiragiMaterial>())
+        //同じ名前で登録されていた場合はパス
+        if (REGISTRY[name] !== null) {
+            RagiMaterials.LOGGER.warn("$material is already registered!")
+            return
         }
+
+        //登録を行う
+        REGISTRY[name] = material
+
+        //番号が0 <= index <= 32767でない場合はパス
+        val index = material.index
+        if (index !in 0..32767) {
+            RagiMaterials.LOGGER.warn("The index of $material is not in 0 to 32767!")
+            return
+        }
+
+        //同じ番号で登録されていた場合はパス
+        if (CACHE[index] !== null) {
+            RagiMaterials.LOGGER.warn("The index: $index is already registered by $material")
+            return
+        }
+
+        //CACHEに保存する
+        CACHE[index] = material
 
     }
 

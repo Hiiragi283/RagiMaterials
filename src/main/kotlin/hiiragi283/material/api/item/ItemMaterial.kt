@@ -1,7 +1,7 @@
 package hiiragi283.material.api.item
 
 import hiiragi283.material.RMCreativeTabs
-import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.client.renderer.color.ItemColors
@@ -12,13 +12,11 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
-open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767) {
+open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(RMReference.MOD_ID, shape.name, 32767) {
 
     init {
         creativeTab = RMCreativeTabs.MATERIAL
     }
-
-    fun getItemStack(material: HiiragiMaterial, amount: Int = 1): ItemStack = ItemStack(this, amount, material.index)
 
     //    Client    //
 
@@ -33,6 +31,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
             .filter { it.isSolid() && shape.isValid(it) }
             .map { getItemStack(it) }
             .filter { it.metadata != 0 }
+            .sortedBy { it.metadata }
             .forEach { subItems.add(it) }
     }
 
@@ -47,7 +46,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
-            .forEach { shape.getRecipe(this, it) }
+            .forEach { shape.registerRecipe(this, it) }
     }
 
     @SideOnly(Side.CLIENT)
@@ -59,6 +58,6 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = shape.getModel(this)
+    override fun registerModel() = shape.registerModel(this)
 
 }

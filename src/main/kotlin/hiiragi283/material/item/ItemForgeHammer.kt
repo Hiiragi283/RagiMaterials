@@ -1,11 +1,12 @@
 package hiiragi283.material.item
 
+import hiiragi283.material.RMReference
 import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
-object ItemForgeHammer : HiiragiItem("forge_hammer", 0) {
+object ItemForgeHammer : HiiragiItem(RMReference.MOD_ID, "forge_hammer", 0) {
 
     init {
         maxDamage = 63

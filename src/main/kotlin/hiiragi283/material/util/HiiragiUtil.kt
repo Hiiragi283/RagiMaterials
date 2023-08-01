@@ -1,4 +1,4 @@
-@file:JvmName("RagiUtil")
+@file:JvmName("HiiragiUtil")
 
 package hiiragi283.material.util
 
@@ -8,7 +8,10 @@ import net.minecraft.client.Minecraft
 import net.minecraft.command.ICommandSender
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.registries.IForgeRegistry
@@ -55,3 +58,6 @@ fun removeRegistryEntry(registry: IForgeRegistry<*>, registryName: ResourceLocat
 
 fun remove(registry: IForgeRegistry<*>, registryName: String): Boolean =
     removeRegistryEntry(registry, ResourceLocation(registryName))
+
+@Suppress("UNCHECKED_CAST")
+fun <T : TileEntity> getTile(world: IBlockAccess?, pos: BlockPos?): T? = pos?.let { world?.getTileEntity(it) } as? T

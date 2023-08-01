@@ -2,7 +2,7 @@ package hiiragi283.material
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.item.ItemMaterial
-import hiiragi283.material.api.shape.ShapeRegistry
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
 import net.minecraft.client.renderer.color.ItemColors
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 
-object RMItems : HiiragiEntry<Item> {
+object RMItems : HiiragiEntry.ITEM {
 
     @JvmField
     val BOOK_RESPAWN = ItemBookRespawn
@@ -20,34 +20,34 @@ object RMItems : HiiragiEntry<Item> {
     val FORGE_HAMMER = ItemForgeHammer
 
     @JvmField
-    val MATERIAL_BLOCK = ItemMaterial(ShapeRegistry.BLOCK)
+    val MATERIAL_BLOCK = ItemMaterial(HiiragiShapes.BLOCK)
 
     @JvmField
-    val MATERIAL_BOTTLE = ItemMaterial(ShapeRegistry.BOTTLE)
+    val MATERIAL_BOTTLE = ItemMaterial(HiiragiShapes.BOTTLE)
 
     @JvmField
-    val MATERIAL_DUST = ItemMaterial(ShapeRegistry.DUST)
+    val MATERIAL_DUST = ItemMaterial(HiiragiShapes.DUST)
 
     @JvmField
-    val MATERIAL_DUST_TINY = ItemMaterial(ShapeRegistry.DUST_TINY)
+    val MATERIAL_DUST_TINY = ItemMaterial(HiiragiShapes.DUST_TINY)
 
     @JvmField
-    val MATERIAL_GEAR = ItemMaterial(ShapeRegistry.GEAR)
+    val MATERIAL_GEAR = ItemMaterial(HiiragiShapes.GEAR)
 
     @JvmField
-    val MATERIAL_GEM = ItemMaterial(ShapeRegistry.GEM)
+    val MATERIAL_GEM = ItemMaterial(HiiragiShapes.GEM)
 
     @JvmField
-    val MATERIAL_INGOT = ItemMaterial(ShapeRegistry.INGOT)
+    val MATERIAL_INGOT = ItemMaterial(HiiragiShapes.INGOT)
 
     @JvmField
-    val MATERIAL_NUGGET = ItemMaterial(ShapeRegistry.NUGGET)
+    val MATERIAL_NUGGET = ItemMaterial(HiiragiShapes.NUGGET)
 
     @JvmField
-    val MATERIAL_PLATE = ItemMaterial(ShapeRegistry.PLATE)
+    val MATERIAL_PLATE = ItemMaterial(HiiragiShapes.PLATE)
 
     @JvmField
-    val MATERIAL_STICK = ItemMaterial(ShapeRegistry.STICK)
+    val MATERIAL_STICK = ItemMaterial(HiiragiShapes.STICK)
 
     override fun register(registry: IForgeRegistry<Item>) {
 
