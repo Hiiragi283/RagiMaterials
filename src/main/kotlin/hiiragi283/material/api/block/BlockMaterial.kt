@@ -6,41 +6,65 @@ import hiiragi283.material.api.item.ItemBlockMaterial
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialRegistry
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.api.tileentity.HiiragiTileEntity
 import hiiragi283.material.api.tileentity.MaterialTileEntity
 import hiiragi283.material.util.getTile
+import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.RayTraceResult
+import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
+import java.util.*
 
-open class BlockMaterial<T : HiiragiTileEntity>(val shape: HiiragiShape, material: Material, tile: Class<T>) :
-    HiiragiBlockContainer.Holdable<T>(material, RMReference.MOD_ID, shape.name, tile) {
+class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
+    Material.IRON,
+    RMReference.MOD_ID,
+    shape.name,
+    MaterialTileEntity::class.java
+) {
 
     override val itemBlock = ItemBlockMaterial(this)
 
     init {
+        blockHardness = 5.0f
+        blockResistance = 5.0f
         creativeTab = RMCreativeTabs.MATERIAL_BLOCK
+        soundType = SoundType.METAL
+        setHarvestLevel("pickaxe", 0)
     }
 
     //    HiiragiBlock    //
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "getItemStack(getTile<MaterialTileEntity>(worldIn, pos)?.material ?: HiiragiMaterial.EMPTY)",
-            "hiiragi283.material.util.getTile",
-            "hiiragi283.material.api.tile.MaterialTileEntity",
-            "hiiragi283.material.api.material.HiiragiMaterial"
-        )
-    )
-    override fun getItem(worldIn: World, pos: BlockPos, state: IBlockState): ItemStack =
-        getItemStack(getTile<MaterialTileEntity>(worldIn, pos)?.material ?: HiiragiMaterial.EMPTY)
+    override fun getDrops(
+        drops: NonNullList<ItemStack>,
+        world: IBlockAccess,
+        pos: BlockPos,
+        state: IBlockState,
+        fortune: Int
+    ) {
+        drops.add(getItemStack(getTile<MaterialTileEntity>(world, pos)?.material ?: HiiragiMaterial.EMPTY))
+    }
+
+    override fun getPickBlock(
+        state: IBlockState,
+        target: RayTraceResult,
+        world: World,
+        pos: BlockPos,
+        player: EntityPlayer
+    ): ItemStack {
+        return getItemStack(getTile<MaterialTileEntity>(world, pos)?.material ?: HiiragiMaterial.EMPTY)
+    }
+
+    override fun quantityDropped(random: Random): Int = 0
 
     //    HiiragiEntry    //
 

@@ -6,7 +6,6 @@ import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.RagiIngredient
 import hiiragi283.material.util.append
 import hiiragi283.material.util.toLocation
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 
 object HiiragiShapes {
@@ -21,20 +20,30 @@ object HiiragiShapes {
     val BLOCK = shapeOf(
         "block",
         9.0,
-        model = {
-            val common = ModelResourceLocation(it.getLocation()!!.append("_material"), "inventory")
-            val gem = ModelResourceLocation(it.getLocation()!!.append("_gem"), "inventory")
-            val metal = ModelResourceLocation(it.getLocation()!!.append("_metal"), "inventory")
+        /*model = { entry ->
+            MaterialRegistry.getMaterials()
+                .map { material -> material.index }
+                .forEach {
+                    ModelLoader.setCustomModelResourceLocation(
+                        entry.asItem(),
+                        it,
+                        ModelResourceLocation(entry.getLocation()!!.append("_material"), "inventory")
+                    )
+                }
 
-            ModelLoader.registerItemVariants(it.asItem(), common, gem, metal)
+            val common = ModelResourceLocation(entry.getLocation()!!.append("_material"), "inventory")
+            val gem = ModelResourceLocation(entry.getLocation()!!.append("_gem"), "inventory")
+            val metal = ModelResourceLocation(entry.getLocation()!!.append("_metal"), "inventory")
 
-            ModelLoader.setCustomMeshDefinition(it.asItem()) { stack ->
+            ModelLoader.registerItemVariants(entry.asItem(), common, gem, metal)
+
+            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack ->
                 val material = MaterialRegistry.getMaterial(stack.metadata)
                 if (material.isMetal()) metal
                 else if (material.isGem()) gem
                 else common
             }
-        },
+        },*/
         recipe = { entry, material ->
             if (material.isSolid()) {
                 if (material.isGem()) {

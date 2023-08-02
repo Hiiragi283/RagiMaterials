@@ -10,8 +10,8 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemBlockMaterial(block: BlockMaterial<*>) :
-    HiiragiItemBlock(block, RMReference.MOD_ID, block.shape.name, 32767), HiiragiEntry.ITEM {
+class ItemBlockMaterial(block: BlockMaterial) : HiiragiItemBlock(block, RMReference.MOD_ID, block.shape.name, 32767),
+    HiiragiEntry.ITEM {
 
     val shape = block.shape
 

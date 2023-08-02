@@ -8,20 +8,23 @@ import net.minecraft.item.ItemStack
 
 object RMCreativeTabs {
 
-    @JvmField
-    val BOTTLE = object : CreativeTabs("${RMReference.MOD_ID}.bottle") {
+    val BOTTLE by lazy {
+        object : CreativeTabs("${RMReference.MOD_ID}.bottle") {
         override fun createIcon(): ItemStack =
             ItemStack(RMItems.MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
+        }
     }
 
-    @JvmField
-    val MATERIAL_BLOCK = object : CreativeTabs("${RMReference.MOD_ID}.material_block") {
-        override fun createIcon(): ItemStack = ItemStack(Blocks.IRON_BLOCK)
+    val MATERIAL_BLOCK by lazy {
+        object : CreativeTabs("${RMReference.MOD_ID}.material_block") {
+            override fun createIcon(): ItemStack = ItemStack(Blocks.IRON_BLOCK)
+        }
     }
 
-    @JvmField
-    val MATERIAL_ITEM = object : CreativeTabs("${RMReference.MOD_ID}.material_item") {
-        override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
+    val MATERIAL_ITEM by lazy {
+        object : CreativeTabs("${RMReference.MOD_ID}.material_item") {
+            override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
+        }
     }
 
 }

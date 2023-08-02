@@ -1,5 +1,6 @@
 package hiiragi283.material.api
 
+import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.util.HiiragiModelManager
 import net.minecraft.block.Block
@@ -45,7 +46,9 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     interface BLOCK : HiiragiEntry<Block> {
 
-        override fun asItem(): Item = Item.getItemFromBlock(getObject())
+        val itemBlock: HiiragiItemBlock?
+
+        override fun asItem(): Item = itemBlock ?: Item.getItemFromBlock(getObject())
 
         override fun getObject(): Block = this as Block
 

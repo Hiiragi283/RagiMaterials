@@ -2,11 +2,10 @@ package hiiragi283.material
 
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.block.BlockMaterial
+import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.api.tileentity.MaterialTileEntity
 import hiiragi283.material.config.RMConfig
 import net.minecraft.block.Block
-import net.minecraft.block.material.Material
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraftforge.fml.relauncher.Side
@@ -15,8 +14,10 @@ import net.minecraftforge.registries.IForgeRegistry
 
 object RMBlocks : HiiragiEntry.BLOCK {
 
+    override val itemBlock: HiiragiItemBlock? = null
+
     @JvmField
-    val MATERIAL_BLOCK = BlockMaterial(HiiragiShapes.BLOCK, Material.IRON, MaterialTileEntity::class.java)
+    val MATERIAL_BLOCK = BlockMaterial(HiiragiShapes.BLOCK)
 
     override fun register(registry: IForgeRegistry<Block>) {
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {

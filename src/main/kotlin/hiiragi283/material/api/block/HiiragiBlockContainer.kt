@@ -107,7 +107,7 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
             willHarvest: Boolean
         ): Boolean {
             //破壊のタイミングを遅らせる
-            return if (willHarvest) true else super.removedByPlayer(state, world, pos, player, false)
+            return if (willHarvest) true else super.removedByPlayer(state, world, pos, player, willHarvest)
         }
 
         override fun harvestBlock(
