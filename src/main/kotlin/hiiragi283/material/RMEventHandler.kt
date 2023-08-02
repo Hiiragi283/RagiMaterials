@@ -63,10 +63,14 @@ object RMEventHandler {
     }
 
     @SubscribeEvent
-    fun registerBlocks(event: RegistryEvent.Register<Block>): Unit = RMBlocks.register(event.registry)
+    fun registerBlocks(event: RegistryEvent.Register<Block>) {
+        RMBlocks.register(event.registry)
+    }
 
     @SubscribeEvent
-    fun registerItems(event: RegistryEvent.Register<Item>): Unit = RMItems.register(event.registry)
+    fun registerItems(event: RegistryEvent.Register<Item>) {
+        RMItems.register(event.registry)
+    }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
@@ -91,9 +95,7 @@ object RMEventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     fun onTooltip(event: ItemTooltipEvent) {
-
         PartRegistry.getParts(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
-
     }
 
 }

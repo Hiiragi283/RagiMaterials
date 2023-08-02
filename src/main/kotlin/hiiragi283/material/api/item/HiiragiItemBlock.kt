@@ -1,21 +1,21 @@
 package hiiragi283.material.api.item
 
 import hiiragi283.material.api.HiiragiEntry
+import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
-import net.minecraft.item.Item
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-abstract class HiiragiItem(private val modid: String, id: String, private var maxMeta: Int) : Item(), HiiragiEntry.ITEM {
+open class HiiragiItemBlock(block: Block, val modid: String, id: String, private var maxMeta: Int) : ItemBlock(block), HiiragiEntry.ITEM {
 
     init {
-        setRegistryName(modid, id)
+        registryName = block.registryName!!
         creativeTab = CreativeTabs.MISC
         hasSubtypes = maxMeta > 0
         maxMeta = 0.coerceAtLeast(maxMeta)
-        translationKey = id
     }
 
     //    General    //

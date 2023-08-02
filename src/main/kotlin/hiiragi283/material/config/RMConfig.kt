@@ -6,6 +6,10 @@ import net.minecraftforge.common.config.Config
 @Config(modid = RMReference.MOD_ID)
 object RMConfig {
 
+    @Config.Name("Experimental")
+    @JvmField
+    val EXPERIMENTAL = Experimental()
+
     @Config.Name("Integration")
     @JvmField
     val INTEGRATION = Integration()
@@ -13,6 +17,15 @@ object RMConfig {
     @Config.Name("Material")
     @JvmField
     val MATERIAL = Material()
+
+    class Experimental {
+
+        @Config.Name("Enable MetaTileEntity Blocks")
+        @Config.RequiresMcRestart
+        @JvmField
+        var enableMetaTileBlock: Boolean = false
+
+    }
 
     class Integration {
 

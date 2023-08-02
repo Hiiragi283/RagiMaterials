@@ -15,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary
 open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(RMReference.MOD_ID, shape.name, 32767) {
 
     init {
-        creativeTab = RMCreativeTabs.MATERIAL
+        creativeTab = RMCreativeTabs.MATERIAL_ITEM
     }
 
     //    Client    //

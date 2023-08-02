@@ -301,14 +301,14 @@ object MaterialIntegration {
 
     @JvmField
     val MANASTEEL = mixtureOf("manasteel", 1050, listOf(MaterialElements.IRON, MANA)) {
-        color = 0x8CAFF1
+        color = RagiColor.BLUE.rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommon.DIAMOND, MANA)) {
-        color = 0x69F2FF
+        color = RagiColor.AQUA.rgb
         crystalType = CrystalType.DIAMOND
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }
@@ -322,14 +322,14 @@ object MaterialIntegration {
 
     @JvmField
     val ELEMENTIUM = mixtureOf("elven_elementium", 1054, listOf(MaterialElements.IRON, MANA)) {
-        color = 0xF697CB
+        color = RagiColor.LIGHT_PURPLE.rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommon.DIAMOND, MANA)) {
-        color = 0xF697CB
+        color = RagiColor.LIGHT_PURPLE.rgb
         crystalType = CrystalType.DIAMOND
         validShapes.addAll(MaterialType.GEM_9xADVANCED)
     }

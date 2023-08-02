@@ -3,6 +3,7 @@ package hiiragi283.material
 import hiiragi283.material.api.HiiragiEntry
 import hiiragi283.material.api.item.ItemMaterial
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.ItemBookRespawn
 import hiiragi283.material.item.ItemForgeHammer
 import net.minecraft.client.renderer.color.ItemColors
@@ -56,7 +57,12 @@ object RMItems : HiiragiEntry.ITEM {
         BOOK_RESPAWN.register(registry)
         FORGE_HAMMER.register(registry)
 
-        MATERIAL_BLOCK.register(registry)
+        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
+            RMBlocks.MATERIAL_BLOCK.itemBlock.register(registry)
+        } else {
+            MATERIAL_BLOCK.register(registry)
+        }
+
         MATERIAL_BOTTLE.register(registry)
         MATERIAL_DUST.register(registry)
         MATERIAL_DUST_TINY.register(registry)
@@ -69,7 +75,6 @@ object RMItems : HiiragiEntry.ITEM {
     }
 
     override fun registerOreDict() {
-        MATERIAL_BLOCK.registerOreDict()
         MATERIAL_BOTTLE.registerOreDict()
         MATERIAL_DUST.registerOreDict()
         MATERIAL_DUST_TINY.registerOreDict()
@@ -84,7 +89,6 @@ object RMItems : HiiragiEntry.ITEM {
     override fun registerRecipe() {
         FORGE_HAMMER.registerRecipe()
 
-        MATERIAL_BLOCK.registerRecipe()
         //MATERIAL_CELL.registerRecipe()
         MATERIAL_DUST.registerRecipe()
         MATERIAL_DUST_TINY.registerRecipe()
@@ -98,7 +102,6 @@ object RMItems : HiiragiEntry.ITEM {
 
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
-        MATERIAL_BLOCK.registerColorItem(itemColors)
         MATERIAL_BOTTLE.registerColorItem(itemColors)
         MATERIAL_DUST.registerColorItem(itemColors)
         MATERIAL_DUST_TINY.registerColorItem(itemColors)
@@ -115,7 +118,6 @@ object RMItems : HiiragiEntry.ITEM {
         BOOK_RESPAWN.registerModel()
         FORGE_HAMMER.registerModel()
 
-        MATERIAL_BLOCK.registerModel()
         MATERIAL_BOTTLE.registerModel()
         MATERIAL_DUST.registerModel()
         MATERIAL_DUST_TINY.registerModel()

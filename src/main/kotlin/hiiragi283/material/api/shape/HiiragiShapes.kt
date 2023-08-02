@@ -26,9 +26,9 @@ object HiiragiShapes {
             val gem = ModelResourceLocation(it.getLocation()!!.append("_gem"), "inventory")
             val metal = ModelResourceLocation(it.getLocation()!!.append("_metal"), "inventory")
 
-            ModelLoader.registerItemVariants(it.getItem(), common, gem, metal)
+            ModelLoader.registerItemVariants(it.asItem(), common, gem, metal)
 
-            ModelLoader.setCustomMeshDefinition(it.getItem()) { stack ->
+            ModelLoader.setCustomMeshDefinition(it.asItem()) { stack ->
                 val material = MaterialRegistry.getMaterial(stack.metadata)
                 if (material.isMetal()) metal
                 else if (material.isGem()) gem
@@ -104,15 +104,15 @@ object HiiragiShapes {
         "gem",
         1.0,
         model = { entry ->
-            ModelLoader.registerItemVariants(entry.getItem(), *CrystalType.values()
+            ModelLoader.registerItemVariants(entry.asItem(), *CrystalType.values()
                 .filter { it.texture.isNotEmpty() }
                 .map { entry.getLocation()!!.append("_" + it.texture) }
                 .toTypedArray())
 
-            ModelLoader.setCustomMeshDefinition(entry.getItem()) { stack ->
+            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack ->
                 val material = MaterialRegistry.getMaterial(stack.metadata)
                 val type = if (material.isGem()) material.crystalType else CrystalType.CUBIC
-                type.getLocation(entry.getItem())
+                type.getLocation(entry.asItem())
             }
         },
         recipe = { item, material ->

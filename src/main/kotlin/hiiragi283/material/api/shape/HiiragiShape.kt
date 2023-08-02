@@ -12,7 +12,7 @@ import rechellatek.snakeToLowerCamelCase
 fun shapeOf(
     name: String,
     scale: Double,
-    model: (HiiragiEntry<*>) -> Unit = { HiiragiModelManager.setModelSame(it.getItem()) },
+    model: (HiiragiEntry<*>) -> Unit = { HiiragiModelManager.setModelSame(it.asItem()) },
     recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> },
 ): HiiragiShape {
     return object : HiiragiShape(name, scale) {

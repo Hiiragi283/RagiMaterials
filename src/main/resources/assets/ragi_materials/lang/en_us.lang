@@ -1,7 +1,8 @@
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - Bottles
-itemGroup.ragi_materials.material=RagiMaterials
+itemGroup.ragi_materials.material_block=RagiMaterials - Blocks
+itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
 ##    Item    ##
 
