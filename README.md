@@ -4,7 +4,7 @@
 
 ## [日本語版はこちらへ](https://github.com/Hiiragi283/RagiMaterials/blob/master/README_jp.md)
 
-## **Requires _[Forgelin-Continuous](https://www.curseforge.com/minecraft/mc-mods/forgelin-continuous)!!_**
+## Requires _[Forgelin-Continuous](https://www.curseforge.com/minecraft/mc-mods/forgelin-continuous)!!_
 
 ## Overview
 
@@ -31,3 +31,7 @@
     - [toliner](https://github.com/toliner)
     - [tsukimimushi](https://twitter.com/Tsukimimushi)
     - [turtton(watagame)](https://github.com/turtton)
+
+## Credits
+
+- This project is based on [GregTechCEu/BuildScripts](https://github.com/GregTechCEu/Buildscripts)

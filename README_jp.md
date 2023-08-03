@@ -2,7 +2,7 @@
 
 ![Periodic Table](https://github.com/Hiiragi283/RagiMaterials/blob/1.12.2_forge/.github/images/periodic_table.png?raw=true)
 
-## **前提modとして _[Forgelin-Continuous](https://www.curseforge.com/minecraft/mc-mods/forgelin-continuous)_ が必要です!!**
+## 前提modとして _[Forgelin-Continuous](https://www.curseforge.com/minecraft/mc-mods/forgelin-continuous)_ が必要です!!
 
 ## 概要
 
@@ -29,3 +29,7 @@
     - [toliner](https://github.com/toliner)
     - [tsukimimushi](https://twitter.com/Tsukimimushi)
     - [turtton(watagame)](https://github.com/turtton)
+
+## クレジット
+
+- このプロジェクトは[GregTechCEu/BuildScripts](https://github.com/GregTechCEu/Buildscripts)をもとに開発されています
