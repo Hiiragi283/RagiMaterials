@@ -1,13 +1,14 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.event.MaterialRegistryEvent
-import hiiragi283.material.api.event.ShapeRegistryEvent
-import hiiragi283.material.api.material.MaterialCommon
-import hiiragi283.material.api.material.MaterialElements
-import hiiragi283.material.api.part.PartRegistry
-import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.config.RMJSonHandler
-import hiiragi283.material.integration.RMIntegrationCore
+import hiiragi283.api.event.MaterialRegistryEvent
+import hiiragi283.api.event.ShapeRegistryEvent
+import hiiragi283.api.material.MaterialCommon
+import hiiragi283.api.material.MaterialElements
+import hiiragi283.api.part.PartRegistry
+import hiiragi283.api.shape.HiiragiShapes
+import hiiragi283.core.RagiMaterials
+import hiiragi283.core.config.RMJSonHandler
+import hiiragi283.integration.RMIntegrationCore
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraftforge.client.event.ColorHandlerEvent
@@ -17,13 +18,11 @@ import net.minecraftforge.common.config.ConfigManager
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.client.event.ConfigChangedEvent
-import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Mod.EventBusSubscriber(modid = RMReference.MOD_ID)
 object RMEventHandler {
 
     /**
@@ -48,7 +47,7 @@ object RMEventHandler {
             MaterialCommon.register(this)
 
             RagiMaterials.LOGGER.info("Registering Materials for Integration...")
-            RMIntegrationCore.register(this)
+            RMIntegrationCore.INSTANCE.registerMaterial(this)
 
             RagiMaterials.LOGGER.info("Registering Materials from JSON...")
             RMJSonHandler.register(this)

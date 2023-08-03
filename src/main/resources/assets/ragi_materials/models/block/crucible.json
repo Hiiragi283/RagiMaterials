@@ -1,0 +1,108 @@
+{
+	"credit": "Tweaked by Hiiragi Russell Tsubasa",
+	"textures": {
+		"melt": "blocks/lava_still",
+		"crucible": "ragi_materials:blocks/crucible",
+		"particle": "ragi_materials:blocks/crucible"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [4, 0, 4],
+			"to": [12, 6, 12],
+			"faces": {
+				"north": {"uv": [0, 4, 16, 16], "texture": "#crucible"},
+				"east": {"uv": [0, 4, 16, 16], "texture": "#crucible"},
+				"south": {"uv": [0, 4, 16, 16], "texture": "#crucible"},
+				"west": {"uv": [0, 4, 16, 16], "texture": "#crucible"},
+				"up": {"uv": [4, 4, 12, 12], "texture": "#melt"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#crucible"}
+			}
+		},
+		{
+			"name": "wallN",
+			"from": [5, 6, 4],
+			"to": [12, 8, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 14, 4], "texture": "#crucible"},
+				"east": {"uv": [14, 0, 16, 4], "texture": "#crucible"},
+				"south": {"uv": [14, 0, 0, 4], "texture": "#crucible"},
+				"up": {"uv": [2, 0, 16, 2], "texture": "#crucible"}
+			}
+		},
+		{
+			"name": "wallE",
+			"from": [11, 6, 5],
+			"to": [12, 8, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 14, 4], "texture": "#crucible"},
+				"south": {"uv": [14, 0, 16, 4], "texture": "#crucible"},
+				"west": {"uv": [14, 0, 0, 4], "texture": "#crucible"},
+				"up": {"uv": [2, 0, 16, 2], "rotation": 90, "texture": "#crucible"}
+			}
+		},
+		{
+			"name": "wallS",
+			"from": [4, 6, 11],
+			"to": [11, 8, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 0, 4], "texture": "#crucible"},
+				"south": {"uv": [0, 0, 14, 4], "texture": "#crucible"},
+				"west": {"uv": [14, 0, 16, 4], "texture": "#crucible"},
+				"up": {"uv": [2, 0, 16, 2], "rotation": 180, "texture": "#crucible"}
+			}
+		},
+		{
+			"name": "wallW",
+			"from": [4, 6, 4],
+			"to": [5, 8, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 16, 4], "texture": "#crucible"},
+				"east": {"uv": [14, 0, 0, 4], "texture": "#crucible"},
+				"west": {"uv": [0, 0, 14, 4], "texture": "#crucible"},
+				"up": {"uv": [2, 0, 16, 2], "rotation": 270, "texture": "#crucible"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, 90, 55],
+			"translation": [0, 4, 2.5],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [0, -90, -55],
+			"translation": [0, 4, 2.5],
+			"scale": [0.85, 0.85, 0.85]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 90, 25],
+			"translation": [0, 1.6, 0.8],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -90, -25],
+			"translation": [0, 1.6, 0.8],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"ground": {
+			"translation": [0, 2, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 19.5, 0],
+			"scale": [1.6, 1.6, 1.6]
+		},
+		"fixed": {
+			"rotation": [0, 180, 0]
+		}
+	}
+}
