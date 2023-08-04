@@ -1,0 +1,12 @@
+{
+  "package": "hiiragi283.core.mixin",
+  "refmap": "mixins.ragi_materials.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinBlockFluidBase"
+  ],
+  "client": [],
+  "server": []
+}

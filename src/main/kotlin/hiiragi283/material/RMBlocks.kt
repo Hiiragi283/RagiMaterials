@@ -1,10 +1,10 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.api.block.BlockMaterial
-import hiiragi283.material.api.item.HiiragiItemBlock
-import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.config.RMConfig
+import hiiragi283.api.HiiragiEntry
+import hiiragi283.api.block.BlockMaterial
+import hiiragi283.api.item.HiiragiItemBlock
+import hiiragi283.api.shape.HiiragiShapes
+import hiiragi283.core.config.RMConfig
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors

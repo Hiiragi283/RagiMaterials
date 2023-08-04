@@ -1,11 +1,12 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.HiiragiEntry
-import hiiragi283.material.api.item.ItemMaterial
-import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.config.RMConfig
-import hiiragi283.material.item.ItemBookRespawn
-import hiiragi283.material.item.ItemForgeHammer
+import hiiragi283.api.HiiragiEntry
+import hiiragi283.api.item.ItemMaterial
+import hiiragi283.api.shape.HiiragiShapes
+import hiiragi283.core.RMCreativeTabs
+import hiiragi283.core.config.RMConfig
+import hiiragi283.core.item.ItemBookRespawn
+import hiiragi283.core.item.ItemForgeHammer
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.item.Item
 import net.minecraftforge.fml.relauncher.Side
@@ -55,7 +56,7 @@ object RMItems : HiiragiEntry.ITEM {
         MATERIAL_BOTTLE.setCreativeTab(RMCreativeTabs.BOTTLE)
 
         BOOK_RESPAWN.register(registry)
-        FORGE_HAMMER.register(registry)
+        //FORGE_HAMMER.register(registry)
 
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
             RMBlocks.MATERIAL_BLOCK.itemBlock.register(registry)
@@ -87,7 +88,7 @@ object RMItems : HiiragiEntry.ITEM {
     }
 
     override fun registerRecipe() {
-        FORGE_HAMMER.registerRecipe()
+        //FORGE_HAMMER.registerRecipe()
 
         //MATERIAL_CELL.registerRecipe()
         MATERIAL_DUST.registerRecipe()
@@ -116,7 +117,7 @@ object RMItems : HiiragiEntry.ITEM {
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
         BOOK_RESPAWN.registerModel()
-        FORGE_HAMMER.registerModel()
+        //FORGE_HAMMER.registerModel()
 
         MATERIAL_BOTTLE.registerModel()
         MATERIAL_DUST.registerModel()
