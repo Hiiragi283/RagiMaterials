@@ -2,34 +2,32 @@ package hiiragi283.chemistry.tile
 
 import hiiragi283.api.block.IHeatSource
 import hiiragi283.api.capability.HiiragiCapabilityProvider
+import hiiragi283.api.capability.IOType
 import hiiragi283.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
-import hiiragi283.api.capability.item.HiiragiItemHandler
-import hiiragi283.api.capability.item.HiiragiItemHandlerWrapper
-import hiiragi283.api.registry.HeatSourceRegistry
-import hiiragi283.api.tileentity.HiiragiInteractionObject
+import hiiragi283.api.item.ICastItem
+import hiiragi283.api.recipe.CrucibleRecipe
+import hiiragi283.api.registry.HiiragiRegistry
 import hiiragi283.api.tileentity.HiiragiProvider
 import hiiragi283.api.tileentity.HiiragiTileEntity
-import hiiragi283.chemistry.container.ContainerCrucible
+import hiiragi283.core.util.dropItemAtPlayer
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.text.TextComponentString
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
-import net.minecraftforge.items.CapabilityItemHandler
-import net.minecraftforge.items.IItemHandler
 
-class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Inventory, HiiragiProvider.Tank,
-    HiiragiInteractionObject<ContainerCrucible> {
+class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank
+/*, HiiragiProvider.Inventory, HiiragiInteractionObject<ContainerCrucible>*/ {
 
     private fun getHeat(world: World, pos: BlockPos): Int {
         val state = world.getBlockState(pos)
         val block = state.block
-        return if (block is IHeatSource) block.getHeat(world, pos.down(), state) else HeatSourceRegistry.getHeat(state)
+        return if (block is IHeatSource) block.getHeat(world, pos) else HiiragiRegistry.getHeat(state)
     }
 
     //    RCTileEntity    //
@@ -42,8 +40,49 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Inventory, Hiira
         facing: EnumFacing
     ): Boolean {
         if (!world.isRemote) {
-            //openGui(player)
-            player.sendMessage(TextComponentString("Heat Temperature: ${getHeat(world, pos.down())}"))
+            val stack = player.getHeldItem(hand)
+            //利き手に持っているItemStackがEMPTYでない -> レシピを実行
+            if (!stack.isEmpty) {
+                val item = stack.item
+                //ItemStackのItemがICastItemを実装している -> 鋳造レシピを実行
+                if (item is ICastItem) {
+                    val amount: Int = item.getFluidAmount(stack)
+                    val result: ItemStack = item.getResult(stack, tankCrucible.fluid)
+                    if (tankCrucible.fluidAmount >= amount && !result.isEmpty) {
+                        tankCrucible.drain(amount, true)
+                        stack.shrink(1)
+                        dropItemAtPlayer(player, result)
+                    }
+                }
+                //実装していない -> レジストリから溶融レシピを取得
+                else {
+                    val recipe: CrucibleRecipe? = HiiragiRegistry.CRUCIBLE.valuesCollection
+                        .firstOrNull { it.matches(stack) }
+                    //レシピが存在する -> 現在の温度が要求温度以上 -> tankにレシピの出力を搬入できる -> 溶融レシピを実行
+                    if (recipe !== null) {
+                        if (getHeat(world, pos.down()) >= recipe.tempMin) {
+                            if (tank.fill(recipe.output, false) == recipe.output.amount) {
+                                stack.shrink(1)
+                                tank.fill(recipe.output, true)
+                            }
+                            //tankに搬入できない -> 警告
+                            else player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
+                        }
+                        //温度が足りていない -> 警告
+                        else player.sendMessage(
+                            TextComponentTranslation("error.ragi_materials.crucible.more_heat", recipe.tempMin)
+                        )
+                    }
+                    //レシピが見つからない -> 警告
+                    else player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
+                }
+            }
+            //EMPTYの -> 現在の温度を表示する
+            else {
+                player.sendMessage(
+                    TextComponentTranslation("info.ragi_materials.crucible.temperature", getHeat(world, pos))
+                )
+            }
             return true
         }
         return false
@@ -51,27 +90,51 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Inventory, Hiira
 
     //    HiiragiProvider    //
 
-    lateinit var invInput: HiiragiItemHandler
-    lateinit var tankOutput: HiiragiFluidTank
+    private lateinit var tankCrucible: HiiragiFluidTank
 
-    override fun createInventory(): HiiragiCapabilityProvider<IItemHandler> {
-        invInput = HiiragiItemHandler(1, this)
-        inventory = HiiragiItemHandlerWrapper(invInput)
+    /*override fun createInventory(): HiiragiCapabilityProvider<IItemHandler> {
+        invCrucible = object : HiiragiItemHandler(1, this) {
+
+            override fun getSlotLimit(slot: Int): Int = 1
+
+            override fun onContentsChanged(slot: Int) {
+                val stack = this.getStackInSlot(0)
+                if (stack.isEmpty) return
+                val item = stack.item
+                if (item is ICastItem) {
+                    val inventory = this@TileEntityCrucible.invCrucible
+                    val tank = this@TileEntityCrucible.tankCrucible
+                    val amount = item.getFluidAmount(stack)
+                    val result = item.getResult(stack, tank.fluid)
+                    if (tank.fluidAmount >= amount && !result.isEmpty) {
+                        inventory.extractItem(0, 1, false)
+                        inventory.insertItem(0, result, false)
+                        tank.drain(amount, true)
+                    }
+                } else {
+                    HiiragiRegistry.CRUCIBLE.valuesCollection
+                        .firstOrNull { it.matches(invCrucible, tankCrucible) }
+                        ?.process(invCrucible, tankCrucible)
+                }
+            }
+
+        }.setIOType(IOType.GENERAL)
+        inventory = HiiragiItemHandlerWrapper(invCrucible)
         return HiiragiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory)
-    }
+    }*/
 
     override fun createTank(): HiiragiCapabilityProvider<IFluidHandler> {
-        tankOutput = HiiragiFluidTank(144 * 9)
-        tank = HiiragiFluidTankWrapper(tankOutput)
+        tankCrucible = HiiragiFluidTank(144 * 9).setIOType(IOType.GENERAL)
+        tank = HiiragiFluidTankWrapper(tankCrucible)
         return HiiragiCapabilityProvider(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, tank)
     }
 
     //    HiiragiInteractionObject    //
-
+    /*
     override val classContainer: Class<ContainerCrucible> = ContainerCrucible::class.java
 
     override val guiName: String = "crucible"
 
     override fun getDisplayName(): TextComponentTranslation = super<HiiragiInteractionObject>.getDisplayName()
-
+    */
 }

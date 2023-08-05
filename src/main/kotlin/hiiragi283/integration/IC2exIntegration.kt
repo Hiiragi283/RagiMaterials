@@ -1,25 +1,16 @@
 package hiiragi283.integration
 
-import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialElements
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.core.util.OreDictUtil
 import hiiragi283.core.util.getItem
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object IC2exIntegration : AbstractIntegration() {
 
-    override fun onPreInit() {
-    }
-
-    override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
-    }
-
-    override fun onInit() {
-    }
-
-    override fun onPostInit() {
+    override fun onPostInit(event: FMLPostInitializationEvent) {
         OreDictUtil.register(
             HiiragiShapes.INGOT.getOreDict(MaterialCommon.RUBBER),
             getItem("ic2:crafting"),
@@ -82,9 +73,6 @@ object IC2exIntegration : AbstractIntegration() {
             getItem("ic2:nuclear"),
             6,
         )
-    }
-
-    override fun onComplete() {
     }
 
 }

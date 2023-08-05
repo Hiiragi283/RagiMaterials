@@ -1,8 +1,7 @@
 package hiiragi283.core
 
-import hiiragi283.api.container.HiiragiContainer
-import hiiragi283.api.gui.HiiragiGui
 import hiiragi283.chemistry.container.ContainerCrucible
+import hiiragi283.chemistry.gui.GuiCrucible
 import hiiragi283.chemistry.tile.TileEntityCrucible
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.math.BlockPos
@@ -14,30 +13,29 @@ object RMGuiHandler : IGuiHandler {
     const val TILE_ID = 0
 
     override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
-        var container: HiiragiContainer<*>? = null
         if (ID == TILE_ID) {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
-                when (tile) {
-                    is TileEntityCrucible -> container = ContainerCrucible(player, tile)
-                    else -> {}
+                return when (tile) {
+                    is TileEntityCrucible -> ContainerCrucible(player, tile)
+                    else -> null
                 }
             }
         }
-        return container
+        return null
     }
 
     override fun getClientGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
-        var gui: HiiragiGui<*>? = null
         if (ID == TILE_ID) {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
-                when (tile) {
-                    else -> {}
+                return when (tile) {
+                    is TileEntityCrucible -> GuiCrucible(player, tile)
+                    else -> null
                 }
             }
         }
-        return gui
+        return null
     }
 
 }

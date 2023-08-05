@@ -394,7 +394,7 @@ object MaterialCommon {
     //    Chromium    //
 
     @JvmField
-    val STAINLESS_STEEL = compoundOf(
+    val STAINLESS_STEEL = alloyOf(
         "stainless_steel", 12400, mapOf(
             MaterialElements.IRON to 6,
             MaterialElements.CHROMIUM to 1,
@@ -421,13 +421,13 @@ object MaterialCommon {
 
     @JvmField
     val CONSTANTAN =
-        compoundOf("constantan", 12800, mapOf(MaterialElements.NICKEL to 1, MaterialElements.COPPER to 1)) {
+        alloyOf("constantan", 12800, mapOf(MaterialElements.NICKEL to 1, MaterialElements.COPPER to 1)) {
             crystalType = CrystalType.METAL
             validShapes.addAll(MaterialType.METAL_ADVANCED)
         }
 
     @JvmField
-    val INVAR = compoundOf("invar", 12801, mapOf(MaterialElements.NICKEL to 2, MaterialElements.IRON to 1)) {
+    val INVAR = alloyOf("invar", 12801, mapOf(MaterialElements.NICKEL to 2, MaterialElements.IRON to 1)) {
         color = ColorUtil.mixColor(
             RagiColor.GREEN to 1,
             RagiColor.GRAY to 3,
@@ -440,21 +440,21 @@ object MaterialCommon {
     //    Copper    //
 
     @JvmField
-    val BRASS = compoundOf("brass", 12900, mapOf(MaterialElements.COPPER to 3, MaterialElements.ZINC to 1)) {
+    val BRASS = alloyOf("brass", 12900, mapOf(MaterialElements.COPPER to 3, MaterialElements.ZINC to 1)) {
         color = RagiColor.GOLD.rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
-    val BRONZE = compoundOf("bronze", 12901, mapOf(MaterialElements.COPPER to 3, MaterialElements.TIN to 1)) {
+    val BRONZE = alloyOf("bronze", 12901, mapOf(MaterialElements.COPPER to 3, MaterialElements.TIN to 1)) {
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Silver    //
 
-    val ELECTRUM = compoundOf("electrum", 14700, mapOf(MaterialElements.SILVER to 1, MaterialElements.GOLD to 1)) {
+    val ELECTRUM = alloyOf("electrum", 14700, mapOf(MaterialElements.SILVER to 1, MaterialElements.GOLD to 1)) {
         color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)

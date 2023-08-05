@@ -3,6 +3,7 @@ package hiiragi283.chemistry.block
 import hiiragi283.api.block.HiiragiBlockContainer
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.chemistry.tile.TileEntityCrucible
+import hiiragi283.core.RMCreativeTabs
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
@@ -26,6 +27,7 @@ object BlockCrucible : HiiragiBlockContainer.Holdable<TileEntityCrucible>(
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
+        creativeTab = RMCreativeTabs.COMMON
         setHarvestLevel("pickaxe", 2)
         soundType = SoundType.METAL
     }

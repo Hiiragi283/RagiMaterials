@@ -10,7 +10,16 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
 ##    Item    ##
 
+item.cast_0.name=Clay Cast (Ingot)
+item.cast_1.name=Clay Cast (Nugget)
+item.cast_2.name=Clay Cast (Plate)
+item.cast_3.name=Clay Cast (Stick)
+item.cast_4.name=Clay Cast (Gear)
 item.forge_hammer_0.name=Forge Hammer
+
+##    JEI Tab    ##
+
+gui.ragi_materials.crucible_melt=Crucible Melting
 
 ##    Shape    ##
 
@@ -40,6 +49,14 @@ shape.sand=%s
 shape.shard=%s Shard
 shape.stick=%s Stick
 shape.stone=%s
+
+##    Text    ##
+
+info.ragi_materials.crucible.temperature=Temperature: §b%s§r K
+
+error.ragi_materials.crucible.cannot_fill=§cNo more capacity!
+error.ragi_materials.crucible.more_heat=§cNot enough temperature: %s K or more required!
+error.ragi_materials.crucible.no_recipe=§cNot found ANY recipe!
 
 ##    Tooltip    ##
 

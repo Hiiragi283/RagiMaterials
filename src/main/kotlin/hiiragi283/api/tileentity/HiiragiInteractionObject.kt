@@ -21,7 +21,7 @@ interface HiiragiInteractionObject<T : HiiragiContainer<*>> : IInteractionObject
 
     override fun getGuiID(): String = "${RMReference.MOD_ID}.$guiName"
 
-    override fun getName() = "gui.${RMReference.MOD_ID}.${guiID.split(":")[1]}"
+    override fun getName() = "gui.${getGuiID()}"
 
     override fun hasCustomName() = false
 

@@ -2,7 +2,7 @@ package hiiragi283.api.block
 
 import hiiragi283.api.tileentity.HiiragiTileEntity
 import hiiragi283.core.util.getTile
-import hiiragi283.material.RMReference
+import hiiragi283.core.util.hiiragiLocation
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -13,7 +13,6 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.NonNullList
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
@@ -26,7 +25,7 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
 ) : HiiragiBlock(material, id), ITileEntityProvider {
 
     init {
-        GameRegistry.registerTileEntity(tile, ResourceLocation(RMReference.MOD_ID, "te_$id"))
+        GameRegistry.registerTileEntity(tile, hiiragiLocation("te_$id"))
     }
 
     //    Event    //

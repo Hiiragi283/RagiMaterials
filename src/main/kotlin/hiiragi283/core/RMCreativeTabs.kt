@@ -1,6 +1,7 @@
 package hiiragi283.core
 
 import hiiragi283.api.material.MaterialElements
+import hiiragi283.chemistry.RCBlocks
 import hiiragi283.material.RMItems
 import hiiragi283.material.RMReference
 import net.minecraft.creativetab.CreativeTabs
@@ -14,6 +15,13 @@ object RMCreativeTabs {
         object : CreativeTabs("${RMReference.MOD_ID}.bottle") {
         override fun createIcon(): ItemStack =
             ItemStack(RMItems.MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
+        }
+    }
+
+    val COMMON by lazy {
+        object : CreativeTabs("${RMReference.MOD_ID}.common") {
+            override fun createIcon(): ItemStack =
+                ItemStack(RCBlocks.CRUCIBLE)
         }
     }
 

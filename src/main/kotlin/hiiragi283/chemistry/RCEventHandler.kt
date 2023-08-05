@@ -1,13 +1,16 @@
 package hiiragi283.chemistry
 
-import hiiragi283.api.fluid.DelegatedFluidStack
+import hiiragi283.api.material.MaterialRegistry
+import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.recipe.CrucibleRecipe
+import hiiragi283.api.registry.HiiragiRegistry
+import hiiragi283.api.shape.ShapeRegistry
 import hiiragi283.api.tileentity.HiiragiProvider
+import hiiragi283.core.util.hiiragiLocation
 import hiiragi283.material.RMReference
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.AttachCapabilitiesEvent
@@ -15,13 +18,13 @@ import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.registries.RegistryBuilder
+import rechellatek.camelToSnakeCase
 
 object RCEventHandler {
 
-    private val keyInventory = ResourceLocation(RMReference.MOD_ID, "inventory")
-    private val keyTank = ResourceLocation(RMReference.MOD_ID, "tank")
-    private val keyEnergy = ResourceLocation(RMReference.MOD_ID, "energy")
+    private val keyInventory = hiiragiLocation("inventory")
+    private val keyTank = hiiragiLocation("tank")
+    private val keyEnergy = hiiragiLocation("energy")
 
     @SubscribeEvent
     fun attachCapability(event: AttachCapabilitiesEvent<TileEntity>) {
@@ -33,13 +36,7 @@ object RCEventHandler {
 
     @SubscribeEvent
     fun createRegistry(event: RegistryEvent.NewRegistry) {
-        //Crucible Recipe
-        RegistryBuilder<CrucibleRecipe>()
-            .allowModification()
-            .disableSaving()
-            .setName(ResourceLocation(RMReference.MOD_ID, "crucible"))
-            .setType(CrucibleRecipe::class.java)
-            .create()
+        HiiragiRegistry.init()
     }
 
     @SubscribeEvent
@@ -54,10 +51,21 @@ object RCEventHandler {
 
     @SubscribeEvent
     fun registerCrucibleRecipe(event: RegistryEvent.Register<CrucibleRecipe>) {
-        event.registry.register(
-            CrucibleRecipe.Impl("ingotIron", DelegatedFluidStack("iron", 144))
-                .setRegistryName(RMReference.MOD_ID, "test")
-        )
+        val registry = event.registry
+        //るつぼレシピの登録
+        MaterialRegistry.getMaterials()
+            .filter { it.isMetal() }
+            .forEach { material ->
+                ShapeRegistry.getShapes()
+                    .filter { it.isValid(material) }
+                    .map { HiiragiPart(it, material) }
+                    .forEach {
+                        registry.register(
+                            CrucibleRecipe(it, material.tempMelt, material.name to (144 * it.shape.scale).toInt())
+                                .setRegistryName(RMReference.MOD_ID, it.getOreDict().camelToSnakeCase())
+                        )
+                    }
+            }
     }
 
     @SideOnly(Side.CLIENT)
@@ -70,12 +78,14 @@ object RCEventHandler {
     @SubscribeEvent
     fun registerItemColorHandler(event: ColorHandlerEvent.Item) {
         RCBlocks.registerColorItem(event.itemColors)
+        RCItems.registerColorItem(event.itemColors)
     }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     fun registerModel(event: ModelRegistryEvent) {
         RCBlocks.registerModel()
+        RCItems.registerModel()
     }
 
 }

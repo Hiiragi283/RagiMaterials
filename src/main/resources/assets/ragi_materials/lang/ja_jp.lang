@@ -6,7 +6,16 @@ itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
 ##    Item    ##
 
+item.cast_0.name=粘土型 (インゴット)
+item.cast_1.name=粘土型 (ナゲット)
+item.cast_2.name=粘土型 (板材)
+item.cast_3.name=粘土型 (棒材)
+item.cast_4.name=粘土型 (歯車)
 item.forge_hammer_0.name=フォージハンマー
+
+##    JEI Tab    ##
+
+gui.ragi_materials.crucible_melt=るつぼ - 溶融
 
 ##    Shape    ##
 
@@ -36,6 +45,14 @@ shape.sand=%s
 shape.shard=%sの欠片
 shape.stick=%sの棒
 shape.stone=%s
+
+##    Text    ##
+
+info.ragi_materials.crucible.temperature=温度: §b%s§r§7 K
+
+error.ragi_materials.crucible.cannot_fill=§cこれ以上搬入できません!
+error.ragi_materials.crucible.more_heat=§c温度が足りていません: %s K以上が必要です!
+error.ragi_materials.crucible.no_recipe=§cレシピが見つかりませんでした!
 
 ##    Tooltip    ##
 

@@ -3,6 +3,7 @@
 package hiiragi283.core.util
 
 import hiiragi283.core.RagiMaterials
+import hiiragi283.material.RMReference
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.command.ICommandSender
@@ -16,6 +17,8 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryModifiable
+
+fun hiiragiLocation(path: String): ResourceLocation = ResourceLocation(RMReference.MOD_ID, path)
 
 fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.registryName!!.append(split + this.metadata)
 

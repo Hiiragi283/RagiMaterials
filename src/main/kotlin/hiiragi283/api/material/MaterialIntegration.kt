@@ -69,7 +69,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val SIGNALUM = compoundOf(
+    val SIGNALUM = alloyOf(
         "signalum",
         1011,
         mapOf(MaterialElements.COPPER to 4, MaterialElements.GOLD to 1, REDSTONE to 10)
@@ -80,7 +80,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val LUMIUM = compoundOf(
+    val LUMIUM = alloyOf(
         "lumium",
         1012,
         mapOf(MaterialElements.TIN to 4, MaterialElements.SILVER to 1, GLOWSTONE to 4)
@@ -91,7 +91,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val ENDERIUM = compoundOf(
+    val ENDERIUM = alloyOf(
         "enderium",
         1013,
         mapOf(MaterialElements.LEAD to 4, MaterialElements.PLATINUM to 1, ENDER_PEARL to 4)
@@ -141,7 +141,7 @@ object MaterialIntegration {
     //    Mekanism    //
 
     @JvmField
-    val OBSIDIAN_REFINED = compoundOf(
+    val OBSIDIAN_REFINED = alloyOf(
         "refined_obsidian",
         1020,
         mapOf(MaterialCommon.OBSIDIAN.addBracket() to 1, MaterialElements.OSMIUM to 1, MaterialCommon.DIAMOND to 1)
@@ -152,7 +152,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val GLOWSTONE_REFINED = compoundOf(
+    val GLOWSTONE_REFINED = alloyOf(
         "refined_glowstone",
         1021,
         mapOf(GLOWSTONE to 1, MaterialElements.OSMIUM to 1)
@@ -176,7 +176,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val ENERGETIC_ALLOY = compoundOf(
+    val ENERGETIC_ALLOY = alloyOf(
         "energetic_alloy",
         1031,
         mapOf(MaterialElements.GOLD to 1, REDSTONE to 1, GLOWSTONE to 1)
@@ -187,7 +187,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val VIBRANT_ALLOY = compoundOf(
+    val VIBRANT_ALLOY = alloyOf(
         "vibrant_alloy",
         1032,
         mapOf(ENERGETIC_ALLOY.addBracket() to 1, ENDER_PEARL to 1)
@@ -198,7 +198,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val REDSTONE_ALLOY = compoundOf(
+    val REDSTONE_ALLOY = alloyOf(
         "redstone_alloy",
         1033,
         mapOf(MaterialElements.SILICON to 1, REDSTONE to 1)
@@ -209,7 +209,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val CONDUCTIVE_IRON = compoundOf(
+    val CONDUCTIVE_IRON = alloyOf(
         "conductive_iron",
         1034,
         mapOf(MaterialElements.IRON to 1, REDSTONE to 1)
@@ -220,7 +220,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val PULSATING_IRON = compoundOf(
+    val PULSATING_IRON = alloyOf(
         "pulsating_iron",
         1035,
         mapOf(MaterialElements.IRON to 1, ENDER_PEARL to 1)
@@ -242,7 +242,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val SOULARIUM = compoundOf(
+    val SOULARIUM = alloyOf(
         "soularium",
         1037,
         mapOf(MaterialElements.GOLD to 1, MaterialCommon.SOUL_SAND.addBracket() to 1)
@@ -356,14 +356,14 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val RED_ALLOY = compoundOf("red_alloy", 1071, mapOf(MaterialElements.IRON to 1, REDSTONE to 8)) {
+    val RED_ALLOY = alloyOf("red_alloy", 1071, mapOf(MaterialElements.IRON to 1, REDSTONE to 8)) {
         color = RagiColor.DARK_RED.rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
-    val ELECTROTINE_ALLOY = compoundOf("electrotine_alloy", 1072, mapOf(MaterialElements.IRON to 1, ELECTROTINE to 8)) {
+    val ELECTROTINE_ALLOY = alloyOf("electrotine_alloy", 1072, mapOf(MaterialElements.IRON to 1, ELECTROTINE to 8)) {
         color = ColorUtil.mixColor(RagiColor.DARK_AQUA, RagiColor.BLUE, RagiColor.AQUA).rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -383,7 +383,7 @@ object MaterialIntegration {
     }
 
     @JvmField
-    val MANYULLYN = compoundOf("manyullyn", 1081, mapOf(MaterialElements.COBALT to 1, ARDITE to 1)) {
+    val MANYULLYN = alloyOf("manyullyn", 1081, mapOf(MaterialElements.COBALT to 1, ARDITE to 1)) {
         color = ColorUtil.mixColor(RagiColor.DARK_RED to 2, RagiColor.BLUE to 5, RagiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -391,7 +391,7 @@ object MaterialIntegration {
 
     @JvmField
     val ALUMINIUM_BRASS =
-        compoundOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
+        alloyOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
             color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
             crystalType = CrystalType.METAL
             oreDictAlt = mutableListOf(

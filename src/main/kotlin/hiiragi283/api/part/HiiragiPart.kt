@@ -53,6 +53,8 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     fun getDefaultItemStack(amount: Int = 1): ItemStack =
         GameRegistry.makeItemStack("${RMReference.MOD_ID}:${shape.name}", material.index, amount, null)
 
+    fun getOreDict(): String = shape.getOreDict(material)
+
     /**
      * Returns list of All Ore Dictionaries from [shape] and [material]
      */

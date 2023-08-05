@@ -1,7 +1,6 @@
 package hiiragi283.chemistry.container
 
 import hiiragi283.api.container.HiiragiContainer
-import hiiragi283.api.container.SlotOutItemHandler
 import hiiragi283.chemistry.tile.TileEntityCrucible
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -10,7 +9,7 @@ class ContainerCrucible(player: EntityPlayer, tile: TileEntityCrucible) :
     HiiragiContainer<TileEntityCrucible>(player, tile) {
 
     init {
-        addSlotToContainer(SlotOutItemHandler(tile.invInput, 0, 8 + 4 * 18, 20))
+        //addSlotToContainer(SlotItemHandler(tile.invCrucible, 0, 8 + 4 * 18, 20))
         initSlotsPlayer(51)
     }
 

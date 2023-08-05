@@ -1,17 +1,21 @@
 package hiiragi283.integration
 
 import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.core.HiiragiProxy
+import net.minecraftforge.fml.common.event.*
 
-abstract class AbstractIntegration {
+abstract class AbstractIntegration : HiiragiProxy {
 
-    abstract fun onPreInit()
+    override fun onConstruct(event: FMLConstructionEvent) {}
 
-    abstract fun registerMaterial(registry: MutableList<HiiragiMaterial>)
+    override fun onPreInit(event: FMLPreInitializationEvent) {}
 
-    abstract fun onInit()
+    open fun registerMaterial(registry: MutableList<HiiragiMaterial>) {}
 
-    abstract fun onPostInit()
+    override fun onInit(event: FMLInitializationEvent) {}
 
-    abstract fun onComplete()
+    override fun onPostInit(event: FMLPostInitializationEvent) {}
+
+    override fun onComplete(event: FMLLoadCompleteEvent) {}
 
 }

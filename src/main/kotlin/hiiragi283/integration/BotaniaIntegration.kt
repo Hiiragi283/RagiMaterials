@@ -3,18 +3,14 @@ package hiiragi283.integration
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.RagiMaterials
 import hiiragi283.core.util.OreDictUtil
 import hiiragi283.core.util.getBlock
 import hiiragi283.core.util.getItem
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object BotaniaIntegration : AbstractIntegration() {
 
-    override fun onPreInit() {
-    }
-
     override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
-        RagiMaterials.LOGGER.info("Enabled integration: Botania")
         registry.add(MaterialIntegration.MANASTEEL)
         registry.add(MaterialIntegration.MANA_DIAMOND)
         registry.add(MaterialIntegration.TERRASTEEL)
@@ -22,10 +18,7 @@ object BotaniaIntegration : AbstractIntegration() {
         registry.add(MaterialIntegration.DRAGONSTONE)
     }
 
-    override fun onInit() {
-    }
-
-    override fun onPostInit() {
+    override fun onPostInit(event: FMLPostInitializationEvent) {
         OreDictUtil.register(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
             getBlock("botania:storage"),
@@ -64,9 +57,6 @@ object BotaniaIntegration : AbstractIntegration() {
             9,
             "elvenDragonstone"
         )
-    }
-
-    override fun onComplete() {
     }
 
 }

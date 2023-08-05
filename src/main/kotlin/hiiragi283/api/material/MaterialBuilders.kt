@@ -109,6 +109,28 @@ private fun initMolar(material: HiiragiMaterial, components: Map<HiiragiMaterial
     material.molar = molar
 }
 
+//    Alloy    //
+
+fun alloyOf(
+    name: String,
+    index: Int,
+    components: Map<HiiragiMaterial, Int>,
+    init: HiiragiMaterial.() -> Unit = {}
+): HiiragiMaterial {
+    val alloy = HiiragiMaterial(name, index)
+    initCompound(alloy, components)
+    initAlloy(alloy, components)
+    alloy.init()
+    return alloy
+}
+
+private fun initAlloy(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
+    initTempBoil(material, components)
+    initTempMelt(material, components)
+    initTempSubl(material, components)
+}
+
+
 //沸点を自動で生成
 private fun initTempBoil(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
     var boil = 0

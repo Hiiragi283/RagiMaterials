@@ -4,11 +4,13 @@ import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
+import hiiragi283.core.RagiMaterials
 import hiiragi283.core.config.RMConfig
 import hiiragi283.core.util.OreDictUtil
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader
+import net.minecraftforge.fml.common.event.*
 import zone.rong.mixinbooter.ILateMixinLoader
 
 class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
@@ -37,17 +39,30 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
         return list
     }
 
-    override fun onPreInit() {
-        if (botania) BotaniaIntegration.onPreInit()
-        if (embers) EmbersIntegration.onPreInit()
-        if (enderIO) EnderIOIntegration.onPreInit()
-        if (ic2Ex) IC2exIntegration.onPreInit()
-        if (mekanism) MekanismIntegration.onPreInit()
-        if (projectRed) ProjectRedIntegration.onPreInit()
-        if (railCraft) RailCraftIntegration.onPreInit()
-        if (tCon) TConIntegration.onPreInit()
-        if (thaum) ThaumIntegration.onPreInit()
-        if (thermal) ThermalIntegration.onPreInit()
+    override fun onConstruct(event: FMLConstructionEvent) {
+        if (botania) RagiMaterials.LOGGER.info("Integration Enabled: Botania")
+        if (embers) RagiMaterials.LOGGER.info("Integration Enabled: Embers")
+        if (enderIO) RagiMaterials.LOGGER.info("Integration Enabled: Ender IO")
+        if (ic2Ex) RagiMaterials.LOGGER.info("Integration Enabled: IC2ex")
+        if (mekanism) RagiMaterials.LOGGER.info("Integration Enabled: Mekanism")
+        if (projectRed) RagiMaterials.LOGGER.info("Integration Enabled: Project Red")
+        if (railCraft) RagiMaterials.LOGGER.info("Integration Enabled: RailCraft")
+        if (tCon) RagiMaterials.LOGGER.info("Integration Enabled: Tinker's Construct")
+        if (thaum) RagiMaterials.LOGGER.info("Integration Enabled: Thaumcraft")
+        if (thermal) RagiMaterials.LOGGER.info("Integration Enabled: Thermal Series")
+    }
+
+    override fun onPreInit(event: FMLPreInitializationEvent) {
+        if (botania) BotaniaIntegration.onPreInit(event)
+        if (embers) EmbersIntegration.onPreInit(event)
+        if (enderIO) EnderIOIntegration.onPreInit(event)
+        if (ic2Ex) IC2exIntegration.onPreInit(event)
+        if (mekanism) MekanismIntegration.onPreInit(event)
+        if (projectRed) ProjectRedIntegration.onPreInit(event)
+        if (railCraft) RailCraftIntegration.onPreInit(event)
+        if (tCon) TConIntegration.onPreInit(event)
+        if (thaum) ThaumIntegration.onPreInit(event)
+        if (thermal) ThermalIntegration.onPreInit(event)
     }
 
     override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
@@ -69,7 +84,7 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
     }
 
 
-    override fun onInit() {
+    override fun onInit(event: FMLInitializationEvent) {
         OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
         OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
         OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
@@ -91,42 +106,33 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
 
         OreDictUtil.shareOredict("fuelCoke", "gemCoke")
 
-        if (botania) BotaniaIntegration.onInit()
-        if (embers) EmbersIntegration.onInit()
-        if (enderIO) EnderIOIntegration.onInit()
-        if (ic2Ex) IC2exIntegration.onInit()
-        if (mekanism) MekanismIntegration.onInit()
-        if (projectRed) ProjectRedIntegration.onInit()
-        if (railCraft) RailCraftIntegration.onInit()
-        if (tCon) TConIntegration.onInit()
-        if (thaum) ThaumIntegration.onInit()
-        if (thermal) ThermalIntegration.onInit()
+        if (botania) BotaniaIntegration.onInit(event)
+        if (embers) EmbersIntegration.onInit(event)
+        if (enderIO) EnderIOIntegration.onInit(event)
+        if (ic2Ex) IC2exIntegration.onInit(event)
+        if (mekanism) MekanismIntegration.onInit(event)
+        if (projectRed) ProjectRedIntegration.onInit(event)
+        if (railCraft) RailCraftIntegration.onInit(event)
+        if (tCon) TConIntegration.onInit(event)
+        if (thaum) ThaumIntegration.onInit(event)
+        if (thermal) ThermalIntegration.onInit(event)
     }
 
-    override fun onPostInit() {
-        if (botania) BotaniaIntegration.onPostInit()
-        if (embers) EmbersIntegration.onPostInit()
-        if (enderIO) EnderIOIntegration.onPostInit()
-        if (ic2Ex) IC2exIntegration.onPostInit()
-        if (mekanism) MekanismIntegration.onPostInit()
-        if (projectRed) ProjectRedIntegration.onPostInit()
-        if (railCraft) RailCraftIntegration.onPostInit()
-        if (tCon) TConIntegration.onPostInit()
-        if (thaum) ThaumIntegration.onPostInit()
-        if (thermal) ThermalIntegration.onPostInit()
+    override fun onPostInit(event: FMLPostInitializationEvent) {
+        if (botania) BotaniaIntegration.onPostInit(event)
+        if (embers) EmbersIntegration.onPostInit(event)
+        if (enderIO) EnderIOIntegration.onPostInit(event)
+        if (ic2Ex) IC2exIntegration.onPostInit(event)
+        if (mekanism) MekanismIntegration.onPostInit(event)
+        if (projectRed) ProjectRedIntegration.onPostInit(event)
+        if (railCraft) RailCraftIntegration.onPostInit(event)
+        if (tCon) TConIntegration.onPostInit(event)
+        if (thaum) ThaumIntegration.onPostInit(event)
+        if (thermal) ThermalIntegration.onPostInit(event)
     }
 
-    override fun onComplete() {
-        if (botania) BotaniaIntegration.onComplete()
-        if (embers) EmbersIntegration.onComplete()
-        if (enderIO) EnderIOIntegration.onComplete()
-        if (ic2Ex) IC2exIntegration.onComplete()
-        if (mekanism) MekanismIntegration.onComplete()
-        if (projectRed) ProjectRedIntegration.onComplete()
-        if (railCraft) RailCraftIntegration.onComplete()
-        if (tCon) TConIntegration.onComplete()
-        if (thaum) ThaumIntegration.onComplete()
-        if (thermal) ThermalIntegration.onComplete()
+    override fun onComplete(event: FMLLoadCompleteEvent) {
+
     }
 
 }
