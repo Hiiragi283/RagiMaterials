@@ -6,11 +6,12 @@ itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
 ##    Item    ##
 
-item.cast_0.name=粘土型 (インゴット)
-item.cast_1.name=粘土型 (ナゲット)
-item.cast_2.name=粘土型 (板材)
-item.cast_3.name=粘土型 (棒材)
-item.cast_4.name=粘土型 (歯車)
+item.book_respawn.name=[開発用] リスポーン本
+item.cast_gear.name=粘土型 (歯車)
+item.cast_ingot.name=粘土型 (インゴット)
+item.cast_nugget.name=粘土型 (ナゲット)
+item.cast_plate.name=粘土型 (板材)
+item.cast_stick.name=粘土型 (棒材)
 item.forge_hammer_0.name=フォージハンマー
 
 ##    JEI Tab    ##

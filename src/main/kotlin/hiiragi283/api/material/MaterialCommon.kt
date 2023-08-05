@@ -281,6 +281,7 @@ object MaterialCommon {
     val CLAY = mixtureOf("clay", 11400, listOf(ALUMINA, SILICATE)) {
         color = ColorUtil.mixColor(RagiColor.GRAY to 2, RagiColor.AQUA to 1).rgb
         validShapes.addAll(MaterialType.SOLID)
+        validShapes.add("plate")
     }
 
     @JvmField

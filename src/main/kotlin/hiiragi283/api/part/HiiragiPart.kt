@@ -6,6 +6,7 @@ import hiiragi283.material.RMReference
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.oredict.OreDictionary
 import kotlin.math.roundToInt
 
 /**
@@ -44,6 +45,8 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
      * Returns true if this object equals [EMPTY]
      */
     fun isEmpty(): Boolean = this == EMPTY
+
+    fun getAllItemStack(): List<ItemStack> = getOreDicts().flatMap { OreDictionary.getOres(it) }
 
     /**
      * Returns ItemStack with given shape and material.

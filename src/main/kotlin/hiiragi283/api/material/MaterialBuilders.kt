@@ -134,28 +134,40 @@ private fun initAlloy(material: HiiragiMaterial, components: Map<HiiragiMaterial
 //沸点を自動で生成
 private fun initTempBoil(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
     var boil = 0
+    var weight = 0
     components
         .filter { it.key.hasTempBoil() }
-        .forEach { boil += it.key.tempBoil * it.value }
-    material.tempBoil = boil
+        .forEach {
+            boil += it.key.tempBoil * it.value
+            weight += it.value
+        }
+    material.tempBoil = if (weight == 0) -1 else boil / weight
 }
 
 //融点を自動で生成
 private fun initTempMelt(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
     var melt = 0
+    var weight = 0
     components
         .filter { it.key.hasTempMelt() }
-        .forEach { melt += it.key.tempMelt * it.value }
-    material.tempMelt = melt
+        .forEach {
+            melt += it.key.tempMelt * it.value
+            weight += it.value
+        }
+    material.tempMelt = if (weight == 0) -1 else melt / weight
 }
 
 //昇華点を自動で生成
 private fun initTempSubl(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
     var subl = 0
+    var weight = 0
     components
         .filter { it.key.hasTempSubl() }
-        .forEach { subl += it.key.tempSubl * it.value }
-    material.tempSubl = subl
+        .forEach {
+            subl += it.key.tempSubl * it.value
+            weight += it.value
+        }
+    material.tempSubl = if (weight == 0) -1 else subl / weight
 }
 
 //    Mixture    //

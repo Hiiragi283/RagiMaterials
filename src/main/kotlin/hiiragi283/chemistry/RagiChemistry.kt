@@ -23,6 +23,7 @@ object RagiChemistry : HiiragiProxy {
         //レシピの登録
         RCBlocks.registerRecipe()
         RCItems.registerRecipe()
+        RCRecipes.init()
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {}

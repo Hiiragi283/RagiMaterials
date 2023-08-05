@@ -4,10 +4,13 @@ import hiiragi283.api.block.HiiragiBlockContainer
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.chemistry.tile.TileEntityCrucible
 import hiiragi283.core.RMCreativeTabs
+import hiiragi283.core.util.CraftingBuilder
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockFaceShape
 import net.minecraft.block.state.IBlockState
+import net.minecraft.init.Blocks
+import net.minecraft.item.ItemStack
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.AxisAlignedBB
@@ -62,5 +65,14 @@ object BlockCrucible : HiiragiBlockContainer.Holdable<TileEntityCrucible>(
 
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
+    //    HiiragiEntry    //
+
+    override fun registerRecipe() {
+        CraftingBuilder(ItemStack(this))
+            .setPattern("A A", "A A", "AAA")
+            .setIngredient('A', ItemStack(Blocks.HARDENED_CLAY))
+            .buildShaped()
+    }
 
 }

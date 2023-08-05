@@ -27,8 +27,10 @@ abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), Hiira
 
     override fun getTranslationKey(stack: ItemStack): String = StringBuilder().also {
         it.append(super.getTranslationKey())
-        it.append("_")
-        it.append(stack.metadata)
+        if (hasSubtypes) {
+            it.append("_")
+            it.append(stack.metadata)
+        }
     }.toString()
 
     //    Client    //
@@ -36,8 +38,11 @@ abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), Hiira
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (isInCreativeTab(tab)) {
-            (0..maxMeta).forEach {
-                subItems.add(ItemStack(this, 1, it))
+            subItems.add(ItemStack(this, 1, 0))
+            if (hasSubtypes) {
+                (1..maxMeta).forEach {
+                    subItems.add(ItemStack(this, 1, it))
+                }
             }
         }
     }

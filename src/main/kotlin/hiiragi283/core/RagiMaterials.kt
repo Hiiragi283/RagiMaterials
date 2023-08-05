@@ -55,6 +55,8 @@ object RagiMaterials : HiiragiProxy {
         FluidRegistry.enableUniversalBucket()
         //イベントを登録
         MinecraftForge.EVENT_BUS.register(RMEventHandler)
+        //RagiChemistry側の処理
+        RagiChemistry.onConstruct(event)
     }
 
     @Mod.EventHandler

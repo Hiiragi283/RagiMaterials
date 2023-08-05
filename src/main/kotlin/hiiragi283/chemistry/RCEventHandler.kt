@@ -57,7 +57,7 @@ object RCEventHandler {
             .filter { it.isMetal() }
             .forEach { material ->
                 ShapeRegistry.getShapes()
-                    .filter { it.isValid(material) }
+                    .filter { it.hasScale() }
                     .map { HiiragiPart(it, material) }
                     .forEach {
                         registry.register(

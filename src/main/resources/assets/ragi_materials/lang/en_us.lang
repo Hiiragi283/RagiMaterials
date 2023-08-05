@@ -10,11 +10,12 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
 ##    Item    ##
 
-item.cast_0.name=Clay Cast (Ingot)
-item.cast_1.name=Clay Cast (Nugget)
-item.cast_2.name=Clay Cast (Plate)
-item.cast_3.name=Clay Cast (Stick)
-item.cast_4.name=Clay Cast (Gear)
+item.book_respawn.name=[for Dev] Respawn Book
+item.cast_gear.name=Clay Cast (Gear)
+item.cast_ingot.name=Clay Cast (Ingot)
+item.cast_nugget.name=Clay Cast (Nugget)
+item.cast_plate.name=Clay Cast (Plate)
+item.cast_stick.name=Clay Cast (Stick)
 item.forge_hammer_0.name=Forge Hammer
 
 ##    JEI Tab    ##

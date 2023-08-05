@@ -50,7 +50,7 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank
                     val result: ItemStack = item.getResult(stack, tankCrucible.fluid)
                     if (tankCrucible.fluidAmount >= amount && !result.isEmpty) {
                         tankCrucible.drain(amount, true)
-                        stack.shrink(1)
+                        stack.itemDamage += 1
                         dropItemAtPlayer(player, result)
                     }
                 }
@@ -129,12 +129,4 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank
         return HiiragiCapabilityProvider(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, tank)
     }
 
-    //    HiiragiInteractionObject    //
-    /*
-    override val classContainer: Class<ContainerCrucible> = ContainerCrucible::class.java
-
-    override val guiName: String = "crucible"
-
-    override fun getDisplayName(): TextComponentTranslation = super<HiiragiInteractionObject>.getDisplayName()
-    */
 }
