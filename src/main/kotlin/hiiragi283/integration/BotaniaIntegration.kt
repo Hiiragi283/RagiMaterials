@@ -4,7 +4,6 @@ import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.core.util.OreDictUtil
-import hiiragi283.core.util.getBlock
 import hiiragi283.core.util.getItem
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
@@ -21,27 +20,27 @@ object BotaniaIntegration : AbstractIntegration() {
     override fun onPostInit(event: FMLPostInitializationEvent) {
         OreDictUtil.register(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
-            getBlock("botania:storage"),
+            getItem("botania:storage"),
             0
         )
         OreDictUtil.register(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.TERRASTEEL),
-            getBlock("botania:storage"),
+            getItem("botania:storage"),
             1
         )
         OreDictUtil.register(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.ELEMENTIUM),
-            getBlock("botania:storage"),
+            getItem("botania:storage"),
             2
         )
         OreDictUtil.register(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANA_DIAMOND),
-            getBlock("botania:storage"),
+            getItem("botania:storage"),
             3
         )
         OreDictUtil.register(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.DRAGONSTONE),
-            getBlock("botania:storage"),
+            getItem("botania:storage"),
             4
         )
 

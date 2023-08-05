@@ -7,7 +7,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 object RailCraftIntegration : AbstractIntegration() {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        HiiragiRegistry.registerHeatSource(ResourceLocation("railcraft", "ore_magic"), 1200 + 273)
+        HiiragiRegistry.registerHeatSource(1200 + 273) {
+            it.block.registryName == ResourceLocation(
+                "railcraft",
+                "ore_magic"
+            )
+        }
     }
 
 }

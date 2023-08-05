@@ -6,9 +6,12 @@ import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fluids.BlockFluidBase
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.RegistryBuilder
+import java.util.function.Function
+import java.util.function.Predicate
 
 object HiiragiRegistry {
 
@@ -22,47 +25,34 @@ object HiiragiRegistry {
         .setType(CrucibleRecipe::class.java)
         .create()
 
-    private val HEAT_SOURCE: HashMap<String, Int> = hashMapOf()
+    private val HEAT_SOURCE: MutableList<Function<IBlockState, Int>> = mutableListOf()
 
     init {
-        registerHeatSource(Blocks.FIRE, 1000 + 273)
-        registerHeatSource(Blocks.LAVA, FluidRegistry.LAVA.temperature)
-        registerHeatSource(Blocks.LIT_FURNACE, 800 + 273)
-        registerHeatSource(Blocks.MAGMA, 800 + 273)
-        registerHeatSource(Blocks.TORCH, 400 + 273)
-        registerHeatSource(Blocks.WATER, FluidRegistry.WATER.temperature)
+        registerHeatSource(1200 + 273) { it.block == Blocks.FIRE }
+        registerHeatSource(FluidRegistry.LAVA.temperature) { it.block == Blocks.LAVA }
+        registerHeatSource(800 + 273) { it.block == Blocks.LIT_FURNACE }
+        registerHeatSource(800 + 273) { it.block == Blocks.MAGMA }
+        registerHeatSource(400 + 273) { it.block == Blocks.TORCH }
+        registerHeatSource {
+            val block = it.block
+            if (block is BlockFluidBase) block.fluid.temperature else 273
+        }
     }
 
     @JvmStatic
-    fun getHeat(state: IBlockState): Int = getHeat(state.block, state.block.getMetaFromState(state))
+    fun getHeat(state: IBlockState): Int = HEAT_SOURCE.firstOrNull { it.apply(state) != 273 }?.apply(state) ?: 273
 
     @JvmStatic
-    fun getHeat(block: Block, metadata: Int): Int =
-        HEAT_SOURCE.getOrDefault(block.registryName?.let { serialize(it, metadata) }, 273)
+    fun getHeat(block: Block): Int = getHeat(block.defaultState)
 
     @JvmStatic
-    fun registerHeatSource(state: IBlockState, temp: Int) {
-        registerHeatSource(state.block, state.block.getMetaFromState(state), temp)
+    fun registerHeatSource(temp: Int, predicate: Predicate<IBlockState>) {
+        HEAT_SOURCE.add(Function { if (predicate.test(it)) temp else 273 })
     }
 
     @JvmStatic
-    fun registerHeatSource(block: Block, metadata: Int, temp: Int) {
-        block.registryName?.let { registerHeatSource(it, metadata, temp) }
-    }
-
-    @JvmStatic
-    fun registerHeatSource(location: ResourceLocation, metadata: Int, temp: Int) {
-        HEAT_SOURCE[serialize(location, metadata)] = temp
-    }
-
-    @JvmStatic
-    fun registerHeatSource(block: Block, temp: Int) {
-        (0..15).forEach { i -> registerHeatSource(block, i, temp) }
-    }
-
-    @JvmStatic
-    fun registerHeatSource(location: ResourceLocation, temp: Int) {
-        (0..15).forEach { i -> registerHeatSource(location, i, temp) }
+    fun registerHeatSource(function: Function<IBlockState, Int>) {
+        HEAT_SOURCE.add(function)
     }
 
     private fun serialize(location: ResourceLocation, metadata: Int): String = "$location:$metadata"

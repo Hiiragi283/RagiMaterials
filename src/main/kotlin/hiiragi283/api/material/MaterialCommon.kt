@@ -1,7 +1,7 @@
 package hiiragi283.api.material
 
 import hiiragi283.core.config.RMConfig
-import hiiragi283.core.util.ColorUtil
+import hiiragi283.core.util.HiiragiColorUtil
 import hiiragi283.core.util.RagiColor
 import hiiragi283.core.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
@@ -31,7 +31,7 @@ object MaterialCommon {
     @JvmField
     val WOOD =
         mixtureOf("wood", 10100, listOf(MaterialElements.CARBON, MaterialElements.HYDROGEN, MaterialElements.OXYGEN)) {
-            color = ColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
+            color = HiiragiColorUtil.mixColor(RagiColor.DARK_GRAY to 2, RagiColor.RED to 1, RagiColor.YELLOW to 1).rgb
             validShapes.addAll(MaterialType.WOOD)
         }
 
@@ -147,7 +147,7 @@ object MaterialCommon {
 
     @JvmField
     val RUBBER = polymerOf("rubber", 10607, mapOf(MaterialElements.CARBON to 5, MaterialElements.HYDROGEN to 8)) {
-        color = ColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.BLACK, RagiColor.DARK_GRAY).rgb
         formula = "(CC(=C)C=C)n"
         validShapes.addAll(MaterialType.SOLID)
         validShapes.add("block")
@@ -157,7 +157,7 @@ object MaterialCommon {
 
     @JvmField
     val PLASTIC = polymerOf("plastic", 10608, mapOf(MaterialElements.CARBON to 2, MaterialElements.HYDROGEN to 4)) {
-        color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
         oreDictAlt = mutableListOf("polyethylene")
         validShapes.addAll(MaterialType.SOLID)
         validShapes.add("block")
@@ -209,7 +209,7 @@ object MaterialCommon {
 
     @JvmField
     val FLUORITE = compoundOf("fluorite", 10901, mapOf(MaterialElements.CALCIUM to 1, MaterialElements.FLUORINE to 2)) {
-        color = ColorUtil.mixColor(RagiColor.GREEN, RagiColor.AQUA).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.GREEN, RagiColor.AQUA).rgb
         crystalType = CrystalType.CUBIC
         validShapes.addAll(MaterialType.GEM_9x)
     }
@@ -257,7 +257,7 @@ object MaterialCommon {
 
     @JvmField
     val BAUXITE = hydrateOf("bauxite", 11301, ALUMINA, 2) {
-        color = ColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.BLACK to 1, RagiColor.DARK_RED to 2, RagiColor.GOLD to 1).rgb
         validShapes.addAll(MaterialType.SOLID)
     }
 
@@ -279,14 +279,14 @@ object MaterialCommon {
 
     @JvmField
     val CLAY = mixtureOf("clay", 11400, listOf(ALUMINA, SILICATE)) {
-        color = ColorUtil.mixColor(RagiColor.GRAY to 2, RagiColor.AQUA to 1).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.GRAY to 2, RagiColor.AQUA to 1).rgb
         validShapes.addAll(MaterialType.SOLID)
         validShapes.add("plate")
     }
 
     @JvmField
     val END_STONE = compoundOf("end_stone", 11401, mapOf(SILICATE to 1)) {
-        color = ColorUtil.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.YELLOW to 1, RagiColor.WHITE to 3).rgb
         validShapes.addAll(MaterialType.SOLID)
     }
 
@@ -298,7 +298,7 @@ object MaterialCommon {
 
     @JvmField
     val LAVA = compoundOf("lava", 11403, mapOf(SILICATE to 1)) {
-        color = ColorUtil.mixColor(RagiColor.DARK_RED, RagiColor.GOLD).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.DARK_RED, RagiColor.GOLD).rgb
         tempMelt = FluidRegistry.LAVA.temperature
     }
 
@@ -310,7 +310,7 @@ object MaterialCommon {
 
     @JvmField
     val OBSIDIAN = compoundOf("obsidian", 11405, mapOf(SILICATE to 1)) {
-        color = ColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.BLACK to 2, RagiColor.BLUE to 1, RagiColor.RED to 1).rgb
         validShapes.addAll(MaterialType.SOLID)
     }
 
@@ -327,7 +327,7 @@ object MaterialCommon {
 
     @JvmField
     val SOUL_SAND = compoundOf("soul_sand", 11407, mapOf(SILICATE to 1)) {
-        color = ColorUtil.mixColor(RagiColor.BLACK to 5, RagiColor.GOLD to 1).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.BLACK to 5, RagiColor.GOLD to 1).rgb
         validShapes.addAll(MaterialType.SOLID)
     }
 
@@ -343,7 +343,7 @@ object MaterialCommon {
     //    Sulfur    //
 
     val SULFURIC_ACID = compoundOf("sulfuric_acid", 11600, mapOf(MaterialElements.HYDROGEN to 2, SULFATE to 1)) {
-        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW).rgb
         tempBoil = WATER.tempBoil
         tempMelt = WATER.tempMelt
     }
@@ -366,7 +366,7 @@ object MaterialCommon {
             12000,
             mapOf(MaterialElements.CALCIUM to 5, PHOSPHATE.addBracket() to 3, HYDROXIDE to 1)
         ) {
-            color = ColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE).rgb
+            color = HiiragiColorUtil.mixColor(RagiColor.YELLOW, RagiColor.WHITE).rgb
             crystalType = CrystalType.EMERALD
             validShapes.addAll(MaterialType.GEM_9x)
         }
@@ -404,7 +404,7 @@ object MaterialCommon {
         )
     )
     {
-        color = ColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.GRAY, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
@@ -429,7 +429,7 @@ object MaterialCommon {
 
     @JvmField
     val INVAR = alloyOf("invar", 12801, mapOf(MaterialElements.NICKEL to 2, MaterialElements.IRON to 1)) {
-        color = ColorUtil.mixColor(
+        color = HiiragiColorUtil.mixColor(
             RagiColor.GREEN to 1,
             RagiColor.GRAY to 3,
             RagiColor.WHITE to 4
@@ -456,7 +456,7 @@ object MaterialCommon {
     //    Silver    //
 
     val ELECTRUM = alloyOf("electrum", 14700, mapOf(MaterialElements.SILVER to 1, MaterialElements.GOLD to 1)) {
-        color = ColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
+        color = HiiragiColorUtil.mixColor(RagiColor.GOLD, RagiColor.YELLOW, RagiColor.WHITE).rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }

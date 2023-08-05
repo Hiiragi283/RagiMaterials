@@ -1,6 +1,5 @@
 package hiiragi283.chemistry.tile
 
-import hiiragi283.api.block.IHeatSource
 import hiiragi283.api.capability.HiiragiCapabilityProvider
 import hiiragi283.api.capability.IOType
 import hiiragi283.api.capability.fluid.HiiragiFluidTank
@@ -21,14 +20,9 @@ import net.minecraft.world.World
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 
-class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank
-/*, HiiragiProvider.Inventory, HiiragiInteractionObject<ContainerCrucible>*/ {
+class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
 
-    private fun getHeat(world: World, pos: BlockPos): Int {
-        val state = world.getBlockState(pos)
-        val block = state.block
-        return if (block is IHeatSource) block.getHeat(world, pos) else HiiragiRegistry.getHeat(state)
-    }
+    private fun getHeat(world: World, pos: BlockPos): Int = HiiragiRegistry.getHeat(world.getBlockState(pos.down()))
 
     //    RCTileEntity    //
 
@@ -60,7 +54,7 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank
                         .firstOrNull { it.matches(stack) }
                     //レシピが存在する -> 現在の温度が要求温度以上 -> tankにレシピの出力を搬入できる -> 溶融レシピを実行
                     if (recipe !== null) {
-                        if (getHeat(world, pos.down()) >= recipe.tempMin) {
+                        if (getHeat(world, pos) >= recipe.tempMin) {
                             if (tank.fill(recipe.output, false) == recipe.output.amount) {
                                 stack.shrink(1)
                                 tank.fill(recipe.output, true)

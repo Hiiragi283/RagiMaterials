@@ -5,6 +5,8 @@ import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
 import hiiragi283.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.core.RMGuiHandler
 import hiiragi283.core.RagiMaterials
+import hiiragi283.core.network.HiiragiMessage
+import hiiragi283.core.network.HiiragiNetworkWrapper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
@@ -19,6 +21,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 
 abstract class HiiragiTileEntity : TileEntity() {
 
@@ -53,6 +56,10 @@ abstract class HiiragiTileEntity : TileEntity() {
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean =
         oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
+
+    fun syncData(vararg messages: IMessage = arrayOf(HiiragiMessage.Sync(pos, updateTag))) {
+        messages.forEach { HiiragiNetworkWrapper.sendToAll(it) }
+    }
 
     //    CommonEvent    //
 

@@ -3,7 +3,7 @@ package hiiragi283.core.util
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
 
-object ColorUtil {
+object HiiragiColorUtil {
 
     //複数の色を混合するメソッド
     fun mixColor(colors: Collection<Color>): Color {

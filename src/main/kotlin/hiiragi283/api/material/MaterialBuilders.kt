@@ -2,7 +2,7 @@
 
 package hiiragi283.api.material
 
-import hiiragi283.core.util.ColorUtil
+import hiiragi283.core.util.HiiragiColorUtil
 import java.awt.Color
 import kotlin.math.roundToInt
 
@@ -68,7 +68,7 @@ private fun initCompound(material: HiiragiMaterial, components: Map<HiiragiMater
 
 //色を自動で生成
 private fun initColor(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
-    material.color = ColorUtil.mixColor(components.map { Color(it.key.color) to it.value }).rgb
+    material.color = HiiragiColorUtil.mixColor(components.map { Color(it.key.color) to it.value }).rgb
 }
 
 private fun initCrystalType(material: HiiragiMaterial) {

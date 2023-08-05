@@ -13,9 +13,20 @@ object TConIntegration : AbstractIntegration() {
         registry.add(MaterialIntegration.MANYULLYN)
         registry.add(MaterialIntegration.ALUMINIUM_BRASS)
     }
+
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        HiiragiRegistry.registerHeatSource(ResourceLocation("tocnstruct", "firewood"), 0, 800 + 273)
-        HiiragiRegistry.registerHeatSource(ResourceLocation("tocnstruct", "firewood"), 1, 1000 + 273)
+        HiiragiRegistry.registerHeatSource(800 + 273) {
+            it.block.registryName == ResourceLocation(
+                "tconstruct",
+                "firewood"
+            ) && it.block.getMetaFromState(it) == 0
+        }
+        HiiragiRegistry.registerHeatSource(1000 + 273) {
+            it.block.registryName == ResourceLocation(
+                "tconstruct",
+                "firewood"
+            ) && it.block.getMetaFromState(it) == 1
+        }
     }
 
 }

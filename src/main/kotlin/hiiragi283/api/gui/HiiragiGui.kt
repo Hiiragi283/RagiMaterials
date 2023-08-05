@@ -2,7 +2,7 @@ package hiiragi283.api.gui
 
 import hiiragi283.api.container.HiiragiContainer
 import hiiragi283.api.tileentity.HiiragiTileEntity
-import hiiragi283.core.util.ColorUtil
+import hiiragi283.core.util.HiiragiColorUtil
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
@@ -50,11 +50,11 @@ abstract class HiiragiGui<T : HiiragiTileEntity>(val container: HiiragiContainer
         val spr = textureMapBlocks.getTextureExtry(fluid.still.toString()) ?: textureMapBlocks.missingSprite
         mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
         //TextureAtlasSpriteに液体の色を乗せる
-        ColorUtil.setGLColor(fluid.color)
+        HiiragiColorUtil.setGLColor(fluid.color)
         //TextureAtlasSpriteを描画する
         drawFluidTexture(x.toDouble(), y.toDouble(), spr!!)
         //着色をリセットする
-        ColorUtil.setGLColor(0xFFFFFF)
+        HiiragiColorUtil.setGLColor(0xFFFFFF)
     }
 
     fun renderFluid(stack: FluidStack, x: Int, y: Int) {
