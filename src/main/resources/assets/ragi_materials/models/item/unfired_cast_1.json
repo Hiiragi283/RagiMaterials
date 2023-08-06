@@ -2,7 +2,7 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "parent": "item/generated",
   "textures": {
-    "layer0": "blocks/hardened_clay",
+    "layer0": "blocks/clay",
     "layer1": "ragi_materials:items/nugget"
   }
 }

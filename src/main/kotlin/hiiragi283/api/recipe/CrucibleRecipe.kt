@@ -5,21 +5,18 @@ import hiiragi283.api.part.PartRegistry
 import hiiragi283.core.util.toFluidStack
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
-import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
-import net.minecraftforge.fml.common.Optional
 import net.minecraftforge.oredict.OreDictionary
-import net.minecraftforge.registries.IForgeRegistryEntry
 
-@Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
+
 class CrucibleRecipe(
     val input: HiiragiPart,
     val tempMin: Int,
     output: Pair<String, Int>
-) : IForgeRegistryEntry.Impl<CrucibleRecipe>(), IRecipeWrapper {
+) : HiiragiRecipe<CrucibleRecipe>() {
 
-    val output: FluidStack by lazy { output.toFluidStack() }
+    val output: FluidStack? by lazy { output.toFluidStack() }
 
     constructor(oredict: String, minTemp: Int, output: Pair<String, Int>) : this(
         PartRegistry.getPart(oredict),
@@ -30,8 +27,15 @@ class CrucibleRecipe(
     constructor(recipe: CrucibleRecipe) : this(
         recipe.input,
         recipe.tempMin,
-        recipe.output.fluid.name to recipe.output.amount
+        recipe.output?.let { it.fluid.name to it.amount } ?: ("" to -1)
     )
+
+    companion object {
+        @JvmField
+        val EMPTY = CrucibleRecipe(HiiragiPart.EMPTY, -1, "water" to 0)
+    }
+
+    fun isEmpty() = this == EMPTY
 
     fun matches(stack: ItemStack): Boolean {
         if (stack.isEmpty) return false
@@ -42,7 +46,7 @@ class CrucibleRecipe(
 
     override fun getIngredients(p0: IIngredients) {
         p0.setInputs(VanillaTypes.ITEM, OreDictionary.getOres(input.getOreDict()))
-        p0.setOutputs(VanillaTypes.FLUID, mutableListOf(output))
+        output?.let { p0.setOutputs(VanillaTypes.FLUID, mutableListOf(it)) }
     }
 
 }

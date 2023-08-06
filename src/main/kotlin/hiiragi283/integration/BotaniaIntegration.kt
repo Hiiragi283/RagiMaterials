@@ -3,8 +3,8 @@ package hiiragi283.integration
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.util.OreDictUtil
 import hiiragi283.core.util.getItem
+import hiiragi283.core.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object BotaniaIntegration : AbstractIntegration() {
@@ -18,39 +18,39 @@ object BotaniaIntegration : AbstractIntegration() {
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANASTEEL),
             getItem("botania:storage"),
             0
         )
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.TERRASTEEL),
             getItem("botania:storage"),
             1
         )
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.ELEMENTIUM),
             getItem("botania:storage"),
             2
         )
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.MANA_DIAMOND),
             getItem("botania:storage"),
             3
         )
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialIntegration.DRAGONSTONE),
             getItem("botania:storage"),
             4
         )
 
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.GEM.getOreDict(MaterialIntegration.MANA_DIAMOND),
             getItem("botania:manaresource"),
             2,
             "manaDiamond"
         )
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.GEM.getOreDict(MaterialIntegration.DRAGONSTONE),
             getItem("botania:manaresource"),
             9,

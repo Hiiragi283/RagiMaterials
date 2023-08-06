@@ -2,7 +2,8 @@ package hiiragi283.api
 
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.core.util.HiiragiModelManager
+import hiiragi283.api.part.HiiragiPart
+import hiiragi283.core.util.setModel
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
@@ -19,6 +20,8 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
     fun asItem(): Item
 
     fun getItemStack(material: HiiragiMaterial, amount: Int = 1): ItemStack = ItemStack(asItem(), amount, material.index)
+
+    fun getItemStack(part: HiiragiPart): ItemStack = getItemStack(part.material, part.shape.scale.toInt())
 
     fun getObject(): T
 
@@ -54,7 +57,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
         @SideOnly(Side.CLIENT)
         override fun registerModel() {
-            HiiragiModelManager.setModel(getObject())
+            getObject().setModel()
         }
 
     }
@@ -67,7 +70,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
         @SideOnly(Side.CLIENT)
         override fun registerModel() {
-            HiiragiModelManager.setModel(getObject())
+            getObject().setModel()
         }
 
     }

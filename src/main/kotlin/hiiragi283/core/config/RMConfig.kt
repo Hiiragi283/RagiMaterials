@@ -18,6 +18,10 @@ object RMConfig {
     @JvmField
     val MATERIAL = Material()
 
+    @Config.Name("Module")
+    @JvmField
+    val MODULE = Module()
+
     class Experimental {
 
         @Config.Name("Enable MetaTileEntity Blocks")
@@ -110,6 +114,18 @@ object RMConfig {
         @Config.Name("Print Registered Materials on Log")
         @JvmField
         var printMaterials: Boolean = false
+
+    }
+
+    class Module {
+
+        @Config.Name("Disable Chemistry Module")
+        @JvmField
+        var disableChemistryModule: Boolean = false
+
+        @Config.Name("Disable Material Blocks/Fluids/Items")
+        @JvmField
+        var disableMaterialModule: Boolean = false
 
     }
 

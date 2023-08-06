@@ -1,10 +1,11 @@
 ##    Block    ##
 
-tile.crucible_0.name=Crucible
+tile.crucible.name=Crucible
 
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - Bottles
+itemGroup.ragi_materials.common=RagiMaterials - Common
 itemGroup.ragi_materials.material_block=RagiMaterials - Blocks
 itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
@@ -16,7 +17,12 @@ item.cast_ingot.name=Clay Cast (Ingot)
 item.cast_nugget.name=Clay Cast (Nugget)
 item.cast_plate.name=Clay Cast (Plate)
 item.cast_stick.name=Clay Cast (Stick)
-item.forge_hammer_0.name=Forge Hammer
+item.crushing_hammer.name=Crushing Hammer
+item.unfired_cast_0.name=Unfired Clay Cast (Ingot)
+item.unfired_cast_1.name=Unfired Clay Cast (Nugget)
+item.unfired_cast_2.name=Unfired Clay Cast (Gear)
+item.unfired_cast_3.name=Unfired Clay Cast (Plate)
+item.unfired_cast_4.name=Unfired Clay Cast (Stick)
 
 ##    JEI Tab    ##
 
@@ -53,11 +59,15 @@ shape.stone=%s
 
 ##    Text    ##
 
+info.ragi_materials.succeeded=[%s] §aSucceeded!
+info.ragi_materials.failed=[%s] §cFailed...
+
 info.ragi_materials.crucible.temperature=Temperature: §b%s§r K
 
 error.ragi_materials.crucible.cannot_fill=§cNo more capacity!
 error.ragi_materials.crucible.more_heat=§cNot enough temperature: %s K or more required!
 error.ragi_materials.crucible.no_recipe=§cNot found ANY recipe!
+error.ragi_materials.crucible.null_output=§cNot found output!
 
 ##    Tooltip    ##
 

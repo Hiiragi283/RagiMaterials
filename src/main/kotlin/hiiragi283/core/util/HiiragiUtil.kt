@@ -7,26 +7,37 @@ import hiiragi283.material.RMReference
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
+import net.minecraft.client.multiplayer.WorldClient
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.command.ICommandSender
+import net.minecraft.enchantment.Enchantment
+import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Items
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.CraftingManager
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ResourceLocation
+import net.minecraft.util.SoundCategory
+import net.minecraft.util.SoundEvent
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryModifiable
 import java.util.*
+import java.util.function.BiPredicate
 
 //    Calendar    //
 
@@ -82,10 +93,32 @@ fun dropItem(world: World, pos: BlockPos, stack: ItemStack, x: Double = 0.0, y: 
     }
 }
 
+//    Enchantment    //
+
+fun addEnchantment(enchantment: Enchantment, level: Int, stack: ItemStack) {
+    val map = EnchantmentHelper.getEnchantments(stack)
+    map[enchantment] = level
+    EnchantmentHelper.setEnchantments(map, stack)
+}
+
+fun addEnchantments(vararg pairs: Pair<Enchantment, Int>, stack: ItemStack) {
+    val map = EnchantmentHelper.getEnchantments(stack)
+    for (pair in pairs) {
+        map[pair.first] = pair.second
+    }
+    EnchantmentHelper.setEnchantments(map, stack)
+}
+
+fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
+    EnchantmentHelper.getEnchantmentLevel(enchantment, stack) > 0
+
 //    FluidStack    //
 
-fun Pair<String, Int>.toFluidStack(): FluidStack =
-    FluidStack(FluidRegistry.getFluidStack(this.first, this.second), this.second)
+val FluidStack_EMPTY = FluidStack(FluidRegistry.WATER, 0)
+
+fun Pair<String, Int>.toFluidStack(): FluidStack? = FluidRegistry.getFluidStack(this.first, this.second)
+
+fun FluidStack.isEmpty(): Boolean = this.isFluidStackIdentical(FluidStack_EMPTY)
 
 //    ItemStack    //
 
@@ -108,6 +141,57 @@ fun ItemStack.isSame(other: ItemStack): Boolean = this.isSameWithoutCount(other)
 
 //NBTタグも含めて比較
 fun ItemStack.isSameWithNBT(other: ItemStack): Boolean = this.isSame(other) && this.tagCompound == other.tagCompound
+
+//    Model    //
+
+fun Item.setModel() {
+    //itemが耐久値を使用しない，かつhasSubtypesがtrueの場合
+    if (this.getMaxDamage(ItemStack(this)) == 0 && this.hasSubtypes) {
+        //メタデータが最大値になるまで処理を繰り返す
+        (0..this.getMetadata(32768)).forEach {
+            ModelLoader.setCustomModelResourceLocation(
+                this,
+                it,
+                ModelResourceLocation(this.registryName!!.append("_$it"), "inventory")
+            )
+        }
+    } else {
+        //1つだけ登録する
+        this.setModelSame()
+    }
+}
+
+fun Block.setModel() {
+    val item = Item.getItemFromBlock(this)
+    if (item != Items.AIR) item.setModel()
+}
+
+//メタデータによらず特定のモデルファイルだけを利用させるメソッド
+fun Item.setModelSame() {
+    ModelLoader.setCustomMeshDefinition(this) { ModelResourceLocation(this.registryName!!, "inventory") }
+}
+
+fun Block.setModelSame() {
+    val item = Item.getItemFromBlock(this)
+    if (item != Items.AIR) item.setModelSame()
+}
+
+//    Ore Dictionary    //
+
+fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
+    item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
+    share?.let { shareOredict(oredict, it) }
+}
+
+fun registerOreDict(oredict: String, block: Block?, meta: Int = 0, share: String? = null) {
+    block?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
+    share?.let { shareOredict(oredict, it) }
+}
+
+fun shareOredict(oredict1: String, oredict2: String) {
+    OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
+    OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
+}
 
 //    Registry    //
 
@@ -147,8 +231,13 @@ fun hiiragiLocation(path: String): ResourceLocation = ResourceLocation(RMReferen
 
 fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.registryName!!.append(split + this.metadata)
 
+fun ItemStack.toMetaLocation(): MetaResourceLocation = MetaResourceLocation(this.item.registryName!!, this.metadata)
+
 fun IBlockState.toLocation(): ResourceLocation =
     this.block.registryName!!.append(":" + this.block.getMetaFromState(this))
+
+fun IBlockState.toMetaLocation(): MetaResourceLocation =
+    MetaResourceLocation(this.block.registryName!!, this.block.getMetaFromState(this))
 
 fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
     val location = ResourceLocation("fluid", this.fluid.name)
@@ -158,6 +247,97 @@ fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
 
 //ResourceLocationの末尾に付け足す関数
 fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, this.path + path)
+
+//    Result    //
+
+private val WORLD_CLIENT: WorldClient by lazy { Minecraft.getMinecraft().world }
+private val PLAYER_CLIENT by lazy { Minecraft.getMinecraft().player }
+
+fun printResult(block: Block, player: ICommandSender = PLAYER_CLIENT, predicate: BiPredicate<Block, ICommandSender>) {
+    if (predicate.test(block, player)) succeeded(block, player) else failed(block, player)
+}
+
+fun printResult(
+    world: IBlockAccess = WORLD_CLIENT,
+    pos: BlockPos,
+    player: ICommandSender = PLAYER_CLIENT,
+    predicate: TriPredicate<IBlockAccess, BlockPos, ICommandSender>
+) {
+    if (predicate.test(world, pos, player)) succeeded(world, pos, player) else failed(world, pos, player)
+}
+
+fun printResult(
+    tile: TileEntity,
+    player: ICommandSender = PLAYER_CLIENT,
+    predicate: BiPredicate<TileEntity, ICommandSender>
+) {
+    if (predicate.test(tile, player)) succeeded(tile, player) else failed(tile, player)
+}
+
+fun succeeded(block: Block, player: ICommandSender = PLAYER_CLIENT) {
+    player.sendMessage(TextComponentTranslation("info.ragi_materials.succeeded", block.localizedName))
+}
+
+fun succeeded(world: IBlockAccess = WORLD_CLIENT, pos: BlockPos, player: ICommandSender = PLAYER_CLIENT) {
+    succeeded(world.getBlockState(pos).block, player)
+}
+
+fun succeeded(tile: TileEntity, player: ICommandSender = PLAYER_CLIENT) {
+    succeeded(tile.world, tile.pos, player)
+}
+
+fun failed(block: Block, player: ICommandSender = PLAYER_CLIENT) {
+    player.sendMessage(TextComponentTranslation("info.ragi_materials.failed", block.localizedName))
+}
+
+fun failed(world: IBlockAccess = WORLD_CLIENT, pos: BlockPos, player: ICommandSender = PLAYER_CLIENT) {
+    failed(world.getBlockState(pos).block, player)
+}
+
+fun failed(tile: TileEntity, player: ICommandSender = PLAYER_CLIENT) {
+    failed(tile.world, tile.pos, player)
+}
+
+//    Sound    //
+
+fun getSound(location: ResourceLocation): SoundEvent {
+    return ForgeRegistries.SOUND_EVENTS.getValue(location)
+        ?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
+}
+
+fun getSound(registryName: String): SoundEvent {
+    return getSound(ResourceLocation(registryName))
+}
+
+fun playSound(
+    world: World,
+    pos: BlockPos,
+    soundEvent: SoundEvent,
+    volume: Float = 1.0f,
+    pitch: Float = 1.0f,
+    soundCategory: SoundCategory = SoundCategory.MASTER,
+    player: EntityPlayer? = null
+) {
+    world.playSound(player, pos, soundEvent, soundCategory, volume, pitch)
+}
+
+fun playSound(
+    tile: TileEntity,
+    soundEvent: SoundEvent,
+    volume: Float = 1.0f,
+    pitch: Float = 1.0f,
+    soundCategory: SoundCategory = SoundCategory.MASTER
+) {
+    playSound(tile.world, tile.pos, soundEvent, volume, pitch, soundCategory)
+}
+
+fun playSoundHypixel(world: World, pos: BlockPos) {
+    world.playSound(null, pos, getSound("minecraft:entity.player.levelup"), SoundCategory.BLOCKS, 1.0f, 0.5f)
+}
+
+fun playSoundHypixel(tile: TileEntity) {
+    playSoundHypixel(tile.world, tile.pos)
+}
 
 //    TileEntity    //
 

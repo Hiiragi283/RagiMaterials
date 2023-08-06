@@ -52,7 +52,7 @@ open class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767
     override fun registerColorItem(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             val material = MaterialRegistry.getMaterial(stack.metadata)
-            if (!material.isEmpty() && tintIndex == 0) material.color else -1
+            if (tintIndex == 0) material.color else -1
         }, this)
     }
 

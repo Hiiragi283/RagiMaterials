@@ -7,11 +7,12 @@ import hiiragi283.core.util.HiiragiIngredient
 import hiiragi283.core.util.append
 import hiiragi283.core.util.toLocation
 import net.minecraftforge.client.model.ModelLoader
+import java.util.function.Function
 
 object HiiragiShapes {
 
     @JvmField
-    val COMMON: (Double) -> HiiragiShape = { shapeOf("common", it) }
+    val COMMON: Function<Double, HiiragiShape> = Function { shapeOf("common", it) }
 
     @JvmField
     val BALL = shapeOf("ball", 0.2)
@@ -20,30 +21,6 @@ object HiiragiShapes {
     val BLOCK = shapeOf(
         "block",
         9.0,
-        /*model = { entry ->
-            MaterialRegistry.getMaterials()
-                .map { material -> material.index }
-                .forEach {
-                    ModelLoader.setCustomModelResourceLocation(
-                        entry.asItem(),
-                        it,
-                        ModelResourceLocation(entry.getLocation()!!.append("_material"), "inventory")
-                    )
-                }
-
-            val common = ModelResourceLocation(entry.getLocation()!!.append("_material"), "inventory")
-            val gem = ModelResourceLocation(entry.getLocation()!!.append("_gem"), "inventory")
-            val metal = ModelResourceLocation(entry.getLocation()!!.append("_metal"), "inventory")
-
-            ModelLoader.registerItemVariants(entry.asItem(), common, gem, metal)
-
-            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                if (material.isMetal()) metal
-                else if (material.isGem()) gem
-                else common
-            }
-        },*/
         recipe = { entry, material ->
             if (material.isSolid()) {
                 if (material.isGem()) {
@@ -98,15 +75,7 @@ object HiiragiShapes {
     })
 
     @JvmField
-    val GEAR = shapeOf(
-        "gear", 4.0,
-        /*recipe = { item, material ->
-               CraftingBuilder(item.getItemStack(material))
-                   .setPattern(" A ", "A A", " A ")
-                   .setIngredient('A', "ingot${material.getOreDictName()}")
-                   .buildShaped()
-           }*/
-    )
+    val GEAR = shapeOf("gear", 4.0)
 
     @JvmField
     val GEM = shapeOf(
@@ -156,26 +125,16 @@ object HiiragiShapes {
     })
 
     @JvmField
-    val ORE = shapeOf("ore", -1.0)
+    val ORE = shapeOf("ore", 2.0)
 
     @JvmField
-    val ORE_POOR = shapeOf("ore_poor", -1.0)
+    val ORE_POOR = shapeOf("ore_poor", 0.3)
 
     @JvmField
     val PLANK = shapeOf("plank", 1.0)
 
     @JvmField
-    val PLATE = shapeOf(
-        "plate", 1.0,
-        /*recipe = { item, material ->
-               if (material.isMetal()) {
-                   CraftingBuilder(item.getItemStack(material))
-                       .addIngredient(HiiragiIngredient("ingot${material.getOreDictName()}"))
-                       .addIngredient(HiiragiIngredient(ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE)))
-                       .buildShapeless()
-               }
-           }*/
-    )
+    val PLATE = shapeOf("plate", 1.0)
 
     @JvmField
     val PLATE_DENSE = shapeOf("plate_dense", 9.0)
@@ -190,18 +149,7 @@ object HiiragiShapes {
     val SHARD = shapeOf("shard", 1.0)
 
     @JvmField
-    val STICK = shapeOf(
-        "stick", 0.5,
-        /*recipe = { item, material ->
-               if (material.isMetal()) {
-                   CraftingBuilder(item.getItemStack(material, 4))
-                       .setPattern("AB", "A ")
-                       .setIngredient('A', "ingot${material.getOreDictName()}")
-                       .setIngredient('B', ItemStack(RMItems.FORGE_HAMMER, 1, OreDictionary.WILDCARD_VALUE))
-                       .buildShaped()
-               }
-           }*/
-    )
+    val STICK = shapeOf("stick", 0.5)
 
     @JvmField
     val STONE = shapeOf("stone", 1.0)

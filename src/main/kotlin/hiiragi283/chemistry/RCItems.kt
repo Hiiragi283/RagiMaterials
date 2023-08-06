@@ -3,6 +3,8 @@ package hiiragi283.chemistry
 import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.item.HiiragiItem
 import hiiragi283.chemistry.item.ItemCast
+import hiiragi283.chemistry.item.ItemCrushingHammer
+import hiiragi283.chemistry.item.ItemUnfiredCast
 import hiiragi283.material.RMItems
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
@@ -27,6 +29,12 @@ object RCItems : HiiragiEntry.ITEM {
 
     @JvmField
     val CAST_STICK = ItemCast(144 / 2, RMItems.MATERIAL_STICK)
+
+    @JvmField
+    val CRUSHING_HAMMER = ItemCrushingHammer
+
+    @JvmField
+    val UNFIRED_CAST = ItemUnfiredCast
 
     var list: List<HiiragiItem> = this::class.java.declaredFields
         .map { it.also { it.isAccessible = true } }

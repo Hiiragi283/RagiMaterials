@@ -10,7 +10,10 @@ import hiiragi283.api.registry.HiiragiRegistry
 import hiiragi283.api.tileentity.HiiragiProvider
 import hiiragi283.api.tileentity.HiiragiTileEntity
 import hiiragi283.core.util.dropItemAtPlayer
+import hiiragi283.core.util.playSound
+import hiiragi283.core.util.succeeded
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
@@ -46,29 +49,56 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
                         tankCrucible.drain(amount, true)
                         stack.itemDamage += 1
                         dropItemAtPlayer(player, result)
+                        succeeded(this, player)
+                        playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
                     }
                 }
                 //実装していない -> レジストリから溶融レシピを取得
                 else {
                     val recipe: CrucibleRecipe? = HiiragiRegistry.CRUCIBLE.valuesCollection
                         .firstOrNull { it.matches(stack) }
-                    //レシピが存在する -> 現在の温度が要求温度以上 -> tankにレシピの出力を搬入できる -> 溶融レシピを実行
+                    //レシピが存在する ->
                     if (recipe !== null) {
+                        //現在の温度が要求温度以上 ->
                         if (getHeat(world, pos) >= recipe.tempMin) {
-                            if (tank.fill(recipe.output, false) == recipe.output.amount) {
-                                stack.shrink(1)
-                                tank.fill(recipe.output, true)
+                            val output = recipe.output
+                            //出力がnullでない
+                            if (output !== null) {
+                                //tankにレシピの出力を搬入できる ->溶融レシピを実行
+                                if (tank.fill(output, false) == output.amount) {
+                                    stack.shrink(1)
+                                    tank.fill(output, true)
+                                    succeeded(this, player)
+                                    playSound(this, SoundEvents.ITEM_BUCKET_FILL_LAVA)
+                                }
+                                //tankに搬入できない -> 警告
+                                else {
+                                    player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
+                                    playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+                                }
                             }
-                            //tankに搬入できない -> 警告
-                            else player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
+                            //出力がnull -> 警告
+                            else {
+                                player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.null_output"))
+                                playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+                            }
                         }
                         //温度が足りていない -> 警告
-                        else player.sendMessage(
-                            TextComponentTranslation("error.ragi_materials.crucible.more_heat", recipe.tempMin)
-                        )
+                        else {
+                            player.sendMessage(
+                                TextComponentTranslation(
+                                    "error.ragi_materials.crucible.more_heat",
+                                    recipe.tempMin
+                                )
+                            )
+                            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+                        }
                     }
                     //レシピが見つからない -> 警告
-                    else player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
+                    else {
+                        player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
+                        playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+                    }
                 }
             }
             //EMPTYの -> 現在の温度を表示する
@@ -76,6 +106,7 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
                 player.sendMessage(
                     TextComponentTranslation("info.ragi_materials.crucible.temperature", getHeat(world, pos))
                 )
+                playSound(this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP)
             }
             return true
         }

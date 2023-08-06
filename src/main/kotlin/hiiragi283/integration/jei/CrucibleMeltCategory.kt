@@ -17,8 +17,11 @@ class CrucibleMeltCategory(guiHelper: IGuiHelper) : HiiragiRecipeCategory<Crucib
         layout.itemStacks.init(0, true, 0, 0)
         layout.itemStacks[0] = wrapper.input.getAllItemStack()
         //outputのスロットを登録
-        layout.fluidStacks.init(0, true, 36 + 1, 1, 16, 16, 144 * 9, true, null)
-        layout.fluidStacks[0] = wrapper.output
+        wrapper.output?.let {
+            layout.fluidStacks.init(0, false, 36 + 1, 1, 16, 16, 144 * 9, true, null)
+            layout.fluidStacks[0] = it
+        }
+
     }
 
 }

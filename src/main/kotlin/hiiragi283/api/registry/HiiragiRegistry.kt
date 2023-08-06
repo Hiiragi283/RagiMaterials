@@ -1,6 +1,7 @@
 package hiiragi283.api.registry
 
 import hiiragi283.api.recipe.CrucibleRecipe
+import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.core.util.hiiragiLocation
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
@@ -23,6 +24,13 @@ object HiiragiRegistry {
         .disableSaving()
         .setName(hiiragiLocation("crucible"))
         .setType(CrucibleRecipe::class.java)
+        .create()
+
+    val CRUSHING: IForgeRegistry<CrushingRecipe> = RegistryBuilder<CrushingRecipe>()
+        .allowModification()
+        .disableSaving()
+        .setName(hiiragiLocation("crush"))
+        .setType(CrushingRecipe::class.java)
         .create()
 
     private val HEAT_SOURCE: MutableList<Function<IBlockState, Int>> = mutableListOf()

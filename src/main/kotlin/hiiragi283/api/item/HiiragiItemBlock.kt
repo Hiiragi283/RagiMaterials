@@ -27,8 +27,10 @@ open class HiiragiItemBlock(block: Block, id: String, private var maxMeta: Int) 
 
     override fun getTranslationKey(stack: ItemStack): String = StringBuilder().also {
         it.append(super.getTranslationKey())
-        it.append("_")
-        it.append(stack.metadata)
+        if (hasSubtypes) {
+            it.append("_")
+            it.append(stack.metadata)
+        }
     }.toString()
 
     //    Client    //

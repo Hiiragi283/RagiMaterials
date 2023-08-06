@@ -9,7 +9,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-abstract class HiiragiItem(id: String, private var maxMeta: Int) : Item(), HiiragiEntry.ITEM {
+abstract class HiiragiItem(id: String, var maxMeta: Int) : Item(), HiiragiEntry.ITEM {
 
     init {
         setRegistryName(RMReference.MOD_ID, id)

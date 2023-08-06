@@ -6,7 +6,8 @@ import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.core.RagiMaterials
 import hiiragi283.core.config.RMConfig
-import hiiragi283.core.util.OreDictUtil
+import hiiragi283.core.util.registerOreDict
+import hiiragi283.core.util.shareOredict
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader
@@ -85,26 +86,26 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
 
 
     override fun onInit(event: FMLInitializationEvent) {
-        OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
-        OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
-        OreDictUtil.register(HiiragiShapes.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
+        registerOreDict(HiiragiShapes.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
+        registerOreDict(HiiragiShapes.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
+        registerOreDict(HiiragiShapes.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
 
-        OreDictUtil.register(
+        registerOreDict(
             HiiragiShapes.DUST.getOreDict(MaterialCommon.GUNPOWDER),
             Items.GUNPOWDER,
             share = "gunpowder"
         )
-        OreDictUtil.register(HiiragiShapes.DUST.getOreDict(MaterialCommon.SUGAR), Items.SUGAR, share = "sugar")
-        OreDictUtil.register(HiiragiShapes.GEM.getOreDict(MaterialCommon.CHARCOAL), Items.COAL, 1, share = "charcoal")
-        OreDictUtil.register(HiiragiShapes.GEM.getOreDict(MaterialCommon.COAL), Items.COAL, share = "coal")
-        OreDictUtil.register(
+        registerOreDict(HiiragiShapes.DUST.getOreDict(MaterialCommon.SUGAR), Items.SUGAR, share = "sugar")
+        registerOreDict(HiiragiShapes.GEM.getOreDict(MaterialCommon.CHARCOAL), Items.COAL, 1, share = "charcoal")
+        registerOreDict(HiiragiShapes.GEM.getOreDict(MaterialCommon.COAL), Items.COAL, share = "coal")
+        registerOreDict(
             HiiragiShapes.GEM.getOreDict(MaterialIntegration.ENDER_PEARL),
             Items.ENDER_PEARL,
             share = "enderpearl"
         )
-        OreDictUtil.register(HiiragiShapes.STICK.getOreDict(MaterialCommon.WOOD), Items.STICK, share = "stick")
+        registerOreDict(HiiragiShapes.STICK.getOreDict(MaterialCommon.WOOD), Items.STICK, share = "stick")
 
-        OreDictUtil.shareOredict("fuelCoke", "gemCoke")
+        shareOredict("fuelCoke", "gemCoke")
 
         if (botania) BotaniaIntegration.onInit(event)
         if (embers) EmbersIntegration.onInit(event)

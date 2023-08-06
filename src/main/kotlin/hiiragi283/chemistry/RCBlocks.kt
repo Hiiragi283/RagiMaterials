@@ -4,6 +4,7 @@ import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.block.HiiragiBlock
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.chemistry.block.BlockCrucible
+import hiiragi283.chemistry.block.BlockOreCluster
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
@@ -15,9 +16,11 @@ object RCBlocks : HiiragiEntry.BLOCK {
 
     override val itemBlock: HiiragiItemBlock? = null
 
-    //val ORE1 = BlockCluster(Material.ROCK)
     @JvmField
     val CRUCIBLE = BlockCrucible
+
+    @JvmField
+    val ORE_CLUSTER = BlockOreCluster
 
     var list: List<HiiragiBlock> = this::class.java.declaredFields
         .map { it.also { it.isAccessible = true } }
