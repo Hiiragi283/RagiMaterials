@@ -5,7 +5,6 @@ import hiiragi283.material.RMReference
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import java.util.*
 
@@ -13,7 +12,6 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
 
     init {
         setRegistryName(RMReference.MOD_ID, id)
-        creativeTab = CreativeTabs.MISC
         translationKey = id
     }
 

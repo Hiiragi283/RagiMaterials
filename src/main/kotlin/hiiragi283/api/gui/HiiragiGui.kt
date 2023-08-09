@@ -2,7 +2,7 @@ package hiiragi283.api.gui
 
 import hiiragi283.api.container.HiiragiContainer
 import hiiragi283.api.tileentity.HiiragiTileEntity
-import hiiragi283.core.util.HiiragiColor
+import hiiragi283.material.util.HiiragiColor
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator

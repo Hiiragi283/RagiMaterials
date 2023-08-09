@@ -2,8 +2,8 @@ package hiiragi283.api.part
 
 import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.ShapeRegistry
-import hiiragi283.core.RagiMaterials
-import hiiragi283.core.util.toItemStack
+import hiiragi283.material.RagiMaterials
+import hiiragi283.material.util.toItemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary

@@ -3,7 +3,7 @@ package hiiragi283.api
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.part.HiiragiPart
-import hiiragi283.core.util.setModel
+import hiiragi283.material.util.setModel
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors

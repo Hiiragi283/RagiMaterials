@@ -1,8 +1,8 @@
 package hiiragi283.api.material
 
-import hiiragi283.core.config.RMConfig
-import hiiragi283.core.util.HiiragiColor
-import hiiragi283.core.util.isAprilFools
+import hiiragi283.material.config.RMConfig
+import hiiragi283.material.util.HiiragiColor
+import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
 
 object MaterialCommon {

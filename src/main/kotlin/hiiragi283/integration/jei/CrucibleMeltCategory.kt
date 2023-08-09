@@ -1,7 +1,7 @@
 package hiiragi283.integration.jei
 
 import hiiragi283.api.recipe.CrucibleRecipe
-import hiiragi283.core.util.hiiragiLocation
+import hiiragi283.material.util.hiiragiLocation
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout

@@ -5,8 +5,8 @@ import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShape
 import hiiragi283.api.tileentity.MaterialTileEntity
-import hiiragi283.core.RMCreativeTabs
-import hiiragi283.core.util.getTile
+import hiiragi283.material.RMCreativeTabs
+import hiiragi283.material.util.getTile
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

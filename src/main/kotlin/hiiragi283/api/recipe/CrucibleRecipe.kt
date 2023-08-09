@@ -2,7 +2,7 @@ package hiiragi283.api.recipe
 
 import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.part.PartRegistry
-import hiiragi283.core.util.toFluidStack
+import hiiragi283.material.util.toFluidStack
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.item.ItemStack

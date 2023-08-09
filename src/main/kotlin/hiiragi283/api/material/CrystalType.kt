@@ -1,6 +1,6 @@
 package hiiragi283.api.material
 
-import hiiragi283.core.util.append
+import hiiragi283.material.util.append
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.Item
 

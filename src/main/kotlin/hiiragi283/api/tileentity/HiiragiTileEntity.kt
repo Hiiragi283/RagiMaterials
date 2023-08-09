@@ -3,10 +3,10 @@ package hiiragi283.api.tileentity
 import hiiragi283.api.capability.energy.HiiragiEnergyStorage
 import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
 import hiiragi283.api.capability.item.HiiragiItemHandlerWrapper
-import hiiragi283.core.RMGuiHandler
-import hiiragi283.core.RagiMaterials
-import hiiragi283.core.network.HiiragiMessage
-import hiiragi283.core.network.HiiragiNetworkWrapper
+import hiiragi283.material.RMGuiHandler
+import hiiragi283.material.RagiMaterials
+import hiiragi283.material.network.HiiragiMessage
+import hiiragi283.material.network.HiiragiNetworkWrapper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer

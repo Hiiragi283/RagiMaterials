@@ -2,7 +2,7 @@
 
 package hiiragi283.api.material
 
-import hiiragi283.core.util.HiiragiColor
+import hiiragi283.material.util.HiiragiColor
 import java.awt.Color
 import kotlin.math.roundToInt
 

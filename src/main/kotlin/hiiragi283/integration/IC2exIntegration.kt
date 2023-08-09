@@ -4,8 +4,8 @@ import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialElements
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.util.getItem
-import hiiragi283.core.util.registerOreDict
+import hiiragi283.material.util.getItem
+import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object IC2exIntegration : AbstractIntegration() {

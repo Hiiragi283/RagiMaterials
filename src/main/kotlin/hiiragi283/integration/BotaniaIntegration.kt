@@ -3,8 +3,8 @@ package hiiragi283.integration
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.util.getItem
-import hiiragi283.core.util.registerOreDict
+import hiiragi283.material.util.getItem
+import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object BotaniaIntegration : AbstractIntegration() {

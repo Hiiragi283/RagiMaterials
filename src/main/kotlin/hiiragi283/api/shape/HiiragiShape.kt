@@ -2,7 +2,7 @@ package hiiragi283.api.shape
 
 import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.core.util.setModelSame
+import hiiragi283.material.util.setModelSame
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
 import java.util.function.BiConsumer

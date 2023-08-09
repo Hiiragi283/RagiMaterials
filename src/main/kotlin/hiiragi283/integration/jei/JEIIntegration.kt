@@ -3,10 +3,10 @@ package hiiragi283.integration.jei
 import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.api.registry.HiiragiRegistry
-import hiiragi283.chemistry.RCBlocks
-import hiiragi283.chemistry.RCItems
-import hiiragi283.core.RagiMaterials
+import hiiragi283.material.RMBlocks
+import hiiragi283.material.RMItems
 import hiiragi283.material.RMReference
+import hiiragi283.material.RagiMaterials
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.IModRegistry
 import mezz.jei.api.JEIPlugin
@@ -36,11 +36,11 @@ class JEIIntegration : IModPlugin {
         //Crucible - Melt
         registry.handleRecipes(CrucibleRecipe::class.java, { CrucibleRecipe(it) }, CRUCIBLE_MELT)
         registry.addRecipes(HiiragiRegistry.CRUCIBLE.valuesCollection, CRUCIBLE_MELT)
-        registry.addRecipeCatalyst(ItemStack(RCBlocks.CRUCIBLE), CRUCIBLE_MELT)
+        registry.addRecipeCatalyst(ItemStack(RMBlocks.CRUCIBLE), CRUCIBLE_MELT)
         //Crushing
         registry.handleRecipes(CrushingRecipe::class.java, { CrushingRecipe(it) }, CRUSHING)
         registry.addRecipes(HiiragiRegistry.CRUSHING.valuesCollection, CRUSHING)
-        registry.addRecipeCatalyst(ItemStack(RCItems.CRUSHING_HAMMER), CRUSHING)
+        registry.addRecipeCatalyst(ItemStack(RMItems.CRUSHING_HAMMER), CRUSHING)
     }
 
 }

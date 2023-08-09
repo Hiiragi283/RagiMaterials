@@ -1,8 +1,8 @@
 package hiiragi283.api.item
 
 import hiiragi283.api.HiiragiEntry
+import hiiragi283.api.block.HiiragiBlock
 import hiiragi283.material.RMReference
-import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
@@ -10,7 +10,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class HiiragiItemBlock(block: Block, id: String, private var maxMeta: Int) : ItemBlock(block), HiiragiEntry.ITEM {
+open class HiiragiItemBlock(block: HiiragiBlock, private var maxMeta: Int) : ItemBlock(block), HiiragiEntry.ITEM {
 
     init {
         registryName = block.registryName!!
@@ -42,6 +42,12 @@ open class HiiragiItemBlock(block: Block, id: String, private var maxMeta: Int) 
                 subItems.add(ItemStack(this, 1, it))
             }
         }
+    }
+
+    //    HiiragiEntry    //
+
+    override fun registerModel() {
+
     }
 
 }

@@ -2,7 +2,7 @@ package hiiragi283.api.item
 
 import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShape
-import hiiragi283.core.RMCreativeTabs
+import hiiragi283.material.RMCreativeTabs
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack

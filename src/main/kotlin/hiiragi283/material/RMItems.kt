@@ -6,9 +6,11 @@ import hiiragi283.api.item.ItemMaterial
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.RMCreativeTabs
-import hiiragi283.core.config.RMConfig
-import hiiragi283.core.util.executeCommand
+import hiiragi283.material.config.RMConfig
+import hiiragi283.material.item.ItemCast
+import hiiragi283.material.item.ItemCrushingHammer
+import hiiragi283.material.item.ItemUnfiredCast
+import hiiragi283.material.util.executeCommand
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
@@ -23,6 +25,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 
 object RMItems : HiiragiEntry.ITEM {
+
+    private val entries: MutableList<HiiragiEntry.ITEM> = mutableListOf()
 
     @JvmField
     val BOOK_RESPAWN = object : HiiragiItem("book_respawn", 0) {
@@ -49,11 +53,13 @@ object RMItems : HiiragiEntry.ITEM {
 
     }
 
+    //    Material    //
+
     @JvmField
     val MATERIAL_BLOCK = ItemMaterial(HiiragiShapes.BLOCK)
 
     @JvmField
-    val MATERIAL_BOTTLE = ItemMaterial(HiiragiShapes.BOTTLE)
+    val MATERIAL_BOTTLE = ItemMaterial(HiiragiShapes.BOTTLE).also { it.setCreativeTab(RMCreativeTabs.BOTTLE) }
 
     @JvmField
     val MATERIAL_DUST = ItemMaterial(HiiragiShapes.DUST)
@@ -93,84 +99,73 @@ object RMItems : HiiragiEntry.ITEM {
     @JvmField
     val MATERIAL_STICK = ItemMaterial(HiiragiShapes.STICK)
 
+    //    Common    //
+
+    @JvmField
+    val CAST_GEAR = ItemCast(144 * 4, MATERIAL_GEAR)
+
+    @JvmField
+    val CAST_INGOT = ItemCast(144, MATERIAL_INGOT)
+
+    @JvmField
+    val CAST_NUGGET = ItemCast(144 / 9, MATERIAL_NUGGET)
+
+    @JvmField
+    val CAST_PLATE = ItemCast(144, MATERIAL_PLATE)
+
+    @JvmField
+    val CAST_STICK = ItemCast(144 / 2, MATERIAL_STICK)
+
+    @JvmField
+    val CRUSHING_HAMMER = ItemCrushingHammer
+
+    @JvmField
+    val UNFIRED_CAST = ItemUnfiredCast
+
+    fun init() {
+        RagiMaterials.LOGGER.info("RMItems has been initialized!")
+        entries.addAll(RMBlocks.getItemBlockEntries())
+        entries.add(BOOK_RESPAWN)
+        if (!RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
+        entries.add(MATERIAL_BOTTLE)
+        entries.add(MATERIAL_DUST)
+        entries.add(MATERIAL_DUST_TINY)
+        entries.add(MATERIAL_GEAR)
+        entries.add(MATERIAL_GEM)
+        entries.add(MATERIAL_INGOT)
+        entries.add(MATERIAL_NUGGET)
+        entries.add(MATERIAL_ORE)
+        entries.add(MATERIAL_PLATE)
+        entries.add(MATERIAL_STICK)
+        entries.add(CAST_GEAR)
+        entries.add(CAST_INGOT)
+        entries.add(CAST_NUGGET)
+        entries.add(CAST_PLATE)
+        entries.add(CAST_STICK)
+        entries.add(CRUSHING_HAMMER)
+        entries.add(UNFIRED_CAST)
+    }
+
     override fun register(registry: IForgeRegistry<Item>) {
-
-        MATERIAL_BOTTLE.setCreativeTab(RMCreativeTabs.BOTTLE)
-
-        BOOK_RESPAWN.register(registry)
-
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            RMBlocks.MATERIAL_BLOCK.itemBlock.register(registry)
-        } else {
-            MATERIAL_BLOCK.register(registry)
-        }
-
-        MATERIAL_BOTTLE.register(registry)
-        MATERIAL_DUST.register(registry)
-        MATERIAL_DUST_TINY.register(registry)
-        MATERIAL_GEAR.register(registry)
-        MATERIAL_GEM.register(registry)
-        MATERIAL_INGOT.register(registry)
-        MATERIAL_NUGGET.register(registry)
-        MATERIAL_ORE.register(registry)
-        MATERIAL_PLATE.register(registry)
-        MATERIAL_STICK.register(registry)
+        entries.forEach { registry.register(it.getObject()) }
     }
 
     override fun registerOreDict() {
-        MATERIAL_BOTTLE.registerOreDict()
-        MATERIAL_DUST.registerOreDict()
-        MATERIAL_DUST_TINY.registerOreDict()
-        MATERIAL_GEAR.registerOreDict()
-        MATERIAL_GEM.registerOreDict()
-        MATERIAL_INGOT.registerOreDict()
-        MATERIAL_NUGGET.registerOreDict()
-        MATERIAL_ORE.registerOreDict()
-        MATERIAL_PLATE.registerOreDict()
-        MATERIAL_STICK.registerOreDict()
+        entries.forEach { it.registerOreDict() }
     }
 
     override fun registerRecipe() {
-        //MATERIAL_CELL.registerRecipe()
-        MATERIAL_DUST.registerRecipe()
-        MATERIAL_DUST_TINY.registerRecipe()
-        MATERIAL_GEAR.registerRecipe()
-        MATERIAL_GEM.registerRecipe()
-        MATERIAL_INGOT.registerRecipe()
-        MATERIAL_NUGGET.registerRecipe()
-        MATERIAL_ORE.registerRecipe()
-        MATERIAL_PLATE.registerRecipe()
-        MATERIAL_STICK.registerRecipe()
+        entries.forEach { it.registerRecipe() }
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
-        MATERIAL_BOTTLE.registerColorItem(itemColors)
-        MATERIAL_DUST.registerColorItem(itemColors)
-        MATERIAL_DUST_TINY.registerColorItem(itemColors)
-        MATERIAL_GEAR.registerColorItem(itemColors)
-        MATERIAL_GEM.registerColorItem(itemColors)
-        MATERIAL_INGOT.registerColorItem(itemColors)
-        MATERIAL_NUGGET.registerColorItem(itemColors)
-        MATERIAL_ORE.registerColorItem(itemColors)
-        MATERIAL_PLATE.registerColorItem(itemColors)
-        MATERIAL_STICK.registerColorItem(itemColors)
+        entries.forEach { it.registerColorItem(itemColors) }
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
-        BOOK_RESPAWN.registerModel()
-
-        MATERIAL_BOTTLE.registerModel()
-        MATERIAL_DUST.registerModel()
-        MATERIAL_DUST_TINY.registerModel()
-        MATERIAL_GEAR.registerModel()
-        MATERIAL_GEM.registerModel()
-        MATERIAL_INGOT.registerModel()
-        MATERIAL_NUGGET.registerModel()
-        MATERIAL_ORE.registerModel()
-        MATERIAL_PLATE.registerModel()
-        MATERIAL_STICK.registerModel()
+        entries.forEach { it.registerModel() }
     }
 
 }

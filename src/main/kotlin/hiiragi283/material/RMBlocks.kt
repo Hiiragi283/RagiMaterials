@@ -4,7 +4,9 @@ import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.block.BlockMaterial
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.config.RMConfig
+import hiiragi283.material.block.BlockCrucible
+import hiiragi283.material.block.BlockOreCluster
+import hiiragi283.material.config.RMConfig
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
@@ -16,54 +18,55 @@ object RMBlocks : HiiragiEntry.BLOCK {
 
     override val itemBlock: HiiragiItemBlock? = null
 
+    private val entries: MutableList<HiiragiEntry.BLOCK> = mutableListOf()
+
+    fun getItemBlockEntries(): List<HiiragiEntry.ITEM> = entries.mapNotNull { it.itemBlock }
+
+    //    Material    //
+
     @JvmField
     val MATERIAL_BLOCK = BlockMaterial(HiiragiShapes.BLOCK)
 
+    //    Common    //
+
+    @JvmField
+    val CRUCIBLE = BlockCrucible
+
+    @JvmField
+    val ORE_CLUSTER = BlockOreCluster
+
+    fun init() {
+        RagiMaterials.LOGGER.info("RMBlocks has been initialized!")
+        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
+        entries.add(CRUCIBLE)
+        entries.add(ORE_CLUSTER)
+    }
+
     override fun register(registry: IForgeRegistry<Block>) {
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            MATERIAL_BLOCK.register(registry)
-        }
+        entries.forEach { registry.register(it.getObject()) }
     }
 
     override fun registerOreDict() {
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            MATERIAL_BLOCK.registerOreDict()
-        } else {
-            RMItems.MATERIAL_BLOCK.registerOreDict()
-        }
+        entries.forEach { it.registerOreDict() }
     }
 
     override fun registerRecipe() {
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            MATERIAL_BLOCK.registerRecipe()
-        } else {
-            RMItems.MATERIAL_BLOCK.registerRecipe()
-        }
+        entries.forEach { it.registerRecipe() }
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerColorBlock(blockColors: BlockColors) {
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            MATERIAL_BLOCK.registerColorBlock(blockColors)
-        }
+        entries.forEach { it.registerColorBlock(blockColors) }
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            MATERIAL_BLOCK.registerColorItem(itemColors)
-        } else {
-            RMItems.MATERIAL_BLOCK.registerColorItem(itemColors)
-        }
+        entries.forEach { it.registerColorItem(itemColors) }
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            MATERIAL_BLOCK.registerModel()
-        } else {
-            RMItems.MATERIAL_BLOCK.registerModel()
-        }
+        entries.forEach { it.registerModel() }
     }
 
 }

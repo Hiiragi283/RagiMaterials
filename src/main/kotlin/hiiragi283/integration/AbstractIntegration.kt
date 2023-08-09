@@ -1,7 +1,7 @@
 package hiiragi283.integration
 
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.core.HiiragiProxy
+import hiiragi283.material.HiiragiProxy
 import net.minecraftforge.fml.common.event.*
 
 abstract class AbstractIntegration : HiiragiProxy {

@@ -2,7 +2,7 @@ package hiiragi283.api.registry
 
 import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
-import hiiragi283.core.util.hiiragiLocation
+import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks

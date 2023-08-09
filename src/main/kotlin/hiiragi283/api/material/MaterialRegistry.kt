@@ -1,7 +1,7 @@
 package hiiragi283.api.material
 
 import hiiragi283.api.event.RMEventFactory
-import hiiragi283.core.RagiMaterials
+import hiiragi283.material.RagiMaterials
 
 object MaterialRegistry {
 

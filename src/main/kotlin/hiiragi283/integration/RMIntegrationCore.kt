@@ -4,10 +4,10 @@ import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.core.RagiMaterials
-import hiiragi283.core.config.RMConfig
-import hiiragi283.core.util.registerOreDict
-import hiiragi283.core.util.shareOredict
+import hiiragi283.material.RagiMaterials
+import hiiragi283.material.config.RMConfig
+import hiiragi283.material.util.registerOreDict
+import hiiragi283.material.util.shareOredict
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader

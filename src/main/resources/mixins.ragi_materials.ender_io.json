@@ -1,5 +1,5 @@
 {
-  "package": "hiiragi283.core.mixin",
+  "package": "hiiragi283.material.mixin",
   "refmap": "mixins.ragi_materials.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8",

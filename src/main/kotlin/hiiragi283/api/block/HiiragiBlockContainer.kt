@@ -1,8 +1,8 @@
 package hiiragi283.api.block
 
 import hiiragi283.api.tileentity.HiiragiTileEntity
-import hiiragi283.core.util.getTile
-import hiiragi283.core.util.hiiragiLocation
+import hiiragi283.material.util.getTile
+import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

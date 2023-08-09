@@ -2,10 +2,10 @@ package hiiragi283.api.shape
 
 import hiiragi283.api.material.CrystalType
 import hiiragi283.api.material.MaterialRegistry
-import hiiragi283.core.util.CraftingBuilder
-import hiiragi283.core.util.HiiragiIngredient
-import hiiragi283.core.util.append
-import hiiragi283.core.util.toLocation
+import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.HiiragiIngredient
+import hiiragi283.material.util.append
+import hiiragi283.material.util.toLocation
 import net.minecraftforge.client.model.ModelLoader
 import java.util.function.Function
 
@@ -27,12 +27,12 @@ object HiiragiShapes {
                     CraftingBuilder(entry.getItemStack(material))
                         .setPattern("AAA", "AAA", "AAA")
                         .setIngredient('A', "gem${material.getOreDictName()}")
-                        .buildShaped()
+                        .build()
                 } else {
                     CraftingBuilder(entry.getItemStack(material))
                         .setPattern("AAA", "AAA", "AAA")
                         .setIngredient('A', "ingot${material.getOreDictName()}")
-                        .buildShaped()
+                        .build()
                 }
             }
         }
@@ -61,7 +61,7 @@ object HiiragiShapes {
         CraftingBuilder(entry.getItemStack(material))
             .setPattern("AAA", "AAA", "AAA")
             .setIngredient('A', "dustTiny${material.getOreDictName()}")
-            .buildShaped()
+            .build()
     })
 
     @JvmField
@@ -71,7 +71,7 @@ object HiiragiShapes {
     val DUST_TINY = shapeOf("dust_tiny", 0.1, recipe = { entry, material ->
         CraftingBuilder(entry.getItemStack(material, 9))
             .addIngredient(HiiragiIngredient("dust${material.getOreDictName()}"))
-            .buildShapeless()
+            .build()
     })
 
     @JvmField
@@ -96,7 +96,7 @@ object HiiragiShapes {
         recipe = { item, material ->
             CraftingBuilder(item.getItemStack(material, 9))
                 .addIngredient(HiiragiIngredient("block${material.getOreDictName()}"))
-                .buildShapeless()
+                .build()
         }
     )
 
@@ -106,12 +106,12 @@ object HiiragiShapes {
         CraftingBuilder(entry.getItemStack(material))
             .setPattern("AAA", "AAA", "AAA")
             .setIngredient('A', "nugget${material.getOreDictName()}")
-            .buildShaped()
+            .build()
         //block -> ingot
         val ingot9 = entry.getItemStack(material, 9)
         CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
             .addIngredient(HiiragiIngredient("block${material.getOreDictName()}"))
-            .buildShapeless()
+            .build()
     })
 
     @JvmField
@@ -121,7 +121,7 @@ object HiiragiShapes {
     val NUGGET = shapeOf("nugget", 0.1, recipe = { entry, material ->
         CraftingBuilder(entry.getItemStack(material, 9))
             .addIngredient(HiiragiIngredient("ingot${material.getOreDictName()}"))
-            .buildShapeless()
+            .build()
     })
 
     @JvmField
