@@ -21,7 +21,6 @@ class CrucibleMeltCategory(guiHelper: IGuiHelper) : HiiragiRecipeCategory<Crucib
             layout.fluidStacks.init(0, false, 36 + 1, 1, 16, 16, 144 * 9, true, null)
             layout.fluidStacks[0] = it
         }
-
     }
 
 }

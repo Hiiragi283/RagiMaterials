@@ -7,6 +7,7 @@ import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.material.RMCreativeTabs
 import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.relauncher.Side
@@ -21,6 +22,8 @@ class ItemCast(val amount: Int, val item: ItemMaterial) : HiiragiItem("cast_${it
     }
 
     //    ICastItem    //
+
+    override fun getCastItem(): Item = this
 
     override fun getFluidAmount(stack: ItemStack): Int = amount
 

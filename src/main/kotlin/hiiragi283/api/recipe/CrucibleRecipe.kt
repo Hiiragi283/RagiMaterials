@@ -24,12 +24,6 @@ class CrucibleRecipe(
         output
     )
 
-    constructor(recipe: CrucibleRecipe) : this(
-        recipe.input,
-        recipe.tempMin,
-        recipe.output?.let { it.fluid.name to it.amount } ?: ("" to -1)
-    )
-
     companion object {
         @JvmField
         val EMPTY = CrucibleRecipe(HiiragiPart.EMPTY, -1, "water" to 0)

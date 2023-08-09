@@ -3,8 +3,6 @@ package hiiragi283.material
 import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.item.HiiragiItem
 import hiiragi283.api.item.ItemMaterial
-import hiiragi283.api.material.MaterialCommon
-import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.ItemCast
@@ -80,18 +78,7 @@ object RMItems : HiiragiEntry.ITEM {
     val MATERIAL_NUGGET = ItemMaterial(HiiragiShapes.NUGGET)
 
     @JvmField
-    val MATERIAL_ORE = object : ItemMaterial(HiiragiShapes.ORE) {
-
-        //    HiiragiEntry    //
-
-        override fun registerColorItem(itemColors: ItemColors) {
-            itemColors.registerItemColorHandler({ stack, tintIndex ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                if (tintIndex == 1) material.color else MaterialCommon.STONE.color
-            }, this)
-        }
-
-    }
+    val MATERIAL_ORE = ItemMaterial(HiiragiShapes.ORE)
 
     @JvmField
     val MATERIAL_PLATE = ItemMaterial(HiiragiShapes.PLATE)

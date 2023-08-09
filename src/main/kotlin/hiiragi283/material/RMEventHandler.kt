@@ -5,14 +5,10 @@ import hiiragi283.api.event.ShapeRegistryEvent
 import hiiragi283.api.item.ICrusherItem
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialElements
-import hiiragi283.api.material.MaterialRegistry
-import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.part.PartRegistry
-import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.api.registry.HiiragiRegistry
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.api.shape.ShapeRegistry
 import hiiragi283.api.tileentity.HiiragiProvider
 import hiiragi283.integration.RMIntegrationCore
 import hiiragi283.material.config.RMJSonHandler
@@ -36,8 +32,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.registries.IForgeRegistry
-import rechellatek.camelToSnakeCase
 
 @Mod.EventBusSubscriber(modid = RMReference.MOD_ID)
 object RMEventHandler {
@@ -80,48 +74,6 @@ object RMEventHandler {
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
         RMItems.register(event.registry)
-    }
-
-    @SubscribeEvent
-    fun registerCrucibleRecipe(event: RegistryEvent.Register<CrucibleRecipe>) {
-        val registry: IForgeRegistry<CrucibleRecipe> = event.registry
-        //るつぼレシピの登録
-        MaterialRegistry.getMaterials()
-            .filter { it.isMetal() }
-            .forEach { material ->
-                ShapeRegistry.getShapes()
-                    .filter { it.hasScale() }
-                    .map { HiiragiPart(it, material) }
-                    .forEach {
-                        registry.register(
-                            CrucibleRecipe(it, material.tempMelt, material.name to (144 * it.shape.scale).toInt())
-                                .setRegistryName(RMReference.MOD_ID, it.getOreDict().camelToSnakeCase())
-                        )
-                    }
-            }
-    }
-
-    @SubscribeEvent
-    fun registerCrushingRecipe(event: RegistryEvent.Register<CrushingRecipe>) {
-        val registry: IForgeRegistry<CrushingRecipe> = event.registry
-        //粉砕レシピの登録
-        MaterialRegistry.getMaterials()
-            .filter { it.isSolid() }
-            .forEach { material ->
-                ShapeRegistry.getShapes()
-                    .filter { it.hasScale() && it.scale >= 1.0 }
-                    .map { HiiragiPart(it, material) }
-                    .forEach {
-                        registry.register(
-                            CrushingRecipe(
-                                it,
-                                mapOf(
-                                    RMItems.MATERIAL_DUST.getItemStack(it) to 100
-                                )
-                            ).setRegistryName(RMReference.MOD_ID, it.getOreDict().camelToSnakeCase())
-                        )
-                    }
-            }
     }
 
     private val keyInventory = hiiragiLocation("inventory")

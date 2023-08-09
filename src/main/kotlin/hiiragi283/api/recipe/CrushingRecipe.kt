@@ -17,8 +17,6 @@ class CrushingRecipe(
     val outputs: Map<ItemStack, Int>
 ) : HiiragiRecipe<CrushingRecipe>() {
 
-    constructor(recipe: CrushingRecipe) : this(recipe.input, recipe.outputs)
-
     fun getAllOutputs(): List<ItemStack> = outputs.keys.toList()
 
     fun getWeightedOutputs(): List<ItemStack> {
