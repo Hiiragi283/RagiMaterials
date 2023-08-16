@@ -7,12 +7,12 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 
 class CrucibleCastCategory(guiHelper: IGuiHelper) :
-    HiiragiRecipeCategory<CrucibleCastRecipeJEI>(CRUCIBLE_CAST, guiHelper) {
+    HiiragiRecipeCategory<CrucibleCastRecipe>(CRUCIBLE_CAST, guiHelper) {
 
     override val backGround: IDrawableStatic =
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/process1_1_1_jei.png"), 1, 1, 18 * 5, 18)
 
-    override fun setRecipe(layout: IRecipeLayout, wrapper: CrucibleCastRecipeJEI, p2: IIngredients) {
+    override fun setRecipe(layout: IRecipeLayout, wrapper: CrucibleCastRecipe, p2: IIngredients) {
         //inputのスロットを登録
         layout.fluidStacks.init(0, true, 0 + 1, 0 + 1, 16, 16, 144 * 9, true, null)
         layout.fluidStacks[0] = wrapper.getInput()

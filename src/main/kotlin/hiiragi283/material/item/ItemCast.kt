@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemCast(val amount: Int, val item: ItemMaterial) : HiiragiItem("cast_${item.shape.name}", 0), ICastItem {
+class ItemCast(val item: ItemMaterial) : HiiragiItem("cast_${item.shape.name}", 0), ICastItem {
 
     init {
         creativeTab = RMCreativeTabs.COMMON
@@ -25,7 +25,7 @@ class ItemCast(val amount: Int, val item: ItemMaterial) : HiiragiItem("cast_${it
 
     override fun getCastItem(): Item = this
 
-    override fun getFluidAmount(stack: ItemStack): Int = amount
+    override fun getFluidAmount(stack: ItemStack): Int = item.shape.scale
 
     override fun getResult(stack: ItemStack, fluid: FluidStack?): ItemStack {
         return if (fluid != null) {

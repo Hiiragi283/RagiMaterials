@@ -89,19 +89,19 @@ object RMItems : HiiragiEntry.ITEM {
     //    Common    //
 
     @JvmField
-    val CAST_GEAR = ItemCast(144 * 4, MATERIAL_GEAR)
+    val CAST_GEAR = ItemCast(MATERIAL_GEAR)
 
     @JvmField
-    val CAST_INGOT = ItemCast(144, MATERIAL_INGOT)
+    val CAST_INGOT = ItemCast(MATERIAL_INGOT)
 
     @JvmField
-    val CAST_NUGGET = ItemCast(144 / 9, MATERIAL_NUGGET)
+    val CAST_NUGGET = ItemCast(MATERIAL_NUGGET)
 
     @JvmField
-    val CAST_PLATE = ItemCast(144, MATERIAL_PLATE)
+    val CAST_PLATE = ItemCast(MATERIAL_PLATE)
 
     @JvmField
-    val CAST_STICK = ItemCast(144 / 2, MATERIAL_STICK)
+    val CAST_STICK = ItemCast(MATERIAL_STICK)
 
     @JvmField
     val CRUSHING_HAMMER = ItemCrushingHammer

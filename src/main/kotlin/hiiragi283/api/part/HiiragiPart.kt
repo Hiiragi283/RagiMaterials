@@ -7,14 +7,11 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
-import kotlin.math.roundToInt
 
 /**
  * Pair of [HiiragiShape] and [HiiragiMaterial]
  */
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
-
-    private val weight: Double = (material.molar * shape.scale * 10.0).roundToInt() / 10.0
 
     companion object {
         @JvmField
@@ -22,17 +19,16 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
     }
 
-    /**
-     * Adds tips for [tooltip]
-     */
     fun addTooltip(tooltip: MutableList<String>) {
-        if (isEmpty()) return
+        if (material.isEmpty()) return
         tooltip.add("§e=== Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.getTranslatedName(material)))
         if (material.hasFormula())
             tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula))
-        if (material.hasMolar() && shape.hasScale())
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", weight))
+        if (material.hasMolar())
+            tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar))
+        if (shape.hasScale())
+            tooltip.add(I18n.format("tips.ragi_materials.property.scale", shape.scale))
         if (material.hasTempMelt())
             tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt))
         if (material.hasTempBoil())

@@ -3,6 +3,9 @@ package hiiragi283.api.material
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import net.minecraft.client.resources.I18n
+import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidRegistry
 import rechellatek.snakeToUpperCamelCase
 
 /**
@@ -82,6 +85,8 @@ data class HiiragiMaterial internal constructor(
      */
     fun addBracket(): HiiragiMaterial = copy(formula = "($formula)")
 
+    fun getFluid(): Fluid = FluidRegistry.getFluid(name) ?: FluidRegistry.WATER
+
     /**
      * Converts material name with UCC format
      *
@@ -108,11 +113,15 @@ data class HiiragiMaterial internal constructor(
         return MaterialState.SOLID
     }
 
+    fun getTranslatedName(): String = I18n.format(translationKey)
+
     /**
      * Returns true if [oreDictAlt] is not empty
      * @see [Collection.isNotEmpty]
      */
     fun hasOreDictAlt(): Boolean = oreDictAlt.isNotEmpty()
+
+    fun hasFluid(): Boolean = FluidRegistry.isFluidRegistered(name)
 
     /**
      * Returns true if [formula] is not empty

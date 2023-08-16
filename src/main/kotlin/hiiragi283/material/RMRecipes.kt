@@ -17,7 +17,7 @@ object RMRecipes {
 
     private fun registerCrucibleRecipes() {
         //るつぼレシピの登録
-        MaterialRegistry.getMaterials()
+        /*MaterialRegistry.getMaterials()
             .filter { it.isMetal() }
             .forEach { material ->
                 ShapeRegistry.getShapes()
@@ -25,10 +25,21 @@ object RMRecipes {
                     .map { HiiragiPart(it, material) }
                     .forEach {
                         HiiragiRegistry.CRUCIBLE.register(
-                            CrucibleRecipe(it, material.tempMelt, material.name to (144 * it.shape.scale).toInt())
+                            CrucibleRecipe(it, material.tempMelt, material.name to it.shape.scale)
                                 .setRegistryName(RMReference.MOD_ID, it.getOreDict().camelToSnakeCase())
                         )
                     }
+            }*/
+        MaterialRegistry.getMaterials()
+            .filter { it.isMetal() }
+            .forEach {
+                HiiragiRegistry.CRUCIBLE.register(
+                    CrucibleRecipe(
+                        it,
+                        it.tempMelt,
+                        it.name
+                    ).setRegistryName(RMReference.MOD_ID, it.name)
+                )
             }
     }
 
@@ -38,15 +49,13 @@ object RMRecipes {
             .filter { it.isSolid() }
             .forEach { material ->
                 ShapeRegistry.getShapes()
-                    .filter { it.hasScale() && it.scale >= 1.0 }
+                    .filter { it.hasScale() && it.scale >= 144 }
                     .map { HiiragiPart(it, material) }
                     .forEach {
                         HiiragiRegistry.CRUSHING.register(
                             CrushingRecipe(
                                 it,
-                                mapOf(
-                                    RMItems.MATERIAL_DUST.getItemStack(it) to 100
-                                )
+                                mapOf(RMItems.MATERIAL_DUST.getItemStack(it) to 100)
                             ).setRegistryName(RMReference.MOD_ID, it.getOreDict().camelToSnakeCase())
                         )
                     }

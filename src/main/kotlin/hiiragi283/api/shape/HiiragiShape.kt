@@ -13,7 +13,7 @@ import java.util.function.Consumer
  */
 fun shapeOf(
     name: String,
-    scale: Double,
+    scale: Int,
     model: Consumer<HiiragiEntry<*>> = Consumer { it.asItem().setModelSame() },
     recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { _, _ -> },
 ): HiiragiShape {
@@ -32,7 +32,7 @@ fun shapeOf(
  * Should be registered in [net.minecraftforge.event.RegistryEvent.Register]<[HiiragiShape]>
  */
 
-abstract class HiiragiShape internal constructor(val name: String, val scale: Double) {
+abstract class HiiragiShape internal constructor(val name: String, val scale: Int) {
 
     /**
      * Registers model on [net.minecraftforge.client.event.ModelRegistryEvent]
@@ -46,7 +46,7 @@ abstract class HiiragiShape internal constructor(val name: String, val scale: Do
 
     companion object {
         @JvmField
-        val EMPTY = shapeOf("empty", 0.0)
+        val EMPTY = shapeOf("empty", 0)
     }
 
     /**
@@ -85,12 +85,12 @@ abstract class HiiragiShape internal constructor(val name: String, val scale: Do
      * Returns translated name with given [material]
      */
     fun getTranslatedName(material: HiiragiMaterial): String =
-        I18n.format("shape.$name", I18n.format(material.translationKey))
+        I18n.format("shape.$name", material.getTranslatedName())
 
     /**
-     * Returns true if [scale] is bigger than 0.0
+     * Returns true if [scale] is bigger than 0
      */
-    fun hasScale(): Boolean = scale > 0.0
+    fun hasScale(): Boolean = scale > 0
 
     /**
      * Returns true if [HiiragiMaterial.validShapes] contains this [name]

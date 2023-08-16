@@ -26,7 +26,9 @@ item.unfired_cast_4.name=Unfired Clay Cast (Stick)
 
 ##    JEI Tab    ##
 
+gui.ragi_materials.crucible_cast=Crucible Casting
 gui.ragi_materials.crucible_melt=Crucible Melting
+gui.ragi_materials.crushing=Crushing Recipe
 
 ##    Shape    ##
 
@@ -42,6 +44,7 @@ shape.crystal=%s Crystal
 shape.dust=%s Dust
 shape.dust_dirty=Dirty %s Dust
 shape.dust_tiny=Tiny Pile of %s Dust
+shape.empty=%s
 shape.gear=%s Gear
 shape.gem=%s Gem
 shape.ingot=%s Ingot
@@ -74,8 +77,9 @@ error.ragi_materials.crucible.null_output=§cNot found output!
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 tips.ragi_materials.property.melt=- Melting Point: §b%s§r§7 K
-tips.ragi_materials.property.mol=- Weight: §b%s§r§7 Unit
+tips.ragi_materials.property.mol=- Molar: §b%s§r§7 g/mol
 tips.ragi_materials.property.name=- Name: §b%s§r§7
+tips.ragi_materials.property.scale=- Scale: §b%s§r§7 mol
 tips.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
 
 ##    Material    ##

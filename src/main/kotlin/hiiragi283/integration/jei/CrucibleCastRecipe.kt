@@ -7,21 +7,21 @@ import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 
-class CrucibleCastRecipeJEI private constructor(
+class CrucibleCastRecipe private constructor(
     private val input: FluidStack,
     private val cast: ItemStack,
     private val output: ItemStack
-) : HiiragiRecipe<CrucibleCastRecipeJEI>() {
+) : HiiragiRecipe<CrucibleCastRecipe>() {
 
     companion object {
         @JvmStatic
-        fun of(cast: ItemStack, input: FluidStack): CrucibleCastRecipeJEI {
+        fun of(cast: ItemStack, input: FluidStack): CrucibleCastRecipe {
             val item = cast.item
-            return if (item is ICastItem) CrucibleCastRecipeJEI(
+            return if (item is ICastItem) CrucibleCastRecipe(
                 input,
                 cast,
                 item.getResult(cast, input)
-            ) else CrucibleCastRecipeJEI(input, ItemStack.EMPTY, ItemStack.EMPTY)
+            ) else CrucibleCastRecipe(input, ItemStack.EMPTY, ItemStack.EMPTY)
         }
     }
 

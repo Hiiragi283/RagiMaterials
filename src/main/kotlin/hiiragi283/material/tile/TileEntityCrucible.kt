@@ -12,20 +12,30 @@ import hiiragi283.api.tileentity.HiiragiTileEntity
 import hiiragi283.material.util.dropItemAtPlayer
 import hiiragi283.material.util.playSound
 import hiiragi283.material.util.succeeded
+import net.minecraft.block.Block
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
+import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.IFluidBlock
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 
 class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
 
-    private fun getHeat(world: World, pos: BlockPos): Int = HiiragiRegistry.getHeat(world.getBlockState(pos.down()))
+    //液体ブロックの温度を優先して取得する
+    private fun getHeat(world: World, pos: BlockPos): Int {
+        val state: IBlockState = world.getBlockState(pos.down())
+        val block: Block = state.block
+        return if (block is IFluidBlock) block.fluid.temperature else HiiragiRegistry.getHeat(state)
+    }
 
     //    RCTileEntity    //
 
@@ -40,7 +50,7 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
             val stack = player.getHeldItem(hand)
             //利き手に持っているItemStackがEMPTYでない -> レシピを実行
             if (!stack.isEmpty) {
-                val item = stack.item
+                val item: Item = stack.item
                 //ItemStackのItemがICastItemを実装している -> 鋳造レシピを実行
                 if (item is ICastItem) {
                     val amount: Int = item.getFluidAmount(stack)
@@ -61,25 +71,17 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
                     if (recipe !== null) {
                         //現在の温度が要求温度以上 ->
                         if (getHeat(world, pos) >= recipe.tempMin) {
-                            val output = recipe.output
-                            //出力がnullでない
-                            if (output !== null) {
-                                //tankにレシピの出力を搬入できる ->溶融レシピを実行
-                                if (tank.fill(output, false) == output.amount) {
-                                    stack.shrink(1)
-                                    tank.fill(output, true)
-                                    succeeded(this, player)
-                                    playSound(this, SoundEvents.ITEM_BUCKET_FILL_LAVA)
-                                }
-                                //tankに搬入できない -> 警告
-                                else {
-                                    player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
-                                    playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
-                                }
+                            val output: FluidStack = recipe.getOutput(stack)
+                            //tankにレシピの出力を搬入できる ->溶融レシピを実行
+                            if (tank.fill(output, false) == output.amount) {
+                                stack.shrink(1)
+                                tank.fill(output, true)
+                                succeeded(this, player)
+                                playSound(this, SoundEvents.ITEM_BUCKET_FILL_LAVA)
                             }
-                            //出力がnull -> 警告
+                            //tankに搬入できない -> 警告
                             else {
-                                player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.null_output"))
+                                player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
                                 playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
                             }
                         }

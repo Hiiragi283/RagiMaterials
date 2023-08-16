@@ -21,7 +21,10 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun getItemStack(material: HiiragiMaterial, amount: Int = 1): ItemStack = ItemStack(asItem(), amount, material.index)
 
-    fun getItemStack(part: HiiragiPart): ItemStack = getItemStack(part.material, part.shape.scale.toInt())
+    fun getItemStack(part: HiiragiPart): ItemStack {
+        val scale = part.shape.scale
+        return if (scale >= 144) getItemStack(part.material, scale / 144) else ItemStack.EMPTY
+    }
 
     fun getObject(): T
 

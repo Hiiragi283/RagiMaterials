@@ -2,17 +2,16 @@ package hiiragi283.api.registry
 
 import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
+import hiiragi283.material.RagiMaterials
+import hiiragi283.material.util.MetaResourceLocation
 import hiiragi283.material.util.hiiragiLocation
+import hiiragi283.material.util.toMetaLocation
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
-import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fluids.BlockFluidBase
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.RegistryBuilder
-import java.util.function.Function
-import java.util.function.Predicate
 
 object HiiragiRegistry {
 
@@ -22,7 +21,7 @@ object HiiragiRegistry {
     val CRUCIBLE: IForgeRegistry<CrucibleRecipe> = RegistryBuilder<CrucibleRecipe>()
         .allowModification()
         .disableSaving()
-        .setName(hiiragiLocation("crucible"))
+        .setName(hiiragiLocation("crucible_new"))
         .setType(CrucibleRecipe::class.java)
         .create()
 
@@ -33,36 +32,40 @@ object HiiragiRegistry {
         .setType(CrushingRecipe::class.java)
         .create()
 
-    private val HEAT_SOURCE: MutableList<Function<IBlockState, Int>> = mutableListOf()
+    val HEAT_SOURCE: Map<MetaResourceLocation, Int>
+        get() = heatSourceInternal
+    private val heatSourceInternal: HashMap<MetaResourceLocation, Int> = hashMapOf()
 
     init {
-        registerHeatSource(1200 + 273) { it.block == Blocks.FIRE }
-        registerHeatSource(FluidRegistry.LAVA.temperature) { it.block == Blocks.LAVA }
-        registerHeatSource(800 + 273) { it.block == Blocks.LIT_FURNACE }
-        registerHeatSource(800 + 273) { it.block == Blocks.MAGMA }
-        registerHeatSource(400 + 273) { it.block == Blocks.TORCH }
-        registerHeatSource {
-            val block = it.block
-            if (block is BlockFluidBase) block.fluid.temperature else 273
-        }
+        registerHeatSource(Blocks.FIRE, 1200 + 273)
+        registerHeatSource(Blocks.LAVA, FluidRegistry.LAVA.temperature)
+        registerHeatSource(Blocks.LIT_FURNACE, 800 + 273)
+        registerHeatSource(Blocks.MAGMA, 800 + 273)
+        registerHeatSource(Blocks.TORCH, 400 + 273)
     }
 
     @JvmStatic
-    fun getHeat(state: IBlockState): Int = HEAT_SOURCE.firstOrNull { it.apply(state) != 273 }?.apply(state) ?: 273
+    fun getHeat(metaLocation: MetaResourceLocation): Int = heatSourceInternal.getOrDefault(metaLocation, 273)
+
+    @JvmStatic
+    fun getHeat(state: IBlockState): Int = getHeat(state.toMetaLocation())
 
     @JvmStatic
     fun getHeat(block: Block): Int = getHeat(block.defaultState)
 
     @JvmStatic
-    fun registerHeatSource(temp: Int, predicate: Predicate<IBlockState>) {
-        HEAT_SOURCE.add(Function { if (predicate.test(it)) temp else 273 })
+    fun registerHeatSource(metaLocation: MetaResourceLocation, temp: Int) {
+        if (heatSourceInternal.containsKey(metaLocation)) {
+            RagiMaterials.LOGGER.error("The heat source: $metaLocation was already registered!")
+            return
+        }
+        heatSourceInternal[metaLocation] = temp
     }
 
     @JvmStatic
-    fun registerHeatSource(function: Function<IBlockState, Int>) {
-        HEAT_SOURCE.add(function)
-    }
+    fun registerHeatSource(state: IBlockState, temp: Int) = registerHeatSource(state.toMetaLocation(), temp)
 
-    private fun serialize(location: ResourceLocation, metadata: Int): String = "$location:$metadata"
+    @JvmStatic
+    fun registerHeatSource(block: Block, temp: Int) = registerHeatSource(block.defaultState, temp)
 
 }

@@ -27,7 +27,9 @@ item.unfired_cast_4.name=未焼成の粘土型 (棒材)
 
 ##    JEI Tab    ##
 
+gui.ragi_materials.crucible_cast=るつぼ - 鋳造
 gui.ragi_materials.crucible_melt=るつぼ - 溶融
+gui.ragi_materials.crushing=破砕レシピ
 
 ##    Shape    ##
 
@@ -43,6 +45,7 @@ shape.crystal=%sの結晶
 shape.dust=%sの粉
 shape.dust_dirty=汚れた%sの粉
 shape.dust_tiny=小さな%sの粉
+shape.empty=%s
 shape.gear=%sの歯車
 shape.gem=%s結晶
 shape.ingot=%sインゴット
@@ -72,8 +75,9 @@ error.ragi_materials.crucible.null_output=§c完成品が見つかりません�
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
 tips.ragi_materials.property.formula=- 化学式: §b%s§r
 tips.ragi_materials.property.melt=- 融点: §b%s§r§7 K
-tips.ragi_materials.property.mol=- 重量: §b%s§r§7 Unit
+tips.ragi_materials.property.mol=- モル質量: §b%s§r§7 g/mol
 tips.ragi_materials.property.name=- 名称: §b%s§r§7
+tips.ragi_materials.property.scale=- 物質量: §b%s§r§7 mol
 tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 
 ##    Material    ##

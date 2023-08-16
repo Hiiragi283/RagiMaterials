@@ -27,6 +27,9 @@ object PartRegistry {
     @JvmStatic
     fun getPart(oredict: String): HiiragiPart = REGISTRY.getOrDefault(oredict, HiiragiPart.EMPTY)
 
+    @JvmStatic
+    fun getAllParts(): MutableCollection<HiiragiPart> = REGISTRY.values
+
     /**
      * Returns list of [HiiragiPart] with given Ore Dictionary name from [REGISTRY]
      * @return a new list excluded [HiiragiPart.EMPTY]

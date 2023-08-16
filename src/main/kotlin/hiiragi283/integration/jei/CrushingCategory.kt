@@ -18,14 +18,10 @@ class CrushingCategory(guiHelper: IGuiHelper) : HiiragiRecipeCategory<CrushingRe
         layout.itemStacks.init(0, true, 0, 0)
         layout.itemStacks[0] = wrapper.input.getAllItemStack()
         //outputのスロットを登録
-        val outputs: List<ItemStack> = wrapper.getAllOutputs()
-
-        fun setOutput(index: Int) {
-            layout.itemStacks.init(index + 1, false, 18 * (index + 2), 0)
-            layout.itemStacks[index + 1] = outputs.getOrElse(index) { ItemStack.EMPTY }
+        (0..6).forEach {
+            layout.itemStacks.init(it + 1, false, 18 * (it + 2), 0)
+            layout.itemStacks[it + 1] = wrapper.getAllOutputs().getOrElse(it) { ItemStack.EMPTY }
         }
-
-        (0..6).forEach { setOutput(it) }
     }
 
 }
