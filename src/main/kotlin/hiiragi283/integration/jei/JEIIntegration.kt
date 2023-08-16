@@ -1,10 +1,13 @@
 package hiiragi283.integration.jei
 
 import hiiragi283.api.item.ICastItem
+import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialRegistry
+import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.api.registry.HiiragiRegistry
+import hiiragi283.api.shape.ShapeRegistry
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.integration.jei.ingredients.HiiragiMaterialHelperJEI
 import hiiragi283.integration.jei.ingredients.HiiragiMaterialRendererJEI
@@ -27,6 +30,7 @@ const val CRUCIBLE_CAST = "${RMReference.MOD_ID}.crucible_cast"
 const val CRUCIBLE_HEAT = "${RMReference.MOD_ID}.crucible_heat"
 const val CRUCIBLE_MELT = "${RMReference.MOD_ID}.crucible_melt"
 const val CRUSHING = "${RMReference.MOD_ID}.crushing"
+const val MATERIAL = "${RMReference.MOD_ID}.material"
 
 @JEIPlugin
 class JEIIntegration : IModPlugin {
@@ -41,7 +45,8 @@ class JEIIntegration : IModPlugin {
             CrucibleCastCategory(guiHelper),
             CrucibleMeltCategory(guiHelper),
             CrushingCategory(guiHelper),
-            HeatSourceCategory(guiHelper)
+            HeatSourceCategory(guiHelper),
+            HiiragiMaterialCategory(guiHelper)
         )
     }
 
@@ -61,6 +66,10 @@ class JEIIntegration : IModPlugin {
         registry.handleRecipes(CrushingRecipe::class.java, { it }, CRUSHING)
         registry.addRecipes(HiiragiRegistry.CRUSHING.valuesCollection, CRUSHING)
         registry.addRecipeCatalyst(ItemStack(RMItems.CRUSHING_HAMMER), CRUSHING)
+        //HiiragiMaterial
+        registry.handleRecipes(HiiragiMaterialRecipe::class.java, { it }, MATERIAL)
+        registry.addRecipes(getHiiragiMaterialRecipes(), MATERIAL)
+        registry.addRecipeCatalyst(ItemStack(RMItems.MATERIAL_BOTTLE, 1, Short.MAX_VALUE.toInt()), MATERIAL)
     }
 
     override fun registerIngredients(registry: IModIngredientRegistration) {
@@ -84,6 +93,17 @@ class JEIIntegration : IModPlugin {
                     .map { CrucibleCastRecipe.of(stack, it) } //レシピに変換
                     .filterNot { it.getOutput().isEmpty } //OutputがItemStack.EMPTYでないもののみ選択
             }
+    }
+
+    private fun getHiiragiMaterialRecipes(): Collection<HiiragiMaterialRecipe> {
+        val ret: MutableList<HiiragiMaterialRecipe> = mutableListOf()
+        for (material: HiiragiMaterial in MaterialRegistry.getMaterials()) {
+            val items: List<ItemStack> = ShapeRegistry.getShapes()
+                .map { HiiragiPart(it, material) }
+                .flatMap { it.getAllItemStack() }
+            ret.add(HiiragiMaterialRecipe(material, items))
+        }
+        return ret
     }
 
 }

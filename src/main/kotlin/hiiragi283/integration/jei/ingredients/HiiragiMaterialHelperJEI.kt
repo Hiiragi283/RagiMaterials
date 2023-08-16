@@ -10,12 +10,8 @@ import java.awt.Color
 object HiiragiMaterialHelperJEI : IIngredientHelper<HiiragiMaterial> {
 
     override fun getMatch(ingredients: MutableIterable<HiiragiMaterial>, toMatch: HiiragiMaterial): HiiragiMaterial {
-        val iterator = ingredients.iterator()
-        var material: HiiragiMaterial
-        do {
-            if (!iterator.hasNext()) return HiiragiMaterial.EMPTY
-            material = iterator.next()
-        } while (toMatch == material)
+        var material: HiiragiMaterial = HiiragiMaterial.EMPTY
+        ingredients.forEach { if (toMatch.name == it.name) material = it }
         return material
     }
 
