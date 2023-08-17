@@ -1,5 +1,6 @@
 package hiiragi283.api.block
 
+import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.item.ItemBlockMaterial
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialRegistry
@@ -7,6 +8,7 @@ import hiiragi283.api.shape.HiiragiShape
 import hiiragi283.api.tileentity.MaterialTileEntity
 import hiiragi283.material.RMCreativeTabs
 import hiiragi283.material.util.getTile
+import hiiragi283.material.util.setModelSame
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -23,8 +25,26 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
+import java.util.function.BiConsumer
+import java.util.function.Consumer
 
-class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
+fun createBlockMaterial(
+    shape: HiiragiShape,
+    model: Consumer<HiiragiEntry<*>> = Consumer { it.asItem().setModelSame() },
+    recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { _, _ -> }
+): BlockMaterial = object : BlockMaterial(shape) {
+
+    override fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) {
+        recipe.accept(entry, material)
+    }
+
+    override fun getModel(entry: HiiragiEntry<*>) {
+        model.accept(entry)
+    }
+
+}
+
+abstract class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
     MaterialTileEntity::class.java
@@ -75,8 +95,10 @@ class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<Ma
     override fun registerRecipe() {
         MaterialRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
-            .forEach { shape.registerRecipe(this, it) }
+            .forEach { getRecipe(this, it) }
     }
+
+    abstract fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
     override fun registerColorBlock(blockColors: BlockColors) {
@@ -94,6 +116,8 @@ class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<Ma
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = shape.registerModel(this)
+    override fun registerModel() = getModel(this)
+
+    abstract fun getModel(entry: HiiragiEntry<*>)
 
 }

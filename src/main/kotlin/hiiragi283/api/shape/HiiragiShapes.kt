@@ -1,158 +1,89 @@
 package hiiragi283.api.shape
 
-import hiiragi283.api.material.CrystalType
-import hiiragi283.api.material.MaterialRegistry
-import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.HiiragiIngredient
-import hiiragi283.material.util.append
-import hiiragi283.material.util.toLocation
-import net.minecraftforge.client.model.ModelLoader
 import java.util.function.Function
 
 object HiiragiShapes {
 
     @JvmField
-    val COMMON: Function<Int, HiiragiShape> = Function { shapeOf("common", it) }
+    val COMMON: Function<Int, HiiragiShape> = Function { HiiragiShape("common", it) }
 
     @JvmField
-    val BALL = shapeOf("ball", 30)
+    val BALL = HiiragiShape("ball", 30)
 
     @JvmField
-    val BLOCK = shapeOf(
-        "block",
-        144 * 9,
-        recipe = { entry, material ->
-            if (material.isSolid()) {
-                if (material.isGem()) {
-                    CraftingBuilder(entry.getItemStack(material))
-                        .setPattern("AAA", "AAA", "AAA")
-                        .setIngredient('A', "gem${material.getOreDictName()}")
-                        .build()
-                } else {
-                    CraftingBuilder(entry.getItemStack(material))
-                        .setPattern("AAA", "AAA", "AAA")
-                        .setIngredient('A', "ingot${material.getOreDictName()}")
-                        .build()
-                }
-            }
-        }
-    )
+    val BLOCK = HiiragiShape("block", 144 * 9)
 
     @JvmField
-    val BOTTLE = shapeOf("bottle", 144)
+    val BOTTLE = HiiragiShape("bottle", 144)
 
     @JvmField
-    val CLUMP = shapeOf("clump", 144)
+    val CLUMP = HiiragiShape("clump", 144)
 
     @JvmField
-    val CLUSTER = shapeOf("cluster", 144 * 2)
+    val CLUSTER = HiiragiShape("cluster", 144 * 2)
 
     @JvmField
-    val COIN = shapeOf("coin", 144 / 3)
+    val COIN = HiiragiShape("coin", 144 / 3)
 
     @JvmField
-    val CRUSHED = shapeOf("crushed", 144)
+    val CRUSHED = HiiragiShape("crushed", 144)
 
     @JvmField
-    val CRYSTAL = shapeOf("crystal", 144)
+    val CRYSTAL = HiiragiShape("crystal", 144)
 
     @JvmField
-    val DUST = shapeOf("dust", 144, recipe = { entry, material ->
-        CraftingBuilder(entry.getItemStack(material))
-            .setPattern("AAA", "AAA", "AAA")
-            .setIngredient('A', "dustTiny${material.getOreDictName()}")
-            .build()
-    })
+    val DUST = HiiragiShape("dust", 144)
 
     @JvmField
-    val DUST_DIRTY = shapeOf("dust_dirty", 144)
+    val DUST_DIRTY = HiiragiShape("dust_dirty", 144)
 
     @JvmField
-    val DUST_TINY = shapeOf("dust_tiny", 144 / 9, recipe = { entry, material ->
-        CraftingBuilder(entry.getItemStack(material, 9))
-            .addIngredient(HiiragiIngredient("dust${material.getOreDictName()}"))
-            .build()
-    })
+    val DUST_TINY = HiiragiShape("dust_tiny", 144 / 9)
 
     @JvmField
-    val GEAR = shapeOf("gear", 144 * 4)
+    val GEAR = HiiragiShape("gear", 144 * 4)
 
     @JvmField
-    val GEM = shapeOf(
-        "gem",
-        144,
-        model = { entry ->
-            ModelLoader.registerItemVariants(entry.asItem(), *CrystalType.values()
-                .filter { it.texture.isNotEmpty() }
-                .map { entry.getLocation()!!.append("_" + it.texture) }
-                .toTypedArray())
-
-            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
-                val type = if (material.isGem()) material.crystalType else CrystalType.CUBIC
-                type.getLocation(entry.asItem())
-            }
-        },
-        recipe = { item, material ->
-            CraftingBuilder(item.getItemStack(material, 9))
-                .addIngredient(HiiragiIngredient("block${material.getOreDictName()}"))
-                .build()
-        }
-    )
+    val GEM = HiiragiShape("gem", 144)
 
     @JvmField
-    val INGOT = shapeOf("ingot", 144, recipe = { entry, material ->
-        //nugget -> ingot
-        CraftingBuilder(entry.getItemStack(material))
-            .setPattern("AAA", "AAA", "AAA")
-            .setIngredient('A', "nugget${material.getOreDictName()}")
-            .build()
-        //block -> ingot
-        val ingot9 = entry.getItemStack(material, 9)
-        CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
-            .addIngredient(HiiragiIngredient("block${material.getOreDictName()}"))
-            .build()
-    })
+    val INGOT = HiiragiShape("ingot", 144)
 
     @JvmField
-    val LOG = shapeOf("log", 144 * 4)
+    val LOG = HiiragiShape("log", 144 * 4)
 
     @JvmField
-    val NUGGET = shapeOf("nugget", 144 / 9, recipe = { entry, material ->
-        CraftingBuilder(entry.getItemStack(material, 9))
-            .addIngredient(HiiragiIngredient("ingot${material.getOreDictName()}"))
-            .build()
-    })
+    val NUGGET = HiiragiShape("nugget", 144 / 9)
 
     @JvmField
-    val ORE = shapeOf("ore", 144 * 2)
+    val ORE = HiiragiShape("ore", 144 * 2)
 
     @JvmField
-    val ORE_POOR = shapeOf("ore_poor", 144 / 3)
+    val ORE_POOR = HiiragiShape("ore_poor", 144 / 3)
 
     @JvmField
-    val PLANK = shapeOf("plank", 144)
+    val PLANK = HiiragiShape("plank", 144)
 
     @JvmField
-    val PLATE = shapeOf("plate", 144)
+    val PLATE = HiiragiShape("plate", 144)
 
     @JvmField
-    val PLATE_DENSE = shapeOf("plate_dense", 144 * 9)
+    val PLATE_DENSE = HiiragiShape("plate_dense", 144 * 9)
 
     @JvmField
-    val PURIFIED = shapeOf("crushed_purified", 144)
+    val PURIFIED = HiiragiShape("crushed_purified", 144)
 
     @JvmField
-    val SAND = shapeOf("sand", 144)
+    val SAND = HiiragiShape("sand", 144)
 
     @JvmField
-    val SHARD = shapeOf("shard", 144)
+    val SHARD = HiiragiShape("shard", 144)
 
     @JvmField
-    val STICK = shapeOf("stick", 144 / 2)
+    val STICK = HiiragiShape("stick", 144 / 2)
 
     @JvmField
-    val STONE = shapeOf("stone", 144)
+    val STONE = HiiragiShape("stone", 144)
 
     fun register(registry: MutableList<HiiragiShape>) {
         this::class.java.declaredFields

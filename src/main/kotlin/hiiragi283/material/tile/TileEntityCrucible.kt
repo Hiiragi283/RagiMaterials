@@ -119,37 +119,6 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
 
     private lateinit var tankCrucible: HiiragiFluidTank
 
-    /*override fun createInventory(): HiiragiCapabilityProvider<IItemHandler> {
-        invCrucible = object : HiiragiItemHandler(1, this) {
-
-            override fun getSlotLimit(slot: Int): Int = 1
-
-            override fun onContentsChanged(slot: Int) {
-                val stack = this.getStackInSlot(0)
-                if (stack.isEmpty) return
-                val item = stack.item
-                if (item is ICastItem) {
-                    val inventory = this@TileEntityCrucible.invCrucible
-                    val tank = this@TileEntityCrucible.tankCrucible
-                    val amount = item.getFluidAmount(stack)
-                    val result = item.getResult(stack, tank.fluid)
-                    if (tank.fluidAmount >= amount && !result.isEmpty) {
-                        inventory.extractItem(0, 1, false)
-                        inventory.insertItem(0, result, false)
-                        tank.drain(amount, true)
-                    }
-                } else {
-                    HiiragiRegistry.CRUCIBLE.valuesCollection
-                        .firstOrNull { it.matches(invCrucible, tankCrucible) }
-                        ?.process(invCrucible, tankCrucible)
-                }
-            }
-
-        }.setIOType(IOType.GENERAL)
-        inventory = HiiragiItemHandlerWrapper(invCrucible)
-        return HiiragiCapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventory)
-    }*/
-
     override fun createTank(): HiiragiCapabilityProvider<IFluidHandler> {
         tankCrucible = HiiragiFluidTank(144 * 9).setIOType(IOType.GENERAL)
         tank = HiiragiFluidTankWrapper(tankCrucible)

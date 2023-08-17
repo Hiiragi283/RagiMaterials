@@ -2,7 +2,6 @@ package hiiragi283.material.item
 
 import hiiragi283.api.item.HiiragiItem
 import hiiragi283.api.material.MaterialCommon
-import hiiragi283.material.RMCreativeTabs
 import hiiragi283.material.RMItems
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.client.renderer.color.ItemColors
@@ -22,10 +21,6 @@ object ItemUnfiredCast : HiiragiItem("unfired_cast", 4) {
         3 to RMItems.CAST_PLATE,
         4 to RMItems.CAST_STICK,
     )
-
-    init {
-        creativeTab = RMCreativeTabs.COMMON
-    }
 
     //    HiiragiEntry    //
 

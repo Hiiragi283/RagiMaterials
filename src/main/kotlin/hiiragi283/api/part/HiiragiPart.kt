@@ -42,6 +42,9 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
      */
     fun isEmpty(): Boolean = this == EMPTY
 
+    fun findItemStack(primalMod: String, secondaryMod: String): ItemStack =
+        hiiragi283.material.util.findItemStack(getAllItemStack(), primalMod, secondaryMod)
+
     fun getAllItemStack(): List<ItemStack> = getOreDicts().flatMap { OreDictionary.getOres(it) }
 
     /**

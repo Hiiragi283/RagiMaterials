@@ -2,7 +2,6 @@ package hiiragi283.material.block
 
 import hiiragi283.api.block.HiiragiBlockContainer
 import hiiragi283.api.item.HiiragiItemBlock
-import hiiragi283.material.RMCreativeTabs
 import hiiragi283.material.tile.TileEntityCrucible
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.block.SoundType
@@ -30,7 +29,6 @@ object BlockCrucible : HiiragiBlockContainer.Holdable<TileEntityCrucible>(
     init {
         blockHardness = 5.0F
         blockResistance = 5.0F
-        creativeTab = RMCreativeTabs.COMMON
         setHarvestLevel("pickaxe", 2)
         soundType = SoundType.METAL
     }

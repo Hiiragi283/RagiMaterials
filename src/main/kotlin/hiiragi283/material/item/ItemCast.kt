@@ -5,7 +5,8 @@ import hiiragi283.api.item.ICastItem
 import hiiragi283.api.item.ItemMaterial
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialRegistry
-import hiiragi283.material.RMCreativeTabs
+import hiiragi283.api.part.HiiragiPart
+import hiiragi283.material.RMReference
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -16,7 +17,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 class ItemCast(val item: ItemMaterial) : HiiragiItem("cast_${item.shape.name}", 0), ICastItem {
 
     init {
-        creativeTab = RMCreativeTabs.COMMON
         maxDamage = 63
         maxStackSize = 1
     }
@@ -28,11 +28,12 @@ class ItemCast(val item: ItemMaterial) : HiiragiItem("cast_${item.shape.name}", 
     override fun getFluidAmount(stack: ItemStack): Int = item.shape.scale
 
     override fun getResult(stack: ItemStack, fluid: FluidStack?): ItemStack {
-        return if (fluid != null) {
-            val material = MaterialRegistry.getMaterial(fluid.fluid.name)
-            if (material.isSolid() && item.shape.isValid(material)) item.getItemStack(material)
-            else ItemStack.EMPTY
-        } else ItemStack.EMPTY
+        return fluid?.let {
+            HiiragiPart(
+                item.shape,
+                MaterialRegistry.getMaterial(it.fluid.name)
+            ).findItemStack("minecraft", RMReference.MOD_ID)
+        } ?: ItemStack.EMPTY
     }
 
     //    HiiragiEntry    //

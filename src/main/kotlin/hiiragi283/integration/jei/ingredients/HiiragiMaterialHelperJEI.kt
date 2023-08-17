@@ -11,7 +11,7 @@ object HiiragiMaterialHelperJEI : IIngredientHelper<HiiragiMaterial> {
 
     override fun getMatch(ingredients: MutableIterable<HiiragiMaterial>, toMatch: HiiragiMaterial): HiiragiMaterial {
         var material: HiiragiMaterial = HiiragiMaterial.EMPTY
-        ingredients.forEach { if (toMatch.name == it.name) material = it }
+        ingredients.forEach { if (toMatch == it) material = it }
         return material
     }
 
@@ -25,9 +25,10 @@ object HiiragiMaterialHelperJEI : IIngredientHelper<HiiragiMaterial> {
 
     override fun getColors(ingredient: HiiragiMaterial): MutableIterable<Color> = mutableListOf(Color(ingredient.color))
 
-    override fun getResourceId(material: HiiragiMaterial): String = material.toString()
+    override fun getResourceId(material: HiiragiMaterial): String = material.name
 
-    override fun getCheatItemStack(ingredient: HiiragiMaterial): ItemStack = RMItems.MATERIAL_BOTTLE.getItemStack(ingredient)
+    override fun getCheatItemStack(ingredient: HiiragiMaterial): ItemStack =
+        RMItems.MATERIAL_BOTTLE.getItemStack(ingredient)
 
     override fun copyIngredient(material: HiiragiMaterial): HiiragiMaterial = material.copy()
 

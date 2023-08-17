@@ -1,30 +1,8 @@
 package hiiragi283.api.shape
 
-import hiiragi283.api.HiiragiEntry
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.material.util.setModelSame
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
-import java.util.function.BiConsumer
-import java.util.function.Consumer
-
-/**
- * Creates new shape
- */
-fun shapeOf(
-    name: String,
-    scale: Int,
-    model: Consumer<HiiragiEntry<*>> = Consumer { it.asItem().setModelSame() },
-    recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { _, _ -> },
-): HiiragiShape {
-    return object : HiiragiShape(name, scale) {
-
-        override fun registerModel(entry: HiiragiEntry<*>) = model.accept(entry)
-
-        override fun registerRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) = recipe.accept(entry, material)
-
-    }
-}
 
 /**
  * An object which represents the shape of [net.minecraft.item.Item]
@@ -32,26 +10,13 @@ fun shapeOf(
  * Should be registered in [net.minecraftforge.event.RegistryEvent.Register]<[HiiragiShape]>
  */
 
-abstract class HiiragiShape internal constructor(val name: String, val scale: Int) {
-
-    /**
-     * Registers model on [net.minecraftforge.client.event.ModelRegistryEvent]
-     */
-    abstract fun registerModel(entry: HiiragiEntry<*>)
-
-    /**
-     * Registers recipes for [entry] with [material]
-     */
-    abstract fun registerRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial)
+class HiiragiShape(val name: String, val scale: Int) {
 
     companion object {
         @JvmField
-        val EMPTY = shapeOf("empty", 0)
+        val EMPTY = HiiragiShape("empty", 0)
     }
 
-    /**
-     * Returns true if [name] equals "empty"
-     */
     fun isEmpty(): Boolean = this.name == "empty"
 
     /**

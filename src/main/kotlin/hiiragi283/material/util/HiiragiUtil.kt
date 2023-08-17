@@ -178,6 +178,17 @@ fun Block.setModelSame() {
 
 //    Ore Dictionary    //
 
+//modIdに合致するItemStackを優先して返す関数
+//合致しない場合は最初のItemStackを返す
+fun findItemStack(stacks: List<ItemStack>, primalMod: String, secondaryMod: String): ItemStack {
+    return stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
+        ?: stacks.firstOrNull { it.item.getCreatorModId(it) == secondaryMod }
+        ?: stacks.getOrElse(0) { ItemStack.EMPTY }
+}
+
+fun findItemStack(oredict: String, primalMod: String, secondaryMod: String): ItemStack =
+    findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
+
 fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
     item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
     share?.let { shareOredict(oredict, it) }

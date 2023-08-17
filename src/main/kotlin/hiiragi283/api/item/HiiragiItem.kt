@@ -1,6 +1,7 @@
 package hiiragi283.api.item
 
 import hiiragi283.api.HiiragiEntry
+import hiiragi283.material.RMCreativeTabs
 import hiiragi283.material.RMReference
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
@@ -13,7 +14,7 @@ abstract class HiiragiItem(id: String, var maxMeta: Int) : Item(), HiiragiEntry.
 
     init {
         setRegistryName(RMReference.MOD_ID, id)
-        creativeTab = CreativeTabs.MISC
+        creativeTab = RMCreativeTabs.COMMON
         hasSubtypes = maxMeta > 0
         maxMeta = 0.coerceAtLeast(maxMeta)
         translationKey = id

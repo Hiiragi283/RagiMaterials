@@ -1,10 +1,11 @@
 package hiiragi283.material
 
 import hiiragi283.api.HiiragiEntry
-import hiiragi283.api.block.BlockMaterial
+import hiiragi283.api.block.createBlockMaterial
 import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.block.BlockCrucible
+import hiiragi283.material.block.BlockInventoryTest
 import hiiragi283.material.block.BlockOreCluster
 import hiiragi283.material.config.RMConfig
 import net.minecraft.block.Block
@@ -25,9 +26,14 @@ object RMBlocks : HiiragiEntry.BLOCK {
     //    Material    //
 
     @JvmField
-    val MATERIAL_BLOCK = BlockMaterial(HiiragiShapes.BLOCK)
+    val MATERIAL_BLOCK = createBlockMaterial(
+        HiiragiShapes.BLOCK,
+        recipe = getRecipeBlock()
+    )
 
     //    Common    //
+
+    val TEST = BlockInventoryTest
 
     @JvmField
     val CRUCIBLE = BlockCrucible
@@ -38,6 +44,7 @@ object RMBlocks : HiiragiEntry.BLOCK {
     fun init() {
         RagiMaterials.LOGGER.info("RMBlocks has been initialized!")
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
+        entries.add(TEST)
         entries.add(CRUCIBLE)
         entries.add(ORE_CLUSTER)
     }
