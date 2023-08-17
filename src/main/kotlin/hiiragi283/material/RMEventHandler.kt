@@ -27,13 +27,11 @@ import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.fml.client.event.ConfigChangedEvent
-import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Mod.EventBusSubscriber(modid = RMReference.MOD_ID)
 object RMEventHandler {
 
     @SubscribeEvent
@@ -114,7 +112,6 @@ object RMEventHandler {
 
     //    Client    //
 
-    @Mod.EventBusSubscriber(modid = RMReference.MOD_ID)
     @SideOnly(Side.CLIENT)
     object Client {
 

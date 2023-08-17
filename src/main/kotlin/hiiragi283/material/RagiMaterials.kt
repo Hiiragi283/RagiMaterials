@@ -7,6 +7,7 @@ import hiiragi283.integration.RMIntegrationCore
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
@@ -21,9 +22,9 @@ import java.util.*
     modid = RMReference.MOD_ID,
     name = RMReference.MOD_NAME,
     version = RMReference.VERSION,
-    dependencies = "required-after:forgelin_continuous;after:gregtech;after:jei",
+    dependencies = "after:gregtech;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
-    modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
+    modLanguageAdapter = "hiiragi283.material.adaptor.HiiragiKotlinAdaptor"
 )
 object RagiMaterials : HiiragiProxy {
 
@@ -52,6 +53,9 @@ object RagiMaterials : HiiragiProxy {
     override fun onConstruct(event: FMLConstructionEvent) {
         //Universal Bucketを有効化
         FluidRegistry.enableUniversalBucket()
+        //Eventを登録
+        MinecraftForge.EVENT_BUS.register(RMEventHandler)
+        MinecraftForge.EVENT_BUS.register(RMEventHandler.Client)
     }
 
     @Mod.EventHandler

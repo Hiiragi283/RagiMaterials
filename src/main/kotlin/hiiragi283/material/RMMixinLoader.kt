@@ -21,7 +21,11 @@ class RMMixinLoader : IFMLLoadingPlugin, IEarlyMixinLoader {
 
     override fun getModContainerClass(): String? = null
 
-    override fun getSetupClass(): String? = null
+    /**
+     * @see <a href = https://github.com/serenibyss/Serendustry/blob/master/src/main/kotlin/serendustry/adapter/SerendustryPlugin.kt>Source Code </a>
+     */
+
+    override fun getSetupClass(): String = "hiiragi283.material.adaptor.HiiragiCallHook"
 
     override fun injectData(data: MutableMap<String, Any>?) {}
 
