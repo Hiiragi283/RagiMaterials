@@ -1,5 +1,6 @@
 package hiiragi283.material
 
+import hiiragi283.api.capability.HiiragiCapability
 import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.part.PartRegistry
 import hiiragi283.api.shape.ShapeRegistry
@@ -72,6 +73,8 @@ object RagiMaterials : HiiragiProxy {
         MaterialRegistry.init()
         //形状レジストリの初期化
         ShapeRegistry.init()
+        //Capability登録
+        HiiragiCapability.register()
         //連携の登録
         RMIntegrationCore.INSTANCE.onPreInit(event)
     }
@@ -93,8 +96,6 @@ object RagiMaterials : HiiragiProxy {
 
     @Mod.EventHandler
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        //液体の登録
-        RMFluids.register()
         //連携の登録
         RMIntegrationCore.INSTANCE.onPostInit(event)
     }

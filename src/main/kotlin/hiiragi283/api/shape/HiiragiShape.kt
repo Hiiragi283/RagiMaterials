@@ -17,7 +17,7 @@ class HiiragiShape(val name: String, val scale: Int) {
         val EMPTY = HiiragiShape("empty", 0)
     }
 
-    fun isEmpty(): Boolean = this.name == "empty"
+    fun isEmpty(): Boolean = this == EMPTY || this.name == "empty"
 
     /**
      * Returns primal Ore Dictionary name with given [material]

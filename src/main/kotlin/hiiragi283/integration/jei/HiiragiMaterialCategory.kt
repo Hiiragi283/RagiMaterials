@@ -1,6 +1,6 @@
 package hiiragi283.integration.jei
 
-import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.api.material.MaterialStack
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.util.hiiragiLocation
 import mezz.jei.api.IGuiHelper
@@ -16,10 +16,10 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/material_jei.png"), 0, 0, 16 * 10, 108)
 
     override fun setRecipe(layout: IRecipeLayout, wrapper: HiiragiMaterialRecipe, p2: IIngredients) {
-        val groupMaterial: IGuiIngredientGroup<HiiragiMaterial> =
+        val groupMaterial: IGuiIngredientGroup<MaterialStack> =
             layout.getIngredientsGroup(HiiragiIngredientTypes.MATERIAL)
         groupMaterial.init(0, false, 1, 1)
-        groupMaterial.set(0, wrapper.material)
+        groupMaterial.set(0, wrapper.stack)
         (0 until wrapper.items.size).forEach {
             layout.itemStacks.init(it, true, 18 * (it % 9), 18 * (it / 9) + 18)
             layout.itemStacks[it] = wrapper.items[it]

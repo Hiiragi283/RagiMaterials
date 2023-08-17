@@ -77,6 +77,7 @@ object RMEventHandler {
     private val keyInventory = hiiragiLocation("inventory")
     private val keyTank = hiiragiLocation("tank")
     private val keyEnergy = hiiragiLocation("energy")
+    private val keyMaterial = hiiragiLocation("material")
 
     @SubscribeEvent
     fun attachCapability(event: AttachCapabilitiesEvent<TileEntity>) {
@@ -84,6 +85,7 @@ object RMEventHandler {
         if (tile is HiiragiProvider.Inventory) event.addCapability(keyInventory, tile.createInventory())
         if (tile is HiiragiProvider.Tank) event.addCapability(keyTank, tile.createTank())
         if (tile is HiiragiProvider.Energy) event.addCapability(keyEnergy, tile.createBattery())
+        if (tile is HiiragiProvider.Material) event.addCapability(keyMaterial, tile.createHandler())
     }
 
     @SubscribeEvent

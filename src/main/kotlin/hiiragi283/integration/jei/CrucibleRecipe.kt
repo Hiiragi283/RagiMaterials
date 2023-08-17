@@ -7,14 +7,18 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.item.ItemStack
 
-class HiiragiMaterialRecipe(
-    val stack: MaterialStack,
-    val items: List<ItemStack>
-) : HiiragiRecipe<HiiragiMaterialRecipe>() {
+class CrucibleRecipe(
+    val input: MaterialStack,
+    val cast: ItemStack,
+    val output: ItemStack
+) : HiiragiRecipe<CrucibleRecipe>() {
+
+    //    IRecipeWrapper    //
 
     override fun getIngredients(p0: IIngredients) {
-        p0.setInputs(VanillaTypes.ITEM, items)
-        p0.setOutput(HiiragiIngredientTypes.MATERIAL, stack)
+        p0.setInput(HiiragiIngredientTypes.MATERIAL, input)
+        p0.setInput(VanillaTypes.ITEM, cast)
+        p0.setOutput(VanillaTypes.ITEM, output)
     }
 
 }

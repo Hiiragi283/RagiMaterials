@@ -1,11 +1,14 @@
 package hiiragi283.material.tile
 
+import hiiragi283.api.capability.HiiragiCapability
 import hiiragi283.api.capability.HiiragiCapabilityProvider
 import hiiragi283.api.capability.IOType
-import hiiragi283.api.capability.fluid.HiiragiFluidTank
-import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
+import hiiragi283.api.capability.material.IMaterialHandler
+import hiiragi283.api.capability.material.MaterialHandler
 import hiiragi283.api.item.ICastItem
-import hiiragi283.api.recipe.CrucibleRecipe
+import hiiragi283.api.material.MaterialStack
+import hiiragi283.api.part.HiiragiPart
+import hiiragi283.api.part.PartRegistry
 import hiiragi283.api.registry.HiiragiRegistry
 import hiiragi283.api.tileentity.HiiragiProvider
 import hiiragi283.api.tileentity.HiiragiTileEntity
@@ -23,12 +26,9 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.IFluidBlock
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler
-import net.minecraftforge.fluids.capability.IFluidHandler
 
-class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
+class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Material {
 
     //液体ブロックの温度を優先して取得する
     private fun getHeat(world: World, pos: BlockPos): Int {
@@ -53,29 +53,29 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
                 val item: Item = stack.item
                 //ItemStackのItemがICastItemを実装している -> 鋳造レシピを実行
                 if (item is ICastItem) {
-                    val amount: Int = item.getFluidAmount(stack)
-                    val result: ItemStack = item.getResult(stack, tankCrucible.fluid)
-                    if (tankCrucible.fluidAmount >= amount && !result.isEmpty) {
-                        tankCrucible.drain(amount, true)
+                    val materialStack: MaterialStack = materialHandler.getMaterialStack()
+                    val result: ItemStack = item.getResult(materialStack)
+                    if (materialHandler.canExtract(materialStack) && !result.isEmpty) {
+                        materialHandler.extractMaterial(materialStack, false)
                         stack.itemDamage += 1
                         dropItemAtPlayer(player, result)
                         succeeded(this, player)
                         playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
                     }
                 }
-                //実装していない -> レジストリから溶融レシピを取得
+                //実装していない -> ItemStackから溶融レシピを取得
                 else {
-                    val recipe: CrucibleRecipe? = HiiragiRegistry.CRUCIBLE.valuesCollection
-                        .firstOrNull { it.matches(stack) }
-                    //レシピが存在する ->
-                    if (recipe !== null) {
+                    val materialStack =
+                        PartRegistry.getParts(stack).getOrElse(0) { HiiragiPart.EMPTY }.toMaterialStack()
+                    //融点が有効な場合
+                    if (materialStack.material.hasTempMelt()) {
+                        val tempMelt: Int = materialStack.material.tempMelt
                         //現在の温度が要求温度以上 ->
-                        if (getHeat(world, pos) >= recipe.tempMin) {
-                            val output: FluidStack = recipe.getOutput(stack)
+                        if (getHeat(world, pos) >= tempMelt) {
                             //tankにレシピの出力を搬入できる ->溶融レシピを実行
-                            if (tank.fill(output, false) == output.amount) {
+                            if (materialHandler.canInsert(materialStack)) {
                                 stack.shrink(1)
-                                tank.fill(output, true)
+                                materialHandler.insertMaterial(materialStack, false)
                                 succeeded(this, player)
                                 playSound(this, SoundEvents.ITEM_BUCKET_FILL_LAVA)
                             }
@@ -90,20 +90,19 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
                             player.sendMessage(
                                 TextComponentTranslation(
                                     "error.ragi_materials.crucible.more_heat",
-                                    recipe.tempMin
+                                    tempMelt
                                 )
                             )
                             playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
                         }
                     }
-                    //レシピが見つからない -> 警告
+                    //融点が有効でない
                     else {
-                        player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
-                        playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+
                     }
                 }
             }
-            //EMPTYの -> 現在の温度を表示する
+            //EMPTY -> 現在の温度を表示する
             else {
                 player.sendMessage(
                     TextComponentTranslation("info.ragi_materials.crucible.temperature", getHeat(world, pos))
@@ -117,12 +116,11 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Tank {
 
     //    HiiragiProvider    //
 
-    private lateinit var tankCrucible: HiiragiFluidTank
+    private lateinit var materialHandler: IMaterialHandler
 
-    override fun createTank(): HiiragiCapabilityProvider<IFluidHandler> {
-        tankCrucible = HiiragiFluidTank(144 * 9).setIOType(IOType.GENERAL)
-        tank = HiiragiFluidTankWrapper(tankCrucible)
-        return HiiragiCapabilityProvider(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, tank)
+    override fun createHandler(): HiiragiCapabilityProvider<IMaterialHandler> {
+        materialHandler = MaterialHandler(capacity = 144 * 9).setIOType(IOType.GENERAL)
+        return HiiragiCapabilityProvider(HiiragiCapability.MATERIAL, materialHandler)
     }
 
 }

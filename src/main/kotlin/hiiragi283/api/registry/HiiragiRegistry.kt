@@ -1,6 +1,5 @@
 package hiiragi283.api.registry
 
-import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.util.MetaResourceLocation
@@ -18,12 +17,12 @@ object HiiragiRegistry {
     fun init() {}
 
     @JvmStatic
-    val CRUCIBLE: IForgeRegistry<CrucibleRecipe> = RegistryBuilder<CrucibleRecipe>()
-        .allowModification()
-        .disableSaving()
-        .setName(hiiragiLocation("crucible_new"))
-        .setType(CrucibleRecipe::class.java)
-        .create()
+            /*val CRUCIBLE: IForgeRegistry<CrucibleMeltRecipe> = RegistryBuilder<CrucibleMeltRecipe>()
+                .allowModification()
+                .disableSaving()
+                .setName(hiiragiLocation("crucible_new"))
+                .setType(CrucibleMeltRecipe::class.java)
+                .create()*/
 
     val CRUSHING: IForgeRegistry<CrushingRecipe> = RegistryBuilder<CrushingRecipe>()
         .allowModification()

@@ -8,6 +8,7 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.registerOreDict
 import hiiragi283.material.util.shareOredict
+import mcjty.theoneprobe.TheOneProbe
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader
@@ -130,6 +131,9 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
         if (tCon) TConIntegration.onPostInit(event)
         if (thaum) ThaumIntegration.onPostInit(event)
         if (thermal) ThermalIntegration.onPostInit(event)
+
+        if (Loader.isModLoaded("theoneprobe")) TheOneProbe.theOneProbeImp.registerProvider(TOPIntegration)
+
     }
 
     override fun onComplete(event: FMLLoadCompleteEvent) {

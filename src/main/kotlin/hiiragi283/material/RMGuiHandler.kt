@@ -1,8 +1,5 @@
 package hiiragi283.material
 
-import hiiragi283.material.container.ContainerCrucible
-import hiiragi283.material.gui.GuiCrucible
-import hiiragi283.material.tile.TileEntityCrucible
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -17,7 +14,6 @@ object RMGuiHandler : IGuiHandler {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 return when (tile) {
-                    is TileEntityCrucible -> ContainerCrucible(player, tile)
                     else -> null
                 }
             }
@@ -30,7 +26,6 @@ object RMGuiHandler : IGuiHandler {
             val tile = world.getTileEntity(BlockPos(x, y, z))
             if (tile !== null) {
                 return when (tile) {
-                    is TileEntityCrucible -> GuiCrucible(player, tile)
                     else -> null
                 }
             }

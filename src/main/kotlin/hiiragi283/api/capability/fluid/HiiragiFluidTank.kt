@@ -123,8 +123,8 @@ open class HiiragiFluidTank(@JvmField var fluid: FluidStack?, @JvmField var capa
 
     override fun serializeNBT() = NBTTagCompound().also { fluid?.writeToNBT(it) }
 
-    override fun deserializeNBT(tag: NBTTagCompound?) {
-        fluid = FluidStack.loadFluidStackFromNBT(tag ?: NBTTagCompound())
+    override fun deserializeNBT(tag: NBTTagCompound) {
+        fluid = FluidStack.loadFluidStackFromNBT(tag)
     }
 
 }

@@ -1,15 +1,15 @@
 package hiiragi283.api.item
 
+import hiiragi283.api.material.MaterialStack
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidStack
 
 interface ICastItem {
 
     fun getCastItem(): Item
 
-    fun getFluidAmount(stack: ItemStack): Int
+    fun getMaterialAmount(): Int
 
-    fun getResult(stack: ItemStack, fluid: FluidStack?): ItemStack
+    fun getResult(materialStack: MaterialStack): ItemStack
 
 }

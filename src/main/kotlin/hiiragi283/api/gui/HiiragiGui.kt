@@ -3,12 +3,11 @@ package hiiragi283.api.gui
 import hiiragi283.api.container.HiiragiContainer
 import hiiragi283.api.tileentity.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiColor
+import hiiragi283.material.util.drawFluid
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
@@ -46,13 +45,14 @@ abstract class HiiragiGui<T : HiiragiTileEntity>(val container: HiiragiContainer
     //液体をGUi上に描画するメソッド
     fun renderFluid(fluid: Fluid, x: Int, y: Int) {
         //液体のTextureAtlasSpriteを取得する
-        val textureMapBlocks = mc.textureMapBlocks
-        val spr = textureMapBlocks.getTextureExtry(fluid.still.toString()) ?: textureMapBlocks.missingSprite
+        val textureMapBlocks: TextureMap = mc.textureMapBlocks
+        val spr: TextureAtlasSprite =
+            textureMapBlocks.getTextureExtry(fluid.still.toString()) ?: textureMapBlocks.missingSprite
         mc.textureManager.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
         //TextureAtlasSpriteに液体の色を乗せる
         HiiragiColor.setGLColor(fluid.color)
         //TextureAtlasSpriteを描画する
-        drawFluidTexture(x.toDouble(), y.toDouble(), spr!!)
+        drawFluid(mc, x.toDouble(), y.toDouble(), spr)
         //着色をリセットする
         HiiragiColor.setGLColor(0xFFFFFF)
     }
@@ -61,23 +61,4 @@ abstract class HiiragiGui<T : HiiragiTileEntity>(val container: HiiragiContainer
         renderFluid(stack.fluid, x, y)
     }
 
-    private fun drawFluidTexture(x: Double, y: Double, spr: TextureAtlasSprite) {
-        //TextureAtlasSpriteのx座標の左端と右端，y座標の下端と上端をDoubleに変換する
-        val uMin = spr.minU.toDouble()
-        val uMax = spr.maxU.toDouble()
-        val vMin = spr.minV.toDouble()
-        val vMax = spr.maxV.toDouble()
-        //GUiは2次元なのでz座標は適当?
-        val z = 100.0
-        //Tessellatorに設定を書き込んでいく
-        val tessellator = Tessellator.getInstance()
-        val vertexBuffer = tessellator.buffer
-        vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX)
-        vertexBuffer.pos(x, y + 16, z).tex(uMin, vMax).endVertex() //左下
-        vertexBuffer.pos(x + 16, y + 16, z).tex(uMax, vMax).endVertex() //右下
-        vertexBuffer.pos(x + 16, y, z).tex(uMax, vMin).endVertex() //左上
-        vertexBuffer.pos(x, y, z).tex(uMin, vMin).endVertex() //右上
-        //いざ描画!!
-        tessellator.draw()
-    }
 }

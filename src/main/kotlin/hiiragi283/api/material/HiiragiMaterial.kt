@@ -58,7 +58,8 @@ data class HiiragiMaterial internal constructor(
     /**
      * a set of shape names that is acceptable to this material
      */
-    val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
+    val validShapes: MutableSet<String>
+        get() = MaterialType.INTERNAL.toSortedSet()
 
     companion object {
         @JvmField
@@ -152,7 +153,7 @@ data class HiiragiMaterial internal constructor(
     /**
      * Returns true if [name] equals "empty"
      */
-    fun isEmpty(): Boolean = this.name == "empty"
+    fun isEmpty(): Boolean = this == EMPTY || this.name == "empty"
 
     /**
      * Returns true if [CrystalType.isCrystal] is true and [isMetal] is false
@@ -183,6 +184,8 @@ data class HiiragiMaterial internal constructor(
      * @see [getState]
      */
     fun isSolid(): Boolean = getState() == MaterialState.SOLID
+
+    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
 
     /**
      * Converts [HiiragiMaterial] into JSON format
