@@ -29,11 +29,10 @@ import rechellatek.snakeToUpperCamelCase
  *
  * @param name should be unique
  * @param index follows above format
- * @param color see also [hiiragi283.material.util.RagiColor], [hiiragi283.material.util.ColorUtil]
+ * @param color see also [hiiragi283.material.util.HiiragiColor]
  * @param crystalType see also [CrystalType]
  * @param formula empty value will be ignored
  * @param molar 0 or less value will be ignored
- * @param oreDictAlt a list of alternative Ore Dictionary names: aluminum, chrome, saltpeter, ...
  * @param tempBoil boiling point with kelvin Temperature, 0 or less will be ignored
  * @param tempMelt melting point with kelvin Temperature, 0 or less will be ignored
  * @param tempSubl sublimation point with kelvin Temperature, 0 or less will be ignored
@@ -48,7 +47,6 @@ data class HiiragiMaterial internal constructor(
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
     var molar: Double = -1.0,
-    var oreDictAlt: MutableList<String> = mutableListOf(),
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
@@ -56,10 +54,14 @@ data class HiiragiMaterial internal constructor(
 ) {
 
     /**
+     * a list of alternative Ore Dictionary names: aluminum, chrome, saltpeter, ...
+     */
+    var oreDictAlt: MutableList<String> = mutableListOf()
+
+    /**
      * a set of shape names that is acceptable to this material
      */
-    val validShapes: MutableSet<String>
-        get() = MaterialType.INTERNAL.toSortedSet()
+    val validShapes: MutableSet<String> = MaterialType.INTERNAL.toSortedSet()
 
     companion object {
         @JvmField
@@ -194,6 +196,23 @@ data class HiiragiMaterial internal constructor(
     fun toJson(isPretty: Boolean): String = if (isPretty) pretty.encodeToString(this) else Json.encodeToString(this)
 
     //    General    //
+
+    override fun equals(other: Any?): Boolean =
+        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + index
+        result = 31 * result + color
+        result = 31 * result + crystalType.hashCode()
+        result = 31 * result + formula.hashCode()
+        result = 31 * result + molar.hashCode()
+        result = 31 * result + tempBoil
+        result = 31 * result + tempMelt
+        result = 31 * result + tempSubl
+        result = 31 * result + translationKey.hashCode()
+        return result
+    }
 
     override fun toString(): String = "Material:${this.name}"
 

@@ -27,9 +27,8 @@ item.unfired_cast_4.name=未焼成の粘土型 (棒材)
 
 ##    JEI Tab    ##
 
-gui.ragi_materials.crucible_cast=るつぼ - 鋳造
-gui.ragi_materials.crucible_melt=るつぼ - 溶融
-gui.ragi_materials.crushing=破砕レシピ
+gui.ragi_materials.crucible=るつぼ
+gui.ragi_materials.crushing=破砕
 
 ##    Shape    ##
 

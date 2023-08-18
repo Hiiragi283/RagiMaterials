@@ -26,9 +26,8 @@ item.unfired_cast_4.name=Unfired Clay Cast (Stick)
 
 ##    JEI Tab    ##
 
-gui.ragi_materials.crucible_cast=Crucible Casting
-gui.ragi_materials.crucible_melt=Crucible Melting
-gui.ragi_materials.crushing=Crushing Recipe
+gui.ragi_materials.crucible=Crucible
+gui.ragi_materials.crushing=Crushing
 
 ##    Shape    ##
 

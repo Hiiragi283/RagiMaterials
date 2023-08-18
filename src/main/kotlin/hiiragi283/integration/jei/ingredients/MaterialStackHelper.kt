@@ -8,18 +8,18 @@ import net.minecraft.item.ItemStack
 
 object MaterialStackHelper : IIngredientHelper<MaterialStack> {
 
-    override fun getMatch(iterator: MutableIterable<MaterialStack>, toMatch: MaterialStack): MaterialStack =
-        iterator.firstOrNull { it.equalsMaterial(toMatch) } ?: MaterialStack.EMPTY
+    override fun getMatch(iterator: MutableIterable<MaterialStack>, toMatch: MaterialStack): MaterialStack? =
+        iterator.firstOrNull { it.equalsMaterial(toMatch) }
 
     override fun getDisplayName(stack: MaterialStack): String = stack.material.getTranslatedName()
 
-    override fun getUniqueId(stack: MaterialStack): String = stack.toString()
+    override fun getUniqueId(stack: MaterialStack): String = stack.material.toString()
 
     override fun getWildcardId(stack: MaterialStack): String = getUniqueId(stack)
 
     override fun getModId(stack: MaterialStack): String = RMReference.MOD_ID
 
-    override fun getResourceId(stack: MaterialStack): String = stack.material.toString()
+    override fun getResourceId(stack: MaterialStack): String = stack.material.name
 
     override fun getCheatItemStack(ingredient: MaterialStack): ItemStack =
         RMItems.MATERIAL_BOTTLE.getItemStack(ingredient.material)
