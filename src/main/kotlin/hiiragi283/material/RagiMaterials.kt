@@ -23,7 +23,7 @@ import java.util.*
     modid = RMReference.MOD_ID,
     name = RMReference.MOD_NAME,
     version = RMReference.VERSION,
-    dependencies = "after:gregtech;after:jei",
+    dependencies = "after:gregtech;after:jei@[4.24.5,)",
     acceptedMinecraftVersions = "[1.12,1.12.2]"
 )
 class RagiMaterials : HiiragiProxy {

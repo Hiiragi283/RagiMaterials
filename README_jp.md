@@ -9,6 +9,21 @@
   - 木材，石，鋼鉄，水などといった汎用的な素材
   - `config/ragi_materials`フォルダ内にJsonファイルを追加することで素材を追加できます！
 
+## 前提mod
+
+### 必須
+
+- [Mixinbooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter)
+
+### 選択
+
+- [Had Enough Items](https://www.curseforge.com/minecraft/mc-mods/had-enough-items)
+
+### 競合
+
+- [GregTech Community Edition](https://curseforge.com/minecraft/mc-mods/gregtechce)
+- [GregTech CE Unofficial](https://curseforge.com/minecraft/mc-mods/gregtech-ce-unofficial)
+
 ## ライセンス
 
 - [GNU Affero General Public License v3.0](https://github.com/Hiiragi283/RagiMaterials/blob/master/LICENSE)

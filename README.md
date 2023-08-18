@@ -11,6 +11,21 @@
   - Many of common materials: wood, stone, steel, water, ...
   - Custom materials can be registered by adding json file in `config/ragi_materials` !
 
+## Dependencies
+
+### Required
+
+- [Mixinbooter](https://www.curseforge.com/minecraft/mc-mods/mixin-booter)
+
+### Optional
+
+- [Had Enough Items](https://www.curseforge.com/minecraft/mc-mods/had-enough-items)
+
+### Incompatible
+
+- [GregTech Community Edition](https://curseforge.com/minecraft/mc-mods/gregtechce)
+- [GregTech CE Unofficial](https://curseforge.com/minecraft/mc-mods/gregtech-ce-unofficial)
+
 ## License
 
 - [GNU Affero General Public License v3.0](https://github.com/Hiiragi283/RagiMaterials/blob/master/LICENSE)
