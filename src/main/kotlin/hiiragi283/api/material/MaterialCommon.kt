@@ -414,6 +414,9 @@ object MaterialCommon {
     val STEEL = mixtureOf("steel", 12600, listOf(MaterialElements.IRON, MaterialElements.CARBON)) {
         color = HiiragiColor.GRAY.rgb
         crystalType = CrystalType.METAL
+        tempBoil = MaterialElements.IRON.tempBoil
+        tempMelt = MaterialElements.IRON.tempMelt
+        tempSubl = MaterialElements.IRON.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 

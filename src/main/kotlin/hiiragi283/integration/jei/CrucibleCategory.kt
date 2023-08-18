@@ -12,7 +12,7 @@ import mezz.jei.api.ingredients.IIngredients
 class CrucibleCategory(guiHelper: IGuiHelper) : HiiragiRecipeCategory<CrucibleRecipe>(CRUCIBLE, guiHelper) {
 
     override val backGround: IDrawableStatic =
-        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/process1_1_1_jei.png"), 1, 1, 18 * 5, 18)
+        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/process1_1_1.png"), 1, 1, 18 * 5, 18)
 
     override fun setRecipe(layout: IRecipeLayout, wrapper: CrucibleRecipe, p2: IIngredients) {
         val groupMaterial: IGuiIngredientGroup<MaterialStack> =

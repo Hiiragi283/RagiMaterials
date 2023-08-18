@@ -4,11 +4,9 @@
 
 ## [日本語版はこちらへ](https://github.com/Hiiragi283/RagiMaterials/blob/master/README_jp.md)
 
-## Requires _[Forgelin-Continuous](https://www.curseforge.com/minecraft/mc-mods/forgelin-continuous)!!_
-
 ## Overview
 
-- Minecraft Mod adding various materials for MC1.12
+- Minecraft mod for MC 1.12 that adds Material system based on Ore Dictionary and its usages
   - All elements in the periodic table from Hydrogen to Oganesson !
   - Many of common materials: wood, stone, steel, water, ...
   - Custom materials can be registered by adding json file in `config/ragi_materials` !
@@ -31,6 +29,7 @@
     - [toliner](https://github.com/toliner)
     - [tsukimimushi](https://twitter.com/Tsukimimushi)
     - [turtton(watagame)](https://github.com/turtton)
+    - [yuzu_machan](https://github.com/yuzu-machan)
 
 ## Credits
 

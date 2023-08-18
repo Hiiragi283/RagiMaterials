@@ -64,6 +64,7 @@ shape.stone=%s
 
 info.ragi_materials.crucible.temperature=温度: §b%s§r§7 K
 
+error.ragi_materials.crucible.cannot_cast=§c鋳造を実行できません!
 error.ragi_materials.crucible.cannot_fill=§cこれ以上搬入できません!
 error.ragi_materials.crucible.more_heat=§c温度が足りていません: %s K以上が必要です!
 error.ragi_materials.crucible.no_recipe=§cレシピが見つかりませんでした!

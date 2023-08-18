@@ -51,16 +51,22 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Material {
             //利き手に持っているItemStackがEMPTYでない -> レシピを実行
             if (!stack.isEmpty) {
                 val item: Item = stack.item
-                //ItemStackのItemがICastItemを実装している -> 鋳造レシピを実行
+                //ItemStackのItemがICastItemを実装している -> レシピを取得
                 if (item is ICastItem) {
                     val materialStack: MaterialStack = materialHandler.getMaterialStack()
                     val result: ItemStack = item.getResult(materialStack)
+                    //搬出可能 && 完成品が有効 -> 鋳造レシピを実行
                     if (materialHandler.canExtract(materialStack) && !result.isEmpty) {
                         materialHandler.extractMaterial(materialStack, false)
                         stack.itemDamage += 1
                         dropItemAtPlayer(player, result)
                         succeeded(this, player)
                         playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
+                    }
+                    //搬出不可能 || 完成品が無効 -> 警告
+                    else {
+                        player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_cast"))
+                        playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
                     }
                 }
                 //実装していない -> ItemStackから溶融レシピを取得
@@ -96,9 +102,10 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Material {
                             playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
                         }
                     }
-                    //融点が有効でない
+                    //融点が有効でない -> 警告
                     else {
-
+                        player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
+                        playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
                     }
                 }
             }

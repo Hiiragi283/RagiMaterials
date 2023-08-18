@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack
 class CrushingCategory(guiHelper: IGuiHelper) : HiiragiRecipeCategory<CrushingRecipe>(CRUSHING, guiHelper) {
 
     override val backGround: IDrawableStatic =
-        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/process1_7_jei.png"), 0, 0, 18 * 9, 18)
+        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/process1_7.png"), 0, 0, 18 * 9, 18)
 
     override fun setRecipe(layout: IRecipeLayout, wrapper: CrushingRecipe, p2: IIngredients) {
         //inputのスロットを登録

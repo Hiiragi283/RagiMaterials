@@ -13,15 +13,15 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
     HiiragiRecipeCategory<HiiragiMaterialRecipe>(MATERIAL, guiHelper) {
 
     override val backGround: IDrawableStatic =
-        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/material_jei.png"), 0, 0, 16 * 10, 108)
+        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/material_info.png"), 0, 0, 170, 116)
 
     override fun setRecipe(layout: IRecipeLayout, wrapper: HiiragiMaterialRecipe, p2: IIngredients) {
         val groupMaterial: IGuiIngredientGroup<MaterialStack> =
             layout.getIngredientsGroup(HiiragiIngredientTypes.MATERIAL)
-        groupMaterial.init(0, false, 1, 1)
+        groupMaterial.init(0, false, 4 + 1, 4 + 1)
         groupMaterial.set(0, wrapper.stack)
         (0 until wrapper.items.size).forEach {
-            layout.itemStacks.init(it, true, 18 * (it % 9), 18 * (it / 9) + 18)
+            layout.itemStacks.init(it, true, 18 * (it % 9) + 4, 18 * (it / 9) + 18 + 4)
             layout.itemStacks[it] = wrapper.items[it]
         }
     }

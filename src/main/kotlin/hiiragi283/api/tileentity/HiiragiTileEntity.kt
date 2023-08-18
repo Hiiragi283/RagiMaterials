@@ -57,7 +57,7 @@ abstract class HiiragiTileEntity : TileEntity() {
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean =
         oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    fun syncData(vararg messages: IMessage = arrayOf(HiiragiMessage.Sync(pos, updateTag))) {
+    fun syncData(vararg messages: IMessage = arrayOf(HiiragiMessage.ToClient(pos, updateTag))) {
         messages.forEach { HiiragiNetworkWrapper.sendToAll(it) }
     }
 

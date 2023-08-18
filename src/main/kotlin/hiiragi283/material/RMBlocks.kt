@@ -6,7 +6,6 @@ import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.block.BlockCrucible
 import hiiragi283.material.block.BlockInventoryTest
-import hiiragi283.material.block.BlockOreCluster
 import hiiragi283.material.config.RMConfig
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
@@ -38,15 +37,11 @@ object RMBlocks : HiiragiEntry.BLOCK {
     @JvmField
     val CRUCIBLE = BlockCrucible
 
-    @JvmField
-    val ORE_CLUSTER = BlockOreCluster
-
     fun init() {
         RagiMaterials.LOGGER.info("RMBlocks has been initialized!")
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
         entries.add(TEST)
         entries.add(CRUCIBLE)
-        entries.add(ORE_CLUSTER)
     }
 
     override fun register(registry: IForgeRegistry<Block>) {

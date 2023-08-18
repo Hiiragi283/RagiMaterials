@@ -12,11 +12,18 @@ object HiiragiNetworkManager {
     fun load() {
         //パケットの登録
         HiiragiNetworkWrapper.registerMessage(
-            HiiragiMessageHandler.Sync::class.java,
-            HiiragiMessage.Sync::class.java,
+            HiiragiMessageHandler.ToClient::class.java,
+            HiiragiMessage.ToClient::class.java,
             0,
             Side.CLIENT
         )
+        /*HiiragiNetworkWrapper.registerMessage(
+            HiiragiMessageHandler.ToServer::class.java,
+            HiiragiMessage.ToClient::class.java,
+            1,
+            Side.SERVER
+        )*/
+
     }
 
 }

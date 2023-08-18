@@ -19,7 +19,7 @@ sealed class HiiragiMessage(var pos: BlockPos = BlockPos.ORIGIN) : IMessage {
         buf.writeBlockPos(pos)
     }
 
-    class Sync(pos: BlockPos = BlockPos.ORIGIN, var tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos) {
+    class ToClient(pos: BlockPos = BlockPos.ORIGIN, var tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos) {
 
         override fun fromBytes(buf: ByteBuf) {
             super.fromBytes(buf)

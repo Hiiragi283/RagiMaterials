@@ -160,9 +160,6 @@ object RMItems : HiiragiEntry.ITEM {
     )
 
     @JvmField
-    val MATERIAL_ORE = createItemMaterial(HiiragiShapes.ORE)
-
-    @JvmField
     val MATERIAL_PLATE = createItemMaterial(HiiragiShapes.PLATE)
 
     @JvmField
@@ -203,7 +200,6 @@ object RMItems : HiiragiEntry.ITEM {
         entries.add(MATERIAL_GEM)
         entries.add(MATERIAL_INGOT)
         entries.add(MATERIAL_NUGGET)
-        entries.add(MATERIAL_ORE)
         entries.add(MATERIAL_PLATE)
         entries.add(MATERIAL_STICK)
         entries.add(CAST_GEAR)

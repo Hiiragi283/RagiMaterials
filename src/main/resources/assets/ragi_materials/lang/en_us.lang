@@ -66,6 +66,7 @@ info.ragi_materials.failed=[%s] §cFailed...
 
 info.ragi_materials.crucible.temperature=Temperature: §b%s§r K
 
+error.ragi_materials.crucible.cannot_cast=§cCannot cast!
 error.ragi_materials.crucible.cannot_fill=§cNo more capacity!
 error.ragi_materials.crucible.more_heat=§cNot enough temperature: %s K or more required!
 error.ragi_materials.crucible.no_recipe=§cNot found ANY recipe!

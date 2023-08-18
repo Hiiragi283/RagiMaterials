@@ -2,10 +2,10 @@
   {
     "modid": "ragi_materials",
     "name": "RagiMaterials",
-    "description": "A simple mod adding materials in a unified style for MC1.12",
+    "description": "Minecraft mod for MC 1.12 that adds Material system based on Ore Dictionary and its usages",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
+    "url": "https://github.com/Hiiragi283/RagiMaterials",
     "updateUrl": "",
     "authorList": [
       "Hiiragi283",
@@ -18,7 +18,8 @@
       "t5ugu",
       "toliner",
       "Tsukimimushi",
-      "turtton"
+      "turtton",
+      "yuzu_machan"
     ],
     "credits": "Hiiragi283",
     "logoFile": "assets/ragi_materials/textures/logo.png",

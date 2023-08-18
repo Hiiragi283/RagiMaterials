@@ -176,6 +176,9 @@ object MaterialIntegration {
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY to 1, HiiragiColor.WHITE to 2).rgb
         crystalType = CrystalType.METAL
+        tempBoil = MaterialElements.IRON.tempBoil
+        tempMelt = MaterialElements.IRON.tempMelt
+        tempSubl = MaterialElements.IRON.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -242,6 +245,9 @@ object MaterialIntegration {
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 1, HiiragiColor.DARK_GRAY to 3).rgb
         crystalType = CrystalType.METAL
+        tempBoil = MaterialElements.IRON.tempBoil
+        tempMelt = MaterialElements.IRON.tempMelt
+        tempSubl = MaterialElements.IRON.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -264,6 +270,9 @@ object MaterialIntegration {
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.YELLOW to 1, HiiragiColor.WHITE to 3).rgb
         crystalType = CrystalType.METAL
+        tempBoil = MaterialElements.IRON.tempBoil
+        tempMelt = MaterialElements.IRON.tempMelt
+        tempSubl = MaterialElements.IRON.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -275,6 +284,9 @@ object MaterialIntegration {
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE, HiiragiColor.GREEN, HiiragiColor.RED).rgb
         crystalType = CrystalType.METAL
+        tempBoil = MaterialElements.IRON.tempBoil
+        tempMelt = MaterialElements.IRON.tempMelt
+        tempSubl = MaterialElements.IRON.tempSubl
         validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
@@ -308,6 +320,9 @@ object MaterialIntegration {
     val MANASTEEL = mixtureOf("manasteel", 1050, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.BLUE.rgb
         crystalType = CrystalType.METAL
+        tempBoil = MaterialElements.IRON.tempBoil
+        tempMelt = MaterialElements.IRON.tempMelt
+        tempSubl = MaterialElements.IRON.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -322,6 +337,9 @@ object MaterialIntegration {
     val TERRASTEEL = mixtureOf("terrasteel", 1053, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN, HiiragiColor.GREEN).rgb
         crystalType = CrystalType.METAL
+        tempBoil = MANASTEEL.tempBoil
+        tempMelt = MANASTEEL.tempMelt
+        tempSubl = MANASTEEL.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -329,6 +347,9 @@ object MaterialIntegration {
     val ELEMENTIUM = mixtureOf("elven_elementium", 1054, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         crystalType = CrystalType.METAL
+        tempBoil = MANASTEEL.tempBoil
+        tempMelt = MANASTEEL.tempMelt
+        tempSubl = MANASTEEL.tempSubl
         validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
@@ -342,7 +363,7 @@ object MaterialIntegration {
     //    Embers    //
 
     @JvmField
-    val DAWNSTONE = compoundOf("dawnstone", 1060, mapOf(MaterialElements.COPPER to 1, MaterialElements.GOLD to 1)) {
+    val DAWNSTONE = alloyOf("dawnstone", 1060, mapOf(MaterialElements.COPPER to 1, MaterialElements.GOLD to 1)) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 2, HiiragiColor.RED to 1, HiiragiColor.YELLOW to 1).rgb
         crystalType = CrystalType.METAL
         validShapes.addAll(MaterialType.METAL_ADVANCED)
