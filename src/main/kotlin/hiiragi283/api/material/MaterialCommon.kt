@@ -1,5 +1,6 @@
 package hiiragi283.api.material
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.isAprilFools
@@ -279,7 +280,7 @@ object MaterialCommon {
 
     @JvmField
     val CLAY = mixtureOf("clay", 11400, listOf(ALUMINA, SILICATE)) {
-        color = HiiragiColor.mixColor( HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 2).rgb
+        color = 0xC8C8DC
         validShapes.addAll(MaterialType.SOLID)
     }
 
@@ -471,12 +472,13 @@ object MaterialCommon {
         validShapes.addAll(MaterialType.GEM_9x)
     }
 
-    fun register(registry: MutableList<HiiragiMaterial>) {
+    fun register() {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiMaterial>()
-            .forEach { registry.add(it) }
+            .filter { it.isValidIndex() }
+            .forEach { HiiragiRegistry.registerMaterial(it) }
     }
 
 }

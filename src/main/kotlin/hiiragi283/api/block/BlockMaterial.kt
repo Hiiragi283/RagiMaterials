@@ -1,9 +1,9 @@
 package hiiragi283.api.block
 
 import hiiragi283.api.HiiragiEntry
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.item.ItemBlockMaterial
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShape
 import hiiragi283.api.tileentity.MaterialTileEntity
 import hiiragi283.material.RMCreativeTabs
@@ -87,13 +87,13 @@ abstract class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     //    HiiragiEntry    //
 
     override fun registerOreDict() {
-        MaterialRegistry.getMaterials()
+        HiiragiRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
             .forEach { OreDictionary.registerOre(shape.getOreDict(it), getItemStack(it)) }
     }
 
     override fun registerRecipe() {
-        MaterialRegistry.getMaterials()
+        HiiragiRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
             .forEach { getRecipe(this, it) }
     }
@@ -110,7 +110,7 @@ abstract class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
-            val material = MaterialRegistry.getMaterial(stack.metadata)
+            val material = HiiragiRegistry.getMaterial(stack.metadata)
             if (!material.isEmpty() && tintIndex == 0) material.color else -1
         }, this)
     }

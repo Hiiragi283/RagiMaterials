@@ -1,5 +1,6 @@
 package hiiragi283.api.material
 
+import hiiragi283.api.HiiragiRegistry
 import net.minecraft.client.resources.I18n
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.Fluid
@@ -7,24 +8,18 @@ import net.minecraftforge.fluids.FluidStack
 
 data class MaterialStack(val material: HiiragiMaterial, var amount: Int) {
 
+    constructor(name: String, amount: Int) : this(HiiragiRegistry.getMaterial(name), amount)
+
+    constructor(compound: NBTTagCompound) : this(compound.getString("material"), compound.getInteger("amount"))
+
+    constructor(fluid: Fluid, amount: Int) : this(fluid.name, amount)
+
+    constructor(fluidStack: FluidStack) : this(fluidStack.fluid, fluidStack.amount)
+
     companion object {
 
         @JvmField
         val EMPTY = MaterialStack(HiiragiMaterial.EMPTY, 0)
-
-        @JvmStatic
-        fun of(name: String, amount: Int): MaterialStack =
-            MaterialStack(MaterialRegistry.getMaterial(name), amount)
-
-        @JvmStatic
-        fun of(compound: NBTTagCompound): MaterialStack =
-            of(compound.getString("material"), compound.getInteger("amount"))
-
-        @JvmStatic
-        fun of(fluid: Fluid, amount: Int): MaterialStack = of(fluid.name, amount)
-
-        @JvmStatic
-        fun of(fluidStack: FluidStack): MaterialStack = of(fluidStack.fluid, fluidStack.amount)
 
     }
 

@@ -1,6 +1,6 @@
 package hiiragi283.integration
 
-import hiiragi283.api.registry.HiiragiRegistry
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.material.util.MetaResourceLocation
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 

@@ -1,7 +1,7 @@
 package hiiragi283.api.recipe
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.part.HiiragiPart
-import hiiragi283.api.part.PartRegistry
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.block.state.IBlockState
@@ -25,8 +25,8 @@ class CrushingRecipe(
     }
 
     fun matches(entry: Any): Boolean = when (entry) {
-        is IBlockState -> input in PartRegistry.getParts(entry)
-        is ItemStack -> input in PartRegistry.getParts(entry)
+        is IBlockState -> input in HiiragiRegistry.getParts(entry)
+        is ItemStack -> input in HiiragiRegistry.getParts(entry)
         else -> false
     }
 

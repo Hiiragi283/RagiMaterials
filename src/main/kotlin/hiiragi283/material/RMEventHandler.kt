@@ -1,13 +1,12 @@
 package hiiragi283.material
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.event.MaterialRegistryEvent
 import hiiragi283.api.event.ShapeRegistryEvent
 import hiiragi283.api.item.ICrusherItem
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialElements
-import hiiragi283.api.part.PartRegistry
 import hiiragi283.api.recipe.CrushingRecipe
-import hiiragi283.api.registry.HiiragiRegistry
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.api.tileentity.HiiragiProvider
 import hiiragi283.integration.RMIntegrationCore
@@ -36,32 +35,30 @@ object RMEventHandler {
 
     @SubscribeEvent
     fun createRegistry(event: RegistryEvent.NewRegistry) {
-        HiiragiRegistry.init()
+        HiiragiRegistry
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun registerMaterials(event: MaterialRegistryEvent) {
-        event.registry.run {
 
-            RagiMaterials.LOGGER.info("Registering Elemental Materials...")
-            MaterialElements.register(this)
+        RagiMaterials.LOGGER.info("Registering Elemental Materials...")
+        MaterialElements.register()
 
-            RagiMaterials.LOGGER.info("Registering Common Materials...")
-            MaterialCommon.register(this)
+        RagiMaterials.LOGGER.info("Registering Common Materials...")
+        MaterialCommon.register()
 
-            RagiMaterials.LOGGER.info("Registering Materials for Integration...")
-            RMIntegrationCore.INSTANCE.registerMaterial(this)
+        RagiMaterials.LOGGER.info("Registering Materials for Integration...")
+        RMIntegrationCore.INSTANCE.registerMaterial()
 
-            RagiMaterials.LOGGER.info("Registering Materials from JSON...")
-            RMJSonHandler.register(this)
+        RagiMaterials.LOGGER.info("Registering Materials from JSON...")
+        RMJSonHandler.register()
 
-        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun registerShapes(event: ShapeRegistryEvent) {
         RagiMaterials.LOGGER.info("Registering Shapes...")
-        HiiragiShapes.register(event.registry)
+        HiiragiShapes.register()
     }
 
     @SubscribeEvent
@@ -136,7 +133,7 @@ object RMEventHandler {
 
         @SubscribeEvent
         fun onTooltip(event: ItemTooltipEvent) {
-            PartRegistry.getParts(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
+            HiiragiRegistry.getParts(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
         }
 
     }

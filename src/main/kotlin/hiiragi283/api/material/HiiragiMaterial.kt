@@ -1,8 +1,7 @@
 package hiiragi283.api.material
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import net.minecraft.client.resources.I18n
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
@@ -39,7 +38,6 @@ import rechellatek.snakeToUpperCamelCase
  * @param translationKey can be overridden
  */
 
-@Serializable
 data class HiiragiMaterial internal constructor(
     val name: String,
     val index: Int,
@@ -70,14 +68,12 @@ data class HiiragiMaterial internal constructor(
         @JvmField
         val UNKNOWN = formulaOf("?")
 
-        private val pretty = Json { prettyPrint = true }
+        private val gson: Gson = Gson()
 
-        /**
-         * Converts [String] with JSON format into [HiiragiMaterial]
-         * @return a new material
-         */
+        private val pretty: Gson = GsonBuilder().setPrettyPrinting().create()
+
         @JvmStatic
-        fun fromJson(json: String): HiiragiMaterial = Json.decodeFromString(json)
+        fun fromJson(json: String): HiiragiMaterial = gson.fromJson(json, HiiragiMaterial::class.java)
 
     }
 
@@ -118,82 +114,37 @@ data class HiiragiMaterial internal constructor(
 
     fun getTranslatedName(): String = I18n.format(translationKey)
 
-    /**
-     * Returns true if [oreDictAlt] is not empty
-     * @see [Collection.isNotEmpty]
-     */
     fun hasOreDictAlt(): Boolean = oreDictAlt.isNotEmpty()
 
     fun hasFluid(): Boolean = FluidRegistry.isFluidRegistered(name)
 
-    /**
-     * Returns true if [formula] is not empty
-     * @see [String.isNotEmpty]
-     */
     fun hasFormula(): Boolean = formula.isNotEmpty()
 
-    /**
-     * Returns true if [molar] is bigger than 0.0
-     */
     fun hasMolar(): Boolean = molar > 0.0
 
-    /**
-     * Returns true if [tempBoil] is 0 or more
-     */
     fun hasTempBoil(): Boolean = tempBoil >= 0
 
-    /**
-     * Returns true if [tempMelt] is 0 or more
-     */
     fun hasTempMelt(): Boolean = tempMelt >= 0
 
-    /**
-     * Returns true if [tempSubl] is 0 or more
-     */
     fun hasTempSubl(): Boolean = tempSubl >= 0
 
-    /**
-     * Returns true if [name] equals "empty"
-     */
     fun isEmpty(): Boolean = this == EMPTY || this.name == "empty"
 
-    /**
-     * Returns true if [CrystalType.isCrystal] is true and [isMetal] is false
-     * @see [CrystalType]
-     */
     fun isGem(): Boolean = crystalType.isCrystal && !isMetal()
 
-    /**
-     * Returns true if [crystalType] equals [CrystalType.METAL]
-     * @see [CrystalType]
-     */
     fun isMetal(): Boolean = crystalType == CrystalType.METAL
 
-    /**
-     * Returns true if standard state of this material is [MaterialState.GAS]
-     * @see [getState]
-     */
     fun isGas(): Boolean = getState() == MaterialState.GAS
 
-    /**
-     * Returns true if standard state of this material is [MaterialState.LIQUID]
-     * @see [getState]
-     */
     fun isLiquid(): Boolean = getState() == MaterialState.LIQUID
 
-    /**
-     * Returns true if standard state of this material is [MaterialState.SOLID]
-     * @see [getState]
-     */
+    fun isValidIndex(): Boolean = index > 0
+
     fun isSolid(): Boolean = getState() == MaterialState.SOLID
 
     fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
 
-    /**
-     * Converts [HiiragiMaterial] into JSON format
-     * @return JSON-formatted String
-     */
-    fun toJson(isPretty: Boolean): String = if (isPretty) pretty.encodeToString(this) else Json.encodeToString(this)
+    fun toJson(isPretty: Boolean): String = if (isPretty) pretty.toJson(this) else gson.toJson(this)
 
     //    General    //
 

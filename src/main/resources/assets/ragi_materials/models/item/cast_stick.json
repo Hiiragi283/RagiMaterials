@@ -2,7 +2,6 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "parent": "item/generated",
   "textures": {
-    "layer0": "blocks/hardened_clay",
-    "layer1": "ragi_materials:items/stick"
+    "layer0": "ragi_materials:items/cast_stick"
   }
 }

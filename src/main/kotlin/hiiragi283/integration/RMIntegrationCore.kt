@@ -1,6 +1,6 @@
 package hiiragi283.integration
 
-import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
@@ -35,11 +35,7 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
     private val thaum by lazy { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
     private val thermal by lazy { enableIntegration("thermalfoundation", RMConfig.INTEGRATION.thermal) }
 
-    override fun getMixinConfigs(): MutableList<String> {
-        val list: MutableList<String> = mutableListOf()
-        if (enderIO) list.add("mixins.ragi_materials.ender_io.json")
-        return list
-    }
+    override fun getMixinConfigs(): List<String> = listOf()
 
     override fun onConstruct(event: FMLConstructionEvent) {
         if (botania) RagiMaterials.LOGGER.info("Integration Enabled: Botania")
@@ -67,22 +63,22 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
         if (thermal) ThermalIntegration.onPreInit(event)
     }
 
-    override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
-        registry.add(MaterialIntegration.REDSTONE)
-        registry.add(MaterialIntegration.LAPIS)
-        registry.add(MaterialIntegration.GLOWSTONE)
-        registry.add(MaterialIntegration.ENDER_PEARL)
+    override fun registerMaterial() {
+        HiiragiRegistry.registerMaterial(MaterialIntegration.REDSTONE)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.LAPIS)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.GLOWSTONE)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.ENDER_PEARL)
 
-        if (botania) BotaniaIntegration.registerMaterial(registry)
-        if (embers) EmbersIntegration.registerMaterial(registry)
-        if (enderIO) EnderIOIntegration.registerMaterial(registry)
-        if (ic2Ex) IC2exIntegration.registerMaterial(registry)
-        if (mekanism) MekanismIntegration.registerMaterial(registry)
-        if (projectRed) ProjectRedIntegration.registerMaterial(registry)
-        if (railCraft) RailCraftIntegration.registerMaterial(registry)
-        if (tCon) TConIntegration.registerMaterial(registry)
-        if (thaum) ThaumIntegration.registerMaterial(registry)
-        if (thermal) ThermalIntegration.registerMaterial(registry)
+        if (botania) BotaniaIntegration.registerMaterial()
+        if (embers) EmbersIntegration.registerMaterial()
+        if (enderIO) EnderIOIntegration.registerMaterial()
+        if (ic2Ex) IC2exIntegration.registerMaterial()
+        if (mekanism) MekanismIntegration.registerMaterial()
+        if (projectRed) ProjectRedIntegration.registerMaterial()
+        if (railCraft) RailCraftIntegration.registerMaterial()
+        if (tCon) TConIntegration.registerMaterial()
+        if (thaum) ThaumIntegration.registerMaterial()
+        if (thermal) ThermalIntegration.registerMaterial()
     }
 
 

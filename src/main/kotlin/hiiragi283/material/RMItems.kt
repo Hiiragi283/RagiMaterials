@@ -1,12 +1,12 @@
 package hiiragi283.material
 
 import hiiragi283.api.HiiragiEntry
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.item.HiiragiItem
 import hiiragi283.api.item.ItemMaterial
 import hiiragi283.api.item.createItemMaterial
 import hiiragi283.api.material.CrystalType
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.ItemCast
@@ -120,7 +120,7 @@ object RMItems : HiiragiEntry.ITEM {
                 .toTypedArray())
 
             ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack ->
-                val material = MaterialRegistry.getMaterial(stack.metadata)
+                val material = HiiragiRegistry.getMaterial(stack.metadata)
                 val type = if (material.isGem()) material.crystalType else CrystalType.CUBIC
                 type.getLocation(entry.asItem())
             }

@@ -1,13 +1,11 @@
 package hiiragi283.integration.jei
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.item.ICastItem
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.recipe.CrushingRecipe
-import hiiragi283.api.registry.HiiragiRegistry
-import hiiragi283.api.shape.ShapeRegistry
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.integration.jei.ingredients.MaterialStackHelper
 import hiiragi283.integration.jei.ingredients.MaterialStackRenderer
@@ -68,7 +66,7 @@ class JEIIntegration : IModPlugin {
     override fun registerIngredients(registry: IModIngredientRegistration) {
         registry.register(
             HiiragiIngredientTypes.MATERIAL,
-            MaterialRegistry.getMaterials().map { it.toMaterialStack() },
+            HiiragiRegistry.getMaterials().map { it.toMaterialStack() },
             MaterialStackHelper,
             MaterialStackRenderer,
         )
@@ -78,7 +76,7 @@ class JEIIntegration : IModPlugin {
         return ForgeRegistries.ITEMS.valuesCollection
             .filterIsInstance<ICastItem>() //ICastItemを実装しているItemのみ
             .flatMap { item ->
-                MaterialRegistry.getMaterials()
+                HiiragiRegistry.getMaterials()
                     .filter { it.hasTempMelt() } //融点をもつ素材のみ
                     .map { MaterialStack(it, item.getMaterialAmount()) }
                     .filterNot { item.getResult(it).isEmpty } //完成品がEMPTYでないレシピのみ
@@ -88,8 +86,8 @@ class JEIIntegration : IModPlugin {
 
     private fun getHiiragiMaterialRecipes(): Collection<HiiragiMaterialRecipe> {
         val ret: MutableList<HiiragiMaterialRecipe> = mutableListOf()
-        for (material: HiiragiMaterial in MaterialRegistry.getMaterials()) {
-            val items: List<ItemStack> = ShapeRegistry.getShapes()
+        for (material: HiiragiMaterial in HiiragiRegistry.getMaterials()) {
+            val items: List<ItemStack> = HiiragiRegistry.getShapes()
                 .map { HiiragiPart(it, material) }
                 .flatMap { it.getAllItemStack() }
             ret.add(HiiragiMaterialRecipe(material.toMaterialStack(), items))

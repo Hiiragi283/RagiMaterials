@@ -1,9 +1,7 @@
 package hiiragi283.material
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.capability.HiiragiCapability
-import hiiragi283.api.material.MaterialRegistry
-import hiiragi283.api.part.PartRegistry
-import hiiragi283.api.shape.ShapeRegistry
 import hiiragi283.integration.RMIntegrationCore
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
@@ -69,13 +67,11 @@ class RagiMaterials : HiiragiProxy {
             this.writeJson()
             this.readJson()
         }
-        //レジストリへのエントリを初期化
+        //レジストリを初期化
+        HiiragiRegistry.initShape()
+        HiiragiRegistry.initMaterial()
         RMBlocks.init()
         RMItems.init()
-        //素材レジストリの初期化
-        MaterialRegistry.init()
-        //形状レジストリの初期化
-        ShapeRegistry.init()
         //Capability登録
         HiiragiCapability.register()
         //連携の登録
@@ -84,8 +80,9 @@ class RagiMaterials : HiiragiProxy {
 
     @Mod.EventHandler
     override fun onInit(event: FMLInitializationEvent) {
-        //部品レジストリの初期化
-        PartRegistry.init()
+        //レジストリの初期化
+        HiiragiRegistry.initPart()
+        HiiragiRegistry.initHeatSource()
         //鉱石辞書の登録
         RMBlocks.registerOreDict()
         RMItems.registerOreDict()
@@ -107,7 +104,7 @@ class RagiMaterials : HiiragiProxy {
     override fun onComplete(event: FMLLoadCompleteEvent) {
         //MaterialRegistryからログに出力
         if (RMConfig.MATERIAL.printMaterials) {
-            MaterialRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
+            HiiragiRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
         }
         //GuiHandlerの登録
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, RMGuiHandler)

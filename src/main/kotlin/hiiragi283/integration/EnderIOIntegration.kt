@@ -1,6 +1,6 @@
 package hiiragi283.integration
 
-import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.util.getItem
@@ -9,17 +9,17 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object EnderIOIntegration : AbstractIntegration() {
 
-    override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
-        registry.add(MaterialIntegration.ELECTRICAL_STEEL)
-        registry.add(MaterialIntegration.ENERGETIC_ALLOY)
-        registry.add(MaterialIntegration.VIBRANT_ALLOY)
-        registry.add(MaterialIntegration.REDSTONE_ALLOY)
-        registry.add(MaterialIntegration.CONDUCTIVE_IRON)
-        registry.add(MaterialIntegration.PULSATING_IRON)
-        registry.add(MaterialIntegration.DARK_STEEL)
-        registry.add(MaterialIntegration.SOULARIUM)
-        registry.add(MaterialIntegration.END_STEEL)
-        registry.add(MaterialIntegration.IRON_ALLOY)
+    override fun registerMaterial() {
+        HiiragiRegistry.registerMaterial(MaterialIntegration.ELECTRICAL_STEEL)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.ENERGETIC_ALLOY)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.VIBRANT_ALLOY)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.REDSTONE_ALLOY)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.CONDUCTIVE_IRON)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.PULSATING_IRON)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.DARK_STEEL)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.SOULARIUM)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.END_STEEL)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.IRON_ALLOY)
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {

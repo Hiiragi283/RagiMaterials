@@ -1,7 +1,7 @@
 package hiiragi283.api.tileentity
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialRegistry
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemStack
@@ -16,7 +16,7 @@ class MaterialTileEntity : HiiragiTileEntity() {
     //    HiiragiTileEntity    //
 
     override fun readFromNBT(compound: NBTTagCompound) {
-        material = MaterialRegistry.getMaterial(compound.getString(TileKey.MATERIAL))
+        material = HiiragiRegistry.getMaterial(compound.getString(TileKey.MATERIAL))
         super.readFromNBT(compound)
     }
 
@@ -32,7 +32,7 @@ class MaterialTileEntity : HiiragiTileEntity() {
         placer: EntityLivingBase,
         stack: ItemStack
     ) {
-        material = MaterialRegistry.getMaterial(stack.metadata)
+        material = HiiragiRegistry.getMaterial(stack.metadata)
     }
 
 }

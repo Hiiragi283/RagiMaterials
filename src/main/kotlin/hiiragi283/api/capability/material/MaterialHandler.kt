@@ -2,8 +2,10 @@ package hiiragi283.api.capability.material
 
 import hiiragi283.api.capability.CapabilityIO
 import hiiragi283.api.capability.IOType
+import hiiragi283.api.event.MaterialStackEvent
 import hiiragi283.api.material.MaterialStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.common.util.INBTSerializable
 
 class MaterialHandler(
@@ -39,6 +41,9 @@ class MaterialHandler(
                 this.stack.addAmount(resource.amount)
                 resource.amount = 0
             }
+            tile?.let {
+                MaterialStackEvent.fireEvent(MaterialStackEvent.Insert(stack, it.world, it.pos, this))
+            }
             return resource
         }
         //capacity - 現在のAmount = 搬入可能なAmount
@@ -47,6 +52,9 @@ class MaterialHandler(
             if (!simulate) {
                 resource.removeAmount(amountDiff)
                 this.stack.addAmount(amountDiff)
+            }
+            tile?.let {
+                MaterialStackEvent.fireEvent(MaterialStackEvent.Insert(stack, it.world, it.pos, this))
             }
             return resource.copy(amount = amountDiff)
         }
@@ -60,12 +68,18 @@ class MaterialHandler(
             if (!simulate) {
                 this.stack.removeAmount(resource.amount)
             }
+            tile?.let {
+                MaterialStackEvent.fireEvent(MaterialStackEvent.Extract(stack, it.world, it.pos, this))
+            }
             resource
         } else {
             //stackをEMPTYにする
             val copy = this.stack.copy()
             if (!simulate) {
                 this.stack = MaterialStack.EMPTY
+            }
+            tile?.let {
+                MaterialStackEvent.fireEvent(MaterialStackEvent.Extract(stack, it.world, it.pos, this))
             }
             copy
         }
@@ -84,7 +98,13 @@ class MaterialHandler(
     override fun serializeNBT(): NBTTagCompound = stack.serializeNBT()
 
     override fun deserializeNBT(nbt: NBTTagCompound) {
-        stack = MaterialStack.of(nbt)
+        stack = MaterialStack(nbt)
     }
+
+    //    Custom    //
+
+    var tile: TileEntity? = null
+
+    fun setTile(tile: TileEntity) = also { this.tile = tile }
 
 }

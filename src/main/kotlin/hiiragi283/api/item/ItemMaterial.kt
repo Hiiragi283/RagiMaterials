@@ -1,8 +1,8 @@
 package hiiragi283.api.item
 
 import hiiragi283.api.HiiragiEntry
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialRegistry
 import hiiragi283.api.shape.HiiragiShape
 import hiiragi283.material.RMCreativeTabs
 import hiiragi283.material.util.setModelSame
@@ -42,15 +42,14 @@ abstract class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        shape.getTranslatedName(MaterialRegistry.getMaterial(stack.metadata))
+        shape.getTranslatedName(HiiragiRegistry.getMaterial(stack.metadata))
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
-        MaterialRegistry.getMaterials()
-            .filter { it.isSolid() && shape.isValid(it) }
+        HiiragiRegistry.getMaterials()
+            .filter { it.isValidIndex() && it.isSolid() && shape.isValid(it) }
             .map { getItemStack(it) }
-            .filter { it.metadata != 0 }
             .sortedBy { it.metadata }
             .forEach { subItems.add(it) }
     }
@@ -58,13 +57,13 @@ abstract class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     //    HiiragiEntry    //
 
     override fun registerOreDict() {
-        MaterialRegistry.getMaterials()
+        HiiragiRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
             .forEach { OreDictionary.registerOre(shape.getOreDict(it), getItemStack(it)) }
     }
 
     override fun registerRecipe() {
-        MaterialRegistry.getMaterials()
+        HiiragiRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
             .forEach { getRecipe(this, it) }
     }
@@ -74,7 +73,7 @@ abstract class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
-            val material = MaterialRegistry.getMaterial(stack.metadata)
+            val material = HiiragiRegistry.getMaterial(stack.metadata)
             if (tintIndex == 0) material.color else -1
         }, this)
     }

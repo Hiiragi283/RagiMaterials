@@ -1,13 +1,13 @@
 package hiiragi283.integration
 
-import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.MaterialIntegration
 
 object MekanismIntegration : AbstractIntegration() {
 
-    override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
-        registry.add(MaterialIntegration.OBSIDIAN_REFINED)
-        registry.add(MaterialIntegration.GLOWSTONE_REFINED)
+    override fun registerMaterial() {
+        HiiragiRegistry.registerMaterial(MaterialIntegration.OBSIDIAN_REFINED)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.GLOWSTONE_REFINED)
     }
 
 }

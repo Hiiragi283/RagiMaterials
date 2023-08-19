@@ -28,6 +28,7 @@ item.unfired_cast_4.name=Unfired Clay Cast (Stick)
 
 gui.ragi_materials.crucible=Crucible
 gui.ragi_materials.crushing=Crushing
+gui.ragi_materials.material=Material
 
 ##    Shape    ##
 

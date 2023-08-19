@@ -12,4 +12,6 @@ interface ICastItem {
 
     fun getResult(materialStack: MaterialStack): ItemStack
 
+    fun onCast(stack: ItemStack) {}
+
 }

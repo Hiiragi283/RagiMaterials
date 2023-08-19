@@ -1,6 +1,5 @@
 package hiiragi283.integration
 
-import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.material.HiiragiProxy
 import net.minecraftforge.fml.common.event.*
 
@@ -10,7 +9,7 @@ abstract class AbstractIntegration : HiiragiProxy {
 
     override fun onPreInit(event: FMLPreInitializationEvent) {}
 
-    open fun registerMaterial(registry: MutableList<HiiragiMaterial>) {}
+    open fun registerMaterial() {}
 
     override fun onInit(event: FMLInitializationEvent) {}
 

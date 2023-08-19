@@ -34,7 +34,7 @@ dependencies {
 
     // Kotlin
     shadowCompile("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
-    shadowImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    //shadowImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     //Botania
     if (enable_botania.toBoolean()) {

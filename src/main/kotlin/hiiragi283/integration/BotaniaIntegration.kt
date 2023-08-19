@@ -1,6 +1,6 @@
 package hiiragi283.integration
 
-import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.MaterialIntegration
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.util.getItem
@@ -9,12 +9,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object BotaniaIntegration : AbstractIntegration() {
 
-    override fun registerMaterial(registry: MutableList<HiiragiMaterial>) {
-        registry.add(MaterialIntegration.MANASTEEL)
-        registry.add(MaterialIntegration.MANA_DIAMOND)
-        registry.add(MaterialIntegration.TERRASTEEL)
-        registry.add(MaterialIntegration.ELEMENTIUM)
-        registry.add(MaterialIntegration.DRAGONSTONE)
+    override fun registerMaterial() {
+        HiiragiRegistry.registerMaterial(MaterialIntegration.MANASTEEL)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.MANA_DIAMOND)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.TERRASTEEL)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.ELEMENTIUM)
+        HiiragiRegistry.registerMaterial(MaterialIntegration.DRAGONSTONE)
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {

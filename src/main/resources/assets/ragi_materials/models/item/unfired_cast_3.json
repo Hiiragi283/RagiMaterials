@@ -2,7 +2,6 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "parent": "item/generated",
   "textures": {
-    "layer0": "blocks/clay",
-    "layer1": "ragi_materials:items/plate"
+    "layer0": "ragi_materials:items/unfired_cast_plate"
   }
 }

@@ -1,5 +1,6 @@
 package hiiragi283.api.shape
 
+import hiiragi283.api.HiiragiRegistry
 import java.util.function.Function
 
 object HiiragiShapes {
@@ -59,6 +60,9 @@ object HiiragiShapes {
     val ORE = HiiragiShape("ore", 144 * 2)
 
     @JvmField
+    val ORE_DENSE = HiiragiShape("ore_dense", 144 * 2)
+
+    @JvmField
     val ORE_POOR = HiiragiShape("ore_poor", 144 / 3)
 
     @JvmField
@@ -85,12 +89,12 @@ object HiiragiShapes {
     @JvmField
     val STONE = HiiragiShape("stone", 144)
 
-    fun register(registry: MutableList<HiiragiShape>) {
+    fun register() {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiShape>()
-            .forEach { registry.add(it) }
+            .forEach { HiiragiRegistry.registerShape(it) }
     }
 
 }

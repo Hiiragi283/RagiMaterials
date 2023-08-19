@@ -1,5 +1,6 @@
 package hiiragi283.material.config
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.CrystalType
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialType
@@ -23,8 +24,8 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
 
         private val CACHE: MutableList<HiiragiMaterial> = mutableListOf()
 
-        fun register(registry: MutableList<HiiragiMaterial>) {
-            CACHE.forEach { registry.add(it) }
+        fun register() {
+            CACHE.forEach { HiiragiRegistry.registerMaterial(it) }
         }
 
     }

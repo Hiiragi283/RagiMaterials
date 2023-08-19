@@ -1,5 +1,6 @@
 package hiiragi283.material.tile
 
+import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.capability.HiiragiCapability
 import hiiragi283.api.capability.HiiragiCapabilityProvider
 import hiiragi283.api.capability.IOType
@@ -8,8 +9,6 @@ import hiiragi283.api.capability.material.MaterialHandler
 import hiiragi283.api.item.ICastItem
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
-import hiiragi283.api.part.PartRegistry
-import hiiragi283.api.registry.HiiragiRegistry
 import hiiragi283.api.tileentity.HiiragiProvider
 import hiiragi283.api.tileentity.HiiragiTileEntity
 import hiiragi283.material.util.dropItemAtPlayer
@@ -46,79 +45,89 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Material {
         hand: EnumHand,
         facing: EnumFacing
     ): Boolean {
-        if (!world.isRemote) {
-            val stack = player.getHeldItem(hand)
-            //利き手に持っているItemStackがEMPTYでない -> レシピを実行
-            if (!stack.isEmpty) {
-                val item: Item = stack.item
-                //ItemStackのItemがICastItemを実装している -> レシピを取得
-                if (item is ICastItem) {
-                    val materialStack: MaterialStack = materialHandler.getMaterialStack()
-                    val result: ItemStack = item.getResult(materialStack)
-                    //搬出可能 && 完成品が有効 -> 鋳造レシピを実行
-                    if (materialHandler.canExtract(materialStack) && !result.isEmpty) {
-                        materialHandler.extractMaterial(materialStack, false)
-                        stack.itemDamage += 1
-                        dropItemAtPlayer(player, result)
-                        succeeded(this, player)
-                        playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
-                    }
-                    //搬出不可能 || 完成品が無効 -> 警告
-                    else {
-                        player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_cast"))
-                        playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
-                    }
-                }
-                //実装していない -> ItemStackから溶融レシピを取得
-                else {
-                    val materialStack =
-                        PartRegistry.getParts(stack).getOrElse(0) { HiiragiPart.EMPTY }.toMaterialStack()
-                    //融点が有効な場合
-                    if (materialStack.material.hasTempMelt()) {
-                        val tempMelt: Int = materialStack.material.tempMelt
-                        //現在の温度が要求温度以上 ->
-                        if (getHeat(world, pos) >= tempMelt) {
-                            //tankにレシピの出力を搬入できる ->溶融レシピを実行
-                            if (materialHandler.canInsert(materialStack)) {
-                                stack.shrink(1)
-                                materialHandler.insertMaterial(materialStack, false)
-                                succeeded(this, player)
-                                playSound(this, SoundEvents.ITEM_BUCKET_FILL_LAVA)
-                            }
-                            //tankに搬入できない -> 警告
-                            else {
-                                player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
-                                playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
-                            }
-                        }
-                        //温度が足りていない -> 警告
-                        else {
-                            player.sendMessage(
-                                TextComponentTranslation(
-                                    "error.ragi_materials.crucible.more_heat",
-                                    tempMelt
-                                )
-                            )
-                            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
-                        }
-                    }
-                    //融点が有効でない -> 警告
-                    else {
-                        player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
-                        playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
-                    }
-                }
-            }
-            //EMPTY -> 現在の温度を表示する
+        return if (!world.isRemote) {
+            val stack: ItemStack = player.getHeldItem(hand)
+            if (stack.isEmpty) printCurrentTemp(player)
             else {
-                player.sendMessage(
-                    TextComponentTranslation("info.ragi_materials.crucible.temperature", getHeat(world, pos))
-                )
-                playSound(this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP)
+                val item: Item = stack.item
+                if (item is ICastItem) processCast(player, stack, item)
+                else processMelt(player, stack)
             }
-            return true
+            true
+        } else false
+    }
+
+    private fun printCurrentTemp(player: EntityPlayer) {
+        player.sendMessage(
+            TextComponentTranslation(
+                "info.ragi_materials.crucible.temperature",
+                getHeat(world, pos)
+            )
+        )
+        playSound(this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP)
+    }
+
+    private fun processCast(player: EntityPlayer, stack: ItemStack, item: ICastItem) {
+        val materialStack: MaterialStack = materialHandler.getMaterialStack()
+        val required: Int = item.getMaterialAmount()
+        val result: ItemStack = item.getResult(materialStack)
+        //handler内の量 < 要求量 -> 終了
+        if (materialHandler.getMaterialAmount() < required) {
+            player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_cast"))
+            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+            return
         }
-        return false
+        //result == ItemStack.EMPTy -> 終了
+        if (result.isEmpty) {
+            player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_cast"))
+            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+            return
+        }
+        //実行する
+        else {
+            materialHandler.extractMaterial(materialStack.copy(amount = required), false)
+            item.onCast(stack)
+            dropItemAtPlayer(player, result)
+            succeeded(this, player)
+            playSound(this, SoundEvents.BLOCK_FIRE_EXTINGUISH)
+        }
+    }
+
+    private fun processMelt(player: EntityPlayer, stack: ItemStack) {
+        val materialStack = HiiragiRegistry.getParts(stack)
+            .getOrElse(0) { HiiragiPart.EMPTY }
+            .toMaterialStack()
+        //融点が有効でない -> 終了
+        if (!materialStack.material.hasTempMelt()) {
+            player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.no_recipe"))
+            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+            return
+        }
+        val tempMelt: Int = materialStack.material.tempMelt
+        //温度が不足している -> 終了
+        if (getHeat(world, pos) < tempMelt) {
+            player.sendMessage(
+                TextComponentTranslation(
+                    "error.ragi_materials.crucible.more_heat",
+                    tempMelt
+                )
+            )
+            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+            return
+        }
+        //搬入できない -> 終了
+        if (!materialHandler.canInsert(materialStack)) {
+            player.sendMessage(TextComponentTranslation("error.ragi_materials.crucible.cannot_fill"))
+            playSound(this, SoundEvents.ENTITY_VILLAGER_NO)
+            return
+        }
+        //実行する
+        else {
+            stack.shrink(1)
+            materialHandler.insertMaterial(materialStack, false)
+            succeeded(this, player)
+            playSound(this, SoundEvents.ITEM_BUCKET_FILL_LAVA)
+        }
     }
 
     //    HiiragiProvider    //
