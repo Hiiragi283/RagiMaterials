@@ -29,12 +29,12 @@ object EnderIOIntegration : AbstractIntegration() {
             57
         )
         registerOreDict(
-            HiiragiShapes.BALL.getOreDict(MaterialIntegration.LUMIUM),
+            HiiragiShapes.BALL.getOreDict(MaterialIntegration.ENDERIUM),
             getItem("enderio:item_material"),
             58
         )
         registerOreDict(
-            HiiragiShapes.BALL.getOreDict(MaterialIntegration.ENDERIUM),
+            HiiragiShapes.BALL.getOreDict(MaterialIntegration.LUMIUM),
             getItem("enderio:item_material"),
             59
         )
