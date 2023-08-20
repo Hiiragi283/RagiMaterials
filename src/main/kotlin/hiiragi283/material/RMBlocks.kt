@@ -6,7 +6,9 @@ import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.block.BlockCrucible
 import hiiragi283.material.block.BlockInventoryTest
+import hiiragi283.material.block.BlockRockGenerator
 import hiiragi283.material.config.RMConfig
+import hiiragi283.material.util.isDeobfEnv
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
@@ -32,15 +34,16 @@ object RMBlocks : HiiragiEntry.BLOCK {
 
     //    Common    //
 
-    val TEST = BlockInventoryTest
-
     @JvmField
     val CRUCIBLE = BlockCrucible
 
     fun init() {
         RagiMaterials.LOGGER.info("RMBlocks has been initialized!")
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
-        entries.add(TEST)
+        if (isDeobfEnv()) {
+            entries.add(BlockInventoryTest)
+            entries.add(BlockRockGenerator)
+        }
         entries.add(CRUCIBLE)
     }
 

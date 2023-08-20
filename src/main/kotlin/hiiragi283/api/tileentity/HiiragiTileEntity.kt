@@ -101,7 +101,7 @@ abstract class HiiragiTileEntity : TileEntity() {
 
     open fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {}
 
-    abstract class Tickable(private val maxCount: Int) : HiiragiTileEntity(), ITickable {
+    abstract class Tickable(val maxCount: Int) : HiiragiTileEntity(), ITickable {
 
         var countdown = 0
 

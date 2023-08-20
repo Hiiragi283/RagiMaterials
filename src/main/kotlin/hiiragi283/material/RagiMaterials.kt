@@ -21,7 +21,7 @@ import java.util.*
     modid = RMReference.MOD_ID,
     name = RMReference.MOD_NAME,
     version = RMReference.VERSION,
-    dependencies = "after:gregtech;after:jei@[4.24.5,)",
+    dependencies = "after-required:modularui;after:gregtech;after:jei@[4.24.5,)",
     acceptedMinecraftVersions = "[1.12,1.12.2]"
 )
 class RagiMaterials : HiiragiProxy {
@@ -29,8 +29,13 @@ class RagiMaterials : HiiragiProxy {
     companion object {
 
         //各種変数の宣言
+        @JvmField
         val CALENDAR: Calendar = Calendar.getInstance()
-        val COLOR: Color by lazy { Color(255, 0, 31) }
+
+        @JvmField
+        val COLOR: Color = Color(255, 0, 31)
+
+        @JvmField
         val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
 
         //Instanceの宣言

@@ -36,7 +36,7 @@ class TileEntityCrucible : HiiragiTileEntity(), HiiragiProvider.Material {
         return if (block is IFluidBlock) block.fluid.temperature else HiiragiRegistry.getHeat(state)
     }
 
-    //    RCTileEntity    //
+    //    HiiragiTileEntity    //
 
     override fun onTileActivated(
         world: World,

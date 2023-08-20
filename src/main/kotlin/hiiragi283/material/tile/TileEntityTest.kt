@@ -1,5 +1,9 @@
 package hiiragi283.material.tile
 
+import com.cleanroommc.modularui.api.IGuiHolder
+import com.cleanroommc.modularui.manager.GuiCreationContext
+import com.cleanroommc.modularui.screen.ModularPanel
+import com.cleanroommc.modularui.value.sync.GuiSyncManager
 import hiiragi283.api.capability.HiiragiCapabilityProvider
 import hiiragi283.api.capability.IOType
 import hiiragi283.api.capability.item.HiiragiItemHandler
@@ -13,7 +17,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 
-class TileEntityTest : HiiragiTileEntity.Tickable(20), HiiragiProvider.Inventory {
+class TileEntityTest : HiiragiTileEntity.Tickable(20), HiiragiProvider.Inventory, IGuiHolder {
 
     private lateinit var input: HiiragiItemHandler
 
@@ -32,6 +36,16 @@ class TileEntityTest : HiiragiTileEntity.Tickable(20), HiiragiProvider.Inventory
             ?.let { input.transferTo(0, it) } ?: false
         RagiMaterials.LOGGER.info("TransferFrom result: $retIn")
         RagiMaterials.LOGGER.info("transferTo result: $retOut")
+    }
+
+    //    IGuiHolder    //
+
+    override fun buildUI(
+        guiCreationContext: GuiCreationContext,
+        guiSyncManager: GuiSyncManager,
+        isClient: Boolean
+    ): ModularPanel {
+        return ModularPanel.defaultPanel("test_tile")
     }
 
 }

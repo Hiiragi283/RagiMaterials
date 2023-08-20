@@ -12,7 +12,7 @@ import net.minecraftforge.common.util.INBTSerializable
  */
 
 @Suppress("UNCHECKED_CAST")
-class HiiragiCapabilityProvider<T : Any>(
+class HiiragiCapabilityProvider<T : Any> @JvmOverloads constructor(
     private val capability: Capability<T>,
     private val instance: T,
     private val serializer: INBTSerializable<NBTTagCompound> = instance as INBTSerializable<NBTTagCompound>

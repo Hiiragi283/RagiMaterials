@@ -5,7 +5,10 @@ import hiiragi283.api.item.ICastItem
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
+import hiiragi283.api.recipe.CrucibleRecipe
 import hiiragi283.api.recipe.CrushingRecipe
+import hiiragi283.api.recipe.HeatSourceRecipe
+import hiiragi283.api.recipe.HiiragiMaterialRecipe
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.integration.jei.ingredients.MaterialStackHelper
 import hiiragi283.integration.jei.ingredients.MaterialStackRenderer

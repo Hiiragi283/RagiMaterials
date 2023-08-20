@@ -5,6 +5,7 @@ import hiiragi283.api.event.ShapeRegistryEvent
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.recipe.CrushingRecipe
+import hiiragi283.api.recipe.RockGenerationRecipe
 import hiiragi283.api.shape.HiiragiShape
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.util.MetaResourceLocation
@@ -23,12 +24,20 @@ import net.minecraftforge.registries.RegistryBuilder
 
 object HiiragiRegistry {
 
-    @JvmStatic
+    @JvmField
     val CRUSHING: IForgeRegistry<CrushingRecipe> = RegistryBuilder<CrushingRecipe>()
         .allowModification()
         .disableSaving()
         .setName(hiiragiLocation("crush"))
         .setType(CrushingRecipe::class.java)
+        .create()
+
+    @JvmField
+    val ROCK_GENERATION: IForgeRegistry<RockGenerationRecipe> = RegistryBuilder<RockGenerationRecipe>()
+        .allowModification()
+        .disableSaving()
+        .setName(hiiragiLocation("rock_generation"))
+        .setType(RockGenerationRecipe::class.java)
         .create()
 
     //    HiiragiShape    //

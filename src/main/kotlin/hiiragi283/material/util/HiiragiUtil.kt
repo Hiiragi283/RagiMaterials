@@ -31,7 +31,9 @@ import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.registry.ForgeRegistries
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
@@ -47,6 +49,7 @@ fun isAprilFools(): Boolean =
 
 //    Drop    //
 
+@JvmOverloads
 fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
     val world = player.world
     if (!world.isRemote) {
@@ -55,6 +58,7 @@ fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y:
     }
 }
 
+@JvmOverloads
 fun dropInventoryItems(
     world: World,
     pos: BlockPos,
@@ -69,6 +73,7 @@ fun dropInventoryItems(
     }
 }
 
+@JvmOverloads
 fun dropItemFromTile(
     world: World,
     pos: BlockPos,
@@ -82,6 +87,7 @@ fun dropItemFromTile(
     dropItem(world, pos, stack, x, y, z)
 }
 
+@JvmOverloads
 fun dropItem(world: World, pos: BlockPos, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
     if (!world.isRemote && !stack.isEmpty) {
         val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble(), pos.z.toDouble() + 0.5f, stack)
@@ -120,6 +126,12 @@ fun Pair<String, Int>.toFluidStack(): FluidStack? = FluidRegistry.getFluidStack(
 
 fun FluidStack.isEmpty(): Boolean = this.isFluidStackIdentical(FluidStack_EMPTY)
 
+//    FML    //
+
+fun isClient(): Boolean = FMLCommonHandler.instance().side.isClient
+
+fun isDeobfEnv(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
+
 //    ItemStack    //
 
 fun getItemStack(location: String, amount: Int, meta: Int): ItemStack? {
@@ -129,6 +141,7 @@ fun getItemStack(location: String, amount: Int, meta: Int): ItemStack? {
     return if (item !== null) ItemStack(item, amount, meta) else null
 }
 
+@JvmOverloads
 fun IBlockState.toItemStack(amount: Int = 1): ItemStack =
     ItemStack(this.block, amount, this.block.getMetaFromState(this))
 
@@ -189,11 +202,13 @@ fun findItemStack(stacks: List<ItemStack>, primalMod: String, secondaryMod: Stri
 fun findItemStack(oredict: String, primalMod: String, secondaryMod: String): ItemStack =
     findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
 
+@JvmOverloads
 fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
     item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
     share?.let { shareOredict(oredict, it) }
 }
 
+@JvmOverloads
 fun registerOreDict(oredict: String, block: Block?, meta: Int = 0, share: String? = null) {
     block?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
     share?.let { shareOredict(oredict, it) }
@@ -240,6 +255,7 @@ fun removeRegistryEntry(registry: IForgeRegistry<*>, registryName: String): Bool
 
 fun hiiragiLocation(path: String): ResourceLocation = ResourceLocation(RMReference.MOD_ID, path)
 
+@JvmOverloads
 fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.registryName!!.append(split + this.metadata)
 
 fun ItemStack.toMetaLocation(): MetaResourceLocation = MetaResourceLocation(this.item.registryName!!, this.metadata)
@@ -264,10 +280,12 @@ fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, thi
 private val WORLD_CLIENT: WorldClient by lazy { Minecraft.getMinecraft().world }
 private val PLAYER_CLIENT by lazy { Minecraft.getMinecraft().player }
 
+@JvmOverloads
 fun printResult(block: Block, player: ICommandSender = PLAYER_CLIENT, predicate: BiPredicate<Block, ICommandSender>) {
     if (predicate.test(block, player)) succeeded(block, player) else failed(block, player)
 }
 
+@JvmOverloads
 fun printResult(
     world: IBlockAccess = WORLD_CLIENT,
     pos: BlockPos,
@@ -277,6 +295,7 @@ fun printResult(
     if (predicate.test(world, pos, player)) succeeded(world, pos, player) else failed(world, pos, player)
 }
 
+@JvmOverloads
 fun printResult(
     tile: TileEntity,
     player: ICommandSender = PLAYER_CLIENT,
@@ -285,26 +304,32 @@ fun printResult(
     if (predicate.test(tile, player)) succeeded(tile, player) else failed(tile, player)
 }
 
+@JvmOverloads
 fun succeeded(block: Block, player: ICommandSender = PLAYER_CLIENT) {
     player.sendMessage(TextComponentTranslation("info.ragi_materials.succeeded", block.localizedName))
 }
 
+@JvmOverloads
 fun succeeded(world: IBlockAccess = WORLD_CLIENT, pos: BlockPos, player: ICommandSender = PLAYER_CLIENT) {
     succeeded(world.getBlockState(pos).block, player)
 }
 
+@JvmOverloads
 fun succeeded(tile: TileEntity, player: ICommandSender = PLAYER_CLIENT) {
     succeeded(tile.world, tile.pos, player)
 }
 
+@JvmOverloads
 fun failed(block: Block, player: ICommandSender = PLAYER_CLIENT) {
     player.sendMessage(TextComponentTranslation("info.ragi_materials.failed", block.localizedName))
 }
 
+@JvmOverloads
 fun failed(world: IBlockAccess = WORLD_CLIENT, pos: BlockPos, player: ICommandSender = PLAYER_CLIENT) {
     failed(world.getBlockState(pos).block, player)
 }
 
+@JvmOverloads
 fun failed(tile: TileEntity, player: ICommandSender = PLAYER_CLIENT) {
     failed(tile.world, tile.pos, player)
 }
@@ -320,6 +345,7 @@ fun getSound(registryName: String): SoundEvent {
     return getSound(ResourceLocation(registryName))
 }
 
+@JvmOverloads
 fun playSound(
     world: World,
     pos: BlockPos,
@@ -332,6 +358,7 @@ fun playSound(
     world.playSound(player, pos, soundEvent, soundCategory, volume, pitch)
 }
 
+@JvmOverloads
 fun playSound(
     tile: TileEntity,
     soundEvent: SoundEvent,
