@@ -50,7 +50,7 @@ class HiiragiShape(val name: String, val scale: Int) {
      * Returns translated name with given [material]
      */
     fun getTranslatedName(material: HiiragiMaterial): String =
-        I18n.format("shape.$name", material.getTranslatedName())
+        I18n.format("hiiragi_shape.$name", material.getTranslatedName())
 
     /**
      * Returns true if [scale] is bigger than 0

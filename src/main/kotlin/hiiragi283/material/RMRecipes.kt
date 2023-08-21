@@ -22,12 +22,20 @@ object RMRecipes {
                 )
             }
         //岩石生成レシピの登録
-        HiiragiRegistry.ROCK_GENERATION.registerAll(
-            RockGenerationRecipe(ItemStack(Blocks.COBBLESTONE)),
-            RockGenerationRecipe(ItemStack(Blocks.STONE, 1, 1)),
-            RockGenerationRecipe(ItemStack(Blocks.STONE, 1, 3)),
-            RockGenerationRecipe(ItemStack(Blocks.STONE, 1, 5))
+        //A -> A
+        listOf(
+            Blocks.COBBLESTONE to 0,
+            Blocks.STONE to 1,
+            Blocks.STONE to 3,
+            Blocks.STONE to 5,
+            Blocks.MOSSY_COBBLESTONE to 0,
+            Blocks.NETHERRACK to 0,
+            Blocks.END_STONE to 0
         )
+            .map { ItemStack(it.first, 1, it.second) }
+            .map { RockGenerationRecipe(it) }
+            .forEach { HiiragiRegistry.ROCK_GENERATION.register(it) }
+        //A -> B
     }
 
 }

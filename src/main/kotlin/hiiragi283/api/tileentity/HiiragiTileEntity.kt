@@ -1,10 +1,9 @@
 package hiiragi283.api.tileentity
 
+import com.cleanroommc.modularui.manager.GuiInfos
 import hiiragi283.api.capability.energy.HiiragiEnergyStorage
 import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
 import hiiragi283.api.capability.item.HiiragiItemHandlerWrapper
-import hiiragi283.material.RMGuiHandler
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import net.minecraft.block.state.IBlockState
@@ -33,8 +32,8 @@ abstract class HiiragiTileEntity : TileEntity() {
 
     fun getState(): IBlockState = if (hasWorld()) world.getBlockState(pos) else Blocks.AIR.defaultState
 
-    fun openGui(player: EntityPlayer) {
-        player.openGui(RagiMaterials.INSTANCE, RMGuiHandler.TILE_ID, world, pos.x, pos.y, pos.z)
+    fun openGui(player: EntityPlayer, world: World = this.world, pos: BlockPos = this.pos) {
+        if (!world.isRemote) GuiInfos.TILE_ENTITY.open(player, world, pos)
     }
 
     //    NBT tag    //

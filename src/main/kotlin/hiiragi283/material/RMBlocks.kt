@@ -7,6 +7,7 @@ import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.block.BlockCrucible
 import hiiragi283.material.block.BlockInventoryTest
 import hiiragi283.material.block.BlockRockGenerator
+import hiiragi283.material.block.BlockStoneCommon
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.isDeobfEnv
 import net.minecraft.block.Block
@@ -37,14 +38,21 @@ object RMBlocks : HiiragiEntry.BLOCK {
     @JvmField
     val CRUCIBLE = BlockCrucible
 
+    @JvmField
+    val ROCK_GENERATOR = BlockRockGenerator
+
+    @JvmField
+    val STONE_COMMON = BlockStoneCommon
+
     fun init() {
         RagiMaterials.LOGGER.info("RMBlocks has been initialized!")
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
         if (isDeobfEnv()) {
             entries.add(BlockInventoryTest)
-            entries.add(BlockRockGenerator)
         }
         entries.add(CRUCIBLE)
+        entries.add(ROCK_GENERATOR)
+        entries.add(STONE_COMMON)
     }
 
     override fun register(registry: IForgeRegistry<Block>) {

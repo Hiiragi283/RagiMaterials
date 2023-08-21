@@ -13,9 +13,11 @@ import java.util.*
  */
 
 class CrushingRecipe(
-    val input: HiiragiPart,
-    val outputs: Map<ItemStack, Int>
+    private val input: HiiragiPart,
+    private val outputs: Map<ItemStack, Int>
 ) : HiiragiRecipe<CrushingRecipe>() {
+
+    fun getInput(): HiiragiPart = input.copy()
 
     fun getAllOutputs(): List<ItemStack> = outputs.keys.toList()
 

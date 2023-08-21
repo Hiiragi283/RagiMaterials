@@ -1,29 +1,20 @@
-package hiiragi283.integration.jei;
+package hiiragi283.integration.jei
 
-import hiiragi283.api.recipe.HeatSourceRecipe;
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawableStatic;
-import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.config.Constants;
-import org.jetbrains.annotations.NotNull;
+import hiiragi283.api.recipe.HeatSourceRecipe
+import mezz.jei.api.IGuiHelper
+import mezz.jei.api.gui.IDrawableStatic
+import mezz.jei.api.gui.IRecipeLayout
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.config.Constants
 
-public class HeatSourceCategory extends HiiragiRecipeCategory<HeatSourceRecipe> {
+class HeatSourceCategory(guiHelper: IGuiHelper) : HiiragiRecipeCategory<HeatSourceRecipe>(CRUCIBLE_HEAT, guiHelper) {
 
+    override val backGround: IDrawableStatic =
+        guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 134, 18, 34).build()
 
-    public HeatSourceCategory(@NotNull IGuiHelper guiHelper) {
-        super(JEIIntegrationKt.CRUCIBLE_HEAT, guiHelper);
+    override fun setRecipe(layout: IRecipeLayout, recipe: HeatSourceRecipe, iIngredients: IIngredients) {
+        layout.itemStacks.init(1, true, 0, 16)
+        layout.itemStacks.set(iIngredients)
     }
 
-    @NotNull
-    @Override
-    public IDrawableStatic getBackGround() {
-        return getGuiHelper().drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 134, 18, 34).build();
-    }
-
-    @Override
-    public void setRecipe(@NotNull IRecipeLayout iRecipeLayout, @NotNull HeatSourceRecipe heatSourceRecipe, @NotNull IIngredients iIngredients) {
-        iRecipeLayout.getItemStacks().init(1, true, 0, 16);
-        iRecipeLayout.getItemStacks().set(iIngredients);
-    }
 }

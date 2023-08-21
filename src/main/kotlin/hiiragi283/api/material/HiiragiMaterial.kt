@@ -48,7 +48,7 @@ data class HiiragiMaterial internal constructor(
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
     var tempSubl: Int = -1,
-    var translationKey: String = "material.$name"
+    var translationKey: String = "hiiragi_material.$name"
 ) {
 
     /**

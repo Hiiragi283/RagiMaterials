@@ -5,10 +5,7 @@ import hiiragi283.api.item.ICastItem
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
-import hiiragi283.api.recipe.CrucibleRecipe
-import hiiragi283.api.recipe.CrushingRecipe
-import hiiragi283.api.recipe.HeatSourceRecipe
-import hiiragi283.api.recipe.HiiragiMaterialRecipe
+import hiiragi283.api.recipe.*
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.integration.jei.ingredients.MaterialStackHelper
 import hiiragi283.integration.jei.ingredients.MaterialStackRenderer
@@ -29,6 +26,7 @@ const val CRUCIBLE = "${RMReference.MOD_ID}.crucible"
 const val CRUCIBLE_HEAT = "${RMReference.MOD_ID}.crucible_heat"
 const val CRUSHING = "${RMReference.MOD_ID}.crushing"
 const val MATERIAL = "${RMReference.MOD_ID}.material"
+const val ROCK_GENERATION = "${RMReference.MOD_ID}.rock_generation"
 
 @JEIPlugin
 class JEIIntegration : IModPlugin {
@@ -43,7 +41,8 @@ class JEIIntegration : IModPlugin {
             CrucibleCategory(guiHelper),
             CrushingCategory(guiHelper),
             HeatSourceCategory(guiHelper),
-            HiiragiMaterialCategory(guiHelper)
+            HiiragiMaterialCategory(guiHelper),
+            RockGenerationCategory(guiHelper)
         )
     }
 
@@ -64,6 +63,10 @@ class JEIIntegration : IModPlugin {
         registry.handleRecipes(HiiragiMaterialRecipe::class.java, { it }, MATERIAL)
         registry.addRecipes(getHiiragiMaterialRecipes(), MATERIAL)
         registry.addRecipeCatalyst(ItemStack(RMItems.MATERIAL_BOTTLE, 1, Short.MAX_VALUE.toInt()), MATERIAL)
+        //Rock Generation
+        registry.handleRecipes(RockGenerationRecipe::class.java, { it }, ROCK_GENERATION)
+        registry.addRecipes(HiiragiRegistry.ROCK_GENERATION.valuesCollection, ROCK_GENERATION)
+        registry.addRecipeCatalyst(ItemStack(RMBlocks.ROCK_GENERATOR), ROCK_GENERATION)
     }
 
     override fun registerIngredients(registry: IModIngredientRegistration) {

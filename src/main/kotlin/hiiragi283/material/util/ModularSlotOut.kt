@@ -1,18 +1,11 @@
-package hiiragi283.api.widgets;
+package hiiragi283.material.util
 
-import com.cleanroommc.modularui.widgets.slot.ModularSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import org.jetbrains.annotations.NotNull;
+import com.cleanroommc.modularui.widgets.slot.ModularSlot
+import hiiragi283.api.capability.item.HiiragiItemHandler
+import net.minecraft.item.ItemStack
+import net.minecraftforge.items.IItemHandler
 
-public class ModularSlotOut extends ModularSlot {
+class ModularSlotOut(itemHandler: HiiragiItemHandler, index: Int) : ModularSlot(itemHandler as IItemHandler, index) {
+    override fun isItemValid(stack: ItemStack): Boolean = false
 
-    public ModularSlotOut(IItemHandler itemHandler, int index) {
-        super(itemHandler, index);
-    }
-
-    @Override
-    public boolean isItemValid(@NotNull ItemStack stack) {
-        return false;
-    }
 }

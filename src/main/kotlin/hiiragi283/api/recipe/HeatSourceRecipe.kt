@@ -1,38 +1,29 @@
-package hiiragi283.api.recipe;
+package hiiragi283.api.recipe
 
-import hiiragi283.material.util.HiiragiUtil;
-import hiiragi283.material.util.MetaResourceLocation;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import hiiragi283.material.util.MetaResourceLocation
+import hiiragi283.material.util.toItemStack
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import net.minecraft.client.Minecraft
+import net.minecraft.item.ItemStack
+import java.awt.Color
 
-import java.awt.*;
+class HeatSourceRecipe(
+    metaLocation: MetaResourceLocation,
+    private val temp: Int
+) : HiiragiRecipe<HeatSourceRecipe>() {
 
-public class HeatSourceRecipe extends HiiragiRecipe<HeatSourceRecipe> {
+    private val stack: ItemStack = metaLocation.toBlockState().toItemStack()
 
-    private final int temp;
-    private final ItemStack stack;
-
-    public HeatSourceRecipe(MetaResourceLocation metaLocation, int temp) {
-        this.temp = temp;
-        this.stack = HiiragiUtil.toItemStack(metaLocation.toBlockState());
-    }
-
-    public ItemStack getHeatSource() {
-        return this.stack.copy();
-    }
+    val heatSource: ItemStack = stack.copy()
 
     //    IRecipeWrapper    //
-
-    @Override
-    public void getIngredients(@NotNull IIngredients iIngredients) {
-        iIngredients.setInput(VanillaTypes.ITEM, getHeatSource());
+    override fun getIngredients(iIngredients: IIngredients) {
+        iIngredients.setInput(VanillaTypes.ITEM, heatSource)
     }
 
-    @Override
-    public void drawInfo(@NotNull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-        minecraft.fontRenderer.drawString(String.valueOf(temp), 24, 24, Color.gray.getRGB());
+    override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {
+        minecraft.fontRenderer.drawString(temp.toString(), 24, 24, Color.gray.rgb)
     }
+
 }

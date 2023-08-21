@@ -1,44 +1,34 @@
-package hiiragi283.api.recipe;
+package hiiragi283.api.recipe
 
-import hiiragi283.material.util.HiiragiUtil;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import hiiragi283.material.util.isSameWithoutCount
+import hiiragi283.material.util.toLocation
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import net.minecraft.item.ItemStack
 
-public class RockGenerationRecipe extends HiiragiRecipe<RockGenerationRecipe> {
+class RockGenerationRecipe(
+    input: ItemStack,
+    output: ItemStack
+) : HiiragiRecipe<RockGenerationRecipe>() {
 
-    private final ItemStack input;
-    private final ItemStack output;
+    private val input: ItemStack = ItemStack(input.item, 1, input.metadata)
+    private val output: ItemStack = ItemStack(output.item, 1, output.metadata)
 
-    public RockGenerationRecipe(ItemStack stack) {
-        this(stack, stack);
+    constructor(stack: ItemStack) : this(stack, stack)
+
+    init {
+        this.setRegistryName(input.toLocation())
     }
 
-    public RockGenerationRecipe(ItemStack input, ItemStack output) {
-        this.input = new ItemStack(input.getItem(), 1, input.getMetadata());
-        this.output = new ItemStack(output.getItem(), 1, output.getMetadata());
-        this.setRegistryName(HiiragiUtil.toLocation(input));
-    }
+    fun getInput(): ItemStack = input.copy()
 
-    public ItemStack getInput() {
-        return this.input.copy();
-    }
+    fun getOutput(): ItemStack = output.copy()
 
-    public ItemStack getOutput() {
-        return this.output.copy();
-    }
-
-    public Boolean matches(ItemStack stack) {
-        return HiiragiUtil.isSameWithoutCount(this.input, stack);
-    }
+    fun matches(stack: ItemStack): Boolean = input.isSameWithoutCount(stack)
 
     //    IRecipeWrapper    //
-
-    @Override
-    public void getIngredients(@NotNull IIngredients iIngredients) {
-        iIngredients.setInput(VanillaTypes.ITEM, getInput());
-        iIngredients.setOutput(VanillaTypes.ITEM, getOutput());
+    override fun getIngredients(iIngredients: IIngredients) {
+        iIngredients.setInput(VanillaTypes.ITEM, getInput())
+        iIngredients.setOutput(VanillaTypes.ITEM, getOutput())
     }
-
 }

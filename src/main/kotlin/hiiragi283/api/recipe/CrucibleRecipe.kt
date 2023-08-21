@@ -1,44 +1,27 @@
-package hiiragi283.api.recipe;
+package hiiragi283.api.recipe
 
-import hiiragi283.api.material.MaterialStack;
-import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes;
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.ingredients.VanillaTypes;
-import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
+import hiiragi283.api.material.MaterialStack
+import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
+import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
+import net.minecraft.item.ItemStack
 
-public class CrucibleRecipe extends HiiragiRecipe<CrucibleRecipe> {
+class CrucibleRecipe(
+    private val input: MaterialStack,
+    private val cast: ItemStack,
+    private val output: ItemStack
+) : HiiragiRecipe<CrucibleRecipe>() {
 
-    private final MaterialStack input;
-    private final ItemStack cast;
-    private final ItemStack output;
+    fun getInput(): MaterialStack = input.copy()
 
-    public CrucibleRecipe(MaterialStack input, ItemStack cast, ItemStack output) {
-        this.input = input;
-        this.cast = cast;
-        this.output = output;
-    }
+    fun getCast(): ItemStack = cast.copy()
 
-    public MaterialStack getInput() {
-        return this.input;
-    }
-
-    public ItemStack getCast() {
-        return this.cast.copy();
-    }
-
-    public ItemStack getOutput() {
-        return this.output.copy();
-    }
+    fun getOutput(): ItemStack = output.copy()
 
     //    IRecipeWrapper    //
-
-
-    @Override
-    public void getIngredients(@NotNull IIngredients iIngredients) {
-        iIngredients.setInput(HiiragiIngredientTypes.MATERIAL, getInput());
-        iIngredients.setInput(VanillaTypes.ITEM, getCast());
-        iIngredients.setOutput(VanillaTypes.ITEM, getOutput());
+    override fun getIngredients(iIngredients: IIngredients) {
+        iIngredients.setInput(HiiragiIngredientTypes.MATERIAL, getInput())
+        iIngredients.setInput(VanillaTypes.ITEM, getCast())
+        iIngredients.setOutput(VanillaTypes.ITEM, getOutput())
     }
-
 }

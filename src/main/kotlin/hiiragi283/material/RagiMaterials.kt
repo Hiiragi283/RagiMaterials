@@ -11,7 +11,6 @@ import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.*
-import net.minecraftforge.fml.common.network.NetworkRegistry
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.awt.Color
@@ -111,8 +110,6 @@ class RagiMaterials : HiiragiProxy {
         if (RMConfig.MATERIAL.printMaterials) {
             HiiragiRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
         }
-        //GuiHandlerの登録
-        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, RMGuiHandler)
         //パケット送信の登録
         HiiragiNetworkManager.load()
     }

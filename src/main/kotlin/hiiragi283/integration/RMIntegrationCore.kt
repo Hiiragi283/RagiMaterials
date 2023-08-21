@@ -128,7 +128,7 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
         if (thaum) ThaumIntegration.onPostInit(event)
         if (thermal) ThermalIntegration.onPostInit(event)
 
-        if (Loader.isModLoaded("theoneprobe")) TheOneProbe.theOneProbeImp.registerProvider(TOPIntegration())
+        if (Loader.isModLoaded("theoneprobe")) TheOneProbe.theOneProbeImp.registerProvider(TOPIntegration)
 
     }
 

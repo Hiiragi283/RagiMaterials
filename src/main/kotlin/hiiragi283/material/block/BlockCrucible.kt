@@ -2,7 +2,7 @@ package hiiragi283.material.block
 
 import hiiragi283.api.block.HiiragiBlockContainer
 import hiiragi283.api.item.HiiragiItemBlock
-import hiiragi283.material.tile.TileEntityCrucible
+import hiiragi283.material.tile.TileEntityCrucibleNew
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -18,10 +18,10 @@ import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object BlockCrucible : HiiragiBlockContainer.Holdable<TileEntityCrucible>(
+object BlockCrucible : HiiragiBlockContainer.Holdable<TileEntityCrucibleNew>(
     Material.IRON,
     "crucible",
-    TileEntityCrucible::class.java
+    TileEntityCrucibleNew::class.java
 ) {
 
     override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, 0)
