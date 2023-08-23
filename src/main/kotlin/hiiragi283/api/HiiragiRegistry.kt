@@ -2,7 +2,9 @@ package hiiragi283.api
 
 import hiiragi283.api.event.MaterialRegistryEvent
 import hiiragi283.api.event.ShapeRegistryEvent
+import hiiragi283.api.fluid.MaterialFluid
 import hiiragi283.api.material.HiiragiMaterial
+import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.api.recipe.RockGenerationRecipe
@@ -17,7 +19,10 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.RegistryBuilder
@@ -39,6 +44,17 @@ object HiiragiRegistry {
         .setName(hiiragiLocation("rock_generation"))
         .setType(RockGenerationRecipe::class.java)
         .create()
+
+    fun initFluid() {
+        FluidRegistry.registerFluid(MaterialFluid.EMPTY.setBlock(Blocks.AIR))
+        getMaterials()
+            .mapNotNull { it.fluidSupplier?.get() }
+            .filterNot { FluidRegistry.isFluidRegistered(it) }
+            .forEach {
+                FluidRegistry.registerFluid(it)
+                FluidRegistry.addBucketForFluid(it)
+            }
+    }
 
     //    HiiragiShape    //
 
@@ -93,6 +109,13 @@ object HiiragiRegistry {
 
     @JvmStatic
     fun getMaterial(name: String): HiiragiMaterial = materialInternal.getOrDefault(name, HiiragiMaterial.EMPTY)
+
+    @JvmStatic
+    fun getMaterial(fluid: Fluid?) = fluid?.name?.let { getMaterial(it) } ?: HiiragiMaterial.EMPTY
+
+    @JvmStatic
+    fun getMaterial(stack: FluidStack?) = stack?.fluid?.let { getMaterial(it) } ?: HiiragiMaterial.EMPTY
+
 
     @Deprecated("")
     @JvmStatic
@@ -174,11 +197,21 @@ object HiiragiRegistry {
 
     @JvmStatic
     fun getParts(stack: ItemStack): List<HiiragiPart> {
-        return stack.takeUnless(ItemStack::isEmpty)
-            ?.let(OreDictionary::getOreIDs)
-            ?.map(OreDictionary::getOreName)
-            ?.map(::getPart)
-            ?.filterNot(HiiragiPart::isEmpty) ?: listOf()
+        if (stack.isEmpty) return listOf()
+        return stack.let(OreDictionary::getOreIDs)
+            .map(OreDictionary::getOreName)
+            .map(::getPart)
+            .filterNot(HiiragiPart::isEmpty)
+    }
+
+    @JvmStatic
+    fun getStacks(stack: ItemStack): List<MaterialStack> {
+        if (stack.isEmpty) return listOf()
+        //液体から素材のデータを取得しようと試みる
+        return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+            ?.tankProperties
+            ?.mapNotNull { it.contents }
+            ?.map { MaterialStack(it) } ?: listOf()
     }
 
     @JvmStatic

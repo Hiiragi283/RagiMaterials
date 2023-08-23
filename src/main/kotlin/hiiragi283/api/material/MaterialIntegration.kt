@@ -52,7 +52,8 @@ object MaterialIntegration {
         crystalType = CrystalType.EMERALD
         formula = "En"
         molar = 112.2
-        oreDictAlt = mutableListOf("ender_pearl", "ender")
+        oreDictAlt.add("ender_pearl")
+        oreDictAlt.add("ender")
         tempBoil = 1201
         tempMelt = 1122
         validShapes.addAll(MaterialType.SOLID)
@@ -420,13 +421,19 @@ object MaterialIntegration {
         alloyOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
             color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
             crystalType = CrystalType.METAL
-            oreDictAlt = mutableListOf(
-                "aluminum_brass",
-                "aluminiumbrass",
-                "aluminumbrass",
-                "alubrass"
-            )
+            oreDictAlt.add("aluminum_brass")
+            oreDictAlt.add("aluminiumbrass")
+            oreDictAlt.add("aluminumbrass")
+            oreDictAlt.add("alubrass")
             validShapes.addAll(MaterialType.METAL_ADVANCED)
         }
+
+    //    Immersive Engineering    //
+
+    @JvmField
+    val TREATED_WOOD = mixtureOf("treated_wood", 1090, listOf(MaterialCommon.WOOD)) {
+        validShapes.addAll(MaterialType.WOOD)
+        validShapes.add("scaffolding")
+    }
 
 }

@@ -68,6 +68,7 @@ object MaterialElements {
     @JvmField
     val CARBON = materialOf("carbon", 6) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.DARK_GRAY).rgb
+        fluidSupplier = null
         formula = "C"
         molar = 12.0
         //tempBoil = 4300
@@ -141,7 +142,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Al"
         molar = 27.0
-        oreDictAlt = mutableListOf("aluminum")
+        oreDictAlt.add("aluminum")
         tempBoil = 2792
         tempMelt = 933
         validShapes.addAll(MaterialType.METAL_ADVANCED)
@@ -240,6 +241,7 @@ object MaterialElements {
         tempBoil = 3560
         tempMelt = 1941
         validShapes.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.add("scaffolding")
     }
 
     @JvmField
@@ -259,7 +261,7 @@ object MaterialElements {
         crystalType = CrystalType.METAL
         formula = "Cr"
         molar = 52.0
-        oreDictAlt = mutableListOf("chrome")
+        oreDictAlt.add("chrome")
         tempBoil = 2944
         tempMelt = 2180
         validShapes.addAll(MaterialType.METAL_COMMON)
@@ -285,6 +287,7 @@ object MaterialElements {
         tempBoil = 3134
         tempMelt = 1811
         validShapes.addAll(MaterialType.METAL_ADVANCED)
+        validShapes.add("scaffolding")
         if (RMConfig.MATERIAL.disableVanillaParts) {
             validShapes.remove("block")
             validShapes.remove("ingot")
@@ -362,6 +365,7 @@ object MaterialElements {
     val ARSENIC = materialOf("arsenic", 33) {
         color = HiiragiColor.GRAY.rgb
         crystalType = CrystalType.METAL
+        fluidSupplier = null
         formula = "As"
         molar = 74.9
         //tempBoil = 887

@@ -1,10 +1,7 @@
 package hiiragi283.material.config
 
 import hiiragi283.api.HiiragiRegistry
-import hiiragi283.api.material.CrystalType
-import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialType
-import hiiragi283.api.material.materialOf
+import hiiragi283.api.material.*
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -44,11 +41,13 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
                 val material = materialOf("hiiragi", -1) {
                     color = RagiMaterials.COLOR.rgb
                     crystalType = CrystalType.METAL
+                    fluidSupplier = null
                     formula = "HIIRAGI"
                     molar = 110.9
-                    tempBoil = 1109
-                    tempMelt = 283
+                    tempBoil = 2830
+                    tempMelt = 1109
                     validShapes.addAll(MaterialType.WILDCARD)
+                    setHardness(MaterialHardness.HARD)
                 }
                 sample.writeText(material.toJson(true), Charsets.UTF_8)
             }

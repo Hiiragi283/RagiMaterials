@@ -2,7 +2,7 @@ package hiiragi283.api.capability.item
 
 import hiiragi283.api.capability.CapabilityIO
 import hiiragi283.api.capability.IOType
-import hiiragi283.api.tileentity.HiiragiTileEntity
+import hiiragi283.api.tile.HiiragiTileEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList

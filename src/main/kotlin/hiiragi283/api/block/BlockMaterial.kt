@@ -5,7 +5,7 @@ import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.item.ItemBlockMaterial
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.shape.HiiragiShape
-import hiiragi283.api.tileentity.MaterialTileEntity
+import hiiragi283.api.tile.MaterialTileEntity
 import hiiragi283.material.RMCreativeTabs
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.setModelSame
@@ -34,6 +34,10 @@ fun createBlockMaterial(
     recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { _, _ -> }
 ): BlockMaterial = object : BlockMaterial(shape) {
 
+    init {
+        setHarvestLevel("pickaxe", 0)
+    }
+
     override fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) {
         recipe.accept(entry, material)
     }
@@ -57,7 +61,6 @@ abstract class BlockMaterial(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
         blockResistance = 5.0f
         creativeTab = RMCreativeTabs.MATERIAL_BLOCK
         soundType = SoundType.METAL
-        setHarvestLevel("pickaxe", 0)
     }
 
     //    HiiragiBlock    //

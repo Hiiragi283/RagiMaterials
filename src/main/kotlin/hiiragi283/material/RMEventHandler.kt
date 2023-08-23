@@ -8,7 +8,7 @@ import hiiragi283.api.material.MaterialCommon
 import hiiragi283.api.material.MaterialElements
 import hiiragi283.api.recipe.CrushingRecipe
 import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.api.tileentity.HiiragiProvider
+import hiiragi283.api.tile.HiiragiProvider
 import hiiragi283.integration.RMIntegrationCore
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.util.hiiragiLocation
@@ -134,6 +134,7 @@ object RMEventHandler {
         @SubscribeEvent
         fun onTooltip(event: ItemTooltipEvent) {
             HiiragiRegistry.getParts(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
+            HiiragiRegistry.getStacks(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
         }
 
     }

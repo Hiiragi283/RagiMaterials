@@ -13,7 +13,7 @@ class RockGenerationCategory(guiHelper: IGuiHelper) :
     HiiragiRecipeCategory<RockGenerationRecipe>(ROCK_GENERATION, guiHelper) {
 
     override val backGround: IDrawableStatic =
-        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/rock_generation.png"), 1, 1, 18 * 5, 18 * 3)
+        guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/rock_generation.png"), 0, 0, 18 * 5, 18 * 3)
 
     override fun setRecipe(layout: IRecipeLayout, recipe: RockGenerationRecipe, iIngredients: IIngredients) {
         //input

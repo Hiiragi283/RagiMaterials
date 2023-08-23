@@ -1,6 +1,7 @@
 package hiiragi283.material.tile
 
 import com.cleanroommc.modularui.api.IGuiHolder
+import com.cleanroommc.modularui.api.drawable.IDrawable.DrawableWidget
 import com.cleanroommc.modularui.drawable.GuiTextures
 import com.cleanroommc.modularui.manager.GuiCreationContext
 import com.cleanroommc.modularui.screen.ModularPanel
@@ -20,18 +21,13 @@ import hiiragi283.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
 import hiiragi283.api.capability.item.HiiragiItemHandler
 import hiiragi283.api.capability.item.HiiragiItemHandlerWrapper
-import hiiragi283.api.tileentity.HiiragiProvider
-import hiiragi283.api.tileentity.HiiragiProvider.Tank
-import hiiragi283.api.tileentity.HiiragiTileEntity
+import hiiragi283.api.tile.HiiragiProvider
+import hiiragi283.api.tile.HiiragiProvider.Tank
+import hiiragi283.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiModularUtil
 import hiiragi283.material.util.playSound
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.SoundEvents
 import net.minecraft.item.ItemStack
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.World
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
@@ -40,19 +36,6 @@ import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 
 class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvider.Inventory, Tank, IGuiHolder {
-
-    //    HiiragiTileEntity    //
-
-    override fun onTileActivated(
-        world: World,
-        pos: BlockPos,
-        player: EntityPlayer,
-        hand: EnumHand,
-        facing: EnumFacing
-    ): Boolean {
-        if (!world.isRemote) openGui(player, world, pos)
-        return true
-    }
 
     //    HiiragiProvider    //
 
@@ -69,6 +52,7 @@ class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvi
 
     private lateinit var tankWater: HiiragiFluidTank
     private lateinit var tankLava: HiiragiFluidTank
+
     override fun createTank(): HiiragiCapabilityProvider<IFluidHandler> {
         tankWater = object : HiiragiFluidTank(1000) {
             override fun canFillFluidType(fluid: FluidStack?): Boolean =
@@ -84,16 +68,16 @@ class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvi
 
     //    IGuiHolder    //
     override fun buildUI(
-        guiCreationContext: GuiCreationContext,
-        guiSyncManager: GuiSyncManager,
+        creationContext: GuiCreationContext,
+        syncManager: GuiSyncManager,
         isClient: Boolean
     ): ModularPanel {
 
-        guiSyncManager.registerSlotGroup("rock_generator_catalyst", 1)
-        guiSyncManager.registerSlotGroup("rock_generator_output", 1)
+        syncManager.registerSlotGroup("rock_generator_catalyst", 1)
+        syncManager.registerSlotGroup("rock_generator_output", 1)
 
-        guiSyncManager.syncValue("rock_generator_water", 0, HiiragiModularUtil.fluidSlot(tankWater))
-        guiSyncManager.syncValue("rock_generator_lava", 1, HiiragiModularUtil.fluidSlot(tankLava))
+        syncManager.syncValue("rock_generator_water", 0, HiiragiModularUtil.fluidSlot(tankWater))
+        syncManager.syncValue("rock_generator_lava", 1, HiiragiModularUtil.fluidSlot(tankLava))
 
         val panel = ModularPanel("rock_generator").also { it.flex().align(Alignment.Center) }
 
@@ -112,8 +96,9 @@ class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvi
                         )
                     }
                     .build()
-                    .marginBottom(18)
+                    //.marginBottom(18)
                 )
+                .child(DrawableWidget(GuiTextures.DOWNLOAD))
                 .child(
                     Row() //Water, Output, Lava
                         .child(SlotGroupWidget.builder()

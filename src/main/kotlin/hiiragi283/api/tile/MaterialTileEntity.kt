@@ -1,4 +1,4 @@
-package hiiragi283.api.tileentity
+package hiiragi283.api.tile
 
 import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.material.HiiragiMaterial

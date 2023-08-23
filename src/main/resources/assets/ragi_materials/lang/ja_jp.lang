@@ -46,6 +46,7 @@ hiiragi_shape.dust=%sの粉
 hiiragi_shape.dust_dirty=汚れた%sの粉
 hiiragi_shape.dust_tiny=小さな%sの粉
 hiiragi_shape.empty=%s
+hiiragi_shape.fence=%sのフェンス
 hiiragi_shape.gear=%sの歯車
 hiiragi_shape.gem=%s結晶
 hiiragi_shape.ingot=%sインゴット
@@ -57,9 +58,14 @@ hiiragi_shape.plank=%s
 hiiragi_shape.plate=%sの板
 hiiragi_shape.plate_dense=厚い%sの板
 hiiragi_shape.sand=%s
+hiiragi_shape.scaffolding=%sの足場
 hiiragi_shape.shard=%sの欠片
+hiiragi_shape.sheetmetal=%sの板金ブロック
+hiiragi_shape.slab=%sのハーフブロック
+hiiragi_shape.slab_sheetmetal=%sの板金ハーフブロック
 hiiragi_shape.stick=%sの棒
 hiiragi_shape.stone=%s
+hiiragi_shape.wire=%sのワイヤ
 
 ##    Text    ##
 
@@ -263,6 +269,7 @@ hiiragi_material.invar=インバー
 hiiragi_material.brass=黄銅
 hiiragi_material.bronze=青銅
 hiiragi_material.electrum=エレクトラム
+hiiragi_material.tungsten_steel=タングステン鋼
 hiiragi_material.cinnabar=辰砂
 
 hiiragi_material.dhmo=DHMO (一水素化二酸素)

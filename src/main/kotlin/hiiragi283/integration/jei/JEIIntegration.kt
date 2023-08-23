@@ -2,9 +2,7 @@ package hiiragi283.integration.jei
 
 import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.item.ICastItem
-import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialStack
-import hiiragi283.api.part.HiiragiPart
 import hiiragi283.api.recipe.*
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.integration.jei.ingredients.MaterialStackHelper
@@ -90,15 +88,7 @@ class JEIIntegration : IModPlugin {
             }
     }
 
-    private fun getHiiragiMaterialRecipes(): Collection<HiiragiMaterialRecipe> {
-        val ret: MutableList<HiiragiMaterialRecipe> = mutableListOf()
-        for (material: HiiragiMaterial in HiiragiRegistry.getMaterials()) {
-            val items: List<ItemStack> = HiiragiRegistry.getShapes()
-                .map { HiiragiPart(it, material) }
-                .flatMap { it.getAllItemStack() }
-            ret.add(HiiragiMaterialRecipe(material.toMaterialStack(), items))
-        }
-        return ret
-    }
+    private fun getHiiragiMaterialRecipes(): Collection<HiiragiMaterialRecipe> =
+        HiiragiRegistry.getMaterials().map { HiiragiMaterialRecipe(it.toMaterialStack(), it.getAllItemStack()) }
 
 }

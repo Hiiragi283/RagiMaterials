@@ -59,7 +59,11 @@ abstract class ItemMaterial(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     override fun registerOreDict() {
         HiiragiRegistry.getMaterials()
             .filter { it.isSolid() && shape.isValid(it) }
-            .forEach { OreDictionary.registerOre(shape.getOreDict(it), getItemStack(it)) }
+            .forEach { material ->
+                shape.getOreDicts(material).forEach {
+                    OreDictionary.registerOre(it, getItemStack(material))
+                }
+            }
     }
 
     override fun registerRecipe() {

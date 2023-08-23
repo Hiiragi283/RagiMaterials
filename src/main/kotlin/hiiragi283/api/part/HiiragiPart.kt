@@ -21,21 +21,7 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     }
 
     fun addTooltip(tooltip: MutableList<String>) {
-        if (material.isEmpty()) return
-        tooltip.add("§e=== Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", shape.getTranslatedName(material)))
-        if (material.hasFormula())
-            tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula))
-        if (material.hasMolar())
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar))
-        if (shape.hasScale())
-            tooltip.add(I18n.format("tips.ragi_materials.property.scale", shape.scale))
-        if (material.hasTempMelt())
-            tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt))
-        if (material.hasTempBoil())
-            tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.tempBoil))
-        if (material.hasTempSubl())
-            tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl))
+        material.addTooltip(tooltip, shape)
     }
 
     fun isEmpty(): Boolean = this == EMPTY || this.shape.isEmpty() || this.material.isEmpty()

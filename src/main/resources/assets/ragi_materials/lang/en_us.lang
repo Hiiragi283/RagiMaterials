@@ -45,6 +45,7 @@ hiiragi_shape.dust=%s Dust
 hiiragi_shape.dust_dirty=Dirty %s Dust
 hiiragi_shape.dust_tiny=Tiny Pile of %s Dust
 hiiragi_shape.empty=%s
+hiiragi_shape.fence=%s Fence
 hiiragi_shape.gear=%s Gear
 hiiragi_shape.gem=%s Gem
 hiiragi_shape.ingot=%s Ingot
@@ -56,9 +57,14 @@ hiiragi_shape.plank=%s
 hiiragi_shape.plate=%s Plate
 hiiragi_shape.plate_dense=Dense %s Plate
 hiiragi_shape.sand=%s
+hiiragi_shape.scaffolding=%s Scaffolding
 hiiragi_shape.shard=%s Shard
+hiiragi_shape.sheetmetal=%s Sheetmetal
+hiiragi_shape.slab=%s Slab
+hiiragi_shape.slab_sheetmetal=%s Sheetmetal Slab
 hiiragi_shape.stick=%s Stick
 hiiragi_shape.stone=%s
+hiiragi_shape.wire=%s Wire
 
 ##    Text    ##
 
@@ -265,6 +271,7 @@ hiiragi_material.invar=Invar
 hiiragi_material.brass=Brass
 hiiragi_material.bronze=Bronze
 hiiragi_material.electrum=Electrum
+hiiragi_material.tungsten_steel=Tungsten Steel
 hiiragi_material.cinnabar=Cinnabar
 
 hiiragi_material.dhmo=DHMO

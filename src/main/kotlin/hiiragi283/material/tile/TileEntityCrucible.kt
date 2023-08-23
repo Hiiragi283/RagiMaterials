@@ -9,8 +9,8 @@ import hiiragi283.api.capability.material.MaterialHandler
 import hiiragi283.api.item.ICastItem
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
-import hiiragi283.api.tileentity.HiiragiProvider
-import hiiragi283.api.tileentity.HiiragiTileEntity
+import hiiragi283.api.tile.HiiragiProvider
+import hiiragi283.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.dropItemAtPlayer
 import hiiragi283.material.util.playSound
 import hiiragi283.material.util.succeeded

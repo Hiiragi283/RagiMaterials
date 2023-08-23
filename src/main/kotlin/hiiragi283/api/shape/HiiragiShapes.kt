@@ -42,6 +42,9 @@ object HiiragiShapes {
     val DUST_TINY = HiiragiShape("dust_tiny", 144 / 9)
 
     @JvmField
+    val FENCE = HiiragiShape("fence", 144 * 5 / 3)
+
+    @JvmField
     val GEAR = HiiragiShape("gear", 144 * 4)
 
     @JvmField
@@ -81,13 +84,28 @@ object HiiragiShapes {
     val SAND = HiiragiShape("sand", 144)
 
     @JvmField
+    val SCAFFOLDING = HiiragiShape("scaffolding", (144 * 4 + 72) / 6)
+
+    @JvmField
     val SHARD = HiiragiShape("shard", 144)
+
+    @JvmField
+    val SHEETMETAL = HiiragiShape("block_sheetmetal", 144)
+
+    @JvmField
+    val SLAB = HiiragiShape("slab", 144 * 9 / 2)
+
+    @JvmField
+    val SLAB_SHEETMETAL = HiiragiShape("slab_sheetmetal", 144 / 2)
 
     @JvmField
     val STICK = HiiragiShape("stick", 144 / 2)
 
     @JvmField
     val STONE = HiiragiShape("stone", 144)
+
+    @JvmField
+    val WIRE = HiiragiShape("wire", 144 / 2)
 
     fun register() {
         this::class.java.declaredFields

@@ -1,5 +1,6 @@
-package hiiragi283.api.tileentity
+package hiiragi283.api.tile
 
+import com.cleanroommc.modularui.api.IGuiHolder
 import com.cleanroommc.modularui.manager.GuiInfos
 import hiiragi283.api.capability.energy.HiiragiEnergyStorage
 import hiiragi283.api.capability.fluid.HiiragiFluidTankWrapper
@@ -68,7 +69,13 @@ abstract class HiiragiTileEntity : TileEntity() {
         player: EntityPlayer,
         hand: EnumHand,
         facing: EnumFacing
-    ): Boolean = false
+    ): Boolean {
+        if (this is IGuiHolder && !world.isRemote) {
+            openGui(player, world, pos)
+            return true
+        }
+        return false
+    }
 
     open fun onTilePlaced(
         world: World,

@@ -1,8 +1,13 @@
 package hiiragi283.api.material
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.google.gson.*
+import hiiragi283.api.HiiragiRegistry
+import hiiragi283.api.fluid.MaterialFluid
+import hiiragi283.api.fluid.MaterialFluidSupplier
+import hiiragi283.api.part.HiiragiPart
+import hiiragi283.api.shape.HiiragiShape
 import net.minecraft.client.resources.I18n
+import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import rechellatek.snakeToUpperCamelCase
@@ -44,6 +49,7 @@ data class HiiragiMaterial internal constructor(
     var color: Int = 0xFFFFFF,
     var crystalType: CrystalType = CrystalType.NONE,
     var formula: String = "",
+    private var hardness: MaterialHardness = MaterialHardness.NORMAL,
     var molar: Double = -1.0,
     var tempBoil: Int = -1,
     var tempMelt: Int = -1,
@@ -51,10 +57,12 @@ data class HiiragiMaterial internal constructor(
     var translationKey: String = "hiiragi_material.$name"
 ) {
 
+    var fluidSupplier: MaterialFluidSupplier? = MaterialFluidSupplier({ MaterialFluid(this) })
+
     /**
      * a list of alternative Ore Dictionary names: aluminum, chrome, saltpeter, ...
      */
-    var oreDictAlt: MutableList<String> = mutableListOf()
+    val oreDictAlt: MutableList<String> = mutableListOf()
 
     /**
      * a set of shape names that is acceptable to this material
@@ -73,7 +81,80 @@ data class HiiragiMaterial internal constructor(
         private val pretty: Gson = GsonBuilder().setPrettyPrinting().create()
 
         @JvmStatic
-        fun fromJson(json: String): HiiragiMaterial = gson.fromJson(json, HiiragiMaterial::class.java)
+        fun fromJson(json: String): HiiragiMaterial {
+
+            val jsonObject = gson.fromJson(json, JsonObject::class.java)
+
+            val jsonName: String? = jsonObject.get("name").takeIf { it is JsonPrimitive }?.asString
+            val jsonIndex: Int? = jsonObject.get("index").takeIf { it is JsonPrimitive }?.asInt
+            if (jsonName == null || jsonIndex == null) return EMPTY
+
+            val material = HiiragiMaterial(jsonName, jsonIndex)
+
+            fun <T> setValue(key: String, method: (JsonElement) -> T, init: HiiragiMaterial.(T) -> Unit) {
+                jsonObject.get(key).takeIf { it is JsonPrimitive }?.let(method)?.let { material.init(it) }
+            }
+
+            setValue("color", JsonElement::getAsInt) { color = it }
+            setValue("crystalType", JsonElement::getAsString) { crystalType = CrystalType.fromString(it) }
+            setValue("formula", JsonElement::getAsString) { formula = it }
+            setValue("hardness", JsonElement::getAsString) { hardness = MaterialHardness.fromString(it) }
+            setValue("molar", JsonElement::getAsDouble) { molar = it }
+            setValue("tempBoil", JsonElement::getAsInt) { tempBoil = it }
+            setValue("tempMelt", JsonElement::getAsInt) { tempMelt = it }
+            setValue("tempSubl", JsonElement::getAsInt) { tempSubl = it }
+            setValue("translationKey", JsonElement::getAsString) { translationKey = it }
+
+            val fluidSupplierJson: JsonElement? = jsonObject.get("fluidSupplier")
+            if (fluidSupplierJson is JsonObject) {
+                val fluidJson: JsonElement? = fluidSupplierJson.get("fluid").takeIf { it is JsonPrimitive }
+                val blockJson: JsonElement? = fluidSupplierJson.get("fluidBlock").takeIf { it is JsonPrimitive }
+                if (fluidJson !== null) {
+                    material.fluidSupplier = MaterialFluidSupplier(fluidJson.asString, blockJson?.asString ?: "")
+                } else {
+                    material.fluidSupplier =
+                        MaterialFluidSupplier({ MaterialFluid(material) }, blockJson?.asString ?: "")
+                }
+            }
+
+            setValue("oreDictAlt", JsonElement::getAsJsonArray) { array ->
+                array.filterIsInstance<JsonPrimitive>().map { it.asString }.forEach { oreDictAlt.add(it) }
+            }
+
+            setValue("validShapes", JsonElement::getAsJsonArray) { array ->
+                array.filterIsInstance<JsonPrimitive>().map { it.asString }.forEach { validShapes.add(it) }
+            }
+
+            return material
+        }
+
+    }
+
+    fun toJson(isPretty: Boolean): String {
+
+        val root = JsonObject()
+
+        root.addProperty("name", name)
+        root.addProperty("index", index)
+        root.addProperty("color", color)
+        root.addProperty("crystalType", crystalType.toString())
+        root.addProperty("formula", formula)
+        root.addProperty("hardness", hardness.toString())
+        root.addProperty("molar", molar)
+        root.addProperty("tempBoil", tempBoil)
+        root.addProperty("tempMelt", tempMelt)
+        root.addProperty("tempSubl", tempSubl)
+        root.addProperty("translationKey", translationKey)
+
+        val oreDictArray = JsonArray()
+        oreDictAlt.forEach { oreDictArray.add(it) }
+        root.add("oreDictAlt", oreDictArray)
+
+        val validShapesArray = JsonArray()
+        validShapes.forEach { validShapesArray.add(it) }
+        root.add("validShapes", validShapesArray)
+
+        return if (isPretty) pretty.toJson(root) else gson.toJson(root)
 
     }
 
@@ -84,7 +165,35 @@ data class HiiragiMaterial internal constructor(
      */
     fun addBracket(): HiiragiMaterial = copy(formula = "($formula)")
 
-    fun getFluid(): Fluid = FluidRegistry.getFluid(name) ?: FluidRegistry.WATER
+    fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
+        addTooltip(tooltip, shape.getTranslatedName(this), shape.scale)
+    }
+
+    fun addTooltip(tooltip: MutableList<String>, name: String, scale: Int) {
+        if (isEmpty()) return
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", name))
+        tooltip.add("§e=== Property ===")
+        if (hasFormula())
+            tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
+        if (hasMolar())
+            tooltip.add(I18n.format("tips.ragi_materials.property.mol", molar))
+        if (scale > 0)
+            tooltip.add(I18n.format("tips.ragi_materials.property.scale", scale))
+        if (hasTempMelt())
+            tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
+        if (hasTempBoil())
+            tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
+        if (hasTempSubl())
+            tooltip.add(I18n.format("tips.ragi_materials.property.subl", tempSubl))
+    }
+
+    fun getAllItemStack(): List<ItemStack> =
+        HiiragiRegistry.getShapes().flatMap { HiiragiPart(it, this).getAllItemStack() }
+
+    fun getFluid(): Fluid =
+        if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else MaterialFluid.EMPTY
+
+    fun getHardness(): MaterialHardness = if (isSolid()) hardness else MaterialHardness.FLUID
 
     /**
      * Converts material name with UCC format
@@ -103,6 +212,7 @@ data class HiiragiMaterial internal constructor(
      * Gets the standard state of this material
      * @return [MaterialState.GAS], [MaterialState.LIQUID], [MaterialState.SOLID]
      */
+
     fun getState(): MaterialState {
         //沸点が有効かつ298 K以下 -> 標準状態で気体
         if (hasTempBoil() && tempBoil <= 298) return MaterialState.GAS
@@ -128,7 +238,7 @@ data class HiiragiMaterial internal constructor(
 
     fun hasTempSubl(): Boolean = tempSubl >= 0
 
-    fun isEmpty(): Boolean = this == EMPTY || this.name == "empty"
+    fun isEmpty(): Boolean = this == EMPTY || name == "empty"
 
     fun isGem(): Boolean = crystalType.isCrystal && !isMetal()
 
@@ -142,29 +252,12 @@ data class HiiragiMaterial internal constructor(
 
     fun isSolid(): Boolean = getState() == MaterialState.SOLID
 
-    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
+    fun setHardness(hardness: MaterialHardness) = also { if (isSolid()) this.hardness = hardness }
 
-    fun toJson(isPretty: Boolean): String = if (isPretty) pretty.toJson(this) else gson.toJson(this)
+    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
 
     //    General    //
 
-    override fun equals(other: Any?): Boolean =
-        if (other !== null && other is HiiragiMaterial) this.name == other.name else false
-
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + index
-        result = 31 * result + color
-        result = 31 * result + crystalType.hashCode()
-        result = 31 * result + formula.hashCode()
-        result = 31 * result + molar.hashCode()
-        result = 31 * result + tempBoil
-        result = 31 * result + tempMelt
-        result = 31 * result + tempSubl
-        result = 31 * result + translationKey.hashCode()
-        return result
-    }
-
-    override fun toString(): String = "Material:${this.name}"
+    override fun toString(): String = "Material:${name}"
 
 }

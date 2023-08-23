@@ -8,8 +8,8 @@ import hiiragi283.api.capability.HiiragiCapabilityProvider
 import hiiragi283.api.capability.IOType
 import hiiragi283.api.capability.item.HiiragiItemHandler
 import hiiragi283.api.capability.item.HiiragiItemHandlerWrapper
-import hiiragi283.api.tileentity.HiiragiProvider
-import hiiragi283.api.tileentity.HiiragiTileEntity
+import hiiragi283.api.tile.HiiragiProvider
+import hiiragi283.api.tile.HiiragiTileEntity
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.util.getTile
 import net.minecraft.tileentity.TileEntity
@@ -41,8 +41,8 @@ class TileEntityTest : HiiragiTileEntity.Tickable(20), HiiragiProvider.Inventory
     //    IGuiHolder    //
 
     override fun buildUI(
-        guiCreationContext: GuiCreationContext,
-        guiSyncManager: GuiSyncManager,
+        creationContext: GuiCreationContext,
+        syncManager: GuiSyncManager,
         isClient: Boolean
     ): ModularPanel {
         return ModularPanel.defaultPanel("test_tile")

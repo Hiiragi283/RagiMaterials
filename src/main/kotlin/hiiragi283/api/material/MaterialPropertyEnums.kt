@@ -16,6 +16,32 @@ enum class CrystalType(val isCrystal: Boolean, val texture: String) {
     QUARTZ(true, "quartz"),
     RUBY(true, "ruby");
 
+    companion object {
+        @JvmStatic
+        @Throws(NoSuchElementException::class)
+        fun fromString(name: String): CrystalType = CrystalType.values().first { it.toString() == name }
+
+    }
+
     fun getLocation(item: Item) = ModelResourceLocation(item.registryName!!.append("_$texture"), "inventory")
 
+}
+
+enum class MaterialHardness(val value: Float) {
+    FLUID(0.0f),
+    SOFT(2.5f),
+    NORMAL(5.0f),
+    HARD(10.0f);
+
+    companion object {
+        @JvmStatic
+        @Throws(NoSuchElementException::class)
+        fun fromString(name: String): MaterialHardness = MaterialHardness.values().first { it.toString() == name }
+
+    }
+
+}
+
+enum class MaterialState {
+    SOLID, LIQUID, GAS;
 }

@@ -24,21 +24,7 @@ data class MaterialStack(val material: HiiragiMaterial, var amount: Int) {
     }
 
     fun addTooltip(tooltip: MutableList<String>) {
-        if (material.isEmpty()) return
-        tooltip.add(material.getTranslatedName())
-        tooltip.add("§e=== Property ===")
-        if (material.hasFormula())
-            tooltip.add(I18n.format("tips.ragi_materials.property.formula", material.formula))
-        if (material.hasMolar())
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", material.molar))
-        if (amount > 0)
-            tooltip.add(I18n.format("tips.ragi_materials.property.scale", amount))
-        if (material.hasTempMelt())
-            tooltip.add(I18n.format("tips.ragi_materials.property.melt", material.tempMelt))
-        if (material.hasTempBoil())
-            tooltip.add(I18n.format("tips.ragi_materials.property.boil", material.tempBoil))
-        if (material.hasTempSubl())
-            tooltip.add(I18n.format("tips.ragi_materials.property.subl", material.tempSubl))
+        material.addTooltip(tooltip, material.getTranslatedName(), amount)
     }
 
     fun isEmpty(): Boolean = this == EMPTY || this.material == HiiragiMaterial.EMPTY || this.amount <= 0

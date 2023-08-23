@@ -2,10 +2,14 @@ package hiiragi283.material
 
 import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.capability.HiiragiCapability
+import hiiragi283.api.fluid.MaterialFluid
 import hiiragi283.integration.RMIntegrationCore
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
+import net.minecraft.init.Blocks
+import net.minecraft.init.Items
+import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
@@ -20,28 +24,20 @@ import java.util.*
     modid = RMReference.MOD_ID,
     name = RMReference.MOD_NAME,
     version = RMReference.VERSION,
-    dependencies = "after-required:modularui;after:gregtech;after:jei@[4.24.5,)",
-    acceptedMinecraftVersions = "[1.12,1.12.2]"
+    dependencies = "after-required:forgelin_continuous;after-required:modularui;after:gregtech;after:jei@[4.24.5,)",
+    acceptedMinecraftVersions = "[1.12,1.12.2]",
+    modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
 )
-class RagiMaterials : HiiragiProxy {
+object RagiMaterials : HiiragiProxy {
 
-    companion object {
+    //各種変数の宣言
+    internal val CALENDAR: Calendar = Calendar.getInstance()
+    internal val COLOR: Color = Color(255, 0, 31)
+    internal val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
 
-        //各種変数の宣言
-        @JvmField
-        val CALENDAR: Calendar = Calendar.getInstance()
-
-        @JvmField
-        val COLOR: Color = Color(255, 0, 31)
-
-        @JvmField
-        val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
-
-        //Instanceの宣言
-        @Mod.Instance(RMReference.MOD_ID)
-        lateinit var INSTANCE: RagiMaterials
-
-    }
+    //Instanceの宣言
+    @Mod.Instance(RMReference.MOD_ID)
+    lateinit var INSTANCE: RagiMaterials
 
     init {
         if (Loader.isModLoaded("gregtech")) {
@@ -62,6 +58,8 @@ class RagiMaterials : HiiragiProxy {
         //Eventを登録
         MinecraftForge.EVENT_BUS.register(RMEventHandler)
         MinecraftForge.EVENT_BUS.register(RMEventHandler.Client)
+        //連携の登録
+        RMIntegrationCore.INSTANCE.onConstruct(event)
     }
 
     @Mod.EventHandler
@@ -71,11 +69,12 @@ class RagiMaterials : HiiragiProxy {
             this.writeJson()
             this.readJson()
         }
-        //レジストリを初期化
+        //レジストリの初期化
         HiiragiRegistry.initShape()
         HiiragiRegistry.initMaterial()
         RMBlocks.init()
         RMItems.init()
+        FluidRegistry.registerFluid(MaterialFluid.EMPTY.setBlock(Blocks.AIR))
         //Capability登録
         HiiragiCapability.register()
         //連携の登録
@@ -87,6 +86,7 @@ class RagiMaterials : HiiragiProxy {
         //レジストリの初期化
         HiiragiRegistry.initPart()
         HiiragiRegistry.initHeatSource()
+        HiiragiRegistry.initFluid()
         //鉱石辞書の登録
         RMBlocks.registerOreDict()
         RMItems.registerOreDict()
@@ -112,6 +112,8 @@ class RagiMaterials : HiiragiProxy {
         }
         //パケット送信の登録
         HiiragiNetworkManager.load()
+        //test
+        LOGGER.info(listOf(ItemStack(Items.IRON_INGOT)) == listOf(ItemStack(Items.IRON_INGOT)))
     }
 
 }

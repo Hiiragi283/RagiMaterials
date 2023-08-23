@@ -64,6 +64,7 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
     }
 
     override fun registerMaterial() {
+
         HiiragiRegistry.registerMaterial(MaterialIntegration.REDSTONE)
         HiiragiRegistry.registerMaterial(MaterialIntegration.LAPIS)
         HiiragiRegistry.registerMaterial(MaterialIntegration.GLOWSTONE)
@@ -83,6 +84,7 @@ class RMIntegrationCore : AbstractIntegration(), ILateMixinLoader {
 
 
     override fun onInit(event: FMLInitializationEvent) {
+
         registerOreDict(HiiragiShapes.STONE.getOreDict(MaterialCommon.STONE), Blocks.STONE)
         registerOreDict(HiiragiShapes.STONE.getOreDict(MaterialCommon.NETHERRACK), Blocks.NETHERRACK)
         registerOreDict(HiiragiShapes.STONE.getOreDict(MaterialCommon.END_STONE), Blocks.END_STONE)
