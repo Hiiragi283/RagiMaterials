@@ -13,10 +13,10 @@ import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.items.ItemHandlerHelper
 import kotlin.math.min
 
-open class HiiragiItemHandler @JvmOverloads constructor(size: Int = 1) : IItemHandler,
-    IItemHandlerModifiable, INBTSerializable<NBTTagCompound>, CapabilityIO<HiiragiItemHandler> {
+open class HiiragiItemHandler @JvmOverloads constructor(size: Int = 1, val stackDefault: ItemStack = ItemStack.EMPTY) :
+    IItemHandler, IItemHandlerModifiable, INBTSerializable<NBTTagCompound>, CapabilityIO<HiiragiItemHandler> {
 
-    private var stacks: Array<ItemStack> = Array(size) { ItemStack.EMPTY }
+    private var stacks: Array<ItemStack> = Array(size) { stackDefault }
 
     //    IItemHandler    //
 

@@ -79,9 +79,8 @@ class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvi
         syncManager.syncValue("rock_generator_water", 0, HiiragiModularUtil.fluidSlot(tankWater))
         syncManager.syncValue("rock_generator_lava", 1, HiiragiModularUtil.fluidSlot(tankLava))
 
-        val panel = ModularPanel("rock_generator").also { it.flex().align(Alignment.Center) }
-
-        panel.bindPlayerInventory()
+        return ModularPanel("rock_generator")
+            .also { it.flex().align(Alignment.Center) }
             .child(Column()
                 .padding(7)
                 //Player Inventory
@@ -124,7 +123,6 @@ class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvi
                             .build())
                 )
             )
-        return panel
     }
 
     private fun getProgress() = countdown.toDouble() / maxCount

@@ -10,6 +10,7 @@ import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.ItemCast
+import hiiragi283.material.item.ItemClayBall
 import hiiragi283.material.item.ItemCrushingHammer
 import hiiragi283.material.item.ItemUnfiredCast
 import hiiragi283.material.util.*
@@ -190,6 +191,9 @@ object RMItems : HiiragiEntry.ITEM {
 
     fun init() {
         RagiMaterials.LOGGER.info("RMItems has been initialized!")
+        if (isDeobfEnv()) {
+            entries.add(ItemClayBall)
+        }
         entries.addAll(RMBlocks.getItemBlockEntries())
         entries.add(BOOK_RESPAWN)
         if (!RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
