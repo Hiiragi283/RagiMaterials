@@ -2,7 +2,6 @@ package hiiragi283.api
 
 import hiiragi283.api.event.MaterialRegistryEvent
 import hiiragi283.api.event.ShapeRegistryEvent
-import hiiragi283.api.fluid.MaterialFluid
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.api.part.HiiragiPart
@@ -46,7 +45,6 @@ object HiiragiRegistry {
         .create()
 
     fun initFluid() {
-        FluidRegistry.registerFluid(MaterialFluid.EMPTY.setBlock(Blocks.AIR))
         getMaterials()
             .mapNotNull { it.fluidSupplier?.get() }
             .filterNot { FluidRegistry.isFluidRegistered(it) }
@@ -111,10 +109,10 @@ object HiiragiRegistry {
     fun getMaterial(name: String): HiiragiMaterial = materialInternal.getOrDefault(name, HiiragiMaterial.EMPTY)
 
     @JvmStatic
-    fun getMaterial(fluid: Fluid?) = fluid?.name?.let { getMaterial(it) } ?: HiiragiMaterial.EMPTY
+    fun getMaterial(fluid: Fluid) = getMaterial(fluid.name)
 
     @JvmStatic
-    fun getMaterial(stack: FluidStack?) = stack?.fluid?.let { getMaterial(it) } ?: HiiragiMaterial.EMPTY
+    fun getMaterial(stack: FluidStack) = getMaterial(stack.fluid)
 
 
     @Deprecated("")

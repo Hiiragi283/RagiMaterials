@@ -62,7 +62,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             configs.listFiles()
                 ?.filter { it.exists() && it.canRead() } //存在している && 読み取り可能
                 ?.map { it.readText() } //Stringを読み取る
-                ?.map { HiiragiMaterial.fromJson(it) } //Json String -> HiiragiMaterial
+                ?.map { jsonMaterialOf(it) } //Json String -> HiiragiMaterial
                 ?.forEach { CACHE.add(it) } //CACHEに一時保存
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e) //念のため例外処理

@@ -1,5 +1,6 @@
 package hiiragi283.api.recipe
 
+import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialStack
 import hiiragi283.integration.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.util.HiiragiColor
@@ -12,6 +13,8 @@ class HiiragiMaterialRecipe(
     private val material: MaterialStack,
     private val stacks: List<ItemStack>
 ) : HiiragiRecipe<HiiragiMaterialRecipe>() {
+
+    constructor(material: HiiragiMaterial) : this(material.toMaterialStack(), material.getAllItemStack())
 
     fun getMaterial(): MaterialStack = material.copy()
 

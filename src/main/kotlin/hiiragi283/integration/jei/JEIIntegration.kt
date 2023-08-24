@@ -89,6 +89,6 @@ class JEIIntegration : IModPlugin {
     }
 
     private fun getHiiragiMaterialRecipes(): Collection<HiiragiMaterialRecipe> =
-        HiiragiRegistry.getMaterials().map { HiiragiMaterialRecipe(it.toMaterialStack(), it.getAllItemStack()) }
+        HiiragiRegistry.getMaterials().map { HiiragiMaterialRecipe(it) }
 
 }

@@ -35,7 +35,7 @@ dependencies {
     runtimeOnly(rfg.deobf("curse.maven:forgelin-continuous-456403:4528552"))
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
+    //implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.0")
 
     //Botania
     if (enable_botania.toBoolean()) {

@@ -91,6 +91,8 @@ tips.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
 
 ##    Material    ##
 
+hiiragi_material.empty=EMPTY
+
 ###   Elements   ###
 
 hiiragi_material.hydrogen=Hydrogen

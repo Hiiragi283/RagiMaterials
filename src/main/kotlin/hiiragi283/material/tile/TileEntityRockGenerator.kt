@@ -96,7 +96,6 @@ class TileEntityRockGenerator : HiiragiTileEntity.Tickable(20 * 5), HiiragiProvi
                         )
                     }
                     .build()
-                    //.marginBottom(18)
                 )
                 .child(DrawableWidget(GuiTextures.DOWNLOAD))
                 .child(

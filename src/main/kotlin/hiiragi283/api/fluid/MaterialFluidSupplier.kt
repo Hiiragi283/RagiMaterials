@@ -10,7 +10,7 @@ import java.util.function.Supplier
 class MaterialFluidSupplier @JvmOverloads constructor(
     private val fluidSupplier: Supplier<Fluid>,
     private val blockSupplier: Supplier<Block?> = Supplier<Block?> { null }
-) : Supplier<Fluid?> {
+) : Supplier<Fluid> {
 
     private var value: Fluid? = null
 
@@ -24,13 +24,13 @@ class MaterialFluidSupplier @JvmOverloads constructor(
         Supplier<Block?> { ForgeRegistries.BLOCKS.getValue(ResourceLocation(fluidBlock)) }
     )
 
-    override fun get(): Fluid? {
+    override fun get(): Fluid {
         if (value == null) {
             val fluid: Fluid = fluidSupplier.get()
             blockSupplier.get()?.let { fluid.setBlock(it) }
             value = fluid
         }
-        return value
+        return value!!
     }
 
 }

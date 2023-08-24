@@ -6,12 +6,10 @@ import hiiragi283.api.item.HiiragiItemBlock
 import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.block.*
 import hiiragi283.material.config.RMConfig
-import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.isDeobfEnv
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
-import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
@@ -61,14 +59,10 @@ object RMBlocks : HiiragiEntry.BLOCK {
 
         entries.forEach { registry.register(it.getObject()) }
 
-        listOf(
-            BlockInventoryTest,
-            CRUCIBLE,
-            MATERIAL_BLOCK,
-            ROCK_GENERATOR
-        )
-            .map { it.tile to hiiragiLocation("te_${it.registryName!!.path}") }
-            .forEach { GameRegistry.registerTileEntity(it.first, it.second) }
+        BlockInventoryTest.registerTileEntity()
+        CRUCIBLE.registerTileEntity()
+        MATERIAL_BLOCK.registerTileEntity()
+        ROCK_GENERATOR.registerTileEntity()
 
     }
 

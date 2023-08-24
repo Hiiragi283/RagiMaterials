@@ -8,8 +8,6 @@ import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
 import net.minecraft.init.Blocks
-import net.minecraft.init.Items
-import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
@@ -34,10 +32,6 @@ object RagiMaterials : HiiragiProxy {
     internal val CALENDAR: Calendar = Calendar.getInstance()
     internal val COLOR: Color = Color(255, 0, 31)
     internal val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
-
-    //Instanceの宣言
-    @Mod.Instance(RMReference.MOD_ID)
-    lateinit var INSTANCE: RagiMaterials
 
     init {
         if (Loader.isModLoaded("gregtech")) {
@@ -112,8 +106,6 @@ object RagiMaterials : HiiragiProxy {
         }
         //パケット送信の登録
         HiiragiNetworkManager.load()
-        //test
-        LOGGER.info(listOf(ItemStack(Items.IRON_INGOT)) == listOf(ItemStack(Items.IRON_INGOT)))
     }
 
 }

@@ -2,6 +2,7 @@ package hiiragi283.api.fluid
 
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.material.MaterialState
+import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.init.SoundEvents
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
@@ -43,7 +44,7 @@ class MaterialFluid(
 
     companion object {
         @JvmField
-        val EMPTY: MaterialFluid = MaterialFluid(HiiragiMaterial.EMPTY, ResourceLocation("blocks/concrete_white"))
+        val EMPTY: MaterialFluid = MaterialFluid(HiiragiMaterial.EMPTY, hiiragiLocation("empty"))
     }
 
     override fun getEmptySound(): SoundEvent =

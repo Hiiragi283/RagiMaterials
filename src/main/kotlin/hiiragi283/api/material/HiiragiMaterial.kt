@@ -1,6 +1,9 @@
 package hiiragi283.api.material
 
-import com.google.gson.*
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import hiiragi283.api.HiiragiRegistry
 import hiiragi283.api.fluid.MaterialFluid
 import hiiragi283.api.fluid.MaterialFluidSupplier
@@ -79,54 +82,6 @@ data class HiiragiMaterial internal constructor(
         private val gson: Gson = Gson()
 
         private val pretty: Gson = GsonBuilder().setPrettyPrinting().create()
-
-        @JvmStatic
-        fun fromJson(json: String): HiiragiMaterial {
-
-            val jsonObject = gson.fromJson(json, JsonObject::class.java)
-
-            val jsonName: String? = jsonObject.get("name").takeIf { it is JsonPrimitive }?.asString
-            val jsonIndex: Int? = jsonObject.get("index").takeIf { it is JsonPrimitive }?.asInt
-            if (jsonName == null || jsonIndex == null) return EMPTY
-
-            val material = HiiragiMaterial(jsonName, jsonIndex)
-
-            fun <T> setValue(key: String, method: (JsonElement) -> T, init: HiiragiMaterial.(T) -> Unit) {
-                jsonObject.get(key).takeIf { it is JsonPrimitive }?.let(method)?.let { material.init(it) }
-            }
-
-            setValue("color", JsonElement::getAsInt) { color = it }
-            setValue("crystalType", JsonElement::getAsString) { crystalType = CrystalType.fromString(it) }
-            setValue("formula", JsonElement::getAsString) { formula = it }
-            setValue("hardness", JsonElement::getAsString) { hardness = MaterialHardness.fromString(it) }
-            setValue("molar", JsonElement::getAsDouble) { molar = it }
-            setValue("tempBoil", JsonElement::getAsInt) { tempBoil = it }
-            setValue("tempMelt", JsonElement::getAsInt) { tempMelt = it }
-            setValue("tempSubl", JsonElement::getAsInt) { tempSubl = it }
-            setValue("translationKey", JsonElement::getAsString) { translationKey = it }
-
-            val fluidSupplierJson: JsonElement? = jsonObject.get("fluidSupplier")
-            if (fluidSupplierJson is JsonObject) {
-                val fluidJson: JsonElement? = fluidSupplierJson.get("fluid").takeIf { it is JsonPrimitive }
-                val blockJson: JsonElement? = fluidSupplierJson.get("fluidBlock").takeIf { it is JsonPrimitive }
-                if (fluidJson !== null) {
-                    material.fluidSupplier = MaterialFluidSupplier(fluidJson.asString, blockJson?.asString ?: "")
-                } else {
-                    material.fluidSupplier =
-                        MaterialFluidSupplier({ MaterialFluid(material) }, blockJson?.asString ?: "")
-                }
-            }
-
-            setValue("oreDictAlt", JsonElement::getAsJsonArray) { array ->
-                array.filterIsInstance<JsonPrimitive>().map { it.asString }.forEach { oreDictAlt.add(it) }
-            }
-
-            setValue("validShapes", JsonElement::getAsJsonArray) { array ->
-                array.filterIsInstance<JsonPrimitive>().map { it.asString }.forEach { validShapes.add(it) }
-            }
-
-            return material
-        }
 
     }
 
