@@ -24,6 +24,7 @@ import java.util.*
     version = RMReference.VERSION,
     dependencies = "after-required:forgelin_continuous;after-required:modularui;after:gregtech;after:jei@[4.24.5,)",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
+    //modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
     modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
 )
 object RagiMaterials : HiiragiProxy {

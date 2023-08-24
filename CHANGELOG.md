@@ -1,5 +1,53 @@
 # CHANGELOG
 
+## v1.2.1
+
+### Updated Dependencies
+
+- `Forgelin-Continuous`
+  - Revived to match the version of the kotlin library
+- `Modular UI`
+
+### Forgelin Bridge
+
+- This function is to disguise Forgelin Continuous as Shadowfact's Forgelin. Therefore, other mods that requires
+  Shadowfact's Forgelin can use Forgelin Continuous as an alternative.
+
+### Blocks
+
+- [WIP] `Rock Generator`
+- [WIP] `Scaffolding`
+
+### Fluids
+
+- Revived Material Fluids
+  - Only fluids that are not registered by other mods are implemented.
+
+### Materials
+
+- Added new materials
+  - `Tungsten Steel`
+- Added new properties
+  - `Hardness`: affecting processing time
+- Changed translation key format
+  - `material.XX` -> `hiiragi_material.XX`
+    - thanks to Roseyasa!
+- Material Tooltips for Fluid Containers
+  - Displays material properties from the fluid contained in the fluid container. (Bucket, Tank, ...)
+
+### Shapes
+
+- Added new shapes
+  - `FENCE`
+  - `SCAFFOLDING`
+  - `SHEETMETAL`
+  - `SLAB`
+  - `SLAB_SHEETMETAL`
+  - `WIRE`
+- Changed translation key format
+  - `shape.XX` -> `hiiragi_shape.XX`
+    - thanks to Roseyasa!
+
 ## v1.2.0
 
 ### Unified RagiChemistry into RagiMaterials
@@ -23,11 +71,11 @@
 
 - Crucible: melts metallic materials and casts them into components
 
-### Items
+#### Items
 
 - Unfired Cast & Cast: used for Crucible to convert MaterialStacks into ItemStacks
 
-### Materials
+#### Materials
 
 - Added melting / boiling / sublimation point for steel-like materials
   - the value is the same as iron
@@ -36,7 +84,7 @@
   - Similar to `FluidStack` but more suitable for the material system
 - Fixed incorrect material info for grinding balls (Ender IO)
 
-### Shapes
+#### Shapes
 
 - Changed the type of `HiiragiShape.scale` from Double to Integer
   - this value is the same as fluid amount

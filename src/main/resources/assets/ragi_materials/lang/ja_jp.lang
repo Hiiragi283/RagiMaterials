@@ -35,6 +35,7 @@ gui.ragi_materials.material=素材
 
 hiiragi_shape.ball=%sの粉砕用ボール
 hiiragi_shape.block=%sブロック
+hiiragi_shape.block_sheetmetal=%sの板金ブロック
 hiiragi_shape.bottle=%sフルボトル
 hiiragi_shape.clump=%sの塊
 hiiragi_shape.cluster=自然%sクラスター
@@ -60,7 +61,6 @@ hiiragi_shape.plate_dense=厚い%sの板
 hiiragi_shape.sand=%s
 hiiragi_shape.scaffolding=%sの足場
 hiiragi_shape.shard=%sの欠片
-hiiragi_shape.sheetmetal=%sの板金ブロック
 hiiragi_shape.slab=%sのハーフブロック
 hiiragi_shape.slab_sheetmetal=%sの板金ハーフブロック
 hiiragi_shape.stick=%sの棒

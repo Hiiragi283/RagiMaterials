@@ -34,6 +34,7 @@ gui.ragi_materials.material=Material
 
 hiiragi_shape.ball=%s Grinding Ball
 hiiragi_shape.block=Block of %s
+hiiragi_shape.block_sheetmetal=%s Sheetmetal
 hiiragi_shape.bottle=%s Full-Bottle
 hiiragi_shape.clump=%s Clump
 hiiragi_shape.cluster=Native %s Cluster
@@ -59,7 +60,6 @@ hiiragi_shape.plate_dense=Dense %s Plate
 hiiragi_shape.sand=%s
 hiiragi_shape.scaffolding=%s Scaffolding
 hiiragi_shape.shard=%s Shard
-hiiragi_shape.sheetmetal=%s Sheetmetal
 hiiragi_shape.slab=%s Slab
 hiiragi_shape.slab_sheetmetal=%s Sheetmetal Slab
 hiiragi_shape.stick=%s Stick

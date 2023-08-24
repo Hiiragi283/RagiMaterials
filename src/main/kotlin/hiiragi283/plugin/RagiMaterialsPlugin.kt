@@ -1,27 +1,34 @@
-package hiiragi283.material
+package hiiragi283.plugin
 
+import hiiragi283.material.RMReference
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import zone.rong.mixinbooter.IEarlyMixinLoader
 
-@IFMLLoadingPlugin.Name(RMReference.MOD_NAME)
+@IFMLLoadingPlugin.Name(RagiMaterialsPlugin.NAME)
 @IFMLLoadingPlugin.MCVersion("1.12.2")
-class RMMixinLoader : IFMLLoadingPlugin, IEarlyMixinLoader {
+class RagiMaterialsPlugin : IFMLLoadingPlugin, IEarlyMixinLoader {
 
-    private val logger: Logger = LogManager.getLogger("${RMReference.MOD_NAME} Mixin")
+    companion object {
+
+        const val NAME = "${RMReference.MOD_NAME} Core"
+
+        internal val LOGGER: Logger = LogManager.getLogger(NAME)
+
+    }
 
     init {
-        logger.info("Loading Mixin for RagiMaterials...")
+        LOGGER.info("RagiMaterialsPlugin accessed!!")
     }
 
     //    IFMLLoadingPlugin    //
 
     override fun getASMTransformerClass(): Array<String> = arrayOf()
 
-    override fun getModContainerClass(): String? = null
+    override fun getModContainerClass(): String = FakeForgelin::class.java.name
 
-    override fun getSetupClass(): String? = null
+    override fun getSetupClass(): String = ForgelinBridge::class.java.name
 
     override fun injectData(data: MutableMap<String, Any>?) {}
 
