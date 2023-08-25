@@ -1,0 +1,9 @@
+{
+  "parent": "ragi_materials:block/casing",
+  "textures": {
+    "particle": "ragi_materials:blocks/casing_tungsten",
+    "side": "ragi_materials:blocks/casing_tungsten",
+    "top": "ragi_materials:blocks/casing_tungsten",
+    "bottom": "ragi_materials:blocks/casing_tungsten"
+  }
+}

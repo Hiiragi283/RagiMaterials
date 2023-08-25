@@ -1,6 +1,20 @@
 ##    Block    ##
 
+tile.casing_0.name=Stone Casing
+tile.casing_1.name=Steel Casing
+tile.casing_2.name=Stainless Steel Casing
+tile.casing_3.name=Aluminium Casing
+tile.casing_4.name=Titanium Casing
+tile.casing_5.name=Tungsten Steel Casing
+tile.casing_6.name=Iridescent Casing
 tile.crucible.name=Crucible
+tile.scaffolding_0.name=Wood Scaffolding
+tile.scaffolding_1.name=Iron Scaffolding
+tile.scaffolding_2.name=Steel Scaffolding
+tile.scaffolding_3.name=Plastic Scaffolding
+tile.scaffolding_4.name=Stainless Scaffolding
+tile.scaffolding_5.name=Tungsten Scaffolding
+tile.scaffolding_6.name=Iridium Scaffolding
 
 ##    CreativeTab    ##
 

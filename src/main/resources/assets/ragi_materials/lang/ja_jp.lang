@@ -1,6 +1,20 @@
 ##    Block    ##
 
+tile.casing_0.name=石の筐体
+tile.casing_1.name=鋼の筐体
+tile.casing_2.name=ステンレス鋼の筐体
+tile.casing_3.name=アルミニウムの筐体
+tile.casing_4.name=チタンの筐体
+tile.casing_5.name=タングステン鋼の筐体
+tile.casing_6.name=七色の筐体
 tile.crucible.name=るつぼ
+tile.scaffolding_0.name=木材の足場
+tile.scaffolding_1.name=鉄の足場
+tile.scaffolding_2.name=鋼の足場
+tile.scaffolding_3.name=プラスチックの足場
+tile.scaffolding_4.name=ステンレス鋼の足場
+tile.scaffolding_5.name=タングステンの足場
+tile.scaffolding_6.name=イリジウムの足場
 
 ##    CreativeTab    ##
 

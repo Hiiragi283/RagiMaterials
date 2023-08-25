@@ -1,0 +1,9 @@
+{
+  "parent": "ragi_materials:block/casing",
+  "textures": {
+    "particle": "ragi_materials:blocks/casing_aluminium",
+    "side": "ragi_materials:blocks/casing_aluminium",
+    "top": "ragi_materials:blocks/casing_aluminium",
+    "bottom": "ragi_materials:blocks/casing_aluminium"
+  }
+}

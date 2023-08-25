@@ -33,13 +33,16 @@ object RMBlocks : HiiragiEntry.BLOCK {
     //    Common    //
 
     @JvmField
+    val CASING = BlockCasing
+
+    @JvmField
     val CRUCIBLE = BlockCrucible
 
     @JvmField
     val ROCK_GENERATOR = BlockRockGenerator
 
     @JvmField
-    val SCAFFOLDING = BlockMaterialScaffolding
+    val SCAFFOLDING = BlockScaffolding
 
     @JvmField
     val STONE_COMMON = BlockStoneCommon
@@ -49,10 +52,11 @@ object RMBlocks : HiiragiEntry.BLOCK {
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
         if (isDeobfEnv()) {
             entries.add(BlockInventoryTest)
-            entries.add(SCAFFOLDING)
             entries.add(ROCK_GENERATOR)
         }
+        entries.add(CASING)
         entries.add(CRUCIBLE)
+        entries.add(SCAFFOLDING)
     }
 
     override fun register(registry: IForgeRegistry<Block>) {
