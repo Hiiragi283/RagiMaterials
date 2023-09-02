@@ -5,7 +5,7 @@ tile.crucible.name=るつぼ
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - ボトル
-itemGroup.ragi_materials.bottle=RagiMaterials - 一般
+itemGroup.ragi_materials.common=RagiMaterials - 一般
 itemGroup.ragi_materials.material_block=RagiMaterials - ブロック
 itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
@@ -23,7 +23,6 @@ item.unfired_cast_1.name=未焼成の粘土型 (ナゲット)
 item.unfired_cast_2.name=未焼成の粘土型 (歯車)
 item.unfired_cast_3.name=未焼成の粘土型 (板材)
 item.unfired_cast_4.name=未焼成の粘土型 (棒材)
-
 
 ##    JEI Tab    ##
 
@@ -69,6 +68,9 @@ hiiragi_shape.wire=%sのワイヤ
 
 ##    Text    ##
 
+info.ragi_materials.succeeded=[%s] §aSucceeded!
+info.ragi_materials.failed=[%s] §cFailed...
+
 info.ragi_materials.crucible.temperature=温度: §b%s§r§7 K
 
 error.ragi_materials.crucible.cannot_cast=§c鋳造を実行できません!
@@ -89,6 +91,7 @@ tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 
 ##    Material    ##
 
+hiiragi_material.empty=EMPTY
 ###   Elements   ###
 
 hiiragi_material.hydrogen=水素
@@ -178,9 +181,9 @@ hiiragi_material.lead=鉛
 hiiragi_material.bismuth=ビスマス
 hiiragi_material.polonium=ポロニウム
 hiiragi_material.astatine=アスタチン
-hiiragi_material.radium=ラジウム
-hiiragi_material.francium=フランシウム
 hiiragi_material.radon=ラドン
+hiiragi_material.francium=フランシウム
+hiiragi_material.radium=ラジウム
 hiiragi_material.actinium=アクチニウム
 hiiragi_material.thorium=トリウム
 hiiragi_material.protactinium=プロトアクチニウム
@@ -274,7 +277,7 @@ hiiragi_material.cinnabar=辰砂
 
 hiiragi_material.dhmo=DHMO (一水素化二酸素)
 
-### Vanilla Elements ###
+### Vanilla Materials ###
 
 hiiragi_material.redstone=レッドストーン
 hiiragi_material.lapis=ラピス
