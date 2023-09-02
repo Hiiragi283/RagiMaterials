@@ -10,14 +10,15 @@ import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.api.shape.ShapeType;
 import hiiragi283.material.util.HiiragiCollectors;
+import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * An object which contains several properties of material
@@ -52,7 +53,9 @@ public record HiiragiMaterial(
         String name,
         int index,
         int color,
+        Supplier<Optional<Block>> fluidBlock,
         String formula,
+        boolean hasFluid,
         double molar,
         List<String> oreDictAlt,
         ShapeType shapeType,
@@ -88,6 +91,10 @@ public record HiiragiMaterial(
             tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil));
     }
 
+    public Optional<Fluid> getFluid() {
+        return FluidRegistry.isFluidRegistered(name) ? Optional.of(FluidRegistry.getFluid(name)) : Optional.empty();
+    }
+
     public String getOreDictName() {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name);
     }
@@ -97,7 +104,7 @@ public record HiiragiMaterial(
     }
 
     public boolean hasFormula() {
-        return formula.isEmpty();
+        return !formula.isEmpty();
     }
 
     public boolean hasMolar() {
@@ -148,13 +155,15 @@ public record HiiragiMaterial(
     //    General    //
 
     public HiiragiMaterial copy() {
-        return new HiiragiMaterial(name, index, color, formula, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
+        return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
     }
 
     public HiiragiMaterial copyAndEdit(Consumer<Builder> edit) {
-        var builder = new Builder(name, index);
+        var builder = new HiiragiMaterial.Builder(name, index);
         builder.color = this.color;
+        builder.fluidBlock = this.fluidBlock;
         builder.formula = this.formula;
+        builder.hasFluid = this.hasFluid;
         builder.molar = this.molar;
         builder.oreDictAlt = this.oreDictAlt;
         builder.shapeType = this.shapeType;
@@ -196,66 +205,141 @@ public record HiiragiMaterial(
 
     //    Material    //
 
-    public static HiiragiMaterial create(String name, int index, Consumer<Builder> consumer) {
-        var builder = new Builder(name, index);
+    private static HiiragiMaterial build(HiiragiMaterial.Builder builder, Consumer<HiiragiMaterial.Builder> consumer) {
         consumer.accept(builder);
+        builder.molar = (int) (builder.molar * 10.0) / 10.0;
         HiiragiEventFactory.onMaterialCreate(builder);
         return builder.build();
     }
 
-    //    Isotope    //
+    public static HiiragiMaterial create(String name, int index, Consumer<HiiragiMaterial.Builder> consumer) {
+        return build(new HiiragiMaterial.Builder(name, index), consumer);
+    }
 
-    public static HiiragiMaterial createIsotope(String name, int index, HiiragiMaterial parent, Consumer<Builder> consumer) {
-        var builder = new Builder(name, index, parent);
-        consumer.accept(builder);
-        HiiragiEventFactory.onMaterialCreate(builder);
-        return builder.build();
+    //    Isotope    //
+    public static HiiragiMaterial createIsotope(String name, int index, HiiragiMaterial parent, Consumer<HiiragiMaterial.Builder> consumer) {
+        return build(new HiiragiMaterial.Builder(name, index, parent), consumer);
     }
 
     //    Compound    //
 
-    public static HiiragiMaterial createCompound(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<Builder> consumer) {
-        var builder = new Builder(name, index);
+    public static HiiragiMaterial createCompound(String name, int index, Map<HiiragiMaterial, Integer> components) {
+        return createCompound(name, index, components, builder -> {
+        });
+    }
+
+    public static HiiragiMaterial createCompound(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
         initCompound(builder, components);
-        consumer.accept(builder);
-        HiiragiEventFactory.onMaterialCreate(builder);
-        return builder.build();
+        return build(builder, consumer);
     }
 
-    private static void initCompound(Builder builder, Map<HiiragiMaterial, Integer> components) {
-        initColor(builder, components);
-        initFormula(builder, components);
-        initMolar(builder, components);
-    }
+    private static void initCompound(HiiragiMaterial.Builder builder, Map<HiiragiMaterial, Integer> components) {
 
-    private static void initColor(Builder builder, Map<HiiragiMaterial, Integer> components) {
         builder.color = components.entrySet().stream().collect(HiiragiCollectors.MATERIAL_COLOR_COLLECTOR).getRGB();
-    }
 
-    private static void initFormula(Builder builder, Map<HiiragiMaterial, Integer> components) {
         builder.formula = components.entrySet().stream()
                 .filter(entry -> entry.getKey().hasFormula())
-                .collect(HiiragiCollectors.FORMULA_COLLECTOR);
-    }
+                .collect(HiiragiCollectors.COMPOUND_FORMULA_COLLECTOR);
 
-    private static void initMolar(Builder builder, Map<HiiragiMaterial, Integer> components) {
         builder.molar = components.entrySet().stream()
                 .filter(entry -> entry.getKey().hasMolar())
                 .collect(HiiragiCollectors.MOLAR_COLLECTOR);
+
+    }
+
+    //    Solution    //
+
+    public static HiiragiMaterial createSolution(String name, int index, Map<HiiragiMaterial, Integer> components) {
+        return createSolution(name, index, components, builder -> {
+        });
+    }
+
+    public static HiiragiMaterial createSolution(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
+        initCompound(builder, components);
+
+        builder.tempBoil = CommonMaterials.WATER.tempBoil();
+        builder.tempMelt = CommonMaterials.WATER.tempMelt();
+
+        return build(builder, consumer);
     }
 
     //    Alloy    //
 
-    private static void initTempBoil(Builder builder, Map<HiiragiMaterial, Integer> components) {
+
+    public static HiiragiMaterial createAlloy(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
+        initCompound(builder, components);
+        initTempBoil(builder, components);
+        initTempMelt(builder, components);
+        return build(builder, consumer);
+    }
+
+    private static void initTempBoil(HiiragiMaterial.Builder builder, Map<HiiragiMaterial, Integer> components) {
         builder.tempMelt = components.entrySet().stream()
                 .filter(entry -> entry.getKey().hasTempBoil())
                 .collect(HiiragiCollectors.TEMP_BOIL_COLLECTOR);
     }
 
-    private static void initTempMelt(Builder builder, Map<HiiragiMaterial, Integer> components) {
+    private static void initTempMelt(HiiragiMaterial.Builder builder, Map<HiiragiMaterial, Integer> components) {
         builder.tempMelt = components.entrySet().stream()
                 .filter(entry -> entry.getKey().hasTempMelt())
                 .collect(HiiragiCollectors.TEMP_MELT_COLLECTOR);
+    }
+
+    //    Mixture    //
+
+    public static HiiragiMaterial createMixture(String name, int index, List<HiiragiMaterial> components) {
+        return createMixture(name, index, components, builder -> {
+        });
+    }
+
+    public static HiiragiMaterial createMixture(String name, int index, List<HiiragiMaterial> components, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
+        initMixture(builder, components);
+        return build(builder, consumer);
+    }
+
+    private static void initMixture(HiiragiMaterial.Builder builder, List<HiiragiMaterial> components) {
+        builder.formula = components.stream()
+                .filter(HiiragiMaterial::hasFormula)
+                .collect(HiiragiCollectors.MIXTURE_FORMULA_COLLECTOR);
+        builder.molar = 0.0;
+    }
+
+    //    Steel    //
+
+    public static HiiragiMaterial createSteel(String name, int index, List<HiiragiMaterial> components, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
+        initMixture(builder, components);
+        builder.shapeType = ShapeType.METAL_ADVANCED;
+        builder.tempBoil = ElementMaterials.IRON.tempBoil();
+        builder.tempMelt = ElementMaterials.IRON.tempMelt();
+        return build(builder, consumer);
+    }
+
+    //    Hydrate    //
+
+    public static HiiragiMaterial createHydrate(String name, int index, HiiragiMaterial parent, int waterAmount, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
+
+        builder.molar = parent.molar() + waterAmount * CommonMaterials.WATER.molar();
+        builder.formula = parent.formula() + "・" + waterAmount + CommonMaterials.WATER.formula;
+
+        return build(builder, consumer);
+    }
+
+    //    Polymer    //
+
+    public static HiiragiMaterial createPolymer(String name, int index, Map<HiiragiMaterial, Integer> monomar, Consumer<HiiragiMaterial.Builder> consumer) {
+        var builder = new HiiragiMaterial.Builder(name, index);
+        initCompound(builder, monomar);
+
+        builder.formula = "(" + builder.formula + ")n";
+        builder.molar = 0.0;
+
+        return build(builder, consumer);
     }
 
     //    Builder    //
@@ -265,7 +349,9 @@ public record HiiragiMaterial(
         public final String name;
         public final int index;
         public int color = 0xFFFFFF;
+        public Supplier<Optional<Block>> fluidBlock = Optional::empty;
         public String formula = "";
+        public boolean hasFluid = true;
         public double molar = 0.0;
         public List<String> oreDictAlt = new ArrayList<>();
         public ShapeType shapeType = ShapeType.INTERNAL;
@@ -288,7 +374,7 @@ public record HiiragiMaterial(
         }
 
         public HiiragiMaterial build() {
-            return new HiiragiMaterial(name, index, color, formula, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
+            return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
         }
 
     }

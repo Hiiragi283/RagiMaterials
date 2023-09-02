@@ -28,33 +28,22 @@ public abstract class HiiragiCollectors {
 
     //    Color    //
 
-    public static final Collector<Color, Map<String, Integer>, Color> COLOR_COLLECTOR = Collector.of(
-            HashMap::new,
-            (map, color) -> {
-            },
-            getMapCombiner(),
-            map -> HiiragiColor.WHITE,
-            Collector.Characteristics.IDENTITY_FINISH
-    );
-
     public static final Collector<Map.Entry<HiiragiMaterial, Integer>, Map<Color, Integer>, Color> MATERIAL_COLOR_COLLECTOR = Collector.of(
             HashMap::new,
             (map, entry) -> map.put(new Color(entry.getKey().color()), entry.getValue()),
             getMapCombiner(),
-            HiiragiColor::blendColor,
-            Collector.Characteristics.IDENTITY_FINISH
+            HiiragiColor::blendColor
     );
 
     //    Formula    //
 
-    public static final Collector<Map.Entry<HiiragiMaterial, Integer>, StringBuilder, String> FORMULA_COLLECTOR = Collector.of(
+    public static final Collector<Map.Entry<HiiragiMaterial, Integer>, StringBuilder, String> COMPOUND_FORMULA_COLLECTOR = Collector.of(
             StringBuilder::new,
             (builder, entry) -> {
                 String rawFormula = entry.getKey().formula();
                 int weight = entry.getValue();
                 builder.append(rawFormula);
-                //値が1の場合はパス
-                if (weight != 1) {
+                if (weight > 1) {
                     //化学式の下付き数字の桁数調整
                     int weight1 = weight % 10;
                     int weight10 = weight / 10;
@@ -62,19 +51,28 @@ public abstract class HiiragiCollectors {
                     Character char10 = (char) ('₀' + weight10);
                     //2桁目が0でない場合，下付き数字を2桁にする
                     var builderInternal = new StringBuilder();
-                    builderInternal.append(char1);
                     if (weight10 != 0) {
                         builderInternal.append(char10);
                     }
+                    builderInternal.append(char1);
                     builder.append(builderInternal);
                 }
             },
-            (builder1, builder2) -> {
-                builder1.append(builder2);
-                return builder1;
-            },
-            StringBuilder::toString,
-            Collector.Characteristics.IDENTITY_FINISH
+            StringBuilder::append,
+            StringBuilder::toString
+    );
+
+    public static final Collector<HiiragiMaterial, StringBuilder, String> MIXTURE_FORMULA_COLLECTOR = Collector.of(
+            () -> new StringBuilder("("),
+            (builder, material) -> builder.append(material.formula()).append(", "),
+            StringBuilder::append,
+            builder -> {
+                if (builder.length() >= 2) {
+                    builder.setLength(builder.length() - 2);
+                }
+                builder.append(")");
+                return builder.toString();
+            }
     );
 
     //    Molar    //
@@ -83,8 +81,7 @@ public abstract class HiiragiCollectors {
             ArrayList::new,
             (list, entry) -> list.add(entry.getKey().molar() * entry.getValue()),
             getListCombiner(),
-            list -> list.stream().mapToDouble(d -> d).sum(),
-            Collector.Characteristics.IDENTITY_FINISH
+            list -> list.stream().mapToDouble(d -> d).sum()
     );
 
     //    Temperature    //
@@ -93,16 +90,14 @@ public abstract class HiiragiCollectors {
             ArrayList::new,
             (list, entry) -> list.add(entry.getKey().tempMelt() * entry.getValue()),
             getListCombiner(),
-            list -> list.stream().mapToInt(i -> i).sum(),
-            Collector.Characteristics.IDENTITY_FINISH
+            list -> list.stream().mapToInt(i -> i).sum()
     );
 
     public static final Collector<Map.Entry<HiiragiMaterial, Integer>, List<Integer>, Integer> TEMP_BOIL_COLLECTOR = Collector.of(
             ArrayList::new,
             (list, entry) -> list.add(entry.getKey().tempBoil() * entry.getValue()),
             getListCombiner(),
-            list -> list.stream().mapToInt(i -> i).sum(),
-            Collector.Characteristics.IDENTITY_FINISH
+            list -> list.stream().mapToInt(i -> i).sum()
     );
 
 }

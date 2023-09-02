@@ -26,6 +26,7 @@ public interface HiiragiEntry<T extends IForgeRegistryEntry<T>> {
     @NotNull
     Item asItem();
 
+    @NotNull
     default ItemStack asItemStack(HiiragiMaterial material) {
         return asItemStack(material, 1);
     }

@@ -13,12 +13,15 @@ import hiiragi283.material.util.HiiragiIngredient;
 import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,24 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
             }
     );
 
-    public static final MaterialItem MATERIAL_BOTTLE = MaterialItem.create(HiiragiShapes.BOTTLE);
+    public static final MaterialItem MATERIAL_BOTTLE =  new MaterialItem(HiiragiShapes.BOTTLE) {
+
+        @Override
+        public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+
+        }
+
+        @Override
+        protected void getRecipe(HiiragiEntry.ITEM item, HiiragiMaterial material) {
+
+        }
+
+        @Override
+        protected void getModel(HiiragiEntry.ITEM item) {
+            MODEL_CONSUMER.accept(item);
+        }
+
+    };
 
     public static final MaterialItem MATERIAL_DUST = MaterialItem.create(
             HiiragiShapes.DUST,
@@ -138,6 +158,7 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
         ENTRIES.add(MATERIAL_NUGGET);
         ENTRIES.add(MATERIAL_PLATE);
         ENTRIES.add(MATERIAL_STICK);
+        ENTRIES.add(MATERIAL_WIRE);
     }
 
     @Override

@@ -32,7 +32,7 @@ public class MaterialItemBlock extends HiiragiItemBlock {
     @Override
     @SideOnly(Side.CLIENT)
     public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
-        if (isInCreativeTab(tab)) return;
+        if (!isInCreativeTab(tab)) return;
         HiiragiMaterial.REGISTRY.getValues().stream()
                 .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
                 .map(this::asItemStack)

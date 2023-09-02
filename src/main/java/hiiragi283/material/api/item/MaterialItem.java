@@ -28,39 +28,39 @@ public abstract class MaterialItem extends HiiragiItem {
         setCreativeTab(HiiragiCreativeTabs.MATERIAL_ITEM);
     }
 
-    private static final Consumer<HiiragiEntry<?>> MODEL_CONSUMER = item -> {
+    protected static final Consumer<HiiragiEntry.ITEM> MODEL_CONSUMER = item -> {
         HiiragiUtil.setModelSame(item.asItem());
     };
-    private static final BiConsumer<HiiragiEntry<?>, HiiragiMaterial> EMPTY_BICONSUMER = (item, material) -> {
+    protected static final BiConsumer<HiiragiEntry.ITEM, HiiragiMaterial> RECIPE_BICONSUMER = (item, material) -> {
     };
 
     public static MaterialItem create(HiiragiShape shape) {
-        return create(shape, MODEL_CONSUMER, EMPTY_BICONSUMER);
+        return create(shape, MODEL_CONSUMER, RECIPE_BICONSUMER);
     }
 
-    public static MaterialItem create(HiiragiShape shape, Consumer<HiiragiEntry<?>> model) {
-        return create(shape, model, EMPTY_BICONSUMER);
+    public static MaterialItem create(HiiragiShape shape, Consumer<HiiragiEntry.ITEM> model) {
+        return create(shape, model, RECIPE_BICONSUMER);
     }
 
-    public static MaterialItem create(HiiragiShape shape, BiConsumer<HiiragiEntry<?>, HiiragiMaterial> recipe) {
+    public static MaterialItem create(HiiragiShape shape, BiConsumer<HiiragiEntry.ITEM, HiiragiMaterial> recipe) {
         return create(shape, MODEL_CONSUMER, recipe);
     }
 
     public static MaterialItem create(
             HiiragiShape shape,
-            Consumer<HiiragiEntry<?>> model,
-            BiConsumer<HiiragiEntry<?>, HiiragiMaterial> recipe
+            Consumer<HiiragiEntry.ITEM> model,
+            BiConsumer<HiiragiEntry.ITEM, HiiragiMaterial> recipe
     ) {
 
         return new MaterialItem(shape) {
 
             @Override
-            void getRecipe(HiiragiEntry<?> item, HiiragiMaterial material) {
+            protected void getRecipe(HiiragiEntry.ITEM item, HiiragiMaterial material) {
                 recipe.accept(item, material);
             }
 
             @Override
-            void getModel(HiiragiEntry<?> item) {
+            protected void getModel(HiiragiEntry.ITEM item) {
                 model.accept(item);
             }
         };
@@ -103,7 +103,7 @@ public abstract class MaterialItem extends HiiragiItem {
                 .forEach(material -> getRecipe(this, material));
     }
 
-    abstract void getRecipe(HiiragiEntry<?> item, HiiragiMaterial material);
+    protected abstract void getRecipe(HiiragiEntry.ITEM item, HiiragiMaterial material);
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -120,6 +120,6 @@ public abstract class MaterialItem extends HiiragiItem {
         getModel(this);
     }
 
-    abstract void getModel(HiiragiEntry<?> item);
+    protected abstract void getModel(HiiragiEntry.ITEM item);
 
 }

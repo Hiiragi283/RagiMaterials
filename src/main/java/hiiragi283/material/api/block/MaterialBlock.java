@@ -44,21 +44,22 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
 
     public static MaterialBlock create(
             HiiragiShape shape,
-            Consumer<HiiragiEntry<?>> model,
-            BiConsumer<HiiragiEntry<?>, HiiragiMaterial> recipe
+            Consumer<HiiragiEntry.BLOCK> model,
+            BiConsumer<HiiragiEntry.BLOCK, HiiragiMaterial> recipe
     ) {
 
         return new MaterialBlock(shape) {
 
             @Override
-            void getRecipe(HiiragiEntry<?> item, HiiragiMaterial material) {
-                recipe.accept(item, material);
+            void getRecipe(HiiragiEntry.BLOCK block, HiiragiMaterial material) {
+                recipe.accept(block, material);
             }
 
             @Override
-            void getModel(HiiragiEntry<?> item) {
-                model.accept(item);
+            void getModel(HiiragiEntry.BLOCK block) {
+                model.accept(block);
             }
+
         };
 
     }
@@ -103,7 +104,7 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
                 .forEach(material -> getRecipe(this, material));
     }
 
-    abstract void getRecipe(HiiragiEntry<?> block, HiiragiMaterial material);
+    abstract void getRecipe(HiiragiEntry.BLOCK block, HiiragiMaterial material);
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -126,6 +127,6 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
         getModel(this);
     }
 
-    abstract void getModel(HiiragiEntry<?> block);
+    abstract void getModel(HiiragiEntry.BLOCK block);
 
 }

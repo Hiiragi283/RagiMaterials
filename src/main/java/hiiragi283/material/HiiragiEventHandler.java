@@ -1,7 +1,7 @@
 package hiiragi283.material;
 
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
-import hiiragi283.material.api.material.CompoundMaterials;
+import hiiragi283.material.api.material.CommonMaterials;
 import hiiragi283.material.api.material.ElementMaterials;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.part.HiiragiPart;
@@ -39,7 +39,7 @@ public class HiiragiEventHandler {
         HiiragiRegistry<String, HiiragiMaterial> registry = event.getRegistry();
 
         ElementMaterials.register(new ElementMaterials(), HiiragiMaterial.class, registry, material -> registry.register(material.name(), material));
-        CompoundMaterials.register(new CompoundMaterials(), HiiragiMaterial.class, registry, material -> registry.register(material.name(), material));
+        CommonMaterials.register(new CommonMaterials(), HiiragiMaterial.class, registry, material -> registry.register(material.name(), material));
 
     }
 

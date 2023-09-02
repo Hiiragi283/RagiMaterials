@@ -35,17 +35,17 @@ public record ShapeType(String name, Set<HiiragiShape> shapes) {
 
     public static final ShapeType GAS = INTERNAL.child("gas", Collections.singletonList(HiiragiShapes.GAS));
 
-    public static final ShapeType GEM_4x = SOLID.child("gem_4x", Collections.singletonList(HiiragiShapes.GEM));
+    private static final ShapeType GEM_4x = SOLID.child("gem_4x", Collections.singletonList(HiiragiShapes.GEM));
 
-    public static final ShapeType GEM_4x_ADVANCED = GEM_4x.child("gem_4x_advanced", Arrays.asList(
+    private static final ShapeType GEM_4x_ADVANCED = GEM_4x.child("gem_4x_advanced", Arrays.asList(
             HiiragiShapes.PLATE,
             HiiragiShapes.PLATE_DENSE,
             HiiragiShapes.STICK
     ));
 
-    public static final ShapeType GEM_9x = GEM_4x.child("gem_9x", Arrays.asList(HiiragiShapes.BLOCK, HiiragiShapes.SLAB));
+    private static final ShapeType GEM_9x = GEM_4x.child("gem_9x", Arrays.asList(HiiragiShapes.BLOCK, HiiragiShapes.SLAB));
 
-    public static final ShapeType GEM_9x_ADVANCED = GEM_9x.child("gem_4x_advanced", Arrays.asList(
+    private static final ShapeType GEM_9x_ADVANCED = GEM_9x.child("gem_4x_advanced", Arrays.asList(
             HiiragiShapes.PLATE,
             HiiragiShapes.PLATE_DENSE,
             HiiragiShapes.STICK

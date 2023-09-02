@@ -41,7 +41,7 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
     public static final MaterialBlock MATERIAL_BLOCK = MaterialBlock.create(
             HiiragiShapes.BLOCK,
             block -> {
-                HiiragiUtil.setModel(block.asItem());
+                HiiragiUtil.setModelSame(block.getObject());
             },
             (block, material) -> {
                 if (material.isMetal()) {

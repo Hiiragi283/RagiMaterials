@@ -1,5 +1,7 @@
 package hiiragi283.material;
 
+import hiiragi283.material.api.capability.HiiragiCapability;
+import hiiragi283.material.api.fluid.MaterialFluid;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.shape.HiiragiShape;
@@ -45,6 +47,10 @@ public class RagiMaterials implements HiiragiProxy {
         //Block, Itemの初期化
         HiiragiBlocks.init();
         HiiragiItems.init();
+        //Fluidの登録
+        MaterialFluid.register();
+        //Capabilityの登録
+        HiiragiCapability.register();
     }
 
     @Mod.EventHandler

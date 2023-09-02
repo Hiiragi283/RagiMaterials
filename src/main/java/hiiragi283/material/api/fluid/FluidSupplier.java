@@ -31,7 +31,8 @@ public class FluidSupplier implements Supplier<Fluid> {
     }
 
     @Override
-    public @NotNull Fluid get() {
+    @NotNull
+    public Fluid get() {
         if (value == null) {
             Fluid fluid = fluidSupplier.get();
             blockSupplier.get().ifPresent(fluid::setBlock);
