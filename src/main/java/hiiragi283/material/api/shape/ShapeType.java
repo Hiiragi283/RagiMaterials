@@ -77,8 +77,10 @@ public record ShapeType(String name, Set<HiiragiShape> shapes) {
 
     public static final ShapeType METAL_ADVANCED = METAL_COMMON.child("metal_advanced", Arrays.asList(
             HiiragiShapes.BALL,
+            HiiragiShapes.CASING,
             HiiragiShapes.COIN,
             HiiragiShapes.FENCE,
+            HiiragiShapes.FRAME,
             HiiragiShapes.GEAR,
             HiiragiShapes.PLATE,
             HiiragiShapes.SCAFFOLDING,
@@ -98,7 +100,9 @@ public record ShapeType(String name, Set<HiiragiShape> shapes) {
     ));
 
     public static final ShapeType WOOD = SOLID.child("wood", Arrays.asList(
+            HiiragiShapes.CASING,
             HiiragiShapes.FENCE,
+            HiiragiShapes.FRAME,
             HiiragiShapes.GEAR,
             HiiragiShapes.LOG,
             HiiragiShapes.PLANK,

@@ -1,6 +1,7 @@
 package hiiragi283.material.api.tile;
 
 import hiiragi283.material.api.capability.HiiragiCapabilityProvider;
+import hiiragi283.material.api.capability.machine.IMachineProperty;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -26,6 +27,13 @@ public abstract class HiiragiProvider {
 
         @NotNull
         HiiragiCapabilityProvider<IEnergyStorage> createBattery();
+
+    }
+
+    public interface Machine {
+
+        @NotNull
+        HiiragiCapabilityProvider<IMachineProperty> createMachineProperty();
 
     }
 

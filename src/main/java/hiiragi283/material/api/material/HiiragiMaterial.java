@@ -3,6 +3,8 @@ package hiiragi283.material.api.material;
 
 import com.github.bsideup.jabel.Desugar;
 import com.google.common.base.CaseFormat;
+import hiiragi283.material.api.capability.machine.IMachineProperty;
+import hiiragi283.material.api.capability.machine.MachineProperty;
 import hiiragi283.material.api.event.HiiragiEventFactory;
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
 import hiiragi283.material.api.registry.HiiragiRegistry;
@@ -56,6 +58,7 @@ public record HiiragiMaterial(
         Supplier<Optional<Block>> fluidBlock,
         String formula,
         boolean hasFluid,
+        IMachineProperty machineProperty,
         double molar,
         List<String> oreDictAlt,
         ShapeType shapeType,
@@ -78,7 +81,7 @@ public record HiiragiMaterial(
     public void addTooltip(List<String> tooltip, String name, int scale) {
         if (isEmpty()) return;
         tooltip.add(I18n.format("tips.ragi_materials.property.name", name));
-        tooltip.add("§e=== Property ===");
+        tooltip.add("§e=== Material Property ===");
         if (hasFormula())
             tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula));
         if (hasMolar())
@@ -155,7 +158,7 @@ public record HiiragiMaterial(
     //    General    //
 
     public HiiragiMaterial copy() {
-        return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
+        return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, machineProperty, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
     }
 
     public HiiragiMaterial copyAndEdit(Consumer<Builder> edit) {
@@ -164,6 +167,7 @@ public record HiiragiMaterial(
         builder.fluidBlock = this.fluidBlock;
         builder.formula = this.formula;
         builder.hasFluid = this.hasFluid;
+        builder.machineProperty = this.machineProperty;
         builder.molar = this.molar;
         builder.oreDictAlt = this.oreDictAlt;
         builder.shapeType = this.shapeType;
@@ -352,6 +356,7 @@ public record HiiragiMaterial(
         public Supplier<Optional<Block>> fluidBlock = Optional::empty;
         public String formula = "";
         public boolean hasFluid = true;
+        public IMachineProperty machineProperty = new MachineProperty();
         public double molar = 0.0;
         public List<String> oreDictAlt = new ArrayList<>();
         public ShapeType shapeType = ShapeType.INTERNAL;
@@ -374,7 +379,7 @@ public record HiiragiMaterial(
         }
 
         public HiiragiMaterial build() {
-            return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
+            return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, machineProperty, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
         }
 
     }

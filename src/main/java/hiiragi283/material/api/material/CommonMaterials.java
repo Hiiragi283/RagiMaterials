@@ -19,27 +19,27 @@ public class CommonMaterials extends HiiragiRegistryEntries {
     public static final HiiragiMaterial HYDROXIDE = HiiragiMaterial.createCompound("hydroxide", -1, new HashMap<>() {{
         put(ElementMaterials.HYDROGEN, 1);
         put(ElementMaterials.OXYGEN, 1);
-    }});
+    }}, builder -> builder.hasFluid = false);
 
     public static final HiiragiMaterial CARBONATE = HiiragiMaterial.createCompound("carbonate", -1, new HashMap<>() {{
         put(ElementMaterials.CARBON, 1);
         put(ElementMaterials.OXYGEN, 3);
-    }});
+    }}, builder -> builder.hasFluid = false);
 
     public static final HiiragiMaterial NITRATE = HiiragiMaterial.createCompound("nitrate", -1, new HashMap<>() {{
         put(ElementMaterials.NITROGEN, 1);
         put(ElementMaterials.OXYGEN, 3);
-    }});
+    }}, builder -> builder.hasFluid = false);
 
     public static final HiiragiMaterial SILICATE = HiiragiMaterial.createCompound("silicate", -1, new HashMap<>() {{
         put(ElementMaterials.SILICON, 1);
         put(ElementMaterials.OXYGEN, 4);
-    }});
+    }}, builder -> builder.hasFluid = false);
 
     public static final HiiragiMaterial SULFATE = HiiragiMaterial.createCompound("sulfate", -1, new HashMap<>() {{
         put(ElementMaterials.SULFUR, 1);
         put(ElementMaterials.OXYGEN, 4);
-    }});
+    }}, builder -> builder.hasFluid = false);
 
     //    Hydrogen    //
 
@@ -49,6 +49,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
             put(HiiragiColor.RED, 1);
             put(HiiragiColor.YELLOW, 1);
         }}).getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.WOOD;
     });
 
@@ -57,6 +58,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
         put(ElementMaterials.OXYGEN, 1);
     }}, builder -> {
         builder.color = HiiragiColor.BLUE.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.LIQUID;
         builder.tempBoil = 373;
         builder.tempMelt = 273;
@@ -87,20 +89,24 @@ public class CommonMaterials extends HiiragiRegistryEntries {
     //    Carbon    //
 
     public static final HiiragiMaterial COAL = HiiragiMaterial.createCompound("coal", 10600, Collections.singletonMap(ElementMaterials.CARBON, 1), builder -> {
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_COAL;
     });
 
     public static final HiiragiMaterial CHARCOAL = HiiragiMaterial.createCompound("charcoal", 10601, Collections.singletonMap(ElementMaterials.CARBON, 1), builder -> {
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_COAL;
     });
 
     public static final HiiragiMaterial COKE = HiiragiMaterial.createCompound("coke", 10602, Collections.singletonMap(ElementMaterials.CARBON, 1), builder -> {
         builder.color = HiiragiColor.DARK_GRAY.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_COAL;
     });
 
     public static final HiiragiMaterial DIAMOND = HiiragiMaterial.createCompound("diamond", 10603, Collections.singletonMap(ElementMaterials.CARBON, 1), builder -> {
         builder.color = HiiragiColor.AQUA.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_DIAMOND;
     });
 
@@ -115,11 +121,13 @@ public class CommonMaterials extends HiiragiRegistryEntries {
 
     public static final HiiragiMaterial AMBER = HiiragiMaterial.createCompound("amber", 10605, Collections.singletonMap(WOOD, 1), builder -> {
         builder.color = HiiragiColor.GOLD.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_AMORPHOUS;
     });
 
     public static final HiiragiMaterial ASH = HiiragiMaterial.createMixture("ash", 10606, Arrays.asList(ElementMaterials.CARBON, ElementMaterials.SODIUM, ElementMaterials.POTASSIUM), builder -> {
         builder.color = HiiragiColor.GRAY.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -156,6 +164,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
         put(NITRATE, 1);
     }}, builder -> {
         builder.color = HiiragiColor.WHITE.getRGB();
+        builder.hasFluid = false;
         builder.oreDictAlt.add("saltpeter");
         builder.shapeType = ShapeType.GEM_CUBIC;
     });
@@ -171,6 +180,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
         put(ElementMaterials.SULFUR, 1);
     }}, builder -> {
         builder.color = HiiragiColor.DARK_GRAY.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -235,6 +245,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
             put(HiiragiColor.DARK_RED, 2);
             put(HiiragiColor.GOLD, 1);
         }}).getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -252,6 +263,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
 
     public static final HiiragiMaterial CLAY = HiiragiMaterial.createMixture("clay", 11400, Arrays.asList(ALUMINA, SILICATE), builder -> {
         builder.color = 0xC8C8DC;
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -260,6 +272,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
             put(HiiragiColor.YELLOW, 1);
             put(HiiragiColor.WHITE, 3);
         }}).getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -270,12 +283,14 @@ public class CommonMaterials extends HiiragiRegistryEntries {
 
     public static final HiiragiMaterial LAVA = HiiragiMaterial.createCompound("lava", 11403, Collections.singletonMap(SILICATE, 1), builder -> {
         builder.color = HiiragiColor.mixColor(HiiragiColor.DARK_RED, HiiragiColor.GOLD).getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
         builder.tempMelt = FluidRegistry.LAVA.getTemperature();
     });
 
     public static final HiiragiMaterial NETHERRACK = HiiragiMaterial.createCompound("netherrack", 11404, Collections.singletonMap(SILICATE, 1), builder -> {
         builder.color = HiiragiColor.DARK_RED.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -299,11 +314,13 @@ public class CommonMaterials extends HiiragiRegistryEntries {
             put(HiiragiColor.BLACK, 5);
             put(HiiragiColor.GOLD, 1);
         }}).getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
     public static final HiiragiMaterial STONE = HiiragiMaterial.createCompound("stone", 11408, Collections.singletonMap(SILICATE, 1), builder -> {
         builder.color = HiiragiColor.GRAY.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.STONE;
     });
 
@@ -326,13 +343,17 @@ public class CommonMaterials extends HiiragiRegistryEntries {
     public static final HiiragiMaterial GYPSUM = HiiragiMaterial.createCompound("gypsum", 12001, new HashMap<>() {{
         put(ElementMaterials.CALCIUM, 1);
         put(SULFATE, 1);
-    }}, builder -> builder.shapeType = ShapeType.GEM_CUBIC);
+    }}, builder -> {
+        builder.hasFluid = false;
+        builder.shapeType = ShapeType.GEM_CUBIC;
+    });
 
     public static final HiiragiMaterial LIME = HiiragiMaterial.createCompound("lime", 12002, new HashMap<>() {{
         put(ElementMaterials.CALCIUM, 1);
         put(CARBONATE, 1);
     }}, builder -> {
         builder.color = HiiragiColor.WHITE.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.SOLID;
     });
 
@@ -343,6 +364,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
         put(ElementMaterials.OXYGEN, 2);
     }}, builder -> {
         builder.color = HiiragiColor.YELLOW.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_QUARTZ;
     });
 
@@ -417,6 +439,7 @@ public class CommonMaterials extends HiiragiRegistryEntries {
         put(ElementMaterials.SULFUR, 1);
     }}, builder -> {
         builder.color = HiiragiColor.DARK_RED.getRGB();
+        builder.hasFluid = false;
         builder.shapeType = ShapeType.GEM_EMERALD;
     });
 

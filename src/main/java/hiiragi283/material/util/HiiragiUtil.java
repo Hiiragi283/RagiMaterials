@@ -15,12 +15,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
@@ -38,6 +41,24 @@ import java.util.Optional;
 
 @Desugar
 public abstract class HiiragiUtil {
+
+    //    Constants    //
+
+    public static final String BlockEntityTag = "BlockEntityTag";
+    public static final String BATTERY = "Battery";
+    public static final String ForgeCaps = "ForgeCaps";
+    public static final String INVENTORY = "Inventory";
+    public static final String MACHINE_PROPERTY = "MachineProperty";
+    public static final String MASS = "Mass";
+    public static final String MATERIAL = "Material";
+    public static final String TANK = "Tank";
+
+    //    Capability    //
+
+    public static <T> Optional<T> getCapability(ICapabilityProvider provider, Capability<T> capability, @Nullable EnumFacing facing) {
+        var handler = provider.getCapability(capability, facing);
+        return handler == null ? Optional.empty() : Optional.of(handler);
+    }
 
     //    Drop    //
 

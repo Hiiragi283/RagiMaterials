@@ -37,6 +37,7 @@ public class MaterialItemBlock extends HiiragiItemBlock {
                 .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
                 .map(this::asItemStack)
                 .sorted(Comparator.comparing(ItemStack::getMetadata))
+                .filter(stack -> stack.getMetadata() > 0)
                 .forEach(items::add);
     }
 

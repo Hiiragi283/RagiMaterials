@@ -2,6 +2,7 @@ package hiiragi283.material;
 
 import hiiragi283.material.api.item.HiiragiItem;
 import hiiragi283.material.api.item.MaterialItem;
+import hiiragi283.material.api.item.MaterialItemCasing;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShapes;
@@ -75,6 +76,8 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
 
     };
 
+    public static final MaterialItem MATERIAL_CASING = new MaterialItemCasing();
+
     public static final MaterialItem MATERIAL_DUST = MaterialItem.create(
             HiiragiShapes.DUST,
             (item, material) -> new CraftingBuilder(item.asItemStack(material))
@@ -87,6 +90,14 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
             HiiragiShapes.DUST_TINY,
             (item, material) -> new CraftingBuilder(item.asItemStack(material, 9))
                     .addIngredient(new HiiragiIngredient(HiiragiShapes.DUST.getOreDict(material)))
+                    .build()
+    );
+
+    public static final MaterialItem MATERIAL_FRAME = MaterialItem.create(
+            HiiragiShapes.FRAME,
+            (item, material) -> new CraftingBuilder(item.asItemStack(material, 2))
+                    .setPattern("AAA", "A A", "AAA")
+                    .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
                     .build()
     );
 
@@ -148,7 +159,11 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
         RagiMaterials.LOGGER.info("HiiragiItems has been initialized!");
         ENTRIES.addAll(HiiragiBlocks.getItemBlocks());
         ENTRIES.add(BOOK_RESPAWN);
-        if (!RMConfig.EXPERIMENTAL.enableMetaTileBlock) ENTRIES.add(MATERIAL_BLOCK);
+        if (!RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
+            ENTRIES.add(MATERIAL_BLOCK);
+            ENTRIES.add(MATERIAL_CASING);
+            ENTRIES.add(MATERIAL_FRAME);
+        }
         ENTRIES.add(MATERIAL_BOTTLE);
         ENTRIES.add(MATERIAL_DUST);
         ENTRIES.add(MATERIAL_DUST_TINY);

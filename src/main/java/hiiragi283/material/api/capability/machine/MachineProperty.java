@@ -13,6 +13,12 @@ public class MachineProperty implements IMachineProperty, INBTSerializable<NBTTa
     public MachineProperty() {
     }
 
+    public MachineProperty(IMachineProperty other) {
+        for (IMachineProperty.Type type : IMachineProperty.Type.values()) {
+            map.put(type, other.getValue(type));
+        }
+    }
+
     public MachineProperty(Map<IMachineProperty.Type, Integer> map) {
         this.map.putAll(map);
     }
@@ -20,33 +26,16 @@ public class MachineProperty implements IMachineProperty, INBTSerializable<NBTTa
     //    IMachineProperty    //
 
     @Override
-    public int getValue(IMachineProperty.Type property) {
-        return map.get(property);
+    public int getValue(IMachineProperty.Type type) {
+        return map.getOrDefault(type, getDefaultValue(type));
     }
 
     @Override
-    public void setValue(IMachineProperty.Type property, int amount) {
-        map.put(property, amount);
+    public void setValue(IMachineProperty.Type type, int amount) {
+        map.put(type, amount);
     }
 
-    @Override
-    public void addValue(IMachineProperty.Type property, int amount) {
-        int amountPre = getValue(property);
-        map.put(property, amountPre + amount);
-    }
-
-    @Override
-    public void removeValue(IMachineProperty.Type property, int amount) {
-        int amountPre = getValue(property);
-        map.put(property, amountPre - amount);
-    }
-
-    @Override
-    public void clearValue(IMachineProperty.Type property) {
-        map.put(property, 0);
-    }
-
-    //    IMachineProperty    //
+    //    INBTSerializable    //
 
     @Override
     public NBTTagCompound serializeNBT() {

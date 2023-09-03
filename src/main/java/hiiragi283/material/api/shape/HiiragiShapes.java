@@ -7,6 +7,7 @@ public class HiiragiShapes extends HiiragiRegistryEntries {
     public static final HiiragiShape BALL = new HiiragiShape("ball", 30);
     public static final HiiragiShape BLOCK = new HiiragiShape("block", 144 * 9);
     public static final HiiragiShape BOTTLE = new HiiragiShape("bottle", 144);
+    public static final HiiragiShape CASING = new HiiragiShape("casing", (144 * 4) + (144 * 6));
     public static final HiiragiShape CLUMP = new HiiragiShape("clump", 144);
     public static final HiiragiShape CLUSTER = new HiiragiShape("cluster", 144 * 2);
     public static final HiiragiShape COIN = new HiiragiShape("coin", 144 / 3);
@@ -16,6 +17,7 @@ public class HiiragiShapes extends HiiragiRegistryEntries {
     public static final HiiragiShape DUST_DIRTY = new HiiragiShape("dust_dirty", 144);
     public static final HiiragiShape DUST_TINY = new HiiragiShape("dust_tiny", 144 / 9);
     public static final HiiragiShape FENCE = new HiiragiShape("fence", 144 * 5 / 3);
+    public static final HiiragiShape FRAME = new HiiragiShape("frame", 144 * 4);
     public static final HiiragiShape GEAR = new HiiragiShape("gear", 144 * 4);
     public static final HiiragiShape GEM = new HiiragiShape("gem", 144);
     public static final HiiragiShape INGOT = new HiiragiShape("ingot", 144);

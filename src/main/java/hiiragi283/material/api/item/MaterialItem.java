@@ -28,9 +28,8 @@ public abstract class MaterialItem extends HiiragiItem {
         setCreativeTab(HiiragiCreativeTabs.MATERIAL_ITEM);
     }
 
-    protected static final Consumer<HiiragiEntry.ITEM> MODEL_CONSUMER = item -> {
-        HiiragiUtil.setModelSame(item.asItem());
-    };
+    protected static final Consumer<HiiragiEntry.ITEM> MODEL_CONSUMER = item -> HiiragiUtil.setModelSame(item.getObject());
+
     protected static final BiConsumer<HiiragiEntry.ITEM, HiiragiMaterial> RECIPE_BICONSUMER = (item, material) -> {
     };
 
@@ -83,11 +82,11 @@ public abstract class MaterialItem extends HiiragiItem {
                 .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
                 .map(this::asItemStack)
                 .sorted(Comparator.comparing(ItemStack::getMetadata))
+                .filter(stack -> stack.getMetadata() > 0)
                 .forEach(items::add);
     }
 
     //    HiiragiEntry    //
-
 
     @Override
     public void registerOreDict() {

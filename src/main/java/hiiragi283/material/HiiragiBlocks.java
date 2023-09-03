@@ -1,12 +1,12 @@
 package hiiragi283.material;
 
 import hiiragi283.material.api.block.MaterialBlock;
+import hiiragi283.material.api.block.MaterialBlockCasing;
 import hiiragi283.material.api.item.HiiragiItemBlock;
 import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.config.RMConfig;
 import hiiragi283.material.util.CraftingBuilder;
-import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -40,9 +40,6 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
 
     public static final MaterialBlock MATERIAL_BLOCK = MaterialBlock.create(
             HiiragiShapes.BLOCK,
-            block -> {
-                HiiragiUtil.setModelSame(block.getObject());
-            },
             (block, material) -> {
                 if (material.isMetal()) {
                     new CraftingBuilder(block.asItemStack(material))
@@ -58,11 +55,25 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
             }
     );
 
+    public static final MaterialBlock MATERIAL_CASING = new MaterialBlockCasing();
+
+    public static final MaterialBlock MATERIAL_FRAME = MaterialBlock.create(
+            HiiragiShapes.FRAME,
+            (block, material) -> new CraftingBuilder(block.asItemStack(material, 2))
+                    .setPattern("AAA", "A A", "AAA")
+                    .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
+                    .build()
+    );
+
     //    Registry    //
 
     public static void init() {
         RagiMaterials.LOGGER.info("HiiragiBlocks has been initialized!");
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) ENTRIES.add(MATERIAL_BLOCK);
+        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
+            ENTRIES.add(MATERIAL_BLOCK);
+            ENTRIES.add(MATERIAL_CASING);
+            ENTRIES.add(MATERIAL_FRAME);
+        }
         MATERIAL_BLOCK.registerTileEntity();
     }
 

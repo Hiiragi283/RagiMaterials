@@ -1,5 +1,6 @@
 package hiiragi283.material.api.material;
 
+import hiiragi283.material.api.capability.machine.IMachineProperty;
 import hiiragi283.material.api.registry.HiiragiRegistryEntries;
 import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.api.shape.ShapeType;
@@ -67,6 +68,7 @@ public class ElementMaterials extends HiiragiRegistryEntries {
     public static final HiiragiMaterial CARBON = HiiragiMaterial.create("carbon", 6, builder -> {
         builder.color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.DARK_GRAY).getRGB();
         builder.formula = "C";
+        builder.hasFluid = false;
         builder.molar = 12.0;
         builder.shapeType = ShapeType.SOLID;
     });
@@ -135,6 +137,8 @@ public class ElementMaterials extends HiiragiRegistryEntries {
             put(HiiragiColor.WHITE, 5);
         }}).getRGB();
         builder.formula = "Al";
+        builder.machineProperty.setValue(IMachineProperty.Type.PROCESS_TIME, 20 * 8);
+        builder.machineProperty.setValue(IMachineProperty.Type.ENERGY_RATE, 48);
         builder.molar = 27.0;
         builder.shapeType = ShapeType.METAL_ADVANCED;
         builder.tempBoil = 2792;
@@ -302,6 +306,7 @@ public class ElementMaterials extends HiiragiRegistryEntries {
     public static final HiiragiMaterial ARSENIC = HiiragiMaterial.create("arsenic", 33, builder -> {
         builder.color = HiiragiColor.GRAY.getRGB();
         builder.formula = "As";
+        builder.hasFluid = false;
         builder.molar = 74.9;
         builder.shapeType = ShapeType.SOLID;
         //builder.tempBoil = 887;

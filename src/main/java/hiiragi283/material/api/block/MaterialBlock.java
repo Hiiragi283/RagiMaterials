@@ -1,7 +1,6 @@
 package hiiragi283.material.api.block;
 
 import hiiragi283.material.HiiragiCreativeTabs;
-import hiiragi283.material.api.item.HiiragiItemBlock;
 import hiiragi283.material.api.item.MaterialItemBlock;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.registry.HiiragiEntry;
@@ -14,6 +13,7 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -23,7 +23,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
@@ -33,13 +32,35 @@ import java.util.function.Consumer;
 public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<MaterialTileEntity> {
 
     public final HiiragiShape shape;
-    private final MaterialItemBlock itemBlock;
 
     public MaterialBlock(HiiragiShape shape) {
         super(Material.IRON, shape.name(), MaterialTileEntity.class);
         this.shape = shape;
         this.itemBlock = new MaterialItemBlock(this);
         setCreativeTab(HiiragiCreativeTabs.MATERIAL_BLOCK);
+    }
+
+    protected static final Consumer<HiiragiEntry.BLOCK> MODEL_CONSUMER = block -> HiiragiUtil.setModelSame(block.getObject());
+
+    protected static final BiConsumer<HiiragiEntry.BLOCK, HiiragiMaterial> RECIPE_BICONSUMER = (block, material) -> {
+    };
+
+    public static MaterialBlock create(HiiragiShape shape) {
+        return create(shape, MODEL_CONSUMER, RECIPE_BICONSUMER);
+    }
+
+    public static MaterialBlock create(
+            HiiragiShape shape,
+            Consumer<HiiragiEntry.BLOCK> model
+    ) {
+        return create(shape, model, RECIPE_BICONSUMER);
+    }
+
+    public static MaterialBlock create(
+            HiiragiShape shape,
+            BiConsumer<HiiragiEntry.BLOCK, HiiragiMaterial> recipe
+    ) {
+        return create(shape, MODEL_CONSUMER, recipe);
     }
 
     public static MaterialBlock create(
@@ -69,13 +90,14 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     @Override
     @ParametersAreNonnullByDefault
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        HiiragiUtil.getTile(world, pos, tileClazz).ifPresent(tile -> drops.add(asItemStack(tile.material)));
+        HiiragiUtil.getTile(world, pos, tileClazz).ifPresent(tile -> drops.add(asItemStack(tile.MATERIAL)));
     }
 
+    @NotNull
     @Override
     @ParametersAreNonnullByDefault
-    public @NotNull ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return HiiragiUtil.getTile(world, pos, tileClazz).map(tile -> asItemStack(tile.material)).orElse(ItemStack.EMPTY);
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+        return HiiragiUtil.getTile(world, pos, tileClazz).map(tile -> asItemStack(tile.MATERIAL)).orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -83,12 +105,13 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
         return 0;
     }
 
-    //    HiiragiEntry    //
-
+    @NotNull
     @Override
-    public @Nullable HiiragiItemBlock getItemBlock() {
-        return itemBlock;
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT;
     }
+
+    //    HiiragiEntry    //
 
     @Override
     public void registerOreDict() {
@@ -109,7 +132,7 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockColor(BlockColors blockColors) {
-        blockColors.registerBlockColorHandler((state, world, pos, tintIndex) -> HiiragiUtil.getTile(world, pos, tileClazz).map(tile -> tintIndex == 0 ? tile.material.color() : -1).orElse(-1), this);
+        blockColors.registerBlockColorHandler((state, world, pos, tintIndex) -> HiiragiUtil.getTile(world, pos, tileClazz).map(tile -> tintIndex == 0 ? tile.MATERIAL.color() : -1).orElse(-1), this);
     }
 
     @Override
