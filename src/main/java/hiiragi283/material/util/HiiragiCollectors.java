@@ -1,6 +1,7 @@
 package hiiragi283.material.util;
 
 import hiiragi283.material.api.material.HiiragiMaterial;
+import net.minecraft.util.NonNullList;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -83,6 +84,17 @@ public abstract class HiiragiCollectors {
             getListCombiner(),
             list -> list.stream().mapToDouble(d -> d).sum()
     );
+
+    //    NonNullList    //
+
+    public static <T> Collector<NonNullList<T>, List<T>, List<T>> NON_NULL_LIST_COLLECTOR() {
+        return Collector.of(
+                ArrayList::new,
+                List::addAll,
+                getListCombiner(),
+                list -> list
+        );
+    }
 
     //    Temperature    //
 

@@ -3,10 +3,9 @@ package hiiragi283.material.api.material;
 
 import com.github.bsideup.jabel.Desugar;
 import com.google.common.base.CaseFormat;
-import hiiragi283.material.api.capability.machine.IMachineProperty;
-import hiiragi283.material.api.capability.machine.MachineProperty;
 import hiiragi283.material.api.event.HiiragiEventFactory;
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
+import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.HiiragiShapes;
@@ -14,6 +13,7 @@ import hiiragi283.material.api.shape.ShapeType;
 import hiiragi283.material.util.HiiragiCollectors;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -21,6 +21,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * An object which contains several properties of material
@@ -58,7 +59,6 @@ public record HiiragiMaterial(
         Supplier<Optional<Block>> fluidBlock,
         String formula,
         boolean hasFluid,
-        IMachineProperty machineProperty,
         double molar,
         List<String> oreDictAlt,
         ShapeType shapeType,
@@ -92,6 +92,12 @@ public record HiiragiMaterial(
             tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt));
         if (hasTempBoil())
             tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil));
+    }
+
+    public List<ItemStack> getAllItemStack() {
+        return HiiragiShape.REGISTRY.getValues().stream()
+                .flatMap(shape -> new HiiragiPart(shape, this).getItemStacks().stream())
+                .collect(Collectors.toList());
     }
 
     public Optional<Fluid> getFluid() {
@@ -154,11 +160,18 @@ public record HiiragiMaterial(
         return HiiragiShapes.SOLID.isValid(this);
     }
 
+    public MaterialStack toMaterialStack() {
+        return toMaterialStack(144);
+    }
+
+    public MaterialStack toMaterialStack(int amount) {
+        return new MaterialStack(this, amount);
+    }
 
     //    General    //
 
     public HiiragiMaterial copy() {
-        return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, machineProperty, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
+        return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
     }
 
     public HiiragiMaterial copyAndEdit(Consumer<Builder> edit) {
@@ -167,7 +180,6 @@ public record HiiragiMaterial(
         builder.fluidBlock = this.fluidBlock;
         builder.formula = this.formula;
         builder.hasFluid = this.hasFluid;
-        builder.machineProperty = this.machineProperty;
         builder.molar = this.molar;
         builder.oreDictAlt = this.oreDictAlt;
         builder.shapeType = this.shapeType;
@@ -356,7 +368,6 @@ public record HiiragiMaterial(
         public Supplier<Optional<Block>> fluidBlock = Optional::empty;
         public String formula = "";
         public boolean hasFluid = true;
-        public IMachineProperty machineProperty = new MachineProperty();
         public double molar = 0.0;
         public List<String> oreDictAlt = new ArrayList<>();
         public ShapeType shapeType = ShapeType.INTERNAL;
@@ -379,7 +390,7 @@ public record HiiragiMaterial(
         }
 
         public HiiragiMaterial build() {
-            return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, machineProperty, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
+            return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
         }
 
     }

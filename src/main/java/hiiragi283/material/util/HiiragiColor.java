@@ -1,5 +1,7 @@
 package hiiragi283.material.util;
 
+import net.minecraft.client.renderer.GlStateManager;
+
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
@@ -55,6 +57,18 @@ public abstract class HiiragiColor {
             weight += entry.getValue();
         }
         return weight == 0 ? WHITE : new Color(averageR / weight, averageG / weight, averageB / weight);
+    }
+
+
+    public static void setGLColor(int color) {
+        float red = (color >> 16 & 255) / 255.0f;
+        float green = (color >> 8 & 255) / 255.0f;
+        float blue = (color & 255) / 255.0f;
+        GlStateManager.color(red, green, blue, 1.0f);
+    }
+
+    public static void setGLColor(Color color) {
+        setGLColor(color.getRGB());
     }
 
 }

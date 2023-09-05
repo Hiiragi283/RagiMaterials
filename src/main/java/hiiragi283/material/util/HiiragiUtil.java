@@ -6,7 +6,11 @@ import hiiragi283.material.RagiMaterials;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -212,6 +216,28 @@ public abstract class HiiragiUtil {
             RagiMaterials.LOGGER.warn("The registry " + registry.getClass().getName() + " is not implementing IForgeRegistryModifiable!");
             return false;
         }
+    }
+
+    //    Render    //
+
+    public static void drawFluid(@NotNull Minecraft minecraft, double x, double y, TextureAtlasSprite sprite) {
+        //TextureAtlasSpriteのx座標の左端と右端，y座標の下端と上端をDoubleに変換する
+        double uMin = sprite.getMinU();
+        double uMax = sprite.getMaxU();
+        double vMin = sprite.getMinV();
+        double vMax = sprite.getMaxV();
+        //GUiは2次元なのでz座標は適当?
+        double z = 100.0;
+        //Tessellatorに設定を書き込んでいく
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder vertexBuffer = tessellator.getBuffer();
+        vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        vertexBuffer.pos(x, y + 16, z).tex(uMin, vMax).endVertex(); //左下
+        vertexBuffer.pos(x + 16, y + 16, z).tex(uMax, vMax).endVertex(); //右下
+        vertexBuffer.pos(x + 16, y, z).tex(uMax, vMin).endVertex(); //左上
+        vertexBuffer.pos(x, y, z).tex(uMin, vMin).endVertex(); //右上
+        //いざ描画!!
+        tessellator.draw();
     }
 
     //    ResourceLocation    //

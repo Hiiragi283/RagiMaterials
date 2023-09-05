@@ -4,6 +4,7 @@ import com.github.bsideup.jabel.Desugar;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
+import hiiragi283.material.util.HiiragiCollectors;
 import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -19,6 +20,10 @@ public record HiiragiPart(HiiragiShape shape, HiiragiMaterial material) {
 
     public void addTooltip(List<String> tooltip) {
         material.addTooltip(tooltip, shape);
+    }
+
+    public List<ItemStack> getItemStacks() {
+        return getOreDicts().stream().map(OreDictionary::getOres).collect(HiiragiCollectors.NON_NULL_LIST_COLLECTOR());
     }
 
     public String getOreDict() {

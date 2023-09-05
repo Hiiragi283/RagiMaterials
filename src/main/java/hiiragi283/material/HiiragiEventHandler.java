@@ -1,6 +1,5 @@
 package hiiragi283.material;
 
-import hiiragi283.material.api.capability.HiiragiCapability;
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
 import hiiragi283.material.api.material.CommonMaterials;
 import hiiragi283.material.api.material.ElementMaterials;
@@ -10,16 +9,12 @@ import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.HiiragiShapes;
-import hiiragi283.material.api.tile.HiiragiProvider;
 import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -66,24 +61,6 @@ public class HiiragiEventHandler {
         HiiragiItems.INSTANCE.register(event.getRegistry());
     }
 
-    private static final ResourceLocation INVENTORY = HiiragiUtil.getLocation(HiiragiUtil.INVENTORY);
-    private static final ResourceLocation TANK = HiiragiUtil.getLocation(HiiragiUtil.TANK);
-    private static final ResourceLocation BATTERY = HiiragiUtil.getLocation(HiiragiUtil.BATTERY);
-    private static final ResourceLocation MACHINE = HiiragiUtil.getLocation(HiiragiUtil.MACHINE_PROPERTY);
-
-    @SubscribeEvent
-    public static void attachCapabilities(AttachCapabilitiesEvent<TileEntity> event) {
-        TileEntity tile = event.getObject();
-        if (tile instanceof HiiragiProvider.Inventory)
-            event.addCapability(INVENTORY, ((HiiragiProvider.Inventory) tile).createInventory());
-        if (tile instanceof HiiragiProvider.Tank)
-            event.addCapability(TANK, ((HiiragiProvider.Tank) tile).createTank());
-        if (tile instanceof HiiragiProvider.Battery)
-            event.addCapability(BATTERY, ((HiiragiProvider.Battery) tile).createBattery());
-        if (tile instanceof HiiragiProvider.Machine)
-            event.addCapability(MACHINE, ((HiiragiProvider.Machine) tile).createMachineProperty());
-    }
-
     @Mod.EventBusSubscriber(modid = RMReference.MOD_ID, value = Side.CLIENT)
     public static class Client {
 
@@ -120,9 +97,6 @@ public class HiiragiEventHandler {
                             .map(MaterialStack::new)
                             .collect(Collectors.toSet())
                             .forEach(materialStack -> materialStack.addTooltip(event.getToolTip())));
-
-            HiiragiUtil.getCapability(stack, HiiragiCapability.MACHINE_PROPERTY, null)
-                    .ifPresent(handler -> handler.addTooltip(event.getToolTip()));
 
         }
 
