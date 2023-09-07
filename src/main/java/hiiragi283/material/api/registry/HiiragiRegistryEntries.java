@@ -11,13 +11,13 @@ public abstract class HiiragiRegistryEntries {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T, U, V> void register(T instance, Class<V> clazz, HiiragiRegistry<U, V> registry, Consumer<V> consumer) throws IllegalAccessException {
+    public static <T> void register(Object instance, Class<T> clazz, Consumer<T> consumer) throws IllegalAccessException {
         Field[] fields = instance.getClass().getFields();
         for (Field field : fields) {
             field.setAccessible(true);
             Object obj = field.get(instance);
             if (clazz.isInstance(obj)) {
-                V objCasted = (V) obj;
+                T objCasted = (T) obj;
                 consumer.accept(objCasted);
             }
         }

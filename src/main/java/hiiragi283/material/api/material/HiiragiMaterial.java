@@ -67,9 +67,6 @@ public record HiiragiMaterial(
         String translationKey
 ) {
 
-    public static final HiiragiMaterial EMPTY = create("empty", 0, builder -> {
-    });
-
     public HiiragiMaterial addBracket() {
         return copyAndEdit(builder -> builder.formula = "(" + this.formula + ")");
     }
@@ -79,7 +76,6 @@ public record HiiragiMaterial(
     }
 
     public void addTooltip(List<String> tooltip, String name, int scale) {
-        if (isEmpty()) return;
         tooltip.add(I18n.format("tips.ragi_materials.property.name", name));
         tooltip.add("§e=== Material Property ===");
         if (hasFormula())
@@ -130,10 +126,6 @@ public record HiiragiMaterial(
 
     public boolean isIndexValid() {
         return index > 0 && index <= 32767;
-    }
-
-    public boolean isEmpty() {
-        return Objects.equals(this, EMPTY);
     }
 
     public boolean isLiquid() {
@@ -204,9 +196,9 @@ public record HiiragiMaterial(
 
     //    Registry    //
 
-    public static HiiragiRegistry<String, HiiragiMaterial> REGISTRY = new HiiragiRegistry<>("Material", EMPTY);
+    public static HiiragiRegistry<String, HiiragiMaterial> REGISTRY = new HiiragiRegistry<>("Material");
 
-    public static HiiragiRegistry<Integer, HiiragiMaterial> REGISTRY_INDEX = new HiiragiRegistry<>("Material Index", EMPTY);
+    public static HiiragiRegistry<Integer, HiiragiMaterial> REGISTRY_INDEX = new HiiragiRegistry<>("Material Index");
 
     public static void registerMaterials() {
 

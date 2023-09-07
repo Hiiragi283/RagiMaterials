@@ -3,6 +3,7 @@ package hiiragi283.material.api.block;
 import hiiragi283.material.RagiMaterials;
 import hiiragi283.material.api.tile.HiiragiTileEntity;
 import hiiragi283.material.util.HiiragiUtil;
+import hiiragi283.material.util.OptionalUtil;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -41,14 +42,14 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
     @Override
     @ParametersAreNonnullByDefault
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
-        HiiragiUtil.getTile(world, pos, tileClazz).ifPresent(tile -> tile.onTileRemoved(world, pos, state));
+        OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> tile.onTileRemoved(world, pos, state));
     }
 
     @Override
     @ParametersAreNonnullByDefault
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (hand == EnumHand.MAIN_HAND) {
-            var tile = HiiragiUtil.getTile(world, pos, tileClazz);
+            var tile = OptionalUtil.getTile(world, pos, tileClazz);
             return tile.map(t -> t.onTileActivated(world, pos, player, hand, facing)).orElse(false);
         }
         return false;
@@ -57,7 +58,7 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
     @Override
     @ParametersAreNonnullByDefault
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        HiiragiUtil.getTile(world, pos, tileClazz).ifPresent(tile -> tile.onTilePlaced(world, pos, state, placer, stack));
+        OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> tile.onTilePlaced(world, pos, state, placer, stack));
         super.onBlockPlacedBy(world, pos, state, placer, stack);
     }
 
@@ -85,7 +86,7 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
         @ParametersAreNonnullByDefault
         public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
             var stack = new ItemStack(this);
-            HiiragiUtil.getTile(world, pos, tileClazz).ifPresent(tile -> stack.getOrCreateSubCompound("BlockEntityTag").merge(tile.getUpdateTag()));
+            OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> stack.getOrCreateSubCompound("BlockEntityTag").merge(tile.getUpdateTag()));
             drops.add(stack);
         }
 

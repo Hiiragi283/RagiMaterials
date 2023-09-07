@@ -34,10 +34,9 @@ public class MaterialStackRenderer implements IIngredientRenderer<MaterialStack>
 
     private void drawMaterial(@NotNull Minecraft minecraft, int xPosition, int yPosition, @Nullable MaterialStack materialStack) {
         if (materialStack == null) return;
-        HiiragiMaterial material = materialStack.material();
         TextureMap textureMap = minecraft.getTextureMapBlocks();
         minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        HiiragiColor.setGLColor(material.color());
+        materialStack.getMaterial().map(HiiragiMaterial::color).ifPresent(HiiragiColor::setGLColor);
         HiiragiUtil.drawFluid(minecraft, xPosition, yPosition, getSprite(textureMap));
     }
 

@@ -9,10 +9,9 @@ import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.HiiragiShapes;
-import hiiragi283.material.util.HiiragiUtil;
+import hiiragi283.material.util.OptionalUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -37,7 +36,7 @@ public class HiiragiEventHandler {
 
         HiiragiRegistry<String, HiiragiShape> registry = event.getRegistry();
 
-        HiiragiShapes.register(new HiiragiShapes(), HiiragiShape.class, registry, shape -> registry.register(shape.name(), shape));
+        HiiragiShapes.register(new HiiragiShapes(), HiiragiShape.class, shape -> registry.register(shape.name(), shape));
 
     }
 
@@ -46,8 +45,8 @@ public class HiiragiEventHandler {
 
         HiiragiRegistry<String, HiiragiMaterial> registry = event.getRegistry();
 
-        ElementMaterials.register(new ElementMaterials(), HiiragiMaterial.class, registry, material -> registry.register(material.name(), material));
-        CommonMaterials.register(new CommonMaterials(), HiiragiMaterial.class, registry, material -> registry.register(material.name(), material));
+        ElementMaterials.register(new ElementMaterials(), HiiragiMaterial.class, material -> registry.register(material.name(), material));
+        CommonMaterials.register(new CommonMaterials(), HiiragiMaterial.class, material -> registry.register(material.name(), material));
 
     }
 
@@ -83,21 +82,20 @@ public class HiiragiEventHandler {
 
         @SubscribeEvent
         public static void onTooltip(ItemTooltipEvent event) {
-
-            ItemStack stack = event.getItemStack();
-            if (stack.isEmpty()) return;
-
-            new HashSet<>(HiiragiPart.getParts(event.getItemStack())).forEach(part -> part.addTooltip(event.getToolTip()));
-
-            HiiragiUtil.getCapability(stack, CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-                    .ifPresent(handler -> Arrays.stream(handler.getTankProperties())
-                            .filter(Objects::nonNull)
-                            .map(IFluidTankProperties::getContents)
-                            .filter(Objects::nonNull)
-                            .map(MaterialStack::new)
-                            .collect(Collectors.toSet())
-                            .forEach(materialStack -> materialStack.addTooltip(event.getToolTip())));
-
+            OptionalUtil.getStackNotEmpty(event.getItemStack()).ifPresent(stack -> {
+                //Ore Dictionary -> HiiragiPart Tooltips
+                new HashSet<>(HiiragiPart.getParts(event.getItemStack())).forEach(part -> part.addTooltip(event.getToolTip()));
+                //Fluid Containers -> MaterialStack Tooltips
+                OptionalUtil.getCapability(stack, CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+                        .ifPresent(handler -> Arrays.stream(handler.getTankProperties())
+                                .filter(Objects::nonNull)
+                                .map(IFluidTankProperties::getContents)
+                                .filter(Objects::nonNull)
+                                .map(MaterialStack::new)
+                                .filter(materialStack -> !materialStack.isEmpty())
+                                .collect(Collectors.toSet())
+                                .forEach(materialStack -> materialStack.addTooltip(event.getToolTip())));
+            });
         }
 
     }

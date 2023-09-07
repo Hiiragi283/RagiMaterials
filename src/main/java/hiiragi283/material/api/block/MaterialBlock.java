@@ -7,6 +7,7 @@ import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.tile.MaterialTileEntity;
 import hiiragi283.material.util.HiiragiUtil;
+import hiiragi283.material.util.OptionalUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -35,9 +36,12 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
 
     public MaterialBlock(HiiragiShape shape) {
         super(Material.IRON, shape.name(), MaterialTileEntity.class);
-        this.shape = shape;
+        this.blockHardness = 5.0f;
+        this.blockResistance = 5.0f;
         this.itemBlock = new MaterialItemBlock(this);
+        this.shape = shape;
         setCreativeTab(HiiragiCreativeTabs.MATERIAL_BLOCK);
+        setHarvestLevel("pickaxe", 1);
     }
 
     protected static final Consumer<HiiragiEntry.BLOCK> MODEL_CONSUMER = block -> HiiragiUtil.setModelSame(block.getObject());
@@ -90,14 +94,19 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     @Override
     @ParametersAreNonnullByDefault
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        HiiragiUtil.getTile(world, pos, tileClazz).ifPresent(tile -> drops.add(asItemStack(tile.MATERIAL)));
+        OptionalUtil.getTile(world, pos, tileClazz)
+                .flatMap(MaterialTileEntity::getMaterial)
+                .ifPresent(material -> drops.add(asItemStack(material)));
     }
 
     @NotNull
     @Override
     @ParametersAreNonnullByDefault
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return HiiragiUtil.getTile(world, pos, tileClazz).map(tile -> asItemStack(tile.MATERIAL)).orElse(ItemStack.EMPTY);
+        return OptionalUtil.getTile(world, pos, tileClazz)
+                .flatMap(MaterialTileEntity::getMaterial)
+                .map(this::asItemStack)
+                .orElse(ItemStack.EMPTY);
     }
 
     @Override
@@ -132,16 +141,18 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockColor(BlockColors blockColors) {
-        blockColors.registerBlockColorHandler((state, world, pos, tintIndex) -> HiiragiUtil.getTile(world, pos, tileClazz).map(tile -> tintIndex == 0 ? tile.MATERIAL.color() : -1).orElse(-1), this);
+        blockColors.registerBlockColorHandler((state, world, pos, tintIndex) -> OptionalUtil.getTile(world, pos, tileClazz)
+                .flatMap(MaterialTileEntity::getMaterial)
+                .map(HiiragiMaterial::color)
+                .orElse(-1), this);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerItemColor(ItemColors itemColors) {
-        itemColors.registerItemColorHandler((stack, tintIndex) -> {
-            HiiragiMaterial material = HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata());
-            return tintIndex == 0 ? material.color() : -1;
-        }, this);
+        itemColors.registerItemColorHandler((stack, tintIndex) -> HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                .map(HiiragiMaterial::color)
+                .orElse(-1), this);
     }
 
     @Override

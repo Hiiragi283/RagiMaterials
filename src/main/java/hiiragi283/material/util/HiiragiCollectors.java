@@ -96,6 +96,19 @@ public abstract class HiiragiCollectors {
         );
     }
 
+    //    String Serialization    //
+
+    public static final Collector<String, StringBuilder, String> STRING_SERIALIZATION_COLLECTOR = Collector.of(
+            StringBuilder::new,
+            (builder, value) -> builder.append(value).append(";"),
+            StringBuilder::append,
+            builder -> {
+                builder.setLength(builder.length() -1);
+                return builder.toString();
+            }
+    );
+
+
     //    Temperature    //
 
     public static final Collector<Map.Entry<HiiragiMaterial, Integer>, List<Integer>, Integer> TEMP_MELT_COLLECTOR = Collector.of(

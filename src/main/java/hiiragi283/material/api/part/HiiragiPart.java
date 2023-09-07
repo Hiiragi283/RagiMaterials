@@ -1,6 +1,5 @@
 package hiiragi283.material.api.part;
 
-import com.github.bsideup.jabel.Desugar;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
@@ -9,17 +8,35 @@ import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Desugar
-public record HiiragiPart(HiiragiShape shape, HiiragiMaterial material) {
+public class HiiragiPart {
 
-    public static final HiiragiPart EMPTY = new HiiragiPart(HiiragiShape.EMPTY, HiiragiMaterial.EMPTY);
+    @Nullable
+    private final HiiragiShape shape;
+    @Nullable
+    private final HiiragiMaterial material;
+
+    public HiiragiPart(@Nullable HiiragiShape shape, @Nullable HiiragiMaterial material) {
+        this.shape = shape;
+        this.material = material;
+    }
+
+    public Optional<HiiragiShape> getShape() {
+        return Optional.ofNullable(shape);
+    }
+
+    public Optional<HiiragiMaterial> getMaterial() {
+        return Optional.ofNullable(material);
+    }
+
+    public static final HiiragiPart EMPTY = new HiiragiPart(null, null);
 
     public void addTooltip(List<String> tooltip) {
-        material.addTooltip(tooltip, shape);
+        getShape().ifPresent(shape -> getMaterial().ifPresent(material -> material.addTooltip(tooltip, shape)));
     }
 
     public List<ItemStack> getItemStacks() {
@@ -27,44 +44,49 @@ public record HiiragiPart(HiiragiShape shape, HiiragiMaterial material) {
     }
 
     public String getOreDict() {
-        return shape.getOreDict(material);
+        return getShape().map(shape -> getMaterial()
+                .map(shape::getOreDict)
+                .orElse(""))
+                .orElse("");
     }
 
     public List<String> getOreDicts() {
-        return shape.getOreDicts(material);
+        return getShape().map(shape -> getMaterial()
+                .map(shape::getOreDicts)
+                .orElse(Collections.emptyList()))
+                .orElse(Collections.emptyList());
     }
 
     public boolean isEmpty() {
-        return this.equals(EMPTY) || this.shape.isEmpty() || this.material.isEmpty();
+        return this.equals(EMPTY) || this.shape == null || this.material == null;
     }
 
     @Override
     public String toString() {
-        return shape.name() + ":" + material.name();
+        return getShape().map(HiiragiShape::name).orElse("EMPTY_SHAPE") + ":" + getMaterial().map(HiiragiMaterial::name).orElse("EMPTY_MATERIAL");
     }
 
     //    Registry    //
 
-    public static HiiragiRegistry<String, HiiragiPart> REGISTRY = new HiiragiRegistry<>("Part", EMPTY);
+    public static HiiragiRegistry<String, HiiragiPart> REGISTRY = new HiiragiRegistry<>("Part");
 
     public static List<HiiragiPart> getAllParts() {
         return HiiragiShape.REGISTRY.getValues()
                 .stream()
-                .flatMap(shape -> HiiragiMaterial.REGISTRY.getValues()
-                        .stream()
+                .flatMap(shape -> HiiragiMaterial.REGISTRY.getValues().stream()
                         .map(material -> new HiiragiPart(shape, material)))
                 .collect(Collectors.toList());
     }
 
     public static List<HiiragiPart> getParts(Collection<String> oreDicts) {
         return oreDicts.stream()
-                .map(oreDict -> HiiragiPart.REGISTRY.getValue(oreDict))
-                .filter(part -> !part.isEmpty())
+                .map(oreDict -> HiiragiPart.REGISTRY.getValue(oreDict).orElse(null))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
     public static List<HiiragiPart> getParts(String oreDict) {
-        List<HiiragiPart> list = new ArrayList<>(Collections.singletonList(HiiragiPart.REGISTRY.getValue(oreDict)));
+        List<HiiragiPart> list = new ArrayList<>(Collections.singletonList(HiiragiPart.REGISTRY.getValue(oreDict).orElse(null)));
         list.remove(HiiragiPart.EMPTY);
         return new ArrayList<>(list);
     }
@@ -77,8 +99,8 @@ public record HiiragiPart(HiiragiShape shape, HiiragiMaterial material) {
         if (stack.isEmpty()) return new ArrayList<>();
         return Arrays.stream(OreDictionary.getOreIDs(stack))
                 .mapToObj(OreDictionary::getOreName)
-                .map(oreDict -> HiiragiPart.REGISTRY.getValue(oreDict))
-                .filter(part -> !part.isEmpty())
+                .map(oreDict -> HiiragiPart.REGISTRY.getValue(oreDict).orElse(null))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

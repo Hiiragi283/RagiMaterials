@@ -19,15 +19,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
@@ -48,6 +44,7 @@ public abstract class HiiragiUtil {
 
     //    Constants    //
 
+    public static final String AMOUNT = "amount";
     public static final String BlockEntityTag = "BlockEntityTag";
     public static final String BATTERY = "Battery";
     public static final String ForgeCaps = "ForgeCaps";
@@ -55,14 +52,8 @@ public abstract class HiiragiUtil {
     public static final String MACHINE_PROPERTY = "MachineProperty";
     public static final String MASS = "Mass";
     public static final String MATERIAL = "Material";
+    public static final String MATERIALS = "Materials";
     public static final String TANK = "Tank";
-
-    //    Capability    //
-
-    public static <T> Optional<T> getCapability(ICapabilityProvider provider, Capability<T> capability, @Nullable EnumFacing facing) {
-        var handler = provider.getCapability(capability, facing);
-        return handler == null ? Optional.empty() : Optional.of(handler);
-    }
 
     //    Drop    //
 
@@ -105,9 +96,9 @@ public abstract class HiiragiUtil {
     //    ItemStack    //
 
     public static ItemStack getItemStack(ResourceLocation location, int amount, int meta) {
-        Optional<Block> block = getEntry(ForgeRegistries.BLOCKS, location);
-        Optional<Item> item = getEntry(ForgeRegistries.ITEMS, location);
-        return block.map(b -> new ItemStack(b, amount, meta)).orElseGet(() -> item.map(i -> new ItemStack(i, amount, meta)).orElse(ItemStack.EMPTY));
+        Optional<Block> block = OptionalUtil.getEntry(ForgeRegistries.BLOCKS, location);
+        Optional<Item> item = OptionalUtil.getEntry(ForgeRegistries.ITEMS, location);
+        return block.map(b -> new ItemStack(b, amount, meta)).orElse(item.map(i -> new ItemStack(i, amount, meta)).orElse(ItemStack.EMPTY));
     }
 
     public static boolean isSameWithoutCount(ItemStack stack1, ItemStack stack2) {
@@ -194,15 +185,6 @@ public abstract class HiiragiUtil {
 
     //    Registry    //
 
-    public static <T extends IForgeRegistryEntry<T>> @NotNull Optional<T> getEntry(IForgeRegistry<T> registry, String location) {
-        return getEntry(registry, new ResourceLocation(location));
-    }
-
-    public static <T extends IForgeRegistryEntry<T>> @NotNull Optional<T> getEntry(IForgeRegistry<T> registry, ResourceLocation location) {
-        T ret = registry.getValue(location);
-        return ret == null ? Optional.empty() : Optional.of(ret);
-    }
-
     public static <T extends IForgeRegistryEntry<T>> boolean removeEntry(IForgeRegistry<T> registry, String location) {
         return removeEntry(registry, new ResourceLocation(location));
     }
@@ -260,15 +242,6 @@ public abstract class HiiragiUtil {
 
     public static @NotNull ResourceLocation toLocation(ItemStack stack, Character split) {
         return appendPath(Objects.requireNonNull(stack.getItem().getRegistryName()), split.toString() + stack.getMetadata());
-    }
-
-    //    TileEntity    //
-
-    @SuppressWarnings("unchecked")
-    public static <T extends TileEntity> @NotNull Optional<T> getTile(@Nullable IBlockAccess world, @Nullable BlockPos pos, Class<T> clazz) {
-        if (world == null || pos == null) return Optional.empty();
-        TileEntity tile = world.getTileEntity(pos);
-        return clazz.isInstance(tile) ? (Optional<T>) Optional.of(tile) : Optional.empty();
     }
 
     //    Misc    //

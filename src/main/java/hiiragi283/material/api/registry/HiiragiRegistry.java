@@ -5,46 +5,39 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.LinkedHashMap;
+import java.util.Optional;
 
 public class HiiragiRegistry<K, V> {
-    private final String name;
 
-    private final V defaultValue;
+    private boolean isUnmodifiable = false;
+    private final LinkedHashMap<K, V> REGISTRY = new LinkedHashMap<>();
+    private final String name;
     protected final Logger LOGGER;
 
-    public HiiragiRegistry(String name, V defaultValue) {
+    public HiiragiRegistry(String name) {
         this.name = name;
-        this.defaultValue = defaultValue;
         this.LOGGER = LogManager.getLogger(name);
     }
 
-    private final Map<K, V> REGISTRY = new HashMap<>();
-    private boolean isUnmodifiable = false;
-
+    @NotNull
     public String getName() {
         return name;
     }
 
-    public V getDefaultValue() {
-        return defaultValue;
-    }
-
+    @NotNull
     public Collection<V> getValues() {
         return REGISTRY.values();
     }
 
-    public @NotNull V getValue(K key) {
-        return REGISTRY.getOrDefault(key, defaultValue);
+    @NotNull
+    public Optional<V> getValue(@NotNull K key) {
+        return Optional.ofNullable(REGISTRY.get(key));
     }
 
-    public void register(K key, V value) {
+    public void register(@NotNull K key, @NotNull V value) {
         if (isUnmodifiable) {
             LOGGER.error("Cannot register any values with this registry!");
-        } else if (Objects.equals(value, defaultValue)) {
-            LOGGER.error("Cannot register default value!");
         } else if (REGISTRY.containsKey(key)) {
             LOGGER.error("The key: " + key + "is already registered!");
         } else {

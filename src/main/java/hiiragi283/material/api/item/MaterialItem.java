@@ -68,10 +68,13 @@ public abstract class MaterialItem extends HiiragiItem {
 
     //    Client    //
 
+    @NotNull
     @Override
     @SideOnly(Side.CLIENT)
-    public @NotNull String getItemStackDisplayName(@NotNull ItemStack stack) {
-        return shape.getTranslatedName(HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata()));
+    public String getItemStackDisplayName(@NotNull ItemStack stack) {
+        return HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                .map(shape::getTranslatedName)
+                .orElse(super.getItemStackDisplayName(stack));
     }
 
     @Override
@@ -79,7 +82,7 @@ public abstract class MaterialItem extends HiiragiItem {
     public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
         if (!isInCreativeTab(tab)) return;
         HiiragiMaterial.REGISTRY.getValues().stream()
-                .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
+                .filter(material -> material.isIndexValid() && material.isSolid() /*&& shape.isValid(material)*/)
                 .map(this::asItemStack)
                 .sorted(Comparator.comparing(ItemStack::getMetadata))
                 .filter(stack -> stack.getMetadata() > 0)
@@ -107,10 +110,9 @@ public abstract class MaterialItem extends HiiragiItem {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerItemColor(ItemColors itemColors) {
-        itemColors.registerItemColorHandler((stack, tintIndex) -> {
-            HiiragiMaterial material = HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata());
-            return tintIndex == 0 ? material.color() : -1;
-        }, this);
+        itemColors.registerItemColorHandler((stack, tintIndex) -> HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                .map(HiiragiMaterial::color)
+                .orElse(-1), this);
     }
 
     @Override

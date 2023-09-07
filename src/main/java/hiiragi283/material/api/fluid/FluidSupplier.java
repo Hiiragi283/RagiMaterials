@@ -1,6 +1,6 @@
 package hiiragi283.material.api.fluid;
 
-import hiiragi283.material.util.HiiragiUtil;
+import hiiragi283.material.util.OptionalUtil;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
@@ -18,7 +18,7 @@ public class FluidSupplier implements Supplier<Fluid> {
     private Fluid value;
 
     public FluidSupplier(String fluid, String block) {
-        this(() -> FluidRegistry.getFluid(fluid), () -> HiiragiUtil.getEntry(ForgeRegistries.BLOCKS, new ResourceLocation(block)));
+        this(() -> FluidRegistry.getFluid(fluid), () -> OptionalUtil.getEntry(ForgeRegistries.BLOCKS, new ResourceLocation(block)));
     }
 
     public FluidSupplier(Supplier<Fluid> fluidSupplier) {

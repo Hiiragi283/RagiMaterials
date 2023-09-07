@@ -19,9 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Recipe> {
 
@@ -44,7 +42,7 @@ public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Rec
     public void setRecipe(IRecipeLayout iRecipeLayout, Recipe recipe, IIngredients iIngredients) {
         //MaterialStack
         getMaterialStacks(iRecipeLayout).init(0, false, 4 + 1, 4 + 1);
-        getMaterialStacks(iRecipeLayout).set(0, recipe.getMaterial());
+        getMaterialStacks(iRecipeLayout).set(0, recipe.getMaterialStack());
         //ItemStack
         for (int i = 0; i < recipe.getStacks().size(); i++) {
             iRecipeLayout.getItemStacks().init(i, true, 18 * (i % 9) + 4, 18 * (i / 9) + 18 + 4);
@@ -55,16 +53,16 @@ public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Rec
     @Optional.Interface(iface = "mezz.jei.api.recipe.IRecipeWrapper", modid = "jei")
     public static class Recipe implements IRecipeWrapper {
 
-        private final MaterialStack material;
-        private final Set<ItemStack> stacks;
+        private final MaterialStack materialStack;
+        private final List<ItemStack> stacks;
 
         public Recipe(HiiragiMaterial material) {
-            this.material = material.toMaterialStack();
-            this.stacks = new HashSet<>(material.getAllItemStack());
+            this.materialStack = material.toMaterialStack();
+            this.stacks = material.getAllItemStack();
         }
 
-        public MaterialStack getMaterial() {
-            return new MaterialStack(material.material(), material.amount());
+        public MaterialStack getMaterialStack() {
+            return new MaterialStack(materialStack, materialStack.amount);
         }
 
         public List<ItemStack> getStacks() {
@@ -74,12 +72,12 @@ public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Rec
         @Override
         public void getIngredients(@NotNull IIngredients iIngredients) {
             iIngredients.setInputs(VanillaTypes.ITEM, getStacks());
-            iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, material);
+            iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, materialStack);
         }
 
         @Override
         public void drawInfo(@NotNull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
-            minecraft.fontRenderer.drawString(material.material().getTranslatedName(), 24, 10, HiiragiColor.WHITE.getRGB());
+            minecraft.fontRenderer.drawString(materialStack.getTranslatedName(), 24, 10, HiiragiColor.WHITE.getRGB());
         }
 
     }

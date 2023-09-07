@@ -23,10 +23,13 @@ public class MaterialItemBlock extends HiiragiItemBlock {
 
     //    Client    //
 
+    @NotNull
     @Override
     @SideOnly(Side.CLIENT)
-    public @NotNull String getItemStackDisplayName(@NotNull ItemStack stack) {
-        return shape.getTranslatedName(HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata()));
+    public String getItemStackDisplayName(@NotNull ItemStack stack) {
+        return HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                .map(shape::getTranslatedName)
+                .orElse(super.getItemStackDisplayName(stack));
     }
 
     @Override

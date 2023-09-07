@@ -1,6 +1,7 @@
 package hiiragi283.material.compat.jei.ingredient;
 
 import hiiragi283.material.RMReference;
+import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.material.MaterialStack;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import org.jetbrains.annotations.NotNull;
@@ -23,13 +24,13 @@ public class MaterialStackHelper implements IIngredientHelper<MaterialStack> {
     @NotNull
     @Override
     public String getDisplayName(@NotNull MaterialStack materialStack) {
-        return materialStack.material().getTranslatedName();
+        return materialStack.getTranslatedName();
     }
 
     @NotNull
     @Override
     public String getUniqueId(@NotNull MaterialStack materialStack) {
-        return materialStack.material().toString();
+        return materialStack.getMaterial().map(HiiragiMaterial::name).orElse("");
     }
 
     @NotNull
@@ -47,13 +48,13 @@ public class MaterialStackHelper implements IIngredientHelper<MaterialStack> {
     @NotNull
     @Override
     public String getResourceId(@NotNull MaterialStack materialStack) {
-        return materialStack.material().name();
+        return materialStack.getMaterial().map(HiiragiMaterial::name).orElse("");
     }
 
     @NotNull
     @Override
     public MaterialStack copyIngredient(@NotNull MaterialStack materialStack) {
-        return new MaterialStack(materialStack.material(), materialStack.amount());
+        return new MaterialStack(materialStack, materialStack.amount);
     }
 
     @NotNull

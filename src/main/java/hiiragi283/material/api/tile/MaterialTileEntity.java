@@ -9,28 +9,43 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class MaterialTileEntity extends HiiragiTileEntity {
+import java.util.Optional;
 
-    public HiiragiMaterial MATERIAL = HiiragiMaterial.EMPTY;
+public class MaterialTileEntity extends HiiragiTileEntity implements IMaterialTile {
+
+    @Nullable
+    private HiiragiMaterial MATERIAL;
 
     //    HiiragiTileEntity    //
 
     @Override
     public void readFromNBT(@NotNull NBTTagCompound compound) {
-        MATERIAL = HiiragiMaterial.REGISTRY.getValue(compound.getString(HiiragiUtil.MATERIAL));
+        HiiragiMaterial.REGISTRY.getValue(compound.getString(HiiragiUtil.MATERIAL))
+                .ifPresent(material -> MATERIAL = material);
         super.readFromNBT(compound);
     }
 
     @Override
     public @NotNull NBTTagCompound writeToNBT(@NotNull NBTTagCompound compound) {
-        compound.setString(HiiragiUtil.MATERIAL, MATERIAL.name());
+        Optional.ofNullable(MATERIAL)
+                .map(HiiragiMaterial::name)
+                .ifPresent(name -> compound.setString(HiiragiUtil.MATERIAL, name));
         return super.writeToNBT(compound);
     }
 
     @Override
     public void onTilePlaced(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        MATERIAL = HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata());
+        HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                .ifPresent(material -> MATERIAL = material);
+    }
+
+    //    IMaterialTile    //
+
+    @Override
+    public Optional<HiiragiMaterial> getMaterial() {
+        return Optional.ofNullable(MATERIAL);
     }
 
 }

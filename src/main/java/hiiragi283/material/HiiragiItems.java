@@ -116,10 +116,10 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
                         HiiragiUtil.appendPath(item.getLocation(), "_" + ShapeType.GEM_QUARTZ.name()),
                         HiiragiUtil.appendPath(item.getLocation(), "_" + ShapeType.GEM_RUBY.name())
                 );
-                ModelLoader.setCustomMeshDefinition(item.asItem(), stack -> {
-                    var shapeType = HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata()).shapeType();
-                    return new ModelResourceLocation(HiiragiUtil.appendPath(item.getLocation(), "_" + shapeType.name()), "inventory");
-                });
+                ModelLoader.setCustomMeshDefinition(item.asItem(), stack -> HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                        .map(HiiragiMaterial::shapeType)
+                        .map(shapeType -> new ModelResourceLocation(HiiragiUtil.appendPath(item.getLocation(), "_" + shapeType.name()), "inventory"))
+                        .orElse(new ModelResourceLocation(item.getLocation(), "inventory")));
             },
             (item, material) -> new CraftingBuilder(item.asItemStack(material, 9))
                     .addIngredient(new HiiragiIngredient(HiiragiShapes.BLOCK.getOreDict(material)))

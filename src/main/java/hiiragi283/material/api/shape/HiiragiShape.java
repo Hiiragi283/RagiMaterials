@@ -7,6 +7,7 @@ import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,7 @@ import java.util.Objects;
 @Desugar
 public record HiiragiShape(String name, int scale) {
 
-    public static final HiiragiShape EMPTY = new HiiragiShape("empty", 0);
-
-    public boolean isEmpty() {
-        return Objects.equals(this, EMPTY);
-    }
-
+    @NotNull
     public String getOreDict(HiiragiMaterial material) {
         return getOreDictPrefix() + material.getOreDictName();
     }
@@ -36,10 +32,12 @@ public record HiiragiShape(String name, int scale) {
         return list;
     }
 
+    @NotNull
     public String getOreDictPrefix() {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name);
     }
 
+    @NotNull
     public String getTranslatedName(HiiragiMaterial material) {
         return I18n.format("hiiragi_shape." + name, material.getTranslatedName());
     }
@@ -68,7 +66,7 @@ public record HiiragiShape(String name, int scale) {
 
     //    Registry    //
 
-    public static HiiragiRegistry<String, HiiragiShape> REGISTRY = new HiiragiRegistry<>("Shape", EMPTY);
+    public static HiiragiRegistry<String, HiiragiShape> REGISTRY = new HiiragiRegistry<>("Shape");
 
     public static void registerShapes() {
         var event = new HiiragiRegistryEvent.Shape(HiiragiShape.REGISTRY);

@@ -5,8 +5,10 @@ import hiiragi283.material.api.block.MaterialBlockCasing;
 import hiiragi283.material.api.item.HiiragiItemBlock;
 import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShapes;
+import hiiragi283.material.block.BlockTestMachine;
 import hiiragi283.material.config.RMConfig;
 import hiiragi283.material.util.CraftingBuilder;
+import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -65,6 +67,8 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
                     .build()
     );
 
+    //public static final BlockTestMachine TEST_MACHINE = new BlockTestMachine();
+
     //    Registry    //
 
     public static void init() {
@@ -73,8 +77,12 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
             ENTRIES.add(MATERIAL_BLOCK);
             ENTRIES.add(MATERIAL_CASING);
             ENTRIES.add(MATERIAL_FRAME);
+            MATERIAL_BLOCK.registerTileEntity();
         }
-        MATERIAL_BLOCK.registerTileEntity();
+        if (HiiragiUtil.isDeobf()) {
+            // ENTRIES.add(TEST_MACHINE);
+            //TEST_MACHINE.registerTileEntity();
+        }
     }
 
     @Override
