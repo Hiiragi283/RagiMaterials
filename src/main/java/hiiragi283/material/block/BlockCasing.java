@@ -38,8 +38,6 @@ public class BlockCasing extends HiiragiBlock {
 
     public BlockCasing() {
         super(Material.IRON, "casing");
-        blockHardness = 5.0f;
-        blockResistance = 5.0f;
         setDefaultState(getDefaultState().withProperty(HiiragiProperty.TYPE16, 0));
         setHarvestLevel("pickaxe", 0, getStateFromMeta(0));
         setHarvestLevel("pickaxe", 1, getStateFromMeta(1));

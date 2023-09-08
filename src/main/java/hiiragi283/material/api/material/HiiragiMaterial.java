@@ -1,74 +1,160 @@
 package hiiragi283.material.api.material;
 
-
-import com.github.bsideup.jabel.Desugar;
 import com.google.common.base.CaseFormat;
-import hiiragi283.material.api.event.HiiragiEventFactory;
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
+import hiiragi283.material.api.fluid.MaterialFluidNew;
+import hiiragi283.material.api.machine.IMachineProperty;
 import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.api.shape.ShapeType;
-import hiiragi283.material.util.HiiragiCollectors;
+import hiiragi283.material.util.HiiragiColor;
+import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
  * An object which contains several properties of material
- * <p>
- * Should be registered in
- * <p>
- * === Index Range ===
- * <p>
- * <= 0 ... Not registered
- * <p>
- * 1 ~ 118 ... Periodic Table
- * <p>
- * 120 ~ 199 ... Isotopes
- * <p>
- * 1000 ~ 1900 ... Integration for other mods
- * <p>
- * 10010 ~ 11899 ... Compounds: 1 + Atomic Number + Index
- * <p>
- * >= 32768 ... Not registered
- *
- * @param name           should be unique
- * @param index          follows above format
- * @param color          see also [hiiragi283.material.util.HiiragiColor]
- * @param formula        empty value will be ignored
- * @param molar          0 or less value will be ignored
- * @param tempBoil       boiling point with kelvin Temperature, 0 or less will be ignored
- * @param tempMelt       melting point with kelvin Temperature, 0 or less will be ignored
- * @param translationKey can be overridden
  */
-@Desugar
-public record HiiragiMaterial(
-        String name,
-        int index,
-        int color,
-        Supplier<Optional<Block>> fluidBlock,
-        String formula,
-        boolean hasFluid,
-        double molar,
-        List<String> oreDictAlt,
-        ShapeType shapeType,
-        int tempBoil,
-        int tempMelt,
-        String translationKey
-) {
+public class HiiragiMaterial {
+
+    /**
+     * should be unique
+     */
+    @NotNull
+    public final String name;
+
+    /**
+     * === Index Range ===
+     * <p>
+     * <= 0 ... Not registered
+     * <p>
+     * 1 ~ 118 ... Periodic Table
+     * <p>
+     * 120 ~ 199 ... Isotopes
+     * <p>
+     * 1000 ~ 1900 ... Integration for other mods
+     * <p>
+     * 10010 ~ 11899 ... Compounds: 1 + Atomic Number + Index
+     * <p>
+     * >= 32768 ... Not registered
+     */
+    public final int index;
+
+    /**
+     * see also {@link HiiragiColor}
+     */
+    public int color = 0xFFFFFF;
+
+    /**
+     * provides fluid block, set null if this material has no fluid block
+     */
+    @Nullable
+    protected Block fluidBlock = null;
+
+    public Optional<Block> getFluidBlock() {
+        return Optional.ofNullable(fluidBlock);
+    }
+
+    /**
+     * provides fluid, set null if this material has no fluid
+     */
+    @Nullable
+    protected Fluid fluid;
+
+    public Optional<Fluid> getFluid() {
+        return Optional.ofNullable(fluid);
+    }
+
+    /**
+     * empty value will be ignored
+     */
+    @NotNull
+    public String formula = "";
+
+    /**
+     * provides machine property, set null if this material cannot build machine
+     */
+    @Nullable
+    protected IMachineProperty machineProperty = null;
+
+    public Optional<IMachineProperty> getMachineProperty() {
+        return Optional.ofNullable(machineProperty);
+    }
+
+    /**
+     * 0 or less value will be ignored
+     */
+    public double molar = 0.0;
+
+    @NotNull
+    public final List<String> oreDictAlt = new ArrayList<>();
+
+    /**
+     * define
+     */
+    @NotNull
+    public ShapeType shapeType = ShapeType.INTERNAL;
+
+    /**
+     * boiling point with kelvin Temperature, 0 or less will be ignored
+     */
+    public int tempBoil = 0;
+
+    /**
+     * melting point with kelvin Temperature, 0 or less will be ignored
+     */
+    public int tempMelt = 0;
+
+    /**
+     * initialized in constructor but can be overridden
+     */
+    @NotNull
+    public String translationKey;
+
+    public HiiragiMaterial(@NotNull String name, int index) {
+        this.name = name;
+        this.index = index;
+        this.translationKey = "hiiragi_material." + name;
+        this.fluid = new MaterialFluidNew(this); //must be last!
+    }
+
+    public HiiragiMaterial copy() {
+        return copy(HiiragiUtil.getEmptyConsumer());
+    }
+
+    public HiiragiMaterial copy(Consumer<HiiragiMaterial> consumer) {
+        var material = new HiiragiMaterial(name, index);
+        material.color = this.color;
+        material.fluidBlock = this.fluidBlock;
+        material.formula = this.formula;
+        material.machineProperty = this.machineProperty;
+        material.molar = this.molar;
+        material.oreDictAlt.addAll(this.oreDictAlt);
+        material.shapeType = this.shapeType;
+        material.tempBoil = this.tempBoil;
+        material.tempMelt = this.tempMelt;
+        material.translationKey = this.translationKey;
+        consumer.accept(material);
+        return material;
+    }
+
+    //    Utils    //
 
     public HiiragiMaterial addBracket() {
-        return copyAndEdit(builder -> builder.formula = "(" + this.formula + ")");
+        return copy(material -> material.formula = "(" + this.formula + ")");
     }
 
     public void addTooltip(List<String> tooltip, HiiragiShape shape) {
@@ -94,10 +180,6 @@ public record HiiragiMaterial(
         return HiiragiShape.REGISTRY.getValues().stream()
                 .flatMap(shape -> new HiiragiPart(shape, this).getItemStacks().stream())
                 .collect(Collectors.toList());
-    }
-
-    public Optional<Fluid> getFluid() {
-        return FluidRegistry.isFluidRegistered(name) ? Optional.of(FluidRegistry.getFluid(name)) : Optional.empty();
     }
 
     public String getOreDictName() {
@@ -160,40 +242,6 @@ public record HiiragiMaterial(
         return new MaterialStack(this, amount);
     }
 
-    //    General    //
-
-    public HiiragiMaterial copy() {
-        return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
-    }
-
-    public HiiragiMaterial copyAndEdit(Consumer<Builder> edit) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        builder.color = this.color;
-        builder.fluidBlock = this.fluidBlock;
-        builder.formula = this.formula;
-        builder.hasFluid = this.hasFluid;
-        builder.molar = this.molar;
-        builder.oreDictAlt = this.oreDictAlt;
-        builder.shapeType = this.shapeType;
-        builder.tempBoil = this.tempBoil;
-        builder.tempMelt = this.tempMelt;
-        builder.translationKey = this.translationKey;
-        edit.accept(builder);
-        return builder.build();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (!(obj instanceof HiiragiMaterial)) return false;
-        return Objects.equals(((HiiragiMaterial) obj).name, this.name);
-    }
-
-    @Override
-    public String toString() {
-        return "Material:" + name;
-    }
-
     //    Registry    //
 
     public static HiiragiRegistry<String, HiiragiMaterial> REGISTRY = new HiiragiRegistry<>("Material");
@@ -206,184 +254,8 @@ public record HiiragiMaterial(
         MinecraftForge.EVENT_BUS.post(event);
         HiiragiMaterial.REGISTRY.setUnmodifiable();
 
-        HiiragiMaterial.REGISTRY.getValues().forEach(material -> HiiragiMaterial.REGISTRY_INDEX.register(material.index(), material));
+        HiiragiMaterial.REGISTRY.getValues().forEach(material -> HiiragiMaterial.REGISTRY_INDEX.register(material.index, material));
         HiiragiMaterial.REGISTRY_INDEX.setUnmodifiable();
-
-    }
-
-    //    Material    //
-
-    private static HiiragiMaterial build(HiiragiMaterial.Builder builder, Consumer<HiiragiMaterial.Builder> consumer) {
-        consumer.accept(builder);
-        builder.molar = (int) (builder.molar * 10.0) / 10.0;
-        HiiragiEventFactory.onMaterialCreate(builder);
-        return builder.build();
-    }
-
-    public static HiiragiMaterial create(String name, int index, Consumer<HiiragiMaterial.Builder> consumer) {
-        return build(new HiiragiMaterial.Builder(name, index), consumer);
-    }
-
-    //    Isotope    //
-    public static HiiragiMaterial createIsotope(String name, int index, HiiragiMaterial parent, Consumer<HiiragiMaterial.Builder> consumer) {
-        return build(new HiiragiMaterial.Builder(name, index, parent), consumer);
-    }
-
-    //    Compound    //
-
-    public static HiiragiMaterial createCompound(String name, int index, Map<HiiragiMaterial, Integer> components) {
-        return createCompound(name, index, components, builder -> {
-        });
-    }
-
-    public static HiiragiMaterial createCompound(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        initCompound(builder, components);
-        return build(builder, consumer);
-    }
-
-    private static void initCompound(HiiragiMaterial.Builder builder, Map<HiiragiMaterial, Integer> components) {
-
-        builder.color = components.entrySet().stream().collect(HiiragiCollectors.MATERIAL_COLOR_COLLECTOR).getRGB();
-
-        builder.formula = components.entrySet().stream()
-                .filter(entry -> entry.getKey().hasFormula())
-                .collect(HiiragiCollectors.COMPOUND_FORMULA_COLLECTOR);
-
-        builder.molar = components.entrySet().stream()
-                .filter(entry -> entry.getKey().hasMolar())
-                .collect(HiiragiCollectors.MOLAR_COLLECTOR);
-
-    }
-
-    //    Solution    //
-
-    public static HiiragiMaterial createSolution(String name, int index, Map<HiiragiMaterial, Integer> components) {
-        return createSolution(name, index, components, builder -> {
-        });
-    }
-
-    public static HiiragiMaterial createSolution(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        initCompound(builder, components);
-
-        builder.tempBoil = CommonMaterials.WATER.tempBoil();
-        builder.tempMelt = CommonMaterials.WATER.tempMelt();
-
-        return build(builder, consumer);
-    }
-
-    //    Alloy    //
-
-
-    public static HiiragiMaterial createAlloy(String name, int index, Map<HiiragiMaterial, Integer> components, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        initCompound(builder, components);
-        initTempBoil(builder, components);
-        initTempMelt(builder, components);
-        return build(builder, consumer);
-    }
-
-    private static void initTempBoil(HiiragiMaterial.Builder builder, Map<HiiragiMaterial, Integer> components) {
-        builder.tempMelt = components.entrySet().stream()
-                .filter(entry -> entry.getKey().hasTempBoil())
-                .collect(HiiragiCollectors.TEMP_BOIL_COLLECTOR);
-    }
-
-    private static void initTempMelt(HiiragiMaterial.Builder builder, Map<HiiragiMaterial, Integer> components) {
-        builder.tempMelt = components.entrySet().stream()
-                .filter(entry -> entry.getKey().hasTempMelt())
-                .collect(HiiragiCollectors.TEMP_MELT_COLLECTOR);
-    }
-
-    //    Mixture    //
-
-    public static HiiragiMaterial createMixture(String name, int index, List<HiiragiMaterial> components) {
-        return createMixture(name, index, components, builder -> {
-        });
-    }
-
-    public static HiiragiMaterial createMixture(String name, int index, List<HiiragiMaterial> components, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        initMixture(builder, components);
-        return build(builder, consumer);
-    }
-
-    private static void initMixture(HiiragiMaterial.Builder builder, List<HiiragiMaterial> components) {
-        builder.formula = components.stream()
-                .filter(HiiragiMaterial::hasFormula)
-                .collect(HiiragiCollectors.MIXTURE_FORMULA_COLLECTOR);
-        builder.molar = 0.0;
-    }
-
-    //    Steel    //
-
-    public static HiiragiMaterial createSteel(String name, int index, List<HiiragiMaterial> components, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        initMixture(builder, components);
-        builder.shapeType = ShapeType.METAL_ADVANCED;
-        builder.tempBoil = ElementMaterials.IRON.tempBoil();
-        builder.tempMelt = ElementMaterials.IRON.tempMelt();
-        return build(builder, consumer);
-    }
-
-    //    Hydrate    //
-
-    public static HiiragiMaterial createHydrate(String name, int index, HiiragiMaterial parent, int waterAmount, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-
-        builder.molar = parent.molar() + waterAmount * CommonMaterials.WATER.molar();
-        builder.formula = parent.formula() + "・" + waterAmount + CommonMaterials.WATER.formula;
-
-        return build(builder, consumer);
-    }
-
-    //    Polymer    //
-
-    public static HiiragiMaterial createPolymer(String name, int index, Map<HiiragiMaterial, Integer> monomar, Consumer<HiiragiMaterial.Builder> consumer) {
-        var builder = new HiiragiMaterial.Builder(name, index);
-        initCompound(builder, monomar);
-
-        builder.formula = "(" + builder.formula + ")n";
-        builder.molar = 0.0;
-
-        return build(builder, consumer);
-    }
-
-    //    Builder    //
-
-    public static class Builder {
-
-        public final String name;
-        public final int index;
-        public int color = 0xFFFFFF;
-        public Supplier<Optional<Block>> fluidBlock = Optional::empty;
-        public String formula = "";
-        public boolean hasFluid = true;
-        public double molar = 0.0;
-        public List<String> oreDictAlt = new ArrayList<>();
-        public ShapeType shapeType = ShapeType.INTERNAL;
-        public int tempBoil = 0;
-        public int tempMelt = 0;
-        public String translationKey;
-
-        private Builder(String name, int index, HiiragiMaterial parent) {
-            this(name, index);
-            this.color = parent.color();
-            this.shapeType = parent.shapeType();
-            this.tempBoil = parent.tempBoil();
-            this.tempMelt = parent.tempMelt();
-        }
-
-        private Builder(String name, int index) {
-            this.name = name;
-            this.index = index;
-            translationKey = "hiiragi_material." + name;
-        }
-
-        public HiiragiMaterial build() {
-            return new HiiragiMaterial(name, index, color, fluidBlock, formula, hasFluid, molar, oreDictAlt, shapeType, tempBoil, tempMelt, translationKey);
-        }
 
     }
 

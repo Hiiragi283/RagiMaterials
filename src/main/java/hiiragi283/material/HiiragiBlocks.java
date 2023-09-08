@@ -5,6 +5,7 @@ import hiiragi283.material.api.block.MaterialBlockCasing;
 import hiiragi283.material.api.item.HiiragiItemBlock;
 import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShapes;
+import hiiragi283.material.block.BlockModuleInstaller;
 import hiiragi283.material.block.BlockTestMachine;
 import hiiragi283.material.config.RMConfig;
 import hiiragi283.material.util.CraftingBuilder;
@@ -67,7 +68,9 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
                     .build()
     );
 
-    //public static final BlockTestMachine TEST_MACHINE = new BlockTestMachine();
+    public static final BlockTestMachine TEST_MACHINE = new BlockTestMachine();
+
+    public static final BlockModuleInstaller MODULE_INSTALLER = new BlockModuleInstaller();
 
     //    Registry    //
 
@@ -80,8 +83,10 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
             MATERIAL_BLOCK.registerTileEntity();
         }
         if (HiiragiUtil.isDeobf()) {
-            // ENTRIES.add(TEST_MACHINE);
-            //TEST_MACHINE.registerTileEntity();
+            ENTRIES.add(TEST_MACHINE);
+            ENTRIES.add(MODULE_INSTALLER);
+            TEST_MACHINE.registerTileEntity();
+            MODULE_INSTALLER.registerTileEntity();
         }
     }
 

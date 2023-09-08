@@ -39,6 +39,10 @@ public class MaterialStack {
         this(HiiragiMaterial.REGISTRY.getValue(name).orElse(null), amount);
     }
 
+    public MaterialStack(MaterialStack stack) {
+        this(stack.material, stack.amount);
+    }
+
     public MaterialStack(MaterialStack stack, int amount) {
         this(stack.material, amount);
     }
@@ -84,7 +88,7 @@ public class MaterialStack {
 
     public NBTTagCompound serializeNBT() {
         var tag = new NBTTagCompound();
-        tag.setString(HiiragiUtil.MATERIAL, material != null ? material.name() : "");
+        tag.setString(HiiragiUtil.MATERIAL, material != null ? material.name : "");
         tag.setInteger(HiiragiUtil.AMOUNT, amount);
         return tag;
     }

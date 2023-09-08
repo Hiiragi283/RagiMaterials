@@ -1,5 +1,7 @@
 package hiiragi283.material.api.tile;
 
+import hiiragi283.material.HiiragiGuiHandler;
+import hiiragi283.material.RagiMaterials;
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTankWrapper;
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper;
 import net.minecraft.block.state.IBlockState;
@@ -30,6 +32,10 @@ public abstract class HiiragiTileEntity extends TileEntity {
 
     public @NotNull IBlockState getState() {
         return hasWorld() ? world.getBlockState(pos) : Objects.requireNonNull(Blocks.AIR).getDefaultState();
+    }
+
+    protected void openGui(EntityPlayer player, World world, BlockPos pos) {
+        player.openGui(RagiMaterials.INSTANCE, HiiragiGuiHandler.TILE_ENTITY, world, pos.getX(), pos.getY(), pos.getZ());
     }
 
     //    NBT    //

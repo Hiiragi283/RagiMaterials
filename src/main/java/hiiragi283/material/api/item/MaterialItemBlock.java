@@ -10,8 +10,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
-
 public class MaterialItemBlock extends HiiragiItemBlock {
 
     public final HiiragiShape shape;
@@ -19,6 +17,11 @@ public class MaterialItemBlock extends HiiragiItemBlock {
     public MaterialItemBlock(MaterialBlock block) {
         super(block, 32767);
         this.shape = block.shape;
+    }
+
+    @NotNull
+    public HiiragiShape getShape() {
+        return shape;
     }
 
     //    Client    //
@@ -36,12 +39,7 @@ public class MaterialItemBlock extends HiiragiItemBlock {
     @SideOnly(Side.CLIENT)
     public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
         if (!isInCreativeTab(tab)) return;
-        HiiragiMaterial.REGISTRY.getValues().stream()
-                .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
-                .map(this::asItemStack)
-                .sorted(Comparator.comparing(ItemStack::getMetadata))
-                .filter(stack -> stack.getMetadata() > 0)
-                .forEach(items::add);
+        this.block.getSubBlocks(tab, items);
     }
 
 }

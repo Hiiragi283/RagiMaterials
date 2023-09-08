@@ -1,39 +1,65 @@
 package hiiragi283.material.tile;
 
-import hiiragi283.material.api.capability.HiiragiCapability;
+import com.cleanroommc.modularui.api.IGuiHolder;
+import com.cleanroommc.modularui.drawable.GuiTextures;
+import com.cleanroommc.modularui.manager.GuiCreationContext;
+import com.cleanroommc.modularui.manager.GuiInfos;
+import com.cleanroommc.modularui.screen.ModularPanel;
+import com.cleanroommc.modularui.utils.Alignment;
+import com.cleanroommc.modularui.value.sync.GuiSyncManager;
+import com.cleanroommc.modularui.value.sync.SyncHandlers;
+import com.cleanroommc.modularui.widgets.FluidSlot;
+import com.cleanroommc.modularui.widgets.ItemSlot;
+import com.cleanroommc.modularui.widgets.ProgressWidget;
+import com.cleanroommc.modularui.widgets.SlotGroupWidget;
+import com.cleanroommc.modularui.widgets.layout.Column;
 import hiiragi283.material.api.capability.IOControllable;
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank;
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTankWrapper;
 import hiiragi283.material.api.capability.item.HiiragiItemHandler;
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper;
-import hiiragi283.material.api.capability.material.MaterialHandler;
 import hiiragi283.material.api.tile.MaterialTileEntity;
+import hiiragi283.material.util.ModularOutputSlot;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TileEntityTestMachine extends MaterialTileEntity {
+public class TileEntityTestMachine extends MaterialTileEntity implements IGuiHolder {
 
-    protected HiiragiFluidTank outputTank0 = new HiiragiFluidTank(64000, IOControllable.Type.OUTPUT);
-    protected HiiragiFluidTank outputTank1 = new HiiragiFluidTank(64000, IOControllable.Type.OUTPUT);
-    protected HiiragiFluidTank outputTank2 = new HiiragiFluidTank(64000, IOControllable.Type.OUTPUT);
-    protected HiiragiItemHandler inputInv = new HiiragiItemHandler(6, IOControllable.Type.INPUT);
-    protected HiiragiItemHandler outputInv = new HiiragiItemHandler(6, IOControllable.Type.OUTPUT);
-    protected MaterialHandler materialHandler = new MaterialHandler(64000, 3);
+    private final HiiragiFluidTank inputTank0 = new HiiragiFluidTank(64000, IOControllable.Type.INPUT);
+    private final HiiragiFluidTank inputTank1 = new HiiragiFluidTank(64000, IOControllable.Type.INPUT);
+    private final HiiragiFluidTank inputTank2 = new HiiragiFluidTank(64000, IOControllable.Type.INPUT);
+    private final HiiragiFluidTank outputTank0 = new HiiragiFluidTank(64000, IOControllable.Type.OUTPUT);
+    private final HiiragiFluidTank outputTank1 = new HiiragiFluidTank(64000, IOControllable.Type.OUTPUT);
+    private final HiiragiFluidTank outputTank2 = new HiiragiFluidTank(64000, IOControllable.Type.OUTPUT);
+    private final HiiragiItemHandler inputInv = new HiiragiItemHandler(6, IOControllable.Type.INPUT);
+    private final HiiragiItemHandler outputInv = new HiiragiItemHandler(6, IOControllable.Type.OUTPUT);
 
     public TileEntityTestMachine() {
         this.inventory = new HiiragiItemHandlerWrapper(inputInv, outputInv);
-        this.tank = new HiiragiFluidTankWrapper(outputTank0, outputTank1, outputTank2);
+        this.tank = new HiiragiFluidTankWrapper(inputTank0, inputTank1, inputTank2, outputTank0, outputTank1, outputTank2);
+    }
+
+    //    Event    //
+
+    @Override
+    public boolean onTileActivated(World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing facing) {
+        if (!world.isRemote) GuiInfos.TILE_ENTITY.open(player, world, pos);
+        return true;
     }
 
     //    Capability    //
 
     @Override
     public boolean hasCapability(@NotNull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || capability == HiiragiCapability.MATERIAL_HANDLER_CAPABILITY;
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
     }
 
     @Nullable
@@ -43,11 +69,45 @@ public class TileEntityTestMachine extends MaterialTileEntity {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory);
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
             return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank);
-        } else if (capability == HiiragiCapability.MATERIAL_HANDLER_CAPABILITY) {
-            return HiiragiCapability.MATERIAL_HANDLER_CAPABILITY.cast(materialHandler);
         } else {
             return null;
         }
+    }
+
+    //    IGuiHolder    //
+
+    @Override
+    public ModularPanel buildUI(GuiCreationContext creationContext, GuiSyncManager syncManager, boolean isClient) {
+
+        syncManager.registerSlotGroup("inputInv", 3);
+        syncManager.registerSlotGroup("outputInv", 3);
+
+        syncManager.syncValue("tank", 0, SyncHandlers.fluidSlot(inputTank0));
+        syncManager.syncValue("tank", 1, SyncHandlers.fluidSlot(inputTank1));
+        syncManager.syncValue("tank", 2, SyncHandlers.fluidSlot(inputTank2));
+        syncManager.syncValue("tank", 3, SyncHandlers.fluidSlot(outputTank0));
+        syncManager.syncValue("tank", 4, SyncHandlers.fluidSlot(outputTank1));
+        syncManager.syncValue("tank", 5, SyncHandlers.fluidSlot(outputTank2));
+
+        ModularPanel panel = new ModularPanel("test_machine");
+        panel.flex().align(Alignment.Center);
+        panel.bindPlayerInventory();
+
+        panel.child(new Column()
+                .padding(16)
+                .child(SlotGroupWidget.playerInventory())
+                .child(SlotGroupWidget.builder()
+                        .matrix("III OOO",
+                                "III>OOO",
+                                "FFF FFF")
+                        .key('I', index -> new ItemSlot().slot(SyncHandlers.itemSlot(inputInv, index).slotGroup("inputInv")))
+                        .key('O', index -> new ItemSlot().slot(new ModularOutputSlot(outputInv, index).slotGroup("outputInv")))
+                        .key('>', index -> new ProgressWidget().progress(() -> 1).texture(GuiTextures.PROGRESS_ARROW, 20))
+                        .key('F', index -> new FluidSlot().syncHandler("tank", index))
+                        .build())
+        );
+
+        return panel;
     }
 
 }

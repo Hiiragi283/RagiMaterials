@@ -5,6 +5,7 @@ import hiiragi283.material.api.material.MaterialStack;
 import hiiragi283.material.compat.jei.ingredient.HiiragiIngredientTypes;
 import hiiragi283.material.util.HiiragiColor;
 import hiiragi283.material.util.HiiragiUtil;
+import hiiragi283.material.util.ItemStackComparable;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -18,8 +19,9 @@ import net.minecraftforge.fml.common.Optional;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Recipe> {
 
@@ -54,11 +56,13 @@ public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Rec
     public static class Recipe implements IRecipeWrapper {
 
         private final MaterialStack materialStack;
-        private final List<ItemStack> stacks;
+        private final Set<ItemStackComparable> stacks;
 
         public Recipe(HiiragiMaterial material) {
             this.materialStack = material.toMaterialStack();
-            this.stacks = material.getAllItemStack();
+            this.stacks = material.getAllItemStack().stream()
+                    .map(ItemStackComparable::new)
+                    .collect(Collectors.toSet());
         }
 
         public MaterialStack getMaterialStack() {
@@ -66,7 +70,7 @@ public class MaterialCategory extends HiiragiRecipeCategory<MaterialCategory.Rec
         }
 
         public List<ItemStack> getStacks() {
-            return new ArrayList<>(stacks);
+            return stacks.stream().map(ItemStackComparable::toStack).collect(Collectors.toList());
         }
 
         @Override

@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 public abstract class MaterialItem extends HiiragiItem {
 
-    public final HiiragiShape shape;
+    private final HiiragiShape shape;
 
     public MaterialItem(HiiragiShape shape) {
         super(shape.name(), 32767);
@@ -28,17 +28,19 @@ public abstract class MaterialItem extends HiiragiItem {
         setCreativeTab(HiiragiCreativeTabs.MATERIAL_ITEM);
     }
 
+    @NotNull
+    public HiiragiShape getShape() {
+        return shape;
+    }
+
     protected static final Consumer<HiiragiEntry.ITEM> MODEL_CONSUMER = item -> HiiragiUtil.setModelSame(item.getObject());
 
-    protected static final BiConsumer<HiiragiEntry.ITEM, HiiragiMaterial> RECIPE_BICONSUMER = (item, material) -> {
-    };
-
     public static MaterialItem create(HiiragiShape shape) {
-        return create(shape, MODEL_CONSUMER, RECIPE_BICONSUMER);
+        return create(shape, MODEL_CONSUMER, HiiragiUtil.getEmptyBiConsumer());
     }
 
     public static MaterialItem create(HiiragiShape shape, Consumer<HiiragiEntry.ITEM> model) {
-        return create(shape, model, RECIPE_BICONSUMER);
+        return create(shape, model, HiiragiUtil.getEmptyBiConsumer());
     }
 
     public static MaterialItem create(HiiragiShape shape, BiConsumer<HiiragiEntry.ITEM, HiiragiMaterial> recipe) {
@@ -82,7 +84,7 @@ public abstract class MaterialItem extends HiiragiItem {
     public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
         if (!isInCreativeTab(tab)) return;
         HiiragiMaterial.REGISTRY.getValues().stream()
-                .filter(material -> material.isIndexValid() && material.isSolid() /*&& shape.isValid(material)*/)
+                .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
                 .map(this::asItemStack)
                 .sorted(Comparator.comparing(ItemStack::getMetadata))
                 .filter(stack -> stack.getMetadata() > 0)
@@ -111,7 +113,7 @@ public abstract class MaterialItem extends HiiragiItem {
     @SideOnly(Side.CLIENT)
     public void registerItemColor(ItemColors itemColors) {
         itemColors.registerItemColorHandler((stack, tintIndex) -> HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
-                .map(HiiragiMaterial::color)
+                .map(material -> material.color)
                 .orElse(-1), this);
     }
 

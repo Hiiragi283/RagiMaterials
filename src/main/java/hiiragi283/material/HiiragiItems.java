@@ -9,6 +9,7 @@ import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.api.shape.ShapeType;
 import hiiragi283.material.config.RMConfig;
 import hiiragi283.material.item.ItemBookRespawn;
+import hiiragi283.material.item.ItemUpgradeTest;
 import hiiragi283.material.util.CraftingBuilder;
 import hiiragi283.material.util.HiiragiIngredient;
 import hiiragi283.material.util.HiiragiUtil;
@@ -117,7 +118,7 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
                         HiiragiUtil.appendPath(item.getLocation(), "_" + ShapeType.GEM_RUBY.name())
                 );
                 ModelLoader.setCustomMeshDefinition(item.asItem(), stack -> HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
-                        .map(HiiragiMaterial::shapeType)
+                        .map(material -> material.shapeType)
                         .map(shapeType -> new ModelResourceLocation(HiiragiUtil.appendPath(item.getLocation(), "_" + shapeType.name()), "inventory"))
                         .orElse(new ModelResourceLocation(item.getLocation(), "inventory")));
             },
@@ -153,6 +154,8 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
 
     public static final MaterialItem MATERIAL_WIRE = MaterialItem.create(HiiragiShapes.WIRE);
 
+    public static final ItemUpgradeTest MODULE_TEST = new ItemUpgradeTest();
+
     //    Registry    //
 
     public static void init() {
@@ -163,6 +166,9 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
             ENTRIES.add(MATERIAL_BLOCK);
             ENTRIES.add(MATERIAL_CASING);
             ENTRIES.add(MATERIAL_FRAME);
+        }
+        if (HiiragiUtil.isDeobf()) {
+            ENTRIES.add(MODULE_TEST);
         }
         ENTRIES.add(MATERIAL_BOTTLE);
         ENTRIES.add(MATERIAL_DUST);

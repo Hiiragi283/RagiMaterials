@@ -39,7 +39,7 @@ public class HiiragiRegistry<K, V> {
         if (isUnmodifiable) {
             LOGGER.error("Cannot register any values with this registry!");
         } else if (REGISTRY.containsKey(key)) {
-            LOGGER.error("The key: " + key + "is already registered!");
+            LOGGER.error("The key: " + key + " is already registered!");
         } else {
             REGISTRY.putIfAbsent(key, value);
         }

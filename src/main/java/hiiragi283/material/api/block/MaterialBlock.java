@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
@@ -26,6 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -36,12 +38,10 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
 
     public MaterialBlock(HiiragiShape shape) {
         super(Material.IRON, shape.name(), MaterialTileEntity.class);
-        this.blockHardness = 5.0f;
-        this.blockResistance = 5.0f;
-        this.itemBlock = new MaterialItemBlock(this);
         this.shape = shape;
         setCreativeTab(HiiragiCreativeTabs.MATERIAL_BLOCK);
         setHarvestLevel("pickaxe", 1);
+        this.itemBlock = new MaterialItemBlock(this); //must be last!
     }
 
     protected static final Consumer<HiiragiEntry.BLOCK> MODEL_CONSUMER = block -> HiiragiUtil.setModelSame(block.getObject());
@@ -120,6 +120,16 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
         return BlockRenderLayer.CUTOUT;
     }
 
+    @Override
+    public void getSubBlocks(@NotNull CreativeTabs itemIn, @NotNull NonNullList<ItemStack> items) {
+        HiiragiMaterial.REGISTRY.getValues().stream()
+                .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))
+                .map(this::asItemStack)
+                .sorted(Comparator.comparing(ItemStack::getMetadata))
+                .filter(stack -> stack.getMetadata() > 0)
+                .forEach(items::add);
+    }
+
     //    HiiragiEntry    //
 
     @Override
@@ -143,7 +153,7 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     public void registerBlockColor(BlockColors blockColors) {
         blockColors.registerBlockColorHandler((state, world, pos, tintIndex) -> OptionalUtil.getTile(world, pos, tileClazz)
                 .flatMap(MaterialTileEntity::getMaterial)
-                .map(HiiragiMaterial::color)
+                .map(material -> material.color)
                 .orElse(-1), this);
     }
 
@@ -151,7 +161,7 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     @SideOnly(Side.CLIENT)
     public void registerItemColor(ItemColors itemColors) {
         itemColors.registerItemColorHandler((stack, tintIndex) -> HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
-                .map(HiiragiMaterial::color)
+                .map(material -> material.color)
                 .orElse(-1), this);
     }
 

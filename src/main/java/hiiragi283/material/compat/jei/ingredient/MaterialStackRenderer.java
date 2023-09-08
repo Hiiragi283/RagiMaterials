@@ -1,6 +1,5 @@
 package hiiragi283.material.compat.jei.ingredient;
 
-import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.material.MaterialStack;
 import hiiragi283.material.util.HiiragiColor;
 import hiiragi283.material.util.HiiragiUtil;
@@ -36,7 +35,7 @@ public class MaterialStackRenderer implements IIngredientRenderer<MaterialStack>
         if (materialStack == null) return;
         TextureMap textureMap = minecraft.getTextureMapBlocks();
         minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        materialStack.getMaterial().map(HiiragiMaterial::color).ifPresent(HiiragiColor::setGLColor);
+        materialStack.getMaterial().map(material -> material.color).ifPresent(HiiragiColor::setGLColor);
         HiiragiUtil.drawFluid(minecraft, xPosition, yPosition, getSprite(textureMap));
     }
 

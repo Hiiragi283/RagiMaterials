@@ -63,7 +63,7 @@ public class HiiragiPart {
 
     @Override
     public String toString() {
-        return getShape().map(HiiragiShape::name).orElse("EMPTY_SHAPE") + ":" + getMaterial().map(HiiragiMaterial::name).orElse("EMPTY_MATERIAL");
+        return getShape().map(HiiragiShape::name).orElse("EMPTY_SHAPE") + ":" + getMaterial().map(material -> material.name).orElse("EMPTY_MATERIAL");
     }
 
     //    Registry    //
@@ -80,8 +80,9 @@ public class HiiragiPart {
 
     public static List<HiiragiPart> getParts(Collection<String> oreDicts) {
         return oreDicts.stream()
-                .map(oreDict -> HiiragiPart.REGISTRY.getValue(oreDict).orElse(null))
-                .filter(Objects::nonNull)
+                .map(oreDict -> HiiragiPart.REGISTRY.getValue(oreDict))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
                 .collect(Collectors.toList());
     }
 

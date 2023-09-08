@@ -1,6 +1,7 @@
 package hiiragi283.material;
 
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
+import hiiragi283.material.api.machine.IModuleItem;
 import hiiragi283.material.api.material.CommonMaterials;
 import hiiragi283.material.api.material.ElementMaterials;
 import hiiragi283.material.api.material.HiiragiMaterial;
@@ -33,11 +34,7 @@ public class HiiragiEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerShape(HiiragiRegistryEvent.Shape event) throws IllegalAccessException {
-
-        HiiragiRegistry<String, HiiragiShape> registry = event.getRegistry();
-
-        HiiragiShapes.register(new HiiragiShapes(), HiiragiShape.class, shape -> registry.register(shape.name(), shape));
-
+        HiiragiShapes.register(new HiiragiShapes(), HiiragiShape.class, shape -> event.getRegistry().register(shape.name(), shape));
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -45,8 +42,8 @@ public class HiiragiEventHandler {
 
         HiiragiRegistry<String, HiiragiMaterial> registry = event.getRegistry();
 
-        ElementMaterials.register(new ElementMaterials(), HiiragiMaterial.class, material -> registry.register(material.name(), material));
-        CommonMaterials.register(new CommonMaterials(), HiiragiMaterial.class, material -> registry.register(material.name(), material));
+        ElementMaterials.register(new ElementMaterials(), HiiragiMaterial.class, material -> registry.register(material.name, material));
+        CommonMaterials.register(new CommonMaterials(), HiiragiMaterial.class, material -> registry.register(material.name, material));
 
     }
 
@@ -95,6 +92,8 @@ public class HiiragiEventHandler {
                                 .filter(materialStack -> !materialStack.isEmpty())
                                 .collect(Collectors.toSet())
                                 .forEach(materialStack -> materialStack.addTooltip(event.getToolTip())));
+                //IModuleItem -> Module Tooltips
+                OptionalUtil.getItemImplemented(stack, IModuleItem.class).ifPresent(module -> module.addTooltip(stack, event.getToolTip()));
             });
         }
 

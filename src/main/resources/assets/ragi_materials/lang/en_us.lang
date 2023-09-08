@@ -97,6 +97,11 @@ error.ragi_materials.crucible.null_output=§cNot found output!
 
 ##    Tooltip    ##
 
+tips.ragi_materials.module.energy_capacity=- Energy Capacity Time: §b%s§r§7 FE
+tips.ragi_materials.module.energy_rate=- Energy Rate: §b%s§r§7 FE/t
+tips.ragi_materials.module.fluid_slot=- Fluid Slot: §b%s§r§7
+tips.ragi_materials.module.item_slots=- Item Slot: §b%s§r§7
+tips.ragi_materials.module.process_time=- Process Time: §b%s§r§7 tick
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 tips.ragi_materials.property.melt=- Melting Point: §b%s§r§7 K

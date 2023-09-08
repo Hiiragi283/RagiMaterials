@@ -38,6 +38,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 @Desugar
 public abstract class HiiragiUtil {
@@ -91,6 +93,18 @@ public abstract class HiiragiUtil {
 
     public static boolean isDeobf() {
         return FMLLaunchHandler.isDeobfuscatedEnvironment();
+    }
+
+    //    Functional Interface    //
+
+    public static <T> Consumer<T> getEmptyConsumer() {
+        return t -> {
+        };
+    }
+
+    public static <T, U> BiConsumer<T, U> getEmptyBiConsumer() {
+        return (t, u) -> {
+        };
     }
 
     //    ItemStack    //

@@ -30,7 +30,7 @@ public class MaterialTileEntity extends HiiragiTileEntity implements IMaterialTi
     @Override
     public @NotNull NBTTagCompound writeToNBT(@NotNull NBTTagCompound compound) {
         Optional.ofNullable(MATERIAL)
-                .map(HiiragiMaterial::name)
+                .map(material -> material.name)
                 .ifPresent(name -> compound.setString(HiiragiUtil.MATERIAL, name));
         return super.writeToNBT(compound);
     }

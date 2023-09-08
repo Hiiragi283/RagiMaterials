@@ -24,8 +24,8 @@ public record HiiragiShape(String name, int scale) {
     public List<String> getOreDicts(HiiragiMaterial material) {
         List<String> list = new ArrayList<>();
         list.add(getOreDict(material));
-        if (!material.oreDictAlt().isEmpty()) {
-            for (String oreDict : material.oreDictAlt()) {
+        if (!material.oreDictAlt.isEmpty()) {
+            for (String oreDict : material.oreDictAlt) {
                 list.add(getOreDictPrefix() + CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, oreDict));
             }
         }
@@ -47,7 +47,7 @@ public record HiiragiShape(String name, int scale) {
     }
 
     public boolean isValid(HiiragiMaterial material) {
-        return material.shapeType().shapes().contains(this);
+        return material.shapeType.shapes().contains(this);
     }
 
     //    General    //

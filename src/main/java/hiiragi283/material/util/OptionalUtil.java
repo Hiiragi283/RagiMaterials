@@ -22,7 +22,7 @@ public abstract class OptionalUtil {
 
     @SuppressWarnings("unchecked")
     public static <T> Optional<T> getBlockImplemented(@NotNull IBlockState state, @NotNull Class<T> clazz) {
-        return clazz.isInstance(state.getBlock()) ? (Optional<T>) Optional.of(state.getBlock()) : Optional.empty();
+        return (Optional<T>) Optional.of(state).map(IBlockState::getBlock).filter(clazz::isInstance);
     }
 
     //    Capability    //
@@ -35,7 +35,7 @@ public abstract class OptionalUtil {
 
     @SuppressWarnings("unchecked")
     public static <T> Optional<T> getItemImplemented(@NotNull ItemStack stack, @NotNull Class<T> clazz) {
-        return clazz.isInstance(stack.getItem()) ? (Optional<T>) Optional.of(stack.getItem()) : Optional.empty();
+        return (Optional<T>) Optional.of(stack).map(ItemStack::getItem).filter(clazz::isInstance);
     }
 
     public static Optional<ItemStack> getStackNotEmpty(@NotNull ItemStack stack) {
@@ -53,6 +53,10 @@ public abstract class OptionalUtil {
     }
 
     //    TileEntity    //
+
+    public static Optional<TileEntity> getTile(@Nullable IBlockAccess world, @Nullable BlockPos pos) {
+        return getTile(world, pos, TileEntity.class);
+    }
 
     @SuppressWarnings("unchecked")
     public static <T extends TileEntity> Optional<T> getTile(@Nullable IBlockAccess world, @Nullable BlockPos pos, @NotNull Class<T> clazz) {

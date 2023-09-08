@@ -1,14 +1,16 @@
 package hiiragi283.material;
 
 import hiiragi283.material.api.capability.HiiragiCapability;
-import hiiragi283.material.api.fluid.MaterialFluid;
+import hiiragi283.material.api.fluid.MaterialFluidNew;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.shape.HiiragiShape;
+import hiiragi283.material.network.HiiragiNetworkManager;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +23,9 @@ import org.apache.logging.log4j.Logger;
 public class RagiMaterials implements HiiragiProxy {
 
     public static final Logger LOGGER = LogManager.getLogger(RMReference.MOD_NAME);
+
+    @Mod.Instance
+    public static RagiMaterials INSTANCE;
 
     public RagiMaterials() {
         if (Loader.isModLoaded("gregtech")) {
@@ -48,7 +53,7 @@ public class RagiMaterials implements HiiragiProxy {
         HiiragiBlocks.init();
         HiiragiItems.init();
         //Fluidの登録
-        MaterialFluid.register();
+        MaterialFluidNew.register();
         //Capabilityの登録
         HiiragiCapability.register();
     }
@@ -71,6 +76,10 @@ public class RagiMaterials implements HiiragiProxy {
 
     @Mod.EventHandler
     public void onComplete(FMLLoadCompleteEvent event) {
+        //GUi操作を登録
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new HiiragiGuiHandler());
+        //パケット送信を登録
+        HiiragiNetworkManager.register();
     }
 
 }
