@@ -7,6 +7,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public abstract class HiiragiContainer<T extends HiiragiTileEntity> extends Container {
 
     public final T tile;

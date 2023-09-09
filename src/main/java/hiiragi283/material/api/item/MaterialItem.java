@@ -14,10 +14,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Comparator;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+@ParametersAreNonnullByDefault
 public abstract class MaterialItem extends HiiragiItem {
 
     private final HiiragiShape shape;
@@ -73,7 +75,7 @@ public abstract class MaterialItem extends HiiragiItem {
     @NotNull
     @Override
     @SideOnly(Side.CLIENT)
-    public String getItemStackDisplayName(@NotNull ItemStack stack) {
+    public String getItemStackDisplayName(ItemStack stack) {
         return HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
                 .map(shape::getTranslatedName)
                 .orElse(super.getItemStackDisplayName(stack));
@@ -81,7 +83,7 @@ public abstract class MaterialItem extends HiiragiItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (!isInCreativeTab(tab)) return;
         HiiragiMaterial.REGISTRY.getValues().stream()
                 .filter(material -> material.isIndexValid() && material.isSolid() && shape.isValid(material))

@@ -1,7 +1,10 @@
 package hiiragi283.material;
 
+import hiiragi283.material.api.tile.TileEntityModuleMachine;
 import hiiragi283.material.container.ContainerModuleInstaller;
+import hiiragi283.material.container.ContainerModuleMachine;
 import hiiragi283.material.gui.GuiModuleInstaller;
+import hiiragi283.material.gui.GuiModuleMachine;
 import hiiragi283.material.tile.TileEntityModuleInstaller;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +28,8 @@ public class HiiragiGuiHandler implements IGuiHandler {
             if (tile != null) {
                 if (tile instanceof TileEntityModuleInstaller)
                     container = new ContainerModuleInstaller((TileEntityModuleInstaller) tile, player);
+                if (tile instanceof TileEntityModuleMachine)
+                    container = new ContainerModuleMachine((TileEntityModuleMachine) tile, player);
             }
         }
         return container;
@@ -39,6 +44,8 @@ public class HiiragiGuiHandler implements IGuiHandler {
             if (tile != null) {
                 if (tile instanceof TileEntityModuleInstaller)
                     gui = new GuiModuleInstaller((TileEntityModuleInstaller) tile, player);
+                if (tile instanceof TileEntityModuleMachine)
+                    gui = new GuiModuleMachine((TileEntityModuleMachine) tile, player);
             }
         }
         return gui;

@@ -3,9 +3,11 @@ package hiiragi283.material.util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.Objects;
 
+@ParametersAreNonnullByDefault
 public abstract class StringSerializeUtil {
 
     //    ItemStack    //

@@ -8,6 +8,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class HiiragiItemHandler extends ItemStackHandler implements IOControllable {
 
     @NotNull
@@ -19,11 +22,11 @@ public class HiiragiItemHandler extends ItemStackHandler implements IOControllab
         this(size, Type.GENERAL);
     }
 
-    public HiiragiItemHandler(int size, @NotNull IOControllable.Type ioType) {
+    public HiiragiItemHandler(int size, IOControllable.Type ioType) {
         this(size, ioType, null);
     }
 
-    public HiiragiItemHandler(int size, @NotNull IOControllable.Type ioType, @Nullable TileEntity tile) {
+    public HiiragiItemHandler(int size, IOControllable.Type ioType, @Nullable TileEntity tile) {
         super(size);
         this.ioType = ioType;
         this.tile = tile;
@@ -48,8 +51,9 @@ public class HiiragiItemHandler extends ItemStackHandler implements IOControllab
 
     //    IOControllable    //
 
+    @NotNull
     @Override
-    public @NotNull Type getIOType() {
+    public Type getIOType() {
         return ioType;
     }
 }

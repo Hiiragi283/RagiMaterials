@@ -2,18 +2,16 @@ package hiiragi283.material.item;
 
 import hiiragi283.material.api.item.HiiragiItem;
 import hiiragi283.material.api.machine.IMachineProperty;
-import hiiragi283.material.api.machine.IModuleItem;
-import hiiragi283.material.api.machine.ModuleTraits;
+import hiiragi283.material.api.module.IModuleItem;
 import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@ParametersAreNonnullByDefault
 public class ItemUpgradeTest extends HiiragiItem implements IModuleItem {
 
     public ItemUpgradeTest() {
@@ -23,7 +21,7 @@ public class ItemUpgradeTest extends HiiragiItem implements IModuleItem {
     //    Client    //
 
     @Override
-    public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (!isInCreativeTab(tab)) return;
         var stack = new ItemStack(this, 1, 0);
         var tagInner = new NBTTagCompound();
@@ -57,11 +55,6 @@ public class ItemUpgradeTest extends HiiragiItem implements IModuleItem {
     @Override
     public int getFluidSlotCounts(ItemStack stack) {
         return Math.max(0, stack.getOrCreateSubCompound(HiiragiUtil.MACHINE_PROPERTY).getInteger(IMachineProperty.KEY_FLUID));
-    }
-
-    @Override
-    public Set<ModuleTraits> getModuleTraits(ItemStack stack) {
-        return new HashSet<>();
     }
 
 }

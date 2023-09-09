@@ -5,6 +5,9 @@ import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public abstract class HiiragiRegistryEvent<T, U> extends Event {
 
     private final HiiragiRegistry<T, U> registry;

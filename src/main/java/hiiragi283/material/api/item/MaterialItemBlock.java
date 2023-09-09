@@ -10,6 +10,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class MaterialItemBlock extends HiiragiItemBlock {
 
     public final HiiragiShape shape;
@@ -29,7 +32,7 @@ public class MaterialItemBlock extends HiiragiItemBlock {
     @NotNull
     @Override
     @SideOnly(Side.CLIENT)
-    public String getItemStackDisplayName(@NotNull ItemStack stack) {
+    public String getItemStackDisplayName(ItemStack stack) {
         return HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
                 .map(shape::getTranslatedName)
                 .orElse(super.getItemStackDisplayName(stack));
@@ -37,7 +40,7 @@ public class MaterialItemBlock extends HiiragiItemBlock {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (!isInCreativeTab(tab)) return;
         this.block.getSubBlocks(tab, items);
     }

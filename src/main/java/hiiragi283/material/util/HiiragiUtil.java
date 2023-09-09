@@ -32,9 +32,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -42,6 +42,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Desugar
+@ParametersAreNonnullByDefault
 public abstract class HiiragiUtil {
 
     //    Constants    //
@@ -61,6 +62,12 @@ public abstract class HiiragiUtil {
 
     public static void dropItemAtPlayer(EntityPlayer player, ItemStack stack, Vec3d motion) {
         dropItem(player.getEntityWorld(), player.getPosition(), stack, motion);
+    }
+
+    public static void dropInventoriesItems(World world, BlockPos pos, IItemHandler... inventories) {
+        for (IItemHandler inventory: inventories) {
+            dropInventoryItems(world, pos, inventory, Vec3d.ZERO);
+        }
     }
 
     public static void dropInventoryItems(World world, BlockPos pos, IItemHandler inventory, Vec3d motion) {
@@ -216,7 +223,7 @@ public abstract class HiiragiUtil {
 
     //    Render    //
 
-    public static void drawFluid(@NotNull Minecraft minecraft, double x, double y, TextureAtlasSprite sprite) {
+    public static void drawFluid(Minecraft minecraft, double x, double y, TextureAtlasSprite sprite) {
         //TextureAtlasSpriteのx座標の左端と右端，y座標の下端と上端をDoubleに変換する
         double uMin = sprite.getMinU();
         double uMax = sprite.getMaxU();
@@ -238,23 +245,23 @@ public abstract class HiiragiUtil {
 
     //    ResourceLocation    //
 
-    public static @NotNull ResourceLocation appendPath(@NotNull ResourceLocation location, String path) {
+    public static ResourceLocation appendPath(ResourceLocation location, String path) {
         return new ResourceLocation(location.getNamespace(), location.getPath() + path);
     }
 
-    public static @NotNull ResourceLocation appendPathBefore(@NotNull ResourceLocation location, String path) {
+    public static ResourceLocation appendPathBefore(ResourceLocation location, String path) {
         return new ResourceLocation(location.getNamespace(), path + location.getPath());
     }
 
-    public static @NotNull ResourceLocation getLocation(String path) {
+    public static ResourceLocation getLocation(String path) {
         return new ResourceLocation(RMReference.MOD_ID, path);
     }
 
-    public static @NotNull ResourceLocation toLocation(ItemStack stack) {
+    public static ResourceLocation toLocation(ItemStack stack) {
         return toLocation(stack, ':');
     }
 
-    public static @NotNull ResourceLocation toLocation(ItemStack stack, Character split) {
+    public static ResourceLocation toLocation(ItemStack stack, Character split) {
         return appendPath(Objects.requireNonNull(stack.getItem().getRegistryName()), split.toString() + stack.getMetadata());
     }
 

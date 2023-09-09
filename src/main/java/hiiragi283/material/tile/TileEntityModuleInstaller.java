@@ -1,6 +1,7 @@
 package hiiragi283.material.tile;
 
 import hiiragi283.material.api.capability.item.HiiragiItemHandler;
+import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper;
 import hiiragi283.material.api.tile.HiiragiTileEntity;
 import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.state.IBlockState;
@@ -14,6 +15,9 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class TileEntityModuleInstaller extends HiiragiTileEntity {
 
     public final HiiragiItemHandler inputInv0 = new HiiragiItemHandler(1) {
@@ -47,6 +51,10 @@ public class TileEntityModuleInstaller extends HiiragiTileEntity {
         }
     };
 
+    {
+        this.inventory = new HiiragiItemHandlerWrapper(inputInv0, inputInv1, inputInv2, inputInv3, outputInv);
+    }
+
     //    General    //
 
     @Nullable
@@ -66,11 +74,7 @@ public class TileEntityModuleInstaller extends HiiragiTileEntity {
 
     @Override
     public void onTileRemoved(World world, BlockPos pos, IBlockState state) {
-        HiiragiUtil.dropInventoryItems(world, pos, inputInv0, Vec3d.ZERO);
-        HiiragiUtil.dropInventoryItems(world, pos, inputInv1, Vec3d.ZERO);
-        HiiragiUtil.dropInventoryItems(world, pos, inputInv2, Vec3d.ZERO);
-        HiiragiUtil.dropInventoryItems(world, pos, inputInv3, Vec3d.ZERO);
-        HiiragiUtil.dropInventoryItems(world, pos, outputInv, Vec3d.ZERO);
+        HiiragiUtil.dropInventoryItems(world, pos, this.inventory, Vec3d.ZERO);
     }
 
 }

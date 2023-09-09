@@ -9,6 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class ContainerModuleInstaller extends HiiragiContainer<TileEntityModuleInstaller> {
 
     public ContainerModuleInstaller(TileEntityModuleInstaller tile, EntityPlayer player) {
@@ -23,7 +26,7 @@ public class ContainerModuleInstaller extends HiiragiContainer<TileEntityModuleI
 
     @NotNull
     @Override
-    public ItemStack transferStackInSlot(@NotNull EntityPlayer player, int index) {
+    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = inventorySlots.get(index);
         if (slot.getHasStack()) {
@@ -45,4 +48,5 @@ public class ContainerModuleInstaller extends HiiragiContainer<TileEntityModuleI
         }
         return stack;
     }
+
 }

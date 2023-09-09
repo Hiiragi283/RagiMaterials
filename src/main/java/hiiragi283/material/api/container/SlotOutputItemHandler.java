@@ -3,8 +3,10 @@ package hiiragi283.material.api.container;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class SlotOutputItemHandler extends SlotItemHandler {
 
     public SlotOutputItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
@@ -12,7 +14,7 @@ public class SlotOutputItemHandler extends SlotItemHandler {
     }
 
     @Override
-    public boolean isItemValid(@NotNull ItemStack stack) {
+    public boolean isItemValid(ItemStack stack) {
         return false;
     }
 

@@ -6,22 +6,24 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fluids.Fluid;
 
-public class MaterialFluidNew extends Fluid {
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+public class MaterialFluid extends Fluid {
 
     public final HiiragiMaterial material;
 
-    public MaterialFluidNew(HiiragiMaterial material) {
+    public MaterialFluid(HiiragiMaterial material) {
         this(material, new ResourceLocation("blocks/concrete_white"));
     }
 
-    public MaterialFluidNew(HiiragiMaterial material, ResourceLocation still) {
+    public MaterialFluid(HiiragiMaterial material, ResourceLocation still) {
         this(material, still, still);
     }
 
-    public MaterialFluidNew(HiiragiMaterial material, ResourceLocation still, ResourceLocation flowing) {
-        super(material.name, still, flowing);
+    public MaterialFluid(HiiragiMaterial material, ResourceLocation still, ResourceLocation flowing) {
+        super(material.name, still, flowing, material.color);
         this.material = material;
-        this.color = material.color;
         material.getFluidBlock().ifPresent(block -> this.block = block);
         //融点と沸点が有効 -> 標準状態に基づいてプロパティを補完
         if (material.hasTempMelt() && material.hasTempBoil()) {
@@ -61,7 +63,7 @@ public class MaterialFluidNew extends Fluid {
     }
 
     public static void register() {
-
+        HiiragiMaterial.REGISTRY.getValues().forEach(HiiragiMaterial::registerFluid);
     }
 
 }

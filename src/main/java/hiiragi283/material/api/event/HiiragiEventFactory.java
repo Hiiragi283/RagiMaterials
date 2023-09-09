@@ -4,8 +4,10 @@ import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.ShapeType;
 import net.minecraftforge.common.MinecraftForge;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Set;
 
+@ParametersAreNonnullByDefault
 public abstract class HiiragiEventFactory {
 
     //    Shape    //

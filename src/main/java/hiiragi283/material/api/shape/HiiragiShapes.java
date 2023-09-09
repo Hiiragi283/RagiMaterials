@@ -1,8 +1,6 @@
 package hiiragi283.material.api.shape;
 
-import hiiragi283.material.api.registry.HiiragiRegistryEntries;
-
-public class HiiragiShapes extends HiiragiRegistryEntries {
+public class HiiragiShapes {
 
     public static final HiiragiShape BALL = new HiiragiShape("ball", 30);
     public static final HiiragiShape BLOCK = new HiiragiShape("block", 144 * 9);

@@ -3,8 +3,10 @@ package hiiragi283.material.util;
 import com.cleanroommc.modularui.widgets.slot.ModularSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
-import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class ModularOutputSlot extends ModularSlot {
 
     public ModularOutputSlot(IItemHandler itemHandler, int index) {
@@ -16,7 +18,7 @@ public class ModularOutputSlot extends ModularSlot {
     }
 
     @Override
-    public boolean isItemValid(@NotNull ItemStack stack) {
+    public boolean isItemValid(ItemStack stack) {
         return false;
     }
 

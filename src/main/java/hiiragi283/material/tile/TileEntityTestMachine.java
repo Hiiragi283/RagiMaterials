@@ -1,25 +1,11 @@
 package hiiragi283.material.tile;
 
-import com.cleanroommc.modularui.api.IGuiHolder;
-import com.cleanroommc.modularui.drawable.GuiTextures;
-import com.cleanroommc.modularui.manager.GuiCreationContext;
-import com.cleanroommc.modularui.manager.GuiInfos;
-import com.cleanroommc.modularui.screen.ModularPanel;
-import com.cleanroommc.modularui.utils.Alignment;
-import com.cleanroommc.modularui.value.sync.GuiSyncManager;
-import com.cleanroommc.modularui.value.sync.SyncHandlers;
-import com.cleanroommc.modularui.widgets.FluidSlot;
-import com.cleanroommc.modularui.widgets.ItemSlot;
-import com.cleanroommc.modularui.widgets.ProgressWidget;
-import com.cleanroommc.modularui.widgets.SlotGroupWidget;
-import com.cleanroommc.modularui.widgets.layout.Column;
 import hiiragi283.material.api.capability.IOControllable;
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank;
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTankWrapper;
 import hiiragi283.material.api.capability.item.HiiragiItemHandler;
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper;
 import hiiragi283.material.api.tile.MaterialTileEntity;
-import hiiragi283.material.util.ModularOutputSlot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -28,10 +14,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class TileEntityTestMachine extends MaterialTileEntity implements IGuiHolder {
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+public class TileEntityTestMachine extends MaterialTileEntity {
 
     private final HiiragiFluidTank inputTank0 = new HiiragiFluidTank(64000, IOControllable.Type.INPUT);
     private final HiiragiFluidTank inputTank1 = new HiiragiFluidTank(64000, IOControllable.Type.INPUT);
@@ -51,20 +39,20 @@ public class TileEntityTestMachine extends MaterialTileEntity implements IGuiHol
 
     @Override
     public boolean onTileActivated(World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing facing) {
-        if (!world.isRemote) GuiInfos.TILE_ENTITY.open(player, world, pos);
+        //if (!world.isRemote) GuiInfos.TILE_ENTITY.open(player, world, pos);
         return true;
     }
 
     //    Capability    //
 
     @Override
-    public boolean hasCapability(@NotNull Capability<?> capability, @Nullable EnumFacing facing) {
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
     }
 
     @Nullable
     @Override
-    public <T> T getCapability(@NotNull Capability<T> capability, @Nullable EnumFacing facing) {
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory);
         } else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
@@ -76,7 +64,7 @@ public class TileEntityTestMachine extends MaterialTileEntity implements IGuiHol
 
     //    IGuiHolder    //
 
-    @Override
+    /*@Override
     public ModularPanel buildUI(GuiCreationContext creationContext, GuiSyncManager syncManager, boolean isClient) {
 
         syncManager.registerSlotGroup("inputInv", 3);
@@ -108,6 +96,6 @@ public class TileEntityTestMachine extends MaterialTileEntity implements IGuiHol
         );
 
         return panel;
-    }
+    }*/
 
 }

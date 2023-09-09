@@ -1,17 +1,22 @@
 package hiiragi283.material.api.machine;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.INBTSerializable;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public interface IMachineProperty {
+@ParametersAreNonnullByDefault
+public interface IMachineProperty extends INBTSerializable<NBTTagCompound> {
 
     default int getProcessTime() {
-        return DEFAULT_PROCESS;
+        return 100;
     }
 
     default int getEnergyRate() {
-        return DEFAULT_RATE;
+        return 32;
     }
 
     default int getEnergyCapacity() {
@@ -19,21 +24,16 @@ public interface IMachineProperty {
     }
 
     default int getItemSlotCounts() {
-        return DEFAULT_ITEM;
+        return 1;
     }
 
     default int getFluidSlotCounts() {
-        return DEFAULT_FLUID;
+        return 0;
     }
 
     default Set<ModuleTraits> getModuleTraits() {
         return new HashSet<>();
     }
-
-    int DEFAULT_PROCESS = 100;
-    int DEFAULT_RATE = 32;
-    int DEFAULT_ITEM = 1;
-    int DEFAULT_FLUID = 0;
 
     String KEY_PROCESS = "ProcessTime";
     String KEY_RATE = "EnergyRate";
@@ -44,6 +44,18 @@ public interface IMachineProperty {
         var property = new IMachineProperty.Impl();
         consumer.accept(property);
         return property;
+    }
+
+    //    INBTSerializable    //
+
+    @Override
+    default NBTTagCompound serializeNBT() {
+        var tag = new NBTTagCompound();
+        tag.setInteger(KEY_PROCESS, getProcessTime());
+        tag.setInteger(KEY_RATE, getEnergyRate());
+        tag.setInteger(KEY_ITEM, getItemSlotCounts());
+        tag.setInteger(KEY_FLUID, getFluidSlotCounts());
+        return tag;
     }
 
     class Impl implements IMachineProperty {
@@ -71,6 +83,16 @@ public interface IMachineProperty {
         @Override
         public int getFluidSlotCounts() {
             return fluidSlots;
+        }
+
+        //    INBTSerializable    //
+
+        @Override
+        public void deserializeNBT(NBTTagCompound nbt) {
+            if (nbt.hasKey(KEY_PROCESS)) processTime = nbt.getInteger(KEY_PROCESS);
+            if (nbt.hasKey(KEY_RATE)) energyRate = nbt.getInteger(KEY_RATE);
+            if (nbt.hasKey(KEY_ITEM)) itemSlots = nbt.getInteger(KEY_ITEM);
+            if (nbt.hasKey(KEY_FLUID)) fluidSlots = nbt.getInteger(KEY_FLUID);
         }
 
     }

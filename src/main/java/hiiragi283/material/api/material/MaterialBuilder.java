@@ -5,6 +5,7 @@ import hiiragi283.material.util.HiiragiCollectors;
 import hiiragi283.material.util.HiiragiColor;
 import hiiragi283.material.util.HiiragiUtil;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collector;
 
+@ParametersAreNonnullByDefault
 public abstract class MaterialBuilder {
 
     //    Element    //

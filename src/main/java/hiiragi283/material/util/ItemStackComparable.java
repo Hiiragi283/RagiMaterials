@@ -4,7 +4,10 @@ import com.github.bsideup.jabel.Desugar;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 @Desugar
+@ParametersAreNonnullByDefault
 public record ItemStackComparable(Item item, int count, int meta) {
 
     public ItemStackComparable(ItemStack stack) {

@@ -32,6 +32,7 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+@ParametersAreNonnullByDefault
 public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<MaterialTileEntity> {
 
     public final HiiragiShape shape;
@@ -92,7 +93,6 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
     //    HiiragiBlock    //
 
     @Override
-    @ParametersAreNonnullByDefault
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         OptionalUtil.getTile(world, pos, tileClazz)
                 .flatMap(MaterialTileEntity::getMaterial)
@@ -101,7 +101,6 @@ public abstract class MaterialBlock extends HiiragiBlockContainer.Holdable<Mater
 
     @NotNull
     @Override
-    @ParametersAreNonnullByDefault
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return OptionalUtil.getTile(world, pos, tileClazz)
                 .flatMap(MaterialTileEntity::getMaterial)

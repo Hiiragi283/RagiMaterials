@@ -4,13 +4,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Thanks to SkyTheory!
  * <a href="https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/gui/AbstractButton.java">: Source</a>
  */
 
+@ParametersAreNonnullByDefault
 public class HiiragiGuiButton extends GuiButton {
 
     protected final ResourceLocation texture;
@@ -25,7 +27,7 @@ public class HiiragiGuiButton extends GuiButton {
     }
 
     @Override
-    public void drawButton(@NotNull Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
         if (visible) {
             this.hovered = mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
             mc.getTextureManager().bindTexture(texture);

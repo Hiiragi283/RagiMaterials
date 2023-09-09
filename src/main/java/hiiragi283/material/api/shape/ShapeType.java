@@ -3,10 +3,12 @@ package hiiragi283.material.api.shape;
 import com.github.bsideup.jabel.Desugar;
 import hiiragi283.material.api.event.HiiragiEventFactory;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.function.Consumer;
 
 @Desugar
+@ParametersAreNonnullByDefault
 public record ShapeType(String name, Set<HiiragiShape> shapes) {
 
     public ShapeType {

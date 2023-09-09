@@ -5,9 +5,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
 public class CraftingBuilder {
 
     private final ResourceLocation location;

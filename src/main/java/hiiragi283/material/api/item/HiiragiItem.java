@@ -12,6 +12,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public abstract class HiiragiItem extends Item implements HiiragiEntry.ITEM {
 
     public final int maxMeta;
@@ -28,7 +31,7 @@ public abstract class HiiragiItem extends Item implements HiiragiEntry.ITEM {
 
     @Nullable
     @Override
-    public String getCreatorModId(@NotNull ItemStack itemStack) {
+    public String getCreatorModId(ItemStack itemStack) {
         return RMReference.MOD_ID;
     }
 
@@ -37,8 +40,9 @@ public abstract class HiiragiItem extends Item implements HiiragiEntry.ITEM {
         return damage >= 0 && damage <= maxMeta ? damage : maxMeta;
     }
 
+    @NotNull
     @Override
-    public @NotNull String getTranslationKey(@NotNull ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         var builder = new StringBuilder();
         builder.append(super.getTranslationKey());
         if (hasSubtypes) {
@@ -52,7 +56,7 @@ public abstract class HiiragiItem extends Item implements HiiragiEntry.ITEM {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(@NotNull CreativeTabs tab, @NotNull NonNullList<ItemStack> items) {
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
         if (isInCreativeTab(tab)) {
             items.add(new ItemStack(this));
             if (hasSubtypes) {

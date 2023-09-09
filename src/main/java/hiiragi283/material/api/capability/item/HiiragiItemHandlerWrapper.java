@@ -8,10 +8,12 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
 public class HiiragiItemHandlerWrapper implements IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
     private final List<AbstractMap.SimpleEntry<HiiragiItemHandler, Integer>> pairs = new ArrayList<>();
@@ -84,7 +86,7 @@ public class HiiragiItemHandlerWrapper implements IItemHandlerModifiable, INBTSe
     }
 
     @Override
-    public void setStackInSlot(int slot, @NotNull ItemStack stack) {
+    public void setStackInSlot(int slot, ItemStack stack) {
         validateSlotIndex(slot);
         getHandler(slot).getKey().setStackInSlot(getHandler(slot).getValue(), stack);
     }

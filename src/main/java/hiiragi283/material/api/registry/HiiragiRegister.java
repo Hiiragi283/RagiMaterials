@@ -1,14 +1,13 @@
 package hiiragi283.material.api.registry;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.lang.reflect.Field;
 import java.util.function.Consumer;
 
-public abstract class HiiragiRegistryEntries {
+@ParametersAreNonnullByDefault
+public abstract class HiiragiRegister {
 
     //    Register    //
-
-    public HiiragiRegistryEntries() {
-    }
 
     @SuppressWarnings("unchecked")
     public static <T> void register(Object instance, Class<T> clazz, Consumer<T> consumer) throws IllegalAccessException {

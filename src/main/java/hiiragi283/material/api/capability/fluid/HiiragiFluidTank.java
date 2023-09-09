@@ -5,14 +5,16 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
+@ParametersAreNonnullByDefault
 public class HiiragiFluidTank extends FluidTank implements IOControllable {
 
     @NotNull
     private final IOControllable.Type ioType;
 
-    public HiiragiFluidTank(int capacity, @NotNull IOControllable.Type ioType) {
+    public HiiragiFluidTank(int capacity, IOControllable.Type ioType) {
         super(capacity);
         this.ioType = ioType;
     }
@@ -31,8 +33,9 @@ public class HiiragiFluidTank extends FluidTank implements IOControllable {
 
     //    IOControllable    //
 
+    @NotNull
     @Override
-    public @NotNull Type getIOType() {
+    public Type getIOType() {
         return ioType;
     }
 

@@ -18,8 +18,10 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
+@ParametersAreNonnullByDefault
 public interface HiiragiEntry<T extends IForgeRegistryEntry<T>> {
 
     //    Item    //

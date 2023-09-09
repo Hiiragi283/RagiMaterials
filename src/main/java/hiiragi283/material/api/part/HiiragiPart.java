@@ -10,9 +10,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@ParametersAreNonnullByDefault
 public class HiiragiPart {
 
     @Nullable

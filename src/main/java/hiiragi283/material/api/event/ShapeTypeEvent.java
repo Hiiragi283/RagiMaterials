@@ -4,8 +4,10 @@ import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.ShapeType;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Set;
 
+@ParametersAreNonnullByDefault
 public abstract class ShapeTypeEvent extends Event {
 
     private final String name;
@@ -24,6 +26,7 @@ public abstract class ShapeTypeEvent extends Event {
         return shapes;
     }
 
+    @ParametersAreNonnullByDefault
     public static class Create extends ShapeTypeEvent {
 
         public Create(String name, Set<HiiragiShape> shapes) {
@@ -32,6 +35,7 @@ public abstract class ShapeTypeEvent extends Event {
 
     }
 
+    @ParametersAreNonnullByDefault
     public static class Copy extends ShapeTypeEvent {
 
         private final ShapeType parent;

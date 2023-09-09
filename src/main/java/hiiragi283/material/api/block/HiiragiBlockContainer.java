@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
+@ParametersAreNonnullByDefault
 public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends HiiragiBlock implements ITileEntityProvider {
 
     public final Class<T> tileClazz;
@@ -40,13 +41,11 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
     //    Event    //
 
     @Override
-    @ParametersAreNonnullByDefault
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> tile.onTileRemoved(world, pos, state));
     }
 
     @Override
-    @ParametersAreNonnullByDefault
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (hand == EnumHand.MAIN_HAND) {
             var tile = OptionalUtil.getTile(world, pos, tileClazz);
@@ -56,10 +55,8 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
     }
 
     @Override
-    @ParametersAreNonnullByDefault
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> tile.onTilePlaced(world, pos, state, placer, stack));
-        super.onBlockPlacedBy(world, pos, state, placer, stack);
     }
 
     //    ITileEntityProvider    //
@@ -76,6 +73,7 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
         }
     }
 
+    @ParametersAreNonnullByDefault
     public static abstract class Holdable<T extends HiiragiTileEntity> extends HiiragiBlockContainer<T> {
 
         public Holdable(Material materialIn, String id, Class<T> tileClazz) {
@@ -83,7 +81,6 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
         }
 
         @Override
-        @ParametersAreNonnullByDefault
         public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
             var stack = new ItemStack(this);
             OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> stack.getOrCreateSubCompound("BlockEntityTag").merge(tile.getUpdateTag()));
@@ -91,14 +88,12 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
         }
 
         @Override
-        @ParametersAreNonnullByDefault
         public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
             super.harvestBlock(world, player, pos, state, te, stack);
             world.setBlockToAir(pos);
         }
 
         @Override
-        @ParametersAreNonnullByDefault
         public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
             return willHarvest || super.removedByPlayer(state, world, pos, player, false);
         }

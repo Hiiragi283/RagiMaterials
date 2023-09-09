@@ -1,4 +1,4 @@
-@API(apiVersion = RMReference.VERSION, owner = RMReference.MOD_ID, provides = RMReference.MOD_NAME + "API")
+@API(apiVersion = RMReference.VERSION, owner = RMReference.MOD_ID, provides = RMReference.MOD_NAME + "API/block")
 
 package hiiragi283.material.api.block;
 

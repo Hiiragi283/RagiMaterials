@@ -8,6 +8,9 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTagCompound> {
 
     protected final MaterialStack @NotNull [] materialStacks;
@@ -20,7 +23,7 @@ public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTa
         this.materialStacks = new MaterialStack[slots];
     }
 
-    public MaterialHandler(int capacity, MaterialStack @NotNull ... materialStacks) {
+    public MaterialHandler(int capacity, MaterialStack ... materialStacks) {
         this.capacity = capacity;
         this.materialStacks = materialStacks;
     }
@@ -46,21 +49,21 @@ public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTa
     }
 
     @Override
-    public boolean canFillMaterialType(@NotNull MaterialStack materialStack) {
+    public boolean canFillMaterialType(MaterialStack materialStack) {
         return canFill();
     }
 
     @Override
-    public boolean canDrainMaterialType(@NotNull MaterialStack materialStack) {
+    public boolean canDrainMaterialType(MaterialStack materialStack) {
         return canDrain();
     }
 
     @Override
-    public int fill(@NotNull MaterialStack resource, boolean doFill) {
+    public int fill(MaterialStack resource, boolean doFill) {
         return canFillMaterialType(resource) ? fillInternal(resource, doFill) : 0;
     }
 
-    public int fillInternal(@NotNull MaterialStack resource, boolean doFill) {
+    public int fillInternal(MaterialStack resource, boolean doFill) {
         //resourceがEMPTYの場合 -> 0
         if (resource.isEmpty()) return 0;
         //doFill = falseの場合 -> 数値だけ返す
@@ -77,7 +80,6 @@ public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTa
                 }
             }
             //搬入不可能 -> 0
-            return 0;
         }
         //doFill = trueの場合 -> 実際に搬入を行う
         else {
@@ -106,16 +108,16 @@ public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTa
                 }
             }
             //materialがすべて一致しなかった場合 -> 0
-            return 0;
         }
+        return 0;
     }
 
     @Override
-    public int drain(@NotNull MaterialStack resource, boolean doDrain) {
+    public int drain(MaterialStack resource, boolean doDrain) {
         return canDrainMaterialType(resource) ? drainInternal(resource, doDrain) : 0;
     }
 
-    public int drainInternal(@NotNull MaterialStack resource, boolean doDrain) {
+    public int drainInternal(MaterialStack resource, boolean doDrain) {
         //resourceがEMPTYの場合 -> 0
         if (resource.isEmpty()) return 0;
         //doDrain = falseの場合 -> 数値だけ返す
@@ -130,7 +132,6 @@ public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTa
                 }
             }
             //MaterialStackがEMPTY || materialが同じでない -> 0
-            return 0;
         }
         //doDrain = trueの場合 -> 実際に搬出を行う
         else {
@@ -155,8 +156,8 @@ public class MaterialHandler implements IMaterialHandler, INBTSerializable<NBTTa
                 }
             }
             //materialがすべて一致しなかった場合 -> 0
-            return 0;
         }
+        return 0;
     }
 
     //    INBTSerializable    //

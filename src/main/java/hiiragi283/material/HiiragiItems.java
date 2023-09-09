@@ -25,9 +25,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
 public class HiiragiItems implements HiiragiEntry.ITEM {
 
     public static HiiragiItems INSTANCE = new HiiragiItems();
@@ -58,6 +60,7 @@ public class HiiragiItems implements HiiragiEntry.ITEM {
             }
     );
 
+    @ParametersAreNonnullByDefault
     public static final MaterialItem MATERIAL_BOTTLE =  new MaterialItem(HiiragiShapes.BOTTLE) {
 
         @Override

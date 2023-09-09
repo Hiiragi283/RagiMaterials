@@ -6,9 +6,12 @@ import hiiragi283.material.util.HiiragiColor;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 
-import java.util.Objects;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Optional;
 
+@ParametersAreNonnullByDefault
 public abstract class HiiragiGuiContainer<T extends HiiragiTileEntity> extends GuiContainer {
 
     protected ResourceLocation backGround;
@@ -37,7 +40,7 @@ public abstract class HiiragiGuiContainer<T extends HiiragiTileEntity> extends G
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        fontRenderer.drawString(Objects.requireNonNull(container.tile.getDisplayName()).getUnformattedText(), 8, 6, HiiragiColor.DARK_GRAY.getRGB());
+        fontRenderer.drawString(Optional.ofNullable(container.tile.getDisplayName()).map(ITextComponent::getUnformattedText).orElse(""), 8, 6, HiiragiColor.DARK_GRAY.getRGB());
         fontRenderer.drawString(container.inventoryPlayer.getDisplayName().getUnformattedText(), 8, ySize - 96 + 2, HiiragiColor.DARK_GRAY.getRGB());
     }
 

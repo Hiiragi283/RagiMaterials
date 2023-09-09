@@ -2,11 +2,11 @@ package hiiragi283.material;
 
 import hiiragi283.material.api.block.MaterialBlock;
 import hiiragi283.material.api.block.MaterialBlockCasing;
+import hiiragi283.material.api.block.ModuleMachineBlock;
 import hiiragi283.material.api.item.HiiragiItemBlock;
 import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.block.BlockModuleInstaller;
-import hiiragi283.material.block.BlockTestMachine;
 import hiiragi283.material.config.RMConfig;
 import hiiragi283.material.util.CraftingBuilder;
 import hiiragi283.material.util.HiiragiUtil;
@@ -18,11 +18,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@ParametersAreNonnullByDefault
 public class HiiragiBlocks implements HiiragiEntry.BLOCK {
 
     public static HiiragiBlocks INSTANCE = new HiiragiBlocks();
@@ -68,9 +70,11 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
                     .build()
     );
 
-    public static final BlockTestMachine TEST_MACHINE = new BlockTestMachine();
+    //public static final BlockTestMachine TEST_MACHINE = new BlockTestMachine();
 
     public static final BlockModuleInstaller MODULE_INSTALLER = new BlockModuleInstaller();
+
+    public static final ModuleMachineBlock MACHINE_TEST = new ModuleMachineBlock("module_test");
 
     //    Registry    //
 
@@ -83,10 +87,12 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
             MATERIAL_BLOCK.registerTileEntity();
         }
         if (HiiragiUtil.isDeobf()) {
-            ENTRIES.add(TEST_MACHINE);
+            ENTRIES.add(MACHINE_TEST);
             ENTRIES.add(MODULE_INSTALLER);
-            TEST_MACHINE.registerTileEntity();
+            //ENTRIES.add(TEST_MACHINE);
+            MACHINE_TEST.registerTileEntity();
             MODULE_INSTALLER.registerTileEntity();
+            //TEST_MACHINE.registerTileEntity();
         }
     }
 

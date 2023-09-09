@@ -9,9 +9,11 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 import java.util.Optional;
 
+@ParametersAreNonnullByDefault
 public class HiiragiFluidTankWrapper implements IFluidHandler, INBTSerializable<NBTTagCompound> {
 
     private final HiiragiFluidTank[] tanks;

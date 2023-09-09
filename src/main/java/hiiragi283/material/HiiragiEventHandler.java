@@ -1,12 +1,13 @@
 package hiiragi283.material;
 
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
-import hiiragi283.material.api.machine.IModuleItem;
 import hiiragi283.material.api.material.CommonMaterials;
 import hiiragi283.material.api.material.ElementMaterials;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.material.MaterialStack;
+import hiiragi283.material.api.module.IModuleItem;
 import hiiragi283.material.api.part.HiiragiPart;
+import hiiragi283.material.api.registry.HiiragiRegister;
 import hiiragi283.material.api.registry.HiiragiRegistry;
 import hiiragi283.material.api.shape.HiiragiShape;
 import hiiragi283.material.api.shape.HiiragiShapes;
@@ -34,7 +35,7 @@ public class HiiragiEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void registerShape(HiiragiRegistryEvent.Shape event) throws IllegalAccessException {
-        HiiragiShapes.register(new HiiragiShapes(), HiiragiShape.class, shape -> event.getRegistry().register(shape.name(), shape));
+        HiiragiRegister.register(new HiiragiShapes(), HiiragiShape.class, shape -> event.getRegistry().register(shape.name(), shape));
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -42,8 +43,8 @@ public class HiiragiEventHandler {
 
         HiiragiRegistry<String, HiiragiMaterial> registry = event.getRegistry();
 
-        ElementMaterials.register(new ElementMaterials(), HiiragiMaterial.class, material -> registry.register(material.name, material));
-        CommonMaterials.register(new CommonMaterials(), HiiragiMaterial.class, material -> registry.register(material.name, material));
+        HiiragiRegister.register(new ElementMaterials(), HiiragiMaterial.class, material -> registry.register(material.name, material));
+        HiiragiRegister.register(new CommonMaterials(), HiiragiMaterial.class, material -> registry.register(material.name, material));
 
     }
 

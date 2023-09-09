@@ -2,11 +2,13 @@ package hiiragi283.material.util;
 
 import net.minecraft.client.renderer.GlStateManager;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
+@ParametersAreNonnullByDefault
 public abstract class HiiragiColor {
 
     //Minecraftのカラーコードと同じ色

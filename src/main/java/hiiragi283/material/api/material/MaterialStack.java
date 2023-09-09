@@ -4,14 +4,14 @@ import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-
+@ParametersAreNonnullByDefault
 public class MaterialStack {
 
     @Nullable
@@ -80,7 +80,7 @@ public class MaterialStack {
         return new MaterialStack(this.material, amount);
     }
 
-    public boolean equalsMaterial(@NotNull MaterialStack other) {
+    public boolean equalsMaterial(MaterialStack other) {
         return material != null && this.material.equals(other.material);
     }
 

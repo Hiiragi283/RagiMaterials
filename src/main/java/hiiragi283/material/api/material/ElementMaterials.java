@@ -1,7 +1,6 @@
 package hiiragi283.material.api.material;
 
 import hiiragi283.material.api.machine.IMachineProperty;
-import hiiragi283.material.api.registry.HiiragiRegistryEntries;
 import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.api.shape.ShapeType;
 import hiiragi283.material.util.HiiragiColor;
@@ -12,7 +11,7 @@ import java.util.HashMap;
  * @author MrKono
  * @author turtton
  */
-public class ElementMaterials extends HiiragiRegistryEntries {
+public class ElementMaterials {
 
     //    Elements    //
 

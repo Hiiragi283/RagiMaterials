@@ -6,6 +6,9 @@ import hiiragi283.material.api.shape.HiiragiShapes;
 import hiiragi283.material.util.CraftingBuilder;
 import hiiragi283.material.util.HiiragiUtil;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class MaterialBlockCasing extends MaterialBlock {
 
     public MaterialBlockCasing() {

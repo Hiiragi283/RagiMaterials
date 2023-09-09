@@ -2,7 +2,7 @@ package hiiragi283.material.api.material;
 
 import com.google.common.base.CaseFormat;
 import hiiragi283.material.api.event.HiiragiRegistryEvent;
-import hiiragi283.material.api.fluid.MaterialFluidNew;
+import hiiragi283.material.api.fluid.MaterialFluid;
 import hiiragi283.material.api.machine.IMachineProperty;
 import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.registry.HiiragiRegistry;
@@ -16,9 +16,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,8 @@ import java.util.stream.Collectors;
 /**
  * An object which contains several properties of material
  */
+
+@ParametersAreNonnullByDefault
 public class HiiragiMaterial {
 
     /**
@@ -76,6 +80,13 @@ public class HiiragiMaterial {
 
     public Optional<Fluid> getFluid() {
         return Optional.ofNullable(fluid);
+    }
+
+    public void registerFluid() {
+        getFluid().map(fluid -> getFluidBlock().map(fluid::setBlock).orElse(fluid)).ifPresent(fluid -> {
+            FluidRegistry.registerFluid(fluid);
+            FluidRegistry.addBucketForFluid(fluid);
+        });
     }
 
     /**
@@ -128,7 +139,7 @@ public class HiiragiMaterial {
         this.name = name;
         this.index = index;
         this.translationKey = "hiiragi_material." + name;
-        this.fluid = new MaterialFluidNew(this); //must be last!
+        this.fluid = new MaterialFluid(this); //must be last!
     }
 
     public HiiragiMaterial copy() {

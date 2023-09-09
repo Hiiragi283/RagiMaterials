@@ -21,8 +21,10 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
+@ParametersAreNonnullByDefault
 public abstract class HiiragiTileEntity extends TileEntity {
 
     public HiiragiItemHandlerWrapper inventory;
@@ -40,8 +42,9 @@ public abstract class HiiragiTileEntity extends TileEntity {
 
     //    NBT    //
 
+    @NotNull
     @Override
-    public @NotNull NBTTagCompound getUpdateTag() {
+    public NBTTagCompound getUpdateTag() {
         return writeToNBT(new NBTTagCompound());
     }
 
@@ -54,12 +57,12 @@ public abstract class HiiragiTileEntity extends TileEntity {
     }
 
     @Override
-    public void onDataPacket(@NotNull NetworkManager net, @NotNull SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         readFromNBT(pkt.getNbtCompound());
     }
 
     @Override
-    public boolean shouldRefresh(@NotNull World world, @NotNull BlockPos pos, @NotNull IBlockState oldState, @NotNull IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
 
@@ -77,6 +80,7 @@ public abstract class HiiragiTileEntity extends TileEntity {
 
     //    Tickable    //
 
+    @ParametersAreNonnullByDefault
     public static abstract class Tickable extends HiiragiTileEntity implements ITickable {
 
         public int maxCount;

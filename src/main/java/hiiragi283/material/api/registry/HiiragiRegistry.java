@@ -4,10 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
+@ParametersAreNonnullByDefault
 public class HiiragiRegistry<K, V> {
 
     private boolean isUnmodifiable = false;
@@ -31,11 +33,11 @@ public class HiiragiRegistry<K, V> {
     }
 
     @NotNull
-    public Optional<V> getValue(@NotNull K key) {
+    public Optional<V> getValue(K key) {
         return Optional.ofNullable(REGISTRY.get(key));
     }
 
-    public void register(@NotNull K key, @NotNull V value) {
+    public void register(K key, V value) {
         if (isUnmodifiable) {
             LOGGER.error("Cannot register any values with this registry!");
         } else if (REGISTRY.containsKey(key)) {

@@ -9,11 +9,13 @@ import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Desugar
+@ParametersAreNonnullByDefault
 public record HiiragiShape(String name, int scale) {
 
     @NotNull
