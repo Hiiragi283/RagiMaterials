@@ -7,26 +7,38 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
+import java.util.Collection;
+import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class HiiragiFluidTankWrapper implements IFluidHandler, INBTSerializable<NBTTagCompound> {
 
-    private final HiiragiFluidTank[] tanks;
+    @NotNull
+    private List<HiiragiFluidTank> tanks;
+
+    public void setSize(int size) {
+        tanks = new ArrayList<>(size);
+    }
+
+    public HiiragiFluidTankWrapper(Collection<HiiragiFluidTank> tanks) {
+        this.tanks = new ArrayList<>(tanks);
+    }
 
     public HiiragiFluidTankWrapper(HiiragiFluidTank... tanks) {
-        this.tanks = tanks;
+        this.tanks = Arrays.asList(tanks);
     }
 
     //    FluidHandler    //
 
     @Override
     public IFluidTankProperties[] getTankProperties() {
-        return Arrays.stream(tanks).map(tank -> tank.getTankProperties()[0]).toArray(IFluidTankProperties[]::new);
+        return tanks.stream().map(tank -> tank.getTankProperties()[0]).toArray(IFluidTankProperties[]::new);
     }
 
     @Override
@@ -63,7 +75,17 @@ public class HiiragiFluidTankWrapper implements IFluidHandler, INBTSerializable<
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        return tanks[0].drain(maxDrain, doDrain);
+        FluidStack result = null;
+        for (HiiragiFluidTank tank : tanks) {
+            if (tank.getIOType().canExtract) {
+                FluidStack resultTest = tank.drain(maxDrain, false);
+                if (resultTest != null) {
+                    result = tank.drain(maxDrain, doDrain);
+                    break;
+                }
+            }
+        }
+        return result;
     }
 
     //    INBTSerializable<NBTTagCompound>    //
@@ -72,10 +94,7 @@ public class HiiragiFluidTankWrapper implements IFluidHandler, INBTSerializable<
     public NBTTagCompound serializeNBT() {
         var tagList = new NBTTagList();
         for (HiiragiFluidTank tank : tanks) {
-            Optional<FluidStack> stack = tank.getFluidOptional();
-            var tag = new NBTTagCompound();
-            stack.ifPresent(fluid -> fluid.writeToNBT(tag));
-            tagList.appendTag(tag);
+            tagList.appendTag(tank.serializeNBT());
         }
         var tag = new NBTTagCompound();
         tag.setTag("Fluids", tagList);
@@ -85,9 +104,10 @@ public class HiiragiFluidTankWrapper implements IFluidHandler, INBTSerializable<
     @Override
     public void deserializeNBT(NBTTagCompound nbt) {
         NBTTagList tagList = nbt.getTagList("Fluids", Constants.NBT.TAG_COMPOUND);
+        setSize(tagList.tagCount());
         for (int i = 0; i < tagList.tagCount(); i++) {
             NBTTagCompound tag = tagList.getCompoundTagAt(i);
-            tanks[i].setFluid(FluidStack.loadFluidStackFromNBT(tag));
+            tanks.get(i).deserializeNBT(tag);
         }
     }
 

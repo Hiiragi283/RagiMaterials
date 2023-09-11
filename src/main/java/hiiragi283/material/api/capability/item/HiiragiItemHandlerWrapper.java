@@ -11,12 +11,22 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class HiiragiItemHandlerWrapper implements IItemHandlerModifiable, INBTSerializable<NBTTagCompound> {
 
     private final List<AbstractMap.SimpleEntry<HiiragiItemHandler, Integer>> pairs = new ArrayList<>();
+
+    public HiiragiItemHandlerWrapper(Collection<HiiragiItemHandler> itemHandlers) {
+        //Wrapperのスロット -> IItemHandlerとそれに対応したスロットのEntry
+        for (HiiragiItemHandler handler : itemHandlers) {
+            for (int slot = 0; slot < handler.getSlots(); slot++) {
+                pairs.add(new AbstractMap.SimpleEntry<>(handler, slot));
+            }
+        }
+    }
 
     public HiiragiItemHandlerWrapper(HiiragiItemHandler... itemHandlers) {
         //Wrapperのスロット -> IItemHandlerとそれに対応したスロットのEntry

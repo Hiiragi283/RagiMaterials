@@ -2,10 +2,11 @@ package hiiragi283.material;
 
 import hiiragi283.material.api.block.MaterialBlock;
 import hiiragi283.material.api.block.MaterialBlockCasing;
-import hiiragi283.material.api.block.ModuleMachineBlock;
+import hiiragi283.material.block.BlockModuleMachine;
 import hiiragi283.material.api.item.HiiragiItemBlock;
 import hiiragi283.material.api.registry.HiiragiEntry;
 import hiiragi283.material.api.shape.HiiragiShapes;
+import hiiragi283.material.block.BlockMachineExtender;
 import hiiragi283.material.block.BlockModuleInstaller;
 import hiiragi283.material.config.RMConfig;
 import hiiragi283.material.util.CraftingBuilder;
@@ -74,12 +75,16 @@ public class HiiragiBlocks implements HiiragiEntry.BLOCK {
 
     public static final BlockModuleInstaller MODULE_INSTALLER = new BlockModuleInstaller();
 
-    public static final ModuleMachineBlock MACHINE_TEST = new ModuleMachineBlock("module_test");
+    public static final BlockModuleMachine MACHINE_TEST = new BlockModuleMachine("module_test");
+
+    public static final BlockMachineExtender MACHINE_EXTENDER= new BlockMachineExtender();
 
     //    Registry    //
 
     public static void init() {
         RagiMaterials.LOGGER.info("HiiragiBlocks has been initialized!");
+        ENTRIES.add(MACHINE_EXTENDER);
+        MACHINE_EXTENDER.registerTileEntity();
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
             ENTRIES.add(MATERIAL_BLOCK);
             ENTRIES.add(MATERIAL_CASING);

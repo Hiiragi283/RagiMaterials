@@ -6,8 +6,6 @@ import hiiragi283.material.util.HiiragiUtil;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -33,16 +31,8 @@ public class MaterialStackRenderer implements IIngredientRenderer<MaterialStack>
 
     private void drawMaterial(@NotNull Minecraft minecraft, int xPosition, int yPosition, @Nullable MaterialStack materialStack) {
         if (materialStack == null) return;
-        TextureMap textureMap = minecraft.getTextureMapBlocks();
-        minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         materialStack.getMaterial().map(material -> material.color).ifPresent(HiiragiColor::setGLColor);
-        HiiragiUtil.drawFluid(minecraft, xPosition, yPosition, getSprite(textureMap));
-    }
-
-    @NotNull
-    private TextureAtlasSprite getSprite(TextureMap textureMap) {
-        TextureAtlasSprite ret = textureMap.getTextureExtry(new ResourceLocation("blocks/concrete_white").toString());
-        return ret != null ? ret : textureMap.getMissingSprite();
+        HiiragiUtil.drawSquareTexture(minecraft, xPosition, yPosition, new ResourceLocation("blocks/concrete_white"));
     }
 
     @NotNull

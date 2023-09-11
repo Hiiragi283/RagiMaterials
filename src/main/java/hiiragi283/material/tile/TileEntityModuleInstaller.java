@@ -51,10 +51,6 @@ public class TileEntityModuleInstaller extends HiiragiTileEntity {
         }
     };
 
-    {
-        this.inventory = new HiiragiItemHandlerWrapper(inputInv0, inputInv1, inputInv2, inputInv3, outputInv);
-    }
-
     //    General    //
 
     @Nullable
@@ -74,7 +70,7 @@ public class TileEntityModuleInstaller extends HiiragiTileEntity {
 
     @Override
     public void onTileRemoved(World world, BlockPos pos, IBlockState state) {
-        HiiragiUtil.dropInventoryItems(world, pos, this.inventory, Vec3d.ZERO);
+        HiiragiUtil.dropInventoryItems(world, pos, new HiiragiItemHandlerWrapper(inputInv0, inputInv1, inputInv2, inputInv3, outputInv), Vec3d.ZERO);
     }
 
 }

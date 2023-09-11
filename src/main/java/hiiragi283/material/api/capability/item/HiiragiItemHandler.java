@@ -14,9 +14,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class HiiragiItemHandler extends ItemStackHandler implements IOControllable {
 
     @NotNull
-    private final IOControllable.Type ioType;
+    protected final IOControllable.Type ioType;
     @Nullable
-    private final TileEntity tile;
+    protected final TileEntity tile;
 
     public HiiragiItemHandler(int size) {
         this(size, Type.GENERAL);
@@ -56,4 +56,5 @@ public class HiiragiItemHandler extends ItemStackHandler implements IOControllab
     public Type getIOType() {
         return ioType;
     }
+
 }

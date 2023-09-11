@@ -25,7 +25,7 @@ dependencies {
 
     implementation(rfg.deobf("curse.maven:baubles-227083:2518667"))
     implementation(rfg.deobf("curse.maven:had-enough-items-557549:4451828"))
-    implementation(rfg.deobf("curse.maven:modularui-624243:4692436"))
+    //implementation(rfg.deobf("curse.maven:modularui-624243:4692436"))
     implementation(rfg.deobf("curse.maven:the-one-probe-245211:2667280"))
     runtimeOnly(rfg.deobf("curse.maven:codechicken-lib-1-8-242818:2779848"))
     runtimeOnly(rfg.deobf("curse.maven:dans-mouse-tweaks-461660:3962479"))

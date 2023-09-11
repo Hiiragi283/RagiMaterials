@@ -1,7 +1,8 @@
-package hiiragi283.material.api.block;
+package hiiragi283.material.block;
 
-import hiiragi283.material.api.item.ModuleMachineItemBlock;
-import hiiragi283.material.api.tile.TileEntityModuleMachine;
+import hiiragi283.material.api.block.HiiragiBlockContainer;
+import hiiragi283.material.api.item.HiiragiItemBlock;
+import hiiragi283.material.tile.TileEntityMachineExtender;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -16,14 +17,20 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Random;
 
 @ParametersAreNonnullByDefault
-public class ModuleMachineBlock extends HiiragiBlockContainer<TileEntityModuleMachine> {
+public class BlockMachineExtender extends HiiragiBlockContainer<TileEntityMachineExtender> {
 
-    public ModuleMachineBlock(String id) {
-        super(Material.IRON, id, TileEntityModuleMachine.class);
-        this.itemBlock = new ModuleMachineItemBlock(this);
+    public BlockMachineExtender() {
+        super(Material.IRON, "machine_extender", TileEntityMachineExtender.class);
+        this.itemBlock = new HiiragiItemBlock(this, 0);
         setDefaultState(getDefaultState().withProperty(BlockHorizontal.FACING, EnumFacing.NORTH));
+    }
+
+    @Override
+    public int quantityDropped(Random random) {
+        return super.quantityDropped(random);
     }
 
     //    BlockState    //

@@ -1,14 +1,17 @@
 package hiiragi283.material.api.item;
 
-import hiiragi283.material.api.block.ModuleMachineBlock;
+import hiiragi283.material.block.BlockModuleMachine;
 import hiiragi283.material.api.machine.IMachineProperty;
 import hiiragi283.material.api.module.IModuleItem;
 import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class ModuleMachineItemBlock extends HiiragiItemBlock implements IModuleItem {
 
-    public ModuleMachineItemBlock(ModuleMachineBlock block) {
+    public ModuleMachineItemBlock(BlockModuleMachine block) {
         super(block, 0);
     }
 

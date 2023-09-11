@@ -6,13 +6,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class HiiragiMessage implements IMessage {
+import javax.annotation.ParametersAreNonnullByDefault;
 
-    public BlockPos pos;
-    public NBTTagCompound tag;
+@ParametersAreNonnullByDefault
+public abstract class HiiragiMessage implements IMessage {
+
+    public BlockPos pos = BlockPos.ORIGIN;
+    public NBTTagCompound tag = new NBTTagCompound();
 
     public HiiragiMessage() {
-        this(BlockPos.ORIGIN, new NBTTagCompound());
     }
 
     public HiiragiMessage(BlockPos pos, NBTTagCompound tag) {
@@ -35,6 +37,30 @@ public class HiiragiMessage implements IMessage {
         buf.writeByte(pos.getY());
         buf.writeByte(pos.getZ());
         ByteBufUtils.writeTag(buf, tag);
+    }
+
+    public static class Client extends HiiragiMessage {
+
+        public Client() {
+            super();
+        }
+
+        public Client(BlockPos pos, NBTTagCompound tag) {
+            super(pos, tag);
+        }
+
+    }
+
+    public static class Server extends HiiragiMessage {
+
+        public Server() {
+            super();
+        }
+
+        public Server(BlockPos pos, NBTTagCompound tag) {
+            super(pos, tag);
+        }
+
     }
 
 }

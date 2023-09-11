@@ -1,5 +1,6 @@
 package hiiragi283.material.api.machine;
 
+import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -39,6 +40,19 @@ public interface IMachineProperty extends INBTSerializable<NBTTagCompound> {
     String KEY_RATE = "EnergyRate";
     String KEY_ITEM = "ItemSlots";
     String KEY_FLUID = "FluidSlots";
+
+    static IMachineProperty of() {
+        return of(HiiragiUtil.getEmptyConsumer());
+    }
+
+    static IMachineProperty of(NBTTagCompound nbt) {
+        return of(property -> {
+            if (nbt.hasKey(KEY_PROCESS)) property.processTime = nbt.getInteger(KEY_PROCESS);
+            if (nbt.hasKey(KEY_RATE)) property.energyRate = nbt.getInteger(KEY_RATE);
+            if (nbt.hasKey(KEY_ITEM)) property.itemSlots = nbt.getInteger(KEY_ITEM);
+            if (nbt.hasKey(KEY_FLUID)) property.fluidSlots = nbt.getInteger(KEY_FLUID);
+        });
+    }
 
     static IMachineProperty of(Consumer<IMachineProperty.Impl> consumer) {
         var property = new IMachineProperty.Impl();

@@ -18,7 +18,8 @@ import org.apache.logging.log4j.Logger;
         modid = RMReference.MOD_ID,
         name = RMReference.MOD_NAME,
         version = RMReference.VERSION,
-        acceptedMinecraftVersions = "[1.12, 1.12.2]"
+        acceptedMinecraftVersions = "[1.12, 1.12.2]",
+        dependencies = "after:jei@[4.24.5,)"
 )
 public class RagiMaterials implements HiiragiProxy {
 

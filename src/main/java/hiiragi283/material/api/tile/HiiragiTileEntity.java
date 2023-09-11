@@ -2,8 +2,8 @@ package hiiragi283.material.api.tile;
 
 import hiiragi283.material.HiiragiGuiHandler;
 import hiiragi283.material.RagiMaterials;
-import hiiragi283.material.api.capability.fluid.HiiragiFluidTankWrapper;
-import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper;
+import hiiragi283.material.network.HiiragiMessage;
+import hiiragi283.material.network.HiiragiNetworkManager;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +18,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,9 +27,6 @@ import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 public abstract class HiiragiTileEntity extends TileEntity {
-
-    public HiiragiItemHandlerWrapper inventory;
-    public HiiragiFluidTankWrapper tank;
 
     //    General    //
 
@@ -64,6 +62,22 @@ public abstract class HiiragiTileEntity extends TileEntity {
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
+    }
+
+    public void sendToClient() {
+        sendToClient(new HiiragiMessage.Client(getPos(), getUpdateTag()));
+    }
+
+    public void sendToClient(IMessage message) {
+        HiiragiNetworkManager.INSTANCE.sendToAll(message);
+    }
+
+    public void sendToServer() {
+        sendToServer(new HiiragiMessage.Server(getPos(), getUpdateTag()));
+    }
+
+    public void sendToServer(IMessage message) {
+        HiiragiNetworkManager.INSTANCE.sendToServer(message);
     }
 
     //    Event    //

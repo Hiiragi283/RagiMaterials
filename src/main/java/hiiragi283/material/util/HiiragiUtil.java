@@ -10,10 +10,12 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,9 +26,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -34,6 +40,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Objects;
@@ -50,6 +57,8 @@ public abstract class HiiragiUtil {
     public static final String AMOUNT = "amount";
     public static final String BlockEntityTag = "BlockEntityTag";
     public static final String BATTERY = "Battery";
+    public static final String CAPACITY = "Capacity";
+    public static final String FLUID = "Fluid";
     public static final String ForgeCaps = "ForgeCaps";
     public static final String INVENTORY = "Inventory";
     public static final String MACHINE_PROPERTY = "MachineProperty";
@@ -90,6 +99,27 @@ public abstract class HiiragiUtil {
             drop.motionZ = motion.z;
             world.spawnEntity(drop);
         }
+    }
+
+    //    Fluid    //
+
+    public static boolean interactWithFluidHandler(EntityPlayer player, IFluidHandler handler) {
+        InventoryPlayer inventoryPlayer = player.inventory;
+        ItemStack heldStack = inventoryPlayer.getItemStack();
+        if (!heldStack.isEmpty()) {
+            IItemHandler playerInventory = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+            if (playerInventory != null) {
+                FluidActionResult fluidActionResult = FluidUtil.tryFillContainerAndStow(heldStack, handler, playerInventory, Integer.MAX_VALUE, player, true);
+                if (!fluidActionResult.isSuccess()) {
+                    fluidActionResult = FluidUtil.tryEmptyContainerAndStow(heldStack, handler, playerInventory, Integer.MAX_VALUE, player, true);
+                }
+                if (fluidActionResult.isSuccess()) {
+                    inventoryPlayer.setItemStack(fluidActionResult.getResult());
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     //    FML    //
@@ -223,7 +253,11 @@ public abstract class HiiragiUtil {
 
     //    Render    //
 
-    public static void drawFluid(Minecraft minecraft, double x, double y, TextureAtlasSprite sprite) {
+    public static void drawSquareTexture(Minecraft minecraft, double x, double y, ResourceLocation textureLocation) {
+        //テクスチャを取得する
+        TextureMap textureMap = minecraft.getTextureMapBlocks();
+        minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        TextureAtlasSprite sprite = Optional.ofNullable(textureMap.getTextureExtry(textureLocation.toString())).orElse(textureMap.getMissingSprite());
         //TextureAtlasSpriteのx座標の左端と右端，y座標の下端と上端をDoubleに変換する
         double uMin = sprite.getMinU();
         double uMax = sprite.getMaxU();
@@ -241,6 +275,7 @@ public abstract class HiiragiUtil {
         vertexBuffer.pos(x, y, z).tex(uMin, vMin).endVertex(); //右上
         //いざ描画!!
         tessellator.draw();
+
     }
 
     //    ResourceLocation    //

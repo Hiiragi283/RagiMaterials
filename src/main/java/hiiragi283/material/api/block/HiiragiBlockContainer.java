@@ -47,11 +47,7 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (hand == EnumHand.MAIN_HAND) {
-            var tile = OptionalUtil.getTile(world, pos, tileClazz);
-            return tile.map(t -> t.onTileActivated(world, pos, player, hand, facing)).orElse(false);
-        }
-        return false;
+        return hand == EnumHand.MAIN_HAND ? OptionalUtil.getTile(world, pos, tileClazz).map(t -> t.onTileActivated(world, pos, player, hand, facing)).orElse(false) : false;
     }
 
     @Override

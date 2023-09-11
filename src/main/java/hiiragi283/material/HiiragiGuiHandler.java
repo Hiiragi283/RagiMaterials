@@ -1,6 +1,6 @@
 package hiiragi283.material;
 
-import hiiragi283.material.api.tile.TileEntityModuleMachine;
+import hiiragi283.material.tile.TileEntityModuleMachine;
 import hiiragi283.material.container.ContainerModuleInstaller;
 import hiiragi283.material.container.ContainerModuleMachine;
 import hiiragi283.material.gui.GuiModuleInstaller;
