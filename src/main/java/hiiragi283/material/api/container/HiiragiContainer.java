@@ -22,6 +22,14 @@ public abstract class HiiragiContainer<T extends HiiragiTileEntity> extends Cont
         this.inventoryPlayer = player.inventory;
     }
 
+    protected int getSlotPositionX(int index) {
+        return 8 + 18 * index;
+    }
+
+    protected int getSlotPositionY(int index) {
+        return 18 * (index + 1);
+    }
+
     @Override
     public boolean canInteractWith(@NotNull EntityPlayer playerIn) {
         return true;

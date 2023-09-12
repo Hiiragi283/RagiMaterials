@@ -36,6 +36,14 @@ public abstract class HiiragiGuiContainer<T extends HiiragiTileEntity> extends G
         return (height - ySize) / 2;
     }
 
+    protected int getSlotPositionX(int index) {
+        return 8 + 18 * index;
+    }
+
+    protected int getSlotPositionY(int index) {
+        return 18 * (index + 1);
+    }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         //drawDefaultBackground();

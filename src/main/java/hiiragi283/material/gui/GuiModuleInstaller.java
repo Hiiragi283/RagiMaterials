@@ -26,7 +26,7 @@ public class GuiModuleInstaller extends HiiragiGuiContainer<TileEntityModuleInst
     @Override
     public void initGui() {
         super.initGui();
-        addButton(new HiiragiGuiButton(this, 0, 8 + 18 * 4, 36 + 18, this.xSize, this.ySize, 16, 16, TEXTURE));
+        addButton(new HiiragiGuiButton(this, 0, getSlotPositionX(4), getSlotPositionY(2), this.xSize, this.ySize, 16, 16, TEXTURE));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package hiiragi283.material.api.item;
 
 import hiiragi283.material.api.machine.IMachineProperty;
-import hiiragi283.material.api.machine.ModuleTraits;
+import hiiragi283.material.api.machine.ModuleTrait;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.module.IModuleItem;
 import hiiragi283.material.api.shape.HiiragiShapes;
@@ -70,7 +70,7 @@ public class MaterialItemCasing extends MaterialItem implements IModuleItem {
     }
 
     @Override
-    public Set<ModuleTraits> getModuleTraits(ItemStack stack) {
+    public Set<ModuleTrait> getModuleTraits(ItemStack stack) {
         return HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
                 .flatMap(HiiragiMaterial::getMachineProperty)
                 .map(IMachineProperty::getModuleTraits)

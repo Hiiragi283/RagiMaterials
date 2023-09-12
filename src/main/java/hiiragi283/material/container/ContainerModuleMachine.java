@@ -16,18 +16,18 @@ public class ContainerModuleMachine extends HiiragiContainer<TileEntityModuleMac
 
     public ContainerModuleMachine(TileEntityModuleMachine tile, EntityPlayer player) {
         super(tile, player);
-        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 0, 8 + 18, 18));
-        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 1, 8 + 18 * 2, 18));
-        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 2, 8 + 18 * 3, 18));
-        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 3, 8 + 18, 18 * 2));
-        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 4, 8 + 18 * 2, 18 * 2));
-        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 5, 8 + 18 * 3, 18 * 2));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 0, 8 + 18 * 5, 18));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 1, 8 + 18 * 6, 18));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 2, 8 + 18 * 7, 18));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 3, 8 + 18 * 5, 18 * 2));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 4, 8 + 18 * 6, 18 * 2));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 5, 8 + 18 * 7, 18 * 2));
+        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 0, getSlotPositionX(1), getSlotPositionY(0)));
+        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 1, getSlotPositionX(2), getSlotPositionY(0)));
+        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 2, getSlotPositionX(3), getSlotPositionY(0)));
+        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 3, getSlotPositionX(1), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 4, getSlotPositionX(2), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotModuleMachine(tile, tile.inventoryInput, 5, getSlotPositionX(3), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 0, getSlotPositionX(5), getSlotPositionY(0)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 1, getSlotPositionX(6), getSlotPositionY(0)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 2, getSlotPositionX(7), getSlotPositionY(0)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 3, getSlotPositionX(5), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 4, getSlotPositionX(6), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.inventoryOutput, 5, getSlotPositionX(7), getSlotPositionY(1)));
         this.initSlotsPlayer(84);
     }
 

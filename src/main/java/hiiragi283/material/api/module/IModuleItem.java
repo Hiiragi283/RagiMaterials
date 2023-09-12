@@ -1,7 +1,7 @@
 package hiiragi283.material.api.module;
 
 import hiiragi283.material.api.machine.IMachineProperty;
-import hiiragi283.material.api.machine.ModuleTraits;
+import hiiragi283.material.api.machine.ModuleTrait;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
@@ -42,7 +42,7 @@ public interface IModuleItem {
         return 0;
     }
 
-    default Set<ModuleTraits> getModuleTraits(ItemStack stack) {
+    default Set<ModuleTrait> getModuleTraits(ItemStack stack) {
         return new HashSet<>();
     }
 

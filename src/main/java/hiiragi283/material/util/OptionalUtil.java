@@ -60,7 +60,7 @@ public abstract class OptionalUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends TileEntity> Optional<T> getTile(@Nullable IBlockAccess world, @Nullable BlockPos pos, Class<T> clazz) {
+    public static <T> Optional<T> getTile(@Nullable IBlockAccess world, @Nullable BlockPos pos, Class<T> clazz) {
         if (world == null || pos == null) return Optional.empty();
         return (Optional<T>) Optional.ofNullable(world.getTileEntity(pos)).filter(clazz::isInstance);
     }

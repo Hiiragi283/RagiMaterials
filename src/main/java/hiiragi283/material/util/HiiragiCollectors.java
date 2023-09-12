@@ -26,7 +26,7 @@ public abstract class HiiragiCollectors {
 
     //    NonNullList    //
 
-    public static <T> Collector<NonNullList<T>, List<T>, List<T>> NON_NULL_LIST_COLLECTOR() {
+    public static <T> Collector<NonNullList<T>, List<T>, List<T>> getNonNullListCollector() {
         return Collector.of(
                 ArrayList::new,
                 List::addAll,

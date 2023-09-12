@@ -10,11 +10,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -78,9 +80,23 @@ public abstract class HiiragiBlockContainer<T extends HiiragiTileEntity> extends
 
         @Override
         public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+            drops.add(getStackWithTileNBT(world, pos));
+        }
+
+        @NotNull
+        @Override
+        public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+            return getStackWithTileNBT(world, pos);
+        }
+
+        protected ItemStack getStackWithTileNBT(IBlockAccess world, BlockPos pos) {
             var stack = new ItemStack(this);
-            OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> stack.getOrCreateSubCompound("BlockEntityTag").merge(tile.getUpdateTag()));
-            drops.add(stack);
+            OptionalUtil.getTile(world, pos, tileClazz).ifPresent(tile -> stack.getOrCreateSubCompound("BlockEntityTag").merge(getTileNBT(tile)));
+            return stack;
+        }
+
+        protected NBTTagCompound getTileNBT(T tile) {
+            return tile.getUpdateTag();
         }
 
         @Override

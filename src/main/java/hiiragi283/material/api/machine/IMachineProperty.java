@@ -32,7 +32,7 @@ public interface IMachineProperty extends INBTSerializable<NBTTagCompound> {
         return 0;
     }
 
-    default Set<ModuleTraits> getModuleTraits() {
+    default Set<ModuleTrait> getModuleTraits() {
         return new HashSet<>();
     }
 

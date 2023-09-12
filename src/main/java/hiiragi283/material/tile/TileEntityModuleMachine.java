@@ -9,8 +9,11 @@ import hiiragi283.material.api.capability.item.HiiragiItemHandler;
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper;
 import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler;
 import hiiragi283.material.api.machine.IMachineProperty;
+import hiiragi283.material.api.machine.MachineContents;
+import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.module.IModuleItem;
 import hiiragi283.material.api.tile.HiiragiTileEntity;
+import hiiragi283.material.api.tile.IMaterialTile;
 import hiiragi283.material.util.HiiragiUtil;
 import hiiragi283.material.util.OptionalUtil;
 import net.minecraft.block.state.IBlockState;
@@ -34,9 +37,10 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ParametersAreNonnullByDefault
-public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implements IMachineProperty {
+public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implements IMachineProperty, IMaterialTile {
 
     public TileEntityModuleMachine() {
         super(100);
@@ -65,6 +69,8 @@ public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implemen
         tankOutput2.deserializeNBT(compound.getCompoundTag("TankOutput2"));
         energyStorage.deserializeNBT(compound.getCompoundTag(HiiragiUtil.BATTERY));
         machineProperty.deserializeNBT(compound.getCompoundTag(HiiragiUtil.MACHINE_PROPERTY));
+        HiiragiMaterial.REGISTRY.getValue(compound.getString(HiiragiUtil.MATERIAL))
+                .ifPresent(material -> MATERIAL = material);
         initMachineProperty(machineProperty);
         super.readFromNBT(compound);
     }
@@ -82,6 +88,9 @@ public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implemen
         compound.setTag("TankOutput2", tankOutput2.serializeNBT());
         compound.setTag(HiiragiUtil.BATTERY, energyStorage.serializeNBT());
         compound.setTag(HiiragiUtil.MACHINE_PROPERTY, machineProperty.serializeNBT());
+        Optional.ofNullable(MATERIAL)
+                .map(material -> material.name)
+                .ifPresent(name -> compound.setString(HiiragiUtil.MATERIAL, name));
         return super.writeToNBT(compound);
     }
 
@@ -122,6 +131,10 @@ public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implemen
         this.energyStorage.setCapacity(property.getEnergyCapacity());
     }
 
+    public MachineContents getMachineContents() {
+        return new MachineContents(inventoryInput, tankInput0, tankInput1, tankInput2, machineProperty);
+    }
+
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || capability == CapabilityEnergy.ENERGY;
@@ -149,6 +162,8 @@ public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implemen
 
     @Override
     public void onTilePlaced(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        HiiragiMaterial.REGISTRY_INDEX.getValue(stack.getMetadata())
+                .ifPresent(material -> MATERIAL = material);
         OptionalUtil.getItemImplemented(stack, IModuleItem.class)
                 .map(module -> module.toMachineProperty(stack))
                 .ifPresent(this::initMachineProperty);
@@ -179,6 +194,16 @@ public class TileEntityModuleMachine extends HiiragiTileEntity.Tickable implemen
     @Override
     public int getFluidSlotCounts() {
         return machineProperty.getFluidSlotCounts();
+    }
+
+    //    IMaterialTile    //
+
+    @Nullable
+    private HiiragiMaterial MATERIAL = null;
+
+    @Override
+    public Optional<HiiragiMaterial> getMaterial() {
+        return Optional.ofNullable(MATERIAL);
     }
 
 }

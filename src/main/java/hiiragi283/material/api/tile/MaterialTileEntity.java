@@ -18,7 +18,7 @@ import java.util.Optional;
 public class MaterialTileEntity extends HiiragiTileEntity implements IMaterialTile {
 
     @Nullable
-    private HiiragiMaterial MATERIAL;
+    private HiiragiMaterial MATERIAL = null;
 
     //    HiiragiTileEntity    //
 

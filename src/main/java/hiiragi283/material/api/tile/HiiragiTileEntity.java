@@ -4,6 +4,7 @@ import hiiragi283.material.HiiragiGuiHandler;
 import hiiragi283.material.RagiMaterials;
 import hiiragi283.material.network.HiiragiMessage;
 import hiiragi283.material.network.HiiragiNetworkManager;
+import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -98,11 +99,34 @@ public abstract class HiiragiTileEntity extends TileEntity {
     public static abstract class Tickable extends HiiragiTileEntity implements ITickable {
 
         public int maxCount;
-        private int currentCount = 0;
+        public int currentCount = 0;
 
         public Tickable(int maxCount) {
             this.maxCount = maxCount;
         }
+
+        public double getProgress() {
+            return (double) currentCount / (double) maxCount;
+        }
+
+        //    NBT    //
+
+        @Override
+        public void readFromNBT(NBTTagCompound compound) {
+            currentCount = compound.getInteger(HiiragiUtil.CURRENT_COUNT);
+            maxCount = Math.max(0, compound.getInteger(HiiragiUtil.MAX_COUNT));
+            super.readFromNBT(compound);
+        }
+
+        @NotNull
+        @Override
+        public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+            compound.setInteger(HiiragiUtil.CURRENT_COUNT, currentCount);
+            compound.setInteger(HiiragiUtil.MAX_COUNT, maxCount);
+            return super.writeToNBT(compound);
+        }
+
+        //    ITickable    //
 
         @Override
         public void update() {

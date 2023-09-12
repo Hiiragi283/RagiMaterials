@@ -16,11 +16,11 @@ public class ContainerModuleInstaller extends HiiragiContainer<TileEntityModuleI
 
     public ContainerModuleInstaller(TileEntityModuleInstaller tile, EntityPlayer player) {
         super(tile, player);
-        this.addSlotToContainer(new SlotItemHandler(tile.inputInv0, 0, 8 + 18, 36));
-        this.addSlotToContainer(new SlotItemHandler(tile.inputInv1, 0, 8 + 18 * 3, 36));
-        this.addSlotToContainer(new SlotItemHandler(tile.inputInv2, 0, 8 + 18 * 4, 36));
-        this.addSlotToContainer(new SlotItemHandler(tile.inputInv3, 0, 8 + 18 * 5, 36));
-        this.addSlotToContainer(new SlotOutputItemHandler(tile.outputInv, 0, 8 + 18 * 7, 36));
+        this.addSlotToContainer(new SlotItemHandler(tile.inputInv0, 0, getSlotPositionX(1), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotItemHandler(tile.inputInv1, 0, getSlotPositionX(3), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotItemHandler(tile.inputInv2, 0, getSlotPositionX(4), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotItemHandler(tile.inputInv3, 0, getSlotPositionX(5), getSlotPositionY(1)));
+        this.addSlotToContainer(new SlotOutputItemHandler(tile.outputInv, 0, getSlotPositionX(7), getSlotPositionY(1)));
         this.initSlotsPlayer(84);
     }
 

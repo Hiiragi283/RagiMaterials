@@ -55,9 +55,10 @@ public abstract class HiiragiUtil {
     //    Constants    //
 
     public static final String AMOUNT = "amount";
-    public static final String BlockEntityTag = "BlockEntityTag";
     public static final String BATTERY = "Battery";
+    public static final String BlockEntityTag = "BlockEntityTag";
     public static final String CAPACITY = "Capacity";
+    public static final String CURRENT_COUNT = "CurrentCount";
     public static final String FLUID = "Fluid";
     public static final String ForgeCaps = "ForgeCaps";
     public static final String INVENTORY = "Inventory";
@@ -65,6 +66,7 @@ public abstract class HiiragiUtil {
     public static final String MASS = "Mass";
     public static final String MATERIAL = "Material";
     public static final String MATERIALS = "Materials";
+    public static final String MAX_COUNT = "MaxCount";
     public static final String TANK = "Tank";
 
     //    Drop    //

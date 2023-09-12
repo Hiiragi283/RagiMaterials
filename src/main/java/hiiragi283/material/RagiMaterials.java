@@ -5,6 +5,8 @@ import hiiragi283.material.api.fluid.MaterialFluid;
 import hiiragi283.material.api.material.HiiragiMaterial;
 import hiiragi283.material.api.part.HiiragiPart;
 import hiiragi283.material.api.shape.HiiragiShape;
+import hiiragi283.material.compat.top.HiiragiMachinePropertyInfo;
+import hiiragi283.material.compat.top.HiiragiProgressInfo;
 import hiiragi283.material.network.HiiragiNetworkManager;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
@@ -73,6 +75,10 @@ public class RagiMaterials implements HiiragiProxy {
 
     @Mod.EventHandler
     public void onPostInit(FMLPostInitializationEvent event) {
+        if(Loader.isModLoaded("theoneprobe")) {
+            HiiragiProgressInfo.register();
+            HiiragiMachinePropertyInfo.register();
+        }
     }
 
     @Mod.EventHandler

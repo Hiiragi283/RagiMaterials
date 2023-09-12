@@ -4,6 +4,7 @@ import hiiragi283.material.api.capability.fluid.HiiragiFluidTank;
 import hiiragi283.material.api.gui.HiiragiGuiContainer;
 import hiiragi283.material.container.ContainerModuleMachine;
 import hiiragi283.material.tile.TileEntityModuleMachine;
+import hiiragi283.material.util.HiiragiUtil;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class GuiModuleMachine extends HiiragiGuiContainer<TileEntityModuleMachine> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/container/shulker_box.png");
+    public static final ResourceLocation TEXTURE = HiiragiUtil.getLocation("textures/gui/module_machine.png");
 
     public GuiModuleMachine(TileEntityModuleMachine tile, EntityPlayer player) {
         super(new ContainerModuleMachine(tile, player));
@@ -25,12 +26,24 @@ public class GuiModuleMachine extends HiiragiGuiContainer<TileEntityModuleMachin
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         //Input Tanks
-        if (isPointInRegion(8 + 18 + 1, 18 + 1, 16, 16, mouseX, mouseY)) {
+        if (isPointInRegion(getSlotPositionX(1), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
             drawFluidTooltip(container.tile.tankInput0, mouseX, mouseY);
-        } else if (isPointInRegion(8 + 18 * 2 + 1, 18 * 2 + 1, 16, 16, mouseX, mouseY)) {
+        }
+        if (isPointInRegion(getSlotPositionX(2), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
             drawFluidTooltip(container.tile.tankInput1, mouseX, mouseY);
-        } else if (isPointInRegion(8 + 18 * 3 + 1, 18 * 3 + 1, 16, 16, mouseX, mouseY)) {
+        }
+        if (isPointInRegion(getSlotPositionX(3), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
             drawFluidTooltip(container.tile.tankInput2, mouseX, mouseY);
+        }
+        //Output Tanks
+        if (isPointInRegion(getSlotPositionX(5), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
+            drawFluidTooltip(container.tile.tankOutput0, mouseX, mouseY);
+        }
+        if (isPointInRegion(getSlotPositionX(6), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
+            drawFluidTooltip(container.tile.tankOutput1, mouseX, mouseY);
+        }
+        if (isPointInRegion(getSlotPositionX(7), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
+            drawFluidTooltip(container.tile.tankOutput2, mouseX, mouseY);
         }
         renderHoveredToolTip(mouseX, mouseY);
     }
@@ -47,9 +60,16 @@ public class GuiModuleMachine extends HiiragiGuiContainer<TileEntityModuleMachin
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-        drawFluid(container.tile.tankInput0, 8 + 18, 18 * 3);
-        drawFluid(container.tile.tankInput1, 8 + 18 * 2, 18 * 3);
-        drawFluid(container.tile.tankInput2, 8 + 18 * 3, 18 * 3);
+        //Input Tanks
+        drawFluid(container.tile.tankInput0, getSlotPositionX(1), getSlotPositionY(2));
+        drawFluid(container.tile.tankInput1, getSlotPositionX(2), getSlotPositionY(2));
+        drawFluid(container.tile.tankInput2, getSlotPositionX(3), getSlotPositionY(2));
+        //Output Tanks
+        drawFluid(container.tile.tankOutput0, getSlotPositionX(5), getSlotPositionY(2));
+        drawFluid(container.tile.tankOutput1, getSlotPositionX(6), getSlotPositionY(2));
+        drawFluid(container.tile.tankOutput2, getSlotPositionX(7), getSlotPositionY(2));
+        //Progress Arrow
+        drawTexturedModalRect(getSlotPositionX(4), getSlotPositionY(1), xSize, 0, (int) (18 * container.tile.getProgress()), 18);
     }
 
 }

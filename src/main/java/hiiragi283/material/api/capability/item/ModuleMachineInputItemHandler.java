@@ -31,7 +31,7 @@ public class ModuleMachineInputItemHandler extends HiiragiItemHandler {
     @NotNull
     @Override
     public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        return super.insertItem(slot, stack, simulate);
+        return slot <= maxSlots ? super.insertItem(slot, stack, simulate) : stack;
     }
 
 }

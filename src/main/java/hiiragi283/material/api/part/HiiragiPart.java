@@ -42,7 +42,7 @@ public class HiiragiPart {
     }
 
     public List<ItemStack> getItemStacks() {
-        return getOreDicts().stream().map(OreDictionary::getOres).collect(HiiragiCollectors.NON_NULL_LIST_COLLECTOR());
+        return getOreDicts().stream().map(OreDictionary::getOres).collect(HiiragiCollectors.getNonNullListCollector());
     }
 
     public String getOreDict() {
