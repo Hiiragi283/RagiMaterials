@@ -1,9 +1,7 @@
 package hiiragi283.material
 
-import hiiragi283.api.HiiragiRegistry
-import hiiragi283.api.capability.HiiragiCapability
-import hiiragi283.api.fluid.MaterialFluid
-import hiiragi283.integration.RMIntegrationCore
+import hiiragi283.material.api.fluid.MaterialFluid
+import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
@@ -24,8 +22,8 @@ import java.util.*
     version = RMReference.VERSION,
     dependencies = "after-required:forgelin_continuous;after-required:modularui;after:gregtech;after:jei@[4.24.5,)",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
-    //modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
-    modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
+    modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
+    //modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
 )
 object RagiMaterials : HiiragiProxy {
 
@@ -54,7 +52,7 @@ object RagiMaterials : HiiragiProxy {
         MinecraftForge.EVENT_BUS.register(RMEventHandler)
         MinecraftForge.EVENT_BUS.register(RMEventHandler.Client)
         //連携の登録
-        RMIntegrationCore.INSTANCE.onConstruct(event)
+        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onConstruct(event)
     }
 
     @Mod.EventHandler
@@ -70,10 +68,8 @@ object RagiMaterials : HiiragiProxy {
         RMBlocks.init()
         RMItems.init()
         FluidRegistry.registerFluid(MaterialFluid.EMPTY.setBlock(Blocks.AIR))
-        //Capability登録
-        HiiragiCapability.register()
         //連携の登録
-        RMIntegrationCore.INSTANCE.onPreInit(event)
+        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onPreInit(event)
     }
 
     @Mod.EventHandler
@@ -90,13 +86,13 @@ object RagiMaterials : HiiragiProxy {
         RMItems.registerRecipe()
         RMRecipes.init()
         //連携の登録
-        RMIntegrationCore.INSTANCE.onInit(event)
+        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onInit(event)
     }
 
     @Mod.EventHandler
     override fun onPostInit(event: FMLPostInitializationEvent) {
         //連携の登録
-        RMIntegrationCore.INSTANCE.onPostInit(event)
+        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onPostInit(event)
     }
 
     @Mod.EventHandler
@@ -106,7 +102,7 @@ object RagiMaterials : HiiragiProxy {
             HiiragiRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
         }
         //パケット送信の登録
-        HiiragiNetworkManager.load()
+        HiiragiNetworkManager.register()
     }
 
 }

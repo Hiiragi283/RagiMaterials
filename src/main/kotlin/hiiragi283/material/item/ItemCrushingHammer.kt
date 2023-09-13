@@ -1,7 +1,7 @@
 package hiiragi283.material.item
 
-import hiiragi283.api.item.HiiragiItem
-import hiiragi283.api.item.ICrusherItem
+import hiiragi283.material.api.item.HiiragiItem
+import hiiragi283.material.api.item.ICrusherItem
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.block.state.IBlockState
 import net.minecraft.creativetab.CreativeTabs

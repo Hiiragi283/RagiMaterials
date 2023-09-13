@@ -1,6 +1,6 @@
 package hiiragi283.material.config
 
-import hiiragi283.api.HiiragiRegistry
+import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.api.material.*
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials

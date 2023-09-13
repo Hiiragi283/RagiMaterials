@@ -1,8 +1,8 @@
 package hiiragi283.material
 
-import hiiragi283.api.HiiragiRegistry
-import hiiragi283.api.recipe.CrushingRecipe
-import hiiragi283.api.recipe.RockGenerationRecipe
+import hiiragi283.material.api.recipe.CrushingRecipe
+import hiiragi283.material.api.recipe.RockGenerationRecipe
+import hiiragi283.material.api.registry.HiiragiRegistry
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import rechellatek.camelToSnakeCase

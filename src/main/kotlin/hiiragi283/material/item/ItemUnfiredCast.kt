@@ -1,7 +1,7 @@
 package hiiragi283.material.item
 
-import hiiragi283.api.item.HiiragiItem
 import hiiragi283.material.RMItems
+import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack

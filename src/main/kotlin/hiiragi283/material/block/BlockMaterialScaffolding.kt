@@ -1,6 +1,6 @@
 package hiiragi283.material.block
 
-import hiiragi283.api.HiiragiEntry
+import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.api.block.BlockMaterial
 import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.api.shape.HiiragiShapes
@@ -26,7 +26,7 @@ object BlockMaterialScaffolding : BlockMaterial(HiiragiShapes.SCAFFOLDING) {
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-    //    BlockMaterial    //
+    //    MaterialBlock    //
 
     override fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) {
         CraftingBuilder(getItemStack(material, 6))

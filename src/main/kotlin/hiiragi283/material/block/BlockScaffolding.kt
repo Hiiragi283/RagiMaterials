@@ -1,13 +1,13 @@
 package hiiragi283.material.block
 
-import hiiragi283.api.block.HiiragiBlock
-import hiiragi283.api.block.property.HiiragiProperty
-import hiiragi283.api.item.HiiragiItemBlock
-import hiiragi283.api.material.HiiragiMaterial
-import hiiragi283.api.material.MaterialCommon
-import hiiragi283.api.material.MaterialElements
-import hiiragi283.api.shape.HiiragiShapes
 import hiiragi283.material.RMReference
+import hiiragi283.material.api.block.HiiragiBlock
+import hiiragi283.material.api.block.property.HiiragiProperty
+import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.material.MaterialElements
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.setModelSame
 import net.minecraft.block.material.Material
@@ -95,7 +95,7 @@ object BlockScaffolding : HiiragiBlock(Material.IRON, "scaffolding") {
     @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
-    //    BlockMaterial    //
+    //    MaterialBlock    //
 
     override fun registerOreDict() {
         (0 until MAP.size).forEach {

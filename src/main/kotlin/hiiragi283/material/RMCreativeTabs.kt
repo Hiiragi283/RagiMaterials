@@ -1,6 +1,6 @@
 package hiiragi283.material
 
-import hiiragi283.api.material.MaterialElements
+import hiiragi283.material.api.material.MaterialElements
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -18,7 +18,7 @@ object RMCreativeTabs {
     val COMMON by lazy {
         object : CreativeTabs("${RMReference.MOD_ID}.common") {
             override fun createIcon(): ItemStack =
-                ItemStack(RMBlocks.CRUCIBLE)
+                ItemStack.EMPTY
         }
     }
 
