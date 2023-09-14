@@ -1,6 +1,7 @@
 package hiiragi283.material.api.block
 
 import hiiragi283.material.api.tile.HiiragiTileEntity
+import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.ITileEntityProvider
@@ -9,14 +10,17 @@ import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.registry.GameRegistry
+
 
 abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
     material: Material,
@@ -87,12 +91,28 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
             state: IBlockState,
             fortune: Int
         ) {
-            val stack = ItemStack(this)
-            getTile<HiiragiTileEntity>(world, pos)?.let {
-                stack.getOrCreateSubCompound("BlockEntityTag").merge(it.updateTag)
-            }
-            drops.add(stack)
+            drops.add(getStackWithTileNBT(world, pos))
         }
+
+        override fun getPickBlock(
+            state: IBlockState,
+            target: RayTraceResult,
+            world: World,
+            pos: BlockPos,
+            player: EntityPlayer
+        ): ItemStack {
+            return getStackWithTileNBT(world, pos)
+        }
+
+        open fun getStackWithTileNBT(world: IBlockAccess?, pos: BlockPos?): ItemStack {
+            val stack = ItemStack(this)
+            getTile<HiiragiTileEntity>(world, pos)?.let { tile ->
+                stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).merge(getTileNBT(tile))
+            }
+            return stack
+        }
+
+        open fun <T : HiiragiTileEntity> getTileNBT(tile: T): NBTTagCompound = tile.getUpdateTag()
 
         /**
          * Reference: net.minecraft.block.BlockFlowerPot

@@ -50,6 +50,7 @@ hiiragi_shape.ball=%s Grinding Ball
 hiiragi_shape.block=Block of %s
 hiiragi_shape.block_sheetmetal=%s Sheetmetal
 hiiragi_shape.bottle=%s Full-Bottle
+hiiragi_shape.casing=%s Casing
 hiiragi_shape.clump=%s Clump
 hiiragi_shape.cluster=Native %s Cluster
 hiiragi_shape.coin=%s Coin
@@ -61,6 +62,7 @@ hiiragi_shape.dust_dirty=Dirty %s Dust
 hiiragi_shape.dust_tiny=Tiny Pile of %s Dust
 hiiragi_shape.empty=%s
 hiiragi_shape.fence=%s Fence
+hiiragi_shape.frame=%s Frame
 hiiragi_shape.gear=%s Gear
 hiiragi_shape.gem=%s Gem
 hiiragi_shape.ingot=%s Ingot
@@ -95,6 +97,11 @@ error.ragi_materials.crucible.null_output=§cNot found output!
 
 ##    Tooltip    ##
 
+tips.ragi_materials.module.energy_capacity=- Energy Capacity Time: §b%s§r§7 FE
+tips.ragi_materials.module.energy_rate=- Energy Rate: §b%s§r§7 FE/t
+tips.ragi_materials.module.fluid_slot=- Fluid Slot: §b%s§r§7
+tips.ragi_materials.module.item_slots=- Item Slot: §b%s§r§7
+tips.ragi_materials.module.process_time=- Process Time: §b%s§r§7 tick
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 tips.ragi_materials.property.melt=- Melting Point: §b%s§r§7 K

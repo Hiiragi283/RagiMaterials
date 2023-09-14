@@ -23,7 +23,7 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
     override fun setRecipe(layout: IRecipeLayout, recipe: Wrapper, iIngredients: IIngredients) {
         //MaterialStack
         getMaterialStacks(layout).init(0, false, 4 + 1, 4 + 1)
-        getMaterialStacks(layout)[0] = recipe.getMaterial()
+        getMaterialStacks(layout)[0] = recipe.getMaterialStack()
         //ItemStack
         for (i in recipe.getStacks().indices) {
             layout.itemStacks.init(i, true, 18 * (i % 9) + 4, 18 * (i / 9) + 18 + 4)
@@ -31,22 +31,28 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         }
     }
 
-    class Wrapper(private val material: MaterialStack, private val stacks: List<ItemStack>) : IRecipeWrapper {
+    class Wrapper(private val materialStack: MaterialStack, private val stacks: Collection<ItemStack>) : IRecipeWrapper {
 
-        constructor(material: HiiragiMaterial) : this(material.toMaterialStack(), material.getAllItemStack())
+        constructor(material: HiiragiMaterial) : this(
+            material.toMaterialStack(),
+            material.getAllItemStack()
+                .map { it.item to it.metadata }
+                .toSet()
+                .map { ItemStack(it.first, 1, it.second) }
+        )
 
-        fun getMaterial(): MaterialStack = material.copy()
+        fun getMaterialStack(): MaterialStack = materialStack.copy()
 
         fun getStacks(): List<ItemStack> = stacks.toList()
 
         //    IRecipeWrapper    //
         override fun getIngredients(iIngredients: IIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, stacks)
-            iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, material)
+            iIngredients.setInputs(VanillaTypes.ITEM, getStacks())
+            iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, getMaterialStack())
         }
 
         override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {
-            minecraft.fontRenderer.drawString(material.material.getTranslatedName(), 24, 10, HiiragiColor.WHITE.rgb)
+            minecraft.fontRenderer.drawString(getMaterialStack().material.getTranslatedName(), 24, 10, HiiragiColor.WHITE.rgb)
         }
 
     }

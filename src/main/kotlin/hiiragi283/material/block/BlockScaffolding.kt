@@ -119,14 +119,14 @@ object BlockScaffolding : HiiragiBlock(Material.IRON, "scaffolding") {
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerColorBlock(blockColors: BlockColors) {
+    override fun registerBlockColor(blockColors: BlockColors) {
         blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
             getMaterialFromMeta(getMetaFromState(state)).color
         }, this)
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerColorItem(itemColors: ItemColors) {
+    override fun registerItemColor(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             getMaterialFromMeta(stack.metadata).color
         }, this)

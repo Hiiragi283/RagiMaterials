@@ -1,79 +1,69 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.registry.HiiragiEntry.BLOCK
-import hiiragi283.material.api.registry.HiiragiEntry.ITEM
+import hiiragi283.material.api.block.MaterialBlock
+import hiiragi283.material.api.block.MaterialBlockCasing
 import hiiragi283.material.api.block.createBlockMaterial
-import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.registry.HiiragiEntry.BLOCK
+import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.block.BlockCasing
-import hiiragi283.material.block.BlockScaffolding
+import hiiragi283.material.block.BlockMachineExtender
+import hiiragi283.material.block.BlockModuleMachine
 import hiiragi283.material.config.RMConfig
-import net.minecraft.block.Block
-import net.minecraft.client.renderer.color.BlockColors
-import net.minecraft.client.renderer.color.ItemColors
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.registries.IForgeRegistry
+import hiiragi283.material.util.CraftingBuilder
 
-object HiiragiBlocks : BLOCK {
-
-    override val itemBlock: HiiragiItemBlock? = null
-
-    private val entries: MutableList<BLOCK> = mutableListOf()
-
-    fun getItemBlockEntries(): List<ITEM> = entries.mapNotNull { it.itemBlock }
+object HiiragiBlocks {
 
     //    Material    //
 
     @JvmField
-    val MATERIAL_BLOCK = createBlockMaterial(
+    val MATERIAL_BLOCK: MaterialBlock = createBlockMaterial(
         HiiragiShapes.BLOCK,
         recipe = getRecipeBlock()
     )
 
-    //    Common    //
+    @JvmField
+    val MATERIAL_CASING: MaterialBlockCasing = MaterialBlockCasing
 
     @JvmField
-    val CASING = BlockCasing
+    val MATERIAL_FRAME: MaterialBlock = createBlockMaterial(
+        HiiragiShapes.FRAME,
+        recipe = { entry, material ->
+            CraftingBuilder(entry.getItemStack(material, 2))
+                .setPattern("AAA", "A A", "AAA")
+                .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
+                .build()
+        }
+    )
+
+    //    Machine    //
 
     @JvmField
-    val SCAFFOLDING = BlockScaffolding
+    val MACHINE_EXTENDER: BlockMachineExtender = BlockMachineExtender
+
+    @JvmField
+    val MACHINE_TEST = BlockModuleMachine("machine_test")
 
     fun init() {
-        RagiMaterials.LOGGER.info("HiiragiBlocks has been initialized!")
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
-        entries.add(CASING)
-        entries.add(SCAFFOLDING)
-    }
 
-    override fun register(registry: IForgeRegistry<Block>) {
+        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
+            HiiragiRegistries.BLOCK.registerAll(
+                MATERIAL_BLOCK,
+                MATERIAL_CASING,
+                MATERIAL_FRAME
+            )
+        }
 
-        entries.forEach { registry.register(it.getObject()) }
+        HiiragiRegistries.BLOCK.registerAll(
+            MACHINE_EXTENDER,
+            MACHINE_TEST
+        )
+
         MATERIAL_BLOCK.registerTileEntity()
+        MACHINE_EXTENDER.registerTileEntity()
+        MACHINE_TEST.registerTileEntity()
 
-    }
+        HiiragiRegistries.ITEM.registerAll(HiiragiRegistries.BLOCK.getValues().mapNotNull(BLOCK::itemBlock))
 
-    override fun registerOreDict() {
-        entries.forEach { it.registerOreDict() }
-    }
-
-    override fun registerRecipe() {
-        entries.forEach { it.registerRecipe() }
-    }
-
-    @SideOnly(Side.CLIENT)
-    override fun registerColorBlock(blockColors: BlockColors) {
-        entries.forEach { it.registerColorBlock(blockColors) }
-    }
-
-    @SideOnly(Side.CLIENT)
-    override fun registerColorItem(itemColors: ItemColors) {
-        entries.forEach { it.registerColorItem(itemColors) }
-    }
-
-    @SideOnly(Side.CLIENT)
-    override fun registerModel() {
-        entries.forEach { it.registerModel() }
     }
 
 }

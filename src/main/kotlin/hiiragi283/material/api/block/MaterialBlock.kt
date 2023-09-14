@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
@@ -85,6 +86,11 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
 
     override fun quantityDropped(random: Random): Int = 0
 
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
     //    HiiragiEntry    //
 
     override fun registerOreDict() {
@@ -102,14 +108,14 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     abstract fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
-    override fun registerColorBlock(blockColors: BlockColors) {
+    override fun registerBlockColor(blockColors: BlockColors) {
         blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
             getTile<MaterialTileEntity>(world, pos)?.material?.color ?: -1
         }, this)
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerColorItem(itemColors: ItemColors) {
+    override fun registerItemColor(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
         }, this)

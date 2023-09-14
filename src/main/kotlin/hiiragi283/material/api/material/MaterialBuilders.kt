@@ -233,10 +233,10 @@ fun jsonMaterialOf(json: String): HiiragiMaterial? {
     val material: HiiragiMaterial = materialOf(jsonName, jsonIndex)
 
     fun <T> setValue(key: String, method: (JsonElement) -> T, init: (T) -> Unit) {
-        jsonObject.getAsJsonPrimitive(key)?.let(method)?.let { init(it) }
+        jsonObject.getAsJsonPrimitive(key)?.let(method)?.let(init)
     }
 
-    setValue("color", JsonElement::getAsInt) { color: Int -> material.color = color }
+    /*setValue("color", JsonElement::getAsInt) { color: Int -> material.color = color }
     setValue("formula", JsonElement::getAsString) { formula: String -> material.formula = formula }
     setValue("molar", JsonElement::getAsDouble) { molar: Double -> material.molar = molar }
     setValue("tempBoil", JsonElement::getAsInt) { tempBoil: Int -> material.tempBoil = tempBoil }
@@ -246,7 +246,7 @@ fun jsonMaterialOf(json: String): HiiragiMaterial? {
     }
     setValue("translationKey", JsonElement::getAsString) { translationKey: String ->
         material.translationKey = translationKey
-    }
+    }*/
 
     jsonObject.getAsJsonArray("oreDictAlt")?.let { array ->
         array.filterIsInstance<JsonPrimitive>().map { it.asString }.forEach { material.oreDictAlt.add(it) }

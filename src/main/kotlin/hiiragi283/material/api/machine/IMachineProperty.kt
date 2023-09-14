@@ -60,7 +60,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
                 this.fluidSlots = nbt.getInteger(KEY_FLUID)
         }
 
-        fun of(init: Impl.() -> Unit): IMachineProperty {
+        fun of(init: Impl.() -> Unit = {}): IMachineProperty {
             val property = Impl()
             property.init()
             return property

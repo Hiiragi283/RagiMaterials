@@ -40,11 +40,11 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
     fun registerRecipe() {}
 
     @SideOnly(Side.CLIENT)
-    fun registerColorBlock(blockColors: BlockColors) {
+    fun registerBlockColor(blockColors: BlockColors) {
     }
 
     @SideOnly(Side.CLIENT)
-    fun registerColorItem(itemColors: ItemColors) {
+    fun registerItemColor(itemColors: ItemColors) {
     }
 
     @SideOnly(Side.CLIENT)

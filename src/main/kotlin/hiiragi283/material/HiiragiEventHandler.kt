@@ -4,13 +4,15 @@ import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
-import hiiragi283.material.api.material.getStacks
+import hiiragi283.material.api.material.MaterialStack
+import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.part.getParts
-import hiiragi283.material.api.registry.HiiragiRegistryOld
+import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
 import hiiragi283.material.compat.RMIntegrationCore
 import hiiragi283.material.config.RMJSonHandler
+import hiiragi283.material.util.getItemImplemented
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -22,6 +24,8 @@ import net.minecraftforge.common.config.ConfigManager
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
+import net.minecraftforge.fluids.capability.IFluidTankProperties
 import net.minecraftforge.fml.client.event.ConfigChangedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
@@ -29,11 +33,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 object HiiragiEventHandler {
-
-    @SubscribeEvent
-    fun createRegistry(event: RegistryEvent.NewRegistry) {
-        HiiragiRegistryOld
-    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun registerMaterials(event: MaterialRegistryEvent) {
@@ -60,12 +59,12 @@ object HiiragiEventHandler {
 
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
-        HiiragiBlocks.register(event.registry)
+        HiiragiRegistries.BLOCK.register(event.registry)
     }
 
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
-        HiiragiItems.register(event.registry)
+        HiiragiRegistries.ITEM.register(event.registry)
     }
 
     private val keyInventory = hiiragiLocation("inventory")
@@ -98,25 +97,36 @@ object HiiragiEventHandler {
 
         @SubscribeEvent
         fun registerBlockColor(event: ColorHandlerEvent.Block) {
-            HiiragiBlocks.registerColorBlock(event.blockColors)
+            HiiragiRegistries.BLOCK.registerBlockColor(event.blockColors)
         }
 
         @SubscribeEvent
         fun registerItemColor(event: ColorHandlerEvent.Item) {
-            HiiragiBlocks.registerColorItem(event.itemColors)
-            HiiragiItems.registerColorItem(event.itemColors)
+            HiiragiRegistries.BLOCK.registerItemColor(event.itemColors)
+            HiiragiRegistries.ITEM.registerItemColor(event.itemColors)
         }
 
         @SubscribeEvent
         fun registerModel(event: ModelRegistryEvent) {
-            HiiragiBlocks.registerModel()
-            HiiragiItems.registerModel()
+            HiiragiRegistries.BLOCK.registerModel()
+            HiiragiRegistries.ITEM.registerModel()
         }
 
         @SubscribeEvent
         fun onTooltip(event: ItemTooltipEvent) {
+            if (event.itemStack.isEmpty) return
+
             event.itemStack.getParts().toSet().forEach { it.addTooltip(event.toolTip) }
-            event.itemStack.getStacks().toSet().forEach { it.addTooltip(event.toolTip) }
+
+            event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+                ?.tankProperties
+                ?.mapNotNull(IFluidTankProperties::getContents)
+                ?.mapNotNull(MaterialStack::of)
+                ?.toSet()
+                ?.forEach { it.addTooltip(event.toolTip) }
+
+            event.itemStack.getItemImplemented<IModuleItem>()?.addTooltip(event.itemStack, event.toolTip)
+
         }
 
     }

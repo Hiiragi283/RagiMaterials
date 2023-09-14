@@ -1,6 +1,7 @@
 package hiiragi283.material.api.shape
 
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
 
@@ -39,5 +40,11 @@ class HiiragiShape(val name: String, val scale: Int) {
     fun isValid(material: HiiragiMaterial): Boolean = this in material.shapeType.shapes
 
     override fun toString(): String = "Shape:$name"
+
+    //    Registration    //
+
+    fun register() {
+        HiiragiRegistries.SHAPE.register(name, this)
+    }
 
 }

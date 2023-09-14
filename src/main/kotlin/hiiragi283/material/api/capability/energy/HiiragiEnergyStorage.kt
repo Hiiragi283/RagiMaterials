@@ -8,7 +8,7 @@ import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
 class HiiragiEnergyStorage(
-    private val capacity: Int,
+    private var capacity: Int,
     private val maxIn: Int = capacity,
     private val maxOut: Int = capacity,
     private var stored: Int = 0
@@ -52,6 +52,10 @@ class HiiragiEnergyStorage(
         tileTo.getCapability(CapabilityEnergy.ENERGY, facingTo)?.let {
             extractEnergyTo(it, simulate)
         }
+    }
+
+    fun setCapacity(capacity: Int) {
+        this.capacity = capacity
     }
 
     override fun getEnergyStored(): Int = stored

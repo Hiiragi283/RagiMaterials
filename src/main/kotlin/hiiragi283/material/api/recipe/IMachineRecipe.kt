@@ -17,21 +17,21 @@ interface IMachineRecipe {
 
     val inputItems: List<List<ItemStack>>
 
-    val inputFluids: List<FluidStack?>
+    val inputFluids: List<FluidStack>
 
     //    Outputs    //
 
     val outputItems: List<List<ItemStack>>
 
-    val outputFluids: List<FluidStack?>
+    val outputFluids: List<FluidStack>
 
-    enum class Type {
-        BEND,
-        CRUSH,
-        CUT,
-        PULVERISE,
-        SMELT,
-        WIRE
+    enum class Type(val nameIn: String) {
+        BEND("bend"),
+        CRUSH("crush"),
+        CUT("cut"),
+        PULVERISE("pulverise"),
+        SMELT("smelt"),
+        WIRE("wire")
     }
 
 }

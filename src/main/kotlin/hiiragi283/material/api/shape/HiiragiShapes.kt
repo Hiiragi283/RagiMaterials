@@ -1,7 +1,5 @@
 package hiiragi283.material.api.shape
 
-import hiiragi283.material.api.registry.HiiragiRegistries
-
 object HiiragiShapes {
 
     @JvmField
@@ -130,7 +128,7 @@ object HiiragiShapes {
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiShape>()
-            .forEach { shape -> HiiragiRegistries.SHAPE.register(shape.name, shape) }
+            .forEach(HiiragiShape::register)
     }
 
 }

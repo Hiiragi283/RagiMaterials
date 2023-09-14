@@ -1,10 +1,12 @@
 package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.init.SoundEvents
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidRegistry
 
 class MaterialFluid(
     val material: HiiragiMaterial,
@@ -43,5 +45,18 @@ class MaterialFluid(
         if (material.isSolid()) SoundEvents.ITEM_BUCKET_FILL_LAVA else SoundEvents.ITEM_BUCKET_FILL
 
     override fun getUnlocalizedName(): String = material.translationKey
+
+    companion object {
+
+        fun register() {
+            HiiragiRegistries.MATERIAL.getValues()
+                .mapNotNull(HiiragiMaterial::createFluid)
+                .forEach { fluid: Fluid ->
+                    FluidRegistry.registerFluid(fluid)
+                    FluidRegistry.addBucketForFluid(fluid)
+                }
+        }
+
+    }
 
 }

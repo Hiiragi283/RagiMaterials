@@ -84,6 +84,8 @@ data class HiiragiMaterial(
             tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
     }
 
+    fun createFluid(): Fluid? = fluid?.setBlock(fluidBlock)
+
     fun getAllItemStack(): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
         .flatMap { shape: HiiragiShape -> HiiragiPart(shape, this).getAllItemStack() }
 
@@ -125,6 +127,7 @@ data class HiiragiMaterial(
 
     fun register() {
         HiiragiRegistries.MATERIAL.register(name, this)
+        HiiragiRegistries.MATERIAL_INDEX.register(index, this)
     }
 
 }

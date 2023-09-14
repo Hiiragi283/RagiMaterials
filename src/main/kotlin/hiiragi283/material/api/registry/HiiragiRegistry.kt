@@ -1,6 +1,6 @@
 package hiiragi283.material.api.registry
 
-class HiiragiRegistry<K, V>(val name: String) {
+open class HiiragiRegistry<K, V>(val name: String) {
 
     private val registry: LinkedHashMap<K, V> = linkedMapOf()
 
@@ -20,6 +20,12 @@ class HiiragiRegistry<K, V>(val name: String) {
         if (isLocked) throw IllegalStateException("")
         else if (registry.containsKey(key)) throw IllegalStateException("")
         else registry[key] = value
+    }
+
+    fun <T : Comparable<T>> sort(sorter: (Pair<K, V>) -> T) {
+        val mapSorted: Map<K, V> = registry.toList().sortedBy(sorter).toMap()
+        registry.clear()
+        registry.putAll(mapSorted)
     }
 
     fun lock() {

@@ -9,7 +9,7 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
 
     constructor(location: String, output: ItemStack) : this(ResourceLocation(location), output)
 
-    constructor(output: ItemStack) : this(output.toLocation(), output)
+    constructor(output: ItemStack) : this(output.toLocation("_"), output)
 
     fun build() {
         when {

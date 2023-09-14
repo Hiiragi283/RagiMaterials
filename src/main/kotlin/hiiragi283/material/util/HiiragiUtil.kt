@@ -62,6 +62,14 @@ fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y:
     }
 }
 
+fun dropInventoriesItems(
+    world: World,
+    pos: BlockPos,
+    vararg inventories: IItemHandler
+) {
+    inventories.forEach { inventory: IItemHandler -> dropInventoryItems(world, pos, inventory) }
+}
+
 fun dropInventoryItems(
     world: World,
     pos: BlockPos,
@@ -125,7 +133,15 @@ fun isClient(): Boolean = FMLCommonHandler.instance().side.isClient
 
 fun isDeobf(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
 
+//    Interface    //
+
+inline fun <reified T> IBlockState.getBlockImplemented(): T? = this.block as? T
+
+inline fun <reified T> ItemStack.getItemImplemented(): T? = this.item as? T
+
 //    ItemStack    //
+
+fun ItemStack.notEmpty(): ItemStack? = this.takeUnless(ItemStack::isEmpty)
 
 fun getItemStack(registryName: String, amount: Int, meta: Int): ItemStack? =
     getEntry(ForgeRegistries.BLOCKS, registryName)?.let { block: Block -> ItemStack(block, amount, meta) }

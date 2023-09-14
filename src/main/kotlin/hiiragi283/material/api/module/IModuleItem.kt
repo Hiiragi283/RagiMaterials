@@ -11,8 +11,8 @@ interface IModuleItem {
         tooltip.add("§e=== Machine Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.module.energy_capacity", getEnergyCapacity(stack)))
         tooltip.add(I18n.format("tips.ragi_materials.module.energy_rate", getEnergyRate(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.module.fluid_slot", getFluidSlotCounts(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.module.item_slots", getItemSlotCounts(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.module.fluid_slot", getFluidSlots(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.module.item_slots", getItemSlots(stack)))
         tooltip.add(I18n.format("tips.ragi_materials.module.process_time", getProcessTime(stack)))
     }
 
@@ -22,9 +22,9 @@ interface IModuleItem {
 
     fun getEnergyCapacity(stack: ItemStack): Int = getProcessTime(stack) * getEnergyRate(stack) * 5
 
-    fun getItemSlotCounts(stack: ItemStack): Int = 1
+    fun getItemSlots(stack: ItemStack): Int = 1
 
-    fun getFluidSlotCounts(stack: ItemStack): Int = 0
+    fun getFluidSlots(stack: ItemStack): Int = 0
 
     fun getModuleTraits(stack: ItemStack): Set<ModuleTrait> = setOf()
 
@@ -32,8 +32,8 @@ interface IModuleItem {
         return IMachineProperty.of {
             this.processTime = getProcessTime(stack)
             this.energyRate = getEnergyRate(stack)
-            this.itemSlots = getItemSlotCounts(stack)
-            this.fluidSlots = getFluidSlotCounts(stack)
+            this.itemSlots = getItemSlots(stack)
+            this.fluidSlots = getFluidSlots(stack)
         }
     }
 

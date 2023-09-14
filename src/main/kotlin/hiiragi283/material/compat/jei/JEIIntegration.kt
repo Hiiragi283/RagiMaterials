@@ -3,6 +3,7 @@ package hiiragi283.material.compat.jei
 import hiiragi283.material.HiiragiItems
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.compat.jei.ingredients.MaterialStackHelper
@@ -34,11 +35,8 @@ class JEIIntegration : IModPlugin {
 
     override fun register(registry: IModRegistry) {
         //HiiragiMaterial
-        registry.handleRecipes(HiiragiMaterialCategory.Wrapper::class.java, { it }, MATERIAL)
-        registry.addRecipes(
-            HiiragiRegistries.MATERIAL.getValues().map { HiiragiMaterialCategory.Wrapper(it) },
-            MATERIAL
-        )
+        registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
+        registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
         registry.addRecipeCatalyst(ItemStack(HiiragiItems.MATERIAL_BOTTLE, 1, Short.MAX_VALUE.toInt()), MATERIAL)
     }
 

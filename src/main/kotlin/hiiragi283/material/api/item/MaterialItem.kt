@@ -77,7 +77,7 @@ abstract class MaterialItem(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     abstract fun getRecipe(item: MaterialItem, material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
-    override fun registerColorItem(itemColors: ItemColors) {
+    override fun registerItemColor(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
             if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
         }, this)

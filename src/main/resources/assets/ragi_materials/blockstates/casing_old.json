@@ -1,0 +1,76 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:casing"
+  },
+  "variants": {
+    "type": {
+      "0": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_stone_side",
+          "side": "ragi_materials:blocks/casing_stone_side",
+          "top": "ragi_materials:blocks/casing_stone_top",
+          "bottom": "ragi_materials:blocks/casing_stone_bottom"
+        }
+      },
+      "1": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_stone_top",
+          "side": "ragi_materials:blocks/casing_stone_top",
+          "top": "ragi_materials:blocks/casing_stone_top",
+          "bottom": "ragi_materials:blocks/casing_stone_top"
+        }
+      },
+      "2": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_stainless",
+          "side": "ragi_materials:blocks/casing_stainless",
+          "top": "ragi_materials:blocks/casing_stainless",
+          "bottom": "ragi_materials:blocks/casing_stainless"
+        }
+      },
+      "3": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_aluminium",
+          "side": "ragi_materials:blocks/casing_aluminium",
+          "top": "ragi_materials:blocks/casing_aluminium",
+          "bottom": "ragi_materials:blocks/casing_aluminium"
+        }
+      },
+      "4": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_titanium",
+          "side": "ragi_materials:blocks/casing_titanium",
+          "top": "ragi_materials:blocks/casing_titanium",
+          "bottom": "ragi_materials:blocks/casing_titanium"
+        }
+      },
+      "5": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_tungsten",
+          "side": "ragi_materials:blocks/casing_tungsten",
+          "top": "ragi_materials:blocks/casing_tungsten",
+          "bottom": "ragi_materials:blocks/casing_tungsten"
+        }
+      },
+      "6": {
+        "textures": {
+          "particle": "ragi_materials:blocks/casing_iridescent",
+          "side": "ragi_materials:blocks/casing_iridescent",
+          "top": "ragi_materials:blocks/casing_iridescent",
+          "bottom": "ragi_materials:blocks/casing_iridescent"
+        }
+      },
+      "7": {},
+      "8": {},
+      "9": {},
+      "10": {},
+      "11": {},
+      "12": {},
+      "13": {},
+      "14": {},
+      "15": {}
+    }
+  }
+}
