@@ -1,6 +1,7 @@
 package hiiragi283.material.api.tile
 
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
@@ -48,7 +49,7 @@ abstract class HiiragiTileEntity : TileEntity() {
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean =
         oldState.block != newState.block //更新の前後でBlockが変化する場合のみtrue
 
-    fun syncData(vararg messages: IMessage = arrayOf(HiiragiMessage.ToClient(pos, updateTag))) {
+    fun syncData(vararg messages: IMessage = arrayOf(HiiragiMessage.Client(pos, updateTag))) {
         messages.forEach { HiiragiNetworkWrapper.sendToAll(it) }
     }
 

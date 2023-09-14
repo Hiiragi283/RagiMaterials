@@ -1,9 +1,9 @@
 package hiiragi283.material.api.item
 
-import hiiragi283.material.RMCreativeTabs
-import hiiragi283.material.api.registry.HiiragiEntry
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.setModelSame
 import net.minecraft.client.renderer.color.ItemColors
@@ -35,19 +35,21 @@ fun createItemMaterial(
 abstract class MaterialItem(val shape: HiiragiShape) : HiiragiItem(shape.name, 32767) {
 
     init {
-        creativeTab = RMCreativeTabs.MATERIAL_ITEM
+        creativeTab = HiiragiCreativeTabs.MATERIAL_ITEM
     }
 
     //    Client    //
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        shape.getTranslatedName(HiiragiRegistry.getMaterial(stack.metadata))
+        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+            ?.let { shape.getTranslatedName(it) }
+            ?: super.getItemStackDisplayName(stack)
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
-        HiiragiRegistry.getMaterials()
+        HiiragiRegistries.MATERIAL.getValues()
             .filter { it.isValidIndex() && it.isSolid() && shape.isValid(it) }
             .map { getItemStack(it) }
             .sortedBy { it.metadata }
@@ -57,7 +59,7 @@ abstract class MaterialItem(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     //    HiiragiEntry    //
 
     override fun registerOreDict() {
-        HiiragiRegistry.getMaterials()
+        HiiragiRegistries.MATERIAL.getValues()
             .filter { it.isSolid() && shape.isValid(it) }
             .forEach { material ->
                 shape.getOreDicts(material).forEach {
@@ -67,7 +69,7 @@ abstract class MaterialItem(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     }
 
     override fun registerRecipe() {
-        HiiragiRegistry.getMaterials()
+        HiiragiRegistries.MATERIAL.getValues()
             .filter { it.isSolid() && shape.isValid(it) }
             .forEach { getRecipe(this, it) }
     }
@@ -77,8 +79,7 @@ abstract class MaterialItem(val shape: HiiragiShape) : HiiragiItem(shape.name, 3
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
-            val material = HiiragiRegistry.getMaterial(stack.metadata)
-            if (tintIndex == 0) material.color else -1
+            if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
         }, this)
     }
 

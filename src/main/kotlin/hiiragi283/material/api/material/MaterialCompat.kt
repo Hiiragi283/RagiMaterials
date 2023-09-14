@@ -1,62 +1,39 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.config.RMConfig
+import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiColor
 
-object MaterialIntegration {
+object MaterialCompat {
 
     //    Vanilla    //
 
     @JvmField
     val REDSTONE = materialOf("redstone", 1000) {
         color = HiiragiColor.DARK_RED.rgb
-        crystalType = CrystalType.EMERALD
         formula = "Rs"
-        molar = 112.2
-        tempBoil = 1201
-        tempMelt = 1122
-        validShapes.addAll(MaterialType.SOLID)
-        if (RMConfig.MATERIAL.disableVanillaParts) {
-            validShapes.remove("dust")
-        }
+        shapeType = HiiragiShapeTypes.GEM_EMERALD
     }
 
     @JvmField
     val LAPIS = materialOf("lapis", 1001) {
         color = HiiragiColor.BLUE.rgb
-        crystalType = CrystalType.LAPIS
-        validShapes.addAll(MaterialType.GEM_9xADVANCED)
-        if (RMConfig.MATERIAL.disableVanillaParts) {
-            validShapes.remove("block")
-            validShapes.remove("gem")
-        }
+        shapeType = HiiragiShapeTypes.GEM_LAPIS
     }
 
     @JvmField
     val GLOWSTONE = materialOf("glowstone", 1002) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.YELLOW to 2).rgb
-        crystalType = CrystalType.EMERALD
         formula = "Gl"
-        molar = 112.2
-        tempBoil = 1201
-        tempMelt = 1122
-        validShapes.addAll(MaterialType.SOLID)
-        if (RMConfig.MATERIAL.disableVanillaParts) {
-            validShapes.remove("dust")
-        }
+        shapeType = HiiragiShapeTypes.GEM_EMERALD
     }
 
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
-        crystalType = CrystalType.EMERALD
         formula = "En"
-        molar = 112.2
-        oreDictAlt.add("ender_pearl")
         oreDictAlt.add("ender")
-        tempBoil = 1201
-        tempMelt = 1122
-        validShapes.addAll(MaterialType.SOLID)
+        oreDictAlt.add("ender_pearl")
+        shapeType = HiiragiShapeTypes.GEM_EMERALD
     }
 
     //    Thermal Series    //
@@ -64,8 +41,7 @@ object MaterialIntegration {
     @JvmField
     val MITHRIL = materialOf("mithril", 1010) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE, HiiragiColor.AQUA, HiiragiColor.WHITE).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -75,8 +51,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.COPPER to 4, MaterialElements.GOLD to 1, REDSTONE to 10)
     ) {
         color = 0xFF9E08
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -86,8 +61,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.TIN to 4, MaterialElements.SILVER to 1, GLOWSTONE to 4)
     ) {
         color = 0xDFE58F
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -97,8 +71,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.LEAD to 4, MaterialElements.PLATINUM to 1, ENDER_PEARL to 4)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -152,8 +125,7 @@ object MaterialIntegration {
         mapOf(MaterialCommon.OBSIDIAN.addBracket() to 1, MaterialElements.OSMIUM to 1, MaterialCommon.DIAMOND to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.BLUE to 5, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -163,8 +135,7 @@ object MaterialIntegration {
         mapOf(GLOWSTONE to 1, MaterialElements.OSMIUM to 1)
     ) {
         color = HiiragiColor.YELLOW.rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     //    Ender IO    //
@@ -176,11 +147,9 @@ object MaterialIntegration {
         listOf(MaterialElements.IRON, MaterialElements.SILICON, MaterialElements.CARBON)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY to 1, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
-        tempSubl = MaterialElements.IRON.tempSubl
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -190,8 +159,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.GOLD to 1, REDSTONE to 1, GLOWSTONE to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.RED).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -201,8 +169,7 @@ object MaterialIntegration {
         mapOf(ENERGETIC_ALLOY.addBracket() to 1, ENDER_PEARL to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN, HiiragiColor.YELLOW).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -212,8 +179,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.SILICON to 1, REDSTONE to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED, HiiragiColor.RED).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -223,8 +189,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.IRON to 1, REDSTONE to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.RED to 1, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -234,8 +199,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.IRON to 1, ENDER_PEARL to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN to 1, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -245,11 +209,9 @@ object MaterialIntegration {
         listOf(MaterialElements.IRON, MaterialElements.CARBON, MaterialCommon.OBSIDIAN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 1, HiiragiColor.DARK_GRAY to 3).rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
-        tempSubl = MaterialElements.IRON.tempSubl
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -259,8 +221,7 @@ object MaterialIntegration {
         mapOf(MaterialElements.GOLD to 1, MaterialCommon.SOUL_SAND.addBracket() to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GRAY to 5, HiiragiColor.GOLD to 1).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     @JvmField
@@ -270,11 +231,9 @@ object MaterialIntegration {
         listOf(DARK_STEEL, MaterialCommon.END_STONE, MaterialCommon.OBSIDIAN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.YELLOW to 1, HiiragiColor.WHITE to 3).rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
-        tempSubl = MaterialElements.IRON.tempSubl
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
@@ -284,11 +243,9 @@ object MaterialIntegration {
         listOf(HiiragiMaterial.UNKNOWN, MaterialElements.IRON, HiiragiMaterial.UNKNOWN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE, HiiragiColor.GREEN, HiiragiColor.RED).rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
-        tempSubl = MaterialElements.IRON.tempSubl
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Thaumcraft    //
@@ -296,18 +253,19 @@ object MaterialIntegration {
     @JvmField
     val THAUMIUM = materialOf("thaumium", 1040) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.BLUE to 5, HiiragiColor.WHITE to 4).rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         formula = "✡"
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val VOID_METAL = materialOf("void", 1041) {
-        color =
-            HiiragiColor.mixColor(HiiragiColor.BLACK to 4, HiiragiColor.DARK_PURPLE to 1, HiiragiColor.BLUE to 1).rgb
-        crystalType = CrystalType.METAL
+        color = HiiragiColor.mixColor(
+            HiiragiColor.BLACK to 4,
+            HiiragiColor.DARK_PURPLE to 1,
+            HiiragiColor.BLUE to 1
+        ).rgb
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         formula = "Vm9pZA=="
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     //    Botania    //
@@ -320,45 +278,37 @@ object MaterialIntegration {
     @JvmField
     val MANASTEEL = mixtureOf("manasteel", 1050, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.BLUE.rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
-        tempSubl = MaterialElements.IRON.tempSubl
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommon.DIAMOND, MANA)) {
         color = HiiragiColor.AQUA.rgb
-        crystalType = CrystalType.DIAMOND
-        validShapes.addAll(MaterialType.GEM_9xADVANCED)
+        shapeType = HiiragiShapeTypes.GEM_DIAMOND
     }
 
     @JvmField
     val TERRASTEEL = mixtureOf("terrasteel", 1053, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN, HiiragiColor.GREEN).rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MANASTEEL.tempBoil
         tempMelt = MANASTEEL.tempMelt
-        tempSubl = MANASTEEL.tempSubl
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val ELEMENTIUM = mixtureOf("elven_elementium", 1054, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
-        crystalType = CrystalType.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MANASTEEL.tempBoil
         tempMelt = MANASTEEL.tempMelt
-        tempSubl = MANASTEEL.tempSubl
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommon.DIAMOND, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
-        crystalType = CrystalType.DIAMOND
-        validShapes.addAll(MaterialType.GEM_9xADVANCED)
+        shapeType = HiiragiShapeTypes.GEM_DIAMOND
     }
 
     //    Embers    //
@@ -366,8 +316,7 @@ object MaterialIntegration {
     @JvmField
     val DAWNSTONE = alloyOf("dawnstone", 1060, mapOf(MaterialElements.COPPER to 1, MaterialElements.GOLD to 1)) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 2, HiiragiColor.RED to 1, HiiragiColor.YELLOW to 1).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     //    Project Red: Core    //
@@ -377,23 +326,21 @@ object MaterialIntegration {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_AQUA, HiiragiColor.BLUE, HiiragiColor.AQUA).rgb
         formula = "Er"
         molar = 112.2
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 1201
         tempMelt = 1122
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val RED_ALLOY = alloyOf("red_alloy", 1071, mapOf(MaterialElements.IRON to 1, REDSTONE to 8)) {
         color = HiiragiColor.DARK_RED.rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_COMMON)
+        shapeType = HiiragiShapeTypes.METAL_COMMON
     }
 
     @JvmField
     val ELECTROTINE_ALLOY = alloyOf("electrotine_alloy", 1072, mapOf(MaterialElements.IRON to 1, ELECTROTINE to 8)) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_AQUA, HiiragiColor.BLUE, HiiragiColor.AQUA).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_COMMON)
+        shapeType = HiiragiShapeTypes.METAL_COMMON
     }
 
     //    Tinker's Construct    //
@@ -401,39 +348,35 @@ object MaterialIntegration {
     @JvmField
     val ARDITE = materialOf("ardite", 1080) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.GOLD to 1).rgb
-        crystalType = CrystalType.METAL
         formula = "Ad"
         molar = 116.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5000
         tempMelt = 3000
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val MANYULLYN = alloyOf("manyullyn", 1081, mapOf(MaterialElements.COBALT to 1, ARDITE to 1)) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.BLUE to 5, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
-        validShapes.addAll(MaterialType.METAL_COMMON)
+        shapeType = HiiragiShapeTypes.METAL_COMMON
     }
 
     @JvmField
     val ALUMINIUM_BRASS =
         alloyOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
             color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
-            crystalType = CrystalType.METAL
-            oreDictAlt.add("aluminum_brass")
-            oreDictAlt.add("aluminiumbrass")
-            oreDictAlt.add("aluminumbrass")
             oreDictAlt.add("alubrass")
-            validShapes.addAll(MaterialType.METAL_ADVANCED)
+            oreDictAlt.add("aluminiumbrass")
+            oreDictAlt.add("aluminum_brass")
+            oreDictAlt.add("aluminumbrass")
+            shapeType = HiiragiShapeTypes.METAL_COMMON
         }
 
     //    Immersive Engineering    //
 
     @JvmField
     val TREATED_WOOD = mixtureOf("treated_wood", 1090, listOf(MaterialCommon.WOOD)) {
-        validShapes.addAll(MaterialType.WOOD)
-        validShapes.add("scaffolding")
+        shapeType = HiiragiShapeTypes.WOOD
     }
 
 }

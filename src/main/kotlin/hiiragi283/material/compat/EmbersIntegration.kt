@@ -1,12 +1,11 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.MaterialCompat
 
-object EmbersIntegration : hiiragi283.material.compat.AbstractIntegration() {
+object EmbersIntegration : AbstractIntegration() {
 
     override fun registerMaterial() {
-        HiiragiRegistry.registerMaterial(MaterialIntegration.DAWNSTONE)
+        MaterialCompat.DAWNSTONE.register()
     }
 
 }

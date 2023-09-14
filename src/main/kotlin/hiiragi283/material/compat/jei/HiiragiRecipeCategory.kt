@@ -1,8 +1,8 @@
 package hiiragi283.material.compat.jei
 
-import hiiragi283.api.material.MaterialStack
-import hiiragi283.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.RMReference
+import hiiragi283.material.api.material.MaterialStack
+import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IGuiIngredientGroup

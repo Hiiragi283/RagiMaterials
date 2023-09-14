@@ -1,24 +1,37 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.registry.HiiragiRegistries
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
+
+fun ItemStack.getStacks(): List<MaterialStack> {
+    if (this.isEmpty) return listOf()
+    //液体から素材のデータを取得しようと試みる
+    return this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+        ?.tankProperties
+        ?.mapNotNull { it.contents }
+        ?.mapNotNull { MaterialStack.of(it) } ?: listOf()
+}
 
 data class MaterialStack(val material: HiiragiMaterial, var amount: Int) {
 
-    constructor(name: String, amount: Int) : this(HiiragiRegistry.getMaterial(name), amount)
-
-    constructor(compound: NBTTagCompound) : this(compound.getString("material"), compound.getInteger("amount"))
-
-    constructor(fluid: Fluid, amount: Int) : this(fluid.name, amount)
-
-    constructor(fluidStack: FluidStack) : this(fluidStack.fluid, fluidStack.amount)
-
     companion object {
 
-        @JvmField
-        val EMPTY = MaterialStack(HiiragiMaterial.EMPTY, 0)
+        @JvmStatic
+        fun of(compound: NBTTagCompound) = of(compound.getString("material"), compound.getInteger("amount"))
+
+        @JvmStatic
+        fun of(fluid: Fluid, amount: Int) = of(fluid.name, amount)
+
+        @JvmStatic
+        fun of(fluidStack: FluidStack) = of(fluidStack.fluid, fluidStack.amount)
+
+        @JvmStatic
+        fun of(name: String, amount: Int): MaterialStack? =
+            HiiragiRegistries.MATERIAL.getValue(name)?.let { MaterialStack(it, amount) }
 
     }
 
@@ -26,19 +39,7 @@ data class MaterialStack(val material: HiiragiMaterial, var amount: Int) {
         material.addTooltip(tooltip, material.getTranslatedName(), amount)
     }
 
-    fun isEmpty(): Boolean = this == EMPTY || this.material == HiiragiMaterial.EMPTY || this.amount <= 0
-
     //    Amount    //
-
-    fun addAmount(add: Int): MaterialStack = also { it.amount += add }
-
-    fun removeAmount(remove: Int): MaterialStack = also { it.amount -= remove }
-
-    fun setAmount(set: Int): MaterialStack = also { it.amount = set }
-
-    fun multiplyAmount(multi: Int): MaterialStack = also { it.amount *= multi }
-
-    fun divideAmount(div: Int): MaterialStack = also { it.amount /= div }
 
     fun equalsMaterial(other: MaterialStack): Boolean = this.material == other.material
 

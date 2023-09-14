@@ -1,14 +1,13 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.MaterialCompat
 
-object ProjectRedIntegration : hiiragi283.material.compat.AbstractIntegration() {
+object ProjectRedIntegration : AbstractIntegration() {
 
     override fun registerMaterial() {
-        HiiragiRegistry.registerMaterial(MaterialIntegration.ELECTROTINE)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.RED_ALLOY)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.ELECTROTINE_ALLOY)
+        MaterialCompat.ELECTROTINE.register()
+        MaterialCompat.RED_ALLOY.register()
+        MaterialCompat.ELECTROTINE_ALLOY.register()
     }
 
 }

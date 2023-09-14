@@ -1,7 +1,6 @@
 package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.init.SoundEvents
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
@@ -35,11 +34,6 @@ class MaterialFluid(
         else {
             temperature = 298
         }
-    }
-
-    companion object {
-        @JvmField
-        val EMPTY: MaterialFluid = MaterialFluid(HiiragiMaterial.EMPTY, hiiragiLocation("empty"))
     }
 
     override fun getEmptySound(): SoundEvent =

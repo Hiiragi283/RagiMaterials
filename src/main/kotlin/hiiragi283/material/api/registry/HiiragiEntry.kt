@@ -19,7 +19,8 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun asItem(): Item
 
-    fun getItemStack(material: HiiragiMaterial, amount: Int = 1): ItemStack = ItemStack(asItem(), amount, material.index)
+    fun getItemStack(material: HiiragiMaterial?, amount: Int = 1): ItemStack =
+        material?.index?.let { ItemStack(asItem(), amount, it) } ?: ItemStack.EMPTY
 
     fun getItemStack(part: HiiragiPart): ItemStack {
         val scale: Int = part.shape.scale
@@ -28,7 +29,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun getObject(): T
 
-    fun getLocation(): ResourceLocation? = getObject().registryName
+    fun getLocation(): ResourceLocation = getObject().registryName!!
 
     fun register(registry: IForgeRegistry<T>) {
         registry.register(getObject())

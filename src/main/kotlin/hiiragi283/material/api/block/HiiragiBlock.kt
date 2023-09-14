@@ -1,6 +1,6 @@
 package hiiragi283.material.api.block
 
-import hiiragi283.material.RMCreativeTabs
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.registry.HiiragiEntry
 import net.minecraft.block.Block
@@ -14,7 +14,7 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
     init {
         blockHardness = 5.0f
         blockResistance = 5.0f
-        creativeTab = RMCreativeTabs.COMMON
+        creativeTab = HiiragiCreativeTabs.COMMON
         setRegistryName(RMReference.MOD_ID, id)
         translationKey = id
     }

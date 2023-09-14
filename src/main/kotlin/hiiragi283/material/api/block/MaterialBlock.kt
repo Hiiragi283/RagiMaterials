@@ -1,10 +1,10 @@
 package hiiragi283.material.api.block
 
-import hiiragi283.material.RMCreativeTabs
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.util.getTile
@@ -30,8 +30,8 @@ import java.util.function.Consumer
 
 fun createBlockMaterial(
     shape: HiiragiShape,
-    model: Consumer<HiiragiEntry<*>> = Consumer { it.asItem().setModelSame() },
-    recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { _, _ -> }
+    model: Consumer<HiiragiEntry<*>> = Consumer { entry: HiiragiEntry<*> -> entry.asItem().setModelSame() },
+    recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { entry: HiiragiEntry<*>, material: HiiragiMaterial -> }
 ): MaterialBlock = object : MaterialBlock(shape) {
 
     init {
@@ -57,7 +57,7 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     override val itemBlock = MaterialItemBlock(this)
 
     init {
-        creativeTab = RMCreativeTabs.MATERIAL_BLOCK
+        creativeTab = HiiragiCreativeTabs.MATERIAL_BLOCK
         soundType = SoundType.METAL
     }
 
@@ -70,7 +70,7 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
         state: IBlockState,
         fortune: Int
     ) {
-        drops.add(getItemStack(getTile<MaterialTileEntity>(world, pos)?.material ?: HiiragiMaterial.EMPTY))
+        drops.add(getItemStack(getTile<MaterialTileEntity>(world, pos)?.material))
     }
 
     override fun getPickBlock(
@@ -80,7 +80,7 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
         pos: BlockPos,
         player: EntityPlayer
     ): ItemStack {
-        return getItemStack(getTile<MaterialTileEntity>(world, pos)?.material ?: HiiragiMaterial.EMPTY)
+        return getItemStack(getTile<MaterialTileEntity>(world, pos)?.material)
     }
 
     override fun quantityDropped(random: Random): Int = 0
@@ -88,13 +88,13 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     //    HiiragiEntry    //
 
     override fun registerOreDict() {
-        HiiragiRegistry.getMaterials()
+        HiiragiRegistries.MATERIAL.getValues()
             .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
             .forEach { material -> OreDictionary.registerOre(shape.getOreDict(material), getItemStack(material)) }
     }
 
     override fun registerRecipe() {
-        HiiragiRegistry.getMaterials()
+        HiiragiRegistries.MATERIAL.getValues()
             .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
             .forEach { material -> getRecipe(this, material) }
     }
@@ -111,8 +111,7 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     @SideOnly(Side.CLIENT)
     override fun registerColorItem(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
-            val material = HiiragiRegistry.getMaterial(stack.metadata)
-            if (!material.isEmpty() && tintIndex == 0) material.color else -1
+            if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
         }, this)
     }
 

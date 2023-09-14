@@ -45,8 +45,11 @@ dependencies {
 
     //Ender IO
     if (enable_ender_io.toBoolean()) {
-        implementation(rfg.deobf("curse.maven:endercore-231868:2972849"))
         implementation(rfg.deobf("curse.maven:ender-io-64578:3328811"))
+        implementation(rfg.deobf("curse.maven:endercore-231868:2972849"))
+        runtimeOnly("info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.2")
+        runtimeOnly("info.loenwind.autosave:AutoSave:1.12.2-1.0.11")
+        runtimeOnly(files("sources/EnderCore-1.12.2-0.5.76-core.jar"))
     }
 
     //Immersive Engineering
@@ -69,6 +72,7 @@ dependencies {
         implementation(rfg.deobf("curse.maven:cb-multipart-258426:2755790"))
         implementation(rfg.deobf("curse.maven:mrtjpcore-229002:2735197"))
         implementation(rfg.deobf("curse.maven:project-red-core-228702:2745545"))
+        runtimeOnly(files("sources/ChickenASM-1.12-1.0.2.7.jar"))
     }
 
     //RailCraft

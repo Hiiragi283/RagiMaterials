@@ -38,10 +38,6 @@ object BlockCasing : HiiragiBlock(Material.IRON, "casing") {
     @JvmStatic
     fun getMaterialFromMeta(meta: Int): HiiragiMaterial = MAP[meta % MAP.size]!!
 
-    @JvmStatic
-    fun getMetaFromMaterial(material: HiiragiMaterial): Int =
-        MAP.entries.associateBy({ it.value }) { it.key }.getOrDefault(material, 0)
-
     //    General    //
 
     override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, MAP.size - 1)

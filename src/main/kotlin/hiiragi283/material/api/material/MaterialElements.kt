@@ -1,6 +1,6 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.HiiragiColor
 
@@ -17,6 +17,7 @@ object MaterialElements {
         color = HiiragiColor.BLUE.rgb
         formula = "H"
         molar = 1.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 20
         tempMelt = 14
     }
@@ -26,6 +27,7 @@ object MaterialElements {
         color = HiiragiColor.YELLOW.rgb
         formula = "He"
         molar = 4.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 3
         tempMelt = 1
     }
@@ -35,46 +37,42 @@ object MaterialElements {
     @JvmField
     val LITHIUM = materialOf("lithium", 3) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Li"
         molar = 6.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1560
         tempMelt = 454
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val BERYLLIUM = materialOf("beryllium", 4) {
         color = HiiragiColor.DARK_GREEN.rgb
-        crystalType = CrystalType.METAL
         formula = "Be"
         molar = 9.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2742
         tempMelt = 1560
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val BORON = materialOf("boron", 5) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "B"
         molar = 10.8
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 4200
         tempMelt = 2349
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val CARBON = materialOf("carbon", 6) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.DARK_GRAY).rgb
-        fluidSupplier = null
+        fluid = null
         formula = "C"
         molar = 12.0
+        shapeType = HiiragiShapeTypes.SOLID
         //tempBoil = 4300
         //tempMelt = 4000
-        tempSubl = 3915
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -82,6 +80,7 @@ object MaterialElements {
         color = HiiragiColor.AQUA.rgb
         formula = "N"
         molar = 14.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 77
         tempMelt = 63
     }
@@ -90,6 +89,7 @@ object MaterialElements {
     val OXYGEN = materialOf("oxygen", 8) {
         formula = "O"
         molar = 16.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 90
         tempMelt = 54
     }
@@ -99,6 +99,7 @@ object MaterialElements {
         color = HiiragiColor.GREEN.rgb
         formula = "F"
         molar = 19.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 85
         tempMelt = 54
     }
@@ -108,6 +109,7 @@ object MaterialElements {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         formula = "Ne"
         molar = 20.2
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 27
         tempMelt = 25
     }
@@ -117,46 +119,42 @@ object MaterialElements {
     @JvmField
     val SODIUM = materialOf("sodium", 11) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 1, HiiragiColor.BLUE to 4).rgb
-        crystalType = CrystalType.METAL
         formula = "Na"
         molar = 23.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1156
         tempMelt = 371
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val MAGNESIUM = materialOf("magnesium", 12) {
         color = HiiragiColor.mixColor(HiiragiColor.LIGHT_PURPLE, HiiragiColor.WHITE).rgb
-        crystalType = CrystalType.METAL
         formula = "Mg"
         molar = 24.3
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1363
         tempMelt = 923
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val ALUMINIUM = materialOf("aluminium", 13) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.WHITE to 5).rgb
-        crystalType = CrystalType.METAL
         formula = "Al"
         molar = 27.0
         oreDictAlt.add("aluminum")
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2792
         tempMelt = 933
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val SILICON = materialOf("silicon", 14) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 2, HiiragiColor.GRAY to 1, HiiragiColor.BLUE to 1).rgb
-        crystalType = CrystalType.METAL
         formula = "Si"
         molar = 28.1
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3538
         tempMelt = 1687
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -164,9 +162,9 @@ object MaterialElements {
         color = HiiragiColor.YELLOW.rgb
         formula = "P"
         molar = 31.0
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 550
         tempMelt = 317
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -174,9 +172,9 @@ object MaterialElements {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW).rgb
         formula = "S"
         molar = 32.1
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 718
         tempMelt = 388
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -184,6 +182,7 @@ object MaterialElements {
         color = HiiragiColor.YELLOW.rgb
         formula = "Cl"
         molar = 35.5
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 239
         tempMelt = 171
     }
@@ -193,6 +192,7 @@ object MaterialElements {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         formula = "Ar"
         molar = 40.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 87
         tempMelt = 84
     }
@@ -202,187 +202,163 @@ object MaterialElements {
     @JvmField
     val POTASSIUM = materialOf("potassium", 19) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 2, HiiragiColor.BLUE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "K"
         molar = 39.1
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1032
         tempMelt = 337
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val CALCIUM = materialOf("calcium", 20) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ca"
         molar = 40.1
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1757
         tempMelt = 1115
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val SCANDIUM = materialOf("scandium", 21) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Sc"
         molar = 45.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3109
         tempMelt = 1814
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val TITANIUM = materialOf("titanium", 22) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
         formula = "Ti"
         molar = 47.9
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3560
         tempMelt = 1941
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
-        validShapes.add("scaffolding")
     }
 
     @JvmField
     val VANADIUM = materialOf("vanadium", 23) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "V"
         molar = 50.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3680
         tempMelt = 2183
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val CHROMIUM = materialOf("chromium", 24) {
         color = HiiragiColor.GREEN.rgb
-        crystalType = CrystalType.METAL
         formula = "Cr"
         molar = 52.0
         oreDictAlt.add("chrome")
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2944
         tempMelt = 2180
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val MANGANESE = materialOf("manganese", 25) {
         color = HiiragiColor.mixColor(HiiragiColor.RED, HiiragiColor.WHITE).rgb
-        crystalType = CrystalType.METAL
         formula = "Mn"
         molar = 54.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2334
         tempMelt = 1519
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val IRON = materialOf("iron", 26) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY to 1, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
         formula = "Fe"
         molar = 55.8
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3134
         tempMelt = 1811
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
-        validShapes.add("scaffolding")
-        if (RMConfig.MATERIAL.disableVanillaParts) {
-            validShapes.remove("block")
-            validShapes.remove("ingot")
-            validShapes.remove("nugget")
-        }
     }
 
     @JvmField
     val COBALT = materialOf("cobalt", 27) {
         color = HiiragiColor.BLUE.rgb
-        crystalType = CrystalType.METAL
         formula = "Co"
         molar = 58.9
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3200
         tempMelt = 1768
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val NICKEL = materialOf("nickel", 28) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.WHITE).rgb
-        crystalType = CrystalType.METAL
         formula = "Ni"
         molar = 58.7
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3186
         tempMelt = 1728
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val COPPER = materialOf("copper", 29) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.RED).rgb
-        crystalType = CrystalType.METAL
         formula = "Cu"
         molar = 63.5
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2835
         tempMelt = 1358
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val ZINC = materialOf("zinc", 30) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN to 1, HiiragiColor.WHITE to 2).rgb
-        crystalType = CrystalType.METAL
         formula = "Zn"
         molar = 65.4
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 1180
         tempMelt = 693
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val GALLIUM = materialOf("gallium", 31) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ga"
         molar = 69.7
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2673
         tempMelt = 303
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val GERMANIUM = materialOf("germanium", 32) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ge"
         molar = 72.6
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3106
         tempMelt = 1211
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val ARSENIC = materialOf("arsenic", 33) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
-        fluidSupplier = null
+        fluid = null
         formula = "As"
         molar = 74.9
+        shapeType = HiiragiShapeTypes.SOLID
         //tempBoil = 887
         //tempMelt = 1090
-        tempSubl = 887
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val SELENIUM = materialOf("selenium", 34) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Se"
         molar = 74.9
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 958
         tempMelt = 453
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -390,6 +366,7 @@ object MaterialElements {
         color = HiiragiColor.GOLD.rgb
         formula = "Br"
         molar = 79.9
+        shapeType = HiiragiShapeTypes.LIQUID
         tempBoil = 332
         tempMelt = 267
     }
@@ -399,6 +376,7 @@ object MaterialElements {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         formula = "Kr"
         molar = 83.8
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 120
         tempMelt = 116
     }
@@ -408,177 +386,161 @@ object MaterialElements {
     @JvmField
     val RUBIDIUM = materialOf("rubidium", 37) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 3, HiiragiColor.BLUE to 2).rgb
-        crystalType = CrystalType.METAL
         formula = "Rb"
         molar = 85.5
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 961
         tempMelt = 312
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val STRONTIUM = materialOf("strontium", 38) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Sr"
         molar = 87.6
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1655
         tempMelt = 1050
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val YTTRIUM = materialOf("yttrium", 39) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Y"
         molar = 88.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3609
         tempMelt = 1799
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val ZIRCONIUM = materialOf("zirconium", 40) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Zr"
         molar = 91.2
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4682
         tempMelt = 2128
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val NIOBIUM = materialOf("niobium", 41) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Nb"
         molar = 92.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5017
         tempMelt = 2750
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val MOLYBDENUM = materialOf("molybdenum", 42) {
-        color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
-        formula = "Mo"
-        molar = 96.0
-        tempBoil = 4912
         tempMelt = 2896
-        validShapes.addAll(MaterialType.METAL_COMMON)
+        tempBoil = 4912
+        shapeType = HiiragiShapeTypes.METAL_COMMON
+        molar = 96.0
+        formula = "Mo"
+        color = HiiragiColor.GRAY.rgb
     }
 
     @JvmField
     val TECHNETIUM = materialOf("technetium", 43) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Tc"
         //molar = 97.0/98.0/99.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4538
         tempMelt = 2430
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val RUTHENIUM = materialOf("ruthenium", 44) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.LIGHT_PURPLE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Ru"
         molar = 101.1
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4423
         tempMelt = 2607
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val RHODIUM = materialOf("rhodium", 45) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.RED to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Rh"
         molar = 102.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3968
         tempMelt = 2237
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val PALLADIUM = materialOf("palladium", 46) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.YELLOW to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Pd"
         molar = 106.4
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3236
         tempMelt = 1828
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val SILVER = materialOf("silver", 47) {
         color = HiiragiColor.mixColor(HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Ag"
         molar = 107.9
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2435
         tempMelt = 1235
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val CADMIUM = materialOf("cadmium", 48) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Cd"
         molar = 112.4
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1040
         tempMelt = 594
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val INDIUM = materialOf("indium", 49) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "In"
         molar = 114.8
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2345
         tempMelt = 430
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val TIN = materialOf("tin", 50) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Sn"
         molar = 118.7
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2875
         tempMelt = 505
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val ANTIMONY = materialOf("antimony", 51) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Sb"
         molar = 121.8
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1860
         tempMelt = 904
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val TELLURIUM = materialOf("tellurium", 52) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Te"
         molar = 127.6
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 1261
         tempMelt = 723
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -586,9 +548,9 @@ object MaterialElements {
         color = HiiragiColor.DARK_PURPLE.rgb
         formula = "I"
         molar = 126.9
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 457
         tempMelt = 387
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -596,6 +558,7 @@ object MaterialElements {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         formula = "Xe"
         molar = 131.3
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 165
         tempMelt = 161
     }
@@ -605,23 +568,21 @@ object MaterialElements {
     @JvmField
     val CAESIUM = materialOf("caesium", 55) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 4, HiiragiColor.BLUE to 1).rgb
-        crystalType = CrystalType.METAL
         formula = "Cs"
         molar = 132.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 944
         tempMelt = 302
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val BARIUM = materialOf("barium", 56) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ba"
         molar = 137.3
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2170
         tempMelt = 1000
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Lanthanides Start    //
@@ -629,166 +590,151 @@ object MaterialElements {
     @JvmField
     val LANTHANUM = materialOf("lanthanum", 57) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "La"
         molar = 138.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3737
         tempMelt = 1193
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val CERIUM = materialOf("cerium", 58) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ce"
         molar = 140.1
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3716
         tempMelt = 1068
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val PRASEODYMIUM = materialOf("praseodymium", 59) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Pr"
         molar = 140.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3793
         tempMelt = 1208
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val NEODYMIUM = materialOf("neodymium", 60) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Nd"
         molar = 144.2
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3347
         tempMelt = 1297
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val PROMETHIUM = materialOf("promethium", 61) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Pm"
         //molar = 145.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3237
         tempMelt = 1315
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val SAMARIUM = materialOf("samarium", 62) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Sm"
         molar = 150.4
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2067
         tempMelt = 1345
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val EUROPIUM = materialOf("europium", 63) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Eu"
         molar = 152.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1802
         tempMelt = 1099
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val GADOLINIUM = materialOf("gadolinium", 64) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Gd"
         molar = 157.3
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3546
         tempMelt = 1585
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val TERBIUM = materialOf("terbium", 65) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Tb"
         molar = 158.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3503
         tempMelt = 1629
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val DYSPROSIUM = materialOf("dysprosium", 66) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Dy"
         molar = 157.3
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2840
         tempMelt = 1680
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val HOLMIUM = materialOf("holmium", 67) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ho"
         molar = 164.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2993
         tempMelt = 1734
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val ERBIUM = materialOf("erbium", 68) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Er"
         molar = 167.3
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3141
         tempMelt = 1802
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val THULIUM = materialOf("thulium", 69) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Tm"
         molar = 168.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2223
         tempMelt = 1818
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val YTTERBIUM = materialOf("ytterbium", 70) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Yb"
         molar = 173.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1469
         tempMelt = 1097
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val LUTETIUM = materialOf("lutetium", 71) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Lu"
         molar = 175.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3675
         tempMelt = 1925
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Lanthanides End    //
@@ -796,147 +742,130 @@ object MaterialElements {
     @JvmField
     val HAFNIUM = materialOf("hafnium", 72) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Hf"
         molar = 178.5
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4876
         tempMelt = 2506
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val TANTALUM = materialOf("tantalum", 73) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ta"
         molar = 180.9
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5731
         tempMelt = 3290
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val TUNGSTEN = materialOf("tungsten", 74) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 2, HiiragiColor.DARK_GRAY to 1).rgb
-        crystalType = CrystalType.METAL
         formula = "W"
         molar = 183.8
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 5828
         tempMelt = 3695
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val RHENIUM = materialOf("rhenium", 75) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Re"
         molar = 186.2
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5869
         tempMelt = 3459
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val OSMIUM = materialOf("osmium", 76) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.WHITE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Os"
         molar = 190.2
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 5285
         tempMelt = 3306
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val IRIDIUM = materialOf("iridium", 77) {
         color = HiiragiColor.mixColor(HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Ir"
         molar = 192.2
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 4701
         tempMelt = 2719
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val PLATINUM = materialOf("platinum", 78) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN to 1, HiiragiColor.WHITE to 3).rgb
-        crystalType = CrystalType.METAL
         formula = "Pt"
         molar = 195.1
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 4098
         tempMelt = 2041
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val GOLD = materialOf("gold", 79) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW).rgb
-        crystalType = CrystalType.METAL
         formula = "Au"
         molar = 197.0
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3129
         tempMelt = 1337
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
-        if (RMConfig.MATERIAL.disableVanillaParts) {
-            validShapes.remove("block")
-            validShapes.remove("ingot")
-            validShapes.remove("nugget")
-        }
     }
 
     @JvmField
     val MERCURY = materialOf("mercury", 80) {
         formula = "Hg"
         molar = 200.6
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 670
         tempMelt = 234
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val THALLIUM = materialOf("thallium", 81) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Tl"
         molar = 204.4
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1749
         tempMelt = 577
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val LEAD = materialOf("lead", 82) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE, HiiragiColor.DARK_GRAY, HiiragiColor.WHITE).rgb
-        crystalType = CrystalType.METAL
         formula = "Pb"
         molar = 207.2
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2022
         tempMelt = 601
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val BISMUTH = materialOf("bismuth", 83) {
         color = HiiragiColor.AQUA.rgb
-        crystalType = CrystalType.METAL
         formula = "Bi"
         molar = 209.0
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 1837
         tempMelt = 545
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val POLONIUM = materialOf("polonium", 84) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Po"
         //molar = 209.0/210.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1235
         tempMelt = 527
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
@@ -944,9 +873,9 @@ object MaterialElements {
         color = HiiragiColor.BLACK.rgb
         formula = "At"
         //molar = 210.0
+        shapeType = HiiragiShapeTypes.SOLID
         tempBoil = 610
         tempMelt = 575
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
@@ -954,6 +883,7 @@ object MaterialElements {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         formula = "Rn"
         //molar = 222.0
+        shapeType = HiiragiShapeTypes.GAS
         tempBoil = 211
         tempMelt = 202
     }
@@ -965,20 +895,19 @@ object MaterialElements {
         color = HiiragiColor.DARK_BLUE.rgb
         formula = "Fr"
         //molar = 223.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 890
         tempMelt = 281
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val RADIUM = materialOf("radium", 88) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ra"
         //molar = 226.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2010
         tempMelt = 973
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     //    Actinides Start    //
@@ -986,309 +915,255 @@ object MaterialElements {
     @JvmField
     val ACTINIUM = materialOf("actinium", 89) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Ac"
         //molar = 227.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3471
         tempMelt = 1323
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val THORIUM = materialOf("thorium", 90) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 2, HiiragiColor.DARK_GREEN to 1, HiiragiColor.GRAY to 1).rgb
-        crystalType = CrystalType.METAL
         formula = "Th"
         molar = 232.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5061
         tempMelt = 2115
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val PROTACTINIUM = materialOf("protactinium", 91) {
         color = HiiragiColor.GRAY.rgb
-        crystalType = CrystalType.METAL
         formula = "Pa"
         molar = 231.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4300
         tempMelt = 1841
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val URANIUM = materialOf("uranium", 92) {
         color = HiiragiColor.GREEN.rgb
-        crystalType = CrystalType.METAL
         formula = "U"
         molar = 238.0
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 4404
         tempMelt = 1405
-        validShapes.addAll(MaterialType.METAL_ADVANCED)
     }
 
     @JvmField
     val NEPTUNIUM = materialOf("neptunium", 93) {
         color = HiiragiColor.BLUE.rgb
-        crystalType = CrystalType.METAL
         formula = "Np"
         //molar = 237.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4273
         tempMelt = 917
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val PLUTONIUM = materialOf("plutonium", 94) {
         color = HiiragiColor.RED.rgb
-        crystalType = CrystalType.METAL
         formula = "Pu244"
         molar = 244.1
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3501
         tempMelt = 913
-        validShapes.addAll(MaterialType.METAL_COMMON)
     }
 
     @JvmField
     val AMERICIUM = materialOf("americium", 95) {
-        crystalType = CrystalType.METAL
         formula = "Am"
         //molar = 243.0
         tempBoil = 1880
         tempMelt = 1449
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val CURIUM = materialOf("curium", 96) {
-        crystalType = CrystalType.METAL
         formula = "Cm"
         //molar = 247.0
         tempBoil = 3383
         tempMelt = 1613
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val BERKELIUM = materialOf("berkelium", 97) {
-        crystalType = CrystalType.METAL
         formula = "Bk"
         //molar = 247.0
         tempBoil = 2900
         tempMelt = 1259
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val CALIFORNIUM = materialOf("californium", 98) {
-        crystalType = CrystalType.METAL
         formula = "Cf"
         //molar = 251.0/252.0
         tempBoil = 1743
         tempMelt = 1173
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val EINSTEINIUM = materialOf("einsteinium", 99) {
-        crystalType = CrystalType.METAL
         formula = "Es"
         //molar = 252.0
         tempBoil = 1269
         tempMelt = 1133
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val FERMIUM = materialOf("fermium", 100) {
-        crystalType = CrystalType.METAL
         formula = "Fm"
         //molar = 257.0
         //tempBoil =
         //tempMelt = 1125/1800
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val MENDELEVIUM = materialOf("mendelevium", 101) {
-        crystalType = CrystalType.METAL
         formula = "Md"
         //molar = 258.0
         //tempBoil =
         //tempMelt = 1100
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val NOBELIUM = materialOf("nobelium", 102) {
-        crystalType = CrystalType.METAL
         formula = "No"
         //molar = 259.0
         //tempBoil =
         //tempMelt = 1100
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val LAWRENCIUM = materialOf("lawrencium", 103) {
-        crystalType = CrystalType.METAL
         formula = "Lr"
         //molar = 262.0/266.0
         //tempBoil =
         //tempMelt = 1900
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     //    Actinides End    //
 
     @JvmField
     val RUTHERFORDIUM = materialOf("rutherfordium", 104) {
-        crystalType = CrystalType.METAL
         formula = "Lr"
         //molar = 261.1/267.0
         //tempBoil = 5800
         //tempMelt = 2400
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val DUBNIUM = materialOf("dubnium", 105) {
-        crystalType = CrystalType.METAL
         formula = "Db"
         //molar = 265.0/268.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val SEABORGIUM = materialOf("seaborgium", 106) {
-        crystalType = CrystalType.METAL
         formula = "Sg"
         //molar = 269.0/271.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val BOHRIUM = materialOf("bohrium", 107) {
-        crystalType = CrystalType.METAL
         formula = "Bh"
         //molar = 270.0/272.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val HASSIUM = materialOf("hassium", 108) {
-        crystalType = CrystalType.METAL
         formula = "Hs"
         //molar = 269.0/277.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val MEITNERIUM = materialOf("meitnerium", 109) {
-        crystalType = CrystalType.METAL
         formula = "Mt"
         //molar = 276.0/278.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val DARMSTADTIUM = materialOf("darmstadtium", 110) {
-        crystalType = CrystalType.METAL
         formula = "Ds"
         //molar = 281.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val ROENTGENIUM = materialOf("roentgenium", 111) {
-        crystalType = CrystalType.METAL
         formula = "Rg"
         //molar = 280.0/281.0/282.0
         //tempBoil =
         //tempMelt =
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val COPERNICIUM = materialOf("copernicium", 112) {
-        crystalType = CrystalType.METAL
         formula = "Cn"
         //molar = 285.0
         //tempBoil = 340
         //tempMelt = 283
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val NIHONIUM = materialOf("nihonium", 113) {
-        crystalType = CrystalType.METAL
         formula = "Nh"
         //molar = 278.0/286.0
         //tempBoil = 1400
         //tempMelt = 700
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val FLEROVIUM = materialOf("flerovium", 114) {
-        crystalType = CrystalType.METAL
         formula = "Fl"
         //molar = 289.0
         //tempBoil =
         //tempMelt = 284
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val MOSCOVIUM = materialOf("moscovium", 115) {
-        crystalType = CrystalType.METAL
         formula = "Mc"
         //molar = 289.0/290.0
         //tempBoil = 1400
         //tempMelt = 700
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val LIVERMORIUM = materialOf("livermorium", 116) {
-        crystalType = CrystalType.METAL
         formula = "Lv"
         //molar = 293.0
         //tempBoil = 1100
         //tempMelt = 700
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val TENNESSINE = materialOf("tennessine", 117) {
-        crystalType = CrystalType.METAL
         formula = "Ts"
         //molar = 293.0/294.0
         //tempBoil = 883
         //tempMelt = 700
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     @JvmField
     val OGANESSON = materialOf("oganesson", 118) {
-        crystalType = CrystalType.METAL
         formula = "Og"
         //molar = 294.0
         //tempBoil = 450
         //tempMelt = 352
-        validShapes.addAll(MaterialType.SOLID)
     }
 
     //    Isotope    //
@@ -1313,140 +1188,140 @@ object MaterialElements {
 
     fun register() {
         // --1st Period--
-        HiiragiRegistry.registerMaterial(HYDROGEN)
-        HiiragiRegistry.registerMaterial(HELIUM)
+        HYDROGEN.register()
+        HELIUM.register()
         // --2nd Period--
-        HiiragiRegistry.registerMaterial(LITHIUM)
-        HiiragiRegistry.registerMaterial(BERYLLIUM)
-        HiiragiRegistry.registerMaterial(BORON)
-        HiiragiRegistry.registerMaterial(CARBON)
-        HiiragiRegistry.registerMaterial(NITROGEN)
-        HiiragiRegistry.registerMaterial(OXYGEN)
-        HiiragiRegistry.registerMaterial(FLUORINE)
-        HiiragiRegistry.registerMaterial(NEON)
+        LITHIUM.register()
+        BERYLLIUM.register()
+        BORON.register()
+        CARBON.register()
+        NITROGEN.register()
+        OXYGEN.register()
+        FLUORINE.register()
+        NEON.register()
         // --3rd Period--
-        HiiragiRegistry.registerMaterial(SODIUM)
-        HiiragiRegistry.registerMaterial(MAGNESIUM)
-        HiiragiRegistry.registerMaterial(ALUMINIUM)
-        HiiragiRegistry.registerMaterial(SILICON)
-        HiiragiRegistry.registerMaterial(PHOSPHORUS)
-        HiiragiRegistry.registerMaterial(SULFUR)
-        HiiragiRegistry.registerMaterial(CHLORINE)
-        HiiragiRegistry.registerMaterial(ARGON)
+        SODIUM.register()
+        MAGNESIUM.register()
+        ALUMINIUM.register()
+        SILICON.register()
+        PHOSPHORUS.register()
+        SULFUR.register()
+        CHLORINE.register()
+        ARGON.register()
         // --4th Period--
-        HiiragiRegistry.registerMaterial(POTASSIUM)
-        HiiragiRegistry.registerMaterial(CALCIUM)
-        HiiragiRegistry.registerMaterial(SCANDIUM)
-        HiiragiRegistry.registerMaterial(TITANIUM)
-        HiiragiRegistry.registerMaterial(VANADIUM)
-        HiiragiRegistry.registerMaterial(CHROMIUM)
-        HiiragiRegistry.registerMaterial(MANGANESE)
-        HiiragiRegistry.registerMaterial(IRON)
-        HiiragiRegistry.registerMaterial(COBALT)
-        HiiragiRegistry.registerMaterial(NICKEL)
-        HiiragiRegistry.registerMaterial(COPPER)
-        HiiragiRegistry.registerMaterial(ZINC)
-        HiiragiRegistry.registerMaterial(GALLIUM)
-        HiiragiRegistry.registerMaterial(GERMANIUM)
-        HiiragiRegistry.registerMaterial(ARSENIC)
-        HiiragiRegistry.registerMaterial(SELENIUM)
-        HiiragiRegistry.registerMaterial(BROMINE)
-        HiiragiRegistry.registerMaterial(KRYPTON)
+        POTASSIUM.register()
+        CALCIUM.register()
+        SCANDIUM.register()
+        TITANIUM.register()
+        VANADIUM.register()
+        CHROMIUM.register()
+        MANGANESE.register()
+        IRON.register()
+        COBALT.register()
+        NICKEL.register()
+        COPPER.register()
+        ZINC.register()
+        GALLIUM.register()
+        GERMANIUM.register()
+        ARSENIC.register()
+        SELENIUM.register()
+        BROMINE.register()
+        KRYPTON.register()
         // --5th Period--
-        HiiragiRegistry.registerMaterial(RUBIDIUM)
-        HiiragiRegistry.registerMaterial(STRONTIUM)
-        HiiragiRegistry.registerMaterial(YTTRIUM)
-        HiiragiRegistry.registerMaterial(ZIRCONIUM)
-        HiiragiRegistry.registerMaterial(NIOBIUM)
-        HiiragiRegistry.registerMaterial(MOLYBDENUM)
-        HiiragiRegistry.registerMaterial(TECHNETIUM)
-        HiiragiRegistry.registerMaterial(RUTHENIUM)
-        HiiragiRegistry.registerMaterial(RHODIUM)
-        HiiragiRegistry.registerMaterial(PALLADIUM)
-        HiiragiRegistry.registerMaterial(SILVER)
-        HiiragiRegistry.registerMaterial(CADMIUM)
-        HiiragiRegistry.registerMaterial(INDIUM)
-        HiiragiRegistry.registerMaterial(TIN)
-        HiiragiRegistry.registerMaterial(ANTIMONY)
-        HiiragiRegistry.registerMaterial(TELLURIUM)
-        HiiragiRegistry.registerMaterial(IODINE)
-        HiiragiRegistry.registerMaterial(XENON)
+        RUBIDIUM.register()
+        STRONTIUM.register()
+        YTTRIUM.register()
+        ZIRCONIUM.register()
+        NIOBIUM.register()
+        MOLYBDENUM.register()
+        TECHNETIUM.register()
+        RUTHENIUM.register()
+        RHODIUM.register()
+        PALLADIUM.register()
+        SILVER.register()
+        CADMIUM.register()
+        INDIUM.register()
+        TIN.register()
+        ANTIMONY.register()
+        TELLURIUM.register()
+        IODINE.register()
+        XENON.register()
         // --6th Period--
-        HiiragiRegistry.registerMaterial(CAESIUM)
-        HiiragiRegistry.registerMaterial(BARIUM)
+        CAESIUM.register()
+        BARIUM.register()
         // --Lanthanides--
         if (RMConfig.MATERIAL.lanthanoides) {
-            HiiragiRegistry.registerMaterial(LANTHANUM)
-            HiiragiRegistry.registerMaterial(CERIUM)
-            HiiragiRegistry.registerMaterial(PRASEODYMIUM)
-            HiiragiRegistry.registerMaterial(NEODYMIUM)
-            HiiragiRegistry.registerMaterial(PROMETHIUM)
-            HiiragiRegistry.registerMaterial(SAMARIUM)
-            HiiragiRegistry.registerMaterial(EUROPIUM)
-            HiiragiRegistry.registerMaterial(GADOLINIUM)
-            HiiragiRegistry.registerMaterial(TERBIUM)
-            HiiragiRegistry.registerMaterial(DYSPROSIUM)
-            HiiragiRegistry.registerMaterial(HOLMIUM)
-            HiiragiRegistry.registerMaterial(ERBIUM)
-            HiiragiRegistry.registerMaterial(THULIUM)
-            HiiragiRegistry.registerMaterial(YTTERBIUM)
-            HiiragiRegistry.registerMaterial(LUTETIUM)
+            LANTHANUM.register()
+            CERIUM.register()
+            PRASEODYMIUM.register()
+            NEODYMIUM.register()
+            PROMETHIUM.register()
+            SAMARIUM.register()
+            EUROPIUM.register()
+            GADOLINIUM.register()
+            TERBIUM.register()
+            DYSPROSIUM.register()
+            HOLMIUM.register()
+            ERBIUM.register()
+            THULIUM.register()
+            YTTERBIUM.register()
+            LUTETIUM.register()
         }
-        HiiragiRegistry.registerMaterial(HAFNIUM)
-        HiiragiRegistry.registerMaterial(TANTALUM)
-        HiiragiRegistry.registerMaterial(TUNGSTEN)
-        HiiragiRegistry.registerMaterial(RHENIUM)
-        HiiragiRegistry.registerMaterial(OSMIUM)
-        HiiragiRegistry.registerMaterial(IRIDIUM)
-        HiiragiRegistry.registerMaterial(PLATINUM)
-        HiiragiRegistry.registerMaterial(GOLD)
-        HiiragiRegistry.registerMaterial(MERCURY)
-        HiiragiRegistry.registerMaterial(THALLIUM)
-        HiiragiRegistry.registerMaterial(LEAD)
-        HiiragiRegistry.registerMaterial(BISMUTH)
-        HiiragiRegistry.registerMaterial(POLONIUM)
-        HiiragiRegistry.registerMaterial(ASTATINE)
-        HiiragiRegistry.registerMaterial(RADON)
+        HAFNIUM.register()
+        TANTALUM.register()
+        TUNGSTEN.register()
+        RHENIUM.register()
+        OSMIUM.register()
+        IRIDIUM.register()
+        PLATINUM.register()
+        GOLD.register()
+        MERCURY.register()
+        THALLIUM.register()
+        LEAD.register()
+        BISMUTH.register()
+        POLONIUM.register()
+        ASTATINE.register()
+        RADON.register()
         // --7th Period--
-        HiiragiRegistry.registerMaterial(FRANCIUM)
-        HiiragiRegistry.registerMaterial(RADIUM)
+        FRANCIUM.register()
+        RADIUM.register()
         // --Actinides Start--
-        HiiragiRegistry.registerMaterial(ACTINIUM)
-        HiiragiRegistry.registerMaterial(THORIUM)
-        HiiragiRegistry.registerMaterial(PROTACTINIUM)
-        HiiragiRegistry.registerMaterial(URANIUM)
-        HiiragiRegistry.registerMaterial(NEPTUNIUM)
-        HiiragiRegistry.registerMaterial(PLUTONIUM)
+        ACTINIUM.register()
+        THORIUM.register()
+        PROTACTINIUM.register()
+        URANIUM.register()
+        NEPTUNIUM.register()
+        PLUTONIUM.register()
         if (RMConfig.MATERIAL.transUran) {
-            HiiragiRegistry.registerMaterial(AMERICIUM)
-            HiiragiRegistry.registerMaterial(CURIUM)
-            HiiragiRegistry.registerMaterial(BERKELIUM)
-            HiiragiRegistry.registerMaterial(CALIFORNIUM)
-            HiiragiRegistry.registerMaterial(EINSTEINIUM)
-            HiiragiRegistry.registerMaterial(FERMIUM)
-            HiiragiRegistry.registerMaterial(MENDELEVIUM)
-            HiiragiRegistry.registerMaterial(NOBELIUM)
-            HiiragiRegistry.registerMaterial(LAWRENCIUM)
+            AMERICIUM.register()
+            CURIUM.register()
+            BERKELIUM.register()
+            CALIFORNIUM.register()
+            EINSTEINIUM.register()
+            FERMIUM.register()
+            MENDELEVIUM.register()
+            NOBELIUM.register()
+            LAWRENCIUM.register()
             // --Actinides End--
-            HiiragiRegistry.registerMaterial(RUTHERFORDIUM)
-            HiiragiRegistry.registerMaterial(DUBNIUM)
-            HiiragiRegistry.registerMaterial(SEABORGIUM)
-            HiiragiRegistry.registerMaterial(BOHRIUM)
-            HiiragiRegistry.registerMaterial(HASSIUM)
-            HiiragiRegistry.registerMaterial(MEITNERIUM)
-            HiiragiRegistry.registerMaterial(DARMSTADTIUM)
-            HiiragiRegistry.registerMaterial(ROENTGENIUM)
-            HiiragiRegistry.registerMaterial(COPERNICIUM)
-            HiiragiRegistry.registerMaterial(NIHONIUM)
-            HiiragiRegistry.registerMaterial(FLEROVIUM)
-            HiiragiRegistry.registerMaterial(MOSCOVIUM)
-            HiiragiRegistry.registerMaterial(LIVERMORIUM)
-            HiiragiRegistry.registerMaterial(TENNESSINE)
-            HiiragiRegistry.registerMaterial(OGANESSON)
+            RUTHERFORDIUM.register()
+            DUBNIUM.register()
+            SEABORGIUM.register()
+            BOHRIUM.register()
+            HASSIUM.register()
+            MEITNERIUM.register()
+            DARMSTADTIUM.register()
+            ROENTGENIUM.register()
+            COPERNICIUM.register()
+            NIHONIUM.register()
+            FLEROVIUM.register()
+            MOSCOVIUM.register()
+            LIVERMORIUM.register()
+            TENNESSINE.register()
+            OGANESSON.register()
         }
         // --Isotope--
-        HiiragiRegistry.registerMaterial(DEUTERIUM)
-        HiiragiRegistry.registerMaterial(TRITIUM)
-        HiiragiRegistry.registerMaterial(URANIUM235)
+        DEUTERIUM.register()
+        TRITIUM.register()
+        URANIUM235.register()
     }
 }

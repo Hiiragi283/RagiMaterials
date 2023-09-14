@@ -1,6 +1,6 @@
 package hiiragi283.material.item
 
-import hiiragi283.material.RMItems
+import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.init.Blocks
@@ -11,11 +11,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 object ItemUnfiredCast : HiiragiItem("unfired_cast", 4) {
 
     val RESULTS: Map<Int, ItemCast> = mapOf(
-        0 to RMItems.CAST_INGOT,
-        1 to RMItems.CAST_NUGGET,
-        2 to RMItems.CAST_GEAR,
-        3 to RMItems.CAST_PLATE,
-        4 to RMItems.CAST_STICK,
+        0 to HiiragiItems.CAST_INGOT,
+        1 to HiiragiItems.CAST_NUGGET,
+        2 to HiiragiItems.CAST_GEAR,
+        3 to HiiragiItems.CAST_PLATE,
+        4 to HiiragiItems.CAST_STICK,
     )
 
     //    HiiragiEntry    //

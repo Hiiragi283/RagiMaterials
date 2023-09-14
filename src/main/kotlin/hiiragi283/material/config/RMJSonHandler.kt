@@ -1,9 +1,11 @@
 package hiiragi283.material.config
 
-import hiiragi283.material.api.registry.HiiragiRegistry
-import hiiragi283.api.material.*
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.jsonMaterialOf
+import hiiragi283.material.api.material.materialOf
+import hiiragi283.material.api.shape.HiiragiShapeTypes
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
 
@@ -22,7 +24,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
         private val CACHE: MutableList<HiiragiMaterial> = mutableListOf()
 
         fun register() {
-            CACHE.forEach { HiiragiRegistry.registerMaterial(it) }
+            CACHE.forEach(HiiragiMaterial::register)
         }
 
     }
@@ -40,16 +42,14 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             if (sample.canWrite()) {
                 val material = materialOf("hiiragi", -1) {
                     color = RagiMaterials.COLOR.rgb
-                    crystalType = CrystalType.METAL
-                    fluidSupplier = null
+                    fluid = null
                     formula = "HIIRAGI"
                     molar = 110.9
                     tempBoil = 2830
                     tempMelt = 1109
-                    validShapes.addAll(MaterialType.WILDCARD)
-                    setHardness(MaterialHardness.HARD)
+                    shapeType = HiiragiShapeTypes.WILDCARD
                 }
-                sample.writeText(material.toJson(true), Charsets.UTF_8)
+                //sample.writeText(material.toJson(true), Charsets.UTF_8)
             }
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e)
@@ -62,7 +62,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             configs.listFiles()
                 ?.filter { it.exists() && it.canRead() } //存在している && 読み取り可能
                 ?.map { it.readText() } //Stringを読み取る
-                ?.map { jsonMaterialOf(it) } //Json String -> HiiragiMaterial
+                ?.mapNotNull { jsonMaterialOf(it) } //Json String -> HiiragiMaterial
                 ?.forEach { CACHE.add(it) } //CACHEに一時保存
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e) //念のため例外処理

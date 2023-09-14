@@ -1,8 +1,8 @@
 package hiiragi283.material.block
 
-import hiiragi283.api.block.HiiragiBlock
-import hiiragi283.api.block.property.HiiragiProperty
-import hiiragi283.api.item.HiiragiItemBlock
+import hiiragi283.material.api.block.HiiragiBlock
+import hiiragi283.material.api.block.property.HiiragiProperty
+import hiiragi283.material.api.item.HiiragiItemBlock
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer

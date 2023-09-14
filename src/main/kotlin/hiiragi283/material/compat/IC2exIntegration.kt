@@ -1,14 +1,14 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialCommon
-import hiiragi283.api.material.MaterialElements
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.api.shape.HiiragiShapes
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.material.MaterialCompat
+import hiiragi283.material.api.material.MaterialElements
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.getItem
 import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object IC2exIntegration : hiiragi283.material.compat.AbstractIntegration() {
+object IC2exIntegration : AbstractIntegration() {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(
@@ -18,7 +18,7 @@ object IC2exIntegration : hiiragi283.material.compat.AbstractIntegration() {
             "itemRubber"
         )
         registerOreDict(
-            HiiragiShapes.DUST.getOreDict(MaterialIntegration.ENDER_PEARL),
+            HiiragiShapes.DUST.getOreDict(MaterialCompat.ENDER_PEARL),
             getItem("ic2:dust"),
             31,
             "dustEnderPearl"

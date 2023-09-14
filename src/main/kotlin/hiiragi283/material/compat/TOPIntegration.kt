@@ -1,13 +1,12 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.capability.HiiragiCapability
-import hiiragi283.api.material.HiiragiMaterial
 import hiiragi283.material.RMReference
-import hiiragi283.material.util.getTile
-import mcjty.theoneprobe.api.*
+import mcjty.theoneprobe.api.IProbeHitData
+import mcjty.theoneprobe.api.IProbeInfo
+import mcjty.theoneprobe.api.IProbeInfoProvider
+import mcjty.theoneprobe.api.ProbeMode
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
 
 object TOPIntegration : IProbeInfoProvider {
@@ -24,20 +23,7 @@ object TOPIntegration : IProbeInfoProvider {
         state: IBlockState,
         data: IProbeHitData
     ) {
-        if (mode == ProbeMode.EXTENDED) {
-            getTile<TileEntity>(world, data.pos)?.getCapability(HiiragiCapability.MATERIAL, null)?.let {
-                if (!it.isEmpty()) {
-                    val material: HiiragiMaterial = it.getMaterialStack().material
-                    probeInfo.text(TextStyleClass.NAME.toString() + "Material: " + material.getTranslatedName())
-                    probeInfo.progress(
-                        it.getMaterialAmount(), it.getCapacity(), probeInfo.defaultProgressStyle()
-                            .suffix("mB")
-                            .filledColor(material.color)
-                            .alternateFilledColor(material.color)
-                    )
-                }
-            }
-        }
+
     }
 
 }

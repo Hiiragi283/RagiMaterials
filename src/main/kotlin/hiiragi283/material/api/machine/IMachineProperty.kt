@@ -29,9 +29,13 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
 
     class Impl : IMachineProperty {
 
+        @JvmField
         var processTime: Int = 100
+        @JvmField
         var energyRate: Int = 32
+        @JvmField
         var itemSlots: Int = 1
+        @JvmField
         var fluidSlots: Int = 0
 
         //    INBTSerializable    //

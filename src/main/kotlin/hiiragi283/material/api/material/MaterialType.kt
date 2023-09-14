@@ -1,13 +1,9 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.registry.HiiragiRegistry
-
 object MaterialType {
 
     @JvmField
     val INTERNAL: Set<String> = setOf("bottle")
-
-    val WILDCARD: Set<String> by lazy { HiiragiRegistry.SHAPE.map { it.value.name }.toSet() }
 
     @JvmField
     val SOLID: Set<String> = setOf(

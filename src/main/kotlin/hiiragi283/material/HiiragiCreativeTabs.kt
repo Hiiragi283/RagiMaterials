@@ -6,12 +6,12 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 
-object RMCreativeTabs {
+object HiiragiCreativeTabs {
 
     val BOTTLE by lazy {
         object : CreativeTabs("${RMReference.MOD_ID}.bottle") {
         override fun createIcon(): ItemStack =
-            ItemStack(RMItems.MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
+            ItemStack(HiiragiItems.MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
         }
     }
 

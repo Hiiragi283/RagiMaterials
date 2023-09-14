@@ -1,10 +1,10 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialCommon
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.api.shape.HiiragiShapes
+
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.material.MaterialCompat
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.util.registerOreDict
 import hiiragi283.material.util.shareOredict
@@ -13,13 +13,8 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.*
-import zone.rong.mixinbooter.ILateMixinLoader
 
-class RMIntegrationCore : hiiragi283.material.compat.AbstractIntegration(), ILateMixinLoader {
-
-    companion object {
-        val INSTANCE: hiiragi283.material.compat.RMIntegrationCore = hiiragi283.material.compat.RMIntegrationCore()
-    }
+object RMIntegrationCore : AbstractIntegration() {
 
     private fun enableIntegration(name: String, config: Boolean): Boolean =
         RMConfig.INTEGRATION.forceIntegration || (Loader.isModLoaded(name) && config)
@@ -35,8 +30,6 @@ class RMIntegrationCore : hiiragi283.material.compat.AbstractIntegration(), ILat
     private val thaum by lazy { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
     private val thermal by lazy { enableIntegration("thermalfoundation", RMConfig.INTEGRATION.thermal) }
 
-    override fun getMixinConfigs(): List<String> = listOf()
-
     override fun onConstruct(event: FMLConstructionEvent) {
         if (botania) RagiMaterials.LOGGER.info("Integration Enabled: Botania")
         if (embers) RagiMaterials.LOGGER.info("Integration Enabled: Embers")
@@ -51,35 +44,35 @@ class RMIntegrationCore : hiiragi283.material.compat.AbstractIntegration(), ILat
     }
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
-        if (botania) hiiragi283.material.compat.BotaniaIntegration.onPreInit(event)
-        if (embers) hiiragi283.material.compat.EmbersIntegration.onPreInit(event)
-        if (enderIO) hiiragi283.material.compat.EnderIOIntegration.onPreInit(event)
-        if (ic2Ex) hiiragi283.material.compat.IC2exIntegration.onPreInit(event)
-        if (mekanism) hiiragi283.material.compat.MekanismIntegration.onPreInit(event)
-        if (projectRed) hiiragi283.material.compat.ProjectRedIntegration.onPreInit(event)
-        if (railCraft) hiiragi283.material.compat.RailCraftIntegration.onPreInit(event)
-        if (tCon) hiiragi283.material.compat.TConIntegration.onPreInit(event)
-        if (thaum) hiiragi283.material.compat.ThaumIntegration.onPreInit(event)
-        if (thermal) hiiragi283.material.compat.ThermalIntegration.onPreInit(event)
+        if (botania) BotaniaIntegration.onPreInit(event)
+        if (embers) EmbersIntegration.onPreInit(event)
+        if (enderIO) EnderIOIntegration.onPreInit(event)
+        if (ic2Ex) IC2exIntegration.onPreInit(event)
+        if (mekanism) MekanismIntegration.onPreInit(event)
+        if (projectRed) ProjectRedIntegration.onPreInit(event)
+        if (railCraft) RailCraftIntegration.onPreInit(event)
+        if (tCon) TConIntegration.onPreInit(event)
+        if (thaum) ThaumIntegration.onPreInit(event)
+        if (thermal) ThermalIntegration.onPreInit(event)
     }
 
     override fun registerMaterial() {
 
-        HiiragiRegistry.registerMaterial(MaterialIntegration.REDSTONE)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.LAPIS)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.GLOWSTONE)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.ENDER_PEARL)
+        MaterialCompat.REDSTONE.register()
+        MaterialCompat.LAPIS.register()
+        MaterialCompat.GLOWSTONE.register()
+        MaterialCompat.ENDER_PEARL.register()
 
-        if (botania) hiiragi283.material.compat.BotaniaIntegration.registerMaterial()
-        if (embers) hiiragi283.material.compat.EmbersIntegration.registerMaterial()
-        if (enderIO) hiiragi283.material.compat.EnderIOIntegration.registerMaterial()
-        if (ic2Ex) hiiragi283.material.compat.IC2exIntegration.registerMaterial()
-        if (mekanism) hiiragi283.material.compat.MekanismIntegration.registerMaterial()
-        if (projectRed) hiiragi283.material.compat.ProjectRedIntegration.registerMaterial()
-        if (railCraft) hiiragi283.material.compat.RailCraftIntegration.registerMaterial()
-        if (tCon) hiiragi283.material.compat.TConIntegration.registerMaterial()
-        if (thaum) hiiragi283.material.compat.ThaumIntegration.registerMaterial()
-        if (thermal) hiiragi283.material.compat.ThermalIntegration.registerMaterial()
+        if (botania) BotaniaIntegration.registerMaterial()
+        if (embers) EmbersIntegration.registerMaterial()
+        if (enderIO) EnderIOIntegration.registerMaterial()
+        if (ic2Ex) IC2exIntegration.registerMaterial()
+        if (mekanism) MekanismIntegration.registerMaterial()
+        if (projectRed) ProjectRedIntegration.registerMaterial()
+        if (railCraft) RailCraftIntegration.registerMaterial()
+        if (tCon) TConIntegration.registerMaterial()
+        if (thaum) ThaumIntegration.registerMaterial()
+        if (thermal) ThermalIntegration.registerMaterial()
     }
 
 
@@ -98,7 +91,7 @@ class RMIntegrationCore : hiiragi283.material.compat.AbstractIntegration(), ILat
         registerOreDict(HiiragiShapes.GEM.getOreDict(MaterialCommon.CHARCOAL), Items.COAL, 1, share = "charcoal")
         registerOreDict(HiiragiShapes.GEM.getOreDict(MaterialCommon.COAL), Items.COAL, share = "coal")
         registerOreDict(
-            HiiragiShapes.GEM.getOreDict(MaterialIntegration.ENDER_PEARL),
+            HiiragiShapes.GEM.getOreDict(MaterialCompat.ENDER_PEARL),
             Items.ENDER_PEARL,
             share = "enderpearl"
         )
@@ -106,29 +99,29 @@ class RMIntegrationCore : hiiragi283.material.compat.AbstractIntegration(), ILat
 
         shareOredict("fuelCoke", "gemCoke")
 
-        if (botania) hiiragi283.material.compat.BotaniaIntegration.onInit(event)
-        if (embers) hiiragi283.material.compat.EmbersIntegration.onInit(event)
-        if (enderIO) hiiragi283.material.compat.EnderIOIntegration.onInit(event)
-        if (ic2Ex) hiiragi283.material.compat.IC2exIntegration.onInit(event)
-        if (mekanism) hiiragi283.material.compat.MekanismIntegration.onInit(event)
-        if (projectRed) hiiragi283.material.compat.ProjectRedIntegration.onInit(event)
-        if (railCraft) hiiragi283.material.compat.RailCraftIntegration.onInit(event)
-        if (tCon) hiiragi283.material.compat.TConIntegration.onInit(event)
-        if (thaum) hiiragi283.material.compat.ThaumIntegration.onInit(event)
-        if (thermal) hiiragi283.material.compat.ThermalIntegration.onInit(event)
+        if (botania) BotaniaIntegration.onInit(event)
+        if (embers) EmbersIntegration.onInit(event)
+        if (enderIO) EnderIOIntegration.onInit(event)
+        if (ic2Ex) IC2exIntegration.onInit(event)
+        if (mekanism) MekanismIntegration.onInit(event)
+        if (projectRed) ProjectRedIntegration.onInit(event)
+        if (railCraft) RailCraftIntegration.onInit(event)
+        if (tCon) TConIntegration.onInit(event)
+        if (thaum) ThaumIntegration.onInit(event)
+        if (thermal) ThermalIntegration.onInit(event)
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        if (botania) hiiragi283.material.compat.BotaniaIntegration.onPostInit(event)
-        if (embers) hiiragi283.material.compat.EmbersIntegration.onPostInit(event)
-        if (enderIO) hiiragi283.material.compat.EnderIOIntegration.onPostInit(event)
-        if (ic2Ex) hiiragi283.material.compat.IC2exIntegration.onPostInit(event)
-        if (mekanism) hiiragi283.material.compat.MekanismIntegration.onPostInit(event)
-        if (projectRed) hiiragi283.material.compat.ProjectRedIntegration.onPostInit(event)
-        if (railCraft) hiiragi283.material.compat.RailCraftIntegration.onPostInit(event)
-        if (tCon) hiiragi283.material.compat.TConIntegration.onPostInit(event)
-        if (thaum) hiiragi283.material.compat.ThaumIntegration.onPostInit(event)
-        if (thermal) hiiragi283.material.compat.ThermalIntegration.onPostInit(event)
+        if (botania) BotaniaIntegration.onPostInit(event)
+        if (embers) EmbersIntegration.onPostInit(event)
+        if (enderIO) EnderIOIntegration.onPostInit(event)
+        if (ic2Ex) IC2exIntegration.onPostInit(event)
+        if (mekanism) MekanismIntegration.onPostInit(event)
+        if (projectRed) ProjectRedIntegration.onPostInit(event)
+        if (railCraft) RailCraftIntegration.onPostInit(event)
+        if (tCon) TConIntegration.onPostInit(event)
+        if (thaum) ThaumIntegration.onPostInit(event)
+        if (thermal) ThermalIntegration.onPostInit(event)
 
         if (Loader.isModLoaded("theoneprobe")) TheOneProbe.theOneProbeImp.registerProvider(hiiragi283.material.compat.TOPIntegration)
 

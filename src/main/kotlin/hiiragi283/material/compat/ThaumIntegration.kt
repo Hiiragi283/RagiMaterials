@@ -1,22 +1,22 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialCommon
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.api.part.HiiragiPart
-import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.material.MaterialCompat
+import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.shape.HiiragiShapes
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object ThaumIntegration : hiiragi283.material.compat.AbstractIntegration() {
+object ThaumIntegration : AbstractIntegration() {
 
     override fun registerMaterial() {
-        HiiragiRegistry.registerMaterial(MaterialIntegration.THAUMIUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.VOID_METAL)
+        MaterialCompat.THAUMIUM.register()
+        MaterialCompat.VOID_METAL.register()
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
-        HiiragiRegistry.registerTag("quicksilver", HiiragiPart(HiiragiShapes.GEM, MaterialCommon.CINNABAR))
-        HiiragiRegistry.registerTag(
+        HiiragiRegistries.PART.register("quicksilver", HiiragiPart(HiiragiShapes.GEM, MaterialCommon.CINNABAR))
+        HiiragiRegistries.PART.register(
             "nuggetQuicksilver",
             HiiragiPart(HiiragiShapes.NUGGET, MaterialCommon.CINNABAR)
         )

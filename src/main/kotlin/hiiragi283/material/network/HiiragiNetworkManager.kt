@@ -17,7 +17,6 @@ val HiiragiNetworkWrapper: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSi
 object HiiragiNetworkManager {
 
     fun register() {
-        //パケットの登録
         HiiragiNetworkWrapper.registerMessage(
             { message: HiiragiMessage.Client, ctx: MessageContext ->
                 syncMessage(Minecraft.getMinecraft().world, message)
@@ -34,7 +33,6 @@ object HiiragiNetworkManager {
             1,
             Side.SERVER
         )
-
     }
 
     private fun syncMessage(

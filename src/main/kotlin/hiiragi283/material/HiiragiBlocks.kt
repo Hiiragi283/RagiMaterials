@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 
-object RMBlocks : BLOCK {
+object HiiragiBlocks : BLOCK {
 
     override val itemBlock: HiiragiItemBlock? = null
 
@@ -40,7 +40,7 @@ object RMBlocks : BLOCK {
     val SCAFFOLDING = BlockScaffolding
 
     fun init() {
-        RagiMaterials.LOGGER.info("RMBlocks has been initialized!")
+        RagiMaterials.LOGGER.info("HiiragiBlocks has been initialized!")
         if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
         entries.add(CASING)
         entries.add(SCAFFOLDING)

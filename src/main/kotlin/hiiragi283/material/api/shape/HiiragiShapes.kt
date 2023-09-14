@@ -1,12 +1,8 @@
 package hiiragi283.material.api.shape
 
-import hiiragi283.material.api.registry.HiiragiRegistry
-import java.util.function.Function
+import hiiragi283.material.api.registry.HiiragiRegistries
 
 object HiiragiShapes {
-
-    @JvmField
-    val COMMON: Function<Int, HiiragiShape> = Function { HiiragiShape("common", it) }
 
     @JvmField
     val BALL = HiiragiShape("ball", 30)
@@ -16,6 +12,9 @@ object HiiragiShapes {
 
     @JvmField
     val BOTTLE = HiiragiShape("bottle", 144)
+
+    @JvmField
+    val CASING = HiiragiShape("casing", (144 * 4) + (144 * 6))
 
     @JvmField
     val CLUMP = HiiragiShape("clump", 144)
@@ -43,6 +42,9 @@ object HiiragiShapes {
 
     @JvmField
     val FENCE = HiiragiShape("fence", 144 * 5 / 3)
+
+    @JvmField
+    val FRAME = HiiragiShape("frame", 144 * 4)
 
     @JvmField
     val GEAR = HiiragiShape("gear", 144 * 4)
@@ -107,12 +109,28 @@ object HiiragiShapes {
     @JvmField
     val WIRE = HiiragiShape("wire", 144 / 2)
 
+    //    State    //
+
+    @JvmField
+    val SOLID = HiiragiShape("solid", 0)
+
+    @JvmField
+    val LIQUID = HiiragiShape("liquid", 0)
+
+    @JvmField
+    val GAS = HiiragiShape("gas", 0)
+
+    //    Type    //
+
+    @JvmField
+    val METAL = HiiragiShape("metal", 0)
+
     fun register() {
         this::class.java.declaredFields
             .map { it.also { it.isAccessible = true } }
             .map { it.get(this) }
             .filterIsInstance<HiiragiShape>()
-            .forEach { HiiragiRegistry.registerShape(it) }
+            .forEach { shape -> HiiragiRegistries.SHAPE.register(shape.name, shape) }
     }
 
 }

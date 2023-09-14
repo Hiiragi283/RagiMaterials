@@ -1,18 +1,20 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.item.createItemMaterial
-import hiiragi283.material.api.material.CrystalType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.shape.HiiragiShapeType
+import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.ItemCast
 import hiiragi283.material.item.ItemCrushingHammer
 import hiiragi283.material.item.ItemUnfiredCast
 import hiiragi283.material.util.*
+import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
@@ -27,6 +29,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistry
 import java.util.function.BiConsumer
+
 
 fun getRecipeBlock(): BiConsumer<HiiragiEntry<*>, HiiragiMaterial> =
     BiConsumer { entry, material ->
@@ -45,7 +48,7 @@ fun getRecipeBlock(): BiConsumer<HiiragiEntry<*>, HiiragiMaterial> =
         }
     }
 
-object RMItems : HiiragiEntry.ITEM {
+object HiiragiItems : HiiragiEntry.ITEM {
 
     private val entries: MutableList<HiiragiEntry.ITEM> = mutableListOf()
 
@@ -84,7 +87,7 @@ object RMItems : HiiragiEntry.ITEM {
 
     @JvmField
     val MATERIAL_BOTTLE: MaterialItem =
-        createItemMaterial(HiiragiShapes.BOTTLE).also { it.setCreativeTab(RMCreativeTabs.BOTTLE) }
+        createItemMaterial(HiiragiShapes.BOTTLE).also { it.setCreativeTab(HiiragiCreativeTabs.BOTTLE) }
 
     @JvmField
     val MATERIAL_DUST = createItemMaterial(
@@ -113,17 +116,30 @@ object RMItems : HiiragiEntry.ITEM {
     @JvmField
     val MATERIAL_GEM = createItemMaterial(
         HiiragiShapes.GEM,
-        model = { entry ->
-            ModelLoader.registerItemVariants(entry.asItem(), *CrystalType.values()
-                .filter { it.texture.isNotEmpty() }
-                .map { entry.getLocation()!!.append("_" + it.texture) }
-                .toTypedArray())
+        model = { entry: HiiragiEntry<*> ->
 
-            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack ->
-                val material = HiiragiRegistry.getMaterial(stack.metadata)
-                val type = if (material.isGem()) material.crystalType else CrystalType.CUBIC
-                type.getLocation(entry.asItem())
+            ModelLoader.registerItemVariants(
+                entry.asItem(),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_AMORPHOUS.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_COAL.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_CUBIC.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_DIAMOND.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_EMERALD.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_LAPIS.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_QUARTZ.name),
+                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_RUBY.name)
+            )
+
+            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack: ItemStack ->
+                HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.shapeType
+                    ?.let { shapeType: HiiragiShapeType ->
+                        ModelResourceLocation(
+                            entry.getLocation().append("_" + shapeType.name), "inventory"
+                        )
+                    }
+                    ?: ModelResourceLocation(entry.getLocation(), "inventory")
             }
+
         },
         recipe = { entry, material ->
             CraftingBuilder(entry.getItemStack(material, 9))
@@ -189,8 +205,8 @@ object RMItems : HiiragiEntry.ITEM {
     val UNFIRED_CAST = ItemUnfiredCast
 
     fun init() {
-        RagiMaterials.LOGGER.info("RMItems has been initialized!")
-        entries.addAll(RMBlocks.getItemBlockEntries())
+        RagiMaterials.LOGGER.info("HiiragiItems has been initialized!")
+        entries.addAll(HiiragiBlocks.getItemBlockEntries())
         entries.add(BOOK_RESPAWN)
         if (!RMConfig.EXPERIMENTAL.enableMetaTileBlock) entries.add(MATERIAL_BLOCK)
         entries.add(MATERIAL_BOTTLE)

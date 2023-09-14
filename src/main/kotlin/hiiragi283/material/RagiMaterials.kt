@@ -1,11 +1,10 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.fluid.MaterialFluid
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.compat.RMIntegrationCore
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
-import net.minecraft.init.Blocks
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
@@ -20,7 +19,7 @@ import java.util.*
     modid = RMReference.MOD_ID,
     name = RMReference.MOD_NAME,
     version = RMReference.VERSION,
-    dependencies = "after-required:forgelin_continuous;after-required:modularui;after:gregtech;after:jei@[4.24.5,)",
+    dependencies = "after-required:forgelin;after:gregtech;after:jei@[4.24.5,)",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
     //modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
@@ -49,10 +48,10 @@ object RagiMaterials : HiiragiProxy {
         //Universal Bucketを有効化
         FluidRegistry.enableUniversalBucket()
         //Eventを登録
-        MinecraftForge.EVENT_BUS.register(RMEventHandler)
-        MinecraftForge.EVENT_BUS.register(RMEventHandler.Client)
+        MinecraftForge.EVENT_BUS.register(HiiragiEventHandler)
+        MinecraftForge.EVENT_BUS.register(HiiragiEventHandler.Client)
         //連携の登録
-        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onConstruct(event)
+        RMIntegrationCore.onConstruct(event)
     }
 
     @Mod.EventHandler
@@ -63,43 +62,37 @@ object RagiMaterials : HiiragiProxy {
             this.readJson()
         }
         //レジストリの初期化
-        HiiragiRegistry.initShape()
-        HiiragiRegistry.initMaterial()
-        RMBlocks.init()
-        RMItems.init()
-        FluidRegistry.registerFluid(MaterialFluid.EMPTY.setBlock(Blocks.AIR))
+        HiiragiBlocks.init()
+        HiiragiItems.init()
         //連携の登録
-        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onPreInit(event)
+        RMIntegrationCore.onPreInit(event)
     }
 
     @Mod.EventHandler
     override fun onInit(event: FMLInitializationEvent) {
-        //レジストリの初期化
-        HiiragiRegistry.initPart()
-        HiiragiRegistry.initHeatSource()
-        HiiragiRegistry.initFluid()
+
         //鉱石辞書の登録
-        RMBlocks.registerOreDict()
-        RMItems.registerOreDict()
+        HiiragiBlocks.registerOreDict()
+        HiiragiItems.registerOreDict()
         //レシピの登録
-        RMBlocks.registerRecipe()
-        RMItems.registerRecipe()
-        RMRecipes.init()
+        HiiragiBlocks.registerRecipe()
+        HiiragiItems.registerRecipe()
+        HiiragiRecipes.init()
         //連携の登録
-        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onInit(event)
+        RMIntegrationCore.onInit(event)
     }
 
     @Mod.EventHandler
     override fun onPostInit(event: FMLPostInitializationEvent) {
         //連携の登録
-        hiiragi283.material.compat.RMIntegrationCore.INSTANCE.onPostInit(event)
+        RMIntegrationCore.onPostInit(event)
     }
 
     @Mod.EventHandler
     override fun onComplete(event: FMLLoadCompleteEvent) {
         //MaterialRegistryからログに出力
         if (RMConfig.MATERIAL.printMaterials) {
-            HiiragiRegistry.getMaterials().forEach { LOGGER.info(it.toJson(false)) }
+            HiiragiRegistries.MATERIAL.getValues().forEach { LOGGER.info(it) }
         }
         //パケット送信の登録
         HiiragiNetworkManager.register()

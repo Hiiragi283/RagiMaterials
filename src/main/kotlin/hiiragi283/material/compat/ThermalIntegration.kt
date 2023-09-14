@@ -1,19 +1,18 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.MaterialCompat
 
-object ThermalIntegration : hiiragi283.material.compat.AbstractIntegration() {
+object ThermalIntegration : AbstractIntegration() {
 
     override fun registerMaterial() {
-        HiiragiRegistry.registerMaterial(MaterialIntegration.MITHRIL)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.SIGNALUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.LUMIUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.ENDERIUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.PYROTHEUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.CRYOTHEUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.AEROTHEUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.PETROTHEUM)
+        MaterialCompat.MITHRIL.register()
+        MaterialCompat.SIGNALUM.register()
+        MaterialCompat.LUMIUM.register()
+        MaterialCompat.ENDERIUM.register()
+        MaterialCompat.PYROTHEUM.register()
+        MaterialCompat.CRYOTHEUM.register()
+        MaterialCompat.AEROTHEUM.register()
+        MaterialCompat.PETROTHEUM.register()
     }
 
 }

@@ -2,20 +2,18 @@ package hiiragi283.material
 
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
-import hiiragi283.material.api.item.ICrusherItem
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
-import hiiragi283.material.api.recipe.CrushingRecipe
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.getStacks
+import hiiragi283.material.api.part.getParts
+import hiiragi283.material.api.registry.HiiragiRegistryOld
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
 import hiiragi283.material.compat.RMIntegrationCore
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.client.event.ColorHandlerEvent
 import net.minecraftforge.client.event.ModelRegistryEvent
@@ -24,18 +22,17 @@ import net.minecraftforge.common.config.ConfigManager
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
-import net.minecraftforge.event.world.BlockEvent
 import net.minecraftforge.fml.client.event.ConfigChangedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object RMEventHandler {
+object HiiragiEventHandler {
 
     @SubscribeEvent
     fun createRegistry(event: RegistryEvent.NewRegistry) {
-        HiiragiRegistry
+        HiiragiRegistryOld
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -48,7 +45,7 @@ object RMEventHandler {
         MaterialCommon.register()
 
         RagiMaterials.LOGGER.info("Registering Materials for Integration...")
-        RMIntegrationCore.INSTANCE.registerMaterial()
+        RMIntegrationCore.registerMaterial()
 
         RagiMaterials.LOGGER.info("Registering Materials from JSON...")
         RMJSonHandler.register()
@@ -63,12 +60,12 @@ object RMEventHandler {
 
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
-        RMBlocks.register(event.registry)
+        HiiragiBlocks.register(event.registry)
     }
 
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
-        RMItems.register(event.registry)
+        HiiragiItems.register(event.registry)
     }
 
     private val keyInventory = hiiragiLocation("inventory")
@@ -81,19 +78,6 @@ object RMEventHandler {
         if (tile is HiiragiProvider.Inventory) event.addCapability(keyInventory, tile.createInventory())
         if (tile is HiiragiProvider.Tank) event.addCapability(keyTank, tile.createTank())
         if (tile is HiiragiProvider.Energy) event.addCapability(keyEnergy, tile.createBattery())
-    }
-
-    @SubscribeEvent
-    fun onHarvestDrop(event: BlockEvent.HarvestDropsEvent) {
-        //爆破や機械による採掘ではnullになるので，それを回避する
-        val player: EntityPlayer = event.harvester ?: return
-        val stack: ItemStack = player.getHeldItem(player.activeHand)
-        if (stack.isEmpty || stack.item !is ICrusherItem) return
-        val recipe: CrushingRecipe = HiiragiRegistry.CRUSHING.valuesCollection
-            .firstOrNull { it.matches(event.state) } ?: return
-        val list: MutableList<ItemStack> = event.drops
-        list.clear() //既存のドロップ品を一度リセットする
-        list.addAll(recipe.getWeightedOutputs())
     }
 
     /**
@@ -114,25 +98,25 @@ object RMEventHandler {
 
         @SubscribeEvent
         fun registerBlockColor(event: ColorHandlerEvent.Block) {
-            RMBlocks.registerColorBlock(event.blockColors)
+            HiiragiBlocks.registerColorBlock(event.blockColors)
         }
 
         @SubscribeEvent
         fun registerItemColor(event: ColorHandlerEvent.Item) {
-            RMBlocks.registerColorItem(event.itemColors)
-            RMItems.registerColorItem(event.itemColors)
+            HiiragiBlocks.registerColorItem(event.itemColors)
+            HiiragiItems.registerColorItem(event.itemColors)
         }
 
         @SubscribeEvent
         fun registerModel(event: ModelRegistryEvent) {
-            RMBlocks.registerModel()
-            RMItems.registerModel()
+            HiiragiBlocks.registerModel()
+            HiiragiItems.registerModel()
         }
 
         @SubscribeEvent
         fun onTooltip(event: ItemTooltipEvent) {
-            HiiragiRegistry.getParts(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
-            HiiragiRegistry.getStacks(event.itemStack).toSet().forEach { it.addTooltip(event.toolTip) }
+            event.itemStack.getParts().toSet().forEach { it.addTooltip(event.toolTip) }
+            event.itemStack.getStacks().toSet().forEach { it.addTooltip(event.toolTip) }
         }
 
     }

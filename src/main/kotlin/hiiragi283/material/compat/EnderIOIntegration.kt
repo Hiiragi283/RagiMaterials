@@ -1,40 +1,39 @@
 package hiiragi283.material.compat
 
-import hiiragi283.api.material.MaterialIntegration
-import hiiragi283.api.shape.HiiragiShapes
-import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.api.material.MaterialCompat
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.getItem
 import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object EnderIOIntegration : hiiragi283.material.compat.AbstractIntegration() {
+object EnderIOIntegration : AbstractIntegration() {
 
     override fun registerMaterial() {
-        HiiragiRegistry.registerMaterial(MaterialIntegration.ELECTRICAL_STEEL)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.ENERGETIC_ALLOY)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.VIBRANT_ALLOY)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.REDSTONE_ALLOY)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.CONDUCTIVE_IRON)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.PULSATING_IRON)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.DARK_STEEL)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.SOULARIUM)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.END_STEEL)
-        HiiragiRegistry.registerMaterial(MaterialIntegration.IRON_ALLOY)
+        MaterialCompat.ELECTRICAL_STEEL.register()
+        MaterialCompat.ENERGETIC_ALLOY.register()
+        MaterialCompat.VIBRANT_ALLOY.register()
+        MaterialCompat.REDSTONE_ALLOY.register()
+        MaterialCompat.CONDUCTIVE_IRON.register()
+        MaterialCompat.PULSATING_IRON.register()
+        MaterialCompat.DARK_STEEL.register()
+        MaterialCompat.SOULARIUM.register()
+        MaterialCompat.END_STEEL.register()
+        MaterialCompat.IRON_ALLOY.register()
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(
-            HiiragiShapes.BALL.getOreDict(MaterialIntegration.SIGNALUM),
+            HiiragiShapes.BALL.getOreDict(MaterialCompat.SIGNALUM),
             getItem("enderio:item_material"),
             57
         )
         registerOreDict(
-            HiiragiShapes.BALL.getOreDict(MaterialIntegration.ENDERIUM),
+            HiiragiShapes.BALL.getOreDict(MaterialCompat.ENDERIUM),
             getItem("enderio:item_material"),
             58
         )
         registerOreDict(
-            HiiragiShapes.BALL.getOreDict(MaterialIntegration.LUMIUM),
+            HiiragiShapes.BALL.getOreDict(MaterialCompat.LUMIUM),
             getItem("enderio:item_material"),
             59
         )
