@@ -9,7 +9,9 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
 
     fun getEnergyRate(): Int = 32
 
-    fun getEnergyCapacity(): Int = getProcessTime() * getEnergyRate() * 5
+    fun getRequiredEnergy(): Int = getProcessTime() * getEnergyRate()
+
+    fun getEnergyCapacity(): Int = getRequiredEnergy() * 5
 
     fun getItemSlots(): Int = 1
 

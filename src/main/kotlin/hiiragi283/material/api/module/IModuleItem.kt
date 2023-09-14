@@ -7,6 +7,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 
 interface IModuleItem {
+
     fun addTooltip(stack: ItemStack, tooltip: MutableList<String>) {
         tooltip.add("§e=== Machine Property ===")
         tooltip.add(I18n.format("tips.ragi_materials.module.energy_capacity", getEnergyCapacity(stack)))

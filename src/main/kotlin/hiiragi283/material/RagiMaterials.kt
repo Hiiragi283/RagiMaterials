@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.*
+import net.minecraftforge.fml.common.network.NetworkRegistry
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.awt.Color
@@ -31,6 +32,9 @@ object RagiMaterials : HiiragiProxy {
     internal val CALENDAR: Calendar = Calendar.getInstance()
     internal val COLOR: Color = Color(255, 0, 31)
     internal val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
+
+    @Mod.Instance
+    lateinit var Instance: RagiMaterials
 
     init {
         if (Loader.isModLoaded("gregtech")) {
@@ -98,8 +102,10 @@ object RagiMaterials : HiiragiProxy {
     override fun onComplete(event: FMLLoadCompleteEvent) {
         //MaterialRegistryからログに出力
         if (RMConfig.MATERIAL.printMaterials) {
-            HiiragiRegistries.MATERIAL.getValues().forEach { LOGGER.info(it) }
+            HiiragiRegistries.MATERIAL.getValues().forEach(LOGGER::info)
         }
+        //GUi操作を登録
+        NetworkRegistry.INSTANCE.registerGuiHandler(Instance, HiiragiGuiHandler)
         //パケット送信の登録
         HiiragiNetworkManager.register()
     }

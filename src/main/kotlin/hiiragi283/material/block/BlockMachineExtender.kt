@@ -18,7 +18,7 @@ import net.minecraft.world.World
 object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
     Material.IRON,
     "machine_extender",
-    TileEntityMachineExtender::class.java
+    { TileEntityMachineExtender() }
 ) {
 
     override var itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, 0)

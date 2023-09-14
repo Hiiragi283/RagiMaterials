@@ -1,5 +1,6 @@
 package hiiragi283.material.api.tile
 
+import hiiragi283.material.HiiragiGuiHandler
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
@@ -26,7 +27,14 @@ abstract class HiiragiTileEntity : TileEntity() {
     fun getState(): IBlockState = if (hasWorld()) world.getBlockState(pos) else Blocks.AIR.defaultState
 
     fun openGui(player: EntityPlayer, world: World = this.world, pos: BlockPos = this.pos) {
-        if (!world.isRemote) player.openGui(RagiMaterials, 0, world, pos.x, pos.y, pos.z)
+        if (!world.isRemote) player.openGui(
+            RagiMaterials.Instance,
+            HiiragiGuiHandler.TILE_ENTITY,
+            world,
+            pos.x,
+            pos.y,
+            pos.z
+        )
     }
 
     //    NBT tag    //
@@ -43,7 +51,7 @@ abstract class HiiragiTileEntity : TileEntity() {
 
     /**
      * Thanks to defeatedcrow!
-     * Source: https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93
+     * [: Source](https://github.com/defeatedcrow/FluidTankTutorialMod/blob/master/src/main/java/defeatedcrow/tutorial/ibc/base/TileIBC.java#L93)
      */
 
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean =

@@ -2,6 +2,7 @@ package hiiragi283.material.block
 
 import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.item.ItemBlockModuleMachine
@@ -27,10 +28,10 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockModuleMachine(id: String) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
+class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
-    id,
-    TileEntityModuleMachine::class.java
+    "machine_${type.nameIn}",
+    { TileEntityModuleMachine(type) }
 ) {
 
     override val itemBlock: HiiragiItemBlock = ItemBlockModuleMachine(this)
@@ -96,6 +97,7 @@ class BlockModuleMachine(id: String) : HiiragiBlockContainer.Holdable<TileEntity
         state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)))
 
     //    HiiragiEntry    //
+
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
         blockColors.registerBlockColorHandler({ state: IBlockState?, world: IBlockAccess?, pos: BlockPos?, tintIndex: Int ->

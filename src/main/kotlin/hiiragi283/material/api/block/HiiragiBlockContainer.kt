@@ -3,7 +3,6 @@ package hiiragi283.material.api.block
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getTile
-import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -19,18 +18,14 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraftforge.fml.common.registry.GameRegistry
+import java.util.function.Supplier
 
 
 abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
     material: Material,
     id: String,
-    val tile: Class<T>
+    private val tileSupplier: Supplier<T>
 ) : HiiragiBlock(material, id), ITileEntityProvider {
-
-    fun registerTileEntity() {
-        GameRegistry.registerTileEntity(tile, hiiragiLocation("te_${registryName?.path}"))
-    }
 
     //    Event    //
 
@@ -75,12 +70,12 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
 
     //    ITileEntityProvider    //
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): T = tile.newInstance()
+    override fun createNewTileEntity(worldIn: World, meta: Int): T = tileSupplier.get()
 
     //    Holdable    //
 
-    abstract class Holdable<T : HiiragiTileEntity>(material: Material, id: String, tile: Class<T>) :
-        HiiragiBlockContainer<T>(material, id, tile) {
+    abstract class Holdable<T : HiiragiTileEntity>(material: Material, id: String, tileSupplier: () -> T) :
+        HiiragiBlockContainer<T>(material, id, tileSupplier) {
 
         //    General    //
 

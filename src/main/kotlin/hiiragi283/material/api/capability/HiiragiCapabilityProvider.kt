@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.INBTSerializable
 
 /**
  * Thanks to SkyTheory!
- * Source: https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/capability/DataProvider.java
+ * [: Source](https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/capability/DataProvider.java)
  */
 
 @Suppress("UNCHECKED_CAST")

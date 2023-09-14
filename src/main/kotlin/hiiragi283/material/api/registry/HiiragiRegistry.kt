@@ -6,6 +6,8 @@ open class HiiragiRegistry<K, V>(val name: String) {
 
     private var isLocked: Boolean = false
 
+    fun getEntries(): List<Pair<K, V>> = registry.toList()
+
     fun getValues(): Collection<V> = registry.values
 
     fun getValue(key: K): V? = registry[key]

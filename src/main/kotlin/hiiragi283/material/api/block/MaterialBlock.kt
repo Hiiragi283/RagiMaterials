@@ -52,7 +52,7 @@ fun createBlockMaterial(
 abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
-    MaterialTileEntity::class.java
+    { MaterialTileEntity() }
 ) {
 
     override val itemBlock = MaterialItemBlock(this)

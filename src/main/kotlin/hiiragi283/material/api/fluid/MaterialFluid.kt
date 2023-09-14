@@ -12,10 +12,9 @@ class MaterialFluid(
     val material: HiiragiMaterial,
     still: ResourceLocation = ResourceLocation("blocks/concrete_white"),
     flowing: ResourceLocation = still
-) : Fluid(material.name, still, flowing) {
+) : Fluid(material.name, still, flowing, material.color) {
 
     init {
-        color = material.color
         //融点と沸点が有効 -> 標準状態に基づいてプロパティを補完
         if (material.hasTempMelt() && material.hasTempBoil()) {
             //標準状態で固体 -> 温度は融点に等しい

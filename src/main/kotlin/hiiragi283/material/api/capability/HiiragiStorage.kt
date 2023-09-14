@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.INBTSerializable
 
 /**
  * Thanks to SkyTheory!
- * Source: https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/capability/DataStorage.java
+ * [: Source](https://github.com/SkyTheory/SkyTheoryLib/blob/1.12.2/java/skytheory/lib/capability/DataStorage.java)
  */
 
 class HiiragiStorage<T> : IStorage<T> {

@@ -9,9 +9,9 @@ import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler
 import hiiragi283.material.api.machine.IMachineProperty
-import hiiragi283.material.api.machine.MachineContents
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.module.IModuleItem
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiNBTKey
@@ -34,7 +34,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
 
 
-class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
+class TileEntityModuleMachine(val type: IMachineRecipe.Type) : HiiragiTileEntity.Tickable(100) {
 
     override fun getDisplayName(): ITextComponent = TextComponentString("Module Machine")
 
@@ -119,9 +119,6 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         energyStorage.setCapacity(property.getEnergyCapacity())
     }
 
-    fun getMachineContents(): MachineContents =
-        MachineContents(inventoryInput, tankInput0, tankInput1, tankInput2, machineProperty)
-
     private val listCapability: List<Capability<*>> = listOf(
         CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
         CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
@@ -173,6 +170,12 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
 
     override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
         dropInventoriesItems(world, pos, inventoryInput, inventoryOutput)
+    }
+
+    //    Tickable    //
+
+    override fun onUpdateServer() {
+        super.onUpdateServer()
     }
 
 }

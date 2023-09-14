@@ -1,7 +1,7 @@
 package hiiragi283.material.api.recipe
 
-import hiiragi283.material.api.machine.MachineContents
 import hiiragi283.material.api.machine.ModuleTrait
+import hiiragi283.material.tile.TileEntityModuleMachine
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 
@@ -11,7 +11,11 @@ interface IMachineRecipe {
 
     val requiredTraits: Set<ModuleTrait>
 
-    fun matches(machineContents: MachineContents): Boolean
+    //    Process    //
+
+    fun matches(tile: TileEntityModuleMachine): Boolean
+
+    fun onProcess(tile: TileEntityModuleMachine)
 
     //    Inputs    //
 
@@ -31,6 +35,7 @@ interface IMachineRecipe {
         CUT("cut"),
         PULVERISE("pulverise"),
         SMELT("smelt"),
+        TEST("test"),
         WIRE("wire")
     }
 

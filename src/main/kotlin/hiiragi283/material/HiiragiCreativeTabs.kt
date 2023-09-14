@@ -10,15 +10,13 @@ object HiiragiCreativeTabs {
 
     val BOTTLE by lazy {
         object : CreativeTabs("${RMReference.MOD_ID}.bottle") {
-        override fun createIcon(): ItemStack =
-            ItemStack(HiiragiItems.MATERIAL_BOTTLE, 1, MaterialElements.HYDROGEN.index)
+            override fun createIcon(): ItemStack = HiiragiItems.MATERIAL_BOTTLE.getItemStack(MaterialElements.HYDROGEN)
         }
     }
 
     val COMMON by lazy {
         object : CreativeTabs("${RMReference.MOD_ID}.common") {
-            override fun createIcon(): ItemStack =
-                ItemStack.EMPTY
+            override fun createIcon(): ItemStack = ItemStack.EMPTY
         }
     }
 

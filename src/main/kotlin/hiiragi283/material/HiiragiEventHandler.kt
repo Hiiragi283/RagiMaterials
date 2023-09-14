@@ -80,7 +80,7 @@ object HiiragiEventHandler {
     }
 
     /**
-     * @see <a href = https://github.com/ACGaming/UniversalTweaks/blob/main/src/main/java/mod/acgaming/universaltweaks/config/UTConfig.java>Reference </a>
+     * [Reference](https://github.com/ACGaming/UniversalTweaks/blob/main/src/main/java/mod/acgaming/universaltweaks/config/UTConfig.java)
      */
 
     @SubscribeEvent
