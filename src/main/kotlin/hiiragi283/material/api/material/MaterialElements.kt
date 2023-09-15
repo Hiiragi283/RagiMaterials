@@ -67,7 +67,7 @@ object MaterialElements {
     @JvmField
     val CARBON = materialOf("carbon", 6) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.DARK_GRAY).rgb
-        fluid = null
+        fluidSupplier = { null }
         formula = "C"
         molar = 12.0
         shapeType = HiiragiShapeTypes.SOLID
@@ -343,7 +343,7 @@ object MaterialElements {
     @JvmField
     val ARSENIC = materialOf("arsenic", 33) {
         color = HiiragiColor.GRAY.rgb
-        fluid = null
+        fluidSupplier = { null }
         formula = "As"
         molar = 74.9
         shapeType = HiiragiShapeTypes.SOLID

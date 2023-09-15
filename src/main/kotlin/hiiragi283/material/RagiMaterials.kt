@@ -67,8 +67,8 @@ object RagiMaterials : HiiragiProxy {
             this.readJson()
         }
         //レジストリへの登録
-        HiiragiBlocks.init()
-        HiiragiItems.init()
+        HiiragiBlocks
+        HiiragiItems
         HiiragiRegistries.registerShape()
         HiiragiRegistries.registerShapeType()
         HiiragiRegistries.registerMaterial()

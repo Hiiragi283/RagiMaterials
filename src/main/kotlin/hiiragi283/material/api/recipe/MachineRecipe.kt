@@ -66,10 +66,10 @@ class MachineRecipe(override val type: IMachineRecipe.Type) : IMachineRecipe {
             }
         }
         //energyStorageからエネルギーを消費できるかどうか
-        val energyRequired: Int = tile.machineProperty.getRequiredEnergy()
+        val energyRequired: Int = tile.machineProperty.getEnergyRequired()
         if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
         //tileが要求された特性をすべて持っている -> true
-        return tile.machineProperty.getModuleTraits().containsAll(requiredTraits)
+        return tile.machineProperty.moduleTraits.containsAll(requiredTraits)
     }
 
     override fun process(tile: TileEntityModuleMachine) {
@@ -88,7 +88,7 @@ class MachineRecipe(override val type: IMachineRecipe.Type) : IMachineRecipe {
             tile.getTank(index + 3).fill(fluidStack, true)
         }
         //Energy
-        tile.energyStorage.extractEnergy(tile.machineProperty.getRequiredEnergy(), false)
+        tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
     }
 
     override val inputItems: List<List<ItemStack>> = inputItemsInternal

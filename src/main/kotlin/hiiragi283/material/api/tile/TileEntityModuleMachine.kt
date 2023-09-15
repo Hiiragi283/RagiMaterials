@@ -30,6 +30,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
+import kotlin.math.min
 
 
 class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
@@ -98,16 +99,16 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
 
     private fun initMachineProperty(property: IMachineProperty) {
         machineProperty = property
-        maxCount = property.getProcessTime()
-        inventoryInput.maxSlots = property.getItemSlots()
+        maxCount = property.processTime
+        inventoryInput.maxSlots = min(property.itemSlots, 6)
         val list: MutableList<HiiragiFluidTank> = mutableListOf()
-        if (property.getFluidSlots() >= 1) {
+        if (property.fluidSlots >= 1) {
             list.add(tankInput0)
         }
-        if (property.getFluidSlots() >= 2) {
+        if (property.fluidSlots >= 2) {
             list.add(tankInput1)
         }
-        if (property.getFluidSlots() >= 3) {
+        if (property.fluidSlots >= 3) {
             list.add(tankInput2)
         }
         list.add(tankOutput0)
@@ -173,7 +174,7 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
     //    Tickable    //
 
     override fun onUpdateServer() {
-        HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.getRecipeType())?.getValues()
+        HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
             ?.firstOrNull { recipe -> recipe.matches(this) }
             ?.process(this)
     }

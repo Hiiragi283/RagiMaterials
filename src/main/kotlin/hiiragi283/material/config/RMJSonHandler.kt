@@ -42,7 +42,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             if (sample.canWrite()) {
                 val material = materialOf("hiiragi", -1) {
                     color = RagiMaterials.COLOR.rgb
-                    fluid = null
+                    fluidSupplier = { null }
                     formula = "HIIRAGI"
                     molar = 110.9
                     tempBoil = 2830

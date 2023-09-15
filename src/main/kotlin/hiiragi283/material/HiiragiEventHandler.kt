@@ -7,6 +7,7 @@ import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.part.getParts
+import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
@@ -64,7 +65,11 @@ object HiiragiEventHandler {
 
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
+        HiiragiRegistries.ITEM.registerAll(
+            HiiragiRegistries.BLOCK.getValues().mapNotNull(HiiragiEntry.BLOCK::itemBlock)
+        )
         HiiragiRegistries.ITEM.register(event.registry)
+
     }
 
     private val keyInventory = hiiragiLocation("inventory")
@@ -116,14 +121,14 @@ object HiiragiEventHandler {
         fun onTooltip(event: ItemTooltipEvent) {
             if (event.itemStack.isEmpty) return
 
-            event.itemStack.getParts().toSet().forEach { it.addTooltip(event.toolTip) }
+            event.itemStack.getParts().toSet().forEach { it.addTooltip(event) }
 
             event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 ?.tankProperties
                 ?.mapNotNull(IFluidTankProperties::getContents)
                 ?.mapNotNull(MaterialStack::of)
                 ?.toSet()
-                ?.forEach { it.addTooltip(event.toolTip) }
+                ?.forEach { it.addTooltip(event) }
 
             event.itemStack.getItemImplemented<IModuleItem>()?.addTooltip(event.itemStack, event.toolTip)
 

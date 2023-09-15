@@ -3,12 +3,12 @@ package hiiragi283.material.api.part
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack
-import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.toItemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 
@@ -36,16 +36,17 @@ fun ItemStack.getParts(): List<HiiragiPart> {
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
-    companion object {
-        @JvmField
-        val EMPTY = HiiragiPart(HiiragiShape("", 0), materialOf("", -1))
-    }
-
     fun addTooltip(tooltip: MutableList<String>) {
         material.addTooltip(tooltip, shape)
     }
 
-    fun isEmpty(): Boolean = this == EMPTY
+    fun addTooltip(event: ItemTooltipEvent) {
+        addTooltip(event.toolTip, event.itemStack)
+    }
+
+    fun addTooltip(tooltip: MutableList<String>, stack: ItemStack) {
+        material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
+    }
 
     fun findItemStack(primalMod: String, secondaryMod: String): ItemStack =
         hiiragi283.material.util.findItemStack(getAllItemStack(), primalMod, secondaryMod)

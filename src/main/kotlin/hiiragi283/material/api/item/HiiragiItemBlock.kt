@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import kotlin.math.max
 
 open class HiiragiItemBlock(block: HiiragiBlock, maxMeta: Int) : ItemBlock(block), HiiragiEntry.ITEM {
 
@@ -18,7 +19,7 @@ open class HiiragiItemBlock(block: HiiragiBlock, maxMeta: Int) : ItemBlock(block
         registryName = block.registryName!!
         creativeTab = CreativeTabs.MISC
         hasSubtypes = maxMeta > 0
-        this.maxMeta = 0.coerceAtLeast(maxMeta)
+        this.maxMeta = max(0, maxMeta)
     }
 
     //    General    //

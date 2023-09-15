@@ -3,7 +3,6 @@ package hiiragi283.material
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.block.createBlockMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
-import hiiragi283.material.api.registry.HiiragiEntry.BLOCK
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
@@ -23,49 +22,33 @@ object HiiragiBlocks {
     //    Material    //
 
     @JvmField
-    val MATERIAL_BLOCK: MaterialBlock = createBlockMaterial(
-        HiiragiShapes.BLOCK,
-        recipe = getRecipeBlock()
-    )
+    val MATERIAL_BLOCK: MaterialBlock = HiiragiRegistries.BLOCK.registerOptional(
+        createBlockMaterial(HiiragiShapes.BLOCK, recipe = getRecipeBlock())
+    ) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_CASING: MaterialBlockCasing = MaterialBlockCasing
+    val MATERIAL_CASING =
+        HiiragiRegistries.BLOCK.registerOptional(MaterialBlockCasing) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_FRAME: MaterialBlockFrame = MaterialBlockFrame
+    val MATERIAL_FRAME =
+        HiiragiRegistries.BLOCK.registerOptional(MaterialBlockFrame) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     //    Machine    //
 
     @JvmField
-    val MACHINE_EXTENDER: BlockMachineExtender = BlockMachineExtender
+    val MACHINE_EXTENDER = HiiragiRegistries.BLOCK.register(BlockMachineExtender)
 
     @JvmField
-    val MACHINE_TEST = BlockModuleMachine(IMachineRecipe.Type.TEST)
+    val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine(IMachineRecipe.Type.TEST))
 
-    fun init() {
-
-        if (RMConfig.EXPERIMENTAL.enableMetaTileBlock) {
-            HiiragiRegistries.BLOCK.registerAll(
-                MATERIAL_BLOCK,
-                MATERIAL_CASING,
-                MATERIAL_FRAME
-            )
-        }
-
-        HiiragiRegistries.BLOCK.registerAll(
-            MACHINE_EXTENDER,
-            MACHINE_TEST
-        )
-
+    init {
         registerTileEntity(MaterialTileEntity::class.java, "material")
         registerTileEntity(TileEntityMachineExtender::class.java, "machine_extender")
         registerTileEntity(TileEntityModuleMachine::class.java, "module_machine")
-
-        HiiragiRegistries.ITEM.registerAll(HiiragiRegistries.BLOCK.getValues().mapNotNull(BLOCK::itemBlock))
-
     }
 
-    fun <T : TileEntity> registerTileEntity(clazz: Class<T>, name: String) {
+    private fun <T : TileEntity> registerTileEntity(clazz: Class<T>, name: String) {
         GameRegistry.registerTileEntity(clazz, hiiragiLocation(name))
     }
 

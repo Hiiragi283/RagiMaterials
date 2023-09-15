@@ -5,10 +5,8 @@ import hiiragi283.material.api.gui.HiiragiGuiContainer
 import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.container.ContainerModuleMachine
 import hiiragi283.material.util.hiiragiLocation
-import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fluids.FluidStack
 
 
 class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
@@ -43,17 +41,44 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
     }
 
     private fun drawFluidTooltip(tank: HiiragiFluidTank, mouseX: Int, mouseY: Int) {
-        tank.fluid?.let { fluidStack: FluidStack ->
-            val list: MutableList<String> = mutableListOf()
-            list.add(I18n.format(fluidStack.fluid.unlocalizedName))
-            list.add(fluidStack.amount.toString() + " mB")
-            drawHoveringText(list, mouseX, mouseY)
-        }
+        drawFluidTooltip(tank.fluid, mouseX, mouseY)
     }
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY)
+        //Input Slots
+        fun drawItemSlotOverlay(index: Int) {
+            if (container.tile.machineProperty.itemSlots <= index) return
+            drawTexturedModalRect(
+                getOriginX() + getSlotPositionX(index % 3 + 1) - 1,
+                getOriginY() + getSlotPositionY(index / 3) - 1,
+                xSize + 18 * (index % 3),
+                18 * (index / 3 + 1) - 1,
+                18,
+                18
+            )
+        }
+        drawItemSlotOverlay(0)
+        drawItemSlotOverlay(1)
+        drawItemSlotOverlay(2)
+        drawItemSlotOverlay(3)
+        drawItemSlotOverlay(4)
+        drawItemSlotOverlay(5)
         //Input Tanks
+        fun drawFluidSlotOverlay(index: Int) {
+            if (container.tile.machineProperty.fluidSlots <= index) return
+            drawTexturedModalRect(
+                getOriginX() + getSlotPositionX(index % 3 + 1) - 1,
+                getOriginY() + getSlotPositionY(index / 3 + 2) - 1,
+                xSize + 18 * (index % 3),
+                18 * (index / 3 + 3) - 1,
+                18,
+                18
+            )
+        }
+        drawFluidSlotOverlay(0)
+        drawFluidSlotOverlay(1)
+        drawFluidSlotOverlay(2)
         drawFluid(container.tile.getTank(0), getSlotPositionX(1), getSlotPositionY(2))
         drawFluid(container.tile.getTank(1), getSlotPositionX(2), getSlotPositionY(2))
         drawFluid(container.tile.getTank(2), getSlotPositionX(3), getSlotPositionY(2))
@@ -68,7 +93,7 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
             xSize,
             0,
             (18 * container.tile.getProgress()).toInt(),
-            18
+            17
         )
     }
 

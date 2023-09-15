@@ -16,6 +16,14 @@ data class HiiragiShapeType(val name: String) {
             .also { shapeType: HiiragiShapeType -> shapeType.shapesInternal.addAll(shapes) }
     }
 
+    override fun equals(other: Any?): Boolean = when (other) {
+        null -> false
+        !is HiiragiShapeType -> false
+        else -> other.name == this.name
+    }
+
+    override fun hashCode(): Int = name.hashCode()
+
     override fun toString(): String = "ShapeType:$name"
 
 }

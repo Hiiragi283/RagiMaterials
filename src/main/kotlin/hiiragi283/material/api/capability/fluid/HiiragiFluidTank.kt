@@ -10,9 +10,12 @@ import net.minecraftforge.fluids.FluidTank
 
 open class HiiragiFluidTank(
     capacity: Int,
-    override val ioType: IOControllable.Type = IOControllable.Type.GENERAL,
-    val tile: TileEntity? = null
+    override val ioType: IOControllable.Type = IOControllable.Type.GENERAL
 ) : FluidTank(capacity), IOControllable, INBTSerializable<NBTTagCompound> {
+
+    constructor(capacity: Int, ioType: IOControllable.Type, tile: TileEntity) : this(capacity, ioType){
+        this.tile = tile
+    }
 
     override fun onContentsChanged() {
         tile?.markDirty()

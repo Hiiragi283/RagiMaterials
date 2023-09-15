@@ -53,10 +53,10 @@ data class HiiragiMaterial(
     var translationKey: String = "hiiragi_material.$name"
 ) {
 
-    var fluidBlock: Block? = null
-    var fluid: Fluid? = MaterialFluid(this)
-    var machineProperty: IMachineProperty? = null
     val oreDictAlt: MutableList<String> = mutableListOf()
+    var fluidBlock: Block? = null
+    var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
+    var machineProperty: IMachineProperty? = null
 
     companion object {
         @JvmField
@@ -84,7 +84,7 @@ data class HiiragiMaterial(
             tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
     }
 
-    fun createFluid(): Fluid? = fluid?.setBlock(fluidBlock)
+    fun createFluid(): Fluid? = fluidSupplier()?.setBlock(fluidBlock)
 
     fun getAllItemStack(): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
         .flatMap { shape: HiiragiShape -> HiiragiPart(shape, this).getAllItemStack() }
@@ -123,11 +123,33 @@ data class HiiragiMaterial(
 
     fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
 
+    override fun equals(other: Any?): Boolean = when (other) {
+        null -> false
+        !is HiiragiMaterial -> false
+        else -> other.name == this.name
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + index
+        result = 31 * result + color
+        result = 31 * result + formula.hashCode()
+        result = 31 * result + molar.hashCode()
+        result = 31 * result + shapeType.hashCode()
+        result = 31 * result + tempBoil
+        result = 31 * result + tempMelt
+        result = 31 * result + translationKey.hashCode()
+        return result
+    }
+
+    override fun toString(): String = "Material:$name"
+
     //    Registration    //
 
     fun register() {
         HiiragiRegistries.MATERIAL.register(name, this)
         HiiragiRegistries.MATERIAL_INDEX.register(index, this)
     }
+
 
 }

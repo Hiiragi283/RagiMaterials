@@ -7,6 +7,7 @@ import hiiragi283.material.util.HiiragiColor.setGLColor
 import hiiragi283.material.util.drawSquareTexture
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.resources.I18n
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
@@ -39,6 +40,16 @@ abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: Hiiragi
         mc.textureManager.bindTexture(backGround)
         this.drawTexturedModalRect(getOriginX(), getOriginY(), 0, 0, xSize, ySize)
     }
+
+    fun drawFluidTooltip(fluidStack: FluidStack?, mouseX: Int, mouseY: Int) {
+        fluidStack?.let { stack: FluidStack ->
+            val list: MutableList<String> = mutableListOf()
+            list.add(I18n.format(stack.fluid.unlocalizedName))
+            list.add(stack.amount.toString() + " mB")
+            drawHoveringText(list, mouseX, mouseY)
+        }
+    }
+
 
     fun drawFluid(tank: IFluidTank, x: Int, y: Int) {
         drawFluid(tank.getFluid(), x, y)

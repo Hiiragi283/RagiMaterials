@@ -25,13 +25,11 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
-import java.util.function.BiConsumer
-import java.util.function.Consumer
 
 fun createBlockMaterial(
     shape: HiiragiShape,
-    model: Consumer<HiiragiEntry<*>> = Consumer { entry: HiiragiEntry<*> -> entry.asItem().setModelSame() },
-    recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { entry: HiiragiEntry<*>, material: HiiragiMaterial -> }
+    model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
+    recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
 ): MaterialBlock = object : MaterialBlock(shape) {
 
     init {
@@ -39,11 +37,11 @@ fun createBlockMaterial(
     }
 
     override fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) {
-        recipe.accept(entry, material)
+        recipe(entry, material)
     }
 
     override fun getModel(entry: HiiragiEntry<*>) {
-        model.accept(entry)
+        model(entry)
     }
 
 }

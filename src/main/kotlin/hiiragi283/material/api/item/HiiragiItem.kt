@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import kotlin.math.max
 
 abstract class HiiragiItem(id: String, maxMeta: Int) : Item(), HiiragiEntry.ITEM {
 
@@ -18,7 +19,7 @@ abstract class HiiragiItem(id: String, maxMeta: Int) : Item(), HiiragiEntry.ITEM
         setRegistryName(RMReference.MOD_ID, id)
         creativeTab = HiiragiCreativeTabs.COMMON
         hasSubtypes = maxMeta > 0
-        this.maxMeta = 0.coerceAtLeast(maxMeta)
+        this.maxMeta = max(0, maxMeta)
         translationKey = id
     }
 

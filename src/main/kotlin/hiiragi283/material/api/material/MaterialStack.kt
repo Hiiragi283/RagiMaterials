@@ -2,6 +2,7 @@ package hiiragi283.material.api.material
 
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 
@@ -22,6 +23,10 @@ data class MaterialStack(val material: HiiragiMaterial, var amount: Int) {
         fun of(name: String, amount: Int): MaterialStack? =
             HiiragiRegistries.MATERIAL.getValue(name)?.let { MaterialStack(it, amount) }
 
+    }
+
+    fun addTooltip(event: ItemTooltipEvent) {
+        addTooltip(event.toolTip)
     }
 
     fun addTooltip(tooltip: MutableList<String>) {

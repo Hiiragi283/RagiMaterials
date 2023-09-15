@@ -7,6 +7,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.util.INBTSerializable
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
+import kotlin.math.min
 
 class HiiragiEnergyStorage(
     var capacity: Int,
@@ -19,7 +20,7 @@ class HiiragiEnergyStorage(
 
     override fun receiveEnergy(maxReceive: Int, simulate: Boolean): Int {
         if (!canReceive()) return 0
-        val energyReceived = (capacity - energyStored).coerceAtMost(maxIn.coerceAtMost(maxReceive))
+        val energyReceived = min((capacity - energyStored), min(maxIn, maxReceive))
         if (!simulate) stored += energyReceived
         return energyReceived
     }
@@ -38,7 +39,7 @@ class HiiragiEnergyStorage(
 
     override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {
         if (!canExtract()) return 0
-        val energyExtracted = stored.coerceAtMost(maxOut.coerceAtMost(maxExtract))
+        val energyExtracted = min(stored, min(maxOut, maxExtract))
         if (!simulate) stored -= energyExtracted
         return energyExtracted
     }

@@ -18,10 +18,13 @@ open class HiiragiRegistry<K, V>(val name: String) {
 
     fun getRegistry(): Map<K, V> = registry.toMap()
 
-    fun register(key: K, value: V) {
-        if (isLocked) throw IllegalStateException("")
-        else if (registry.containsKey(key)) throw IllegalStateException("")
-        else registry[key] = value
+    fun <T : V> register(key: K, value: T): T {
+        if (isLocked) throw IllegalStateException("[$name] This registry is locked!")
+        else if (registry.containsKey(key)) throw IllegalStateException("[$name] The key: $key is already registered!")
+        else {
+            registry[key] = value
+            return value
+        }
     }
 
     fun <T : Comparable<T>> sort(sorter: (Pair<K, V>) -> T) {

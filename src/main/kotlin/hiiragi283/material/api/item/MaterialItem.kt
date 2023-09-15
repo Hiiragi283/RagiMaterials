@@ -13,21 +13,19 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
-import java.util.function.BiConsumer
-import java.util.function.Consumer
 
 fun createItemMaterial(
     shape: HiiragiShape,
-    model: Consumer<HiiragiEntry<*>> = Consumer { it.asItem().setModelSame() },
-    recipe: BiConsumer<HiiragiEntry<*>, HiiragiMaterial> = BiConsumer { _, _ -> }
+    model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
+    recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
 ): MaterialItem = object : MaterialItem(shape) {
 
     override fun getRecipe(item: MaterialItem, material: HiiragiMaterial) {
-        recipe.accept(item, material)
+        recipe(item, material)
     }
 
     override fun getModel(item: MaterialItem) {
-        model.accept(item)
+        model(item)
     }
 
 }

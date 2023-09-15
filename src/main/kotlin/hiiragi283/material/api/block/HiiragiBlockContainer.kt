@@ -18,13 +18,12 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import java.util.function.Supplier
 
 
 abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
     material: Material,
     id: String,
-    private val tileSupplier: Supplier<T>
+    private val tileSupplier: () -> T
 ) : HiiragiBlock(material, id), ITileEntityProvider {
 
     //    Event    //
@@ -70,7 +69,7 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
 
     //    ITileEntityProvider    //
 
-    override fun createNewTileEntity(worldIn: World, meta: Int): T = tileSupplier.get()
+    override fun createNewTileEntity(worldIn: World, meta: Int): T = tileSupplier()
 
     //    Holdable    //
 

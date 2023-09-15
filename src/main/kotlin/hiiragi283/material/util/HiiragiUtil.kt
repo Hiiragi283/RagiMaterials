@@ -48,7 +48,6 @@ import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 import net.minecraftforge.registries.IForgeRegistryModifiable
 import java.util.*
-import java.util.function.BiPredicate
 
 
 //    Calendar    //
@@ -305,25 +304,25 @@ fun ResourceLocation.append(path: String): ResourceLocation = ResourceLocation(t
 private val WORLD_CLIENT: WorldClient by lazy { Minecraft.getMinecraft().world }
 private val PLAYER_CLIENT by lazy { Minecraft.getMinecraft().player }
 
-fun printResult(block: Block, player: ICommandSender = PLAYER_CLIENT, predicate: BiPredicate<Block, ICommandSender>) {
-    if (predicate.test(block, player)) succeeded(block, player) else failed(block, player)
+fun printResult(block: Block, player: ICommandSender = PLAYER_CLIENT, predicate: (Block, ICommandSender) -> Boolean) {
+    if (predicate(block, player)) succeeded(block, player) else failed(block, player)
 }
 
 fun printResult(
     world: IBlockAccess = WORLD_CLIENT,
     pos: BlockPos,
     player: ICommandSender = PLAYER_CLIENT,
-    predicate: TriPredicate<IBlockAccess, BlockPos, ICommandSender>
+    predicate: (IBlockAccess, BlockPos, ICommandSender) -> Boolean
 ) {
-    if (predicate.test(world, pos, player)) succeeded(world, pos, player) else failed(world, pos, player)
+    if (predicate(world, pos, player)) succeeded(world, pos, player) else failed(world, pos, player)
 }
 
 fun printResult(
     tile: TileEntity,
     player: ICommandSender = PLAYER_CLIENT,
-    predicate: BiPredicate<TileEntity, ICommandSender>
+    predicate: (TileEntity, ICommandSender) -> Boolean
 ) {
-    if (predicate.test(tile, player)) succeeded(tile, player) else failed(tile, player)
+    if (predicate(tile, player)) succeeded(tile, player) else failed(tile, player)
 }
 
 fun succeeded(block: Block, player: ICommandSender = PLAYER_CLIENT) {
@@ -406,7 +405,7 @@ fun getEnumRarity(name: String): IRarity {
 
 fun installModule(casing: ItemStack, recipeModule: IRecipeModuleItem, vararg modules: ItemStack): ItemStack {
 
-    val base: IMachineProperty.Impl = casing.getItemImplemented<IModuleItem>()
+    val base: IMachineProperty = casing.getItemImplemented<IModuleItem>()
         ?.toMachineProperty(casing, recipeModule.recipeType)
         ?: return ItemStack.EMPTY
 
@@ -415,20 +414,20 @@ fun installModule(casing: ItemStack, recipeModule: IRecipeModuleItem, vararg mod
     modules.map { it.getItemImplemented<IModuleItem>() }.forEachIndexed { index: Int, iModuleItem: IModuleItem? ->
         if (iModuleItem !== null) {
             val stack: ItemStack = modules[index]
-            base.moduleTraits.addAll(iModuleItem.getModuleTraits(stack))
-            base.processTime += iModuleItem.getProcessTime(stack)
-            base.energyRate += iModuleItem.getEnergyRate(stack)
-            base.itemSlots += iModuleItem.getItemSlots(stack)
-            base.fluidSlots += iModuleItem.getFluidSlots(stack)
+            base.moduleTraits.addAll(iModuleItem.moduleTraits(stack))
+            base.processTime += iModuleItem.processTime(stack)
+            base.energyRate += iModuleItem.energyRate(stack)
+            base.itemSlots += iModuleItem.itemSlots(stack)
+            base.fluidSlots += iModuleItem.fluidSlots(stack)
         }
     }
 
     val stack = ItemStack(block, 1, 0)
     stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY).also {
-        it.setInteger(IMachineProperty.KEY_PROCESS, base.getProcessTime())
-        it.setInteger(IMachineProperty.KEY_RATE, base.getEnergyRate())
-        it.setInteger(IMachineProperty.KEY_ITEM, base.getItemSlots())
-        it.setInteger(IMachineProperty.KEY_FLUID, base.getFluidSlots())
+        it.setInteger(IMachineProperty.KEY_PROCESS, base.processTime)
+        it.setInteger(IMachineProperty.KEY_RATE, base.energyRate)
+        it.setInteger(IMachineProperty.KEY_ITEM, base.itemSlots)
+        it.setInteger(IMachineProperty.KEY_FLUID, base.fluidSlots)
     }
     return stack
 

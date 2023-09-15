@@ -26,35 +26,39 @@ object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), IModuleItem {
 
     //    IModuleItem    //
 
-    override fun getProcessTime(stack: ItemStack): Int =
+    override val processTime: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.getProcessTime()
-            ?: super.getProcessTime(stack)
+            ?.processTime
+            ?: 100
+    }
 
-    override fun getEnergyRate(stack: ItemStack): Int =
+    override val energyRate: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.getEnergyRate()
-            ?: super.getEnergyRate(stack)
+            ?.energyRate
+            ?: 32
+    }
 
-    override fun getItemSlots(stack: ItemStack): Int =
+    override val itemSlots: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.getItemSlots()
-            ?: super.getItemSlots(stack)
+            ?.itemSlots
+            ?: 1
+    }
 
-    override fun getFluidSlots(stack: ItemStack): Int =
+    override val fluidSlots: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.getFluidSlots()
-            ?: super.getFluidSlots(stack)
+            ?.fluidSlots
+            ?: 0
+    }
 
-    override fun getModuleTraits(stack: ItemStack): Set<ModuleTrait> =
+    override val moduleTraits: (ItemStack) -> Set<ModuleTrait> = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.getModuleTraits()
-            ?: super.getModuleTraits(stack)
-
+            ?.moduleTraits
+            ?: setOf()
+    }
 
 }
