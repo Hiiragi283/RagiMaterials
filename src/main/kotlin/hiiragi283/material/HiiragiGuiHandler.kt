@@ -1,8 +1,8 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.container.ContainerModuleMachine
 import hiiragi283.material.gui.GuiModuleMachine
-import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.getTile
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity

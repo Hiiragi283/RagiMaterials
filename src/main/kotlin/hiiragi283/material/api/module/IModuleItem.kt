@@ -2,6 +2,7 @@ package hiiragi283.material.api.module
 
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.ModuleTrait
+import hiiragi283.material.api.recipe.IMachineRecipe
 
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
@@ -29,8 +30,8 @@ interface IModuleItem {
 
     fun getModuleTraits(stack: ItemStack): Set<ModuleTrait> = setOf()
 
-    fun toMachineProperty(stack: ItemStack): IMachineProperty {
-        return IMachineProperty.of {
+    fun toMachineProperty(stack: ItemStack, recipeType: IMachineRecipe.Type = IMachineRecipe.Type.NONE): IMachineProperty.Impl {
+        return IMachineProperty.of(recipeType) {
             this.processTime = getProcessTime(stack)
             this.energyRate = getEnergyRate(stack)
             this.itemSlots = getItemSlots(stack)

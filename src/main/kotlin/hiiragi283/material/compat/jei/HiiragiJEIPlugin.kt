@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack
 const val MATERIAL = "${RMReference.MOD_ID}.material"
 
 @JEIPlugin
-class JEIIntegration : IModPlugin {
+class HiiragiJEIPlugin : IModPlugin {
 
     init {
         RagiMaterials.LOGGER.info("Enabled Integration: JEI / HEI")

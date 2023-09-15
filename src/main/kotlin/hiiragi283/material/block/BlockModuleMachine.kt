@@ -5,8 +5,8 @@ import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.item.ItemBlockModuleMachine
-import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getTile
 import net.minecraft.block.BlockHorizontal
@@ -31,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
     "machine_${type.nameIn}",
-    { TileEntityModuleMachine(type) }
+    { TileEntityModuleMachine() }
 ) {
 
     override val itemBlock: HiiragiItemBlock = ItemBlockModuleMachine(this)

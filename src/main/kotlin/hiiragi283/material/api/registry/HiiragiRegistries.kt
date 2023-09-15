@@ -9,11 +9,14 @@ import hiiragi283.material.api.part.createAllParts
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
+import hiiragi283.material.block.BlockModuleMachine
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraftforge.common.MinecraftForge
 
 object HiiragiRegistries {
+
+    //    Forge    //
 
     @JvmField
     val BLOCK: HiiragiForgeRegistry<HiiragiEntry.BLOCK, Block> = HiiragiForgeRegistry("Block")
@@ -21,8 +24,18 @@ object HiiragiRegistries {
     @JvmField
     val ITEM: HiiragiForgeRegistry<HiiragiEntry.ITEM, Item> = HiiragiForgeRegistry("Item")
 
+    //    Recipe    //
+
     @JvmField
-    val MACHINE_RECIPE: HiiragiRegistry<String, IMachineRecipe> = HiiragiRegistry("Machine Recipe")
+    val MODULE_MACHINE: HiiragiRegistry<IMachineRecipe.Type, BlockModuleMachine> = HiiragiRegistry("Module Machine")
+
+    @JvmField
+    val RECIPE_TYPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<String, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
+
+    @JvmField
+    val SMELT: HiiragiRegistry<String, IMachineRecipe> = HiiragiRegistry("Machine Recipe - Smelt")
+
+    //    Material    //
 
     @JvmField
     val MATERIAL: HiiragiRegistry<String, HiiragiMaterial> = HiiragiRegistry("Material")

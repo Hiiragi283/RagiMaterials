@@ -2,7 +2,7 @@ package hiiragi283.material.container
 
 import hiiragi283.material.api.container.HiiragiContainer
 import hiiragi283.material.api.container.SlotOutputItemHandler
-import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack

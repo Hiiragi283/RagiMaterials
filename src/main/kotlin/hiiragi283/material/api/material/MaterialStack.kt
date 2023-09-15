@@ -1,20 +1,9 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.api.registry.HiiragiRegistries
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler
-
-fun ItemStack.getStacks(): List<MaterialStack> {
-    if (this.isEmpty) return listOf()
-    //液体から素材のデータを取得しようと試みる
-    return this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-        ?.tankProperties
-        ?.mapNotNull { it.contents }
-        ?.mapNotNull { MaterialStack.of(it) } ?: listOf()
-}
 
 data class MaterialStack(val material: HiiragiMaterial, var amount: Int) {
 

@@ -1,9 +1,12 @@
 package hiiragi283.material.api.machine
 
+import hiiragi283.material.api.recipe.IMachineRecipe
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.util.INBTSerializable
 
 interface IMachineProperty : INBTSerializable<NBTTagCompound> {
+
+    fun getRecipeType(): IMachineRecipe.Type
 
     fun getProcessTime(): Int = 100
 
@@ -29,7 +32,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
         }
     }
 
-    class Impl : IMachineProperty {
+    class Impl(@JvmField val recipeType: IMachineRecipe.Type) : IMachineProperty {
 
         @JvmField
         var processTime: Int = 100
@@ -40,30 +43,38 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
         @JvmField
         var fluidSlots: Int = 0
 
+        @JvmField
+        val moduleTraits: MutableSet<ModuleTrait> = mutableSetOf()
+
+        //    IMachineProperty    //
+
+        override fun getRecipeType(): IMachineRecipe.Type = recipeType
+
+        override fun getProcessTime(): Int = processTime
+
+        override fun getEnergyRate(): Int = energyRate
+
+        override fun getItemSlots(): Int = itemSlots
+
+        override fun getFluidSlots(): Int = fluidSlots
+
+        override fun getModuleTraits(): Set<ModuleTrait> = moduleTraits
+
         //    INBTSerializable    //
+
         override fun deserializeNBT(nbt: NBTTagCompound) {
             if (nbt.hasKey(KEY_PROCESS)) processTime = nbt.getInteger(KEY_PROCESS)
             if (nbt.hasKey(KEY_RATE)) energyRate = nbt.getInteger(KEY_RATE)
             if (nbt.hasKey(KEY_ITEM)) itemSlots = nbt.getInteger(KEY_ITEM)
             if (nbt.hasKey(KEY_FLUID)) fluidSlots = nbt.getInteger(KEY_FLUID)
         }
+
     }
 
     companion object {
 
-        fun of(nbt: NBTTagCompound): IMachineProperty = of {
-            if (nbt.hasKey(KEY_PROCESS))
-                this.processTime = nbt.getInteger(KEY_PROCESS)
-            if (nbt.hasKey(KEY_RATE))
-                this.energyRate = nbt.getInteger(KEY_RATE)
-            if (nbt.hasKey(KEY_ITEM))
-                this.itemSlots = nbt.getInteger(KEY_ITEM)
-            if (nbt.hasKey(KEY_FLUID))
-                this.fluidSlots = nbt.getInteger(KEY_FLUID)
-        }
-
-        fun of(init: Impl.() -> Unit = {}): IMachineProperty {
-            val property = Impl()
+        fun of(recipeType: IMachineRecipe.Type = IMachineRecipe.Type.NONE, init: Impl.() -> Unit = {}): IMachineProperty.Impl {
+            val property = Impl(recipeType)
             property.init()
             return property
         }
@@ -72,6 +83,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
         const val KEY_RATE = "EnergyRate"
         const val KEY_ITEM = "ItemSlots"
         const val KEY_FLUID = "FluidSlots"
+        const val KEY_TRAIT = "ModuleTraits"
 
     }
 

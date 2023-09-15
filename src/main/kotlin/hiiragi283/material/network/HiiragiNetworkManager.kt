@@ -1,7 +1,7 @@
 package hiiragi283.material.network
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.util.getTile
 import net.minecraft.client.Minecraft
 import net.minecraft.tileentity.TileEntity

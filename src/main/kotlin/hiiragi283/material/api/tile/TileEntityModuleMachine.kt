@@ -1,4 +1,4 @@
-package hiiragi283.material.tile
+package hiiragi283.material.api.tile
 
 import hiiragi283.material.api.capability.IOControllable
 import hiiragi283.material.api.capability.energy.HiiragiEnergyStorage
@@ -11,9 +11,7 @@ import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.module.IModuleItem
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
@@ -34,7 +32,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.items.CapabilityItemHandler
 
 
-class TileEntityModuleMachine(val type: IMachineRecipe.Type) : HiiragiTileEntity.Tickable(100) {
+class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
 
     override fun getDisplayName(): ITextComponent = TextComponentString("Module Machine")
 
@@ -78,12 +76,12 @@ class TileEntityModuleMachine(val type: IMachineRecipe.Type) : HiiragiTileEntity
     val inventoryInput: ModuleMachineInputItemHandler = ModuleMachineInputItemHandler(this)
     val inventoryOutput: HiiragiItemHandler = HiiragiItemHandler(6, IOControllable.Type.OUTPUT, this)
 
-    val tankInput0: ModuleMachineFluidTank = ModuleMachineFluidTank(0, IOControllable.Type.INPUT, this)
-    val tankInput1: ModuleMachineFluidTank = ModuleMachineFluidTank(1, IOControllable.Type.INPUT, this)
-    val tankInput2: ModuleMachineFluidTank = ModuleMachineFluidTank(2, IOControllable.Type.INPUT, this)
-    val tankOutput0: ModuleMachineFluidTank = ModuleMachineFluidTank(3, IOControllable.Type.OUTPUT, this)
-    val tankOutput1: ModuleMachineFluidTank = ModuleMachineFluidTank(4, IOControllable.Type.OUTPUT, this)
-    val tankOutput2: ModuleMachineFluidTank = ModuleMachineFluidTank(5, IOControllable.Type.OUTPUT, this)
+    private val tankInput0: ModuleMachineFluidTank = ModuleMachineFluidTank(0, IOControllable.Type.INPUT, this)
+    private val tankInput1: ModuleMachineFluidTank = ModuleMachineFluidTank(1, IOControllable.Type.INPUT, this)
+    private val tankInput2: ModuleMachineFluidTank = ModuleMachineFluidTank(2, IOControllable.Type.INPUT, this)
+    private val tankOutput0: ModuleMachineFluidTank = ModuleMachineFluidTank(3, IOControllable.Type.OUTPUT, this)
+    private val tankOutput1: ModuleMachineFluidTank = ModuleMachineFluidTank(4, IOControllable.Type.OUTPUT, this)
+    private val tankOutput2: ModuleMachineFluidTank = ModuleMachineFluidTank(5, IOControllable.Type.OUTPUT, this)
 
     fun getTank(index: Int): ModuleMachineFluidTank = when (index) {
         1 -> tankInput1
@@ -94,11 +92,11 @@ class TileEntityModuleMachine(val type: IMachineRecipe.Type) : HiiragiTileEntity
         else -> tankInput0
     }
 
-    var tank: HiiragiFluidTankWrapper = HiiragiFluidTankWrapper(tankOutput0, tankOutput1, tankOutput2)
+    private var tank: HiiragiFluidTankWrapper = HiiragiFluidTankWrapper(tankOutput0, tankOutput1, tankOutput2)
 
     var energyStorage: HiiragiEnergyStorage = HiiragiEnergyStorage(0)
 
-    fun initMachineProperty(property: IMachineProperty) {
+    private fun initMachineProperty(property: IMachineProperty) {
         machineProperty = property
         maxCount = property.getProcessTime()
         inventoryInput.maxSlots = property.getItemSlots()
@@ -116,7 +114,7 @@ class TileEntityModuleMachine(val type: IMachineRecipe.Type) : HiiragiTileEntity
         list.add(tankOutput1)
         list.add(tankOutput2)
         tank = HiiragiFluidTankWrapper(list)
-        energyStorage.setCapacity(property.getEnergyCapacity())
+        energyStorage.capacity = property.getEnergyCapacity()
     }
 
     private val listCapability: List<Capability<*>> = listOf(
@@ -175,7 +173,9 @@ class TileEntityModuleMachine(val type: IMachineRecipe.Type) : HiiragiTileEntity
     //    Tickable    //
 
     override fun onUpdateServer() {
-        super.onUpdateServer()
+        HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.getRecipeType())?.getValues()
+            ?.firstOrNull { recipe -> recipe.matches(this) }
+            ?.process(this)
     }
 
 }

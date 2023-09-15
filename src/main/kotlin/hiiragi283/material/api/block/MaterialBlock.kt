@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.NonNullList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
@@ -85,11 +84,6 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     }
 
     override fun quantityDropped(random: Random): Int = 0
-
-    //    Client    //
-
-    @SideOnly(Side.CLIENT)
-    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     //    HiiragiEntry    //
 

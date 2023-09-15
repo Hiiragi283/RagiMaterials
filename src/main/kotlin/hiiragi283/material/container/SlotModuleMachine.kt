@@ -1,6 +1,6 @@
 package hiiragi283.material.container
 
-import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import net.minecraft.item.ItemStack
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.SlotItemHandler

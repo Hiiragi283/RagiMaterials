@@ -1,7 +1,7 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.item.MaterialItem
-import hiiragi283.material.api.item.MaterialItemCasing
+import hiiragi283.material.item.MaterialItemCasing
 import hiiragi283.material.api.item.createItemMaterial
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiEntry

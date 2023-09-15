@@ -10,7 +10,7 @@ class MachineRecipeWrapper(val recipe: IMachineRecipe) : IRecipeWrapper {
     override fun getIngredients(iIngredients: IIngredients) {
         iIngredients.setInputLists(VanillaTypes.ITEM, recipe.inputItems)
         iIngredients.setInputs(VanillaTypes.FLUID, recipe.inputFluids)
-        iIngredients.setOutputLists(VanillaTypes.ITEM, recipe.outputItems)
+        iIngredients.setOutputs(VanillaTypes.ITEM, recipe.outputItems)
         iIngredients.setOutputs(VanillaTypes.FLUID, recipe.outputFluids)
     }
 

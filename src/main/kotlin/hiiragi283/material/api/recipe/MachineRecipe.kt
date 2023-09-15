@@ -1,7 +1,7 @@
 package hiiragi283.material.api.recipe
 
 import hiiragi283.material.api.machine.ModuleTrait
-import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 
@@ -17,11 +17,11 @@ class MachineRecipe(override val type: IMachineRecipe.Type) : IMachineRecipe {
 
     private val inputItemsInternal: MutableList<List<ItemStack>> = mutableListOf()
 
-    private val inputFluidsInternal: List<FluidStack> = mutableListOf()
+    private val inputFluidsInternal: MutableList<FluidStack> = mutableListOf()
 
-    private val outputItemsInternal: MutableList<List<ItemStack>> = mutableListOf()
+    private val outputItemsInternal: MutableList<ItemStack> = mutableListOf()
 
-    private val outputFluidsInternal: List<FluidStack> = mutableListOf()
+    private val outputFluidsInternal: MutableList<FluidStack> = mutableListOf()
 
     private fun validate() {
         if (inputItems.size > 6)
@@ -40,38 +40,53 @@ class MachineRecipe(override val type: IMachineRecipe.Type) : IMachineRecipe {
 
     override fun matches(tile: TileEntityModuleMachine): Boolean {
         validate()
-        //各スロットのindexと一致するlistから，どれか一つでも搬出に成功 -> true
-        //それらがすべてtrue -> true
-        val resultItem: Boolean = inputItems.indices.map { index ->
-            inputItems.getOrNull(index)?.any { stack: ItemStack ->
-                !tile.inventoryInput.extractItem(index, stack.count, true).isEmpty
-            } ?: false
-        }.all { true }
-        if (!resultItem) return false
-        //完成品をすべて出力スロットに搬入できる -> true
-
-        //inputFluidsに含まれる液体が搬出できる -> true
-        val resultFluid: Boolean = inputFluids.indices
-            .mapNotNull { index -> tile.getTank(index).drain(inputFluids.getOrNull(index), false) }
-            .isEmpty()
-        if (!resultFluid) return false
-        //energyStorageからエネルギーを消費できる -> true
+        //素材をすべて搬入できるか
+        inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
+            if (!list.any { stack -> !tile.inventoryInput.extractItem(index, stack.count, true).isEmpty }) {
+                return false
+            }
+        }
+        //完成品を搬入して一つでも余りが出ないか
+        outputItems.forEachIndexed { index: Int, stack: ItemStack ->
+            if (!tile.inventoryOutput.insertItem(index, stack, true).isEmpty) {
+                return false
+            }
+        }
+        //inputFluidsに含まれる液体が搬出できるかどうか
+        inputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
+            val stackDrained: FluidStack? = tile.getTank(index).drain(fluidStack, false)
+            if (stackDrained == null || !stackDrained.isFluidEqual(fluidStack) || stackDrained.amount != fluidStack.amount) {
+                return false
+            }
+        }
+        //outputFluidsに含まれる液体が搬入できるかどうか
+        outputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
+            if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
+                return false
+            }
+        }
+        //energyStorageからエネルギーを消費できるかどうか
         val energyRequired: Int = tile.machineProperty.getRequiredEnergy()
-        val resultEnergy: Boolean = tile.energyStorage.extractEnergy(energyRequired, true) == energyRequired
-        if (!resultEnergy) return false
+        if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
         //tileが要求された特性をすべて持っている -> true
         return tile.machineProperty.getModuleTraits().containsAll(requiredTraits)
     }
 
-    override fun onProcess(tile: TileEntityModuleMachine) {
+    override fun process(tile: TileEntityModuleMachine) {
         //ItemStack
-        inputItems.indices.forEach { index ->
-            inputItems.getOrNull(index)?.forEach { stack: ItemStack ->
-                tile.inventoryInput.extractItem(index, stack.count, false)
-            }
+        inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
+            list.forEach { stack: ItemStack -> tile.inventoryInput.extractItem(index, stack.count, false) }
+        }
+        outputItems.forEachIndexed { index: Int, stack: ItemStack ->
+            tile.inventoryOutput.insertItem(index, stack, false)
         }
         //FluidStack
-        inputFluids.indices.forEach { index -> tile.getTank(index).drain(inputFluids.getOrNull(index), true) }
+        inputFluids.forEachIndexed { index, fluidStack ->
+            tile.getTank(index).drain(fluidStack, true)
+        }
+        outputFluids.forEachIndexed { index, fluidStack ->
+            tile.getTank(index + 3).fill(fluidStack, true)
+        }
         //Energy
         tile.energyStorage.extractEnergy(tile.machineProperty.getRequiredEnergy(), false)
     }
@@ -80,7 +95,7 @@ class MachineRecipe(override val type: IMachineRecipe.Type) : IMachineRecipe {
 
     override val inputFluids: List<FluidStack> = inputFluidsInternal
 
-    override val outputItems: List<List<ItemStack>> = outputItemsInternal
+    override val outputItems: List<ItemStack> = outputItemsInternal
 
     override val outputFluids: List<FluidStack> = outputFluidsInternal
 

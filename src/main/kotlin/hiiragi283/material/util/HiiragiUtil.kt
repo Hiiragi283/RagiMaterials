@@ -4,6 +4,11 @@ package hiiragi283.material.util
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.module.IModuleItem
+import hiiragi283.material.api.module.IRecipeModuleItem
+import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.block.BlockModuleMachine
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -397,4 +402,34 @@ fun getEnumRarity(name: String): IRarity {
         "Epic" -> EnumRarity.EPIC
         else -> EnumRarity.COMMON
     }
+}
+
+fun installModule(casing: ItemStack, recipeModule: IRecipeModuleItem, vararg modules: ItemStack): ItemStack {
+
+    val base: IMachineProperty.Impl = casing.getItemImplemented<IModuleItem>()
+        ?.toMachineProperty(casing, recipeModule.recipeType)
+        ?: return ItemStack.EMPTY
+
+    val block: BlockModuleMachine = HiiragiRegistries.MODULE_MACHINE.getValue(recipeModule.recipeType) ?: return ItemStack.EMPTY
+
+    modules.map { it.getItemImplemented<IModuleItem>() }.forEachIndexed { index: Int, iModuleItem: IModuleItem? ->
+        if (iModuleItem !== null) {
+            val stack: ItemStack = modules[index]
+            base.moduleTraits.addAll(iModuleItem.getModuleTraits(stack))
+            base.processTime += iModuleItem.getProcessTime(stack)
+            base.energyRate += iModuleItem.getEnergyRate(stack)
+            base.itemSlots += iModuleItem.getItemSlots(stack)
+            base.fluidSlots += iModuleItem.getFluidSlots(stack)
+        }
+    }
+
+    val stack = ItemStack(block, 1, 0)
+    stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY).also {
+        it.setInteger(IMachineProperty.KEY_PROCESS, base.getProcessTime())
+        it.setInteger(IMachineProperty.KEY_RATE, base.getEnergyRate())
+        it.setInteger(IMachineProperty.KEY_ITEM, base.getItemSlots())
+        it.setInteger(IMachineProperty.KEY_FLUID, base.getFluidSlots())
+    }
+    return stack
+
 }

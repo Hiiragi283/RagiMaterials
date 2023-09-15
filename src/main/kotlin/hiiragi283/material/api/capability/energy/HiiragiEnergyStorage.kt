@@ -1,5 +1,6 @@
 package hiiragi283.material.api.capability.energy
 
+import hiiragi283.material.util.HiiragiNBTKey
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
@@ -8,10 +9,10 @@ import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
 class HiiragiEnergyStorage(
-    private var capacity: Int,
-    private val maxIn: Int = capacity,
-    private val maxOut: Int = capacity,
-    private var stored: Int = 0
+    var capacity: Int,
+    val maxIn: Int = capacity,
+    val maxOut: Int = capacity,
+    var stored: Int = 0
 ) : IEnergyStorage, INBTSerializable<NBTTagCompound> {
 
     //    IEnergyStorage    //
@@ -19,7 +20,7 @@ class HiiragiEnergyStorage(
     override fun receiveEnergy(maxReceive: Int, simulate: Boolean): Int {
         if (!canReceive()) return 0
         val energyReceived = (capacity - energyStored).coerceAtMost(maxIn.coerceAtMost(maxReceive))
-        if (!simulate) energyStored += energyReceived
+        if (!simulate) stored += energyReceived
         return energyReceived
     }
 
@@ -54,15 +55,7 @@ class HiiragiEnergyStorage(
         }
     }
 
-    fun setCapacity(capacity: Int) {
-        this.capacity = capacity
-    }
-
     override fun getEnergyStored(): Int = stored
-
-    fun setEnergyStored(energy: Int) {
-        stored = energy.coerceAtMost(capacity)
-    }
 
     override fun getMaxEnergyStored(): Int = capacity
 
@@ -70,19 +63,20 @@ class HiiragiEnergyStorage(
 
     override fun canReceive(): Boolean = maxIn > 0 && stored in 0 until capacity
 
-    fun getFreeCapacity(): Int = capacity - energyStored
+    fun getFreeCapacity(): Int = capacity - stored
 
     //    INBTSerializable    //
 
-    private val keyEnergy = "energy"
-
     override fun serializeNBT(): NBTTagCompound {
-        val tag = NBTTagCompound()
-        tag.setInteger(keyEnergy, stored)
-        return tag
+        return NBTTagCompound().also { tag ->
+            tag.setInteger(HiiragiNBTKey.AMOUNT, stored)
+            tag.setInteger(HiiragiNBTKey.CAPACITY, capacity)
+        }
     }
 
-    override fun deserializeNBT(tag: NBTTagCompound?) {
-        stored = if (tag !== null && tag.hasKey(keyEnergy)) tag.getInteger(keyEnergy) else 0
+    override fun deserializeNBT(tag: NBTTagCompound) {
+        if (tag.hasKey(HiiragiNBTKey.AMOUNT)) stored = tag.getInteger(HiiragiNBTKey.AMOUNT)
+        if (tag.hasKey(HiiragiNBTKey.CAPACITY)) stored = tag.getInteger(HiiragiNBTKey.CAPACITY)
     }
+
 }

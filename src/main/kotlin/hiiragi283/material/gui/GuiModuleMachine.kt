@@ -2,8 +2,8 @@ package hiiragi283.material.gui
 
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.gui.HiiragiGuiContainer
+import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.container.ContainerModuleMachine
-import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.client.resources.I18n
 import net.minecraft.entity.player.EntityPlayer
@@ -21,23 +21,23 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
         super.drawScreen(mouseX, mouseY, partialTicks)
         //Input Tanks
         if (isPointInRegion(getSlotPositionX(1), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
-            drawFluidTooltip(container.tile.tankInput0, mouseX, mouseY)
+            drawFluidTooltip(container.tile.getTank(0), mouseX, mouseY)
         }
         if (isPointInRegion(getSlotPositionX(2), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
-            drawFluidTooltip(container.tile.tankInput1, mouseX, mouseY)
+            drawFluidTooltip(container.tile.getTank(1), mouseX, mouseY)
         }
         if (isPointInRegion(getSlotPositionX(3), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
-            drawFluidTooltip(container.tile.tankInput2, mouseX, mouseY)
+            drawFluidTooltip(container.tile.getTank(2), mouseX, mouseY)
         }
         //Output Tanks
         if (isPointInRegion(getSlotPositionX(5), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
-            drawFluidTooltip(container.tile.tankOutput0, mouseX, mouseY)
+            drawFluidTooltip(container.tile.getTank(3), mouseX, mouseY)
         }
         if (isPointInRegion(getSlotPositionX(6), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
-            drawFluidTooltip(container.tile.tankOutput1, mouseX, mouseY)
+            drawFluidTooltip(container.tile.getTank(4), mouseX, mouseY)
         }
         if (isPointInRegion(getSlotPositionX(7), getSlotPositionY(2), 16, 16, mouseX, mouseY)) {
-            drawFluidTooltip(container.tile.tankOutput2, mouseX, mouseY)
+            drawFluidTooltip(container.tile.getTank(5), mouseX, mouseY)
         }
         renderHoveredToolTip(mouseX, mouseY)
     }
@@ -54,13 +54,13 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY)
         //Input Tanks
-        drawFluid(container.tile.tankInput0, getSlotPositionX(1), getSlotPositionY(2))
-        drawFluid(container.tile.tankInput1, getSlotPositionX(2), getSlotPositionY(2))
-        drawFluid(container.tile.tankInput2, getSlotPositionX(3), getSlotPositionY(2))
+        drawFluid(container.tile.getTank(0), getSlotPositionX(1), getSlotPositionY(2))
+        drawFluid(container.tile.getTank(1), getSlotPositionX(2), getSlotPositionY(2))
+        drawFluid(container.tile.getTank(2), getSlotPositionX(3), getSlotPositionY(2))
         //Output Tanks
-        drawFluid(container.tile.tankOutput0, getSlotPositionX(5), getSlotPositionY(2))
-        drawFluid(container.tile.tankOutput1, getSlotPositionX(6), getSlotPositionY(2))
-        drawFluid(container.tile.tankOutput2, getSlotPositionX(7), getSlotPositionY(2))
+        drawFluid(container.tile.getTank(3), getSlotPositionX(5), getSlotPositionY(2))
+        drawFluid(container.tile.getTank(4), getSlotPositionX(6), getSlotPositionY(2))
+        drawFluid(container.tile.getTank(5), getSlotPositionX(7), getSlotPositionY(2))
         //Progress Arrow
         drawTexturedModalRect(
             getOriginX() + getSlotPositionX(4) - 1,
