@@ -28,6 +28,8 @@ import net.minecraft.init.Items
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.NBTTagList
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
@@ -196,18 +198,49 @@ fun Block.setModelSame() {
     Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModelSame()
 }
 
+//    NBT    //
+
+fun NBTTagCompound.getByteOrNull(key: String): Byte? = if (this.hasKey(key)) this.getByte(key) else null
+
+fun NBTTagCompound.getShortOrNull(key: String): Short? = if (this.hasKey(key)) this.getShort(key) else null
+
+fun NBTTagCompound.getIntegerOrNull(key: String): Int? = if (this.hasKey(key)) this.getInteger(key) else null
+
+fun NBTTagCompound.getLongOrNull(key: String): Long? = if (this.hasKey(key)) this.getLong(key) else null
+
+fun NBTTagCompound.getFloatOrNull(key: String): Float? = if (this.hasKey(key)) this.getFloat(key) else null
+
+fun NBTTagCompound.getDoubleOrNull(key: String): Double? = if (this.hasKey(key)) this.getDouble(key) else null
+
+fun NBTTagCompound.getStringOrNull(key: String): String? = if (this.hasKey(key)) this.getString(key) else null
+
+fun NBTTagCompound.getByteArrayOrNull(key: String): ByteArray? = if (this.hasKey(key)) this.getByteArray(key) else null
+
+fun NBTTagCompound.getIntArrayOrNull(key: String): IntArray? = if (this.hasKey(key)) this.getIntArray(key) else null
+
+fun NBTTagCompound.getCompoundTagOrNull(key: String): NBTTagCompound? =
+    if (this.hasKey(key)) this.getCompoundTag(key) else null
+
+fun NBTTagCompound.getTagListOrNull(key: String, type: Int): NBTTagList? =
+    if (this.hasKey(key)) this.getTagList(key, type) else null
+
 //    Ore Dictionary    //
 
 //modIdに合致するItemStackを優先して返す関数
 //合致しない場合は最初のItemStackを返す
-fun findItemStack(stacks: List<ItemStack>, primalMod: String, secondaryMod: String): ItemStack {
-    return stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
+fun findItemStack(
+    stacks: List<ItemStack>,
+    primalMod: String = "minecraft",
+    secondaryMod: String = RMReference.MOD_ID
+): ItemStack = stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
         ?: stacks.firstOrNull { it.item.getCreatorModId(it) == secondaryMod }
         ?: stacks.getOrElse(0) { ItemStack.EMPTY }
-}
 
-fun findItemStack(oredict: String, primalMod: String, secondaryMod: String): ItemStack =
-    findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
+fun findItemStack(
+    oredict: String,
+    primalMod: String = "minecraft",
+    secondaryMod: String = RMReference.MOD_ID
+): ItemStack = findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
 
 fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
     item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
@@ -222,6 +255,7 @@ fun registerOreDict(oredict: String, block: Block?, meta: Int = 0, share: String
 fun shareOredict(oredict1: String, oredict2: String) {
     OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
     OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
+
 }
 
 //    Registry    //

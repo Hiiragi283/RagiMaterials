@@ -1,7 +1,6 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.item.MaterialItem
-import hiiragi283.material.api.item.createItemMaterial
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -42,14 +41,14 @@ object HiiragiItems : HiiragiEntry.ITEM {
 
     @JvmField
     val MATERIAL_BLOCK = HiiragiRegistries.ITEM.registerOptional(
-        createItemMaterial(
+        MaterialItem(
             HiiragiShapes.BLOCK,
             recipe = getRecipeBlock()
         )
     ) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_BOTTLE = HiiragiRegistries.ITEM.register(createItemMaterial(HiiragiShapes.BOTTLE).also {
+    val MATERIAL_BOTTLE = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.BOTTLE).also {
         it.setCreativeTab(HiiragiCreativeTabs.BOTTLE)
     })
 
@@ -58,7 +57,8 @@ object HiiragiItems : HiiragiEntry.ITEM {
         HiiragiRegistries.ITEM.registerOptional(MaterialItemCasing) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_DUST = HiiragiRegistries.ITEM.register(createItemMaterial(
+    val MATERIAL_DUST = HiiragiRegistries.ITEM.register(
+        MaterialItem(
         HiiragiShapes.DUST,
         recipe = { entry, material ->
             CraftingBuilder(entry.getItemStack(material))
@@ -69,7 +69,8 @@ object HiiragiItems : HiiragiEntry.ITEM {
     ))
 
     @JvmField
-    val MATERIAL_DUST_TINY = HiiragiRegistries.ITEM.register(createItemMaterial(
+    val MATERIAL_DUST_TINY = HiiragiRegistries.ITEM.register(
+        MaterialItem(
         HiiragiShapes.DUST_TINY,
         recipe = { entry, material ->
             CraftingBuilder(entry.getItemStack(material, 9))
@@ -79,7 +80,8 @@ object HiiragiItems : HiiragiEntry.ITEM {
     ))
 
     @JvmField
-    val MATERIAL_FRAME = HiiragiRegistries.ITEM.registerOptional(createItemMaterial(
+    val MATERIAL_FRAME = HiiragiRegistries.ITEM.registerOptional(
+        MaterialItem(
         HiiragiShapes.FRAME,
         recipe = { entry, material ->
             CraftingBuilder(entry.getItemStack(material))
@@ -90,10 +92,11 @@ object HiiragiItems : HiiragiEntry.ITEM {
     )) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_GEAR = HiiragiRegistries.ITEM.register(createItemMaterial(HiiragiShapes.GEAR))
+    val MATERIAL_GEAR = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.GEAR))
 
     @JvmField
-    val MATERIAL_GEM = HiiragiRegistries.ITEM.register(createItemMaterial(
+    val MATERIAL_GEM = HiiragiRegistries.ITEM.register(
+        MaterialItem(
         HiiragiShapes.GEM,
         model = { entry: HiiragiEntry<*> ->
 
@@ -128,7 +131,8 @@ object HiiragiItems : HiiragiEntry.ITEM {
     ))
 
     @JvmField
-    val MATERIAL_INGOT = HiiragiRegistries.ITEM.register(createItemMaterial(
+    val MATERIAL_INGOT = HiiragiRegistries.ITEM.register(
+        MaterialItem(
         HiiragiShapes.INGOT,
         recipe = { entry, material ->
             //nugget -> ingot
@@ -145,7 +149,8 @@ object HiiragiItems : HiiragiEntry.ITEM {
     ))
 
     @JvmField
-    val MATERIAL_NUGGET = HiiragiRegistries.ITEM.register(createItemMaterial(
+    val MATERIAL_NUGGET = HiiragiRegistries.ITEM.register(
+        MaterialItem(
         HiiragiShapes.NUGGET,
         recipe = { entry, material ->
             CraftingBuilder(entry.getItemStack(material, 9))
@@ -155,13 +160,13 @@ object HiiragiItems : HiiragiEntry.ITEM {
     ))
 
     @JvmField
-    val MATERIAL_PLATE: MaterialItem = HiiragiRegistries.ITEM.register(createItemMaterial(HiiragiShapes.PLATE))
+    val MATERIAL_PLATE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.PLATE))
 
     @JvmField
-    val MATERIAL_STICK: MaterialItem = HiiragiRegistries.ITEM.register(createItemMaterial(HiiragiShapes.STICK))
+    val MATERIAL_STICK: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.STICK))
 
     @JvmField
-    val MATERIAL_WIRE: MaterialItem = HiiragiRegistries.ITEM.register(createItemMaterial(HiiragiShapes.WIRE))
+    val MATERIAL_WIRE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.WIRE))
 
     //    Common    //
 

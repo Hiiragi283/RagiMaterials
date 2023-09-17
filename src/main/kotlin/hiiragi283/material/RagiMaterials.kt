@@ -55,6 +55,8 @@ object RagiMaterials : HiiragiProxy {
         //Eventを登録
         MinecraftForge.EVENT_BUS.register(HiiragiEventHandler)
         MinecraftForge.EVENT_BUS.register(HiiragiEventHandler.Client)
+        //レジストリの初期化
+        HiiragiRegistries.initRecipeType()
         //連携の登録
         RMIntegrationCore.onConstruct(event)
     }
@@ -104,6 +106,8 @@ object RagiMaterials : HiiragiProxy {
         if (RMConfig.MATERIAL.printMaterials) {
             HiiragiRegistries.MATERIAL.getValues().forEach(LOGGER::info)
         }
+        //IMachineRecipeへの登録を停止
+        HiiragiRegistries.registerRecipe()
         //GUi操作を登録
         NetworkRegistry.INSTANCE.registerGuiHandler(Instance, HiiragiGuiHandler)
         //パケット送信の登録

@@ -10,6 +10,7 @@ object HiiragiNBTKey {
     const val FLUID = "Fluid"
     const val FORGE_CAPS = "ForgeCaps"
     const val INVENTORY = "Inventory"
+    const val IO_TYPE = "IOType"
     const val MACHINE_PROPERTY = "MachineProperty"
     const val MASS = "Mass"
     const val MATERIAL = "Material"

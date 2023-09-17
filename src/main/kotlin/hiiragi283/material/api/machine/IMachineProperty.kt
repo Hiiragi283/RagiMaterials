@@ -2,6 +2,9 @@ package hiiragi283.material.api.machine
 
 import hiiragi283.material.api.recipe.IMachineRecipe
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.NBTTagList
+import net.minecraft.nbt.NBTTagString
+import net.minecraftforge.common.util.Constants
 import net.minecraftforge.common.util.INBTSerializable
 
 interface IMachineProperty : INBTSerializable<NBTTagCompound> {
@@ -25,6 +28,12 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
             tag.setInteger(KEY_RATE, energyRate)
             tag.setInteger(KEY_ITEM, itemSlots)
             tag.setInteger(KEY_FLUID, fluidSlots)
+            val tagList = NBTTagList()
+            moduleTraits
+                .map(ModuleTrait::name)
+                .map(::NBTTagString)
+                .forEach { tagList.appendTag(it) }
+            tag.setTag(KEY_TRAIT, tagList)
         }
     }
 
@@ -33,6 +42,14 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
         if (nbt.hasKey(KEY_RATE)) energyRate = nbt.getInteger(KEY_RATE)
         if (nbt.hasKey(KEY_ITEM)) itemSlots = nbt.getInteger(KEY_ITEM)
         if (nbt.hasKey(KEY_FLUID)) fluidSlots = nbt.getInteger(KEY_FLUID)
+        if (nbt.hasKey(KEY_TRAIT)) {
+            val tagList: NBTTagList = nbt.getTagList(KEY_TRAIT, Constants.NBT.TAG_STRING)
+            moduleTraits.addAll(
+                (0 until tagList.tagCount())
+                    .map(tagList::getStringTagAt)
+                    .map(ModuleTrait::valueOf)
+            )
+        }
     }
 
     companion object {

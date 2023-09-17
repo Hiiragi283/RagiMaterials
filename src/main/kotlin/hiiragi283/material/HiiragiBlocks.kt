@@ -1,7 +1,6 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.block.MaterialBlock
-import hiiragi283.material.api.block.createBlockMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
@@ -23,7 +22,7 @@ object HiiragiBlocks {
 
     @JvmField
     val MATERIAL_BLOCK: MaterialBlock = HiiragiRegistries.BLOCK.registerOptional(
-        createBlockMaterial(HiiragiShapes.BLOCK, recipe = getRecipeBlock())
+        MaterialBlock(HiiragiShapes.BLOCK, recipe = getRecipeBlock())
     ) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField

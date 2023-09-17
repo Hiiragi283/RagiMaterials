@@ -26,27 +26,11 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
-fun createBlockMaterial(
-    shape: HiiragiShape,
-    model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
-    recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
-): MaterialBlock = object : MaterialBlock(shape) {
-
-    init {
-        setHarvestLevel("pickaxe", 0)
-    }
-
-    override fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial) {
-        recipe(entry, material)
-    }
-
-    override fun getModel(entry: HiiragiEntry<*>) {
-        model(entry)
-    }
-
-}
-
-abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
+open class MaterialBlock(
+    val shape: HiiragiShape,
+    val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
+    val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
+) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
     { MaterialTileEntity() }
@@ -59,7 +43,7 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
         soundType = SoundType.METAL
     }
 
-    //    HiiragiBlock    //
+    //    General    //
 
     override fun getDrops(
         drops: NonNullList<ItemStack>,
@@ -77,9 +61,7 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
         world: World,
         pos: BlockPos,
         player: EntityPlayer
-    ): ItemStack {
-        return getItemStack(getTile<MaterialTileEntity>(world, pos)?.material)
-    }
+    ): ItemStack = getItemStack(getTile<MaterialTileEntity>(world, pos)?.material)
 
     override fun quantityDropped(random: Random): Int = 0
 
@@ -94,14 +76,12 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     override fun registerRecipe() {
         HiiragiRegistries.MATERIAL.getValues()
             .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
-            .forEach { material -> getRecipe(this, material) }
+            .forEach { material -> recipe(this, material) }
     }
-
-    abstract fun getRecipe(entry: HiiragiEntry<*>, material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler({ state, world, pos, tintIndex ->
+        blockColors.registerBlockColorHandler({ _: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
             getTile<MaterialTileEntity>(world, pos)?.material?.color ?: -1
         }, this)
     }
@@ -114,8 +94,6 @@ abstract class MaterialBlock(val shape: HiiragiShape) : HiiragiBlockContainer.Ho
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = getModel(this)
-
-    abstract fun getModel(entry: HiiragiEntry<*>)
+    override fun registerModel() = model(this)
 
 }

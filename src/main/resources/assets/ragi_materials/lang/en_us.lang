@@ -44,6 +44,10 @@ gui.ragi_materials.crucible=Crucible
 gui.ragi_materials.crushing=Crushing
 gui.ragi_materials.material=Material
 
+##    Machine    ##
+
+hiiragi_machine.test=%s TEST
+
 ##    Shape    ##
 
 hiiragi_shape.ball=%s Grinding Ball

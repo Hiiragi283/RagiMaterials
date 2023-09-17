@@ -12,6 +12,7 @@ import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.block.BlockModuleMachine
 import net.minecraft.block.Block
 import net.minecraft.item.Item
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.common.MinecraftForge
 
 object HiiragiRegistries {
@@ -30,10 +31,16 @@ object HiiragiRegistries {
     val MODULE_MACHINE: HiiragiRegistry<IMachineRecipe.Type, BlockModuleMachine> = HiiragiRegistry("Module Machine")
 
     @JvmField
-    val RECIPE_TYPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<String, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
+    val RECIPE_TYPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
 
-    @JvmField
-    val SMELT: HiiragiRegistry<String, IMachineRecipe> = HiiragiRegistry("Machine Recipe - Smelt")
+    fun initRecipeType() {
+        IMachineRecipe.Type.values().forEach { RECIPE_TYPE.register(it, HiiragiRegistry("Machine Recipe - ${it.name}")) }
+        RECIPE_TYPE.lock()
+    }
+
+    fun registerRecipe() {
+        RECIPE_TYPE.getValues().forEach(HiiragiRegistry<*, *>::lock)
+    }
 
     //    Material    //
 
@@ -67,6 +74,7 @@ object HiiragiRegistries {
     fun registerMaterial() {
         val event = MaterialRegistryEvent(MATERIAL)
         MinecraftForge.EVENT_BUS.post(event)
+        MATERIAL.sort { (name: String, _: HiiragiMaterial) -> name }
         MATERIAL.lock()
         MATERIAL_INDEX.sort { (index: Int, _: HiiragiMaterial) -> index }
         MATERIAL_INDEX.lock()

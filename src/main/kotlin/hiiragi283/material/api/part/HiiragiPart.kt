@@ -5,6 +5,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.util.findItemStack
 import hiiragi283.material.util.toItemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
@@ -48,8 +49,8 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
         material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
     }
 
-    fun findItemStack(primalMod: String, secondaryMod: String): ItemStack =
-        hiiragi283.material.util.findItemStack(getAllItemStack(), primalMod, secondaryMod)
+    fun findItemStack(primalMod: String = "minecraft", secondaryMod: String = RMReference.MOD_ID): ItemStack =
+        findItemStack(getAllItemStack(), primalMod, secondaryMod)
 
     fun getAllItemStack(): List<ItemStack> = getOreDicts().flatMap { OreDictionary.getOres(it) }
 

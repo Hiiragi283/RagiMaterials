@@ -2,7 +2,6 @@ package hiiragi283.material.api.tile
 
 import hiiragi283.material.api.capability.IOControllable
 import hiiragi283.material.api.capability.energy.HiiragiEnergyStorage
-import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTankWrapper
 import hiiragi283.material.api.capability.fluid.ModuleMachineFluidTank
 import hiiragi283.material.api.capability.item.HiiragiItemHandler
@@ -77,12 +76,12 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
     val inventoryInput: ModuleMachineInputItemHandler = ModuleMachineInputItemHandler(this)
     val inventoryOutput: HiiragiItemHandler = HiiragiItemHandler(6, IOControllable.Type.OUTPUT, this)
 
-    private val tankInput0: ModuleMachineFluidTank = ModuleMachineFluidTank(0, IOControllable.Type.INPUT, this)
-    private val tankInput1: ModuleMachineFluidTank = ModuleMachineFluidTank(1, IOControllable.Type.INPUT, this)
-    private val tankInput2: ModuleMachineFluidTank = ModuleMachineFluidTank(2, IOControllable.Type.INPUT, this)
-    private val tankOutput0: ModuleMachineFluidTank = ModuleMachineFluidTank(3, IOControllable.Type.OUTPUT, this)
-    private val tankOutput1: ModuleMachineFluidTank = ModuleMachineFluidTank(4, IOControllable.Type.OUTPUT, this)
-    private val tankOutput2: ModuleMachineFluidTank = ModuleMachineFluidTank(5, IOControllable.Type.OUTPUT, this)
+    private val tankInput0: ModuleMachineFluidTank = ModuleMachineFluidTank(0, this)
+    private val tankInput1: ModuleMachineFluidTank = ModuleMachineFluidTank(1, this)
+    private val tankInput2: ModuleMachineFluidTank = ModuleMachineFluidTank(2, this)
+    private val tankOutput0: ModuleMachineFluidTank = ModuleMachineFluidTank(3, this, IOControllable.Type.OUTPUT)
+    private val tankOutput1: ModuleMachineFluidTank = ModuleMachineFluidTank(4, this, IOControllable.Type.OUTPUT)
+    private val tankOutput2: ModuleMachineFluidTank = ModuleMachineFluidTank(5, this, IOControllable.Type.OUTPUT)
 
     fun getTank(index: Int): ModuleMachineFluidTank = when (index) {
         1 -> tankInput1
@@ -93,29 +92,22 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         else -> tankInput0
     }
 
-    private var tank: HiiragiFluidTankWrapper = HiiragiFluidTankWrapper(tankOutput0, tankOutput1, tankOutput2)
-
-    var energyStorage: HiiragiEnergyStorage = HiiragiEnergyStorage(0)
+    val energyStorage: HiiragiEnergyStorage = HiiragiEnergyStorage(0)
 
     private fun initMachineProperty(property: IMachineProperty) {
         machineProperty = property
         maxCount = property.processTime
         inventoryInput.maxSlots = min(property.itemSlots, 6)
-        val list: MutableList<HiiragiFluidTank> = mutableListOf()
         if (property.fluidSlots >= 1) {
-            list.add(tankInput0)
+            tankInput0.setIOType(IOControllable.Type.INPUT)
         }
         if (property.fluidSlots >= 2) {
-            list.add(tankInput1)
+            tankInput1.setIOType(IOControllable.Type.INPUT)
         }
         if (property.fluidSlots >= 3) {
-            list.add(tankInput2)
+            tankInput2.setIOType(IOControllable.Type.INPUT)
         }
-        list.add(tankOutput0)
-        list.add(tankOutput1)
-        list.add(tankOutput2)
-        tank = HiiragiFluidTankWrapper(list)
-        energyStorage.capacity = property.getEnergyCapacity()
+        energyStorage.setCapacity(property.getEnergyCapacity())
     }
 
     private val listCapability: List<Capability<*>> = listOf(
@@ -124,7 +116,8 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         CapabilityEnergy.ENERGY
     )
 
-    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean = capability in listCapability
+    override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean =
+        capability in listCapability || super.hasCapability(capability, facing)
 
     override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing?): T? = when (capability) {
 
@@ -132,7 +125,7 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
             .cast(HiiragiItemHandlerWrapper(inventoryInput, inventoryOutput))
 
         CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY -> CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-            .cast(tank)
+            .cast(HiiragiFluidTankWrapper(tankInput0, tankInput1, tankInput2, tankOutput0, tankOutput1, tankOutput2))
 
         CapabilityEnergy.ENERGY -> CapabilityEnergy.ENERGY
             .cast(energyStorage)

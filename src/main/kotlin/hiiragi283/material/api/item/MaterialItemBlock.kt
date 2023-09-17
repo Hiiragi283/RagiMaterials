@@ -1,6 +1,7 @@
 package hiiragi283.material.api.item
 
 import hiiragi283.material.api.block.MaterialBlock
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -17,17 +18,17 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, 327
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
-            ?.let { shape.getTranslatedName(it) }
+            ?.let(shape::getTranslatedName)
             ?: super.getItemStackDisplayName(stack)
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
-        HiiragiRegistries.MATERIAL.getValues()
-            .filter { it.isValidIndex() && it.isSolid() && shape.isValid(it) }
-            .map { getItemStack(it) }
-            .sortedBy { it.metadata }
-            .forEach { subItems.add(it) }
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
+            .filter(HiiragiMaterial::isValidIndex)
+            .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
+            .map { material: HiiragiMaterial -> getItemStack(material) }
+            .forEach(subItems::add)
     }
 
 }

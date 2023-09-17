@@ -2,7 +2,7 @@ package hiiragi283.material.api.capability
 
 interface IOControllable {
 
-    val ioType: Type
+    var ioType: Type
 
     enum class Type(val canInsert: Boolean, val canExtract: Boolean) {
         INPUT(true, false),

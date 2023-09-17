@@ -1,7 +1,9 @@
 package hiiragi283.material.api.recipe
 
 import hiiragi283.material.api.machine.ModuleTrait
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.tile.TileEntityModuleMachine
+import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 
@@ -29,15 +31,21 @@ interface IMachineRecipe {
 
     val outputFluids: List<FluidStack>
 
-    enum class Type(val nameIn: String) {
-        BEND("bend"),
-        CRUSH("crush"),
-        CUT("cut"),
-        PULVERISE("pulverise"),
-        SMELT("smelt"),
-        TEST("test"),
-        WIRE("wire"),
-        NONE("")
+    enum class Type {
+        BEND,
+        CRUSH,
+        CUT,
+        PULVERISE,
+        SMELT,
+        TEST,
+        WIRE,
+        NONE;
+
+        private val translationKey: String = "hiiragi_machine.${this.name.lowercase()}"
+
+        fun getTranslatedName(material: HiiragiMaterial): String =
+            I18n.format(translationKey, material.getTranslatedName())
+
     }
 
 }

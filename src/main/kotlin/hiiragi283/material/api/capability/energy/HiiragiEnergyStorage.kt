@@ -10,10 +10,10 @@ import net.minecraftforge.energy.IEnergyStorage
 import kotlin.math.min
 
 class HiiragiEnergyStorage(
-    var capacity: Int,
-    val maxIn: Int = capacity,
-    val maxOut: Int = capacity,
-    var stored: Int = 0
+    private var capacity: Int,
+    private var maxIn: Int = capacity,
+    private var maxOut: Int = capacity,
+    private var stored: Int = 0
 ) : IEnergyStorage, INBTSerializable<NBTTagCompound> {
 
     //    IEnergyStorage    //
@@ -60,11 +60,17 @@ class HiiragiEnergyStorage(
 
     override fun getMaxEnergyStored(): Int = capacity
 
-    override fun canExtract(): Boolean = maxOut > 0 && stored in 1..capacity
+    override fun canExtract(): Boolean = maxOut > 0
 
-    override fun canReceive(): Boolean = maxIn > 0 && stored in 0 until capacity
+    override fun canReceive(): Boolean = maxIn > 0
 
     fun getFreeCapacity(): Int = capacity - stored
+
+    fun setCapacity(capacity: Int) {
+        this.capacity = capacity
+        this.maxIn = capacity
+        this.maxOut = capacity
+    }
 
     //    INBTSerializable    //
 
@@ -77,7 +83,7 @@ class HiiragiEnergyStorage(
 
     override fun deserializeNBT(tag: NBTTagCompound) {
         if (tag.hasKey(HiiragiNBTKey.AMOUNT)) stored = tag.getInteger(HiiragiNBTKey.AMOUNT)
-        if (tag.hasKey(HiiragiNBTKey.CAPACITY)) stored = tag.getInteger(HiiragiNBTKey.CAPACITY)
+        if (tag.hasKey(HiiragiNBTKey.CAPACITY)) capacity = tag.getInteger(HiiragiNBTKey.CAPACITY)
     }
 
 }

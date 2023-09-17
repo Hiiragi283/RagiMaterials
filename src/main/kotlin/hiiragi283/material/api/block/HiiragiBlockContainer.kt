@@ -98,8 +98,7 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
             return getStackWithTileNBT(world, pos)
         }
 
-        open fun getStackWithTileNBT(world: IBlockAccess?, pos: BlockPos?): ItemStack {
-            val stack = ItemStack(this)
+        open fun getStackWithTileNBT(world: IBlockAccess?, pos: BlockPos?, stack: ItemStack = ItemStack(this)): ItemStack {
             getTile<HiiragiTileEntity>(world, pos)?.let { tile ->
                 stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).merge(getTileNBT(tile))
             }

@@ -1,14 +1,17 @@
 package hiiragi283.material.api.capability.item
 
 import hiiragi283.material.api.capability.IOControllable
+import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.getStringOrNull
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
 open class HiiragiItemHandler(
     size: Int = 1,
-    override val ioType: IOControllable.Type = IOControllable.Type.GENERAL,
+    override var ioType: IOControllable.Type = IOControllable.Type.GENERAL,
     val tile: TileEntity? = null
 ) : ItemStackHandler(size), IOControllable {
 
@@ -84,6 +87,16 @@ open class HiiragiItemHandler(
             return transferFrom(it, handlerFrom)
         }
         return false
+    }
+
+    //    INBTSerializable    //
+
+    override fun serializeNBT(): NBTTagCompound =
+        super.serializeNBT().also { tag: NBTTagCompound -> tag.setString(HiiragiNBTKey.IO_TYPE, ioType.name) }
+
+    override fun deserializeNBT(nbt: NBTTagCompound) {
+        super.deserializeNBT(nbt)
+        nbt.getStringOrNull(HiiragiNBTKey.IO_TYPE)?.let { name: String -> ioType = IOControllable.Type.valueOf(name) }
     }
 
 }
