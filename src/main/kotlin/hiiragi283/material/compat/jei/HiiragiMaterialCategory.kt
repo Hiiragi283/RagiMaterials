@@ -15,7 +15,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 
 class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
-    HiiragiRecipeCategory<HiiragiMaterialCategory.Wrapper>(MATERIAL, guiHelper) {
+    HiiragiRecipeCategory<HiiragiMaterialCategory.Wrapper>(HiiragiJEIPlugin.MATERIAL, guiHelper) {
 
     override val backGround: IDrawableStatic =
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/material_info.png"), 0, 0, 170, 116)

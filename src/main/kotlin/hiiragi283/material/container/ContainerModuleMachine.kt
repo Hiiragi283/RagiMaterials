@@ -12,18 +12,18 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
     HiiragiContainer<TileEntityModuleMachine>(tile, player) {
 
     init {
-        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 0, getSlotPositionX(1), getSlotPositionY(0)))
-        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 1, getSlotPositionX(2), getSlotPositionY(0)))
-        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 2, getSlotPositionX(3), getSlotPositionY(0)))
-        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 3, getSlotPositionX(1), getSlotPositionY(1)))
-        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 4, getSlotPositionX(2), getSlotPositionY(1)))
-        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 5, getSlotPositionX(3), getSlotPositionY(1)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 0, getSlotPositionX(5), getSlotPositionY(0)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 1, getSlotPositionX(6), getSlotPositionY(0)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 2, getSlotPositionX(7), getSlotPositionY(0)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 3, getSlotPositionX(5), getSlotPositionY(1)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 4, getSlotPositionX(6), getSlotPositionY(1)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 5, getSlotPositionX(7), getSlotPositionY(1)))
+        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 0, getSlotPosX(1), getSlotPosY(0)))
+        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 1, getSlotPosX(2), getSlotPosY(0)))
+        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 2, getSlotPosX(3), getSlotPosY(0)))
+        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 3, getSlotPosX(1), getSlotPosY(1)))
+        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 4, getSlotPosX(2), getSlotPosY(1)))
+        addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 5, getSlotPosX(3), getSlotPosY(1)))
+        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 0, getSlotPosX(5), getSlotPosY(0)))
+        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 1, getSlotPosX(6), getSlotPosY(0)))
+        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 2, getSlotPosX(7), getSlotPosY(0)))
+        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 3, getSlotPosX(5), getSlotPosY(1)))
+        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 4, getSlotPosX(6), getSlotPosY(1)))
+        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 5, getSlotPosX(7), getSlotPosY(1)))
         initSlotsPlayer(84)
     }
 
@@ -34,9 +34,9 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
             val stackSlot: ItemStack = slot.stack
             stack = stackSlot.copy()
             if (index in (0..11)) {
-                if (!mergeItemStack(stackSlot, 4, inventorySlots.size, false)) return ItemStack.EMPTY
+                if (!mergeItemStack(stackSlot, 12, inventorySlots.size, false)) return ItemStack.EMPTY
             } else {
-                if (!mergeItemStack(stackSlot, 0, 4, false)) return ItemStack.EMPTY
+                if (!mergeItemStack(stackSlot, 0, 11, false)) return ItemStack.EMPTY
             }
             if (stackSlot.isEmpty) {
                 slot.putStack(ItemStack.EMPTY)

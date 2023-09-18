@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.INBTSerializable
 
 interface IMachineProperty : INBTSerializable<NBTTagCompound> {
 
-    val recipeType: IMachineRecipe.Type
+    var recipeType: IMachineRecipe.Type
     var processTime: Int
     var energyRate: Int
     var itemSlots: Int
@@ -24,6 +24,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
 
     override fun serializeNBT(): NBTTagCompound {
         return NBTTagCompound().also { tag: NBTTagCompound ->
+            tag.setString(KEY_TYPE, recipeType.name)
             tag.setInteger(KEY_PROCESS, processTime)
             tag.setInteger(KEY_RATE, energyRate)
             tag.setInteger(KEY_ITEM, itemSlots)
@@ -38,6 +39,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
     }
 
     override fun deserializeNBT(nbt: NBTTagCompound) {
+        if (nbt.hasKey(KEY_TYPE)) recipeType = IMachineRecipe.Type.valueOf(nbt.getString(KEY_TYPE))
         if (nbt.hasKey(KEY_PROCESS)) processTime = nbt.getInteger(KEY_PROCESS)
         if (nbt.hasKey(KEY_RATE)) energyRate = nbt.getInteger(KEY_RATE)
         if (nbt.hasKey(KEY_ITEM)) itemSlots = nbt.getInteger(KEY_ITEM)
@@ -54,6 +56,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
 
     companion object {
 
+        const val KEY_TYPE = "RecipeType"
         const val KEY_PROCESS = "ProcessTime"
         const val KEY_RATE = "EnergyRate"
         const val KEY_ITEM = "ItemSlots"
@@ -68,7 +71,7 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
             fluidSlots: Int = 0,
             moduleTraits: MutableSet<ModuleTrait> = mutableSetOf()
         ): IMachineProperty = object : IMachineProperty {
-            override val recipeType: IMachineRecipe.Type = recipeType
+            override var recipeType: IMachineRecipe.Type = recipeType
             override var processTime: Int = processTime
             override var energyRate: Int = energyRate
             override var itemSlots: Int = itemSlots

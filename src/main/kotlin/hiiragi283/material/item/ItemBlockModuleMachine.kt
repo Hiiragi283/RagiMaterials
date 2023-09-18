@@ -2,8 +2,8 @@ package hiiragi283.material.item
 
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.ModuleTrait
-import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.Constants
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block, 32767), IModuleItem {
+class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block, 32767), IMachinePropertyItem {
 
     val type: IMachineRecipe.Type = block.type
 
@@ -41,10 +41,12 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
             .forEach(subItems::add)
     }
 
-    //    IModuleItem    //
+    //    IMachinePropertyItem    //
 
     private fun getMachinePropertyTag(stack: ItemStack): NBTTagCompound =
         stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY)
+
+    override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> type }
 
     override val processTime: (ItemStack) -> Int = { stack ->
         getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_PROCESS) ?: 100

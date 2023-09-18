@@ -6,7 +6,6 @@ import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.util.findItemStack
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -26,71 +25,7 @@ class MachineRecipe(
     override val outputFluids: List<FluidStack>,
 ) : IMachineRecipe {
 
-    private fun validate() {
-        if (inputItems.size > 6)
-            throw IndexOutOfBoundsException("Size: ${inputItems.size} is over 6!")
-        if (inputFluids.size > 3)
-            throw IndexOutOfBoundsException("Size: ${inputFluids.size} is over 3!")
-        if (outputItems.size > 6)
-            throw IndexOutOfBoundsException("Size: ${outputItems.size} is over 6!")
-        if (outputFluids.size > 3)
-            throw IndexOutOfBoundsException("Size: ${outputFluids.size} is over 3!")
-    }
-
     //    IMachineRecipe    //
-
-    override fun matches(tile: TileEntityModuleMachine): Boolean {
-        validate()
-        //素材をすべて搬出できるか
-        inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
-            if (!list.any { stack -> !tile.inventoryInput.extractItem(index, stack.count, true).isEmpty }) {
-                return false
-            }
-        }
-        //完成品を搬入して一つでも余りが出ないか
-        outputItems.forEachIndexed { index: Int, stack: ItemStack ->
-            if (!tile.inventoryOutput.insertItem(index, stack, true).isEmpty) {
-                return false
-            }
-        }
-        //inputFluidsに含まれる液体が搬出できるかどうか
-        inputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
-            val stackDrained: FluidStack? = tile.getTank(index).drain(fluidStack, false)
-            if (stackDrained == null || !stackDrained.isFluidEqual(fluidStack) || stackDrained.amount != fluidStack.amount) {
-                return false
-            }
-        }
-        //outputFluidsに含まれる液体が搬入できるかどうか
-        outputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
-            if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
-                return false
-            }
-        }
-        //energyStorageからエネルギーを消費できるかどうか
-        val energyRequired: Int = tile.machineProperty.getEnergyRequired()
-        if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
-        //tileが要求された特性をすべて持っている -> true
-        return tile.machineProperty.moduleTraits.containsAll(requiredTraits)
-    }
-
-    override fun process(tile: TileEntityModuleMachine) {
-        //ItemStack
-        inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
-            list.forEach { stack: ItemStack -> tile.inventoryInput.extractItem(index, stack.count, false) }
-        }
-        outputItems.forEachIndexed { index: Int, stack: ItemStack ->
-            tile.inventoryOutput.insertItem(index, stack, false)
-        }
-        //FluidStack
-        inputFluids.forEachIndexed { index, fluidStack ->
-            tile.getTank(index).drain(fluidStack, true)
-        }
-        outputFluids.forEachIndexed { index, fluidStack ->
-            tile.getTank(index + 3).fill(fluidStack, true)
-        }
-        //Energy
-        tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
-    }
 
     class Builder(val type: IMachineRecipe.Type, val registryName: ResourceLocation) {
 
@@ -164,7 +99,7 @@ class MachineRecipe(
             this.inputFluids.add(fluidStack)
         }
 
-        fun addInput(fluid: Fluid, amount: Int) = also {
+        fun addInputFluid(fluid: Fluid, amount: Int) = also {
             addInputFluid(FluidStack(fluid, amount))
         }
 
@@ -209,7 +144,7 @@ class MachineRecipe(
         //    Output - Fluid    //
 
         fun addOutputFluid(fluidStack: FluidStack) = also {
-            this.inputFluids.add(fluidStack)
+            this.outputFluids.add(fluidStack)
         }
 
         fun addOutputFluid(fluid: Fluid, amount: Int) = also {

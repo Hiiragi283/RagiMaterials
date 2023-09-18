@@ -34,7 +34,9 @@ object HiiragiRegistries {
     val RECIPE_TYPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
 
     fun initRecipeType() {
-        IMachineRecipe.Type.values().forEach { RECIPE_TYPE.register(it, HiiragiRegistry("Machine Recipe - ${it.name}")) }
+        IMachineRecipe.Type.values().forEach { type: IMachineRecipe.Type ->
+            RECIPE_TYPE.register(type, HiiragiRegistry("Machine Recipe - ${type.name}"))
+        }
         RECIPE_TYPE.lock()
     }
 

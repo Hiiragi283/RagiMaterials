@@ -21,9 +21,9 @@ abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: Hiiragi
 
     fun getOriginY(): Int = (height - ySize) / 2
 
-    fun getSlotPositionX(index: Int): Int = 8 + 18 * index
+    fun getSlotPosX(index: Int): Int = 8 + 18 * index
 
-    fun getSlotPositionY(index: Int): Int = 18 * (index + 1)
+    fun getSlotPosY(index: Int): Int = 18 * (index + 1)
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
         fontRenderer.drawString(container.tile.displayName?.unformattedText ?: "", 8, 6, HiiragiColor.DARK_GRAY.rgb)

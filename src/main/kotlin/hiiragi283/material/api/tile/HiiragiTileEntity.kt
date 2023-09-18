@@ -103,9 +103,21 @@ abstract class HiiragiTileEntity : TileEntity() {
 
     abstract class Tickable(var maxCount: Int) : HiiragiTileEntity(), ITickable {
 
-        var currentCount = 0
+        private var currentCount = 0
 
         fun getProgress(): Double = currentCount.toDouble() / maxCount.toDouble()
+
+        override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {
+            compound.setInteger("current", currentCount)
+            compound.setInteger("max", maxCount)
+            return super.writeToNBT(compound)
+        }
+
+        override fun readFromNBT(compound: NBTTagCompound) {
+            currentCount = compound.getInteger("current")
+            maxCount = compound.getInteger("max")
+            super.readFromNBT(compound)
+        }
 
         //    ITickable    //
 

@@ -10,13 +10,13 @@ abstract class HiiragiContainer<T : HiiragiTileEntity>(val tile: T, val player: 
 
     val inventoryPlayer: InventoryPlayer = player.inventory
 
-    protected fun getSlotPositionX(index: Int): Int = 8 + 18 * index
+    fun getSlotPosX(index: Int): Int = 8 + 18 * index
 
-    protected fun getSlotPositionY(index: Int): Int = 18 * (index + 1)
+    fun getSlotPosY(index: Int): Int = 18 * (index + 1)
 
     override fun canInteractWith(playerIn: EntityPlayer): Boolean = true
 
-    protected fun initSlotsPlayer(posY: Int) {
+    fun initSlotsPlayer(posY: Int) {
         //プレイヤーのインベントリのスロットを設定
         (0 .. 2).forEach { y: Int ->
             (0 .. 8).forEach { x: Int ->

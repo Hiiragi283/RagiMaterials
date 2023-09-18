@@ -19,7 +19,7 @@ object HiiragiNetworkManager {
 
     fun register() {
         HiiragiNetworkWrapper.registerMessage(
-            { message: HiiragiMessage.Client, ctx: MessageContext ->
+            { message: HiiragiMessage.Client, _: MessageContext ->
                 syncMessage(Minecraft.getMinecraft().world, message)
             },
             HiiragiMessage.Client::class.java,
@@ -35,7 +35,7 @@ object HiiragiNetworkManager {
             Side.SERVER
         )
         HiiragiNetworkWrapper.registerMessage(
-            { message: HiiragiFluidMessage, ctx: MessageContext ->
+            { message: HiiragiFluidMessage, _: MessageContext ->
                 getTile<TileEntityModuleMachine>(Minecraft.getMinecraft().world, message.pos)
                     ?.getTank(message.index)
                     ?.fluid = message.fluidStack

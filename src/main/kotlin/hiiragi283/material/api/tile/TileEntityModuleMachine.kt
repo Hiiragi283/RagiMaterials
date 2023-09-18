@@ -8,8 +8,9 @@ import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler
 import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.module.IModuleItem
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.dropInventoriesItems
@@ -157,7 +158,7 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         stack: ItemStack
     ) {
         material = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
-        stack.getItemImplemented<IModuleItem>()?.toMachineProperty(stack)?.let(this::initMachineProperty)
+        stack.getItemImplemented<IMachinePropertyItem>()?.toMachineProperty(stack)?.let(this::initMachineProperty)
     }
 
     override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
@@ -168,7 +169,7 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
 
     override fun onUpdateServer() {
         HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
-            ?.firstOrNull { recipe -> recipe.matches(this) }
+            ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
             ?.process(this)
     }
 

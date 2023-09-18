@@ -17,12 +17,14 @@ class TileEntityMachineExtender : HiiragiTileEntity() {
     //    Capability    //
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
         return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockHorizontal.FACING)))
+            ?.takeUnless { it is TileEntityMachineExtender }
             ?.hasCapability(capability, facing)
             ?: super.hasCapability(capability, facing)
     }
 
     override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
         return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockHorizontal.FACING)))
+            ?.takeUnless { it is TileEntityMachineExtender }
             ?.getCapability(capability, facing)
             ?: super.getCapability(capability, facing)
     }
