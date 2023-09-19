@@ -8,7 +8,7 @@ import hiiragi283.material.util.getItem
 import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object IC2exIntegration : AbstractIntegration() {
+object HiiragiIC2exPlugin : IHiiragiPlugin {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(

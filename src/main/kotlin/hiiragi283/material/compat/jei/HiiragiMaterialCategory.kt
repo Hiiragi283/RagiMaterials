@@ -13,6 +13,8 @@ import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
+import net.minecraftforge.fluids.Fluid
+import net.minecraftforge.fluids.FluidStack
 
 class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
     HiiragiRecipeCategory<HiiragiMaterialCategory.Wrapper>(HiiragiJEIPlugin.MATERIAL, guiHelper) {
@@ -20,34 +22,40 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
     override val backGround: IDrawableStatic =
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/material_info.png"), 0, 0, 170, 116)
 
-    override fun setRecipe(layout: IRecipeLayout, recipe: Wrapper, iIngredients: IIngredients) {
+    override fun setRecipe(iRecipeLayout: IRecipeLayout, wrapper: Wrapper, iIngredients: IIngredients) {
         //MaterialStack
-        getMaterialStacks(layout).init(0, false, 4 + 1, 4 + 1)
-        getMaterialStacks(layout)[0] = recipe.getMaterialStack()
+        getMaterialStacks(iRecipeLayout).init(0, false, 4 + 1, 4 + 1)
+        getMaterialStacks(iRecipeLayout)[0] = wrapper.getMaterialStack()
+        //FluidStack
+        iRecipeLayout.fluidStacks.init(0, true, 5, 18 + 5)
+        iRecipeLayout.fluidStacks[0] = wrapper.getFluids()
         //ItemStack
-        for (i in recipe.getStacks().indices) {
-            layout.itemStacks.init(i, true, 18 * (i % 9) + 4, 18 * (i / 9) + 18 + 4)
-            layout.itemStacks[i] = recipe.getStacks()[i]
+        for (i in wrapper.getStacks().indices) {
+            iRecipeLayout.itemStacks.init(i, true, 18 * ((i + 1) % 9) + 4, 18 * ((i + 1) / 9) + 18 + 4)
+            iRecipeLayout.itemStacks[i] = wrapper.getStacks()[i]
         }
     }
 
-    class Wrapper(private val materialStack: MaterialStack, private val stacks: Collection<ItemStack>) : IRecipeWrapper {
+    class Wrapper(material: HiiragiMaterial) : IRecipeWrapper {
 
-        constructor(material: HiiragiMaterial) : this(
-            material.toMaterialStack(),
-            material.getAllItemStack()
-                .map { it.item to it.metadata }
-                .toSet()
-                .map { ItemStack(it.first, 1, it.second) }
-        )
+        private val materialStack: MaterialStack = material.toMaterialStack()
+        private val fluids: Collection<FluidStack> = material.getFluids()
+            .map { fluid: Fluid -> FluidStack(fluid, 1000) }
+        private val stacks: Collection<ItemStack> = material.getAllItemStack()
+            .map { it.item to it.metadata }
+            .toSet()
+            .map { ItemStack(it.first, 1, it.second) }
 
         fun getMaterialStack(): MaterialStack = materialStack.copy()
+
+        fun getFluids(): List<FluidStack> = fluids.toList()
 
         fun getStacks(): List<ItemStack> = stacks.toList()
 
         //    IRecipeWrapper    //
         override fun getIngredients(iIngredients: IIngredients) {
             iIngredients.setInputs(VanillaTypes.ITEM, getStacks())
+            iIngredients.setInputs(VanillaTypes.FLUID, getFluids())
             iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, getMaterialStack())
         }
 

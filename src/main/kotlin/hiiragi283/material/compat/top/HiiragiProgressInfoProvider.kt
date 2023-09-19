@@ -1,4 +1,4 @@
-package hiiragi283.material.compat
+package hiiragi283.material.compat.top
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.machine.IMachineProperty

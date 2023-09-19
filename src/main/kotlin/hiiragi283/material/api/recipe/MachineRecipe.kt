@@ -6,7 +6,9 @@ import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.util.ItemStackComparable
 import hiiragi283.material.util.findItemStack
+import hiiragi283.material.util.toComparable
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
@@ -57,47 +59,35 @@ class MachineRecipe(
             this.inputItems.add(listOf(*stacks))
         }
 
-        fun addInput(stacks: Collection<ItemStack>) = also {
-            this.inputItems.add(stacks.toList())
+        fun addInput(vararg items: Item, count: Int = 1) = also {
+            this.inputItems.add(items.map { item: Item -> ItemStack(item, count, 0) })
         }
 
-        fun addInputItem(vararg items: Item, count: Int = 1) = also {
-            addInput(items.map { item: Item -> ItemStack(item, count, 0) })
+        fun addInput(vararg blocks: Block, count: Int = 1) = also {
+            this.inputItems.add(blocks.map { block: Block -> ItemStack(block, count, 0) })
         }
 
-        fun addInputItem(items: Collection<Item>, count: Int = 1) = also {
-            addInput(items.map { item: Item -> ItemStack(item, count, 0) })
+        fun addInput(vararg oreDict: String, count: Int = 1) = also {
+            this.inputItems.add(oreDict.flatMap(OreDictionary::getOres)
+                .map { stack: ItemStack -> stack.toComparable(count = 1) }
+                .toSet()
+                .map { stackComparable: ItemStackComparable -> stackComparable.toItemStack(count) })
         }
 
-        fun addInputBlock(vararg blocks: Block, count: Int = 1) = also {
-            addInput(blocks.map { block: Block -> ItemStack(block, count, 0) })
+        fun addInput(part: HiiragiPart, count: Int = 1) = also {
+            addInputs(part.getOreDicts(), count)
         }
 
-        fun addInputBlock(blocks: Collection<Block>, count: Int = 1) = also {
-            addInput(blocks.map { block: Block -> ItemStack(block, count, 0) })
+        fun addInput(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {
+            addInput(HiiragiPart(shape, material), count)
         }
 
-        fun addInputOreDict(vararg oreDict: String, count: Int = 1) = also {
-            addInput(oreDict.flatMap(OreDictionary::getOres).map { stack: ItemStack ->
-                stack.count = count
-                return@map stack
-            })
-        }
-
-        fun addInputOreDict(oreDicts: Collection<String>, count: Int = 1) = also {
-            addInput(oreDicts.flatMap(OreDictionary::getOres).map { stack: ItemStack ->
-                stack.count = count
-                return@map stack
-            })
-
-        }
-
-        fun addInputPart(part: HiiragiPart, count: Int = 1) = also {
-            addInputOreDict(part.getOreDicts(), count)
-        }
-
-        fun addInputPart(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {
-            addInputPart(HiiragiPart(shape, material), count)
+        @Suppress("UNCHECKED_CAST")
+        fun <T> addInputs(collection: Collection<T>, count: Int = 1) = also {
+            (collection as? Collection<String>)?.let { addInput(*it.toTypedArray(), count = count) }
+                ?: (collection as? Collection<Block>)?.let { addInput(*it.toTypedArray(), count = count) }
+                ?: (collection as? Collection<Item>)?.let { addInput(*it.toTypedArray(), count = count) }
+                ?: (collection as? Collection<ItemStack>)?.let { addInput(*it.toTypedArray()) }
         }
 
         //    Input - Fluid    //
@@ -128,30 +118,30 @@ class MachineRecipe(
             this.outputItems.add(stack)
         }
 
-        fun addOutputItem(item: Item, count: Int = 1) = also {
+        fun addOutput(item: Item, count: Int = 1) = also {
             addOutput(ItemStack(item, count, 0))
         }
 
-        fun addOutputBlock(block: Block, count: Int = 1) = also {
+        fun addOutput(block: Block, count: Int = 1) = also {
             addOutput(ItemStack(block, count, 0))
         }
 
-        fun addOutputOreDict(oreDict: String, count: Int = 1) = also {
+        fun addOutput(oreDict: String, count: Int = 1) = also {
             addOutput(findItemStack(oreDict).let { stack ->
                 stack.count = count
                 return@let stack
             })
         }
 
-        fun addOutputPart(part: HiiragiPart, count: Int = 1) = also {
+        fun addOutput(part: HiiragiPart, count: Int = 1) = also {
             addOutput(part.findItemStack().let { stack ->
                 stack.count = count
                 return@let stack
             })
         }
 
-        fun addOutputPart(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {
-            addOutputPart(HiiragiPart(shape, material), count)
+        fun addOutput(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {
+            addOutput(HiiragiPart(shape, material), count)
         }
 
         //    Output - Fluid    //

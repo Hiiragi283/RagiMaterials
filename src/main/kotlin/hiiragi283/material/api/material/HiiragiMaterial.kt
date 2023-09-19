@@ -89,6 +89,14 @@ data class HiiragiMaterial(
     fun getAllItemStack(): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
         .flatMap { shape: HiiragiShape -> HiiragiPart(shape, this).getAllItemStack() }
 
+    fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
+
+    fun getFluids(): List<Fluid> {
+        val list: MutableList<Fluid> = listOfNotNull(getFluid()).toMutableList()
+        list.addAll(oreDictAlt.mapNotNull(FluidRegistry::getFluid))
+        return list
+    }
+
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
     fun getOreDictNameAlt(): List<String> = oreDictAlt.map { it.snakeToUpperCamelCase() }

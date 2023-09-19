@@ -12,7 +12,7 @@ import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
-import hiiragi283.material.compat.RMIntegrationCore
+import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.util.getItemImplemented
 import hiiragi283.material.util.hiiragiLocation
@@ -46,7 +46,7 @@ object HiiragiEventHandler {
         MaterialCommon.register()
 
         RagiMaterials.LOGGER.info("Registering Materials for Integration...")
-        RMIntegrationCore.registerMaterial()
+        HiiragiPlugin.registerMaterial()
 
         RagiMaterials.LOGGER.info("Registering Materials from JSON...")
         RMJSonHandler.register()

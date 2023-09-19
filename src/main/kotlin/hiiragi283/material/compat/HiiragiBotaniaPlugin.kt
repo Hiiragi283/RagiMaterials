@@ -6,7 +6,7 @@ import hiiragi283.material.util.getItem
 import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object BotaniaIntegration : AbstractIntegration() {
+object HiiragiBotaniaPlugin : IHiiragiPlugin {
 
     override fun registerMaterial() {
         MaterialCompat.MANASTEEL.register()

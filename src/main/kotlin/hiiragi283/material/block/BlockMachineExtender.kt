@@ -1,7 +1,6 @@
 package hiiragi283.material.block
 
 import hiiragi283.material.api.block.HiiragiBlockContainer
-import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.tile.TileEntityMachineExtender
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.material.Material
@@ -20,8 +19,6 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
     "machine_extender",
     { TileEntityMachineExtender() }
 ) {
-
-    override var itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, 0)
 
     init {
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)

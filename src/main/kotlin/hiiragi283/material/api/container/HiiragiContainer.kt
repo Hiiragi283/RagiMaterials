@@ -6,7 +6,7 @@ import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.inventory.Container
 import net.minecraft.inventory.Slot
 
-abstract class HiiragiContainer<T : HiiragiTileEntity>(val tile: T, val player: EntityPlayer) : Container() {
+abstract class HiiragiContainer(val player: EntityPlayer) : Container() {
 
     val inventoryPlayer: InventoryPlayer = player.inventory
 
@@ -28,5 +28,7 @@ abstract class HiiragiContainer<T : HiiragiTileEntity>(val tile: T, val player: 
             addSlotToContainer(Slot(inventoryPlayer, x, 8 + x * 18, 3 * 18 + (posY + 4)))
         }
     }
+
+    abstract class TileEntity<T : HiiragiTileEntity>(val tile: T, player: EntityPlayer) : HiiragiContainer(player)
 
 }

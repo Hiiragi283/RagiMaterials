@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack
 
 
 class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
-    HiiragiContainer<TileEntityModuleMachine>(tile, player) {
+    HiiragiContainer.TileEntity<TileEntityModuleMachine>(tile, player) {
 
     init {
         addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 0, getSlotPosX(1), getSlotPosY(0)))
@@ -34,9 +34,9 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
             val stackSlot: ItemStack = slot.stack
             stack = stackSlot.copy()
             if (index in (0..11)) {
-                if (!mergeItemStack(stackSlot, 12, inventorySlots.size, false)) return ItemStack.EMPTY
+                if (!mergeItemStack(stackSlot, 12, inventorySlots.size, true)) return ItemStack.EMPTY
             } else {
-                if (!mergeItemStack(stackSlot, 0, 11, false)) return ItemStack.EMPTY
+                if (!mergeItemStack(stackSlot, 0, 11, true)) return ItemStack.EMPTY
             }
             if (stackSlot.isEmpty) {
                 slot.putStack(ItemStack.EMPTY)

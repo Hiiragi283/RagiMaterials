@@ -4,14 +4,14 @@ import net.minecraftforge.fml.common.event.*
 
 interface HiiragiProxy {
 
-    fun onConstruct(event: FMLConstructionEvent)
+    fun onConstruct(event: FMLConstructionEvent) {}
 
-    fun onPreInit(event: FMLPreInitializationEvent)
+    fun onPreInit(event: FMLPreInitializationEvent) {}
 
-    fun onInit(event: FMLInitializationEvent)
+    fun onInit(event: FMLInitializationEvent) {}
 
-    fun onPostInit(event: FMLPostInitializationEvent)
+    fun onPostInit(event: FMLPostInitializationEvent) {}
 
-    fun onComplete(event: FMLLoadCompleteEvent)
+    fun onComplete(event: FMLLoadCompleteEvent) {}
 
 }

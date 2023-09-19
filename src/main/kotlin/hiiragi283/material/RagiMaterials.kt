@@ -2,7 +2,7 @@ package hiiragi283.material
 
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.compat.RMIntegrationCore
+import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
@@ -58,7 +58,7 @@ object RagiMaterials : HiiragiProxy {
         //レジストリの初期化
         HiiragiRegistries.initRecipeType()
         //連携の登録
-        RMIntegrationCore.onConstruct(event)
+        HiiragiPlugin.onConstruct(event)
     }
 
     @Mod.EventHandler
@@ -76,7 +76,7 @@ object RagiMaterials : HiiragiProxy {
         HiiragiRegistries.registerMaterial()
         MaterialFluid.register()
         //連携の登録
-        RMIntegrationCore.onPreInit(event)
+        HiiragiPlugin.onPreInit(event)
     }
 
     @Mod.EventHandler
@@ -90,7 +90,7 @@ object RagiMaterials : HiiragiProxy {
         HiiragiRegistries.BLOCK.registerRecipe()
         HiiragiRegistries.ITEM.registerRecipe()
         //連携の登録
-        RMIntegrationCore.onInit(event)
+        HiiragiPlugin.onInit(event)
     }
 
     @Mod.EventHandler
@@ -98,7 +98,7 @@ object RagiMaterials : HiiragiProxy {
         //レシピの登録
         HiiragiRecipes.init()
         //連携の登録
-        RMIntegrationCore.onPostInit(event)
+        HiiragiPlugin.onPostInit(event)
     }
 
     @Mod.EventHandler

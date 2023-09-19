@@ -69,8 +69,10 @@ abstract class HiiragiTileEntity : TileEntity() {
         player: EntityPlayer,
         hand: EnumHand,
         facing: EnumFacing
-    ): Boolean = false
-
+    ): Boolean {
+        if (!world.isRemote) openGui(player, world, pos)
+        return true
+    }
     open fun onTilePlaced(
         world: World,
         pos: BlockPos,

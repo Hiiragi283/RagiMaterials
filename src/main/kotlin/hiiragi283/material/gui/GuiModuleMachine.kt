@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation
 
 
 class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
-    HiiragiGuiContainer<TileEntityModuleMachine>(ContainerModuleMachine(tile, player)) {
+    HiiragiGuiContainer.TileEntity<TileEntityModuleMachine>(ContainerModuleMachine(tile, player)) {
 
     override val backGround: ResourceLocation = hiiragiLocation("textures/gui/module_machine.png")
 
@@ -64,7 +64,7 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
         drawItemSlotOverlay(3)
         drawItemSlotOverlay(4)
         drawItemSlotOverlay(5)
-        //Input Tanks
+        //Fluid Slots
         fun drawFluidSlotOverlay(index: Int) {
             if (container.tile.machineProperty.fluidSlots > index) return
             drawTexturedModalRect(
@@ -79,13 +79,6 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
         drawFluidSlotOverlay(0)
         drawFluidSlotOverlay(1)
         drawFluidSlotOverlay(2)
-        drawFluid(container.tile.getTank(0), getSlotPosX(1), getSlotPosY(2))
-        drawFluid(container.tile.getTank(1), getSlotPosX(2), getSlotPosY(2))
-        drawFluid(container.tile.getTank(2), getSlotPosX(3), getSlotPosY(2))
-        //Output Tanks
-        drawFluid(container.tile.getTank(3), getSlotPosX(5), getSlotPosY(2))
-        drawFluid(container.tile.getTank(4), getSlotPosX(6), getSlotPosY(2))
-        drawFluid(container.tile.getTank(5), getSlotPosX(7), getSlotPosY(2))
         //Progress Arrow
         drawTexturedModalRect(
             getOriginX() + getSlotPosX(4) - 1,
@@ -95,6 +88,14 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
             (18 * container.tile.getProgress()).toInt(),
             17
         )
+        //Input Tanks
+        drawFluid(container.tile.getTank(0), getSlotPosX(1), getSlotPosY(2))
+        drawFluid(container.tile.getTank(1), getSlotPosX(2), getSlotPosY(2))
+        drawFluid(container.tile.getTank(2), getSlotPosX(3), getSlotPosY(2))
+        //Output Tanks
+        drawFluid(container.tile.getTank(3), getSlotPosX(5), getSlotPosY(2))
+        drawFluid(container.tile.getTank(4), getSlotPosX(6), getSlotPosY(2))
+        drawFluid(container.tile.getTank(5), getSlotPosX(7), getSlotPosY(2))
     }
 
 }

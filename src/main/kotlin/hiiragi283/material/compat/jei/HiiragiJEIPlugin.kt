@@ -1,5 +1,6 @@
 package hiiragi283.material.compat.jei
 
+import hiiragi283.material.HiiragiBlocks
 import hiiragi283.material.HiiragiItems
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
@@ -19,10 +20,8 @@ import mezz.jei.api.JEIPlugin
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import net.minecraft.client.gui.inventory.GuiContainer
-import net.minecraft.init.Blocks
 import net.minecraft.inventory.Container
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.common.ProgressManager
 
 @JEIPlugin
 class HiiragiJEIPlugin : IModPlugin {
@@ -48,19 +47,12 @@ class HiiragiJEIPlugin : IModPlugin {
     }
 
     override fun register(registry: IModRegistry) {
-        val bar: ProgressManager.ProgressBar = ProgressManager.push(
-            "${RMReference.MOD_NAME}: JEI Plugin",
-            IMachineRecipe.Type.values().size,
-            true
-        )
         //HiiragiMaterial
-        bar.step("Hiiragi Material")
         registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
         registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
         registry.addRecipeCatalyst(ItemStack(HiiragiItems.MATERIAL_BOTTLE, 1, 32767), MATERIAL)
         //MachineRecipe
         IMachineRecipe.Type.values().forEach { type ->
-            bar.step("Module Machine: ${type.name}")
             registry.handleRecipes(
                 IMachineRecipe::class.java,
                 MachineRecipeCategory::Wrapper,
@@ -73,7 +65,7 @@ class HiiragiJEIPlugin : IModPlugin {
             registry.addRecipeCatalyst(
                 HiiragiRegistries.MODULE_MACHINE.getValue(type)
                     ?.let { block: BlockModuleMachine -> ItemStack(block, 1, 32767) }
-                    ?: ItemStack(Blocks.IRON_BLOCK),
+                    ?: ItemStack(HiiragiBlocks.MACHINE_TEST),
                 getRecipeTypeID(type)
             )
             registry.recipeTransferRegistry.addRecipeTransferHandler(
@@ -93,7 +85,6 @@ class HiiragiJEIPlugin : IModPlugin {
             18,
             *IMachineRecipe.Type.values().map(::getRecipeTypeID).toTypedArray()
         )
-        ProgressManager.pop(bar)
     }
 
     override fun registerIngredients(registry: IModIngredientRegistration) {

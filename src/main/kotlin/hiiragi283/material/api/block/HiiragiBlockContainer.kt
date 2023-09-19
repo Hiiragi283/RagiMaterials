@@ -20,7 +20,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 
 
-abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
+open class HiiragiBlockContainer<T : HiiragiTileEntity>(
     material: Material,
     id: String,
     private val tileSupplier: () -> T
@@ -73,7 +73,7 @@ abstract class HiiragiBlockContainer<T : HiiragiTileEntity>(
 
     //    Holdable    //
 
-    abstract class Holdable<T : HiiragiTileEntity>(material: Material, id: String, tileSupplier: () -> T) :
+    open class Holdable<T : HiiragiTileEntity>(material: Material, id: String, tileSupplier: () -> T) :
         HiiragiBlockContainer<T>(material, id, tileSupplier) {
 
         //    General    //

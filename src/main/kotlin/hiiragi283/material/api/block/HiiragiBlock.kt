@@ -1,12 +1,18 @@
 package hiiragi283.material.api.block
 
 import hiiragi283.material.HiiragiCreativeTabs
+import hiiragi283.material.HiiragiGuiHandler
 import hiiragi283.material.RMReference
+import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.registry.HiiragiEntry
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.World
 import java.util.*
 
 abstract class HiiragiBlock(material: Material, id: String) : Block(material), HiiragiEntry.BLOCK {
@@ -17,6 +23,19 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
         creativeTab = HiiragiCreativeTabs.COMMON
         setRegistryName(RMReference.MOD_ID, id)
         translationKey = id
+    }
+
+    override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, 0)
+
+    fun openGui(player: EntityPlayer, world: World, pos: BlockPos) {
+        if (!world.isRemote) player.openGui(
+            RagiMaterials.Instance,
+            HiiragiGuiHandler.BLOCK,
+            world,
+            pos.x,
+            pos.y,
+            pos.z
+        )
     }
 
     //    Block    //

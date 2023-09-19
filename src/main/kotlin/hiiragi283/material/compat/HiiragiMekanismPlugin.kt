@@ -2,7 +2,7 @@ package hiiragi283.material.compat
 
 import hiiragi283.material.api.material.MaterialCompat
 
-object MekanismIntegration : AbstractIntegration() {
+object HiiragiMekanismPlugin : IHiiragiPlugin {
 
     override fun registerMaterial() {
         MaterialCompat.OBSIDIAN_REFINED.register()

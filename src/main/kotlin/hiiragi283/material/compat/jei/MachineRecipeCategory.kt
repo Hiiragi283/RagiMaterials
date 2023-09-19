@@ -1,6 +1,7 @@
 package hiiragi283.material.compat.jei
 
 import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.util.copyKt
 import hiiragi283.material.util.hiiragiLocation
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawableStatic
@@ -9,6 +10,7 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
+import net.minecraftforge.fluids.FluidStack
 
 class MachineRecipeCategory(
     val type: IMachineRecipe.Type,
@@ -23,50 +25,55 @@ class MachineRecipeCategory(
     private fun getSlotPosY(index: Int): Int = 18 * (index + 1)
 
     override fun setRecipe(iRecipeLayout: IRecipeLayout, wrapper: Wrapper, iIngredients: IIngredients) {
-        //init slot position
-        (0..5).forEach { iRecipeLayout.itemStacks.init(it, true, getSlotPosX(it % 3) - 1, getSlotPosY(it / 3) - 1) }
-        (0..5).forEach { iRecipeLayout.itemStacks.init(it + 6, true, getSlotPosX(it % 3 + 4) - 1, getSlotPosY(it / 3) - 1) }
-        (0..2).forEach {
-            iRecipeLayout.fluidStacks.init(
-                it,
-                true,
-                getSlotPosX(it % 3),
-                getSlotPosY(2),
-                16,
-                16,
-                64000,
-                false,
-                null
-            )
-        }
-        (0..2).forEach {
-            iRecipeLayout.fluidStacks.init(
-                it + 3,
-                true,
-                getSlotPosX(it % 3 + 4),
-                getSlotPosY(2),
-                16,
-                16,
-                64000,
-                false,
-                null
-            )
-        }
         //Input - ItemStack
-        (0..5).forEach { index ->
-            iRecipeLayout.itemStacks[index] = wrapper.inputItems.getOrElse(index) { listOf(ItemStack.EMPTY) }
+        wrapper.inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
+            iRecipeLayout.itemStacks.init(index, true, getSlotPosX(index % 3) - 1, getSlotPosY(index / 3) - 1)
+            iRecipeLayout.itemStacks[index] = list
         }
         //Input - FluidStack
-        wrapper.inputFluids.indices.forEach { index ->
-            iRecipeLayout.fluidStacks[index] = wrapper.inputFluids[index]
+        wrapper.inputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
+            if (fluidStack.amount > 0) {
+                iRecipeLayout.fluidStacks.init(
+                    index,
+                    true,
+                    getSlotPosX(index % 3),
+                    getSlotPosY(2),
+                    16,
+                    16,
+                    fluidStack.amount,
+                    false,
+                    null
+                )
+                iRecipeLayout.fluidStacks[index] = fluidStack.copy()
+            } else {
+                iRecipeLayout.fluidStacks.init(index, true, getSlotPosX(index % 3), getSlotPosY(2))
+                iRecipeLayout.fluidStacks[index] = fluidStack.copyKt(amount = 1000)
+            }
         }
         //Output - ItemStack
-        (0..5).forEach { index ->
-            iRecipeLayout.itemStacks[index + 6] = wrapper.outputItems.getOrElse(index) { ItemStack.EMPTY }
+        wrapper.outputItems.forEachIndexed { index: Int, itemStack: ItemStack ->
+            iRecipeLayout.itemStacks.init(index + 6, false, getSlotPosX(index % 3 + 4) - 1, getSlotPosY(index / 3) - 1)
+            iRecipeLayout.itemStacks[index + 6] = itemStack
         }
         //Output - FluidStack
-        wrapper.outputFluids.indices.forEach { index ->
-            iRecipeLayout.fluidStacks[index + 3] = wrapper.outputFluids[index]
+        wrapper.outputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
+            if (fluidStack.amount > 0) {
+                iRecipeLayout.fluidStacks.init(
+                    index + 3,
+                    false,
+                    getSlotPosX(index % 3 + 4),
+                    getSlotPosY(2),
+                    16,
+                    16,
+                    fluidStack.amount,
+                    false,
+                    null
+                )
+                iRecipeLayout.fluidStacks[index + 3] = fluidStack.copy()
+            } else {
+                iRecipeLayout.fluidStacks.init(index, false, getSlotPosX(index % 3 + 4), getSlotPosY(2))
+                iRecipeLayout.fluidStacks[index + 3] = fluidStack.copyKt(amount = 1000)
+            }
         }
     }
 

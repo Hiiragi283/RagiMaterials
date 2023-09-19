@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.FluidUtil
 class TileEntityMachineExtender : HiiragiTileEntity() {
 
     //    Capability    //
+
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
         return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockHorizontal.FACING)))
             ?.takeUnless { it is TileEntityMachineExtender }
@@ -30,6 +31,7 @@ class TileEntityMachineExtender : HiiragiTileEntity() {
     }
 
     //    Event    //
+
     override fun onTileActivated(
         world: World,
         pos: BlockPos,
@@ -47,4 +49,5 @@ class TileEntityMachineExtender : HiiragiTileEntity() {
             )
         } else true
     }
+
 }

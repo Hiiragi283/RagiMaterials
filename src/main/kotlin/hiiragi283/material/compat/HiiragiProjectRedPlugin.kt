@@ -2,7 +2,7 @@ package hiiragi283.material.compat
 
 import hiiragi283.material.api.material.MaterialCompat
 
-object ProjectRedIntegration : AbstractIntegration() {
+object HiiragiProjectRedPlugin : IHiiragiPlugin {
 
     override fun registerMaterial() {
         MaterialCompat.ELECTROTINE.register()

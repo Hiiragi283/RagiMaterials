@@ -14,6 +14,18 @@ interface IMachineRecipe {
 
     val requiredTraits: Set<ModuleTrait>
 
+    //    Inputs    //
+
+    val inputItems: List<List<ItemStack>>
+
+    val inputFluids: List<FluidStack>
+
+    //    Outputs    //
+
+    val outputItems: List<ItemStack>
+
+    val outputFluids: List<FluidStack>
+
     //    Process    //
 
     fun validate() {
@@ -47,14 +59,14 @@ interface IMachineRecipe {
         }
         //inputFluidsに含まれる液体が搬出できるかどうか
         for (index: Int in inputFluids.indices) {
-            val fluidStack: FluidStack = inputFluids[index]
+            val fluidStack: FluidStack = inputFluids[index].copy()
             if (tile.getTank(index).drain(fluidStack.amount, false)?.amount != fluidStack.amount) {
                 return false
             }
         }
         //outputFluidsに含まれる液体が搬入できるかどうか
         for (index: Int in outputFluids.indices) {
-            val fluidStack: FluidStack = outputFluids[index]
+            val fluidStack: FluidStack = outputFluids[index].copy()
             if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
                 return false
             }
@@ -84,18 +96,6 @@ interface IMachineRecipe {
         //Energy
         tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
     }
-
-    //    Inputs    //
-
-    val inputItems: List<List<ItemStack>>
-
-    val inputFluids: List<FluidStack>
-
-    //    Outputs    //
-
-    val outputItems: List<ItemStack>
-
-    val outputFluids: List<FluidStack>
 
     enum class Type {
         BENDING,

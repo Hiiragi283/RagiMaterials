@@ -19,11 +19,9 @@ import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
@@ -39,7 +37,7 @@ import kotlin.math.min
 class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
 
     override fun getDisplayName(): ITextComponent =
-        TextComponentTranslation(machineProperty.recipeType.translationKey, material)
+        TextComponentTranslation(machineProperty.recipeType.translationKey, material?.getTranslatedName())
 
     //    NBT    //
 
@@ -125,17 +123,6 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
     //    Event    //
 
     var material: HiiragiMaterial? = null
-
-    override fun onTileActivated(
-        world: World,
-        pos: BlockPos,
-        player: EntityPlayer,
-        hand: EnumHand,
-        facing: EnumFacing
-    ): Boolean {
-        if (!world.isRemote) openGui(player, world, pos)
-        return true
-    }
 
     override fun onTilePlaced(
         world: World,

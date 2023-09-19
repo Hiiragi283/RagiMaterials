@@ -8,8 +8,10 @@ import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.ModuleTrait
 import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.module.IRecipeModuleItem
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.block.BlockModuleMachine
+import hiiragi283.material.item.MaterialItemBlockCasing
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -41,6 +43,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.IRarity
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.registry.ForgeRegistries
@@ -136,6 +139,12 @@ fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
 
 //    Fluid    //
 
+fun FluidStack.copyKt(
+    fluid: Fluid = this.fluid,
+    amount: Int = this.amount,
+    tag: NBTTagCompound? = this.tag
+) = FluidStack(fluid, amount, tag)
+
 fun FluidStack.isSameWithAmount(other: FluidStack?): Boolean =
     other !== null && this.isFluidEqual(other) && this.amount == other.amount
 
@@ -150,6 +159,10 @@ fun isDeobf(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
 inline fun <reified T> IBlockState.getBlockImplemented(): T? = this.block as? T
 
 inline fun <reified T> ItemStack.getItemImplemented(): T? = this.item as? T
+
+inline fun <reified T> IBlockState.isBlockImplemented(): Boolean = this.block is T
+
+inline fun <reified T> ItemStack.isItemImplemented(): Boolean = this.item is T
 
 //    ItemStack    //
 
@@ -437,13 +450,16 @@ fun getEnumRarity(name: String): IRarity {
     }
 }
 
-fun installModule(casing: ItemStack, recipeModule: IRecipeModuleItem, vararg modules: ItemStack): ItemStack {
+fun installModule(casing: ItemStack, recipeModule: ItemStack, vararg modules: ItemStack): ItemStack {
 
-    val base: IMachineProperty = casing.getItemImplemented<IModuleItem>()
-        ?.toMachineProperty(casing, recipeModule.recipeType)
+    val recipeType: IMachineRecipe.Type =
+        recipeModule.getItemImplemented<IRecipeModuleItem>()?.recipeType ?: return ItemStack.EMPTY
+
+    val base: IMachineProperty = casing.getItemImplemented<MaterialItemBlockCasing>()
+        ?.toMachineProperty(casing, recipeType)
         ?: return ItemStack.EMPTY
 
-    val block: BlockModuleMachine = HiiragiRegistries.MODULE_MACHINE.getValue(recipeModule.recipeType) ?: return ItemStack.EMPTY
+    val block: BlockModuleMachine = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType) ?: return ItemStack.EMPTY
 
     var processTime: Int = base.processTime
     var energyRate: Int = base.energyRate
@@ -462,10 +478,10 @@ fun installModule(casing: ItemStack, recipeModule: IRecipeModuleItem, vararg mod
         }
     }
 
-    val stack = ItemStack(block, 1, 0)
+    val stack = ItemStack(block, 1, casing.metadata)
     stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).setTag(
         HiiragiNBTKey.MACHINE_PROPERTY, IMachineProperty.of(
-            recipeType = recipeModule.recipeType,
+            recipeType = recipeType,
             processTime = processTime,
             energyRate = energyRate,
             itemSlots = itemSlots,

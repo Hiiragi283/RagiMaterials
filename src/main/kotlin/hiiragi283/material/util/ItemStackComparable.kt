@@ -4,7 +4,10 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 
-fun ItemStack.toComparable() = ItemStackComparable(this.item, this.count, this.metadata, this.tagCompound)
+fun ItemStack.toComparable(
+    count: Int = this.count,
+    meta: Int = this.metadata
+) = ItemStackComparable(this.item, count, meta, this.tagCompound)
 
 data class ItemStackComparable(
     val item: Item,
@@ -13,6 +16,9 @@ data class ItemStackComparable(
     var tag: NBTTagCompound? = null
 ) {
 
-    fun toItemStack() = ItemStack(item, count, meta).also { stack: ItemStack -> stack.tagCompound = tag }
+    fun toItemStack(
+        count: Int = this.count,
+        meta: Int = this.meta,
+    ) = ItemStack(item, count, meta).also { stack: ItemStack -> stack.tagCompound = tag }
 
 }

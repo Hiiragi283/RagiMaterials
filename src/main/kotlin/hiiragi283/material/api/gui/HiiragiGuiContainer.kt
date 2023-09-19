@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.IFluidTank
 
-abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: HiiragiContainer<T>) : GuiContainer(container) {
+abstract class HiiragiGuiContainer<T : HiiragiContainer>(open val container: T) : GuiContainer(container) {
 
     abstract val backGround: ResourceLocation
 
@@ -26,7 +26,7 @@ abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: Hiiragi
     fun getSlotPosY(index: Int): Int = 18 * (index + 1)
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
-        fontRenderer.drawString(container.tile.displayName?.unformattedText ?: "", 8, 6, HiiragiColor.DARK_GRAY.rgb)
+        fontRenderer.drawString(getContainerTitle(), 8, 6, HiiragiColor.DARK_GRAY.rgb)
         fontRenderer.drawString(
             container.inventoryPlayer.displayName.getUnformattedText(),
             8,
@@ -34,6 +34,8 @@ abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: Hiiragi
             HiiragiColor.DARK_GRAY.rgb
         )
     }
+
+    abstract fun getContainerTitle(): String
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
@@ -50,7 +52,6 @@ abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: Hiiragi
         }
     }
 
-
     fun drawFluid(tank: IFluidTank, x: Int, y: Int) {
         drawFluid(tank.getFluid(), x, y)
     }
@@ -64,6 +65,14 @@ abstract class HiiragiGuiContainer<T : HiiragiTileEntity>(val container: Hiiragi
         setGLColor(fluid.color)
         drawSquareTexture(mc, getOriginX() + x, getOriginY() + y, fluid.still)
         setGLColor(HiiragiColor.WHITE)
+    }
+
+    abstract class TileEntity<T : HiiragiTileEntity>(
+        override val container: HiiragiContainer.TileEntity<T>
+    ) : HiiragiGuiContainer<HiiragiContainer.TileEntity<T>>(container) {
+
+        override fun getContainerTitle(): String = container.tile.displayName?.unformattedText ?: ""
+
     }
 
 }

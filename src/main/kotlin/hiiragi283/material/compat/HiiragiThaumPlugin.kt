@@ -7,7 +7,7 @@ import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object ThaumIntegration : AbstractIntegration() {
+object HiiragiThaumPlugin : IHiiragiPlugin {
 
     override fun registerMaterial() {
         MaterialCompat.THAUMIUM.register()

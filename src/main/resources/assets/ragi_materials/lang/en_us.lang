@@ -1,20 +1,6 @@
 ##    Block    ##
 
-tile.casing_0.name=Stone Casing
-tile.casing_1.name=Steel Casing
-tile.casing_2.name=Stainless Steel Casing
-tile.casing_3.name=Aluminium Casing
-tile.casing_4.name=Titanium Casing
-tile.casing_5.name=Tungsten Steel Casing
-tile.casing_6.name=Iridescent Casing
-tile.crucible.name=Crucible
-tile.scaffolding_0.name=Wood Scaffolding
-tile.scaffolding_1.name=Iron Scaffolding
-tile.scaffolding_2.name=Steel Scaffolding
-tile.scaffolding_3.name=Plastic Scaffolding
-tile.scaffolding_4.name=Stainless Scaffolding
-tile.scaffolding_5.name=Tungsten Scaffolding
-tile.scaffolding_6.name=Iridium Scaffolding
+tile.module_installer.name=Module Installer
 
 ##    CreativeTab    ##
 
@@ -26,28 +12,35 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 ##    Item    ##
 
 item.book_respawn.name=[for Dev] Respawn Book
-item.cast_gear.name=Clay Cast (Gear)
-item.cast_ingot.name=Clay Cast (Ingot)
-item.cast_nugget.name=Clay Cast (Nugget)
-item.cast_plate.name=Clay Cast (Plate)
-item.cast_stick.name=Clay Cast (Stick)
-item.crushing_hammer.name=Crushing Hammer
-item.unfired_cast_0.name=Unfired Clay Cast (Ingot)
-item.unfired_cast_1.name=Unfired Clay Cast (Nugget)
-item.unfired_cast_2.name=Unfired Clay Cast (Gear)
-item.unfired_cast_3.name=Unfired Clay Cast (Plate)
-item.unfired_cast_4.name=Unfired Clay Cast (Stick)
 
 ##    JEI Tab    ##
 
-gui.ragi_materials.crucible=Crucible
-gui.ragi_materials.crushing=Crushing
 gui.ragi_materials.material=Material
+
+gui.ragi_materials.bending=Bending Machine
+gui.ragi_materials.canning=Canning Machine
+gui.ragi_materials.centrifuge=Centrifuge
+gui.ragi_materials.compressor=Compressor
+gui.ragi_materials.crusher=Crusher
+gui.ragi_materials.cutting=Cutting Machine
+gui.ragi_materials.distiller=Distiller
+gui.ragi_materials.electrolyzer=Electrolyzer
+gui.ragi_materials.extractor=Extractor
+gui.ragi_materials.former=Former
+gui.ragi_materials.freezer=Freezer
+gui.ragi_materials.heater=Heater
+gui.ragi_materials.infuser=Infuser
+gui.ragi_materials.melter=Melter
+gui.ragi_materials.pulverizer=Pulverizer
+gui.ragi_materials.rock_generator=Rock Generator
+gui.ragi_materials.smelter=Smelter
+gui.ragi_materials.wiremill=Wiremill
+gui.ragi_materials.test=TEST MACHINE
 
 ##    Machine    ##
 
 hiiragi_machine.bending=%s Bending Machine
-hiiragi_machine.canning=% Canning Machine
+hiiragi_machine.canning=%s Canning Machine
 hiiragi_machine.centrifuge=%s Centrifuge
 hiiragi_machine.compressor=%s Compressor
 hiiragi_machine.crusher=%s Crusher
