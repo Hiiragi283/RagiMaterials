@@ -5,6 +5,7 @@ package hiiragi283.material.util
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.ModuleTrait
 import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.module.IRecipeModuleItem
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -132,6 +133,11 @@ fun addEnchantments(vararg pairs: Pair<Enchantment, Int>, stack: ItemStack) {
 
 fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
     EnchantmentHelper.getEnchantmentLevel(enchantment, stack) > 0
+
+//    Fluid    //
+
+fun FluidStack.isSameWithAmount(other: FluidStack?): Boolean =
+    other !== null && this.isFluidEqual(other) && this.amount == other.amount
 
 //    FML    //
 
@@ -316,14 +322,8 @@ fun hiiragiLocation(path: String): ResourceLocation = ResourceLocation(RMReferen
 
 fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.registryName!!.append(split + this.metadata)
 
-fun ItemStack.toMetaLocation(): MetaResourceLocation = MetaResourceLocation(this.item.registryName!!, this.metadata)
-
 fun IBlockState.toLocation(): ResourceLocation =
     this.block.registryName!!.append(":" + this.block.getMetaFromState(this))
-
-fun IBlockState.toMetaLocation(): MetaResourceLocation =
-    MetaResourceLocation(this.block.registryName!!, this.block.getMetaFromState(this))
-
 fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
     val location = ResourceLocation("fluid", this.fluid.name)
     if (addAmount) location.append(":" + this.amount)
@@ -445,24 +445,34 @@ fun installModule(casing: ItemStack, recipeModule: IRecipeModuleItem, vararg mod
 
     val block: BlockModuleMachine = HiiragiRegistries.MODULE_MACHINE.getValue(recipeModule.recipeType) ?: return ItemStack.EMPTY
 
+    var processTime: Int = base.processTime
+    var energyRate: Int = base.energyRate
+    var itemSlots: Int = base.itemSlots
+    var fluidSlots: Int = base.fluidSlots
+    val moduleTraits: MutableSet<ModuleTrait> = mutableSetOf()
+
     modules.map { it.getItemImplemented<IModuleItem>() }.forEachIndexed { index: Int, iModuleItem: IModuleItem? ->
         if (iModuleItem !== null) {
             val stack: ItemStack = modules[index]
-            base.moduleTraits.addAll(iModuleItem.moduleTraits(stack))
-            base.processTime += iModuleItem.processTime(stack)
-            base.energyRate += iModuleItem.energyRate(stack)
-            base.itemSlots += iModuleItem.itemSlots(stack)
-            base.fluidSlots += iModuleItem.fluidSlots(stack)
+            processTime += iModuleItem.processTime(stack)
+            energyRate += iModuleItem.energyRate(stack)
+            itemSlots += iModuleItem.itemSlots(stack)
+            fluidSlots += iModuleItem.fluidSlots(stack)
+            moduleTraits.addAll(iModuleItem.moduleTraits(stack))
         }
     }
 
     val stack = ItemStack(block, 1, 0)
-    stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY).also {
-        it.setInteger(IMachineProperty.KEY_PROCESS, base.processTime)
-        it.setInteger(IMachineProperty.KEY_RATE, base.energyRate)
-        it.setInteger(IMachineProperty.KEY_ITEM, base.itemSlots)
-        it.setInteger(IMachineProperty.KEY_FLUID, base.fluidSlots)
-    }
+    stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).setTag(
+        HiiragiNBTKey.MACHINE_PROPERTY, IMachineProperty.of(
+            recipeType = recipeModule.recipeType,
+            processTime = processTime,
+            energyRate = energyRate,
+            itemSlots = itemSlots,
+            fluidSlots = fluidSlots,
+            moduleTraits = moduleTraits
+        ).serialize()
+    )
     return stack
 
 }

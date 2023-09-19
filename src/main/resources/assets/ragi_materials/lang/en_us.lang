@@ -46,7 +46,26 @@ gui.ragi_materials.material=Material
 
 ##    Machine    ##
 
-hiiragi_machine.test=%s TEST
+hiiragi_machine.bending=%s Bending Machine
+hiiragi_machine.canning=% Canning Machine
+hiiragi_machine.centrifuge=%s Centrifuge
+hiiragi_machine.compressor=%s Compressor
+hiiragi_machine.crusher=%s Crusher
+hiiragi_machine.cutting=%s Cutting Machine
+hiiragi_machine.distiller=%s Distiller
+hiiragi_machine.electrolyzer=%s Electrolyzer
+hiiragi_machine.extractor=%s Extractor
+hiiragi_machine.former=%s Former
+hiiragi_machine.freezer=%s Freezer
+hiiragi_machine.heater=%s Heater
+hiiragi_machine.infuser=%s Infuser
+hiiragi_machine.melter=%s Melter
+hiiragi_machine.pulverizer=%s Pulverizer
+hiiragi_machine.rock_generator=%s Rock Generator
+hiiragi_machine.smelter=%s Smelter
+hiiragi_machine.wiremill=%s Wiremill
+hiiragi_machine.test=%s TEST MACHINE
+hiiragi_machine.none=§cINVALID MACHINE!!
 
 ##    Shape    ##
 

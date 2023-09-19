@@ -1,7 +1,6 @@
 package hiiragi283.material.network
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.api.tile.TileEntityModuleMachine
 import hiiragi283.material.util.getTile
 import net.minecraft.client.Minecraft
 import net.minecraft.tileentity.TileEntity
@@ -33,17 +32,6 @@ object HiiragiNetworkManager {
             HiiragiMessage.Server::class.java,
             1,
             Side.SERVER
-        )
-        HiiragiNetworkWrapper.registerMessage(
-            { message: HiiragiFluidMessage, _: MessageContext ->
-                getTile<TileEntityModuleMachine>(Minecraft.getMinecraft().world, message.pos)
-                    ?.getTank(message.index)
-                    ?.fluid = message.fluidStack
-                return@registerMessage null
-            },
-            HiiragiFluidMessage::class.java,
-            2,
-            Side.CLIENT
         )
     }
 

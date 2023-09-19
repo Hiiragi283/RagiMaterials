@@ -1,58 +1,41 @@
 package hiiragi283.material.api.machine
 
 import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.util.getIntegerOrNull
+import hiiragi283.material.util.getStringOrNull
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.nbt.NBTTagString
 import net.minecraftforge.common.util.Constants
-import net.minecraftforge.common.util.INBTSerializable
 
-interface IMachineProperty : INBTSerializable<NBTTagCompound> {
+interface IMachineProperty {
 
-    var recipeType: IMachineRecipe.Type
-    var processTime: Int
-    var energyRate: Int
-    var itemSlots: Int
-    var fluidSlots: Int
-    val moduleTraits: MutableSet<ModuleTrait>
+    val recipeType: IMachineRecipe.Type
+    val processTime: Int
+    val energyRate: Int
+    val itemSlots: Int
+    val fluidSlots: Int
+    val moduleTraits: Set<ModuleTrait>
 
     fun getEnergyRequired(): Int = processTime * energyRate
 
     fun getEnergyCapacity(): Int = getEnergyRequired() * 5
 
+    fun serialize() = NBTTagCompound().also { tag: NBTTagCompound ->
+        tag.setString(KEY_TYPE, recipeType.name)
+        tag.setInteger(KEY_PROCESS, processTime)
+        tag.setInteger(KEY_RATE, energyRate)
+        tag.setInteger(KEY_ITEM, itemSlots)
+        tag.setInteger(KEY_FLUID, fluidSlots)
+        val tagList = NBTTagList()
+        moduleTraits
+            .map(ModuleTrait::name)
+            .map(::NBTTagString)
+            .forEach { tagList.appendTag(it) }
+        tag.setTag(KEY_TRAIT, tagList)
+    }
+
     //    INBTSerializable    //
-
-    override fun serializeNBT(): NBTTagCompound {
-        return NBTTagCompound().also { tag: NBTTagCompound ->
-            tag.setString(KEY_TYPE, recipeType.name)
-            tag.setInteger(KEY_PROCESS, processTime)
-            tag.setInteger(KEY_RATE, energyRate)
-            tag.setInteger(KEY_ITEM, itemSlots)
-            tag.setInteger(KEY_FLUID, fluidSlots)
-            val tagList = NBTTagList()
-            moduleTraits
-                .map(ModuleTrait::name)
-                .map(::NBTTagString)
-                .forEach { tagList.appendTag(it) }
-            tag.setTag(KEY_TRAIT, tagList)
-        }
-    }
-
-    override fun deserializeNBT(nbt: NBTTagCompound) {
-        if (nbt.hasKey(KEY_TYPE)) recipeType = IMachineRecipe.Type.valueOf(nbt.getString(KEY_TYPE))
-        if (nbt.hasKey(KEY_PROCESS)) processTime = nbt.getInteger(KEY_PROCESS)
-        if (nbt.hasKey(KEY_RATE)) energyRate = nbt.getInteger(KEY_RATE)
-        if (nbt.hasKey(KEY_ITEM)) itemSlots = nbt.getInteger(KEY_ITEM)
-        if (nbt.hasKey(KEY_FLUID)) fluidSlots = nbt.getInteger(KEY_FLUID)
-        if (nbt.hasKey(KEY_TRAIT)) {
-            val tagList: NBTTagList = nbt.getTagList(KEY_TRAIT, Constants.NBT.TAG_STRING)
-            moduleTraits.addAll(
-                (0 until tagList.tagCount())
-                    .map(tagList::getStringTagAt)
-                    .map(ModuleTrait::valueOf)
-            )
-        }
-    }
 
     companion object {
 
@@ -63,20 +46,38 @@ interface IMachineProperty : INBTSerializable<NBTTagCompound> {
         const val KEY_FLUID = "FluidSlots"
         const val KEY_TRAIT = "ModuleTraits"
 
+        fun of(tag: NBTTagCompound) = of(
+            recipeType = tag.getStringOrNull(KEY_TYPE)?.let { IMachineRecipe.Type.valueOf(it) }
+                ?: IMachineRecipe.Type.NONE,
+            processTime = tag.getIntegerOrNull(KEY_PROCESS) ?: 100,
+            energyRate = tag.getIntegerOrNull(KEY_RATE) ?: 32,
+            itemSlots = tag.getIntegerOrNull(KEY_ITEM) ?: 1,
+            fluidSlots = tag.getIntegerOrNull(KEY_FLUID) ?: 0,
+            moduleTraits = getModuleTraits(tag)
+        )
+
+        private fun getModuleTraits(tag: NBTTagCompound): Set<ModuleTrait> {
+            val tagList: NBTTagList = tag.getTagList(KEY_TRAIT, Constants.NBT.TAG_STRING)
+            return (0 until tagList.tagCount())
+                .map(tagList::getStringTagAt)
+                .map(ModuleTrait::valueOf)
+                .toSet()
+        }
+
         fun of(
             recipeType: IMachineRecipe.Type = IMachineRecipe.Type.NONE,
             processTime: Int = 100,
             energyRate: Int = 32,
             itemSlots: Int = 1,
             fluidSlots: Int = 0,
-            moduleTraits: MutableSet<ModuleTrait> = mutableSetOf()
+            moduleTraits: Set<ModuleTrait> = mutableSetOf()
         ): IMachineProperty = object : IMachineProperty {
             override var recipeType: IMachineRecipe.Type = recipeType
             override var processTime: Int = processTime
             override var energyRate: Int = energyRate
             override var itemSlots: Int = itemSlots
             override var fluidSlots: Int = fluidSlots
-            override var moduleTraits: MutableSet<ModuleTrait> = moduleTraits
+            override var moduleTraits: Set<ModuleTrait> = moduleTraits
         }
 
     }

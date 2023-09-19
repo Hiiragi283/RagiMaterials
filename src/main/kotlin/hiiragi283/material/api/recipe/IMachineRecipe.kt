@@ -30,29 +30,31 @@ interface IMachineRecipe {
     fun matches(tile: TileEntityModuleMachine): Boolean {
         validate()
         //素材をすべて搬出できるか
-        inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
-            for (stack: ItemStack in list) {
-                if (tile.inventoryInput.extractItem(index, stack.count, true).isSameWithNBT(stack)) {
-                    continue
-                }
-                return false
+        for (index: Int in inputItems.indices) {
+            //1つでも一致したら次のItemStackで検証
+            if (inputItems[index].any { stack: ItemStack ->
+                    tile.inventoryInput.extractItem(index, stack.count, true).isSameWithNBT(stack)
+                }) {
+                continue
             }
+            return false
         }
         //完成品を搬入して一つでも余りが出ないか
-        outputItems.forEachIndexed { index: Int, stack: ItemStack ->
-            if (!tile.inventoryOutput.insertItem(index, stack, true).isEmpty) {
+        for (index: Int in outputItems.indices) {
+            if (!tile.inventoryOutput.insertItem(index, outputItems[index], true).isEmpty) {
                 return false
             }
         }
         //inputFluidsに含まれる液体が搬出できるかどうか
-        inputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
-            val stackDrained: FluidStack? = tile.getTank(index).drain(fluidStack, false)
-            if (stackDrained == null || !stackDrained.isFluidEqual(fluidStack) || stackDrained.amount != fluidStack.amount) {
+        for (index: Int in inputFluids.indices) {
+            val fluidStack: FluidStack = inputFluids[index]
+            if (tile.getTank(index).drain(fluidStack.amount, false)?.amount != fluidStack.amount) {
                 return false
             }
         }
         //outputFluidsに含まれる液体が搬入できるかどうか
-        outputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
+        for (index: Int in outputFluids.indices) {
+            val fluidStack: FluidStack = outputFluids[index]
             if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
                 return false
             }
@@ -96,16 +98,28 @@ interface IMachineRecipe {
     val outputFluids: List<FluidStack>
 
     enum class Type {
-        BEND,
-        CRUSH,
-        CUT,
-        PULVERISE,
-        SMELT,
+        BENDING,
+        CANNING,
+        CENTRIFUGE,
+        COMPRESSOR,
+        CRUSHER,
+        CUTTING,
+        DISTILLER,
+        ELECTROLYZER,
+        EXTRACTOR,
+        FORMER,
+        FREEZER,
+        HEATER,
+        INFUSER,
+        MELTER,
+        PULVERIZER,
+        ROCK_GENERATOR,
+        SMELTER,
+        WIREMILL,
         TEST,
-        WIRE,
         NONE;
 
-        private val translationKey: String = "hiiragi_machine.${this.name.lowercase()}"
+        val translationKey: String = "hiiragi_machine.${this.name.lowercase()}"
 
         fun getTranslatedName(material: HiiragiMaterial): String =
             I18n.format(translationKey, material.getTranslatedName())

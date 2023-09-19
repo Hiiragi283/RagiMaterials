@@ -61,36 +61,43 @@ class MachineRecipe(
             this.inputItems.add(stacks.toList())
         }
 
-        fun addInputItem(vararg items: Item) = also {
-            addInput(items.map(::ItemStack))
+        fun addInputItem(vararg items: Item, count: Int = 1) = also {
+            addInput(items.map { item: Item -> ItemStack(item, count, 0) })
         }
 
-        fun addInputItem(items: Collection<Item>) = also {
-            addInput(items.map(::ItemStack))
+        fun addInputItem(items: Collection<Item>, count: Int = 1) = also {
+            addInput(items.map { item: Item -> ItemStack(item, count, 0) })
         }
 
-        fun addInputBlock(vararg blocks: Block) = also {
-            addInput(blocks.map(::ItemStack))
+        fun addInputBlock(vararg blocks: Block, count: Int = 1) = also {
+            addInput(blocks.map { block: Block -> ItemStack(block, count, 0) })
         }
 
-        fun addInputBlock(blocks: Collection<Block>) = also {
-            addInput(blocks.map(::ItemStack))
+        fun addInputBlock(blocks: Collection<Block>, count: Int = 1) = also {
+            addInput(blocks.map { block: Block -> ItemStack(block, count, 0) })
         }
 
-        fun addInputOreDict(vararg oreDict: String) = also {
-            addInput(oreDict.flatMap(OreDictionary::getOres))
+        fun addInputOreDict(vararg oreDict: String, count: Int = 1) = also {
+            addInput(oreDict.flatMap(OreDictionary::getOres).map { stack: ItemStack ->
+                stack.count = count
+                return@map stack
+            })
         }
 
-        fun addInputOreDict(oreDicts: Collection<String>) = also {
-            addInput(oreDicts.flatMap(OreDictionary::getOres))
+        fun addInputOreDict(oreDicts: Collection<String>, count: Int = 1) = also {
+            addInput(oreDicts.flatMap(OreDictionary::getOres).map { stack: ItemStack ->
+                stack.count = count
+                return@map stack
+            })
+
         }
 
-        fun addInputPart(part: HiiragiPart) = also {
-            addInputOreDict(part.getOreDicts())
+        fun addInputPart(part: HiiragiPart, count: Int = 1) = also {
+            addInputOreDict(part.getOreDicts(), count)
         }
 
-        fun addInputPart(shape: HiiragiShape, material: HiiragiMaterial) = also {
-            addInputPart(HiiragiPart(shape, material))
+        fun addInputPart(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {
+            addInputPart(HiiragiPart(shape, material), count)
         }
 
         //    Input - Fluid    //
@@ -121,24 +128,30 @@ class MachineRecipe(
             this.outputItems.add(stack)
         }
 
-        fun addOutputItem(item: Item) = also {
-            addOutput(ItemStack(item))
+        fun addOutputItem(item: Item, count: Int = 1) = also {
+            addOutput(ItemStack(item, count, 0))
         }
 
-        fun addOutputBlock(block: Block) = also {
-            addOutput(ItemStack(block))
+        fun addOutputBlock(block: Block, count: Int = 1) = also {
+            addOutput(ItemStack(block, count, 0))
         }
 
-        fun addOutputOreDict(oreDict: String) = also {
-            addOutput(findItemStack(oreDict))
+        fun addOutputOreDict(oreDict: String, count: Int = 1) = also {
+            addOutput(findItemStack(oreDict).let { stack ->
+                stack.count = count
+                return@let stack
+            })
         }
 
-        fun addOutputPart(part: HiiragiPart) = also {
-            addOutput(part.findItemStack())
+        fun addOutputPart(part: HiiragiPart, count: Int = 1) = also {
+            addOutput(part.findItemStack().let { stack ->
+                stack.count = count
+                return@let stack
+            })
         }
 
-        fun addOutput(shape: HiiragiShape, material: HiiragiMaterial) = also {
-            addOutputPart(HiiragiPart(shape, material))
+        fun addOutputPart(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {
+            addOutputPart(HiiragiPart(shape, material), count)
         }
 
         //    Output - Fluid    //

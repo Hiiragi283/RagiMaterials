@@ -37,7 +37,7 @@ open class MaterialItem(
         if (!isInCreativeTab(tab)) return
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
-            .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
+            .filter(shape::isValid)
             .map { material: HiiragiMaterial -> getItemStack(material) }
             .forEach(subItems::add)
     }
@@ -46,7 +46,7 @@ open class MaterialItem(
 
     override fun registerOreDict() {
         HiiragiRegistries.MATERIAL.getValues()
-            .filter { it.isSolid() && shape.isValid(it) }
+            .filter(shape::isValid)
             .forEach { material: HiiragiMaterial ->
                 shape.getOreDicts(material).forEach {
                     OreDictionary.registerOre(it, getItemStack(material))

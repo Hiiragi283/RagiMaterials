@@ -22,8 +22,8 @@ sealed class HiiragiMessage(var pos: BlockPos = BlockPos.ORIGIN, var tag: NBTTag
         buf.writeNBTTag(tag)
     }
 
-    class Client(pos: BlockPos, tag: NBTTagCompound) : HiiragiMessage(pos, tag)
+    class Client(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
 
-    class Server(pos: BlockPos, tag: NBTTagCompound) : HiiragiMessage(pos, tag)
+    class Server(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
 
 }

@@ -45,6 +45,29 @@ gui.ragi_materials.crucible=るつぼ
 gui.ragi_materials.crushing=破砕
 gui.ragi_materials.material=素材
 
+##    Machine    ##
+
+hiiragi_machine.bending=圧延機 (%s)
+hiiragi_machine.canning=缶詰機 (%s)
+hiiragi_machine.centrifuge=遠心分離機 (%s)
+hiiragi_machine.compressor=圧縮機 (%s)
+hiiragi_machine.crusher=破砕機 (%s)
+hiiragi_machine.cutting=切断機 (%s)
+hiiragi_machine.distiller=蒸留器 (%s)
+hiiragi_machine.electrolyzer=電気分解機 (%s)
+hiiragi_machine.extractor=抽出器 (%s)
+hiiragi_machine.former=金属加工機 (%s)
+hiiragi_machine.freezer=冷凍機 (%s)
+hiiragi_machine.heater=加熱機 (%s)
+hiiragi_machine.infuser=注入機 (%s)
+hiiragi_machine.melter=溶融機 (%s)
+hiiragi_machine.pulverizer=粉砕機 (%s)
+hiiragi_machine.rock_generator=岩石生成機 (%s)
+hiiragi_machine.smelter=製錬機 (%s)
+hiiragi_machine.wiremill=ワイヤ加工機 (%s)
+hiiragi_machine.test=テスト用 (%s)
+hiiragi_machine.none=§c無効な機械!!
+
 ##    Shape    ##
 
 hiiragi_shape.ball=%sの粉砕用ボール

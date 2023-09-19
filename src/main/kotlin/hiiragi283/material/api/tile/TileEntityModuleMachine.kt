@@ -12,6 +12,8 @@ import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.network.HiiragiMessage
+import hiiragi283.material.network.HiiragiNetworkWrapper
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
@@ -22,9 +24,10 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
+import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
-import net.minecraft.util.text.TextComponentString
+import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
@@ -33,9 +36,10 @@ import net.minecraftforge.items.CapabilityItemHandler
 import kotlin.math.min
 
 
-class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
+class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
 
-    override fun getDisplayName(): ITextComponent = TextComponentString("Module Machine")
+    override fun getDisplayName(): ITextComponent =
+        TextComponentTranslation(machineProperty.recipeType.translationKey, material)
 
     //    NBT    //
 
@@ -51,9 +55,8 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         tankOutput1.deserializeNBT(compound.getCompoundTag("TankOutput1"))
         tankOutput2.deserializeNBT(compound.getCompoundTag("TankOutput2"))
         energyStorage.deserializeNBT(compound.getCompoundTag(HiiragiNBTKey.BATTERY))
-        machineProperty.deserializeNBT(compound.getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY))
+        machineProperty = IMachineProperty.of(compound.getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY))
         material = HiiragiRegistries.MATERIAL.getValue(compound.getString(HiiragiNBTKey.MATERIAL))
-        initMachineProperty(machineProperty)
         super.readFromNBT(compound)
     }
 
@@ -67,7 +70,7 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         compound.setTag("TankOutput1", tankOutput1.serializeNBT())
         compound.setTag("TankOutput2", tankOutput2.serializeNBT())
         compound.setTag(HiiragiNBTKey.BATTERY, energyStorage.serializeNBT())
-        compound.setTag(HiiragiNBTKey.MACHINE_PROPERTY, machineProperty.serializeNBT())
+        compound.setTag(HiiragiNBTKey.MACHINE_PROPERTY, machineProperty.serialize())
         material?.name?.let { name: String -> compound.setString(HiiragiNBTKey.MATERIAL, name) }
         return super.writeToNBT(compound)
     }
@@ -84,7 +87,7 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
     private val tankOutput1: ModuleMachineFluidTank = ModuleMachineFluidTank(4, this, IOControllable.Type.OUTPUT)
     private val tankOutput2: ModuleMachineFluidTank = ModuleMachineFluidTank(5, this, IOControllable.Type.OUTPUT)
 
-    fun getTank(index: Int): ModuleMachineFluidTank = when (index) {
+    fun getTank(index: Int): ModuleMachineFluidTank = when (index % 6) {
         1 -> tankInput1
         2 -> tankInput2
         3 -> tankOutput0
@@ -94,22 +97,6 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
     }
 
     val energyStorage: HiiragiEnergyStorage = HiiragiEnergyStorage(0)
-
-    private fun initMachineProperty(property: IMachineProperty) {
-        machineProperty = property
-        maxCount = property.processTime
-        inventoryInput.maxSlots = min(property.itemSlots, 6)
-        if (property.fluidSlots >= 1) {
-            tankInput0.setIOType(IOControllable.Type.INPUT)
-        }
-        if (property.fluidSlots >= 2) {
-            tankInput1.setIOType(IOControllable.Type.INPUT)
-        }
-        if (property.fluidSlots >= 3) {
-            tankInput2.setIOType(IOControllable.Type.INPUT)
-        }
-        energyStorage.setCapacity(property.getEnergyCapacity())
-    }
 
     private val listCapability: List<Capability<*>> = listOf(
         CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
@@ -158,7 +145,20 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
         stack: ItemStack
     ) {
         material = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
-        stack.getItemImplemented<IMachinePropertyItem>()?.toMachineProperty(stack)?.let(this::initMachineProperty)
+        stack.getItemImplemented<IMachinePropertyItem>()?.toMachineProperty(stack)?.let { property ->
+            machineProperty = property
+            inventoryInput.maxSlots = min(property.itemSlots, 6)
+            if (property.fluidSlots >= 1) {
+                tankInput0.setIOType(IOControllable.Type.INPUT)
+            }
+            if (property.fluidSlots >= 2) {
+                tankInput1.setIOType(IOControllable.Type.INPUT)
+            }
+            if (property.fluidSlots >= 3) {
+                tankInput2.setIOType(IOControllable.Type.INPUT)
+            }
+            energyStorage.setCapacity(property.getEnergyCapacity())
+        }
     }
 
     override fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {
@@ -167,10 +167,25 @@ class TileEntityModuleMachine : HiiragiTileEntity.Tickable(100) {
 
     //    Tickable    //
 
-    override fun onUpdateServer() {
-        HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
-            ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
-            ?.process(this)
+    var currentCount: Int = 0
+
+    fun getProgress(): Double = currentCount.toDouble() / machineProperty.processTime.toDouble()
+
+    override fun update() {
+        if (currentCount >= machineProperty.processTime) {
+            if (!world.isRemote) {
+                HiiragiNetworkWrapper.sendToAll(HiiragiMessage.Client(pos, updateTag))
+                HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
+                    ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
+                    ?.let { recipe: IMachineRecipe ->
+                        recipe.process(this)
+                        HiiragiNetworkWrapper.sendToAll(HiiragiMessage.Client(pos, updateTag))
+                    }
+            }
+            currentCount = 0
+        } else {
+            currentCount++
+        }
     }
 
 }

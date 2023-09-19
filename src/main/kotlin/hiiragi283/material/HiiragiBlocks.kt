@@ -41,6 +41,9 @@ object HiiragiBlocks {
     @JvmField
     val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine(IMachineRecipe.Type.TEST))
 
+    @JvmField
+    val MACHINE_SMELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine(IMachineRecipe.Type.SMELTER))
+
     init {
         registerTileEntity(MaterialTileEntity::class.java, "material")
         registerTileEntity(TileEntityMachineExtender::class.java, "machine_extender")

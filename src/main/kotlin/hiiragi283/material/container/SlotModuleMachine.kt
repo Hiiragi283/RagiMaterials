@@ -14,4 +14,6 @@ class SlotModuleMachine(
 ) : SlotItemHandler(itemHandler, index, xPosition, yPosition) {
     override fun isItemValid(stack: ItemStack): Boolean = tile.machineProperty.itemSlots >= slotIndex + 1
 
+    override fun isEnabled(): Boolean = tile.machineProperty.itemSlots >= slotIndex + 1
+
 }

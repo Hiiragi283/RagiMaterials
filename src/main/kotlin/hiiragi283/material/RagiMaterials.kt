@@ -89,13 +89,14 @@ object RagiMaterials : HiiragiProxy {
         //レシピの登録
         HiiragiRegistries.BLOCK.registerRecipe()
         HiiragiRegistries.ITEM.registerRecipe()
-        HiiragiRecipes.init()
         //連携の登録
         RMIntegrationCore.onInit(event)
     }
 
     @Mod.EventHandler
     override fun onPostInit(event: FMLPostInitializationEvent) {
+        //レシピの登録
+        HiiragiRecipes.init()
         //連携の登録
         RMIntegrationCore.onPostInit(event)
     }

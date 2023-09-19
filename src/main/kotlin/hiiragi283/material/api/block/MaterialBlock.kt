@@ -69,13 +69,13 @@ open class MaterialBlock(
 
     override fun registerOreDict() {
         HiiragiRegistries.MATERIAL.getValues()
-            .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
+            .filter(shape::isValid)
             .forEach { material -> OreDictionary.registerOre(shape.getOreDict(material), getItemStack(material)) }
     }
 
     override fun registerRecipe() {
         HiiragiRegistries.MATERIAL.getValues()
-            .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
+            .filter(shape::isValid)
             .forEach { material -> recipe(this, material) }
     }
 

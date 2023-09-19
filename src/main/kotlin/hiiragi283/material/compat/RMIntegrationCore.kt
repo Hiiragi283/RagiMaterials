@@ -123,7 +123,7 @@ object RMIntegrationCore : AbstractIntegration() {
         if (thaum) ThaumIntegration.onPostInit(event)
         if (thermal) ThermalIntegration.onPostInit(event)
 
-        if (Loader.isModLoaded("theoneprobe")) TheOneProbe.theOneProbeImp.registerProvider(hiiragi283.material.compat.TOPIntegration)
+        if (Loader.isModLoaded("theoneprobe")) TheOneProbe.theOneProbeImp.registerProvider(HiiragiProgressInfoProvider)
 
     }
 
