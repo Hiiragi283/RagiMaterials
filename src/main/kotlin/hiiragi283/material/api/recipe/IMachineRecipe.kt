@@ -1,8 +1,8 @@
 package hiiragi283.material.api.recipe
 
-import hiiragi283.material.api.machine.ModuleTrait
+import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.isSameWithNBT
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
@@ -12,7 +12,7 @@ interface IMachineRecipe {
 
     val type: Type
 
-    val requiredTraits: Set<ModuleTrait>
+    val requiredTraits: Set<MachineTrait>
 
     //    Inputs    //
 
@@ -71,17 +71,20 @@ interface IMachineRecipe {
                 return false
             }
         }
-        //energyStorageからエネルギーを消費できるかどうか
-        val energyRequired: Int = tile.machineProperty.getEnergyRequired()
-        if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
+        //PRIMITIVEの特性がある場合は電力チェックを飛ばせる
+        if (MachineTrait.PRIMITIVE !in tile.machineProperty.machineTraits) {
+            //energyStorageからエネルギーを消費できるかどうか
+            val energyRequired: Int = tile.machineProperty.getEnergyRequired()
+            if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
+        }
         //tileが要求された特性をすべて持っている -> true
-        return tile.machineProperty.moduleTraits.containsAll(requiredTraits)
+        return tile.machineProperty.machineTraits.containsAll(requiredTraits)
     }
 
     fun process(tile: TileEntityModuleMachine) {
         //ItemStack
         inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
-            list.forEach { stack: ItemStack -> tile.inventoryInput.extractItem(index, stack.count, false) }
+            tile.inventoryInput.extractItem(index, list[0].count, false)
         }
         outputItems.forEachIndexed { index: Int, stack: ItemStack ->
             tile.inventoryOutput.insertItem(index, stack.copy(), false)
@@ -94,7 +97,9 @@ interface IMachineRecipe {
             tile.getTank(index + 3).fill(fluidStack.copy(), true)
         }
         //Energy
-        tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
+        if (MachineTrait.PRIMITIVE !in tile.machineProperty.machineTraits) {
+            tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
+        }
     }
 
     enum class Type {
@@ -119,7 +124,9 @@ interface IMachineRecipe {
         TEST,
         NONE;
 
-        val translationKey: String = "hiiragi_machine.${this.name.lowercase()}"
+        val translationKey: String = "hiiragi_machine.${this.lowercase()}"
+
+        fun lowercase() = name.lowercase()
 
         fun getTranslatedName(material: HiiragiMaterial): String =
             I18n.format(translationKey, material.getTranslatedName())

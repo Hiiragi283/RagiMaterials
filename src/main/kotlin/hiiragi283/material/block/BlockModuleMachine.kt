@@ -2,10 +2,11 @@ package hiiragi283.material.block
 
 import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.item.ItemBlockModuleMachine
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getTile
@@ -30,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
-    "machine_${type.name.lowercase()}",
+    "machine_${type.lowercase()}",
     { TileEntityModuleMachine() }
 ) {
 
@@ -39,6 +40,13 @@ class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.
     init {
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
         HiiragiRegistries.MODULE_MACHINE.register(type, this)
+    }
+
+    fun createMachineStack(meta: Int, machineProperty: IMachineProperty): ItemStack {
+        val machineStack = ItemStack(this, 1, meta)
+        machineStack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG)
+            .setTag(HiiragiNBTKey.MACHINE_PROPERTY, machineProperty.serialize())
+        return machineStack
     }
 
     //    HiiragiBlockContainer.Holdable    //

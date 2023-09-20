@@ -89,6 +89,7 @@ object RagiMaterials : HiiragiProxy {
         //レシピの登録
         HiiragiRegistries.BLOCK.registerRecipe()
         HiiragiRegistries.ITEM.registerRecipe()
+        HiiragiRecipes.init()
         //連携の登録
         HiiragiPlugin.onInit(event)
     }
@@ -96,7 +97,7 @@ object RagiMaterials : HiiragiProxy {
     @Mod.EventHandler
     override fun onPostInit(event: FMLPostInitializationEvent) {
         //レシピの登録
-        HiiragiRecipes.init()
+        HiiragiRecipes.postInit()
         //連携の登録
         HiiragiPlugin.onPostInit(event)
     }
@@ -107,8 +108,6 @@ object RagiMaterials : HiiragiProxy {
         if (RMConfig.MATERIAL.printMaterials) {
             HiiragiRegistries.MATERIAL.getValues().forEach(LOGGER::info)
         }
-        //IMachineRecipeへの登録を停止
-        HiiragiRegistries.registerRecipe()
         //GUi操作を登録
         NetworkRegistry.INSTANCE.registerGuiHandler(Instance, HiiragiGuiHandler)
         //パケット送信の登録

@@ -1,8 +1,9 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.api.item.MaterialItem
-import hiiragi283.material.api.machine.ModuleTrait
-import hiiragi283.material.api.module.IModuleItem
+import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
@@ -17,9 +18,11 @@ object MaterialItemCasing : MaterialItem(
             .setIngredient('B', HiiragiShapes.FRAME.getOreDict(material))
             .build()
     }
-), IModuleItem {
+), IMachinePropertyItem {
 
-    //    IModuleItem    //
+    //    IMachinePropertyItem    //
+
+    override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> IMachineRecipe.Type.NONE }
 
     override val processTime: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
@@ -49,10 +52,10 @@ object MaterialItemCasing : MaterialItem(
             ?: 0
     }
 
-    override val moduleTraits: (ItemStack) -> Set<ModuleTrait> = { stack ->
+    override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.moduleTraits
+            ?.machineTraits
             ?: setOf()
     }
 

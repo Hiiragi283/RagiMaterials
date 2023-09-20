@@ -1,10 +1,15 @@
 package hiiragi283.material.gui
 
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
+import hiiragi283.material.api.gui.HiiragiGuiButton
 import hiiragi283.material.api.gui.HiiragiGuiContainer
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.container.ContainerModuleMachine
+import hiiragi283.material.network.HiiragiMessage
+import hiiragi283.material.network.HiiragiNetworkWrapper
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.hiiragiLocation
+import net.minecraft.client.gui.GuiButton
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.util.ResourceLocation
 
@@ -13,6 +18,13 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
     HiiragiGuiContainer.TileEntity<TileEntityModuleMachine>(ContainerModuleMachine(tile, player)) {
 
     override val backGround: ResourceLocation = hiiragiLocation("textures/gui/module_machine.png")
+
+    override fun initGui() {
+        super.initGui()
+        if (MachineTrait.PRIMITIVE in container.tile.machineProperty.machineTraits) {
+            addButton(Button())
+        }
+    }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawDefaultBackground()
@@ -97,5 +109,14 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
         drawFluid(container.tile.getTank(4), getSlotPosX(6), getSlotPosY(2))
         drawFluid(container.tile.getTank(5), getSlotPosX(7), getSlotPosY(2))
     }
+
+    override fun actionPerformed(button: GuiButton) {
+        if (button is Button) {
+            HiiragiNetworkWrapper.sendToServer(HiiragiMessage.ModuleMachine(container.tile.pos))
+            HiiragiNetworkWrapper.sendToServer(HiiragiMessage.Player())
+        }
+    }
+
+    inner class Button : HiiragiGuiButton(this@GuiModuleMachine, -1, getSlotPosX(4) - 1, getSlotPosY(2) - 1, 18, 18)
 
 }

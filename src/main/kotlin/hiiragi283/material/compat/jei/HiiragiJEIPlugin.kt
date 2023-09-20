@@ -34,7 +34,7 @@ class HiiragiJEIPlugin : IModPlugin {
 
         const val MATERIAL = "${RMReference.MOD_ID}.material"
 
-        fun getRecipeTypeID(type: IMachineRecipe.Type): String = "${RMReference.MOD_ID}.${type.name.lowercase()}"
+        fun getRecipeTypeID(type: IMachineRecipe.Type): String = "${RMReference.MOD_ID}.${type.lowercase()}"
 
     }
 
@@ -72,8 +72,8 @@ class HiiragiJEIPlugin : IModPlugin {
                 ContainerModuleMachine::class.java as Class<out Container>,
                 getRecipeTypeID(type),
                 0,
-                5,
                 6,
+                12,
                 36
             )
         }

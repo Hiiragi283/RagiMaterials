@@ -1,8 +1,10 @@
 package hiiragi283.material.api.registry
 
+import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.event.ShapeTypeRegistryEvent
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.createAllParts
@@ -40,10 +42,6 @@ object HiiragiRegistries {
         RECIPE_TYPE.lock()
     }
 
-    fun registerRecipe() {
-        RECIPE_TYPE.getValues().forEach(HiiragiRegistry<*, *>::lock)
-    }
-
     //    Material    //
 
     @JvmField
@@ -51,6 +49,12 @@ object HiiragiRegistries {
 
     @JvmField
     val MATERIAL_INDEX: HiiragiRegistry<Int, HiiragiMaterial> = HiiragiRegistry("Material Index")
+
+    @JvmField
+    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, MaterialBlock> = HiiragiRegistry("Material Block")
+
+    @JvmField
+    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, MaterialItem> = HiiragiRegistry("Material Item")
 
     @JvmField
     val PART: HiiragiRegistry<String, HiiragiPart> = HiiragiRegistry("Part")

@@ -3,13 +3,14 @@ package hiiragi283.material.item
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.IMachinePropertyItem
-import hiiragi283.material.api.machine.ModuleTrait
+import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.block.BlockModuleMachine
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getIntegerOrNull
+import hiiragi283.material.util.getOrCreateCompoundTag
 import hiiragi283.material.util.getTagListOrNull
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -44,7 +45,8 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
     //    IMachinePropertyItem    //
 
     private fun getMachinePropertyTag(stack: ItemStack): NBTTagCompound =
-        stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY)
+        stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG)
+            .getOrCreateCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY)
 
     override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> type }
 
@@ -64,11 +66,11 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
         getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_FLUID) ?: 0
     }
 
-    override val moduleTraits: (ItemStack) -> Set<ModuleTrait> = { stack ->
+    override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
         getMachinePropertyTag(stack).getTagListOrNull(IMachineProperty.KEY_TRAIT, Constants.NBT.TAG_STRING)
             ?.filterIsInstance<NBTTagString>()
             ?.map(NBTTagString::getString)
-            ?.map(ModuleTrait::valueOf)
+            ?.map(MachineTrait::valueOf)
             ?.toSet() ?: setOf()
     }
 

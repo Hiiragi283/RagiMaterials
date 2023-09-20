@@ -15,7 +15,7 @@ interface IMachineProperty {
     val energyRate: Int
     val itemSlots: Int
     val fluidSlots: Int
-    val moduleTraits: Set<ModuleTrait>
+    val machineTraits: Set<MachineTrait>
 
     fun getEnergyRequired(): Int = processTime * energyRate
 
@@ -28,8 +28,8 @@ interface IMachineProperty {
         tag.setInteger(KEY_ITEM, itemSlots)
         tag.setInteger(KEY_FLUID, fluidSlots)
         val tagList = NBTTagList()
-        moduleTraits
-            .map(ModuleTrait::name)
+        machineTraits
+            .map(MachineTrait::name)
             .map(::NBTTagString)
             .forEach { tagList.appendTag(it) }
         tag.setTag(KEY_TRAIT, tagList)
@@ -53,14 +53,14 @@ interface IMachineProperty {
             energyRate = tag.getIntegerOrNull(KEY_RATE) ?: 32,
             itemSlots = tag.getIntegerOrNull(KEY_ITEM) ?: 1,
             fluidSlots = tag.getIntegerOrNull(KEY_FLUID) ?: 0,
-            moduleTraits = getModuleTraits(tag)
+            machineTraits = getModuleTraits(tag)
         )
 
-        private fun getModuleTraits(tag: NBTTagCompound): Set<ModuleTrait> {
+        private fun getModuleTraits(tag: NBTTagCompound): Set<MachineTrait> {
             val tagList: NBTTagList = tag.getTagList(KEY_TRAIT, Constants.NBT.TAG_STRING)
             return (0 until tagList.tagCount())
                 .map(tagList::getStringTagAt)
-                .map(ModuleTrait::valueOf)
+                .map(MachineTrait::valueOf)
                 .toSet()
         }
 
@@ -70,14 +70,14 @@ interface IMachineProperty {
             energyRate: Int = 32,
             itemSlots: Int = 1,
             fluidSlots: Int = 0,
-            moduleTraits: Set<ModuleTrait> = mutableSetOf()
+            machineTraits: Set<MachineTrait> = mutableSetOf()
         ): IMachineProperty = object : IMachineProperty {
             override var recipeType: IMachineRecipe.Type = recipeType
             override var processTime: Int = processTime
             override var energyRate: Int = energyRate
             override var itemSlots: Int = itemSlots
             override var fluidSlots: Int = fluidSlots
-            override var moduleTraits: Set<ModuleTrait> = moduleTraits
+            override var machineTraits: Set<MachineTrait> = machineTraits
         }
 
     }

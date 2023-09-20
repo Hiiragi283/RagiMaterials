@@ -11,9 +11,9 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import kotlin.math.max
 
-abstract class HiiragiItem(id: String, maxMeta: Int) : Item(), HiiragiEntry.ITEM {
+abstract class HiiragiItem(id: String, maxMeta: Int = 0) : Item(), HiiragiEntry.ITEM {
 
-    val maxMeta: Int
+    private val maxMeta: Int
 
     init {
         setRegistryName(RMReference.MOD_ID, id)

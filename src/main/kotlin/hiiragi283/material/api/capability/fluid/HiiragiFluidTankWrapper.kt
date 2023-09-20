@@ -33,24 +33,12 @@ class HiiragiFluidTankWrapper(private val tanks: MutableList<HiiragiFluidTank>) 
         return result
     }
 
-    override fun drain(resource: FluidStack, doDrain: Boolean): FluidStack? {
-        var result: FluidStack? = null
-        for (tank: HiiragiFluidTank in tanks) {
-            if (tank.ioType.canInsert) {
-                val resultTest: FluidStack? = tank.drain(resource, false)
-                if (resultTest != null) {
-                    result = tank.drain(resource, doDrain)
-                    break
-                }
-            }
-        }
-        return result
-    }
+    override fun drain(resource: FluidStack, doDrain: Boolean): FluidStack? = drain(resource.amount, doDrain)
 
     override fun drain(maxDrain: Int, doDrain: Boolean): FluidStack? {
         var result: FluidStack? = null
         for (tank: HiiragiFluidTank in tanks) {
-            if (tank.ioType.canInsert) {
+            if (tank.ioType.canExtract) {
                 val resultTest: FluidStack? = tank.drain(maxDrain, false)
                 if (resultTest != null) {
                     result = tank.drain(maxDrain, doDrain)

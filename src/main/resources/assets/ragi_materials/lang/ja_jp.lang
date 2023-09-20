@@ -1,6 +1,6 @@
 ##    Block    ##
 
-tile.module_installer.name=モジュールインストーラ
+tile.machine_workbench.name=機械作業台
 
 ##    CreativeTab    ##
 
@@ -110,6 +110,14 @@ error.ragi_materials.crucible.no_recipe=§cレシピが見つかりませんで�
 error.ragi_materials.crucible.null_output=§c完成品が見つかりませんでした!
 
 ##    Tooltip    ##
+
+tips.ragi_materials.machine.recipe_type=- レシピタイプ: §b%s§r§7
+tips.ragi_materials.machine.process_time=- 処理時間: §b%s§r§7 tick
+tips.ragi_materials.machine.energy_rate=- 消費速度: §b%s§r§7 FE/t
+tips.ragi_materials.machine.required_energy=- 消費量: §b%s§r§7 FE/t
+tips.ragi_materials.machine.energy_capacity=- 蓄電容量: §b%s§r§7 FE
+tips.ragi_materials.machine.item_slots=- アイテムスロット: §b%s§r§7個
+tips.ragi_materials.machine.fluid_slot=- 液体スロット: §b%s§r§7個
 
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
 tips.ragi_materials.property.formula=- 化学式: §b%s§r

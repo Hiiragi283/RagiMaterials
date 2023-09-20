@@ -9,7 +9,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, 32767) {
+open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()) {
 
     val shape = block.shape
 

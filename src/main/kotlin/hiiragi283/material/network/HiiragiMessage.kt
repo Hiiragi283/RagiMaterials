@@ -7,10 +7,11 @@ import hiiragi283.material.util.writeNBTTag
 import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 
-sealed class HiiragiMessage(var pos: BlockPos = BlockPos.ORIGIN, var tag: NBTTagCompound = NBTTagCompound()) :
-    IMessage {
+sealed class HiiragiMessage(
+    override var pos: BlockPos = BlockPos.ORIGIN,
+    override var tag: NBTTagCompound = NBTTagCompound()
+) : IHiiragiMessage {
 
     override fun fromBytes(buf: ByteBuf) {
         pos = buf.readBlockPos()
@@ -25,5 +26,34 @@ sealed class HiiragiMessage(var pos: BlockPos = BlockPos.ORIGIN, var tag: NBTTag
     class Client(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
 
     class Server(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
+
+    class ModuleMachine(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) :
+        HiiragiMessage(pos, tag)
+
+    class Player : HiiragiMessage(BlockPos.ORIGIN, NBTTagCompound())
+
+    class Entity(
+        pos: BlockPos = BlockPos.ORIGIN,
+        tag: NBTTagCompound = NBTTagCompound(),
+        var entityId: Int = 0
+    ) : HiiragiMessage(pos, tag) {
+
+        constructor(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound(), entity: Entity) : this(
+            pos,
+            tag,
+            entity.entityId
+        )
+
+        override fun fromBytes(buf: ByteBuf) {
+            super.fromBytes(buf)
+            buf.writeInt(entityId)
+        }
+
+        override fun toBytes(buf: ByteBuf) {
+            super.toBytes(buf)
+            entityId = buf.readInt()
+        }
+
+    }
 
 }

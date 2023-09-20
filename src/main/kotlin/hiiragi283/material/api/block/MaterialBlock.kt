@@ -41,6 +41,7 @@ open class MaterialBlock(
     init {
         creativeTab = HiiragiCreativeTabs.MATERIAL_BLOCK
         soundType = SoundType.METAL
+        HiiragiRegistries.MATERIAL_BLOCK.register(shape, this)
     }
 
     //    General    //

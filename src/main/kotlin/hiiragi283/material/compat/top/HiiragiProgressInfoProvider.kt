@@ -2,7 +2,7 @@ package hiiragi283.material.compat.top
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.machine.IMachineProperty
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.getTile
 import mcjty.theoneprobe.api.*
 import mcjty.theoneprobe.apiimpl.styles.ProgressStyle

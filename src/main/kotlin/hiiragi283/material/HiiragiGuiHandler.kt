@@ -1,10 +1,10 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.tile.TileEntityModuleMachine
-import hiiragi283.material.block.BlockModuleInstaller
-import hiiragi283.material.container.ContainerModuleInstaller
+import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.block.BlockMachineWorkbench
+import hiiragi283.material.container.ContainerMachineWorkbench
 import hiiragi283.material.container.ContainerModuleMachine
-import hiiragi283.material.gui.GuiModuleInstaller
+import hiiragi283.material.gui.GuiMachineWorkbench
 import hiiragi283.material.gui.GuiModuleMachine
 import hiiragi283.material.util.getTile
 import net.minecraft.entity.player.EntityPlayer
@@ -33,7 +33,7 @@ object HiiragiGuiHandler : IGuiHandler {
 
             BLOCK -> {
                 when (world.getBlockState(pos).block) {
-                    is BlockModuleInstaller -> ContainerModuleInstaller(player)
+                    is BlockMachineWorkbench -> ContainerMachineWorkbench(player)
                     else -> null
                 }
             }
@@ -56,7 +56,7 @@ object HiiragiGuiHandler : IGuiHandler {
 
             BLOCK -> {
                 when (world.getBlockState(pos).block) {
-                    is BlockModuleInstaller -> GuiModuleInstaller(player)
+                    is BlockMachineWorkbench -> GuiMachineWorkbench(player)
                     else -> null
                 }
             }

@@ -1,6 +1,6 @@
 package hiiragi283.material.api.recipe
 
-import hiiragi283.material.api.machine.ModuleTrait
+import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.part.HiiragiPart
@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary
 
 class MachineRecipe(
     override val type: IMachineRecipe.Type,
-    override val requiredTraits: Set<ModuleTrait>,
+    override val requiredTraits: Set<MachineTrait>,
     override val inputItems: List<List<ItemStack>>,
     override val inputFluids: List<FluidStack>,
     override val outputItems: List<ItemStack>,
@@ -31,7 +31,7 @@ class MachineRecipe(
 
     class Builder(val type: IMachineRecipe.Type, val registryName: ResourceLocation) {
 
-        private val traits: MutableSet<ModuleTrait> = mutableSetOf()
+        private val traits: MutableSet<MachineTrait> = mutableSetOf()
         private val inputItems: MutableList<List<ItemStack>> = mutableListOf()
         private val inputFluids: MutableList<FluidStack> = mutableListOf()
         private val outputItems: MutableList<ItemStack> = mutableListOf()
@@ -45,11 +45,11 @@ class MachineRecipe(
 
         //    Traits    //
 
-        fun addTrait(vararg traits: ModuleTrait) = also {
+        fun addTrait(vararg traits: MachineTrait) = also {
             this.traits.addAll(traits)
         }
 
-        fun addTraits(traits: Collection<ModuleTrait>) = also {
+        fun addTraits(traits: Collection<MachineTrait>) = also {
             this.traits.addAll(traits)
         }
 

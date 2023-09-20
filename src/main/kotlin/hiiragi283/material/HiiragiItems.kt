@@ -9,6 +9,8 @@ import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.ItemBookRespawn
+import hiiragi283.material.item.ItemMotor
+import hiiragi283.material.item.ItemRecipeModule
 import hiiragi283.material.item.MaterialItemCasing
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.HiiragiIngredient
@@ -168,6 +170,14 @@ object HiiragiItems : HiiragiEntry.ITEM {
     @JvmField
     val MATERIAL_WIRE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.WIRE))
 
-    //    Common    //
+    //    Recipe Module    //
+
+    @JvmField
+    val MODULE_SMELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Smelter)
+
+    //    Module Item   //
+
+    @JvmField
+    val MODULE_MOTOR = HiiragiRegistries.ITEM.register(ItemMotor)
 
 }

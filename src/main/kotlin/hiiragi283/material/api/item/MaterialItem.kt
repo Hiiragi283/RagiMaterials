@@ -18,10 +18,11 @@ open class MaterialItem(
     val shape: HiiragiShape,
     val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
     val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
-) : HiiragiItem(shape.name, 32767) {
+) : HiiragiItem(shape.name, Short.MAX_VALUE.toInt()) {
 
     init {
         creativeTab = HiiragiCreativeTabs.MATERIAL_ITEM
+        HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
     }
 
     //    Client    //

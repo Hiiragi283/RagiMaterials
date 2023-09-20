@@ -5,7 +5,7 @@ import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.block.*
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.tile.TileEntityMachineExtender
@@ -36,7 +36,7 @@ object HiiragiBlocks {
     val MACHINE_EXTENDER = HiiragiRegistries.BLOCK.register(BlockMachineExtender)
 
     @JvmField
-    val MODULE_INSTALLER = HiiragiRegistries.BLOCK.register(BlockModuleInstaller)
+    val MACHINE_WORKBENCH = HiiragiRegistries.BLOCK.register(BlockMachineWorkbench)
 
     @JvmField
     val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine(IMachineRecipe.Type.TEST))

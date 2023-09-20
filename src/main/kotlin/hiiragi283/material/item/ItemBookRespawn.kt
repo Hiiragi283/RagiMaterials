@@ -12,7 +12,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 
-object ItemBookRespawn : HiiragiItem("book_respawn", 0), IRecipeModuleItem {
+object ItemBookRespawn : HiiragiItem("book_respawn"), IRecipeModuleItem {
 
     //    General    //
 

@@ -3,6 +3,7 @@ package hiiragi283.material.api.machine
 import hiiragi283.material.api.recipe.IMachineRecipe
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 
 interface IMachinePropertyItem {
 
@@ -11,14 +12,23 @@ interface IMachinePropertyItem {
     val energyRate: (ItemStack) -> Int
     val itemSlots: (ItemStack) -> Int
     val fluidSlots: (ItemStack) -> Int
-    val moduleTraits: (ItemStack) -> Set<ModuleTrait>
+    val machineTraits: (ItemStack) -> Set<MachineTrait>
 
-    fun addTooltip(stack: ItemStack, tooltip: MutableList<String>) {
+    fun getEnergyRequired(stack: ItemStack): Int = processTime(stack) * energyRate(stack)
+
+    fun getEnergyCapacity(stack: ItemStack): Int = getEnergyRequired(stack) * 5
+
+    fun addTooltip(event: ItemTooltipEvent) {
+        val stack: ItemStack = event.itemStack
+        val tooltip: MutableList<String> = event.toolTip
         tooltip.add("§e=== Machine Property ===")
-        tooltip.add(I18n.format("tips.ragi_materials.module.process_time", processTime(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.module.energy_rate", energyRate(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.module.item_slots", itemSlots(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.module.fluid_slot", fluidSlots(stack)))
+        //tooltip.add(I18n.format("tips.ragi_materials.machine.recipe_type", recipeType(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.process_time", processTime(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.energy_rate", energyRate(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.required_energy", getEnergyRequired(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.energy_capacity", getEnergyCapacity(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.item_slots", itemSlots(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.fluid_slot", fluidSlots(stack)))
     }
 
     fun toMachineProperty(stack: ItemStack): IMachineProperty {
@@ -28,7 +38,7 @@ interface IMachinePropertyItem {
             energyRate(stack),
             itemSlots(stack),
             fluidSlots(stack),
-            moduleTraits(stack).toMutableSet()
+            machineTraits(stack).toMutableSet()
         )
     }
 

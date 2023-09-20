@@ -1,10 +1,13 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.recipe.MachineRecipe
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.append
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.toLocation
@@ -18,6 +21,25 @@ import net.minecraftforge.fluids.FluidRegistry
 object HiiragiRecipes {
 
     fun init() {
+        //Primitive Machine
+        CraftingBuilder(
+            hiiragiLocation("primitive_former"),
+            HiiragiBlocks.MACHINE_SMELTER.createMachineStack(
+                MaterialCommon.STONE.index, IMachineProperty.of(
+                    processTime = Int.MAX_VALUE,
+                    energyRate = 0,
+                    machineTraits = setOf(MachineTrait.PRIMITIVE)
+                )
+            )
+        )
+            .setPattern("AAA", "ABA", "CCC")
+            .setIngredient('A', "stone")
+            .setIngredient('B', "workbench")
+            .setIngredient('C', HiiragiShapes.SLAB.getOreDict(MaterialCommon.STONE))
+            .build()
+    }
+
+    fun postInit() {
         compressor()
         freezer()
         smelter()

@@ -5,7 +5,7 @@
 		"particle": "ragi_materials:blocks/casing",
 		"middle": "ragi_materials:blocks/casing",
 		"bottom": "ragi_materials:blocks/machine_bottom",
-		"interface": "ragi_materials:blocks/module_installer"
+		"interface": "ragi_materials:blocks/machine_workbench"
 	},
 	"elements": [
 		{

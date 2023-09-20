@@ -1,7 +1,7 @@
 package hiiragi283.material.api.capability.item
 
 import hiiragi283.material.api.capability.IOControllable
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.getIntegerOrNull
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound

@@ -18,7 +18,7 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object BlockModuleInstaller : HiiragiBlock(Material.IRON, "module_installer") {
+object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") {
 
     override val itemBlock: HiiragiItemBlock = object : HiiragiItemBlock(this, 0) {
 

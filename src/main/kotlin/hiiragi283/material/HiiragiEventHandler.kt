@@ -6,7 +6,6 @@ import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialStack
-import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -131,9 +130,7 @@ object HiiragiEventHandler {
                 ?.toSet()
                 ?.forEach { it.addTooltip(event) }
 
-            event.itemStack.getItemImplemented<IModuleItem>()?.addTooltip(event.itemStack, event.toolTip)
-
-            event.itemStack.getItemImplemented<IMachinePropertyItem>()?.addTooltip(event.itemStack, event.toolTip)
+            event.itemStack.getItemImplemented<IMachinePropertyItem>()?.addTooltip(event)
 
         }
 

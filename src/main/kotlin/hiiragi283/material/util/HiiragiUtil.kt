@@ -4,14 +4,6 @@ package hiiragi283.material.util
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.machine.IMachineProperty
-import hiiragi283.material.api.machine.ModuleTrait
-import hiiragi283.material.api.module.IModuleItem
-import hiiragi283.material.api.module.IRecipeModuleItem
-import hiiragi283.material.api.recipe.IMachineRecipe
-import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.block.BlockModuleMachine
-import hiiragi283.material.item.MaterialItemBlockCasing
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -243,6 +235,14 @@ fun NBTTagCompound.getCompoundTagOrNull(key: String): NBTTagCompound? =
 fun NBTTagCompound.getTagListOrNull(key: String, type: Int): NBTTagList? =
     if (this.hasKey(key)) this.getTagList(key, type) else null
 
+fun NBTTagCompound.getOrCreateCompoundTag(key: String): NBTTagCompound = if (this.hasKey(key)) {
+    this.getCompoundTag(key)
+} else {
+    val tag = NBTTagCompound()
+    this.setTag(key, tag)
+    tag
+}
+
 //    Ore Dictionary    //
 
 //modIdに合致するItemStackを優先して返す関数
@@ -448,47 +448,4 @@ fun getEnumRarity(name: String): IRarity {
         "Epic" -> EnumRarity.EPIC
         else -> EnumRarity.COMMON
     }
-}
-
-fun installModule(casing: ItemStack, recipeModule: ItemStack, vararg modules: ItemStack): ItemStack {
-
-    val recipeType: IMachineRecipe.Type =
-        recipeModule.getItemImplemented<IRecipeModuleItem>()?.recipeType ?: return ItemStack.EMPTY
-
-    val base: IMachineProperty = casing.getItemImplemented<MaterialItemBlockCasing>()
-        ?.toMachineProperty(casing, recipeType)
-        ?: return ItemStack.EMPTY
-
-    val block: BlockModuleMachine = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType) ?: return ItemStack.EMPTY
-
-    var processTime: Int = base.processTime
-    var energyRate: Int = base.energyRate
-    var itemSlots: Int = base.itemSlots
-    var fluidSlots: Int = base.fluidSlots
-    val moduleTraits: MutableSet<ModuleTrait> = mutableSetOf()
-
-    modules.map { it.getItemImplemented<IModuleItem>() }.forEachIndexed { index: Int, iModuleItem: IModuleItem? ->
-        if (iModuleItem !== null) {
-            val stack: ItemStack = modules[index]
-            processTime += iModuleItem.processTime(stack)
-            energyRate += iModuleItem.energyRate(stack)
-            itemSlots += iModuleItem.itemSlots(stack)
-            fluidSlots += iModuleItem.fluidSlots(stack)
-            moduleTraits.addAll(iModuleItem.moduleTraits(stack))
-        }
-    }
-
-    val stack = ItemStack(block, 1, casing.metadata)
-    stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).setTag(
-        HiiragiNBTKey.MACHINE_PROPERTY, IMachineProperty.of(
-            recipeType = recipeType,
-            processTime = processTime,
-            energyRate = energyRate,
-            itemSlots = itemSlots,
-            fluidSlots = fluidSlots,
-            moduleTraits = moduleTraits
-        ).serialize()
-    )
-    return stack
-
 }

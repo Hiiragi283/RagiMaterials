@@ -2,10 +2,12 @@ package hiiragi283.material.container
 
 import hiiragi283.material.api.container.HiiragiContainer
 import hiiragi283.material.api.container.SlotOutputItemHandler
-import hiiragi283.material.api.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.SlotItemHandler
 
 
 class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
@@ -43,6 +45,19 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
             } else slot.onSlotChanged()
         }
         return stack
+    }
+
+    class SlotModuleMachine(
+        private val tile: TileEntityModuleMachine,
+        itemHandler: IItemHandler,
+        index: Int,
+        xPosition: Int,
+        yPosition: Int
+    ) : SlotItemHandler(itemHandler, index, xPosition, yPosition) {
+        override fun isItemValid(stack: ItemStack): Boolean = tile.machineProperty.itemSlots >= slotIndex + 1
+
+        override fun isEnabled(): Boolean = tile.machineProperty.itemSlots >= slotIndex + 1
+
     }
 
 }

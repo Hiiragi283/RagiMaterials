@@ -1,15 +1,18 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.api.item.MaterialItemBlock
-import hiiragi283.material.api.machine.ModuleTrait
-import hiiragi283.material.api.module.IModuleItem
+import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.block.MaterialBlockCasing
 import net.minecraft.item.ItemStack
 
-class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(block), IModuleItem {
+class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(block), IMachinePropertyItem {
 
-    //    IModuleItem    //
+    //    IMachinePropertyItem    //
+
+    override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> IMachineRecipe.Type.NONE }
 
     override val processTime: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
@@ -39,10 +42,10 @@ class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(bl
             ?: 0
     }
 
-    override val moduleTraits: (ItemStack) -> Set<ModuleTrait> = { stack ->
+    override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
             ?.machineProperty
-            ?.moduleTraits
+            ?.machineTraits
             ?: setOf()
     }
 

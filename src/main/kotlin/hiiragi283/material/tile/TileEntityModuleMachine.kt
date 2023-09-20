@@ -1,4 +1,4 @@
-package hiiragi283.material.api.tile
+package hiiragi283.material.tile
 
 import hiiragi283.material.api.capability.IOControllable
 import hiiragi283.material.api.capability.energy.HiiragiEnergyStorage
@@ -12,8 +12,7 @@ import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.network.HiiragiMessage
-import hiiragi283.material.network.HiiragiNetworkWrapper
+import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
@@ -161,18 +160,18 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
     override fun update() {
         if (currentCount >= machineProperty.processTime) {
             if (!world.isRemote) {
-                HiiragiNetworkWrapper.sendToAll(HiiragiMessage.Client(pos, updateTag))
-                HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
-                    ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
-                    ?.let { recipe: IMachineRecipe ->
-                        recipe.process(this)
-                        HiiragiNetworkWrapper.sendToAll(HiiragiMessage.Client(pos, updateTag))
-                    }
+                processRecipe()
             }
             currentCount = 0
         } else {
             currentCount++
         }
+    }
+
+    fun processRecipe() {
+        HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
+            ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
+            ?.let { recipe: IMachineRecipe -> recipe.process(this) }
     }
 
 }
