@@ -34,25 +34,29 @@ object HiiragiNetworkManager {
             Side.SERVER
         )
         HiiragiNetworkWrapper.registerMessage(
-            { message: HiiragiMessage.ModuleMachine, ctx: MessageContext ->
+            { message: HiiragiMessage.Primitive, ctx: MessageContext ->
                 syncMessage(
                     ctx.serverHandler.player.world,
                     message
-                ) { tile: TileEntity -> (tile as? TileEntityModuleMachine)?.processRecipe() }
+                ) { tile: TileEntity ->
+                    (tile as? TileEntityModuleMachine)?.processRecipe()
+                    ctx.serverHandler.player.foodStats.foodLevel -= 1
+                }
             },
-            HiiragiMessage.ModuleMachine::class.java,
+            HiiragiMessage.Primitive::class.java,
             2,
             Side.SERVER
         )
         HiiragiNetworkWrapper.registerMessage(
-            { _: HiiragiMessage.Player, ctx: MessageContext ->
-                val player = ctx.serverHandler.player
-                player.foodStats.foodLevel -= 1
-                return@registerMessage null
+            { message: HiiragiMessage.SyncCount, ctx: MessageContext ->
+                syncMessage(
+                    Minecraft.getMinecraft().world,
+                    message
+                ) { tile: TileEntity -> (tile as? TileEntityModuleMachine)?.currentCount = message.count }
             },
-            HiiragiMessage.Player::class.java,
+            HiiragiMessage.SyncCount::class.java,
             3,
-            Side.SERVER
+            Side.CLIENT
         )
     }
 

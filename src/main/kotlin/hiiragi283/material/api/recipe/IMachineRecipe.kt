@@ -3,7 +3,8 @@ package hiiragi283.material.api.recipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.tile.TileEntityModuleMachine
-import hiiragi283.material.util.isSameWithNBT
+import hiiragi283.material.util.isSame
+import hiiragi283.material.util.isSameWithoutCount
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
@@ -45,7 +46,7 @@ interface IMachineRecipe {
         for (index: Int in inputItems.indices) {
             //1つでも一致したら次のItemStackで検証
             if (inputItems[index].any { stack: ItemStack ->
-                    tile.inventoryInput.extractItem(index, stack.count, true).isSameWithNBT(stack)
+                    tile.inventoryInput.extractItem(index, stack.count, true).isSame(stack)
                 }) {
                 continue
             }
@@ -84,7 +85,12 @@ interface IMachineRecipe {
     fun process(tile: TileEntityModuleMachine) {
         //ItemStack
         inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
-            tile.inventoryInput.extractItem(index, list[0].count, false)
+            list.forEach { stack ->
+                //アイテムとメタデータが同じ場合のみ処理を行う
+                if (stack.isSameWithoutCount(tile.inventoryInput.getStackInSlot(index))) {
+                    tile.inventoryInput.extractItem(index, stack.count, false)
+                }
+            }
         }
         outputItems.forEachIndexed { index: Int, stack: ItemStack ->
             tile.inventoryOutput.insertItem(index, stack.copy(), false)

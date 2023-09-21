@@ -1,5 +1,6 @@
 package hiiragi283.material.block
 
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.machine.IMachineProperty
@@ -29,7 +30,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
+sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
     "machine_${type.lowercase()}",
     { TileEntityModuleMachine() }
@@ -38,6 +39,7 @@ class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.
     override val itemBlock: HiiragiItemBlock = ItemBlockModuleMachine(this)
 
     init {
+        creativeTab = HiiragiCreativeTabs.MACHINE
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
         HiiragiRegistries.MODULE_MACHINE.register(type, this)
     }
@@ -145,5 +147,17 @@ class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.
     override fun registerModel() {
         this.setModelSame()
     }
+
+    //    Extended Classes   //
+
+    object Extractor : BlockModuleMachine(IMachineRecipe.Type.EXTRACTOR)
+
+    object Infuser : BlockModuleMachine(IMachineRecipe.Type.INFUSER)
+
+    object Smelter : BlockModuleMachine(IMachineRecipe.Type.SMELTER)
+
+    object Test : BlockModuleMachine(IMachineRecipe.Type.TEST)
+
+
 
 }

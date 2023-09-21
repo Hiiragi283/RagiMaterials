@@ -1,14 +1,13 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.block.MaterialBlock
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
-import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.block.*
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.tile.TileEntityMachineExtender
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.fml.common.registry.GameRegistry
@@ -39,10 +38,16 @@ object HiiragiBlocks {
     val MACHINE_WORKBENCH = HiiragiRegistries.BLOCK.register(BlockMachineWorkbench)
 
     @JvmField
-    val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine(IMachineRecipe.Type.TEST))
+    val MACHINE_EXTRACTOR = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Extractor)
 
     @JvmField
-    val MACHINE_SMELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine(IMachineRecipe.Type.SMELTER))
+    val MACHINE_INFUSER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Infuser)
+
+    @JvmField
+    val MACHINE_SMELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Smelter)
+
+    @JvmField
+    val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Test)
 
     init {
         registerTileEntity(MaterialTileEntity::class.java, "material")

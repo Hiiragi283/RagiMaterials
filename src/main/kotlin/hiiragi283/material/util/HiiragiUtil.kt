@@ -19,9 +19,11 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
@@ -131,6 +133,21 @@ fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
 
 //    Fluid    //
 
+infix fun FluidStack.addAmount(amount: Int): FluidStack {
+    this.amount += amount
+    return this
+}
+
+infix fun FluidStack.removeAmount(amount: Int): FluidStack {
+    this.amount -= amount
+    return this
+}
+
+infix fun FluidStack.setAmount(amount: Int): FluidStack {
+    this.amount = amount
+    return this
+}
+
 fun FluidStack.copyKt(
     fluid: Fluid = this.fluid,
     amount: Int = this.amount,
@@ -157,6 +174,23 @@ inline fun <reified T> IBlockState.isBlockImplemented(): Boolean = this.block is
 inline fun <reified T> ItemStack.isItemImplemented(): Boolean = this.item is T
 
 //    ItemStack    //
+
+infix fun ItemStack.addCount(count: Int): ItemStack {
+    this.count += count
+    return this
+}
+
+infix fun ItemStack.removeCount(count: Int): ItemStack {
+    this.count -= count
+    return this
+}
+
+infix fun ItemStack.setCount(count: Int): ItemStack {
+    this.count = count
+    return this
+}
+
+fun Item.getBlock(): Block = if (this is ItemBlock) this.block else Blocks.AIR
 
 fun ItemStack.notEmpty(): ItemStack? = this.takeUnless(ItemStack::isEmpty)
 
@@ -251,15 +285,15 @@ fun findItemStack(
     stacks: List<ItemStack>,
     primalMod: String = "minecraft",
     secondaryMod: String = RMReference.MOD_ID
-): ItemStack = stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
+): ItemStack? = stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
         ?: stacks.firstOrNull { it.item.getCreatorModId(it) == secondaryMod }
-        ?: stacks.getOrElse(0) { ItemStack.EMPTY }
+        ?: stacks.getOrNull(0)
 
 fun findItemStack(
     oredict: String,
     primalMod: String = "minecraft",
     secondaryMod: String = RMReference.MOD_ID
-): ItemStack = findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
+): ItemStack? = findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
 
 fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
     item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }

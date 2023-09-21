@@ -1,0 +1,6 @@
+{
+  "parent": "ragi_materials:block/machine/base",
+  "textures": {
+    "front": "ragi_materials:blocks/machine/infuser"
+  }
+}

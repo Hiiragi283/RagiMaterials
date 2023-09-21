@@ -40,7 +40,7 @@ class RMJSonHandler(event: FMLPreInitializationEvent) {
             if (!sample.exists()) sample.createNewFile()
             //書き込み可能な場合
             if (sample.canWrite()) {
-                val material = materialOf("hiiragi", -1) {
+                val material = materialOf("example", -1) {
                     color = RagiMaterials.COLOR.rgb
                     fluidSupplier = { null }
                     formula = "HIIRAGI"

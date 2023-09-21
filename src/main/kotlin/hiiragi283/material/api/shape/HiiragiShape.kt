@@ -37,7 +37,8 @@ class HiiragiShape(val name: String, val scale: Int) {
 
     fun hasScale(): Boolean = scale > 0
 
-    fun isValid(material: HiiragiMaterial): Boolean = this in material.shapeType.shapes
+    fun isValid(material: HiiragiMaterial): Boolean =
+        material.shapeType == HiiragiShapeTypes.WILDCARD || this in material.shapeType.shapes
 
     override fun toString(): String = "Shape:$name"
 

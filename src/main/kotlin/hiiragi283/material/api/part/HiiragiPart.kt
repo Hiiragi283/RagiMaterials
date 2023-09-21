@@ -49,7 +49,7 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
         material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
     }
 
-    fun findItemStack(primalMod: String = "minecraft", secondaryMod: String = RMReference.MOD_ID): ItemStack =
+    fun findItemStack(primalMod: String = "minecraft", secondaryMod: String = RMReference.MOD_ID): ItemStack? =
         findItemStack(getAllItemStack(), primalMod, secondaryMod)
 
     fun getAllItemStack(): List<ItemStack> = getOreDicts().flatMap { OreDictionary.getOres(it) }

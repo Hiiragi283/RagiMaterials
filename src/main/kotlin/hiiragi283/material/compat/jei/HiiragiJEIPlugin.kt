@@ -7,7 +7,6 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.block.BlockModuleMachine
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.compat.jei.ingredients.MaterialStackHelper
 import hiiragi283.material.compat.jei.ingredients.MaterialStackRenderer
@@ -33,6 +32,7 @@ class HiiragiJEIPlugin : IModPlugin {
     companion object {
 
         const val MATERIAL = "${RMReference.MOD_ID}.material"
+        const val MACHINE_WORKBENCH = "${RMReference.MOD_ID}.machine_workbench"
 
         fun getRecipeTypeID(type: IMachineRecipe.Type): String = "${RMReference.MOD_ID}.${type.lowercase()}"
 
@@ -40,7 +40,10 @@ class HiiragiJEIPlugin : IModPlugin {
 
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
         val guiHelper: IGuiHelper = registry.jeiHelpers.guiHelper
-        registry.addRecipeCategories(HiiragiMaterialCategory(guiHelper))
+        registry.addRecipeCategories(
+            HiiragiMaterialCategory(guiHelper),
+            MachineWorkbenchCategory(guiHelper)
+        )
         IMachineRecipe.Type.values()
             .map { MachineRecipeCategory(it, guiHelper) }
             .forEach(registry::addRecipeCategories)
@@ -51,7 +54,11 @@ class HiiragiJEIPlugin : IModPlugin {
         registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
         registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
         registry.addRecipeCatalyst(ItemStack(HiiragiItems.MATERIAL_BOTTLE, 1, 32767), MATERIAL)
-        //MachineRecipe
+        //Machine Workbench
+        registry.handleRecipes(IMachineRecipe.Type::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
+        registry.addRecipes(IMachineRecipe.Type.values().toList(), MACHINE_WORKBENCH)
+        registry.addRecipeCatalyst(ItemStack(HiiragiBlocks.MACHINE_WORKBENCH), MACHINE_WORKBENCH)
+        //Machine Recipe
         IMachineRecipe.Type.values().forEach { type ->
             registry.handleRecipes(
                 IMachineRecipe::class.java,
@@ -59,15 +66,17 @@ class HiiragiJEIPlugin : IModPlugin {
                 getRecipeTypeID(type)
             )
             registry.addRecipes(
-                HiiragiRegistries.RECIPE_TYPE.getValue(type)!!.getValues(),
+                HiiragiRegistries.MACHINE_RECIPE.getValue(type)!!.getValues(),
                 getRecipeTypeID(type)
             )
             registry.addRecipeCatalyst(
                 HiiragiRegistries.MODULE_MACHINE.getValue(type)
-                    ?.let { block: BlockModuleMachine -> ItemStack(block, 1, 32767) }
-                    ?: ItemStack(HiiragiBlocks.MACHINE_TEST),
+                    ?.getItemStackWild()
+                    ?: HiiragiBlocks.MACHINE_TEST.getItemStack(),
                 getRecipeTypeID(type)
             )
+            HiiragiRegistries.RECIPE_MODULE.getValue(type)?.getItemStack()
+                ?.let { stack: ItemStack -> registry.addRecipeCatalyst(stack, getRecipeTypeID(type)) }
             registry.recipeTransferRegistry.addRecipeTransferHandler(
                 ContainerModuleMachine::class.java as Class<out Container>,
                 getRecipeTypeID(type),

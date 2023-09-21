@@ -12,6 +12,7 @@ import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.block.BlockModuleMachine
+import hiiragi283.material.item.ItemRecipeModule
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
@@ -33,14 +34,17 @@ object HiiragiRegistries {
     val MODULE_MACHINE: HiiragiRegistry<IMachineRecipe.Type, BlockModuleMachine> = HiiragiRegistry("Module Machine")
 
     @JvmField
-    val RECIPE_TYPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
+    val MACHINE_RECIPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
 
     fun initRecipeType() {
         IMachineRecipe.Type.values().forEach { type: IMachineRecipe.Type ->
-            RECIPE_TYPE.register(type, HiiragiRegistry("Machine Recipe - ${type.name}"))
+            MACHINE_RECIPE.register(type, HiiragiRegistry("Machine Recipe - ${type.name}", true))
         }
-        RECIPE_TYPE.lock()
+        MACHINE_RECIPE.lock()
     }
+
+    @JvmField
+    val RECIPE_MODULE: HiiragiRegistry<IMachineRecipe.Type, ItemRecipeModule> = HiiragiRegistry("Recipe Module")
 
     //    Material    //
 

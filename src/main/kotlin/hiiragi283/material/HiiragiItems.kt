@@ -50,9 +50,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
     ) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_BOTTLE = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.BOTTLE).also {
-        it.setCreativeTab(HiiragiCreativeTabs.BOTTLE)
-    })
+    val MATERIAL_BOTTLE = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.BOTTLE))
 
     @JvmField
     val MATERIAL_CASING =
@@ -173,7 +171,13 @@ object HiiragiItems : HiiragiEntry.ITEM {
     //    Recipe Module    //
 
     @JvmField
-    val MODULE_SMELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Smelter)
+    val RECIPE_EXTRACTOR: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Extractor)
+
+    @JvmField
+    val RECIPE_INFUSER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Infuser)
+
+    @JvmField
+    val RECIPE_SMELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Smelter)
 
     //    Module Item   //
 

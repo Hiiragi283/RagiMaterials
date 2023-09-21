@@ -1,5 +1,6 @@
 package hiiragi283.material.block
 
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.block.HiiragiBlock
 import hiiragi283.material.api.item.HiiragiItemBlock
@@ -24,6 +25,10 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
 
         override fun getForgeRarity(stack: ItemStack): IRarity = EnumRarity.EPIC
 
+    }
+
+    init {
+        creativeTab = HiiragiCreativeTabs.MACHINE
     }
 
     override fun onBlockActivated(

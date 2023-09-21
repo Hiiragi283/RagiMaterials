@@ -2,6 +2,8 @@ package hiiragi283.material.container
 
 import hiiragi283.material.api.container.HiiragiContainer
 import hiiragi283.material.api.container.SlotOutputItemHandler
+import hiiragi283.material.network.HiiragiMessage
+import hiiragi283.material.network.HiiragiNetworkWrapper
 import hiiragi283.material.tile.TileEntityModuleMachine
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
@@ -27,6 +29,7 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
         addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 4, getSlotPosX(6), getSlotPosY(1)))
         addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 5, getSlotPosX(7), getSlotPosY(1)))
         initSlotsPlayer(84)
+        HiiragiNetworkWrapper.sendToAll(HiiragiMessage.SyncCount(tile.pos, tile.currentCount))
     }
 
     override fun transferStackInSlot(player: EntityPlayer, index: Int): ItemStack {

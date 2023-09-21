@@ -6,6 +6,7 @@ tile.machine_workbench.name=Machine Workbench
 
 itemGroup.ragi_materials.bottle=RagiMaterials - Bottles
 itemGroup.ragi_materials.common=RagiMaterials - Common
+itemGroup.ragi_materials.machine=RagiMaterials - Machines
 itemGroup.ragi_materials.material_block=RagiMaterials - Blocks
 itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
@@ -17,6 +18,8 @@ item.recipe_module_smelter.name=Recipe Module (Smelter)
 ##    JEI Tab    ##
 
 gui.ragi_materials.material=Material
+
+gui.ragi_materials.machine_workbench=Machine Workbench
 
 gui.ragi_materials.bending=Bending Machine
 gui.ragi_materials.canning=Canning Machine
@@ -121,6 +124,7 @@ tips.ragi_materials.machine.required_energy=- Required Energy: §b%s§r§7 FE/t
 tips.ragi_materials.machine.energy_capacity=- Energy Capacity: §b%s§r§7 FE
 tips.ragi_materials.machine.item_slots=- Item Slot: §b%s§r§7
 tips.ragi_materials.machine.fluid_slot=- Fluid Slot: §b%s§r§7
+tips.ragi_materials.machine.machine_traits=- Machine Traits: §b%s§r§7
 
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
@@ -135,6 +139,8 @@ tips.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
 hiiragi_material.empty=EMPTY
 
 ###   Elements   ###
+
+hiiragi_material.hiiragi=Hiiragi R. Tsubasa
 
 hiiragi_material.hydrogen=Hydrogen
 hiiragi_material.helium=Helium

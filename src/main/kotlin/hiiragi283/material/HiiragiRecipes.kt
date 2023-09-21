@@ -2,21 +2,24 @@ package hiiragi283.material
 
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
+import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.recipe.MachineRecipe
+import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.append
-import hiiragi283.material.util.hiiragiLocation
-import hiiragi283.material.util.toLocation
+import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.util.*
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 
 object HiiragiRecipes {
 
@@ -34,13 +37,14 @@ object HiiragiRecipes {
         )
             .setPattern("AAA", "ABA", "CCC")
             .setIngredient('A', "stone")
-            .setIngredient('B', "workbench")
+            .setIngredient('B', HiiragiItems.RECIPE_SMELTER.getItemStack())
             .setIngredient('C', HiiragiShapes.SLAB.getOreDict(MaterialCommon.STONE))
             .build()
     }
 
     fun postInit() {
         compressor()
+        extractor()
         freezer()
         smelter()
         rockGenerator()
@@ -52,6 +56,62 @@ object HiiragiRecipes {
             .addInput(Blocks.ICE, count = 3)
             .addOutput(Blocks.PACKED_ICE)
             .buildAndRegister()
+    }
+
+    private fun extractor() {
+        fun addPrimitive(stone: Block, meta: Int = 0, materials: List<HiiragiMaterial>) {
+            val stack = ItemStack(stone, 8, meta)
+            val builder = MachineRecipe.Builder(
+                IMachineRecipe.Type.EXTRACTOR,
+                stack.toLocation().append("_primitive")
+            )
+            builder.addTrait(MachineTrait.PRIMITIVE)
+            builder.addInput(stack, count = 8)
+            materials.getOrNull(0)?.let { builder.addOutput(HiiragiShapes.DUST, it, 4) }
+            materials.getOrNull(1)?.let { builder.addOutput(HiiragiShapes.DUST, it, 2) }
+            materials.getOrNull(2)?.let { builder.addOutput(HiiragiShapes.DUST, it, 1) }
+            builder.buildAndRegister()
+        }
+        //Cobblestone -> Iron, Nickel
+        addPrimitive(
+            Blocks.COBBLESTONE,
+            0,
+            listOf(
+                MaterialElements.IRON,
+                MaterialElements.NICKEL,
+
+                )
+        )
+        //Granite -> Copper, Manganese, Gold
+        addPrimitive(
+            Blocks.STONE,
+            1,
+            listOf(
+                MaterialElements.COPPER,
+                MaterialElements.MANGANESE,
+                MaterialElements.GOLD
+            )
+        )
+        //Diorite -> Tin, Lead, Cobalt
+        addPrimitive(
+            Blocks.STONE,
+            3,
+            listOf(
+                MaterialElements.TIN,
+                MaterialElements.LEAD,
+                MaterialElements.COBALT
+            )
+        )
+        //Andesite -> Zinc, Silver, Chrome
+        addPrimitive(
+            Blocks.STONE,
+            5,
+            listOf(
+                MaterialElements.ZINC,
+                MaterialElements.SILVER,
+                MaterialElements.CHROMIUM
+            )
+        )
     }
 
     private fun freezer() {
@@ -66,7 +126,7 @@ object HiiragiRecipes {
     }
 
     private fun rockGenerator() {
-        fun addCopyRecipe(stone: Block, meta: Int = 0, water: Int = 0, lava: Int = 0) {
+        fun addCopy(stone: Block, meta: Int = 0, water: Int = 0, lava: Int = 0) {
             val stack = ItemStack(stone, 1, meta)
             MachineRecipe.Builder(IMachineRecipe.Type.ROCK_GENERATOR, stack.toLocation())
                 .addInput(stack)
@@ -75,19 +135,25 @@ object HiiragiRecipes {
                 .addOutput(stack)
                 .buildAndRegister()
         }
-        addCopyRecipe(Blocks.STONE)
-        addCopyRecipe(Blocks.STONE, 1)
-        addCopyRecipe(Blocks.STONE, 3)
-        addCopyRecipe(Blocks.STONE, 5)
-        addCopyRecipe(Blocks.COBBLESTONE)
-        addCopyRecipe(Blocks.OBSIDIAN, 0, 1000, 1000)
-        addCopyRecipe(Blocks.NETHERRACK, lava = 1)
-        addCopyRecipe(Blocks.END_STONE, water = 1)
+        addCopy(Blocks.STONE)
+        addCopy(Blocks.STONE, 1)
+        addCopy(Blocks.STONE, 3)
+        addCopy(Blocks.STONE, 5)
+        addCopy(Blocks.COBBLESTONE)
+        addCopy(Blocks.OBSIDIAN, 0, 1000, 1000)
+        addCopy(Blocks.NETHERRACK, lava = 1)
+        addCopy(Blocks.END_STONE, water = 1)
     }
 
     private fun smelter() {
         //かまどレシピの自動インポート
-        FurnaceRecipes.instance().smeltingList.forEach { (input: ItemStack, output: ItemStack) ->
+        //インプットがDUST, アウトプットがINGOTのものは除外される
+        FurnaceRecipes.instance().smeltingList.toList()
+            .filter { (input: ItemStack, output: ItemStack) ->
+                HiiragiShapes.DUST !in input.getParts()
+                    .map(HiiragiPart::shape) && HiiragiShapes.INGOT !in output.getParts().map(HiiragiPart::shape)
+            }
+            .forEach { (input: ItemStack, output: ItemStack) ->
             MachineRecipe.Builder(IMachineRecipe.Type.SMELTER, input.toLocation().append("_furnace"))
                 .addInput(input)
                 .addOutput(output)
@@ -216,10 +282,38 @@ object HiiragiRecipes {
             .addOutput(Blocks.DIRT)
             .addOutputFluid(MaterialElements.HYDROGEN, 4000)
             .buildAndRegister()
-        /*MachineRecipe.Builder(IMachineRecipe.Type.TEST, hiiragiLocation("water_test"))
-            .addInputFluid(FluidRegistry.WATER, 1000)
-            .addOutputBlock(Blocks.ICE)
-            .buildAndRegister()*/
+        HiiragiRegistries.MACHINE_RECIPE.getValue(IMachineRecipe.Type.TEST)
+            ?.register(hiiragiLocation("test_impl"), TestImpl)
+    }
+
+    object TestImpl : IMachineRecipe {
+
+        override val type: IMachineRecipe.Type = IMachineRecipe.Type.TEST
+        override val requiredTraits: Set<MachineTrait> = setOf()
+        override val inputItems: List<List<ItemStack>> = listOf(
+            listOf(ItemStack(Items.DIAMOND_PICKAXE)),
+            listOf(ItemStack(Blocks.OBSIDIAN))
+        )
+        override val inputFluids: List<FluidStack> = listOf()
+        override val outputItems: List<ItemStack> = listOf(ItemStack(Blocks.DIAMOND_BLOCK))
+        override val outputFluids: List<FluidStack> = listOf()
+
+        override fun matches(tile: TileEntityModuleMachine): Boolean {
+            super.validate()
+            return when {
+                tile.inventoryInput.getStackInSlot(0).item != Items.DIAMOND_PICKAXE -> false
+                tile.inventoryInput.getStackInSlot(1).item.getBlock() != Blocks.OBSIDIAN -> false
+                !tile.inventoryOutput.insertItem(0, outputItems[0], true).isEmpty -> false
+                else -> true
+            }
+        }
+
+        override fun process(tile: TileEntityModuleMachine) {
+            tile.inventoryInput.getStackInSlot(0).itemDamage += 1
+            tile.inventoryInput.extractItem(1, 1, false)
+            tile.inventoryOutput.insertItem(0, outputItems[0], false)
+        }
+
     }
 
 }

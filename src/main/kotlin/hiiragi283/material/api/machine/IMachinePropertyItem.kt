@@ -4,6 +4,7 @@ import hiiragi283.material.api.recipe.IMachineRecipe
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
+import kotlin.math.max
 
 interface IMachinePropertyItem {
 
@@ -18,6 +19,16 @@ interface IMachinePropertyItem {
 
     fun getEnergyCapacity(stack: ItemStack): Int = getEnergyRequired(stack) * 5
 
+    fun getMachineTraitsString(stack: ItemStack): String {
+        val builder = StringBuilder()
+        machineTraits(stack).forEach { trait ->
+            builder.append(trait)
+            builder.append(", ")
+        }
+        builder.setLength(max(0, builder.length - 2))
+        return builder.toString()
+    }
+
     fun addTooltip(event: ItemTooltipEvent) {
         val stack: ItemStack = event.itemStack
         val tooltip: MutableList<String> = event.toolTip
@@ -29,6 +40,7 @@ interface IMachinePropertyItem {
         tooltip.add(I18n.format("tips.ragi_materials.machine.energy_capacity", getEnergyCapacity(stack)))
         tooltip.add(I18n.format("tips.ragi_materials.machine.item_slots", itemSlots(stack)))
         tooltip.add(I18n.format("tips.ragi_materials.machine.fluid_slot", fluidSlots(stack)))
+        tooltip.add(I18n.format("tips.ragi_materials.machine.machine_traits", getMachineTraitsString(stack)))
     }
 
     fun toMachineProperty(stack: ItemStack): IMachineProperty {

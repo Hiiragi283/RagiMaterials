@@ -3,6 +3,7 @@ package hiiragi283.material
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialStack
@@ -37,6 +38,8 @@ object HiiragiEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun registerMaterials(event: MaterialRegistryEvent) {
+
+        HiiragiMaterial.HIIRAGI.register()
 
         RagiMaterials.LOGGER.info("Registering Elemental Materials...")
         MaterialElements.register()

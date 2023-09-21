@@ -6,6 +6,7 @@ tile.machine_workbench.name=機械作業台
 
 itemGroup.ragi_materials.bottle=RagiMaterials - ボトル
 itemGroup.ragi_materials.bottle=RagiMaterials - 一般
+itemGroup.ragi_materials.machine=RagiMaterials - 機械
 itemGroup.ragi_materials.material_block=RagiMaterials - ブロック
 itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
@@ -17,6 +18,8 @@ item.book_respawn.name=[開発用] リスポーン本
 ##    JEI Tab    ##
 
 gui.ragi_materials.material=素材
+
+gui.ragi_materials.machine_workbench=機械作業台
 
 gui.ragi_materials.bending=圧延機
 gui.ragi_materials.canning=缶詰機
@@ -118,6 +121,7 @@ tips.ragi_materials.machine.required_energy=- 消費量: §b%s§r§7 FE/t
 tips.ragi_materials.machine.energy_capacity=- 蓄電容量: §b%s§r§7 FE
 tips.ragi_materials.machine.item_slots=- アイテムスロット: §b%s§r§7個
 tips.ragi_materials.machine.fluid_slot=- 液体スロット: §b%s§r§7個
+tips.ragi_materials.machine.machine_traits=- 特性: §b%s§r§7
 
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
 tips.ragi_materials.property.formula=- 化学式: §b%s§r
@@ -130,6 +134,8 @@ tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 ##    Material    ##
 
 ###   Elements   ###
+
+hiiragi_material.hiiragi=柊ラッセルつばさ
 
 hiiragi_material.hydrogen=水素
 hiiragi_material.helium=ヘリウム

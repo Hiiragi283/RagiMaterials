@@ -1,5 +1,6 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.part.HiiragiPart
@@ -57,12 +58,6 @@ data class HiiragiMaterial(
     var fluidBlock: Block? = null
     var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
     var machineProperty: IMachineProperty? = null
-
-    companion object {
-        @JvmField
-        val UNKNOWN = formulaOf("?")
-    }
-
     fun addBracket() = copy(formula = "($formula)")
 
     fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
@@ -152,12 +147,24 @@ data class HiiragiMaterial(
 
     override fun toString(): String = "Material:$name"
 
+    companion object {
+
+        @JvmField
+        val UNKNOWN = formulaOf("?")
+
+        @JvmField
+        val HIIRAGI = materialOf("hiiragi", 0) {
+            color = RagiMaterials.COLOR.rgb
+            shapeType = HiiragiShapeTypes.WILDCARD
+        }
+
+    }
+
     //    Registration    //
 
     fun register() {
         HiiragiRegistries.MATERIAL.register(name, this)
         HiiragiRegistries.MATERIAL_INDEX.register(index, this)
     }
-
 
 }

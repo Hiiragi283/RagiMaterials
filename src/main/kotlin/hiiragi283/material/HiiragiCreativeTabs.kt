@@ -1,6 +1,5 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.material.MaterialElements
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -8,15 +7,15 @@ import net.minecraft.item.ItemStack
 
 object HiiragiCreativeTabs {
 
-    val BOTTLE by lazy {
-        object : CreativeTabs("${RMReference.MOD_ID}.bottle") {
-            override fun createIcon(): ItemStack = HiiragiItems.MATERIAL_BOTTLE.getItemStack(MaterialElements.HYDROGEN)
+    val COMMON by lazy {
+        object : CreativeTabs("${RMReference.MOD_ID}.common") {
+            override fun createIcon(): ItemStack = ItemStack(HiiragiItems.BOOK_RESPAWN)
         }
     }
 
-    val COMMON by lazy {
-        object : CreativeTabs("${RMReference.MOD_ID}.common") {
-            override fun createIcon(): ItemStack = ItemStack.EMPTY
+    val MACHINE by lazy {
+        object : CreativeTabs("${RMReference.MOD_ID}.machine") {
+            override fun createIcon(): ItemStack = HiiragiBlocks.MACHINE_SMELTER.getItemStack()
         }
     }
 

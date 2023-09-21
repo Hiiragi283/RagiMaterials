@@ -169,7 +169,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
     }
 
     fun processRecipe() {
-        HiiragiRegistries.RECIPE_TYPE.getValue(machineProperty.recipeType)?.getValues()
+        HiiragiRegistries.MACHINE_RECIPE.getValue(machineProperty.recipeType)?.getValues()
             ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
             ?.let { recipe: IMachineRecipe -> recipe.process(this) }
     }

@@ -1,6 +1,6 @@
 package hiiragi283.material.api.registry
 
-open class HiiragiRegistry<K, V>(val name: String) {
+open class HiiragiRegistry<K, V>(val name: String, private val removable: Boolean = false) {
 
     private val registry: LinkedHashMap<K, V> = linkedMapOf()
 
@@ -18,13 +18,19 @@ open class HiiragiRegistry<K, V>(val name: String) {
 
     fun getRegistry(): Map<K, V> = registry.toMap()
 
-    fun <T : V> register(key: K, value: T): T {
-        if (isLocked) throw IllegalStateException("[$name] This registry is locked!")
-        else if (registry.containsKey(key)) throw IllegalStateException("[$name] The key: $key is already registered!")
-        else {
+    fun <T : V> register(key: K, value: T): T = when {
+        isLocked -> throw IllegalStateException("[$name] This registry is locked!")
+        registry.containsKey(key) -> throw IllegalStateException("[$name] The key: $key is already registered!")
+        else -> {
             registry[key] = value
-            return value
+            value
         }
+    }
+
+    fun remove(key: K): V? = when {
+        !removable -> throw IllegalStateException("[$name] This registry cannot remove entry!")
+        !registry.containsKey(key) -> throw IllegalStateException("[$name] The key: $key is not registered!")
+        else -> registry.remove(key)
     }
 
     fun <T : Comparable<T>> sort(sorter: (Pair<K, V>) -> T) {

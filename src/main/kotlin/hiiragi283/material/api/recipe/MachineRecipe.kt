@@ -7,6 +7,7 @@ import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.ItemStackComparable
+import hiiragi283.material.util.setCount
 import hiiragi283.material.util.findItemStack
 import hiiragi283.material.util.toComparable
 import net.minecraft.block.Block
@@ -18,6 +19,9 @@ import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.oredict.OreDictionary
 
+/**
+ * non-NBT sensitive implementation of [IMachineRecipe]
+ */
 class MachineRecipe(
     override val type: IMachineRecipe.Type,
     override val requiredTraits: Set<MachineTrait>,
@@ -40,7 +44,7 @@ class MachineRecipe(
         fun buildAndRegister() {
             val recipe = MachineRecipe(type, traits, inputItems, inputFluids, outputItems, outputFluids)
             recipe.validate()
-            HiiragiRegistries.RECIPE_TYPE.getValue(type)?.register(registryName, recipe)
+            HiiragiRegistries.MACHINE_RECIPE.getValue(type)?.register(registryName, recipe)
         }
 
         //    Traits    //
@@ -55,23 +59,34 @@ class MachineRecipe(
 
         //    Input - Item    //
 
-        fun addInput(vararg stacks: ItemStack) = also {
-            this.inputItems.add(listOf(*stacks))
+        //個数を揃え，NBTタグを消したうえで登録する
+        fun addInput(vararg stacks: ItemStack, count: Int = 1) = also {
+            this.inputItems.add(stacks
+                .map { stack: ItemStack -> stack.toComparable(count = count, tag = null) }
+                .toSet()
+                .map(ItemStackComparable::toItemStack)
+            )
         }
 
-        fun addInput(vararg items: Item, count: Int = 1) = also {
-            this.inputItems.add(items.map { item: Item -> ItemStack(item, count, 0) })
+        fun addInput(vararg items: Item, count: Int = 1, meta: Int = 0) = also {
+            this.inputItems.add(items.map { item: Item -> ItemStackComparable(item, count, meta) }
+                .toSet()
+                .map(ItemStackComparable::toItemStack)
+            )
         }
 
-        fun addInput(vararg blocks: Block, count: Int = 1) = also {
-            this.inputItems.add(blocks.map { block: Block -> ItemStack(block, count, 0) })
+        fun addInput(vararg blocks: Block, count: Int = 1, meta: Int = 0) = also {
+            this.inputItems.add(blocks.map { block: Block -> ItemStackComparable(block, count, meta) }
+                .toSet()
+                .map(ItemStackComparable::toItemStack)
+            )
         }
 
         fun addInput(vararg oreDict: String, count: Int = 1) = also {
             this.inputItems.add(oreDict.flatMap(OreDictionary::getOres)
-                .map { stack: ItemStack -> stack.toComparable(count = 1) }
+                .map { stack: ItemStack -> stack.toComparable(count = 1, tag = null) }
                 .toSet()
-                .map { stackComparable: ItemStackComparable -> stackComparable.toItemStack(count) })
+                .map(ItemStackComparable::toItemStack))
         }
 
         fun addInput(part: HiiragiPart, count: Int = 1) = also {
@@ -127,17 +142,13 @@ class MachineRecipe(
         }
 
         fun addOutput(oreDict: String, count: Int = 1) = also {
-            addOutput(findItemStack(oreDict).let { stack ->
-                stack.count = count
-                return@let stack
-            })
+            val stack: ItemStack = findItemStack(oreDict) ?: return@also
+            addOutput(stack setCount count)
         }
 
         fun addOutput(part: HiiragiPart, count: Int = 1) = also {
-            addOutput(part.findItemStack().let { stack ->
-                stack.count = count
-                return@let stack
-            })
+            val stack: ItemStack = part.findItemStack() ?: return@also
+            addOutput(stack setCount count)
         }
 
         fun addOutput(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) = also {

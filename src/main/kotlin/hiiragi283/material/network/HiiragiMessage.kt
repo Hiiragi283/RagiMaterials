@@ -27,8 +27,21 @@ sealed class HiiragiMessage(
 
     class Server(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
 
-    class ModuleMachine(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) :
-        HiiragiMessage(pos, tag)
+    class Primitive(pos: BlockPos = BlockPos.ORIGIN) : HiiragiMessage(pos, NBTTagCompound())
+
+    class SyncCount(pos: BlockPos = BlockPos.ORIGIN, var count: Int = 0): HiiragiMessage(pos, NBTTagCompound()) {
+
+        override fun fromBytes(buf: ByteBuf) {
+            super.fromBytes(buf)
+            count = buf.readInt()
+        }
+
+        override fun toBytes(buf: ByteBuf) {
+            super.toBytes(buf)
+            buf.writeInt(count)
+        }
+
+    }
 
     class Player : HiiragiMessage(BlockPos.ORIGIN, NBTTagCompound())
 

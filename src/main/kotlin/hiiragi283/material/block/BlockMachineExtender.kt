@@ -1,5 +1,6 @@
 package hiiragi283.material.block
 
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.tile.TileEntityMachineExtender
 import net.minecraft.block.BlockHorizontal
@@ -21,6 +22,7 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
 ) {
 
     init {
+        creativeTab = HiiragiCreativeTabs.MACHINE
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
     }
 

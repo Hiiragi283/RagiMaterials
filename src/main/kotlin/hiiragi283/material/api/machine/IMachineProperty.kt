@@ -44,7 +44,7 @@ interface IMachineProperty {
         const val KEY_RATE = "EnergyRate"
         const val KEY_ITEM = "ItemSlots"
         const val KEY_FLUID = "FluidSlots"
-        const val KEY_TRAIT = "ModuleTraits"
+        const val KEY_TRAIT = "MachineTraits"
 
         fun of(tag: NBTTagCompound) = of(
             recipeType = tag.getStringOrNull(KEY_TYPE)?.let { IMachineRecipe.Type.valueOf(it) }

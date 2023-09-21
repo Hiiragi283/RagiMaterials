@@ -112,8 +112,7 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
 
     override fun actionPerformed(button: GuiButton) {
         if (button is Button) {
-            HiiragiNetworkWrapper.sendToServer(HiiragiMessage.ModuleMachine(container.tile.pos))
-            HiiragiNetworkWrapper.sendToServer(HiiragiMessage.Player())
+            HiiragiNetworkWrapper.sendToServer(HiiragiMessage.Primitive(container.tile.pos))
         }
     }
 
