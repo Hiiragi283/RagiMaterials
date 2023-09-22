@@ -27,7 +27,7 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
         translationKey = id
     }
 
-    override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, 0)
+    override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this)
 
     fun openGui(player: EntityPlayer, world: World, pos: BlockPos) {
         if (!world.isRemote) player.openGui(

@@ -9,4 +9,10 @@ interface IHiiragiMessage : IMessage{
     var pos: BlockPos
     var tag: NBTTagCompound
 
+    interface Entity : IHiiragiMessage {
+
+        var entityId: Int
+
+    }
+
 }

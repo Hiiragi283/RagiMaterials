@@ -136,11 +136,9 @@ tips.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
 
 ##    Material    ##
 
-hiiragi_material.empty=EMPTY
+hiiragi_material.russell=Hiiragi R. Tsubasa
 
 ###   Elements   ###
-
-hiiragi_material.hiiragi=Hiiragi R. Tsubasa
 
 hiiragi_material.hydrogen=Hydrogen
 hiiragi_material.helium=Helium

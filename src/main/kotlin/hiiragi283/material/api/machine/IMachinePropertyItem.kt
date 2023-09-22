@@ -1,9 +1,9 @@
 package hiiragi283.material.api.machine
 
 import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.util.isShiftPressed
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
-import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.max
 
 interface IMachinePropertyItem {
@@ -29,18 +29,20 @@ interface IMachinePropertyItem {
         return builder.toString()
     }
 
-    fun addTooltip(event: ItemTooltipEvent) {
-        val stack: ItemStack = event.itemStack
-        val tooltip: MutableList<String> = event.toolTip
+    fun addTooltip(stack: ItemStack, tooltip: MutableList<String>) {
         tooltip.add("§e=== Machine Property ===")
-        //tooltip.add(I18n.format("tips.ragi_materials.machine.recipe_type", recipeType(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.process_time", processTime(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.energy_rate", energyRate(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.required_energy", getEnergyRequired(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.energy_capacity", getEnergyCapacity(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.item_slots", itemSlots(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.fluid_slot", fluidSlots(stack)))
-        tooltip.add(I18n.format("tips.ragi_materials.machine.machine_traits", getMachineTraitsString(stack)))
+        if (isShiftPressed()) {
+            //tooltip.add(I18n.format("tips.ragi_materials.machine.recipe_type", recipeType(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.process_time", processTime(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.energy_rate", energyRate(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.required_energy", getEnergyRequired(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.energy_capacity", getEnergyCapacity(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.item_slots", itemSlots(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.fluid_slot", fluidSlots(stack)))
+            tooltip.add(I18n.format("tips.ragi_materials.machine.machine_traits", getMachineTraitsString(stack)))
+        } else {
+            tooltip.add("Hold §bShift§r for Property")
+        }
     }
 
     fun toMachineProperty(stack: ItemStack): IMachineProperty {
@@ -50,7 +52,7 @@ interface IMachinePropertyItem {
             energyRate(stack),
             itemSlots(stack),
             fluidSlots(stack),
-            machineTraits(stack).toMutableSet()
+            machineTraits(stack).toSet()
         )
     }
 

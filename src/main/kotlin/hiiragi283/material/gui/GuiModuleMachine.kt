@@ -52,10 +52,6 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
         renderHoveredToolTip(mouseX, mouseY)
     }
 
-    private fun drawFluidTooltip(tank: HiiragiFluidTank, mouseX: Int, mouseY: Int) {
-        drawFluidTooltip(tank.fluid, mouseX, mouseY)
-    }
-
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY)
         //Input Slots

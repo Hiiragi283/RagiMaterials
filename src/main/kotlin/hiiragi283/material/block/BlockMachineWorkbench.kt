@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") {
 
-    override val itemBlock: HiiragiItemBlock = object : HiiragiItemBlock(this, 0) {
+    override val itemBlock: HiiragiItemBlock = object : HiiragiItemBlock(this) {
 
         override fun getForgeRarity(stack: ItemStack): IRarity = EnumRarity.EPIC
 

@@ -17,6 +17,7 @@ import mezz.jei.api.IModPlugin
 import mezz.jei.api.IModRegistry
 import mezz.jei.api.JEIPlugin
 import mezz.jei.api.ingredients.IModIngredientRegistration
+import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.inventory.Container
@@ -39,14 +40,19 @@ class HiiragiJEIPlugin : IModPlugin {
     }
 
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
+
         val guiHelper: IGuiHelper = registry.jeiHelpers.guiHelper
-        registry.addRecipeCategories(
-            HiiragiMaterialCategory(guiHelper),
-            MachineWorkbenchCategory(guiHelper)
-        )
+        val list: MutableList<IRecipeCategory<*>> = mutableListOf()
+
+        list.add(HiiragiMaterialCategory(guiHelper))
+        list.add(MachineWorkbenchCategory(guiHelper))
+
         IMachineRecipe.Type.values()
             .map { MachineRecipeCategory(it, guiHelper) }
-            .forEach(registry::addRecipeCategories)
+            .forEach(list::add)
+
+        registry.addRecipeCategories(*list.toTypedArray())
+
     }
 
     override fun register(registry: IModRegistry) {

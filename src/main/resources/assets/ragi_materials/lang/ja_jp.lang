@@ -133,9 +133,9 @@ tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 
 ##    Material    ##
 
-###   Elements   ###
+hiiragi_material.russell=柊ラッセルつばさ
 
-hiiragi_material.hiiragi=柊ラッセルつばさ
+###   Elements   ###
 
 hiiragi_material.hydrogen=水素
 hiiragi_material.helium=ヘリウム

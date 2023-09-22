@@ -14,62 +14,62 @@ object HiiragiPlugin : IHiiragiPlugin {
     private fun enableIntegration(name: String, config: Boolean): Boolean =
         RMConfig.INTEGRATION.forceIntegration || (Loader.isModLoaded(name) && config)
 
-    private val botania by lazy { enableIntegration("botania", RMConfig.INTEGRATION.botania) }
-    private val embers by lazy { enableIntegration("embers", RMConfig.INTEGRATION.embers) }
-    private val enderIO by lazy { enableIntegration("enderio", RMConfig.INTEGRATION.enderIO) }
-    private val ic2Ex by lazy { enableIntegration("ic2", RMConfig.INTEGRATION.ic2Ex) }
-    private val mekanism by lazy { enableIntegration("mekanism", RMConfig.INTEGRATION.mekanism) }
-    private val projectRed by lazy { enableIntegration("projectred-core", RMConfig.INTEGRATION.projectRed) }
-    private val railCraft by lazy { enableIntegration("railcraft", RMConfig.INTEGRATION.railCraft) }
-    private val tCon by lazy { enableIntegration("tconstruct", RMConfig.INTEGRATION.tCon) }
-    private val thaum by lazy { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
-    private val thermal by lazy { enableIntegration("thermalfoundation", RMConfig.INTEGRATION.thermal) }
-    private val top by lazy { enableIntegration("theoneprobe", true) }
+    private val botania = { enableIntegration("botania", RMConfig.INTEGRATION.botania) }
+    private val embers = { enableIntegration("embers", RMConfig.INTEGRATION.embers) }
+    private val enderIO = { enableIntegration("enderio", RMConfig.INTEGRATION.enderIO) }
+    private val ic2Ex = { enableIntegration("ic2", RMConfig.INTEGRATION.ic2Ex) }
+    private val mekanism = { enableIntegration("mekanism", RMConfig.INTEGRATION.mekanism) }
+    private val projectRed = { enableIntegration("projectred-core", RMConfig.INTEGRATION.projectRed) }
+    private val railCraft = { enableIntegration("railcraft", RMConfig.INTEGRATION.railCraft) }
+    private val tCon = { enableIntegration("tconstruct", RMConfig.INTEGRATION.tCon) }
+    private val thaum = { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
+    private val thermal = { enableIntegration("thermalfoundation", RMConfig.INTEGRATION.thermal) }
+    private val top = { enableIntegration("theoneprobe", true) }
 
     private val list: MutableList<IHiiragiPlugin> = mutableListOf(HiiragiVanillaPlugin)
 
     override fun onConstruct(event: FMLConstructionEvent) {
-        if (botania) {
+        if (botania()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Botania")
             list.add(HiiragiBotaniaPlugin)
         }
-        if (embers) {
+        if (embers()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Embers")
             list.add(HiiragiEmbersPlugin)
         }
-        if (enderIO) {
+        if (enderIO()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Ender IO")
             list.add(HiiragiEnderIOPlugin)
         }
-        if (ic2Ex) {
+        if (ic2Ex()) {
             RagiMaterials.LOGGER.info("Integration Enabled: IC2ex")
             list.add(HiiragiIC2exPlugin)
         }
-        if (mekanism) {
+        if (mekanism()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Mekanism")
             list.add(HiiragiMekanismPlugin)
         }
-        if (projectRed) {
+        if (projectRed()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Project Red")
             list.add(HiiragiProjectRedPlugin)
         }
-        if (railCraft) {
+        if (railCraft()) {
             RagiMaterials.LOGGER.info("Integration Enabled: RailCraft")
             list.add(HiiragiRailCraftPlugin)
         }
-        if (tCon) {
+        if (tCon()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Tinker's Construct")
             list.add(HiiragiTConPlugin)
         }
-        if (thaum) {
+        if (thaum()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Thaumcraft")
             list.add(HiiragiThaumPlugin)
         }
-        if (thermal) {
+        if (thermal()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Thermal Series")
             list.add(HiiragiThermalPlugin)
         }
-        if (top) {
+        if (top()) {
             RagiMaterials.LOGGER.info("Integration Enabled: Thermal Series")
             list.add(HiiragiTOPPlugin)
         }

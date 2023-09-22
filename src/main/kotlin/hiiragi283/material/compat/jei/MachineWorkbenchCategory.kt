@@ -30,11 +30,11 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
     class Wrapper(val recipeType: IMachineRecipe.Type) : IRecipeWrapper {
 
         val input: ItemStack = HiiragiRegistries.RECIPE_MODULE.getValue(recipeType)
-            ?.getItemStack(HiiragiMaterial.HIIRAGI)
+            ?.getItemStack(HiiragiMaterial.RUSSELL)
             ?: ItemStack.EMPTY
 
         val output: ItemStack = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType)
-            ?.getItemStack(HiiragiMaterial.HIIRAGI)
+            ?.getItemStack(HiiragiMaterial.RUSSELL)
             ?: ItemStack.EMPTY
 
         override fun getIngredients(iIngredients: IIngredients) {

@@ -1,5 +1,6 @@
 package hiiragi283.material.api.gui
 
+import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.container.HiiragiContainer
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiColor
@@ -41,6 +42,10 @@ abstract class HiiragiGuiContainer<T : HiiragiContainer>(open val container: T) 
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
         mc.textureManager.bindTexture(backGround)
         this.drawTexturedModalRect(getOriginX(), getOriginY(), 0, 0, xSize, ySize)
+    }
+
+    fun drawFluidTooltip(tank: HiiragiFluidTank, mouseX: Int, mouseY: Int) {
+        drawFluidTooltip(tank.fluid, mouseX, mouseY)
     }
 
     fun drawFluidTooltip(fluidStack: FluidStack?, mouseX: Int, mouseY: Int) {

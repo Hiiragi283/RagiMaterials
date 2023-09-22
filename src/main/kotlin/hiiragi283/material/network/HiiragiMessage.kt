@@ -43,19 +43,10 @@ sealed class HiiragiMessage(
 
     }
 
-    class Player : HiiragiMessage(BlockPos.ORIGIN, NBTTagCompound())
-
-    class Entity(
-        pos: BlockPos = BlockPos.ORIGIN,
+    class MinecartTank(
         tag: NBTTagCompound = NBTTagCompound(),
-        var entityId: Int = 0
-    ) : HiiragiMessage(pos, tag) {
-
-        constructor(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound(), entity: Entity) : this(
-            pos,
-            tag,
-            entity.entityId
-        )
+        override var entityId: Int = 0
+    ) : HiiragiMessage(BlockPos.ORIGIN, tag), IHiiragiMessage.Entity {
 
         override fun fromBytes(buf: ByteBuf) {
             super.fromBytes(buf)

@@ -153,7 +153,7 @@ data class HiiragiMaterial(
         val UNKNOWN = formulaOf("?")
 
         @JvmField
-        val HIIRAGI = materialOf("hiiragi", 0) {
+        val RUSSELL = materialOf("russell", 0) {
             color = RagiMaterials.COLOR.rgb
             shapeType = HiiragiShapeTypes.WILDCARD
         }

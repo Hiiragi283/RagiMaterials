@@ -6,6 +6,7 @@ import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.block.*
 import hiiragi283.material.config.RMConfig
+import hiiragi283.material.tile.TileEntityCapabilityRail
 import hiiragi283.material.tile.TileEntityMachineExtender
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.hiiragiLocation
@@ -49,8 +50,14 @@ object HiiragiBlocks {
     @JvmField
     val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Test)
 
+    //    Common    //
+
+    @JvmField
+    val CAPABILITY_RAIL = HiiragiRegistries.BLOCK.register(BlockCapabilityRail)
+
     init {
         registerTileEntity(MaterialTileEntity::class.java, "material")
+        registerTileEntity(TileEntityCapabilityRail::class.java, "capability_rail")
         registerTileEntity(TileEntityMachineExtender::class.java, "machine_extender")
         registerTileEntity(TileEntityModuleMachine::class.java, "module_machine")
     }

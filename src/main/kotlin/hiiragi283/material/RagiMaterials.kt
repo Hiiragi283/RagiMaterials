@@ -70,6 +70,7 @@ object RagiMaterials : HiiragiProxy {
         }
         //レジストリへの登録
         HiiragiBlocks
+        HiiragiEntities
         HiiragiItems
         HiiragiRegistries.registerShape()
         HiiragiRegistries.registerShapeType()

@@ -2,7 +2,7 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.registry.HiiragiEntry
-import hiiragi283.material.api.block.HiiragiBlock
+import net.minecraft.block.Block
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import kotlin.math.max
 
-open class HiiragiItemBlock(block: HiiragiBlock, maxMeta: Int) : ItemBlock(block), HiiragiEntry.ITEM {
+open class HiiragiItemBlock(block: Block, maxMeta: Int = 0) : ItemBlock(block), HiiragiEntry.ITEM {
 
     private val maxMeta: Int
 

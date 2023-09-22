@@ -47,6 +47,7 @@ import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 import net.minecraftforge.registries.IForgeRegistryModifiable
+import org.lwjgl.input.Keyboard
 import java.util.*
 
 
@@ -483,3 +484,5 @@ fun getEnumRarity(name: String): IRarity {
         else -> EnumRarity.COMMON
     }
 }
+
+fun isShiftPressed(): Boolean = Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)

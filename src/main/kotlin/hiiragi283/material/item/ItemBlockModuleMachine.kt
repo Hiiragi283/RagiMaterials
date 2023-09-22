@@ -12,11 +12,13 @@ import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getIntegerOrNull
 import hiiragi283.material.util.getOrCreateCompoundTag
 import hiiragi283.material.util.getTagListOrNull
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagString
 import net.minecraft.util.NonNullList
+import net.minecraft.world.World
 import net.minecraftforge.common.util.Constants
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -26,6 +28,12 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
     val type: IMachineRecipe.Type = block.type
 
     //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
+        super.addInformation(stack, worldIn, tooltip, flagIn)
+        this.addTooltip(stack, tooltip)
+    }
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =

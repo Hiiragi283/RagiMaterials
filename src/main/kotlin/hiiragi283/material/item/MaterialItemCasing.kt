@@ -7,7 +7,11 @@ import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.item.ItemStack
+import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemCasing : MaterialItem(
     HiiragiShapes.CASING,
@@ -19,6 +23,13 @@ object MaterialItemCasing : MaterialItem(
             .build()
     }
 ), IMachinePropertyItem {
+
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
+        this.addTooltip(stack, tooltip)
+    }
 
     //    IMachinePropertyItem    //
 

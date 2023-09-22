@@ -6,9 +6,21 @@ import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.block.MaterialBlockCasing
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.item.ItemStack
+import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(block), IMachinePropertyItem {
+
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
+        super.addInformation(stack, worldIn, tooltip, flagIn)
+        this.addTooltip(stack, tooltip)
+    }
 
     //    IMachinePropertyItem    //
 

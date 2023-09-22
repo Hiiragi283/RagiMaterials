@@ -2,7 +2,6 @@ package hiiragi283.material
 
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
-import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.material.MaterialElements
@@ -14,7 +13,6 @@ import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
 import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.config.RMJSonHandler
-import hiiragi283.material.util.getItemImplemented
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -39,7 +37,7 @@ object HiiragiEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun registerMaterials(event: MaterialRegistryEvent) {
 
-        HiiragiMaterial.HIIRAGI.register()
+        HiiragiMaterial.RUSSELL.register()
 
         RagiMaterials.LOGGER.info("Registering Elemental Materials...")
         MaterialElements.register()
@@ -132,8 +130,6 @@ object HiiragiEventHandler {
                 ?.mapNotNull(MaterialStack::of)
                 ?.toSet()
                 ?.forEach { it.addTooltip(event) }
-
-            event.itemStack.getItemImplemented<IMachinePropertyItem>()?.addTooltip(event)
 
         }
 
