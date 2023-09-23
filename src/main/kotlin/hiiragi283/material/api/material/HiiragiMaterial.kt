@@ -14,6 +14,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 import rechellatek.snakeToUpperCamelCase
 
 /**
@@ -92,6 +93,8 @@ data class HiiragiMaterial(
         return list
     }
 
+    fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
+
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
     fun getOreDictNameAlt(): List<String> = oreDictAlt.map { it.snakeToUpperCamelCase() }
@@ -120,7 +123,7 @@ data class HiiragiMaterial(
 
     fun isLiquid(): Boolean = HiiragiShapes.LIQUID.isValid(this)
 
-    fun isValidIndex(): Boolean = index > 0
+    fun isValidIndex(): Boolean = index >= 0
 
     fun isSolid(): Boolean = HiiragiShapes.SOLID.isValid(this)
 

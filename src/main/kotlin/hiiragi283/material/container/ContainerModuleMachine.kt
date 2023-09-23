@@ -41,7 +41,7 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
             if (index in (0..11)) {
                 if (!mergeItemStack(stackSlot, 12, inventorySlots.size, true)) return ItemStack.EMPTY
             } else {
-                if (!mergeItemStack(stackSlot, 0, 11, true)) return ItemStack.EMPTY
+                if (!mergeItemStack(stackSlot, 0, 6, false )) return ItemStack.EMPTY
             }
             if (stackSlot.isEmpty) {
                 slot.putStack(ItemStack.EMPTY)

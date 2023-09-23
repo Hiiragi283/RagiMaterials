@@ -1,5 +1,6 @@
 package hiiragi283.material.item
 
+import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
@@ -16,11 +17,13 @@ import net.minecraftforge.fml.relauncher.SideOnly
 object MaterialItemCasing : MaterialItem(
     HiiragiShapes.CASING,
     recipe = { entry, material ->
-        CraftingBuilder(entry.getItemStack(material))
-            .setPattern("A A", "ABA", "A A")
-            .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
-            .setIngredient('B', HiiragiShapes.FRAME.getOreDict(material))
-            .build()
+        if (HiiragiShapes.PLATE.isValid(material)) {
+            CraftingBuilder(entry.getItemStack(material))
+                .setPattern("AAA", "ABA", "AAA")
+                .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
+                .setIngredient('B', HiiragiItems.WRENCH.getItemStackWild())
+                .build()
+        }
     }
 ), IMachinePropertyItem {
 

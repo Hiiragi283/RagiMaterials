@@ -18,17 +18,15 @@ object HiiragiBlocks {
     //    Material    //
 
     @JvmField
-    val MATERIAL_BLOCK: MaterialBlock = HiiragiRegistries.BLOCK.registerOptional(
-        MaterialBlock(HiiragiShapes.BLOCK, recipe = getRecipeBlock())
-    ) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+    val MATERIAL_BLOCK: MaterialBlock =
+        HiiragiRegistries.BLOCK.registerOptional(MaterialBlock(HiiragiShapes.BLOCK))
+        { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
     val MATERIAL_CASING =
-        HiiragiRegistries.BLOCK.registerOptional(MaterialBlockCasing) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+        HiiragiRegistries.BLOCK.registerOptional(MaterialBlockCasing)
+        { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
-    @JvmField
-    val MATERIAL_FRAME =
-        HiiragiRegistries.BLOCK.registerOptional(MaterialBlockFrame) { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     //    Machine    //
 

@@ -6,7 +6,9 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
+import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.setModelSame
 import net.minecraft.block.SoundType
@@ -29,7 +31,19 @@ import java.util.*
 open class MaterialBlock(
     val shape: HiiragiShape,
     val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
-    val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
+    val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { entry, material ->
+        if (HiiragiShapes.INGOT.isValid(material)) {
+            CraftingBuilder(entry.getItemStack(material))
+                .setPattern("AAA", "AAA", "AAA")
+                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
+                .build()
+        } else if (HiiragiShapes.GEM.isValid(material)) {
+            CraftingBuilder(entry.getItemStack(material))
+                .setPattern("AAA", "AAA", "AAA")
+                .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))
+                .build()
+        }
+    }
 ) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
@@ -41,7 +55,6 @@ open class MaterialBlock(
     init {
         creativeTab = HiiragiCreativeTabs.MATERIAL_BLOCK
         soundType = SoundType.METAL
-        HiiragiRegistries.MATERIAL_BLOCK.register(shape, this)
     }
 
     //    General    //

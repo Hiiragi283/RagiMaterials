@@ -7,28 +7,17 @@ import net.minecraft.item.ItemStack
 
 object HiiragiCreativeTabs {
 
-    val COMMON by lazy {
-        object : CreativeTabs("${RMReference.MOD_ID}.common") {
-            override fun createIcon(): ItemStack = ItemStack(HiiragiItems.BOOK_RESPAWN)
+    private fun createCreativeTab(id: String, stack: () -> ItemStack): CreativeTabs =
+        object : CreativeTabs("${RMReference.MOD_ID}.$id") {
+            override fun createIcon(): ItemStack = stack()
         }
-    }
 
-    val MACHINE by lazy {
-        object : CreativeTabs("${RMReference.MOD_ID}.machine") {
-            override fun createIcon(): ItemStack = HiiragiBlocks.MACHINE_SMELTER.getItemStack()
-        }
-    }
+    val COMMON by lazy { createCreativeTab("common") { HiiragiItems.BOOK_RESPAWN.getItemStack() } }
 
-    val MATERIAL_BLOCK by lazy {
-        object : CreativeTabs("${RMReference.MOD_ID}.material_block") {
-            override fun createIcon(): ItemStack = ItemStack(Blocks.IRON_BLOCK)
-        }
-    }
+    val MACHINE by lazy { createCreativeTab("machine") { HiiragiBlocks.MACHINE_SMELTER.getItemStack() } }
 
-    val MATERIAL_ITEM by lazy {
-        object : CreativeTabs("${RMReference.MOD_ID}.material_item") {
-            override fun createIcon(): ItemStack = ItemStack(Items.IRON_INGOT)
-        }
-    }
+    val MATERIAL_BLOCK by lazy { createCreativeTab("material_block") { ItemStack(Blocks.IRON_BLOCK) } }
+
+    val MATERIAL_ITEM by lazy { createCreativeTab("material_item") { ItemStack(Items.IRON_INGOT) } }
 
 }

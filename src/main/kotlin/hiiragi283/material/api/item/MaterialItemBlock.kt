@@ -2,6 +2,7 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.IHiiragiMaterialItem
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -9,7 +10,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()) {
+open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()), IHiiragiMaterialItem {
 
     val shape = block.shape
 

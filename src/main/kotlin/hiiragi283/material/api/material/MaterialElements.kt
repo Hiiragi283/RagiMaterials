@@ -947,7 +947,7 @@ object MaterialElements {
         color = HiiragiColor.GREEN.rgb
         formula = "U"
         molar = 238.0
-        shapeType = HiiragiShapeTypes.METAL_ADVANCED
+        shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4404
         tempMelt = 1405
     }

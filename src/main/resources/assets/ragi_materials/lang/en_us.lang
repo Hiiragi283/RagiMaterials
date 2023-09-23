@@ -1,6 +1,6 @@
 ##    Block    ##
 
-tile.machine_workbench.name=Machine Workbench
+tile.ragi_materials.machine_workbench.name=Machine Workbench
 
 ##    CreativeTab    ##
 
@@ -12,8 +12,9 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
 ##    Item    ##
 
-item.book_respawn.name=[for Dev] Respawn Book
-item.recipe_module_smelter.name=Recipe Module (Smelter)
+item.ragi_materials.book_respawn.name=[for Dev] Respawn Book
+item.ragi_materials.recipe_module_smelter.name=Recipe Module (Smelter)
+item.ragi_materials.wrench.name=Rotation Wrench
 
 ##    JEI Tab    ##
 

@@ -19,7 +19,6 @@ import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
@@ -50,6 +49,9 @@ import net.minecraftforge.registries.IForgeRegistryModifiable
 import org.lwjgl.input.Keyboard
 import java.util.*
 
+//    block    //
+
+fun Block.getItem(): Item = Item.getItemFromBlock(this)
 
 //    Calendar    //
 
@@ -191,7 +193,9 @@ infix fun ItemStack.setCount(count: Int): ItemStack {
     return this
 }
 
-fun Item.getBlock(): Block = if (this is ItemBlock) this.block else Blocks.AIR
+fun Item.getBlock(): Block? = (this as? ItemBlock)?.block
+
+fun ItemStack.getBlock(): Block? = this.item.getBlock()
 
 fun ItemStack.notEmpty(): ItemStack? = this.takeUnless(ItemStack::isEmpty)
 

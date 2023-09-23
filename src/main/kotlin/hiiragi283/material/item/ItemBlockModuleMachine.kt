@@ -4,6 +4,7 @@ import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
@@ -45,7 +46,8 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
         HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter { it.isValidIndex() && it.isSolid() && HiiragiShapes.CASING.isValid(it) }
+            .filter(HiiragiMaterial::isValidIndex)
+            .filter(HiiragiShapes.CASING::isValid)
             .map { getItemStack(it) }
             .forEach(subItems::add)
     }

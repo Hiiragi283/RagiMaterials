@@ -3,71 +3,48 @@ package hiiragi283.material.api.recipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.tile.TileEntityModuleMachine
-import hiiragi283.material.util.isSame
-import hiiragi283.material.util.isSameWithoutCount
+import hiiragi283.material.util.FluidIngredient
+import hiiragi283.material.util.HiiragiIngredient
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 
 interface IMachineRecipe {
 
-    val type: Type
+    //    Input    //
 
-    val requiredTraits: Set<MachineTrait>
+    fun getInputItems(): List<HiiragiIngredient>
 
-    //    Inputs    //
+    fun getInputFluids(): List<FluidIngredient>
 
-    val inputItems: List<List<ItemStack>>
+    //    Check    //
 
-    val inputFluids: List<FluidStack>
-
-    //    Outputs    //
-
-    val outputItems: List<ItemStack>
-
-    val outputFluids: List<FluidStack>
-
-    //    Process    //
-
-    fun validate() {
-        if (inputItems.size > 6)
-            throw IndexOutOfBoundsException("Size: ${inputItems.size} is over 6!")
-        if (inputFluids.size > 3)
-            throw IndexOutOfBoundsException("Size: ${inputFluids.size} is over 3!")
-        if (outputItems.size > 6)
-            throw IndexOutOfBoundsException("Size: ${outputItems.size} is over 6!")
-        if (outputFluids.size > 3)
-            throw IndexOutOfBoundsException("Size: ${outputFluids.size} is over 3!")
-    }
+    fun canFit(itemSlots: Int, fluidSlots: Int): Boolean =
+        itemSlots >= getInputItems().size && fluidSlots >= getInputFluids().size
 
     fun matches(tile: TileEntityModuleMachine): Boolean {
-        validate()
-        //素材をすべて搬出できるか
-        for (index: Int in inputItems.indices) {
-            //1つでも一致したら次のItemStackで検証
-            if (inputItems[index].any { stack: ItemStack ->
-                    tile.inventoryInput.extractItem(index, stack.count, true).isSame(stack)
-                }) {
-                continue
-            }
-            return false
-        }
-        //完成品を搬入して一つでも余りが出ないか
-        for (index: Int in outputItems.indices) {
-            if (!tile.inventoryOutput.insertItem(index, outputItems[index], true).isEmpty) {
+        //スロット数の確認
+        if (!canFit(tile.machineProperty.itemSlots, tile.machineProperty.fluidSlots)) return false
+        //Input - Item
+        getInputItems().forEachIndexed { index: Int, ingredient: HiiragiIngredient ->
+            if (!ingredient.test(tile.inventoryInput.getStackInSlot(index))) {
                 return false
             }
         }
-        //inputFluidsに含まれる液体が搬出できるかどうか
-        for (index: Int in inputFluids.indices) {
-            val fluidStack: FluidStack = inputFluids[index].copy()
-            if (tile.getTank(index).drain(fluidStack.amount, false)?.amount != fluidStack.amount) {
+        //Input - Fluid
+        getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->
+            if (!ingredient.test(tile.getTank(index).fluid)) {
                 return false
             }
         }
-        //outputFluidsに含まれる液体が搬入できるかどうか
-        for (index: Int in outputFluids.indices) {
-            val fluidStack: FluidStack = outputFluids[index].copy()
+        //Output - Item
+        getOutputItems().forEachIndexed { index: Int, stack: ItemStack ->
+            if (!tile.inventoryOutput.insertItem(index, stack, true).isEmpty) {
+                return false
+            }
+        }
+        //Output - Fluid
+        getOutputFluids().forEachIndexed { index: Int, fluidStack: FluidStack ->
             if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
                 return false
             }
@@ -78,28 +55,22 @@ interface IMachineRecipe {
             val energyRequired: Int = tile.machineProperty.getEnergyRequired()
             if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
         }
-        //tileが要求された特性をすべて持っている -> true
-        return tile.machineProperty.machineTraits.containsAll(requiredTraits)
+        return tile.machineProperty.machineTraits.containsAll(getRequiredTraits())
     }
 
     fun process(tile: TileEntityModuleMachine) {
-        //ItemStack
-        inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
-            list.forEach { stack ->
-                //アイテムとメタデータが同じ場合のみ処理を行う
-                if (stack.isSameWithoutCount(tile.inventoryInput.getStackInSlot(index))) {
-                    tile.inventoryInput.extractItem(index, stack.count, false)
-                }
-            }
+        //Stacks
+        getInputItems().forEachIndexed { index: Int, ingredient: HiiragiIngredient ->
+            tile.inventoryInput.extractItem(index, ingredient.count, false)
         }
-        outputItems.forEachIndexed { index: Int, stack: ItemStack ->
+        getOutputItems().forEachIndexed { index: Int, stack: ItemStack ->
             tile.inventoryOutput.insertItem(index, stack.copy(), false)
         }
         //FluidStack
-        inputFluids.forEachIndexed { index, fluidStack ->
-            tile.getTank(index).drain(fluidStack.copy(), true)
+        getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->
+            tile.getTank(index).drain(ingredient.amount, true)
         }
-        outputFluids.forEachIndexed { index, fluidStack ->
+        getOutputFluids().forEachIndexed { index: Int, fluidStack: FluidStack ->
             tile.getTank(index + 3).fill(fluidStack.copy(), true)
         }
         //Energy
@@ -107,6 +78,16 @@ interface IMachineRecipe {
             tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
         }
     }
+
+    fun getRequiredTraits(): Set<MachineTrait>
+
+    fun getRequiredType(): Type
+
+    //    Output    //
+
+    fun getOutputItems(): List<ItemStack>
+
+    fun getOutputFluids(): List<FluidStack>
 
     enum class Type {
         BENDING,

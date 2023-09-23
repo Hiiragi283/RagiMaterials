@@ -1,6 +1,6 @@
 ##    Block    ##
 
-tile.machine_workbench.name=機械作業台
+tile.ragi_materials.machine_workbench.name=機械作業台
 
 ##    CreativeTab    ##
 
@@ -12,8 +12,7 @@ itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
 ##    Item    ##
 
-item.book_respawn.name=[開発用] リスポーン本
-
+item.ragi_materials.book_respawn.name=[開発用] リスポーン本
 
 ##    JEI Tab    ##
 

@@ -24,7 +24,7 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
         blockResistance = 5.0f
         creativeTab = HiiragiCreativeTabs.COMMON
         setRegistryName(RMReference.MOD_ID, id)
-        translationKey = id
+        translationKey = "${RMReference.MOD_ID}.$id"
     }
 
     override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this)

@@ -16,6 +16,7 @@ import mezz.jei.api.IGuiHelper
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.IModRegistry
 import mezz.jei.api.JEIPlugin
+import mezz.jei.api.ingredients.IIngredientBlacklist
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
@@ -37,6 +38,15 @@ class HiiragiJEIPlugin : IModPlugin {
 
         fun getRecipeTypeID(type: IMachineRecipe.Type): String = "${RMReference.MOD_ID}.${type.lowercase()}"
 
+    }
+
+    override fun registerIngredients(registry: IModIngredientRegistration) {
+        registry.register(
+            HiiragiIngredientTypes.MATERIAL,
+            HiiragiRegistries.MATERIAL.getValues().map { it.toMaterialStack() },
+            MaterialStackHelper,
+            MaterialStackRenderer,
+        )
     }
 
     override fun registerCategories(registry: IRecipeCategoryRegistration) {
@@ -100,15 +110,11 @@ class HiiragiJEIPlugin : IModPlugin {
             18,
             *IMachineRecipe.Type.values().map(::getRecipeTypeID).toTypedArray()
         )
-    }
-
-    override fun registerIngredients(registry: IModIngredientRegistration) {
-        registry.register(
-            HiiragiIngredientTypes.MATERIAL,
-            HiiragiRegistries.MATERIAL.getValues().map { it.toMaterialStack() },
-            MaterialStackHelper,
-            MaterialStackRenderer,
-        )
+        //Blacklist
+        val blacklist: IIngredientBlacklist = registry.jeiHelpers.ingredientBlacklist
+        HiiragiRegistries.MATERIAL.getValues()
+            .map { it.toMaterialStack() }
+            .forEach(blacklist::addIngredientToBlacklist)
     }
 
 }

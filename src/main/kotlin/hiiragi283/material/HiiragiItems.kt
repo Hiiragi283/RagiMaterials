@@ -10,26 +10,13 @@ import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.item.*
 import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.HiiragiIngredient
 import hiiragi283.material.util.append
 import hiiragi283.material.util.toLocation
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.Ingredient
 import net.minecraftforge.client.model.ModelLoader
-
-fun getRecipeBlock(): (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { entry, material ->
-    if (material.isGem()) {
-        CraftingBuilder(entry.getItemStack(material))
-            .setPattern("AAA", "AAA", "AAA")
-            .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))
-            .build()
-    } else {
-        CraftingBuilder(entry.getItemStack(material))
-            .setPattern("AAA", "AAA", "AAA")
-            .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-            .build()
-        }
-    }
+import net.minecraftforge.oredict.OreIngredient
 
 object HiiragiItems : HiiragiEntry.ITEM {
 
@@ -42,7 +29,19 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_BLOCK = HiiragiRegistries.ITEM.registerOptional(
         MaterialItem(
             HiiragiShapes.BLOCK,
-            recipe = getRecipeBlock()
+            recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+                if (HiiragiShapes.INGOT.isValid(material)) {
+                    CraftingBuilder(entry.getItemStack(material))
+                        .setPattern("AAA", "AAA", "AAA")
+                        .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
+                        .build()
+                } else if (HiiragiShapes.GEM.isValid(material)) {
+                    CraftingBuilder(entry.getItemStack(material))
+                        .setPattern("AAA", "AAA", "AAA")
+                        .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))
+                        .build()
+                }
+            }
         )
     ) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
@@ -50,46 +49,24 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_BOTTLE = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.BOTTLE))
 
     @JvmField
-    val MATERIAL_CASING =
-        HiiragiRegistries.ITEM.registerOptional(MaterialItemCasing) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+    val MATERIAL_CASING = HiiragiRegistries.ITEM.registerOptional(MaterialItemCasing)
+    { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_DUST = HiiragiRegistries.ITEM.register(
-        MaterialItem(
-        HiiragiShapes.DUST,
-        recipe = { entry, material ->
+    val MATERIAL_DUST = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.DUST))
+
+    @JvmField
+    val MATERIAL_GEAR = HiiragiRegistries.ITEM.register(MaterialItem(
+        HiiragiShapes.GEAR,
+        recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+            if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', HiiragiShapes.DUST_TINY.getOreDict(material))
+                .setPattern(" A ", "ABA", " A ")
+                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
+                .setIngredient('B', WRENCH.getItemStackWild())
                 .build()
         }
     ))
-
-    @JvmField
-    val MATERIAL_DUST_TINY = HiiragiRegistries.ITEM.register(
-        MaterialItem(
-        HiiragiShapes.DUST_TINY,
-        recipe = { entry, material ->
-            CraftingBuilder(entry.getItemStack(material, 9))
-                .addIngredient(HiiragiIngredient.ofOreDict(HiiragiShapes.DUST.getOreDicts(material)))
-                .build()
-        }
-    ))
-
-    @JvmField
-    val MATERIAL_FRAME = HiiragiRegistries.ITEM.registerOptional(
-        MaterialItem(
-        HiiragiShapes.FRAME,
-        recipe = { entry, material ->
-            CraftingBuilder(entry.getItemStack(material))
-                .setPattern("AAA", "A A", "AAA")
-                .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
-                .build()
-        }
-    )) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
-
-    @JvmField
-    val MATERIAL_GEAR = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.GEAR))
 
     @JvmField
     val MATERIAL_GEM = HiiragiRegistries.ITEM.register(
@@ -121,8 +98,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
 
         },
         recipe = { entry, material ->
+            if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material, 9))
-                .addIngredient(HiiragiIngredient("block${material.getOreDictName()}"))
+                .addIngredient(OreIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
                 .build()
         }
     ))
@@ -133,14 +111,16 @@ object HiiragiItems : HiiragiEntry.ITEM {
         HiiragiShapes.INGOT,
         recipe = { entry, material ->
             //nugget -> ingot
+            if (!HiiragiShapes.NUGGET.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material))
                 .setPattern("AAA", "AAA", "AAA")
                 .setIngredient('A', HiiragiShapes.NUGGET.getOreDict(material))
                 .build()
             //block -> ingot
+            if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
             val ingot9 = entry.getItemStack(material, 9)
             CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
-                .addIngredient(HiiragiIngredient.ofOreDict(HiiragiShapes.BLOCK.getOreDicts(material)))
+                .addIngredient(OreIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
                 .build()
         }
     ))
@@ -150,20 +130,37 @@ object HiiragiItems : HiiragiEntry.ITEM {
         MaterialItem(
         HiiragiShapes.NUGGET,
         recipe = { entry, material ->
+            if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material, 9))
-                .addIngredient(HiiragiIngredient.ofOreDict(HiiragiShapes.INGOT.getOreDicts(material)))
+                .addIngredient(OreIngredient(HiiragiShapes.INGOT.getOreDict(material)))
                 .build()
         }
     ))
 
     @JvmField
-    val MATERIAL_PLATE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.PLATE))
+    val MATERIAL_PLATE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(
+        HiiragiShapes.PLATE,
+        recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+            if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
+            CraftingBuilder(entry.getItemStack(material))
+                .addIngredient(OreIngredient(HiiragiShapes.INGOT.getOreDict(material)))
+                .addIngredient(Ingredient.fromStacks(WRENCH.getItemStackWild()))
+                .build()
+        }
+    ))
 
     @JvmField
-    val MATERIAL_STICK: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.STICK))
-
-    @JvmField
-    val MATERIAL_WIRE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.WIRE))
+    val MATERIAL_STICK: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(
+        HiiragiShapes.STICK,
+        recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+            if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
+            CraftingBuilder(entry.getItemStack(material))
+                .setPattern("AB", "A ")
+                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
+                .setIngredient('B', WRENCH.getItemStackWild())
+                .build()
+        }
+    ))
 
     //    Recipe Module    //
 
@@ -185,5 +182,8 @@ object HiiragiItems : HiiragiEntry.ITEM {
 
     @JvmField
     val MINECART_TANK = HiiragiRegistries.ITEM.register(ItemMinecartTank)
+
+    @JvmField
+    val WRENCH = HiiragiRegistries.ITEM.register(ItemWrench)
 
 }

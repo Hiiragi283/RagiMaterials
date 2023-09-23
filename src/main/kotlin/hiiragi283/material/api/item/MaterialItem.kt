@@ -2,6 +2,7 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.IHiiragiMaterialItem
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
@@ -18,11 +19,10 @@ open class MaterialItem(
     val shape: HiiragiShape,
     val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
     val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
-) : HiiragiItem(shape.name, Short.MAX_VALUE.toInt()) {
+) : HiiragiItem(shape.name, Short.MAX_VALUE.toInt()), IHiiragiMaterialItem {
 
     init {
         creativeTab = HiiragiCreativeTabs.MATERIAL_ITEM
-        HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
     }
 
     //    Client    //

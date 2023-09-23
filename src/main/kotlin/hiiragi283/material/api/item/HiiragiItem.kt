@@ -20,7 +20,7 @@ abstract class HiiragiItem(id: String, maxMeta: Int = 0) : Item(), HiiragiEntry.
         creativeTab = HiiragiCreativeTabs.COMMON
         hasSubtypes = maxMeta > 0
         this.maxMeta = max(0, maxMeta)
-        translationKey = id
+        translationKey = "${RMReference.MOD_ID}.$id"
     }
 
     //    General    //

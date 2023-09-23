@@ -52,7 +52,11 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     fun findItemStack(primalMod: String = "minecraft", secondaryMod: String = RMReference.MOD_ID): ItemStack? =
         findItemStack(getAllItemStack(), primalMod, secondaryMod)
 
-    fun getAllItemStack(): List<ItemStack> = getOreDicts().flatMap { OreDictionary.getOres(it) }
+    fun getAllItemStack(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
+        .map { stack: ItemStack ->
+            stack.count = count
+            return@map stack
+        }
 
     fun getDefaultItemStack(amount: Int = 1): ItemStack =
         GameRegistry.makeItemStack("${RMReference.MOD_ID}:${shape.name}", material.index, amount, null)

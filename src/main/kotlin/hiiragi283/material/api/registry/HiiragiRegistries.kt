@@ -1,11 +1,10 @@
 package hiiragi283.material.api.registry
 
-import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.event.ShapeTypeRegistryEvent
-import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.IHiiragiMaterialItem
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.createAllParts
 import hiiragi283.material.api.recipe.IMachineRecipe
@@ -23,7 +22,7 @@ object HiiragiRegistries {
     //    Forge    //
 
     @JvmField
-    val BLOCK: HiiragiForgeRegistry<HiiragiEntry.BLOCK, Block> = HiiragiForgeRegistry("Block")
+    val BLOCK: HiiragiForgeRegistry<HiiragiEntry.BLOCK, Block> = HiiragiForgeRegistry("Blocks")
 
     @JvmField
     val ITEM: HiiragiForgeRegistry<HiiragiEntry.ITEM, Item> = HiiragiForgeRegistry("Item")
@@ -34,7 +33,8 @@ object HiiragiRegistries {
     val MODULE_MACHINE: HiiragiRegistry<IMachineRecipe.Type, BlockModuleMachine> = HiiragiRegistry("Module Machine")
 
     @JvmField
-    val MACHINE_RECIPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> = HiiragiRegistry("Machine Recipe")
+    val MACHINE_RECIPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> =
+        HiiragiRegistry("Machine Recipe")
 
     fun initRecipeType() {
         IMachineRecipe.Type.values().forEach { type: IMachineRecipe.Type ->
@@ -55,10 +55,7 @@ object HiiragiRegistries {
     val MATERIAL_INDEX: HiiragiRegistry<Int, HiiragiMaterial> = HiiragiRegistry("Material Index")
 
     @JvmField
-    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, MaterialBlock> = HiiragiRegistry("Material Block")
-
-    @JvmField
-    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, MaterialItem> = HiiragiRegistry("Material Item")
+    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, IHiiragiMaterialItem> = HiiragiRegistry("Material Item")
 
     @JvmField
     val PART: HiiragiRegistry<String, HiiragiPart> = HiiragiRegistry("Part")

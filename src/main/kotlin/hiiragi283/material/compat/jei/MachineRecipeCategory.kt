@@ -1,8 +1,7 @@
 package hiiragi283.material.compat.jei
 
 import hiiragi283.material.api.recipe.IMachineRecipe
-import hiiragi283.material.util.copyKt
-import hiiragi283.material.util.hiiragiLocation
+import hiiragi283.material.util.*
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
@@ -26,13 +25,13 @@ class MachineRecipeCategory(
 
     override fun setRecipe(iRecipeLayout: IRecipeLayout, wrapper: Wrapper, iIngredients: IIngredients) {
         //Input - ItemStack
-        wrapper.inputItems.forEachIndexed { index: Int, list: List<ItemStack> ->
+        wrapper.getInputItems().forEachIndexed { index: Int, ingredient: HiiragiIngredient ->
             iRecipeLayout.itemStacks.init(index, true, getSlotPosX(index % 3) - 1, getSlotPosY(index / 3) - 1)
-            iRecipeLayout.itemStacks[index] = list
+            iRecipeLayout.itemStacks[index] = ingredient.getMatchingStacks().map(ItemStack::copy)
         }
         //Input - FluidStack
-        wrapper.inputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
-            if (fluidStack.amount > 0) {
+        wrapper.getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->
+            if (ingredient.amount > 0) {
                 iRecipeLayout.fluidStacks.init(
                     index,
                     true,
@@ -40,24 +39,24 @@ class MachineRecipeCategory(
                     getSlotPosY(2),
                     16,
                     16,
-                    fluidStack.amount,
+                    ingredient.amount,
                     false,
                     null
                 )
-                iRecipeLayout.fluidStacks[index] = fluidStack.copy()
+                iRecipeLayout.fluidStacks[index] = ingredient.getMatchingStack().map(FluidStack::copy)
             } else {
                 iRecipeLayout.fluidStacks.init(index, true, getSlotPosX(index % 3), getSlotPosY(2))
-                iRecipeLayout.fluidStacks[index] = fluidStack.copyKt(amount = 1000)
+                iRecipeLayout.fluidStacks[index] = ingredient.getMatchingStack().map { it.copyKt(amount = 1000) }
             }
         }
         //Output - ItemStack
-        wrapper.outputItems.forEachIndexed { index: Int, itemStack: ItemStack ->
+        wrapper.getOutputItems().forEachIndexed { index: Int, itemStack: ItemStack ->
             iRecipeLayout.itemStacks.init(index + 6, false, getSlotPosX(index % 3 + 4) - 1, getSlotPosY(index / 3) - 1)
-            iRecipeLayout.itemStacks[index + 6] = itemStack
+            iRecipeLayout.itemStacks[index + 6] = itemStack.copy()
         }
         //Output - FluidStack
-        wrapper.outputFluids.forEachIndexed { index: Int, fluidStack: FluidStack ->
-            if (fluidStack.amount > 0) {
+        wrapper.getOutputFluids().forEachIndexed { index: Int, ingredient: FluidStack ->
+            if (ingredient.amount > 0) {
                 iRecipeLayout.fluidStacks.init(
                     index + 3,
                     false,
@@ -65,14 +64,14 @@ class MachineRecipeCategory(
                     getSlotPosY(2),
                     16,
                     16,
-                    fluidStack.amount,
+                    ingredient.amount,
                     false,
                     null
                 )
-                iRecipeLayout.fluidStacks[index + 3] = fluidStack.copy()
+                iRecipeLayout.fluidStacks[index + 3] = ingredient.copy()
             } else {
                 iRecipeLayout.fluidStacks.init(index, false, getSlotPosX(index % 3 + 4), getSlotPosY(2))
-                iRecipeLayout.fluidStacks[index + 3] = fluidStack.copyKt(amount = 1000)
+                iRecipeLayout.fluidStacks[index + 3] = ingredient.copyKt(amount = 1000)
             }
         }
     }
@@ -80,10 +79,22 @@ class MachineRecipeCategory(
     class Wrapper(recipe: IMachineRecipe) : IMachineRecipe by recipe, IRecipeWrapper {
 
         override fun getIngredients(iIngredients: IIngredients) {
-            iIngredients.setInputLists(VanillaTypes.ITEM, inputItems)
-            iIngredients.setInputs(VanillaTypes.FLUID, inputFluids)
-            iIngredients.setOutputs(VanillaTypes.ITEM, outputItems)
-            iIngredients.setOutputs(VanillaTypes.FLUID, outputFluids)
+            iIngredients.setInputLists(
+                VanillaTypes.ITEM,
+                getInputItems().map(HiiragiIngredient::getMatchingStacks).map(Collection<ItemStack>::toList)
+            )
+            iIngredients.setInputLists(
+                VanillaTypes.FLUID,
+                getInputFluids().map(FluidIngredient::getMatchingStack).map(Collection<FluidStack>::toList)
+            )
+            iIngredients.setOutputs(
+                VanillaTypes.ITEM,
+                getOutputItems()
+            )
+            iIngredients.setOutputs(
+                VanillaTypes.FLUID,
+                getOutputFluids()
+            )
         }
 
     }

@@ -7,8 +7,8 @@ import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.item.ItemBlockModuleMachine
+import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.HiiragiNBTKey
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.setModelSame

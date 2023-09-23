@@ -21,7 +21,7 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 
 /**
- * Thanks to SkyTheory!
+ * Thanks to defeatedcrow!
  * [: Source](https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/machine/entity/EntityMinecartMotor.java)
  */
 class EntityMinecartTank : EntityMinecart, IHiiragiEntity {

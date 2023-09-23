@@ -12,7 +12,7 @@ object HiiragiShapes {
     val BOTTLE = HiiragiShape("bottle", 144)
 
     @JvmField
-    val CASING = HiiragiShape("casing", (144 * 4) + (144 * 6))
+    val CASING = HiiragiShape("casing", 144 * 8)
 
     @JvmField
     val CLUMP = HiiragiShape("clump", 144)

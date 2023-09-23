@@ -106,7 +106,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
             val stackSlot: ItemStack = slot.stack
             stack = stackSlot.copy()
             if (index in (0..3)) {
-                if (!mergeItemStack(stackSlot, 4, inventorySlots.size, false)) return ItemStack.EMPTY
+                if (!mergeItemStack(stackSlot, 4, inventorySlots.size, true)) return ItemStack.EMPTY
             } else {
                 if (!mergeItemStack(stackSlot, 0, 3, false)) return ItemStack.EMPTY
             }

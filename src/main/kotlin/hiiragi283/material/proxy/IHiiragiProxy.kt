@@ -1,8 +1,8 @@
-package hiiragi283.material
+package hiiragi283.material.proxy
 
 import net.minecraftforge.fml.common.event.*
 
-interface HiiragiProxy {
+interface IHiiragiProxy {
 
     fun onConstruct(event: FMLConstructionEvent) {}
 

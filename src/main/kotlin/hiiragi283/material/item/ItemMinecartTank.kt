@@ -20,7 +20,7 @@ import net.minecraft.world.World
 import kotlin.math.floor
 
 /**
- * Thanks to SkyTheory!
+ * Thanks to defeatedcrow!
  * [: Source](https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/machine/item/ItemMinecartMotor.java)
  */
 object ItemMinecartTank : HiiragiItem("minecart_tank") {
