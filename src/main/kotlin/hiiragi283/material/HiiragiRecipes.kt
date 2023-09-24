@@ -17,6 +17,7 @@ import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 
 object HiiragiRecipes {
 
@@ -274,9 +275,6 @@ object HiiragiRecipes {
     }
 
     private fun test() {
-        /*HiiragiRegistries.MACHINE_RECIPE.getValue(IMachineRecipe.Type.TEST)
-            ?.register(hiiragiLocation("test_impl"), TestImpl)*/
-
         MachineRecipe.buildAndRegister(IMachineRecipe.Type.TEST, hiiragiLocation("smelt_test")) {
             inputItems.add(HiiragiIngredient.Blocks(Blocks.COBBLESTONE))
             outputItems.add(ItemStack(Blocks.STONE))
@@ -302,37 +300,33 @@ object HiiragiRecipes {
             outputItems.add(ItemStack(Blocks.DIRT))
             outputFluids.add(MaterialElements.HYDROGEN.getFluidStack(4000)!!)
         }
-
+        IMachineRecipe.register(hiiragiLocation("test_impl"), TestImpl)
     }
 
-    /*object TestImpl : IMachineRecipe {
 
-        override val type: IMachineRecipe.Type = IMachineRecipe.Type.TEST
-        override val requiredTraits: Set<MachineTrait> = setOf()
-        override val inputItems: List<List<Stacks>> = listOf(
-            listOf(Stacks(Items.DIAMOND_PICKAXE)),
-            listOf(Stacks(Blocks.OBSIDIAN))
+    object TestImpl : IMachineRecipe {
+
+        //    Input    //
+
+        override fun getInputItems(): List<HiiragiIngredient> = listOf(
+            HiiragiIngredient.Custom(
+                { listOf(ItemStack(Items.DIAMOND_PICKAXE)) },
+                { stack: ItemStack -> stack.item == Items.DIAMOND_PICKAXE },
+                HiiragiIngredient.TOOL_PROCESS
+            ),
+            HiiragiIngredient.Blocks(Blocks.OBSIDIAN)
         )
-        override val inputFluids: List<FluidStack> = listOf()
-        override val outputItems: List<Stacks> = listOf(Stacks(Blocks.DIAMOND_BLOCK))
-        override val outputFluids: List<FluidStack> = listOf()
 
-        override fun matches(tile: TileEntityModuleMachine): Boolean {
-            super.validate()
-            return when {
-                tile.inventoryInput.getStackInSlot(0).item != Items.DIAMOND_PICKAXE -> false
-                tile.inventoryInput.getStackInSlot(1).item.getBlock() != Blocks.OBSIDIAN -> false
-                !tile.inventoryOutput.insertItem(0, outputItems[0], true).isEmpty -> false
-                else -> true
-            }
-        }
+        override fun getInputFluids(): List<FluidIngredient> = listOf()
 
-        override fun process(tile: TileEntityModuleMachine) {
-            tile.inventoryInput.getStackInSlot(0).itemDamage += 1
-            tile.inventoryInput.extractItem(1, 1, false)
-            tile.inventoryOutput.insertItem(0, outputItems[0], false)
-        }
+        override fun getRequiredTraits(): Set<MachineTrait> = setOf()
 
-    }*/
+        override fun getRequiredType(): IMachineRecipe.Type = IMachineRecipe.Type.TEST
+
+        override fun getOutputItems(): List<ItemStack> = listOf(ItemStack(Blocks.DIAMOND_BLOCK))
+
+        override fun getOutputFluids(): List<FluidStack> = listOf()
+
+    }
 
 }

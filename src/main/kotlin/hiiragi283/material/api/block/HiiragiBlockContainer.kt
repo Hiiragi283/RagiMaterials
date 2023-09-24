@@ -1,7 +1,7 @@
 package hiiragi283.material.api.block
 
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getTile
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.material.Material
@@ -100,7 +100,7 @@ open class HiiragiBlockContainer<T : HiiragiTileEntity>(
 
         open fun getStackWithTileNBT(world: IBlockAccess?, pos: BlockPos?, stack: ItemStack = ItemStack(this)): ItemStack {
             getTile<HiiragiTileEntity>(world, pos)?.let { tile ->
-                stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG).merge(getTileNBT(tile))
+                stack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG).merge(getTileNBT(tile))
             }
             return stack
         }

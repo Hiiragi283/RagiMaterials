@@ -1,7 +1,7 @@
 package hiiragi283.material.api.capability.item
 
 import hiiragi283.material.api.capability.IOControllable
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getStringOrNull
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -92,11 +92,11 @@ open class HiiragiItemHandler(
     //    INBTSerializable    //
 
     override fun serializeNBT(): NBTTagCompound =
-        super.serializeNBT().also { tag: NBTTagCompound -> tag.setString(HiiragiNBTKey.IO_TYPE, ioType.name) }
+        super.serializeNBT().also { tag: NBTTagCompound -> tag.setString(HiiragiNBTUtil.IO_TYPE, ioType.name) }
 
     override fun deserializeNBT(nbt: NBTTagCompound) {
         super.deserializeNBT(nbt)
-        nbt.getStringOrNull(HiiragiNBTKey.IO_TYPE)?.let { name: String -> ioType = IOControllable.Type.valueOf(name) }
+        nbt.getStringOrNull(HiiragiNBTUtil.IO_TYPE)?.let { name: String -> ioType = IOControllable.Type.valueOf(name) }
     }
 
 }

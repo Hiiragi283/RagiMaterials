@@ -9,7 +9,7 @@ import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.item.ItemBlockModuleMachine
 import hiiragi283.material.tile.TileEntityModuleMachine
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.setModelSame
 import net.minecraft.block.BlockHorizontal
@@ -46,8 +46,8 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
 
     fun createMachineStack(meta: Int, machineProperty: IMachineProperty): ItemStack {
         val machineStack = ItemStack(this, 1, meta)
-        machineStack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG)
-            .setTag(HiiragiNBTKey.MACHINE_PROPERTY, machineProperty.serialize())
+        machineStack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
+            .setTag(HiiragiNBTUtil.MACHINE_PROPERTY, machineProperty.serialize())
         return machineStack
     }
 
@@ -74,8 +74,8 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
     override fun <T : HiiragiTileEntity> getTileNBT(tile: T): NBTTagCompound =
         NBTTagCompound().also { tag: NBTTagCompound ->
             tag.setTag(
-                HiiragiNBTKey.MACHINE_PROPERTY,
-                super.getTileNBT(tile).getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY)
+                HiiragiNBTUtil.MACHINE_PROPERTY,
+                super.getTileNBT(tile).getCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY)
             )
         }
 

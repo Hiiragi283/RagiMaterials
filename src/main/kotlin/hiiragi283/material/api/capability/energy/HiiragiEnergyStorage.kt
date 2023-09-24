@@ -1,6 +1,6 @@
 package hiiragi283.material.api.capability.energy
 
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
@@ -76,14 +76,14 @@ class HiiragiEnergyStorage(
 
     override fun serializeNBT(): NBTTagCompound {
         return NBTTagCompound().also { tag ->
-            tag.setInteger(HiiragiNBTKey.AMOUNT, stored)
-            tag.setInteger(HiiragiNBTKey.CAPACITY, capacity)
+            tag.setInteger(HiiragiNBTUtil.AMOUNT, stored)
+            tag.setInteger(HiiragiNBTUtil.CAPACITY, capacity)
         }
     }
 
     override fun deserializeNBT(tag: NBTTagCompound) {
-        if (tag.hasKey(HiiragiNBTKey.AMOUNT)) stored = tag.getInteger(HiiragiNBTKey.AMOUNT)
-        if (tag.hasKey(HiiragiNBTKey.CAPACITY)) capacity = tag.getInteger(HiiragiNBTKey.CAPACITY)
+        if (tag.hasKey(HiiragiNBTUtil.AMOUNT)) stored = tag.getInteger(HiiragiNBTUtil.AMOUNT)
+        if (tag.hasKey(HiiragiNBTUtil.CAPACITY)) capacity = tag.getInteger(HiiragiNBTUtil.CAPACITY)
     }
 
 }

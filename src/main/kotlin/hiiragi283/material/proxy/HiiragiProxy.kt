@@ -3,6 +3,7 @@ package hiiragi283.material.proxy
 import hiiragi283.material.*
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.chunk.HiiragiChunkLoadCallback
 import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.config.RMConfig
 import hiiragi283.material.config.RMJSonHandler
@@ -74,6 +75,8 @@ abstract class HiiragiProxy : IHiiragiProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterials.Instance, HiiragiGuiHandler)
         //パケット送信の登録
         HiiragiNetworkManager.register()
+        //チャンク読み込みの登録
+        HiiragiChunkLoadCallback
     }
 
     class Server : HiiragiProxy()

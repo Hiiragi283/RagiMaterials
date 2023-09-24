@@ -13,7 +13,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
 import net.minecraft.block.state.IBlockState
@@ -51,9 +51,9 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
         tankOutput0.deserializeNBT(compound.getCompoundTag("TankOutput0"))
         tankOutput1.deserializeNBT(compound.getCompoundTag("TankOutput1"))
         tankOutput2.deserializeNBT(compound.getCompoundTag("TankOutput2"))
-        energyStorage.deserializeNBT(compound.getCompoundTag(HiiragiNBTKey.BATTERY))
-        machineProperty = IMachineProperty.of(compound.getCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY))
-        material = HiiragiRegistries.MATERIAL.getValue(compound.getString(HiiragiNBTKey.MATERIAL))
+        energyStorage.deserializeNBT(compound.getCompoundTag(HiiragiNBTUtil.BATTERY))
+        machineProperty = IMachineProperty.of(compound.getCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY))
+        material = HiiragiRegistries.MATERIAL.getValue(compound.getString(HiiragiNBTUtil.MATERIAL))
         super.readFromNBT(compound)
     }
 
@@ -66,9 +66,9 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
         compound.setTag("TankOutput0", tankOutput0.serializeNBT())
         compound.setTag("TankOutput1", tankOutput1.serializeNBT())
         compound.setTag("TankOutput2", tankOutput2.serializeNBT())
-        compound.setTag(HiiragiNBTKey.BATTERY, energyStorage.serializeNBT())
-        compound.setTag(HiiragiNBTKey.MACHINE_PROPERTY, machineProperty.serialize())
-        material?.name?.let { name: String -> compound.setString(HiiragiNBTKey.MATERIAL, name) }
+        compound.setTag(HiiragiNBTUtil.BATTERY, energyStorage.serializeNBT())
+        compound.setTag(HiiragiNBTUtil.MACHINE_PROPERTY, machineProperty.serialize())
+        material?.name?.let { name: String -> compound.setString(HiiragiNBTUtil.MATERIAL, name) }
         return super.writeToNBT(compound)
     }
 
@@ -170,8 +170,8 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
 
     fun processRecipe() {
         HiiragiRegistries.MACHINE_RECIPE.getValue(machineProperty.recipeType)?.getValues()
-            ?.firstOrNull { recipe: IMachineRecipe -> recipe.matches(this) }
-            ?.let { recipe: IMachineRecipe -> recipe.process(this) }
+            ?.firstOrNull { recipe: IMachineRecipe -> IMachineRecipe.matches(recipe, this) }
+            ?.let { recipe: IMachineRecipe -> IMachineRecipe.process(recipe, this) }
     }
 
 }

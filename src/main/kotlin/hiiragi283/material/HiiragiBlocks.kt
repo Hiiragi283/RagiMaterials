@@ -53,6 +53,9 @@ object HiiragiBlocks {
     @JvmField
     val CAPABILITY_RAIL = HiiragiRegistries.BLOCK.register(BlockCapabilityRail)
 
+    @JvmField
+    val CHUNK_LOADER = HiiragiRegistries.BLOCK.register(BlockTestChunkLoader)
+
     init {
         registerTileEntity(MaterialTileEntity::class.java, "material")
         registerTileEntity(TileEntityCapabilityRail::class.java, "capability_rail")

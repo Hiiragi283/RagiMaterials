@@ -1,7 +1,7 @@
 package hiiragi283.material.api.capability.fluid
 
 import hiiragi283.material.api.capability.IOControllable
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getStringOrNull
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.common.util.INBTSerializable
@@ -23,18 +23,18 @@ open class HiiragiFluidTank(
 
     override fun serializeNBT(): NBTTagCompound {
         return NBTTagCompound().also { tag: NBTTagCompound ->
-            tag.setInteger(HiiragiNBTKey.CAPACITY, getCapacity())
+            tag.setInteger(HiiragiNBTUtil.CAPACITY, getCapacity())
             getFluid()?.writeToNBT(NBTTagCompound())?.let { tagFluid: NBTTagCompound ->
-                tag.setTag(HiiragiNBTKey.FLUID, tagFluid)
+                tag.setTag(HiiragiNBTUtil.FLUID, tagFluid)
             }
-            tag.setString(HiiragiNBTKey.IO_TYPE, ioType.name)
+            tag.setString(HiiragiNBTUtil.IO_TYPE, ioType.name)
         }
     }
 
     override fun deserializeNBT(nbt: NBTTagCompound) {
-        setCapacity(nbt.getInteger(HiiragiNBTKey.CAPACITY))
-        setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag(HiiragiNBTKey.FLUID)))
-        nbt.getStringOrNull(HiiragiNBTKey.IO_TYPE)?.let { name: String -> ioType = IOControllable.Type.valueOf(name) }
+        setCapacity(nbt.getInteger(HiiragiNBTUtil.CAPACITY))
+        setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag(HiiragiNBTUtil.FLUID)))
+        nbt.getStringOrNull(HiiragiNBTUtil.IO_TYPE)?.let { name: String -> ioType = IOControllable.Type.valueOf(name) }
     }
 
 }

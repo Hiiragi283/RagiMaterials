@@ -1,7 +1,6 @@
 package hiiragi283.material.api.recipe
 
 import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.util.FluidIngredient
 import hiiragi283.material.util.HiiragiIngredient
 import net.minecraft.item.ItemStack
@@ -24,7 +23,7 @@ class MachineRecipe private constructor() {
         ) {
             val builder = MachineRecipe()
             builder.init()
-            HiiragiRegistries.MACHINE_RECIPE.getValue(type)?.register(registryName, object : IMachineRecipe {
+            IMachineRecipe.register(registryName, object : IMachineRecipe {
 
                 override fun getInputItems(): List<HiiragiIngredient> = builder.inputItems
 

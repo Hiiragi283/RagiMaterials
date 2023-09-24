@@ -9,7 +9,7 @@ import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.block.BlockModuleMachine
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getIntegerOrNull
 import hiiragi283.material.util.getOrCreateCompoundTag
 import hiiragi283.material.util.getTagListOrNull
@@ -55,8 +55,8 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
     //    IMachinePropertyItem    //
 
     private fun getMachinePropertyTag(stack: ItemStack): NBTTagCompound =
-        stack.getOrCreateSubCompound(HiiragiNBTKey.BLOCK_ENTITY_TAG)
-            .getOrCreateCompoundTag(HiiragiNBTKey.MACHINE_PROPERTY)
+        stack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
+            .getOrCreateCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY)
 
     override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> type }
 
