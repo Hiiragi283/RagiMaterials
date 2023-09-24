@@ -15,17 +15,6 @@ sealed class FluidIngredient(val amount: Int = 0) : Predicate<FluidStack?> {
         handler.drain(amount, true)
     }
 
-    //    Predicate    //
-
-    override fun test(t: FluidStack?): Boolean {
-        getMatchingStack().forEach { fluidStack ->
-            if (t !== null && t.isFluidEqual(fluidStack) && t.amount >= amount) {
-                return true
-            }
-        }
-        return false
-    }
-
     //    FluidStack    //
 
     class Fluids(vararg fluidStacks: FluidStack, amount: Int = 0) : FluidIngredient(amount) {
@@ -38,6 +27,15 @@ sealed class FluidIngredient(val amount: Int = 0) : Predicate<FluidStack?> {
         private val fluidStacks: List<FluidStack> = fluidStacks.toList()
 
         override fun getMatchingStack(): Collection<FluidStack> = fluidStacks.map(FluidStack::copy)
+
+        override fun test(t: FluidStack?): Boolean {
+            getMatchingStack().forEach { fluidStack ->
+                if (t !== null && t.isFluidEqual(fluidStack) && t.amount >= amount) {
+                    return true
+                }
+            }
+            return false
+        }
 
     }
 
@@ -54,6 +52,9 @@ sealed class FluidIngredient(val amount: Int = 0) : Predicate<FluidStack?> {
 
         override fun getMatchingStack(): Collection<FluidStack> =
             materials.flatMap(HiiragiMaterial::getFluids).map { FluidStack(it, amount) }
+
+        override fun test(t: FluidStack?): Boolean =
+            if (t == null) false else t.fluid.name in materials.map(HiiragiMaterial::name)
 
     }
 

@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.oredict.OreIngredient
+import net.minecraftforge.common.crafting.CraftingHelper
 
 object HiiragiItems : HiiragiEntry.ITEM {
 
@@ -100,7 +100,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
         recipe = { entry, material ->
             if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material, 9))
-                .addIngredient(OreIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
+                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
                 .build()
         }
     ))
@@ -120,7 +120,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
             if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
             val ingot9 = entry.getItemStack(material, 9)
             CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
-                .addIngredient(OreIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
+                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
                 .build()
         }
     ))
@@ -132,7 +132,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
         recipe = { entry, material ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material, 9))
-                .addIngredient(OreIngredient(HiiragiShapes.INGOT.getOreDict(material)))
+                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.INGOT.getOreDict(material)))
                 .build()
         }
     ))
@@ -143,7 +143,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
         recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(entry.getItemStack(material))
-                .addIngredient(OreIngredient(HiiragiShapes.INGOT.getOreDict(material)))
+                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.INGOT.getOreDict(material)))
                 .addIngredient(Ingredient.fromStacks(WRENCH.getItemStackWild()))
                 .build()
         }
@@ -168,7 +168,16 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val RECIPE_EXTRACTOR: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Extractor)
 
     @JvmField
+    val RECIPE_FREEZER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Freezer)
+
+    @JvmField
     val RECIPE_INFUSER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Infuser)
+
+    @JvmField
+    val RECIPE_MELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Melter)
+
+    @JvmField
+    val RECIPE_ROCK_GENERATOR: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.RockGenerator)
 
     @JvmField
     val RECIPE_SMELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Smelter)

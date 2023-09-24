@@ -13,7 +13,6 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 ##    Item    ##
 
 item.ragi_materials.book_respawn.name=[for Dev] Respawn Book
-item.ragi_materials.recipe_module_smelter.name=Recipe Module (Smelter)
 item.ragi_materials.wrench.name=Rotation Wrench
 
 ##    JEI Tab    ##
@@ -45,8 +44,9 @@ gui.ragi_materials.test=TEST MACHINE
 
 ##    Machine    ##
 
+hiiragi_material.recipe_module=Recipe Module:
+
 hiiragi_machine.assembler=%s Assembler
-hiiragi_machine.bending=%s Bending Machine
 hiiragi_machine.canning=%s Canning Machine
 hiiragi_machine.centrifuge=%s Centrifuge
 hiiragi_machine.compressor=%s Compressor
@@ -58,12 +58,14 @@ hiiragi_machine.extractor=%s Extractor
 hiiragi_machine.freezer=%s Freezer
 hiiragi_machine.heater=%s Heater
 hiiragi_machine.infuser=%s Infuser
+hiiragi_machine.laser_engraver=%s Laser Engraver
 hiiragi_machine.melter=%s Melter
 hiiragi_machine.metal_former=%s Metal Former
+hiiragi_machine.mixer=%s Mixer
+hiiragi_machine.press=%s Press
 hiiragi_machine.pulverizer=%s Pulverizer
 hiiragi_machine.rock_generator=%s Rock Generator
 hiiragi_machine.smelter=%s Smelter
-hiiragi_machine.wiremill=%s Wiremill
 hiiragi_machine.test=%s TEST MACHINE
 hiiragi_machine.none=§cINVALID MACHINE!!
 
@@ -316,6 +318,7 @@ hiiragi_material.lime=Lime
 hiiragi_material.rutile=Rutile
 hiiragi_material.stainless_steel=Stainless Steel
 hiiragi_material.steel=Steel
+hiiragi_material.raw_steel=Raw Steel
 hiiragi_material.constantan=Constantan
 hiiragi_material.invar=Invar
 hiiragi_material.brass=Brass

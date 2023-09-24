@@ -6,6 +6,8 @@ import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.findItemStack
+import hiiragi283.material.util.getOreDicts
+import hiiragi283.material.util.notEmpty
 import hiiragi283.material.util.toItemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
@@ -14,26 +16,17 @@ import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 
 fun createAllParts(): List<HiiragiPart> = HiiragiRegistries.SHAPE.getValues()
-    .flatMap { shape: HiiragiShape ->
-        HiiragiRegistries.MATERIAL.getValues()
-            .map { material: HiiragiMaterial -> HiiragiPart(shape, material) }
-    }
+    .flatMap { shape: HiiragiShape -> HiiragiRegistries.MATERIAL.getValues().map(shape::getPart) }
 
 fun getPart(oreDict: String): HiiragiPart? = HiiragiRegistries.PART.getValue(oreDict)
 
 fun getParts(oredict: String): List<HiiragiPart> = listOfNotNull(getPart(oredict))
 
-fun getParts(oredicts: Collection<String>): List<HiiragiPart> =
-    oredicts.mapNotNull { oreDict: String -> getPart(oreDict) }
+fun getParts(oredicts: Collection<String>): List<HiiragiPart> = oredicts.mapNotNull(::getPart)
 
 fun IBlockState.getParts() = this.let(IBlockState::toItemStack).let(ItemStack::getParts)
 
-fun ItemStack.getParts(): List<HiiragiPart> {
-    if (this.isEmpty) return listOf()
-    return this.let(OreDictionary::getOreIDs)
-        .map(OreDictionary::getOreName)
-        .mapNotNull(::getPart)
-}
+fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.getOreDicts()?.mapNotNull(::getPart) ?: listOf()
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
@@ -64,6 +57,15 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     fun getOreDict(): String = shape.getOreDict(material)
 
     fun getOreDicts(): List<String> = shape.getOreDicts(material)
+
+    fun isInOreDictionary(): Boolean {
+        getOreDicts().forEach { oreDict: String ->
+            if (OreDictionary.doesOreNameExist(oreDict)) {
+                return true
+            }
+        }
+        return false
+    }
 
     fun toMaterialStack(): MaterialStack = MaterialStack(material, shape.scale)
 

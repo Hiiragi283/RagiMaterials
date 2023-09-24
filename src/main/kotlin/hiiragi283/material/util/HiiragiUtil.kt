@@ -156,6 +156,8 @@ fun Item.getBlock(): Block? = (this as? ItemBlock)?.block
 
 fun ItemStack.getBlock(): Block? = this.item.getBlock()
 
+fun ItemStack.getOreDicts(): List<String> = OreDictionary.getOreIDs(this).map(OreDictionary::getOreName)
+
 fun ItemStack.notEmpty(): ItemStack? = this.takeUnless(ItemStack::isEmpty)
 
 fun getItemStack(registryName: String, amount: Int, meta: Int): ItemStack? =

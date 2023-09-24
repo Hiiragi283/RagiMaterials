@@ -172,7 +172,7 @@ private fun initFormula(mixture: HiiragiMaterial, components: List<HiiragiMateri
 
 //    Formula String    //
 
-fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial("", -1, formula = formula)
+fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial(formula, -1, formula = formula)
 
 //    Hydrate    //
 

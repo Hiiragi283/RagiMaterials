@@ -43,8 +43,9 @@ gui.ragi_materials.test=テスト用
 
 ##    Machine    ##
 
+hiiragi_material.recipe_module=レシピモジュール
+
 hiiragi_machine.assembler=組立機 (%s)
-hiiragi_machine.bending=圧延機 (%s)
 hiiragi_machine.canning=缶詰機 (%s)
 hiiragi_machine.centrifuge=遠心分離機 (%s)
 hiiragi_machine.compressor=圧縮機 (%s)
@@ -56,12 +57,14 @@ hiiragi_machine.extractor=抽出器 (%s)
 hiiragi_machine.freezer=冷凍機 (%s)
 hiiragi_machine.heater=加熱機 (%s)
 hiiragi_machine.infuser=注入機 (%s)
+hiiragi_machine.laser_engraver=レーザー彫刻機 (%s)
 hiiragi_machine.melter=溶融機 (%s)
 hiiragi_machine.metal_former=金属加工機 (%s)
+hiiragi_machine.mixer=ミキサー (%s)
+hiiragi_machine.press=プレス機 (%s)
 hiiragi_machine.pulverizer=粉砕機 (%s)
 hiiragi_machine.rock_generator=岩石生成機 (%s)
-hiiragi_machine.smelter=製錬機 (%s)
-hiiragi_machine.wiremill=ワイヤ加工機 (%s)
+hiiragi_machine.smelter=精錬機 (%s)
 hiiragi_machine.test=テスト用 (%s)
 hiiragi_machine.none=§c無効な機械!!
 
@@ -311,6 +314,7 @@ hiiragi_material.lime=石灰石
 hiiragi_material.rutile=ルチル
 hiiragi_material.stainless_steel=ステンレス鋼
 hiiragi_material.steel=鋼
+hiiragi_material.raw_steel=未精錬の鋼
 hiiragi_material.constantan=コンスタンタン
 hiiragi_material.invar=インバー
 hiiragi_material.brass=黄銅

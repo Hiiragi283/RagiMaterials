@@ -1,6 +1,7 @@
 package hiiragi283.material.api.shape
 
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.client.resources.I18n
 import rechellatek.snakeToLowerCamelCase
@@ -13,10 +14,7 @@ import rechellatek.snakeToLowerCamelCase
 
 class HiiragiShape(val name: String, val scale: Int) {
 
-    fun getOreDict(material: HiiragiMaterial): String = StringBuilder().also {
-        it.append(name.snakeToLowerCamelCase())
-        it.append(material.getOreDictName())
-    }.toString()
+    fun getOreDict(material: HiiragiMaterial): String = name.snakeToLowerCamelCase() + material.getOreDictName()
 
     fun getOreDicts(material: HiiragiMaterial): List<String> {
         val list: MutableList<String> = mutableListOf()
@@ -31,6 +29,8 @@ class HiiragiShape(val name: String, val scale: Int) {
         }
         return list.filter(String::isNotEmpty)
     }
+
+    fun getPart(material: HiiragiMaterial): HiiragiPart = HiiragiPart(this, material)
 
     fun getTranslatedName(material: HiiragiMaterial): String =
         I18n.format("hiiragi_shape.$name", material.getTranslatedName())

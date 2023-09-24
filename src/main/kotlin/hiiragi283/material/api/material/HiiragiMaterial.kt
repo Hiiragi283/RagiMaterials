@@ -58,6 +58,7 @@ data class HiiragiMaterial(
     val oreDictAlt: MutableList<String> = mutableListOf()
     var fluidBlock: Block? = null
     var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
+
     var machineProperty: IMachineProperty? = null
     fun addBracket() = copy(formula = "($formula)")
 
@@ -98,6 +99,8 @@ data class HiiragiMaterial(
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
     fun getOreDictNameAlt(): List<String> = oreDictAlt.map { it.snakeToUpperCamelCase() }
+
+    fun getPart(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, this)
 
     fun getTranslatedName(): String = I18n.format(translationKey)
 

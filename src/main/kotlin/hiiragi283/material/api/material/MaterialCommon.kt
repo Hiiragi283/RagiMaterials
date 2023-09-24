@@ -404,6 +404,13 @@ object MaterialCommon {
         tempMelt = MaterialElements.IRON.tempMelt
     }
 
+    @JvmField
+    val RAW_STEEL = mixtureOf("raw_steel", 12601, listOf(MaterialElements.IRON, MaterialElements.CARBON)) {
+        color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.GRAY).rgb
+        fluidSupplier = { null }
+        shapeType = HiiragiShapeTypes.SOLID
+    }
+
     //    Nickel    //
 
     @JvmField

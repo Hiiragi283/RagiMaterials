@@ -9,6 +9,7 @@ import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.recipe.MachineRecipe
 import hiiragi283.material.recipe.MaterialMeltingRecipe
@@ -18,12 +19,18 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
+import net.minecraftforge.common.crafting.CraftingHelper
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 
 object HiiragiRecipes {
 
     fun init() {
+        crafting()
+        smelting()
+    }
+
+    private fun crafting() {
         //Primitive Machine
         CraftingBuilder(
             hiiragiLocation("primitive_former"),
@@ -40,10 +47,28 @@ object HiiragiRecipes {
             .setIngredient('B', HiiragiItems.RECIPE_SMELTER.getItemStack())
             .setIngredient('C', HiiragiShapes.SLAB.getOreDict(MaterialCommon.STONE))
             .build()
+        //Raw Steel Dust
+        CraftingBuilder(HiiragiItems.MATERIAL_DUST.getItemStack(MaterialCommon.RAW_STEEL))
+            .setPattern("ABB", "BB ")
+            .setIngredient('A', HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .setIngredient('B', HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL))
+            .build()
+        CraftingBuilder(HiiragiItems.MATERIAL_DUST.getItemStack(MaterialCommon.RAW_STEEL), "_alt")
+            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON)))
+            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.COKE)))
+            .build()
+    }
+
+    private fun smelting() {
+        SmeltingBuilder.addSmelting(
+            HiiragiItems.MATERIAL_DUST.getItemStack(MaterialCommon.RAW_STEEL),
+            HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STEEL)
+        )
     }
 
     fun postInit() {
         compressor()
+        crusher()
         extractor()
         freezer()
         melter()
@@ -57,6 +82,23 @@ object HiiragiRecipes {
             inputItems.add(HiiragiIngredient.Blocks(Blocks.ICE, count = 3))
             outputItems.add(ItemStack(Blocks.PACKED_ICE))
         }
+    }
+
+    private fun crusher() {
+        //素材アイテム -> Dust
+        HiiragiRegistries.SHAPE.getValues()
+            .filter { shape: HiiragiShape -> shape.scale >= 144 }
+            .forEach { shape: HiiragiShape ->
+                HiiragiRegistries.MATERIAL_INDEX.getValues()
+                    .map(shape::getPart)
+                    .filter(HiiragiPart::isInOreDictionary)
+                    .forEach { part ->
+                        MachineRecipe.buildAndRegister(IMachineRecipe.Type.CRUSHER, hiiragiLocation(part.toString())) {
+                            inputItems.add(HiiragiIngredient.Parts(part))
+                            outputItems.add(HiiragiItems.MATERIAL_DUST.getItemStack(part))
+                        }
+                    }
+            }
     }
 
     private fun extractor() {
@@ -144,7 +186,13 @@ object HiiragiRecipes {
         fun addCopy(stone: Block, meta: Int = 0, water: Int = 0, lava: Int = 0) {
             val stack = ItemStack(stone, 1, meta)
             MachineRecipe.buildAndRegister(IMachineRecipe.Type.ROCK_GENERATOR, stack.toLocation()) {
-                inputItems.add(HiiragiIngredient.Stacks(stack))
+                inputItems.add(
+                    HiiragiIngredient.Custom(
+                        stacks = { listOf(stack) },
+                        predicate = { stackIn: ItemStack -> stackIn.getBlock() == stone },
+                        process = HiiragiIngredient.CATALYST_PROCESS
+                    )
+                )
                 inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = water))
                 inputFluids.add(FluidIngredient.Fluids(FluidRegistry.LAVA, amount = lava))
                 outputItems.add(stack)

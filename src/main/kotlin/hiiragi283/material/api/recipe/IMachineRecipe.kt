@@ -133,7 +133,6 @@ interface IMachineRecipe {
 
     enum class Type {
         ASSEMBLER,
-        BENDING,
         CANNING,
         CENTRIFUGE,
         COMPRESSOR,
@@ -145,12 +144,14 @@ interface IMachineRecipe {
         FREEZER,
         HEATER,
         INFUSER,
+        LASER_ENGRAVER,
         MELTER,
         METAL_FORMER,
+        MIXER,
+        PRESS,
         PULVERIZER,
         ROCK_GENERATOR,
         SMELTER,
-        WIREMILL,
         TEST,
         NONE;
 

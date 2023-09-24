@@ -40,10 +40,16 @@ object HiiragiBlocks {
     val MACHINE_EXTRACTOR = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Extractor)
 
     @JvmField
+    val MACHINE_FREEZER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Freezer)
+
+    @JvmField
     val MACHINE_INFUSER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Infuser)
 
     @JvmField
     val MACHINE_MELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Melter)
+
+    @JvmField
+    val MACHINE_ROCK_GENERATOR = HiiragiRegistries.BLOCK.register(BlockModuleMachine.RockGenerator)
 
     @JvmField
     val MACHINE_SMELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Smelter)

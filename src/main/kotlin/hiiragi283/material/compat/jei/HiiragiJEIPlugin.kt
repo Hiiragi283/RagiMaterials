@@ -85,14 +85,14 @@ class HiiragiJEIPlugin : IModPlugin {
                 HiiragiRegistries.MACHINE_RECIPE.getValue(type)!!.getValues(),
                 getRecipeTypeID(type)
             )
+            HiiragiRegistries.RECIPE_MODULE.getValue(type)?.getItemStack()
+                ?.let { stack: ItemStack -> registry.addRecipeCatalyst(stack, getRecipeTypeID(type)) }
             registry.addRecipeCatalyst(
                 HiiragiRegistries.MODULE_MACHINE.getValue(type)
                     ?.getItemStackWild()
                     ?: HiiragiBlocks.MACHINE_TEST.getItemStack(),
                 getRecipeTypeID(type)
             )
-            HiiragiRegistries.RECIPE_MODULE.getValue(type)?.getItemStack()
-                ?.let { stack: ItemStack -> registry.addRecipeCatalyst(stack, getRecipeTypeID(type)) }
             registry.recipeTransferRegistry.addRecipeTransferHandler(
                 ContainerModuleMachine::class.java as Class<out Container>,
                 getRecipeTypeID(type),

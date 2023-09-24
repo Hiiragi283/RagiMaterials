@@ -106,7 +106,7 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
         )
     )
     override fun getStateFromMeta(meta: Int): IBlockState =
-        defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.byHorizontalIndex(meta))
+        defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.byHorizontalIndex(meta).opposite)
 
     @Deprecated(
         "Deprecated in Java", ReplaceWith(
@@ -152,9 +152,13 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
 
     object Extractor : BlockModuleMachine(IMachineRecipe.Type.EXTRACTOR)
 
+    object Freezer : BlockModuleMachine(IMachineRecipe.Type.FREEZER)
+
     object Infuser : BlockModuleMachine(IMachineRecipe.Type.INFUSER)
 
     object Melter : BlockModuleMachine(IMachineRecipe.Type.MELTER)
+
+    object RockGenerator : BlockModuleMachine(IMachineRecipe.Type.ROCK_GENERATOR)
 
     object Smelter : BlockModuleMachine(IMachineRecipe.Type.SMELTER)
 

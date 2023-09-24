@@ -2,6 +2,7 @@ package hiiragi283.material.util
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -19,17 +20,6 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
         inventory.extractItem(index, count, false)
     }
 
-    //    Predicate    //
-
-    override fun test(t: ItemStack): Boolean {
-        getMatchingStacks().forEach { stack ->
-            if (stack.isSameWithoutCount(t) && t.count >= count) {
-                return true
-            }
-        }
-        return false
-    }
-
     //    ItemStack    //
 
     class Stacks(vararg stacks: ItemStack, count: Int = 1) : HiiragiIngredient(count) {
@@ -40,6 +30,15 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
         }
 
         override fun getMatchingStacks(): Collection<ItemStack> = stacks
+
+        override fun test(t: ItemStack): Boolean {
+            getMatchingStacks().forEach { stack ->
+                if (stack.isSameWithoutCount(t) && t.count >= count) {
+                    return true
+                }
+            }
+            return false
+        }
 
     }
 
@@ -71,6 +70,15 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
         override fun getMatchingStacks(): Collection<ItemStack> = items.map { ItemStack(it, count, 0) }
 
+        override fun test(t: ItemStack): Boolean {
+            items.forEach { item: Item ->
+                if (t.item == item && t.count >= count) {
+                    return true
+                }
+            }
+            return false
+        }
+
     }
 
     //    Ore Dictionary    //
@@ -85,6 +93,15 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
                 return@map stack
             }
 
+        override fun test(t: ItemStack): Boolean {
+            oreDicts.forEach { oreDict ->
+                if (oreDict in t.getOreDicts()) {
+                    return true
+                }
+            }
+            return false
+        }
+
     }
 
     //    HiiragiPart    //
@@ -97,6 +114,20 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
         )
 
         override fun getMatchingStacks(): Collection<ItemStack> = part.getAllItemStack(count)
+
+        override fun test(t: ItemStack): Boolean = part in t.getParts()
+
+    }
+
+    //    HiiragiMaterial    //
+
+    class Materials(private val material: HiiragiMaterial, count: Int = 1) : HiiragiIngredient(count) {
+
+        fun getMaterialIngredient(amount: Int = 144) = material.toMaterialStack(amount)
+
+        override fun getMatchingStacks(): Collection<ItemStack> = material.getAllItemStack()
+
+        override fun test(t: ItemStack): Boolean = material in t.getParts().map(HiiragiPart::material)
 
     }
 
@@ -120,6 +151,8 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
     }
 
     companion object {
+
+        val CATALYST_PROCESS: (IItemHandlerModifiable, Int) -> Unit = { _: IItemHandlerModifiable, _: Int -> }
 
         val TOOL_PROCESS: (IItemHandlerModifiable, Int) -> Unit = { inventory: IItemHandlerModifiable, index: Int ->
             val tool: ItemStack = inventory.getStackInSlot(index)

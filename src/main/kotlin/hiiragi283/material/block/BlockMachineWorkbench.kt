@@ -4,11 +4,16 @@ import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.block.HiiragiBlock
 import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.util.CraftingBuilder
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.BlockColors
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.init.Blocks
+import net.minecraft.item.EnumDyeColor
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumFacing
@@ -47,6 +52,16 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
     }
 
     //    HiiragiEntry    //
+
+    override fun registerRecipe() {
+        CraftingBuilder(getItemStack())
+            .setPattern("AAA", "BCB", "DDD")
+            .setIngredient('A', ItemStack(Blocks.CONCRETE, 1, EnumDyeColor.BLACK.metadata))
+            .setIngredient('B', "dyeRed")
+            .setIngredient('C', "workbench")
+            .setIngredient('D', HiiragiShapes.PLATE.getOreDict(MaterialCommon.STEEL))
+            .build()
+    }
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {

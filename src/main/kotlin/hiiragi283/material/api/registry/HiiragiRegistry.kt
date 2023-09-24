@@ -28,6 +28,7 @@ open class HiiragiRegistry<K, V>(val name: String, private val removable: Boolea
     }
 
     fun remove(key: K): V? = when {
+        isLocked -> throw IllegalStateException("[$name] This registry is locked!")
         !removable -> throw IllegalStateException("[$name] This registry cannot remove entry!")
         !registry.containsKey(key) -> throw IllegalStateException("[$name] The key: $key is not registered!")
         else -> registry.remove(key)
