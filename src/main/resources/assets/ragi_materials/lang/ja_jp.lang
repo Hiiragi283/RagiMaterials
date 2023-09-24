@@ -20,6 +20,7 @@ gui.ragi_materials.material=素材
 
 gui.ragi_materials.machine_workbench=機械作業台
 
+gui.ragi_materials.assembler=組立機
 gui.ragi_materials.bending=圧延機
 gui.ragi_materials.canning=缶詰機
 gui.ragi_materials.centrifuge=遠心分離機
@@ -29,11 +30,11 @@ gui.ragi_materials.cutting=切断機
 gui.ragi_materials.distiller=蒸留器
 gui.ragi_materials.electrolyzer=電気分解機
 gui.ragi_materials.extractor=抽出器
-gui.ragi_materials.former=金属加工機
 gui.ragi_materials.freezer=冷凍機
 gui.ragi_materials.heater=加熱機
 gui.ragi_materials.infuser=注入機
 gui.ragi_materials.melter=溶融機
+gui.ragi_materials.metal_former=金属加工機
 gui.ragi_materials.pulverizer=粉砕機
 gui.ragi_materials.rock_generator=岩石生成機
 gui.ragi_materials.smelter=製錬機
@@ -42,6 +43,7 @@ gui.ragi_materials.test=テスト用
 
 ##    Machine    ##
 
+hiiragi_machine.assembler=組立機 (%s)
 hiiragi_machine.bending=圧延機 (%s)
 hiiragi_machine.canning=缶詰機 (%s)
 hiiragi_machine.centrifuge=遠心分離機 (%s)
@@ -51,11 +53,11 @@ hiiragi_machine.cutting=切断機 (%s)
 hiiragi_machine.distiller=蒸留器 (%s)
 hiiragi_machine.electrolyzer=電気分解機 (%s)
 hiiragi_machine.extractor=抽出器 (%s)
-hiiragi_machine.former=金属加工機 (%s)
 hiiragi_machine.freezer=冷凍機 (%s)
 hiiragi_machine.heater=加熱機 (%s)
 hiiragi_machine.infuser=注入機 (%s)
 hiiragi_machine.melter=溶融機 (%s)
+hiiragi_machine.metal_former=金属加工機 (%s)
 hiiragi_machine.pulverizer=粉砕機 (%s)
 hiiragi_machine.rock_generator=岩石生成機 (%s)
 hiiragi_machine.smelter=製錬機 (%s)

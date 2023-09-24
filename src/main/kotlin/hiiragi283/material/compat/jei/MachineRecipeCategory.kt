@@ -51,27 +51,29 @@ class MachineRecipeCategory(
         }
         //Output - ItemStack
         wrapper.getOutputItems().forEachIndexed { index: Int, itemStack: ItemStack ->
-            iRecipeLayout.itemStacks.init(index + 6, false, getSlotPosX(index % 3 + 4) - 1, getSlotPosY(index / 3) - 1)
-            iRecipeLayout.itemStacks[index + 6] = itemStack.copy()
+            val index1: Int = index + wrapper.getInputItems().size
+            iRecipeLayout.itemStacks.init(index1, false, getSlotPosX(index % 3 + 4) - 1, getSlotPosY(index / 3) - 1)
+            iRecipeLayout.itemStacks[index1] = itemStack.copy()
         }
         //Output - FluidStack
-        wrapper.getOutputFluids().forEachIndexed { index: Int, ingredient: FluidStack ->
-            if (ingredient.amount > 0) {
+        wrapper.getOutputFluids().forEachIndexed { index: Int, fluidStack: FluidStack ->
+            val index1: Int = index + wrapper.getInputFluids().size
+            if (fluidStack.amount > 0) {
                 iRecipeLayout.fluidStacks.init(
-                    index + 3,
+                    index1,
                     false,
                     getSlotPosX(index % 3 + 4),
                     getSlotPosY(2),
                     16,
                     16,
-                    ingredient.amount,
+                    fluidStack.amount,
                     false,
                     null
                 )
-                iRecipeLayout.fluidStacks[index + 3] = ingredient.copy()
+                iRecipeLayout.fluidStacks[index1] = fluidStack.copy()
             } else {
                 iRecipeLayout.fluidStacks.init(index, false, getSlotPosX(index % 3 + 4), getSlotPosY(2))
-                iRecipeLayout.fluidStacks[index + 3] = ingredient.copyKt(amount = 1000)
+                iRecipeLayout.fluidStacks[index1] = fluidStack.copy().copyKt(amount = 1000)
             }
         }
     }

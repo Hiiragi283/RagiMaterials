@@ -3,9 +3,10 @@ package hiiragi283.material.entity
 import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.entity.IHiiragiEntity
+import hiiragi283.material.chunk.IEntityChunkLoader
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
-import hiiragi283.material.util.HiiragiNBTKey
+import hiiragi283.material.util.HiiragiNBTUtil
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityMinecart
 import net.minecraft.entity.player.EntityPlayer
@@ -24,7 +25,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
  * Thanks to defeatedcrow!
  * [: Source](https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/machine/entity/EntityMinecartMotor.java)
  */
-class EntityMinecartTank : EntityMinecart, IHiiragiEntity {
+class EntityMinecartTank : EntityMinecart, IEntityChunkLoader, IHiiragiEntity {
 
     constructor(world: World, x: Double, y: Double, z: Double) : super(world, x, y, z)
 
@@ -63,12 +64,12 @@ class EntityMinecartTank : EntityMinecart, IHiiragiEntity {
 
     override fun readEntityFromNBT(compound: NBTTagCompound) {
         super.readEntityFromNBT(compound)
-        tank.deserializeNBT(compound.getCompoundTag(HiiragiNBTKey.TANK))
+        tank.deserializeNBT(compound.getCompoundTag(HiiragiNBTUtil.TANK))
     }
 
     override fun writeEntityToNBT(compound: NBTTagCompound) {
         super.writeEntityToNBT(compound)
-        compound.setTag(HiiragiNBTKey.TANK, tank.serializeNBT())
+        compound.setTag(HiiragiNBTUtil.TANK, tank.serializeNBT())
     }
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean =
@@ -78,5 +79,9 @@ class EntityMinecartTank : EntityMinecart, IHiiragiEntity {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
             CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(tank)
         else super.getCapability(capability, facing)
+
+    //    IEntityChunkLoader    //
+
+    override fun canLoad(): Boolean = true
 
 }

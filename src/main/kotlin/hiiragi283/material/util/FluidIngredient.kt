@@ -61,8 +61,8 @@ sealed class FluidIngredient(val amount: Int = 0) : Predicate<FluidStack?> {
 
     class Custom(
         val stacks: () -> Collection<FluidStack>,
-        val predicate: (stack: FluidStack?) -> Boolean,
-        val process: (handler: IFluidHandler) -> Unit,
+        val predicate: (FluidStack?) -> Boolean,
+        val process: (IFluidHandler) -> Unit,
         amount: Int = 0
     ) : FluidIngredient(amount) {
 

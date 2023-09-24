@@ -43,6 +43,9 @@ object HiiragiBlocks {
     val MACHINE_INFUSER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Infuser)
 
     @JvmField
+    val MACHINE_MELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Melter)
+
+    @JvmField
     val MACHINE_SMELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Smelter)
 
     @JvmField

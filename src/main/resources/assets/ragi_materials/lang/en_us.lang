@@ -22,6 +22,7 @@ gui.ragi_materials.material=Material
 
 gui.ragi_materials.machine_workbench=Machine Workbench
 
+gui.ragi_materials.assembler=Assembler
 gui.ragi_materials.bending=Bending Machine
 gui.ragi_materials.canning=Canning Machine
 gui.ragi_materials.centrifuge=Centrifuge
@@ -31,11 +32,11 @@ gui.ragi_materials.cutting=Cutting Machine
 gui.ragi_materials.distiller=Distiller
 gui.ragi_materials.electrolyzer=Electrolyzer
 gui.ragi_materials.extractor=Extractor
-gui.ragi_materials.former=Former
 gui.ragi_materials.freezer=Freezer
 gui.ragi_materials.heater=Heater
 gui.ragi_materials.infuser=Infuser
 gui.ragi_materials.melter=Melter
+gui.ragi_materials.metal_former=Metal Former
 gui.ragi_materials.pulverizer=Pulverizer
 gui.ragi_materials.rock_generator=Rock Generator
 gui.ragi_materials.smelter=Smelter
@@ -44,6 +45,7 @@ gui.ragi_materials.test=TEST MACHINE
 
 ##    Machine    ##
 
+hiiragi_machine.assembler=%s Assembler
 hiiragi_machine.bending=%s Bending Machine
 hiiragi_machine.canning=%s Canning Machine
 hiiragi_machine.centrifuge=%s Centrifuge
@@ -53,11 +55,11 @@ hiiragi_machine.cutting=%s Cutting Machine
 hiiragi_machine.distiller=%s Distiller
 hiiragi_machine.electrolyzer=%s Electrolyzer
 hiiragi_machine.extractor=%s Extractor
-hiiragi_machine.former=%s Former
 hiiragi_machine.freezer=%s Freezer
 hiiragi_machine.heater=%s Heater
 hiiragi_machine.infuser=%s Infuser
 hiiragi_machine.melter=%s Melter
+hiiragi_machine.metal_former=%s Metal Former
 hiiragi_machine.pulverizer=%s Pulverizer
 hiiragi_machine.rock_generator=%s Rock Generator
 hiiragi_machine.smelter=%s Smelter

@@ -33,7 +33,6 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.TextComponentTranslation
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
-import net.minecraft.world.chunk.Chunk
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid
@@ -136,21 +135,6 @@ fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
 
 //    Fluid    //
 
-infix fun FluidStack.addAmount(amount: Int): FluidStack {
-    this.amount += amount
-    return this
-}
-
-infix fun FluidStack.removeAmount(amount: Int): FluidStack {
-    this.amount -= amount
-    return this
-}
-
-infix fun FluidStack.setAmount(amount: Int): FluidStack {
-    this.amount = amount
-    return this
-}
-
 fun FluidStack.copyKt(
     fluid: Fluid = this.fluid,
     amount: Int = this.amount,
@@ -166,32 +150,7 @@ fun isClient(): Boolean = FMLCommonHandler.instance().side.isClient
 
 fun isDeobf(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
 
-//    Interface    //
-
-inline fun <reified T> IBlockState.getBlockImplemented(): T? = this.block as? T
-
-inline fun <reified T> ItemStack.getItemImplemented(): T? = this.item as? T
-
-inline fun <reified T> IBlockState.isBlockImplemented(): Boolean = this.block is T
-
-inline fun <reified T> ItemStack.isItemImplemented(): Boolean = this.item is T
-
 //    ItemStack    //
-
-infix fun ItemStack.addCount(count: Int): ItemStack {
-    this.count += count
-    return this
-}
-
-infix fun ItemStack.removeCount(count: Int): ItemStack {
-    this.count -= count
-    return this
-}
-
-infix fun ItemStack.setCount(count: Int): ItemStack {
-    this.count = count
-    return this
-}
 
 fun Item.getBlock(): Block? = (this as? ItemBlock)?.block
 
@@ -434,11 +393,6 @@ fun playSoundHypixel(world: World, pos: BlockPos) {
 fun playSoundHypixel(tile: TileEntity) {
     playSoundHypixel(tile.world, tile.pos)
 }
-
-//    TileEntity    //
-
-inline fun <reified T : TileEntity> getTile(world: IBlockAccess?, pos: BlockPos?): T? =
-    pos?.let { world?.getTileEntity(it) } as? T
 
 //    Misc    //
 

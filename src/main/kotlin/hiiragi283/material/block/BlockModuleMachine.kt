@@ -154,6 +154,8 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
 
     object Infuser : BlockModuleMachine(IMachineRecipe.Type.INFUSER)
 
+    object Melter : BlockModuleMachine(IMachineRecipe.Type.MELTER)
+
     object Smelter : BlockModuleMachine(IMachineRecipe.Type.SMELTER)
 
     object Test : BlockModuleMachine(IMachineRecipe.Type.TEST)

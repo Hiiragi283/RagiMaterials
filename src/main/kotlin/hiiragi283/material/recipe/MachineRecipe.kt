@@ -1,6 +1,7 @@
-package hiiragi283.material.api.recipe
+package hiiragi283.material.recipe
 
 import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.util.FluidIngredient
 import hiiragi283.material.util.HiiragiIngredient
 import net.minecraft.item.ItemStack

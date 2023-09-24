@@ -103,10 +103,12 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
     //    Custom    //
 
     class Custom(
+        count: Int = 1,
         val stacks: () -> Collection<ItemStack>,
-        val predicate: (stack: ItemStack) -> Boolean,
-        val process: (inventory: IItemHandlerModifiable, index: Int) -> Unit,
-        count: Int = 1
+        val predicate: (ItemStack) -> Boolean,
+        val process: (IItemHandlerModifiable, Int) -> Unit = { inventory: IItemHandlerModifiable, index: Int ->
+            inventory.extractItem(index, count, false)
+        }
     ) : HiiragiIngredient(count) {
 
         override fun getMatchingStacks(): Collection<ItemStack> = stacks()
