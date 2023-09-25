@@ -1,6 +1,11 @@
 package hiiragi283.material.api.shape
 
-data class HiiragiShapeType(val name: String) {
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import net.minecraft.util.IJsonSerializable
+
+data class HiiragiShapeType(val name: String) : IJsonSerializable {
 
     val shapes: Set<HiiragiShape>
         get() = shapesInternal
@@ -25,5 +30,25 @@ data class HiiragiShapeType(val name: String) {
     override fun hashCode(): Int = name.hashCode()
 
     override fun toString(): String = "ShapeType:$name"
+
+    //    IJsonSerializable    //
+
+    override fun getSerializableElement(): JsonElement {
+
+        val root = JsonObject()
+
+        root.addProperty("name", name)
+
+        val shapesJson = JsonArray()
+        shapes.map(HiiragiShape::name).forEach(shapesJson::add)
+        root.add("shapes", shapesJson)
+
+        return root
+
+    }
+
+    override fun fromJson(json: JsonElement) {
+
+    }
 
 }

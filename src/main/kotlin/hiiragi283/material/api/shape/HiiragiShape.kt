@@ -4,6 +4,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.client.resources.I18n
+import net.minecraft.item.ItemStack
 import rechellatek.snakeToLowerCamelCase
 
 /**
@@ -13,6 +14,9 @@ import rechellatek.snakeToLowerCamelCase
  */
 
 class HiiragiShape(val name: String, val scale: Int) {
+
+    fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack? =
+        HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.getItemStack(material, count)
 
     fun getOreDict(material: HiiragiMaterial): String = name.snakeToLowerCamelCase() + material.getOreDictName()
 

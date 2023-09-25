@@ -29,7 +29,7 @@ import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
 open class MaterialBlock(
-    val shape: HiiragiShape,
+    final override val shape: HiiragiShape,
     val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
     val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { entry, material ->
         if (HiiragiShapes.INGOT.isValid(material)) {
@@ -48,7 +48,7 @@ open class MaterialBlock(
     Material.IRON,
     shape.name,
     { MaterialTileEntity() }
-) {
+), HiiragiMaterial.BLOCK {
 
     override val itemBlock = MaterialItemBlock(this)
 
@@ -81,6 +81,10 @@ open class MaterialBlock(
 
     //    HiiragiEntry    //
 
+    override fun onRegister() {
+        HiiragiRegistries.MATERIAL_BLOCK.register(shape, this)
+    }
+
     override fun registerOreDict() {
         HiiragiRegistries.MATERIAL.getValues()
             .filter(shape::isValid)
@@ -95,15 +99,15 @@ open class MaterialBlock(
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler({ _: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
-            getTile<MaterialTileEntity>(world, pos)?.material?.color ?: -1
+        blockColors.registerBlockColorHandler({ state: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
+            getMaterial(state, world, pos)?.color ?: -1
         }, this)
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerItemColor(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack, tintIndex ->
-            if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
+            if (tintIndex == 0) getMaterial(stack)?.color ?: -1 else -1
         }, this)
     }
 

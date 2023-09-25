@@ -2,7 +2,6 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.IHiiragiMaterialItem
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -10,9 +9,10 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()), IHiiragiMaterialItem {
+open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()),
+    HiiragiMaterial.ITEM {
 
-    val shape = block.shape
+    final override val shape = block.shape
 
     //    Client    //
 
@@ -30,6 +30,12 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
             .filter(shape::isValid)
             .map { material: HiiragiMaterial -> getItemStack(material) }
             .forEach(subItems::add)
+    }
+
+    //    HiiragiEntry    //
+
+    override fun onRegister() {
+        HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
     }
 
 }

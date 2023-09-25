@@ -1,14 +1,18 @@
 package hiiragi283.material.api.machine
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.util.getIntegerOrNull
 import hiiragi283.material.util.getStringOrNull
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.nbt.NBTTagString
+import net.minecraft.util.IJsonSerializable
 import net.minecraftforge.common.util.Constants
 
-interface IMachineProperty {
+interface IMachineProperty : IJsonSerializable {
 
     val recipeType: IMachineRecipe.Type
     val processTime: Int
@@ -35,7 +39,29 @@ interface IMachineProperty {
         tag.setTag(KEY_TRAIT, tagList)
     }
 
-    //    INBTSerializable    //
+    //    IJsonSerializable    //
+
+    override fun getSerializableElement(): JsonElement {
+
+        val root = JsonObject()
+
+        root.addProperty("recipe_type", recipeType.name)
+        root.addProperty("process_time", processTime)
+        root.addProperty("energy_rate", energyRate)
+        root.addProperty("item_slots", itemSlots)
+        root.addProperty("fluid_slots", fluidSlots)
+
+        val traitsJson = JsonArray()
+        machineTraits.map(MachineTrait::name).forEach(traitsJson::add)
+        root.add("machine_traits", traitsJson)
+
+        return root
+
+    }
+
+    override fun fromJson(json: JsonElement) {
+
+    }
 
     companion object {
 

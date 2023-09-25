@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 
 interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
@@ -35,9 +34,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun getLocation(): ResourceLocation = getObject().registryName!!
 
-    fun register(registry: IForgeRegistry<T>) {
-        registry.register(getObject())
-    }
+    fun onRegister() {}
 
     fun registerOreDict() {}
 

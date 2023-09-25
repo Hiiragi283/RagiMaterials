@@ -5,7 +5,7 @@ import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.block.*
-import hiiragi283.material.config.RMConfig
+import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.tile.TileEntityCapabilityRail
 import hiiragi283.material.tile.TileEntityMachineExtender
 import hiiragi283.material.tile.TileEntityModuleMachine
@@ -20,12 +20,12 @@ object HiiragiBlocks {
     @JvmField
     val MATERIAL_BLOCK: MaterialBlock =
         HiiragiRegistries.BLOCK.registerOptional(MaterialBlock(HiiragiShapes.BLOCK))
-        { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+        { HiiragiConfigs.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
     val MATERIAL_CASING =
         HiiragiRegistries.BLOCK.registerOptional(MaterialBlockCasing)
-        { RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+        { HiiragiConfigs.EXPERIMENTAL.enableMetaTileBlock }
 
 
     //    Machine    //

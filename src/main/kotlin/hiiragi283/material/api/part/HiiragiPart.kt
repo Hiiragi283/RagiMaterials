@@ -1,18 +1,15 @@
 package hiiragi283.material.api.part
 
-import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.util.findItemStack
 import hiiragi283.material.util.getOreDicts
 import hiiragi283.material.util.notEmpty
 import hiiragi283.material.util.toItemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
-import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 
 fun createAllParts(): List<HiiragiPart> = HiiragiRegistries.SHAPE.getValues()
@@ -30,6 +27,8 @@ fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.getOreDicts()?.ma
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
 
+    val materialStack: MaterialStack = MaterialStack(material, shape.scale)
+
     fun addTooltip(tooltip: MutableList<String>) {
         material.addTooltip(tooltip, shape)
     }
@@ -42,17 +41,13 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
         material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
     }
 
-    fun findItemStack(primalMod: String = "minecraft", secondaryMod: String = RMReference.MOD_ID): ItemStack? =
-        findItemStack(getAllItemStack(), primalMod, secondaryMod)
+    fun getItemStack(count: Int = 1) = HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.getItemStack(material, count)
 
-    fun getAllItemStack(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
+    fun getItemStacks(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
         .map { stack: ItemStack ->
             stack.count = count
             return@map stack
         }
-
-    fun getDefaultItemStack(amount: Int = 1): ItemStack =
-        GameRegistry.makeItemStack("${RMReference.MOD_ID}:${shape.name}", material.index, amount, null)
 
     fun getOreDict(): String = shape.getOreDict(material)
 
@@ -66,8 +61,6 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
         }
         return false
     }
-
-    fun toMaterialStack(): MaterialStack = MaterialStack(material, shape.scale)
 
     override fun toString(): String = "${shape.name}:${material.name}"
 

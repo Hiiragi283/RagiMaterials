@@ -1,5 +1,7 @@
 package hiiragi283.material
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import hiiragi283.material.proxy.HiiragiProxy
 import hiiragi283.material.proxy.IHiiragiProxy
 import net.minecraftforge.fml.common.Loader
@@ -25,6 +27,7 @@ object RagiMaterials : IHiiragiProxy {
     //各種変数の宣言
     internal val CALENDAR: Calendar = Calendar.getInstance()
     internal val COLOR: Color = Color(255, 0, 31)
+    internal val GSON: Gson = GsonBuilder().serializeNulls().create()
     internal val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
 
     @SidedProxy(

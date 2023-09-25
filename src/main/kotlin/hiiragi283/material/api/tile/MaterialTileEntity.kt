@@ -13,9 +13,9 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class MaterialTileEntity : HiiragiTileEntity() {
+class MaterialTileEntity : HiiragiTileEntity(), HiiragiMaterial.TILE {
 
-    var material: HiiragiMaterial? = null
+    override var material: HiiragiMaterial? = null
 
     //    HiiragiTileEntity    //
 

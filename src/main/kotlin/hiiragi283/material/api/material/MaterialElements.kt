@@ -1,7 +1,7 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.api.shape.HiiragiShapeTypes
-import hiiragi283.material.config.RMConfig
+import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.util.HiiragiColor
 
 /**
@@ -1250,7 +1250,7 @@ object MaterialElements {
         CAESIUM.register()
         BARIUM.register()
         // --Lanthanides--
-        if (RMConfig.MATERIAL.lanthanoides) {
+        if (HiiragiConfigs.MATERIAL.lanthanoides) {
             LANTHANUM.register()
             CERIUM.register()
             PRASEODYMIUM.register()
@@ -1292,7 +1292,7 @@ object MaterialElements {
         URANIUM.register()
         NEPTUNIUM.register()
         PLUTONIUM.register()
-        if (RMConfig.MATERIAL.transUran) {
+        if (HiiragiConfigs.MATERIAL.transUran) {
             AMERICIUM.register()
             CURIUM.register()
             BERKELIUM.register()

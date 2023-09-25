@@ -2,10 +2,6 @@
 
 package hiiragi283.material.api.material
 
-import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import com.google.gson.JsonPrimitive
 import hiiragi283.material.util.HiiragiColor
 import java.awt.Color
 import kotlin.math.roundToInt
@@ -216,40 +212,4 @@ fun polymerOf(
     polymer.molar = -1.0 //Invalidate molar
     polymer.init()
     return polymer
-}
-
-//    Json    //
-
-fun jsonMaterialOf(json: String): HiiragiMaterial? {
-
-    val jsonObject: JsonObject = Gson().fromJson(json, JsonObject::class.java)
-
-    val jsonName: String? = jsonObject.getAsJsonPrimitive("name")?.asString
-    val jsonIndex: Int? = jsonObject.getAsJsonPrimitive("index")?.asInt
-    if (jsonName == null || jsonIndex == null) return null
-
-    val material: HiiragiMaterial = materialOf(jsonName, jsonIndex)
-
-    fun <T> setValue(key: String, method: (JsonElement) -> T, init: (T) -> Unit) {
-        jsonObject.getAsJsonPrimitive(key)?.let(method)?.let(init)
-    }
-
-    /*setValue("color", JsonElement::getAsInt) { color: Int -> material.color = color }
-    setValue("formula", JsonElement::getAsString) { formula: String -> material.formula = formula }
-    setValue("molar", JsonElement::getAsDouble) { molar: Double -> material.molar = molar }
-    setValue("tempBoil", JsonElement::getAsInt) { tempBoil: Int -> material.tempBoil = tempBoil }
-    setValue("tempMelt", JsonElement::getAsInt) { tempMelt: Int -> material.tempMelt = tempMelt }
-    setValue("shapeType", JsonElement::getAsString) { name: String ->
-        material.shapeType = HiiragiRegistries.SHAPE_TYPE.getValueOrElse(name, HiiragiShapeTypes.INTERNAL)
-    }
-    setValue("translationKey", JsonElement::getAsString) { translationKey: String ->
-        material.translationKey = translationKey
-    }*/
-
-    jsonObject.getAsJsonArray("oreDictAlt")?.let { array ->
-        array.filterIsInstance<JsonPrimitive>().map { it.asString }.forEach { material.oreDictAlt.add(it) }
-    }
-
-    return material
-
 }

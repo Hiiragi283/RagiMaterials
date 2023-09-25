@@ -11,6 +11,7 @@ import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.client.renderer.BufferBuilder
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.renderer.block.statemap.StateMapperBase
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -208,6 +209,12 @@ fun Item.setModelSame() {
 fun Block.setModelSame() {
     Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModelSame()
 }
+
+fun simpleStateMapper(modelLocation: ModelResourceLocation) = object : StateMapperBase() {
+    override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = modelLocation
+}
+
+fun simpleStateMapper(location: ResourceLocation, variant: String) = simpleStateMapper(ModelResourceLocation(location, variant))
 
 //    Ore Dictionary    //
 

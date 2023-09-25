@@ -113,7 +113,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
             count
         )
 
-        override fun getMatchingStacks(): Collection<ItemStack> = part.getAllItemStack(count)
+        override fun getMatchingStacks(): Collection<ItemStack> = part.getItemStacks(count)
 
         override fun test(t: ItemStack): Boolean = part in t.getParts()
 

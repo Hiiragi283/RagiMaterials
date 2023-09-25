@@ -1,11 +1,8 @@
 package hiiragi283.material.compat.jei
 
-import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.recipe.IMachineRecipe
-import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.hiiragiLocation
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawableStatic
@@ -14,7 +11,6 @@ import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 
 class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
     HiiragiRecipeCategory<MachineWorkbenchCategory.Wrapper>(HiiragiJEIPlugin.MACHINE_WORKBENCH, guiHelper) {
@@ -36,13 +32,12 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
 
     class Wrapper(val recipeType: IMachineRecipe.Type) : IRecipeWrapper {
 
-        val casing: ItemStack = (getEntry(
-            ForgeRegistries.ITEMS,
-            hiiragiLocation(HiiragiShapes.CASING.name)
-        ) as? HiiragiEntry<*>)?.getItemStackWild() ?: ItemStack.EMPTY
+        val casing: ItemStack = HiiragiRegistries.MATERIAL_ITEM.getValue(HiiragiShapes.CASING)
+            ?.getItemStackWild()
+            ?: ItemStack.EMPTY
 
         val recipeModule: ItemStack = HiiragiRegistries.RECIPE_MODULE.getValue(recipeType)
-            ?.getItemStack(HiiragiMaterial.RUSSELL)
+            ?.getItemStack()
             ?: ItemStack.EMPTY
 
         val machine: ItemStack = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType)

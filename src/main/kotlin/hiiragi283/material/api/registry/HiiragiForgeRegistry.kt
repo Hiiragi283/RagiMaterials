@@ -18,7 +18,10 @@ class HiiragiForgeRegistry<T: HiiragiEntry<U>, U: IForgeRegistryEntry<U>>(name: 
         entries.forEach(this::register)
     }
 
-    fun <t: T> register(entry: t): t = register(entry.getLocation(), entry)
+    fun <t: T> register(entry: t): t {
+        entry.onRegister()
+        return register(entry.getLocation(), entry)
+    }
 
     fun <t: T> registerOptional(entry: t, predicate: () -> Boolean): t {
         if (predicate()) register(entry)

@@ -1,5 +1,6 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.api.fluid.MaterialFluidBlock
 import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.isAprilFools
@@ -168,6 +169,7 @@ object MaterialCommon {
 
     @JvmField
     val NITRIC_ACID = compoundOf("nitric_acid", 10701, mapOf(MaterialElements.HYDROGEN to 1, NITRATE to 1)) {
+        fluidBlock = { MaterialFluidBlock(it) }
         tempBoil = WATER.tempBoil
         tempMelt = WATER.tempMelt
     }

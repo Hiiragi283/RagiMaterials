@@ -7,7 +7,7 @@ import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.config.RMConfig
+import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.item.*
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.append
@@ -43,14 +43,14 @@ object HiiragiItems : HiiragiEntry.ITEM {
                 }
             }
         )
-    ) { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+    ) { !HiiragiConfigs.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
     val MATERIAL_BOTTLE = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.BOTTLE))
 
     @JvmField
     val MATERIAL_CASING = HiiragiRegistries.ITEM.registerOptional(MaterialItemCasing)
-    { !RMConfig.EXPERIMENTAL.enableMetaTileBlock }
+    { !HiiragiConfigs.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
     val MATERIAL_DUST = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.DUST))

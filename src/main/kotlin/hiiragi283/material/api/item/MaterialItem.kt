@@ -2,7 +2,6 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.IHiiragiMaterialItem
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
@@ -16,10 +15,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
 open class MaterialItem(
-    val shape: HiiragiShape,
+    final override val shape: HiiragiShape,
     val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
     val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
-) : HiiragiItem(shape.name, Short.MAX_VALUE.toInt()), IHiiragiMaterialItem {
+) : HiiragiItem(shape.name, Short.MAX_VALUE.toInt()), HiiragiMaterial.ITEM {
 
     init {
         creativeTab = HiiragiCreativeTabs.MATERIAL_ITEM
@@ -45,6 +44,10 @@ open class MaterialItem(
 
     //    HiiragiEntry    //
 
+    override fun onRegister() {
+        HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
+    }
+
     override fun registerOreDict() {
         HiiragiRegistries.MATERIAL.getValues()
             .filter(shape::isValid)
@@ -64,7 +67,7 @@ open class MaterialItem(
     @SideOnly(Side.CLIENT)
     override fun registerItemColor(itemColors: ItemColors) {
         itemColors.registerItemColorHandler({ stack: ItemStack, tintIndex: Int ->
-            if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
+            if (tintIndex == 0) getMaterial(stack)?.color ?: -1 else -1
         }, this)
     }
 

@@ -6,7 +6,6 @@ import net.minecraft.init.SoundEvents
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
 import net.minecraftforge.fluids.Fluid
-import net.minecraftforge.fluids.FluidRegistry
 
 class MaterialFluid(
     val material: HiiragiMaterial,
@@ -49,13 +48,7 @@ class MaterialFluid(
     companion object {
 
         fun register() {
-            HiiragiRegistries.MATERIAL.getValues()
-                .mapNotNull(HiiragiMaterial::createFluid)
-                .filterNot { fluid: Fluid -> FluidRegistry.isFluidRegistered(fluid.name) }
-                .forEach { fluid: Fluid ->
-                    FluidRegistry.registerFluid(fluid)
-                    FluidRegistry.addBucketForFluid(fluid)
-                }
+            HiiragiRegistries.MATERIAL.getValues().forEach(HiiragiMaterial::createFluid)
         }
 
     }

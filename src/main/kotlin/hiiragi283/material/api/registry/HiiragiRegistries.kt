@@ -2,16 +2,13 @@ package hiiragi283.material.api.registry
 
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
-import hiiragi283.material.api.event.ShapeTypeRegistryEvent
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.IHiiragiMaterialItem
+import hiiragi283.material.api.module.IRecipeModuleItem
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.createAllParts
 import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.block.BlockModuleMachine
-import hiiragi283.material.item.ItemRecipeModule
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
@@ -44,7 +41,7 @@ object HiiragiRegistries {
     }
 
     @JvmField
-    val RECIPE_MODULE: HiiragiRegistry<IMachineRecipe.Type, ItemRecipeModule> = HiiragiRegistry("Recipe Module")
+    val RECIPE_MODULE: HiiragiRegistry<IMachineRecipe.Type, IRecipeModuleItem> = HiiragiRegistry("Recipe Module")
 
     //    Material    //
 
@@ -55,28 +52,10 @@ object HiiragiRegistries {
     val MATERIAL_INDEX: HiiragiRegistry<Int, HiiragiMaterial> = HiiragiRegistry("Material Index")
 
     @JvmField
-    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, IHiiragiMaterialItem> = HiiragiRegistry("Material Item")
+    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, HiiragiMaterial.BLOCK> = HiiragiRegistry("Material Block")
 
     @JvmField
-    val PART: HiiragiRegistry<String, HiiragiPart> = HiiragiRegistry("Part")
-
-    @JvmField
-    val SHAPE: HiiragiRegistry<String, HiiragiShape> = HiiragiRegistry("Shape")
-
-    @JvmField
-    val SHAPE_TYPE: HiiragiRegistry<String, HiiragiShapeType> = HiiragiRegistry("ShapeType")
-
-    fun registerShape() {
-        val event = ShapeRegistryEvent(SHAPE)
-        MinecraftForge.EVENT_BUS.post(event)
-        SHAPE.lock()
-    }
-
-    fun registerShapeType() {
-        val event = ShapeTypeRegistryEvent(SHAPE_TYPE)
-        MinecraftForge.EVENT_BUS.post(event)
-        SHAPE_TYPE.lock()
-    }
+    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, HiiragiMaterial.ITEM> = HiiragiRegistry("Material Item")
 
     fun registerMaterial() {
         val event = MaterialRegistryEvent(MATERIAL)
@@ -87,12 +66,28 @@ object HiiragiRegistries {
         MATERIAL_INDEX.lock()
     }
 
+    //    Part    //
+
+    @JvmField
+    val PART: HiiragiRegistry<String, HiiragiPart> = HiiragiRegistry("Part")
+
     fun registerPart() {
         createAllParts().forEach { part: HiiragiPart ->
             part.getOreDicts().forEach { oreDict: String ->
                 PART.register(oreDict, part)
             }
         }
+    }
+
+    //    Shape    //
+
+    @JvmField
+    val SHAPE: HiiragiRegistry<String, HiiragiShape> = HiiragiRegistry("Shape")
+
+    fun registerShape() {
+        val event = ShapeRegistryEvent(SHAPE)
+        MinecraftForge.EVENT_BUS.post(event)
+        SHAPE.lock()
     }
 
 }

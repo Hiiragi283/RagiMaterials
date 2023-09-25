@@ -1,17 +1,26 @@
 package hiiragi283.material.api.material
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.util.getTileImplemented
 import net.minecraft.block.Block
+import net.minecraft.block.state.IBlockState
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
+import net.minecraft.util.IJsonSerializable
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
@@ -53,13 +62,13 @@ data class HiiragiMaterial(
     var tempBoil: Int = 0,
     var tempMelt: Int = 0,
     var translationKey: String = "hiiragi_material.$name"
-) {
+) : IJsonSerializable {
 
     val oreDictAlt: MutableList<String> = mutableListOf()
-    var fluidBlock: Block? = null
+    var fluidBlock: (Fluid) -> Block? = { null }
     var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
-
     var machineProperty: IMachineProperty? = null
+
     fun addBracket() = copy(formula = "($formula)")
 
     fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
@@ -81,10 +90,21 @@ data class HiiragiMaterial(
             tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
     }
 
-    fun createFluid(): Fluid? = fluidSupplier()?.setBlock(fluidBlock)
+    fun createFluid() {
+        val fluid: Fluid = fluidSupplier() ?: return
+        if (FluidRegistry.isFluidRegistered(name)) return
+        FluidRegistry.registerFluid(fluid)
+        FluidRegistry.addBucketForFluid(fluid)
+        fluidBlock(fluid)?.let { block: Block ->
+            fluid.block = block
+            (block as? HiiragiEntry.BLOCK)?.let(HiiragiRegistries.BLOCK::register)
+            FluidRegistry.registerFluid(fluid)
+        }
+    }
 
     fun getAllItemStack(): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
-        .flatMap { shape: HiiragiShape -> HiiragiPart(shape, this).getAllItemStack() }
+        .map(::getPart)
+        .flatMap(HiiragiPart::getItemStacks)
 
     fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
 
@@ -96,9 +116,12 @@ data class HiiragiMaterial(
 
     fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
 
+    fun getItemStack(shape: HiiragiShape, count: Int = 1): ItemStack? =
+        HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.getItemStack(this, count)
+
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
-    fun getOreDictNameAlt(): List<String> = oreDictAlt.map { it.snakeToUpperCamelCase() }
+    fun getOreDictNameAlt(): List<String> = oreDictAlt.map(String::snakeToUpperCamelCase)
 
     fun getPart(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, this)
 
@@ -169,8 +192,81 @@ data class HiiragiMaterial(
     //    Registration    //
 
     fun register() {
+        if (!isValidIndex()) {
+            RagiMaterials.LOGGER.error("$this has invalid index: $index !!")
+            return
+        }
         HiiragiRegistries.MATERIAL.register(name, this)
         HiiragiRegistries.MATERIAL_INDEX.register(index, this)
+    }
+
+    //    Interface    //
+
+    interface BLOCK : HiiragiEntry.BLOCK {
+
+        val shape: HiiragiShape
+
+        fun getMaterial(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): HiiragiMaterial? =
+            getTileImplemented<TILE>(world, pos)?.material
+
+        fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+
+    }
+
+    interface ITEM : HiiragiEntry.ITEM {
+
+        val shape: HiiragiShape
+
+        fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+
+    }
+
+    interface TILE {
+
+        var material: HiiragiMaterial?
+
+    }
+
+    //    IJsonSerializable    //
+
+    override fun getSerializableElement(): JsonElement {
+
+        val root = JsonObject()
+
+        root.addProperty("name", name)
+        root.addProperty("index", index)
+
+        root.addProperty("color", color)
+        root.addProperty("formula", formula)
+
+        val fluid: Fluid? = fluidSupplier()
+        if (fluid == null) {
+            root.addProperty("has_fluid", false)
+            root.addProperty("has_fluid_block", false)
+        } else {
+            root.addProperty("has_fluid", true)
+            if (fluidBlock(fluid) != null) {
+                root.addProperty("has_fluid_block", true)
+            }
+        }
+
+        root.add("machineProperty", machineProperty?.serializableElement)
+        root.addProperty("molar", molar)
+
+        val oreDictAltJson = JsonArray()
+        oreDictAlt.forEach(oreDictAltJson::add)
+        root.add("oreDictAlt", oreDictAltJson)
+
+        root.add("shapeType", shapeType.serializableElement)
+        root.addProperty("tempBoil", tempBoil)
+        root.addProperty("tempMelt", tempMelt)
+
+        return root
+
+    }
+
+    override fun fromJson(json: JsonElement) {
+
     }
 
 }

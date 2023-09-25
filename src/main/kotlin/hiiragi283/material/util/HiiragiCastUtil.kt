@@ -16,3 +16,6 @@ inline fun <reified T> ItemStack.isItemImplemented(): Boolean = this.item is T
 
 inline fun <reified T : TileEntity> getTile(world: IBlockAccess?, pos: BlockPos?): T? =
     pos?.let { world?.getTileEntity(it) } as? T
+
+inline fun <reified T> getTileImplemented(world: IBlockAccess?, pos: BlockPos?): T? =
+    pos?.let { world?.getTileEntity(it) } as? T

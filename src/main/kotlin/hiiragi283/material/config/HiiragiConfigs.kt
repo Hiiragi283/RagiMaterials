@@ -4,7 +4,7 @@ import hiiragi283.material.RMReference
 import net.minecraftforge.common.config.Config
 
 @Config(modid = RMReference.MOD_ID)
-object RMConfig {
+object HiiragiConfigs {
 
     @Config.Name("Experimental")
     @JvmField

@@ -1,12 +1,14 @@
 package hiiragi283.material.proxy
 
+import com.google.gson.JsonElement
 import hiiragi283.material.*
 import hiiragi283.material.api.fluid.MaterialFluid
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.chunk.HiiragiChunkLoadCallback
 import hiiragi283.material.compat.HiiragiPlugin
-import hiiragi283.material.config.RMConfig
-import hiiragi283.material.config.RMJSonHandler
+import hiiragi283.material.config.HiiragiConfigs
+import hiiragi283.material.config.HiiragiJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
@@ -29,16 +31,17 @@ abstract class HiiragiProxy : IHiiragiProxy {
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
         //configから素材を取得
-        RMJSonHandler(event).run {
-            this.writeJson()
-            this.readJson()
+        HiiragiJSonHandler.run {
+            this.event = event
+            init()
+            writeJson()
+            readJson()
         }
         //レジストリへの登録
         HiiragiBlocks
         HiiragiEntities
         HiiragiItems
         HiiragiRegistries.registerShape()
-        HiiragiRegistries.registerShapeType()
         HiiragiRegistries.registerMaterial()
         MaterialFluid.register()
         //連携の登録
@@ -68,8 +71,11 @@ abstract class HiiragiProxy : IHiiragiProxy {
 
     override fun onComplete(event: FMLLoadCompleteEvent) {
         //MaterialRegistryからログに出力
-        if (RMConfig.MATERIAL.printMaterials) {
-            HiiragiRegistries.MATERIAL.getValues().forEach(RagiMaterials.LOGGER::info)
+        if (HiiragiConfigs.MATERIAL.printMaterials) {
+            HiiragiRegistries.MATERIAL.getValues()
+                .map(HiiragiMaterial::getSerializableElement)
+                .map<JsonElement, String>(RagiMaterials.GSON::toJson)
+                .forEach(RagiMaterials.LOGGER::info)
         }
         //GUi操作を登録
         NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterials.Instance, HiiragiGuiHandler)

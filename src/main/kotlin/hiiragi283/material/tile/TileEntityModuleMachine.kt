@@ -33,10 +33,12 @@ import net.minecraftforge.items.CapabilityItemHandler
 import kotlin.math.min
 
 
-class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
+class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, HiiragiMaterial.TILE {
 
     override fun getDisplayName(): ITextComponent =
         TextComponentTranslation(machineProperty.recipeType.translationKey, material?.getTranslatedName())
+
+    override var material: HiiragiMaterial? = null
 
     //    NBT    //
 
@@ -120,8 +122,6 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable {
     }
 
     //    Event    //
-
-    var material: HiiragiMaterial? = null
 
     override fun onTilePlaced(
         world: World,

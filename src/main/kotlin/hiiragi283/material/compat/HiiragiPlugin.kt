@@ -2,7 +2,7 @@ package hiiragi283.material.compat
 
 
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.config.RMConfig
+import hiiragi283.material.config.HiiragiConfigs
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -12,18 +12,18 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 object HiiragiPlugin : IHiiragiPlugin {
 
     private fun enableIntegration(name: String, config: Boolean): Boolean =
-        RMConfig.INTEGRATION.forceIntegration || (Loader.isModLoaded(name) && config)
+        HiiragiConfigs.INTEGRATION.forceIntegration || (Loader.isModLoaded(name) && config)
 
-    private val botania = { enableIntegration("botania", RMConfig.INTEGRATION.botania) }
-    private val embers = { enableIntegration("embers", RMConfig.INTEGRATION.embers) }
-    private val enderIO = { enableIntegration("enderio", RMConfig.INTEGRATION.enderIO) }
-    private val ic2Ex = { enableIntegration("ic2", RMConfig.INTEGRATION.ic2Ex) }
-    private val mekanism = { enableIntegration("mekanism", RMConfig.INTEGRATION.mekanism) }
-    private val projectRed = { enableIntegration("projectred-core", RMConfig.INTEGRATION.projectRed) }
-    private val railCraft = { enableIntegration("railcraft", RMConfig.INTEGRATION.railCraft) }
-    private val tCon = { enableIntegration("tconstruct", RMConfig.INTEGRATION.tCon) }
-    private val thaum = { enableIntegration("thaumcraft", RMConfig.INTEGRATION.thaum) }
-    private val thermal = { enableIntegration("thermalfoundation", RMConfig.INTEGRATION.thermal) }
+    private val botania = { enableIntegration("botania", HiiragiConfigs.INTEGRATION.botania) }
+    private val embers = { enableIntegration("embers", HiiragiConfigs.INTEGRATION.embers) }
+    private val enderIO = { enableIntegration("enderio", HiiragiConfigs.INTEGRATION.enderIO) }
+    private val ic2Ex = { enableIntegration("ic2", HiiragiConfigs.INTEGRATION.ic2Ex) }
+    private val mekanism = { enableIntegration("mekanism", HiiragiConfigs.INTEGRATION.mekanism) }
+    private val projectRed = { enableIntegration("projectred-core", HiiragiConfigs.INTEGRATION.projectRed) }
+    private val railCraft = { enableIntegration("railcraft", HiiragiConfigs.INTEGRATION.railCraft) }
+    private val tCon = { enableIntegration("tconstruct", HiiragiConfigs.INTEGRATION.tCon) }
+    private val thaum = { enableIntegration("thaumcraft", HiiragiConfigs.INTEGRATION.thaum) }
+    private val thermal = { enableIntegration("thermalfoundation", HiiragiConfigs.INTEGRATION.thermal) }
     private val top = { enableIntegration("theoneprobe", true) }
 
     private val list: MutableList<IHiiragiPlugin> = mutableListOf(HiiragiVanillaPlugin)

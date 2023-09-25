@@ -69,7 +69,7 @@ class HiiragiJEIPlugin : IModPlugin {
         //HiiragiMaterial
         registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
         registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
-        registry.addRecipeCatalyst(ItemStack(HiiragiItems.MATERIAL_BOTTLE, 1, 32767), MATERIAL)
+        registry.addRecipeCatalyst(HiiragiItems.MATERIAL_BOTTLE.getItemStackWild(), MATERIAL)
         //Machine Workbench
         registry.handleRecipes(IMachineRecipe.Type::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
         registry.addRecipes(IMachineRecipe.Type.values().toList(), MACHINE_WORKBENCH)
