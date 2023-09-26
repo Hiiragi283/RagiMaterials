@@ -3,7 +3,7 @@ package hiiragi283.material.item
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.block.MaterialBlockCasing
 import net.minecraft.client.util.ITooltipFlag
@@ -24,7 +24,7 @@ class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(bl
 
     //    IMachinePropertyItem    //
 
-    override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> IMachineRecipe.Type.NONE }
+    override val recipeType: (ItemStack) -> MachineType = { _ -> MachineType.NONE }
 
     override val processTime: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)

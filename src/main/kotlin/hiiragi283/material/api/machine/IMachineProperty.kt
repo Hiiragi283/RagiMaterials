@@ -3,7 +3,6 @@ package hiiragi283.material.api.machine
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.util.getIntegerOrNull
 import hiiragi283.material.util.getStringOrNull
 import net.minecraft.nbt.NBTTagCompound
@@ -14,7 +13,7 @@ import net.minecraftforge.common.util.Constants
 
 interface IMachineProperty : IJsonSerializable {
 
-    val recipeType: IMachineRecipe.Type
+    val recipeType: MachineType
     val processTime: Int
     val energyRate: Int
     val itemSlots: Int
@@ -73,8 +72,8 @@ interface IMachineProperty : IJsonSerializable {
         const val KEY_TRAIT = "MachineTraits"
 
         fun of(tag: NBTTagCompound) = of(
-            recipeType = tag.getStringOrNull(KEY_TYPE)?.let { IMachineRecipe.Type.valueOf(it) }
-                ?: IMachineRecipe.Type.NONE,
+            recipeType = tag.getStringOrNull(KEY_TYPE)?.let { MachineType.valueOf(it) }
+                ?: MachineType.NONE,
             processTime = tag.getIntegerOrNull(KEY_PROCESS) ?: 100,
             energyRate = tag.getIntegerOrNull(KEY_RATE) ?: 32,
             itemSlots = tag.getIntegerOrNull(KEY_ITEM) ?: 1,
@@ -91,14 +90,14 @@ interface IMachineProperty : IJsonSerializable {
         }
 
         fun of(
-            recipeType: IMachineRecipe.Type = IMachineRecipe.Type.NONE,
+            recipeType: MachineType = MachineType.NONE,
             processTime: Int = 100,
             energyRate: Int = 32,
             itemSlots: Int = 1,
             fluidSlots: Int = 0,
             machineTraits: Set<MachineTrait> = mutableSetOf()
         ): IMachineProperty = object : IMachineProperty {
-            override var recipeType: IMachineRecipe.Type = recipeType
+            override var recipeType: MachineType = recipeType
             override var processTime: Int = processTime
             override var energyRate: Int = energyRate
             override var itemSlots: Int = itemSlots

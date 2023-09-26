@@ -28,14 +28,8 @@ sealed class FluidIngredient(val amount: Int = 0) : Predicate<FluidStack?> {
 
         override fun getMatchingStack(): Collection<FluidStack> = fluidStacks.map(FluidStack::copy)
 
-        override fun test(t: FluidStack?): Boolean {
-            getMatchingStack().forEach { fluidStack ->
-                if (t !== null && t.isFluidEqual(fluidStack) && t.amount >= amount) {
-                    return true
-                }
-            }
-            return false
-        }
+        override fun test(t: FluidStack?): Boolean =
+            getMatchingStack().any { fluidStack: FluidStack -> t !== null && t.isFluidEqual(fluidStack) && t.amount >= amount }
 
     }
 

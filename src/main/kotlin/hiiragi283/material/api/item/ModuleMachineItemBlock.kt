@@ -1,14 +1,13 @@
-package hiiragi283.material.item
+package hiiragi283.material.api.item
 
-import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.block.BlockModuleMachine
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getIntegerOrNull
 import hiiragi283.material.util.getOrCreateCompoundTag
@@ -24,9 +23,9 @@ import net.minecraftforge.common.util.Constants
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block, 32767), IMachinePropertyItem {
+class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block, 32767), IMachinePropertyItem {
 
-    val type: IMachineRecipe.Type = block.type
+    val type: MachineType = block.type
 
     //    Client    //
 
@@ -58,7 +57,7 @@ class ItemBlockModuleMachine(block: BlockModuleMachine) : HiiragiItemBlock(block
         stack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
             .getOrCreateCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY)
 
-    override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> type }
+    override val recipeType: (ItemStack) -> MachineType = { _ -> type }
 
     override val processTime: (ItemStack) -> Int = { stack ->
         getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_PROCESS) ?: 100

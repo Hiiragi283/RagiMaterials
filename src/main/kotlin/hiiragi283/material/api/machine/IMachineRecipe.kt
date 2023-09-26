@@ -1,12 +1,9 @@
-package hiiragi283.material.api.recipe
+package hiiragi283.material.api.machine
 
-import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.FluidIngredient
 import hiiragi283.material.util.HiiragiIngredient
-import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
@@ -28,7 +25,9 @@ interface IMachineRecipe {
 
     fun getRequiredTraits(): Set<MachineTrait>
 
-    fun getRequiredType(): Type
+    fun traitsString(): String = getRequiredTraits().toString().let { it.substring(1, it.length - 1) }
+
+    fun getRequiredType(): MachineType
 
     //    Output    //
 
@@ -128,39 +127,6 @@ interface IMachineRecipe {
         fun register(registryName: ResourceLocation, recipe: IMachineRecipe) {
             HiiragiRegistries.MACHINE_RECIPE.getValue(recipe.getRequiredType())?.register(registryName, recipe)
         }
-
-    }
-
-    enum class Type {
-        ASSEMBLER,
-        CANNING,
-        CENTRIFUGE,
-        COMPRESSOR,
-        CRUSHER,
-        CUTTING,
-        DISTILLER,
-        ELECTROLYZER,
-        EXTRACTOR,
-        FREEZER,
-        HEATER,
-        INFUSER,
-        LASER_ENGRAVER,
-        MELTER,
-        METAL_FORMER,
-        MIXER,
-        PRESS,
-        PULVERIZER,
-        ROCK_GENERATOR,
-        SMELTER,
-        TEST,
-        NONE;
-
-        val translationKey: String = "hiiragi_machine.${this.lowercase()}"
-
-        fun lowercase() = name.lowercase()
-
-        fun getTranslatedName(material: HiiragiMaterial): String =
-            I18n.format(translationKey, material.getTranslatedName())
 
     }
 

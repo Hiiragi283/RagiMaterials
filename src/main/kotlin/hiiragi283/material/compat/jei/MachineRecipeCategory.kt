@@ -1,6 +1,7 @@
 package hiiragi283.material.compat.jei
 
-import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.api.machine.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.util.*
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawableStatic
@@ -8,11 +9,12 @@ import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
+import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 
 class MachineRecipeCategory(
-    val type: IMachineRecipe.Type,
+    val type: MachineType,
     guiHelper: IGuiHelper
 ) : HiiragiRecipeCategory<MachineRecipeCategory.Wrapper>(HiiragiJEIPlugin.getRecipeTypeID(type), guiHelper) {
 
@@ -96,6 +98,19 @@ class MachineRecipeCategory(
             iIngredients.setOutputs(
                 VanillaTypes.FLUID,
                 getOutputFluids()
+            )
+        }
+
+        private fun getSlotPosX(index: Int): Int = 8 + 18 * (index + 1)
+
+        private fun getSlotPosY(index: Int): Int = 18 * (index + 1)
+
+        override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {
+            minecraft.fontRenderer.drawString(
+                traitsString(),
+                getSlotPosX(0),
+                getSlotPosY(3) + 2,
+                HiiragiColor.DARK_GRAY.rgb
             )
         }
 

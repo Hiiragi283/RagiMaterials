@@ -9,8 +9,8 @@ import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.HiiragiNBTUtil

@@ -1,6 +1,7 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.block.MaterialBlock
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
@@ -36,27 +37,6 @@ object HiiragiBlocks {
     @JvmField
     val MACHINE_WORKBENCH = HiiragiRegistries.BLOCK.register(BlockMachineWorkbench)
 
-    @JvmField
-    val MACHINE_EXTRACTOR = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Extractor)
-
-    @JvmField
-    val MACHINE_FREEZER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Freezer)
-
-    @JvmField
-    val MACHINE_INFUSER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Infuser)
-
-    @JvmField
-    val MACHINE_MELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Melter)
-
-    @JvmField
-    val MACHINE_ROCK_GENERATOR = HiiragiRegistries.BLOCK.register(BlockModuleMachine.RockGenerator)
-
-    @JvmField
-    val MACHINE_SMELTER = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Smelter)
-
-    @JvmField
-    val MACHINE_TEST = HiiragiRegistries.BLOCK.register(BlockModuleMachine.Test)
-
     //    Common    //
 
     @JvmField
@@ -66,6 +46,7 @@ object HiiragiBlocks {
     val CHUNK_LOADER = HiiragiRegistries.BLOCK.register(BlockTestChunkLoader)
 
     init {
+        MachineType.createMachineBlock()
         registerTileEntity(MaterialTileEntity::class.java, "material")
         registerTileEntity(TileEntityCapabilityRail::class.java, "capability_rail")
         registerTileEntity(TileEntityMachineExtender::class.java, "machine_extender")

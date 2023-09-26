@@ -1,15 +1,15 @@
 package hiiragi283.material.container
 
+import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.container.HiiragiContainer
 import hiiragi283.material.api.container.SlotOutputItemHandler
+import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.module.IModuleItem
-import hiiragi283.material.api.module.IRecipeModuleItem
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.block.BlockModuleMachine
 import hiiragi283.material.item.MaterialItemBlockCasing
 import hiiragi283.material.util.dropInventoryItems
 import hiiragi283.material.util.getItemImplemented
@@ -44,10 +44,10 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
         val recipeModule: ItemStack = inputInventory.getStackInSlot(1)
         val module: ItemStack = inputInventory.getStackInSlot(2)
 
-        val recipeType: IMachineRecipe.Type = recipeModule.getItemImplemented<IRecipeModuleItem>()
+        val recipeType: MachineType = recipeModule.getItemImplemented<RecipeModuleItem>()
             ?.recipeType ?: return
 
-        val machineBlock: BlockModuleMachine = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType) ?: return
+        val machineBlock: ModuleMachineBlock = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType) ?: return
 
         val baseProperty: IMachineProperty = casing.getItemImplemented<MaterialItemBlockCasing>()
             ?.toMachineProperty(casing)
@@ -85,7 +85,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
             override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<MaterialItemBlockCasing>()
         })
         addSlotToContainer(object : SlotItemHandler(inputInventory, 1, getSlotPosX(3), getSlotPosY(1)) {
-            override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<IRecipeModuleItem>()
+            override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<RecipeModuleItem>()
         })
         addSlotToContainer(object : SlotItemHandler(inputInventory, 2, getSlotPosX(4), getSlotPosY(1)) {
             override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<IModuleItem>()

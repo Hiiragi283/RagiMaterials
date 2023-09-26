@@ -4,7 +4,10 @@ import hiiragi283.material.api.item.HiiragiItem
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
-import net.minecraft.util.*
+import net.minecraft.util.EnumActionResult
+import net.minecraft.util.EnumFacing
+import net.minecraft.util.EnumHand
+import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
@@ -36,24 +39,15 @@ object ItemWrench : HiiragiItem("wrench") {
         hand: EnumHand
     ): EnumActionResult {
         val state: IBlockState = world.getBlockState(pos)
-        return if (player.isSneaking) {
-            when (side.axis) {
-                EnumFacing.Axis.X -> {
-                    world.setBlockState(pos, state.withMirror(Mirror.FRONT_BACK))
-                    EnumActionResult.SUCCESS
-                }
-
-                EnumFacing.Axis.Z -> {
-                    world.setBlockState(pos, state.withMirror(Mirror.LEFT_RIGHT))
-                    EnumActionResult.SUCCESS
-                }
-
-                else -> EnumActionResult.FAIL
+        return if (!world.isRemote) {
+            if (player.isSneaking) {
+                world.setBlockState(pos, state.withRotation(Rotation.COUNTERCLOCKWISE_90))
+                EnumActionResult.SUCCESS
+            } else {
+                world.setBlockState(pos, state.withRotation(Rotation.CLOCKWISE_90))
+                EnumActionResult.SUCCESS
             }
-        } else {
-            world.setBlockState(pos, state.withRotation(Rotation.CLOCKWISE_90))
-            EnumActionResult.SUCCESS
-        }
+        } else super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand)
     }
 
     //    Client    //

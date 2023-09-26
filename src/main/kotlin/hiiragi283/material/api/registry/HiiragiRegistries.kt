@@ -1,14 +1,15 @@
 package hiiragi283.material.api.registry
 
+import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
+import hiiragi283.material.api.item.RecipeModuleItem
+import hiiragi283.material.api.machine.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.module.IRecipeModuleItem
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.createAllParts
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.block.BlockModuleMachine
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.util.ResourceLocation
@@ -27,21 +28,21 @@ object HiiragiRegistries {
     //    Recipe    //
 
     @JvmField
-    val MODULE_MACHINE: HiiragiRegistry<IMachineRecipe.Type, BlockModuleMachine> = HiiragiRegistry("Module Machine")
+    val MODULE_MACHINE: HiiragiRegistry<MachineType, ModuleMachineBlock> = HiiragiRegistry("Module Machine")
 
     @JvmField
-    val MACHINE_RECIPE: HiiragiRegistry<IMachineRecipe.Type, HiiragiRegistry<ResourceLocation, IMachineRecipe>> =
+    val MACHINE_RECIPE: HiiragiRegistry<MachineType, HiiragiRegistry<ResourceLocation, IMachineRecipe>> =
         HiiragiRegistry("Machine Recipe")
 
     fun initRecipeType() {
-        IMachineRecipe.Type.values().forEach { type: IMachineRecipe.Type ->
+        MachineType.values().forEach { type: MachineType ->
             MACHINE_RECIPE.register(type, HiiragiRegistry("Machine Recipe - ${type.name}", true))
         }
         MACHINE_RECIPE.lock()
     }
 
     @JvmField
-    val RECIPE_MODULE: HiiragiRegistry<IMachineRecipe.Type, IRecipeModuleItem> = HiiragiRegistry("Recipe Module")
+    val RECIPE_MODULE: HiiragiRegistry<MachineType, RecipeModuleItem> = HiiragiRegistry("Recipe Module")
 
     //    Material    //
 

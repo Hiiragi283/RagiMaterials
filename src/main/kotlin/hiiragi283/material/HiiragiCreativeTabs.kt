@@ -1,5 +1,7 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.machine.MachineType
+import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -14,7 +16,11 @@ object HiiragiCreativeTabs {
 
     val COMMON by lazy { createCreativeTab("common") { HiiragiItems.BOOK_RESPAWN.getItemStack() } }
 
-    val MACHINE by lazy { createCreativeTab("machine") { HiiragiBlocks.MACHINE_SMELTER.getItemStack() } }
+    val MACHINE by lazy {
+        createCreativeTab("machine") {
+            HiiragiRegistries.MODULE_MACHINE.getValue(MachineType.SMELTER)!!.getItemStack()
+        }
+    }
 
     val MATERIAL_BLOCK by lazy { createCreativeTab("material_block") { ItemStack(Blocks.IRON_BLOCK) } }
 

@@ -1,9 +1,10 @@
 package hiiragi283.material.recipe
 
+import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.getParts
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.util.FluidIngredient
 import hiiragi283.material.util.HiiragiIngredient
 import net.minecraft.item.ItemStack
@@ -17,9 +18,9 @@ class MaterialMeltingRecipe(val material: HiiragiMaterial) : IMachineRecipe {
 
     override fun getInputFluids(): List<FluidIngredient> = listOf()
 
-    override fun getRequiredTraits(): Set<MachineTrait> = setOf()
+    override fun getRequiredTraits(): Set<MachineTrait> = setOf(MachineTrait.MELT)
 
-    override fun getRequiredType(): IMachineRecipe.Type = IMachineRecipe.Type.MELTER
+    override fun getRequiredType(): MachineType = MachineType.SMELTER
 
     override fun getOutputItems(): List<ItemStack> = listOf()
 

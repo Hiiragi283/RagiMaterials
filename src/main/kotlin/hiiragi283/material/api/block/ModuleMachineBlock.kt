@@ -1,13 +1,12 @@
-package hiiragi283.material.block
+package hiiragi283.material.api.block
 
 import hiiragi283.material.HiiragiCreativeTabs
-import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.api.item.HiiragiItemBlock
+import hiiragi283.material.api.item.ModuleMachineItemBlock
 import hiiragi283.material.api.machine.IMachineProperty
-import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.item.ItemBlockModuleMachine
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getTile
@@ -30,18 +29,17 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
+class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
     "machine_${type.lowercase()}",
     { TileEntityModuleMachine() }
 ) {
 
-    override val itemBlock: HiiragiItemBlock = ItemBlockModuleMachine(this)
+    override val itemBlock: HiiragiItemBlock = ModuleMachineItemBlock(this)
 
     init {
         creativeTab = HiiragiCreativeTabs.MACHINE
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
-        HiiragiRegistries.MODULE_MACHINE.register(type, this)
     }
 
     fun createMachineStack(meta: Int, machineProperty: IMachineProperty): ItemStack {
@@ -129,6 +127,10 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
 
     //    HiiragiEntry    //
 
+    override fun onRegister() {
+        HiiragiRegistries.MODULE_MACHINE.register(type, this)
+    }
+
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
         blockColors.registerBlockColorHandler({ _: IBlockState?, world: IBlockAccess?, pos: BlockPos?, _: Int ->
@@ -147,23 +149,5 @@ sealed class BlockModuleMachine(val type: IMachineRecipe.Type) : HiiragiBlockCon
     override fun registerModel() {
         this.setModelSame()
     }
-
-    //    Extended Classes   //
-
-    object Extractor : BlockModuleMachine(IMachineRecipe.Type.EXTRACTOR)
-
-    object Freezer : BlockModuleMachine(IMachineRecipe.Type.FREEZER)
-
-    object Infuser : BlockModuleMachine(IMachineRecipe.Type.INFUSER)
-
-    object Melter : BlockModuleMachine(IMachineRecipe.Type.MELTER)
-
-    object RockGenerator : BlockModuleMachine(IMachineRecipe.Type.ROCK_GENERATOR)
-
-    object Smelter : BlockModuleMachine(IMachineRecipe.Type.SMELTER)
-
-    object Test : BlockModuleMachine(IMachineRecipe.Type.TEST)
-
-
 
 }

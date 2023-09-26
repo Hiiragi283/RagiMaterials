@@ -102,10 +102,6 @@ data class HiiragiMaterial(
         }
     }
 
-    fun getAllItemStack(): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
-        .map(::getPart)
-        .flatMap(HiiragiPart::getItemStacks)
-
     fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
 
     fun getFluids(): List<Fluid> {
@@ -118,6 +114,10 @@ data class HiiragiMaterial(
 
     fun getItemStack(shape: HiiragiShape, count: Int = 1): ItemStack? =
         HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.getItemStack(this, count)
+
+    fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
+        .map(::getPart)
+        .flatMap { it.getItemStacks(count) }
 
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 

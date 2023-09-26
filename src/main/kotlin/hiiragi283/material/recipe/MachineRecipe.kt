@@ -1,7 +1,8 @@
 package hiiragi283.material.recipe
 
+import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.util.FluidIngredient
 import hiiragi283.material.util.HiiragiIngredient
 import net.minecraft.item.ItemStack
@@ -18,7 +19,7 @@ class MachineRecipe private constructor() {
 
     companion object {
         fun buildAndRegister(
-            type: IMachineRecipe.Type,
+            type: MachineType,
             registryName: ResourceLocation,
             init: MachineRecipe.() -> Unit
         ) {
@@ -32,7 +33,7 @@ class MachineRecipe private constructor() {
 
                 override fun getRequiredTraits(): Set<MachineTrait> = builder.traits
 
-                override fun getRequiredType(): IMachineRecipe.Type = type
+                override fun getRequiredType(): MachineType = type
 
                 override fun getOutputItems(): List<ItemStack> = builder.outputItems
 

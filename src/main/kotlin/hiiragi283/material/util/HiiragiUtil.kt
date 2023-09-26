@@ -40,6 +40,7 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.FMLCommonHandler
 import net.minecraftforge.fml.common.registry.ForgeRegistries
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
@@ -258,11 +259,17 @@ fun getSound(registryName: ResourceLocation): SoundEvent? = getEntry(ForgeRegist
 
 fun getSound(registryName: String): SoundEvent? = getSound(ResourceLocation(registryName))
 
-fun <T : IForgeRegistryEntry<T>> getEntry(registry: IForgeRegistry<T>, registryName: String): T? =
+inline fun <reified T : IForgeRegistryEntry<T>> getEntry(registryName: String): T? =
+    getEntry(GameRegistry.findRegistry(T::class.java), ResourceLocation(registryName))
+
+inline fun <reified T : IForgeRegistryEntry<T>> getEntry(registryName: ResourceLocation): T? =
+    getEntry(GameRegistry.findRegistry(T::class.java), registryName)
+
+fun <T : IForgeRegistryEntry<T>> getEntry(registry: IForgeRegistry<T>?, registryName: String): T? =
     getEntry(registry, ResourceLocation(registryName))
 
-fun <T : IForgeRegistryEntry<T>> getEntry(registry: IForgeRegistry<T>, registryName: ResourceLocation): T? =
-    registry.getValue(registryName)
+fun <T : IForgeRegistryEntry<T>> getEntry(registry: IForgeRegistry<T>?, registryName: ResourceLocation): T? =
+    registry?.getValue(registryName)
 
 fun <T : IForgeRegistryEntry<T>> removeEntry(registry: IForgeRegistry<T>, registryName: String) {
     removeEntry(registry, ResourceLocation(registryName))

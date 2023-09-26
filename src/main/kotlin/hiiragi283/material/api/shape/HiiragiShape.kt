@@ -18,6 +18,10 @@ class HiiragiShape(val name: String, val scale: Int) {
     fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack? =
         HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.getItemStack(material, count)
 
+    fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.MATERIAL_INDEX.getValues()
+        .map(::getPart)
+        .flatMap { it.getItemStacks(count) }
+
     fun getOreDict(material: HiiragiMaterial): String = name.snakeToLowerCamelCase() + material.getOreDictName()
 
     fun getOreDicts(material: HiiragiMaterial): List<String> {

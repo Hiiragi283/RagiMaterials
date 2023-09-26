@@ -1,6 +1,7 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.item.MaterialItem
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -162,26 +163,6 @@ object HiiragiItems : HiiragiEntry.ITEM {
         }
     ))
 
-    //    Recipe Module    //
-
-    @JvmField
-    val RECIPE_EXTRACTOR: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Extractor)
-
-    @JvmField
-    val RECIPE_FREEZER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Freezer)
-
-    @JvmField
-    val RECIPE_INFUSER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Infuser)
-
-    @JvmField
-    val RECIPE_MELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Melter)
-
-    @JvmField
-    val RECIPE_ROCK_GENERATOR: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.RockGenerator)
-
-    @JvmField
-    val RECIPE_SMELTER: ItemRecipeModule = HiiragiRegistries.ITEM.register(ItemRecipeModule.Smelter)
-
     //    Module Item   //
 
     @JvmField
@@ -194,5 +175,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
 
     @JvmField
     val WRENCH = HiiragiRegistries.ITEM.register(ItemWrench)
+
+    init {
+        MachineType.createRecipeModule()
+    }
 
 }

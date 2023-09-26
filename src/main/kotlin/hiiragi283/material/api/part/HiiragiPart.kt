@@ -44,6 +44,7 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     fun getItemStack(count: Int = 1) = HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.getItemStack(material, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
+        .map(ItemStack::copy)
         .map { stack: ItemStack ->
             stack.count = count
             return@map stack

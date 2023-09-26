@@ -41,7 +41,7 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         private val materialStack: MaterialStack = material.toMaterialStack()
         private val fluids: Collection<FluidStack> = material.getFluids()
             .map { fluid: Fluid -> FluidStack(fluid, 1000) }
-        private val stacks: Collection<ItemStack> = material.getAllItemStack()
+        private val stacks: Collection<ItemStack> = material.getItemStacks()
             .map { it.item to it.metadata }
             .toSet()
             .map { ItemStack(it.first, 1, it.second) }

@@ -1,14 +1,12 @@
 package hiiragi283.material.api.machine
 
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.util.isShiftPressed
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
-import kotlin.math.max
 
 interface IMachinePropertyItem {
 
-    val recipeType: (ItemStack) -> IMachineRecipe.Type
+    val recipeType: (ItemStack) -> MachineType
     val processTime: (ItemStack) -> Int
     val energyRate: (ItemStack) -> Int
     val itemSlots: (ItemStack) -> Int
@@ -19,15 +17,8 @@ interface IMachinePropertyItem {
 
     fun getEnergyCapacity(stack: ItemStack): Int = getEnergyRequired(stack) * 5
 
-    fun getMachineTraitsString(stack: ItemStack): String {
-        val builder = StringBuilder()
-        machineTraits(stack).forEach { trait ->
-            builder.append(trait)
-            builder.append(", ")
-        }
-        builder.setLength(max(0, builder.length - 2))
-        return builder.toString()
-    }
+    fun getMachineTraitsString(stack: ItemStack): String =
+        machineTraits(stack).toString().let { it.substring(1, it.length - 1) }
 
     fun addTooltip(stack: ItemStack, tooltip: MutableList<String>) {
         tooltip.add("§e=== Machine Property ===")

@@ -31,14 +31,8 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
         override fun getMatchingStacks(): Collection<ItemStack> = stacks
 
-        override fun test(t: ItemStack): Boolean {
-            getMatchingStacks().forEach { stack ->
-                if (stack.isSameWithoutCount(t) && t.count >= count) {
-                    return true
-                }
-            }
-            return false
-        }
+        override fun test(t: ItemStack): Boolean =
+            getMatchingStacks().any { stack -> stack.isSameWithoutCount(t) && t.count >= count }
 
     }
 
@@ -52,12 +46,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
         override fun test(t: ItemStack): Boolean {
             val blockT: Block = (t.item as? ItemBlock)?.block ?: return false
-            blocks.forEach { block: Block ->
-                if (blockT == block && t.count >= count) {
-                    return true
-                }
-            }
-            return false
+            return blocks.any { block: Block -> blockT == block && t.count >= count }
         }
 
     }
@@ -70,14 +59,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
         override fun getMatchingStacks(): Collection<ItemStack> = items.map { ItemStack(it, count, 0) }
 
-        override fun test(t: ItemStack): Boolean {
-            items.forEach { item: Item ->
-                if (t.item == item && t.count >= count) {
-                    return true
-                }
-            }
-            return false
-        }
+        override fun test(t: ItemStack): Boolean = items.any { item: Item -> t.item == item && t.count >= count }
 
     }
 
@@ -88,19 +70,13 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
         private val oreDicts: List<String> = oreDicts.toList()
 
         override fun getMatchingStacks(): Collection<ItemStack> = oreDicts.flatMap(OreDictionary::getOres)
+            .map(ItemStack::copy)
             .map { stack: ItemStack ->
                 stack.count = count
                 return@map stack
             }
 
-        override fun test(t: ItemStack): Boolean {
-            oreDicts.forEach { oreDict ->
-                if (oreDict in t.getOreDicts()) {
-                    return true
-                }
-            }
-            return false
-        }
+        override fun test(t: ItemStack): Boolean = oreDicts.any { oreDict: String -> oreDict in t.getOreDicts() }
 
     }
 
@@ -123,11 +99,19 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     class Materials(private val material: HiiragiMaterial, count: Int = 1) : HiiragiIngredient(count) {
 
-        fun getMaterialIngredient(amount: Int = 144) = material.toMaterialStack(amount)
-
-        override fun getMatchingStacks(): Collection<ItemStack> = material.getAllItemStack()
+        override fun getMatchingStacks(): Collection<ItemStack> = material.getItemStacks()
 
         override fun test(t: ItemStack): Boolean = material in t.getParts().map(HiiragiPart::material)
+
+    }
+
+    //    HiiragiShape    //
+
+    class Shapes(private val shape: HiiragiShape, count: Int = 1) : HiiragiIngredient(count) {
+
+        override fun getMatchingStacks(): Collection<ItemStack> = shape.getItemStacks()
+
+        override fun test(t: ItemStack): Boolean = shape in t.getParts().map(HiiragiPart::shape)
 
     }
 

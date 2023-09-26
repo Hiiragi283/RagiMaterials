@@ -1,6 +1,6 @@
 package hiiragi283.material.compat.jei
 
-import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.hiiragiLocation
@@ -30,7 +30,7 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
         iRecipeLayout.itemStacks[2] = wrapper.machine
     }
 
-    class Wrapper(val recipeType: IMachineRecipe.Type) : IRecipeWrapper {
+    class Wrapper(val recipeType: MachineType) : IRecipeWrapper {
 
         val casing: ItemStack = HiiragiRegistries.MATERIAL_ITEM.getValue(HiiragiShapes.CASING)
             ?.getItemStackWild()

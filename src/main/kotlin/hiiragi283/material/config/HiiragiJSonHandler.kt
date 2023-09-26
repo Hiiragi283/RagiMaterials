@@ -9,7 +9,7 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.api.shape.HiiragiShapeTypes
-import hiiragi283.material.util.deserializeMaterial
+import hiiragi283.material.util.HiiragiJsonUtil
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import java.io.File
 
@@ -64,7 +64,7 @@ object HiiragiJSonHandler {
                 .filter(File::canRead) //Fileが読み取り可能か
                 .map(File::readText) //Stringを読み取る
                 .map { gson.fromJson(it, JsonObject::class.java) } //String -> JsonObject
-                .mapNotNull(::deserializeMaterial) //JsonObject -> HiiragiMaterial
+                .mapNotNull(HiiragiJsonUtil::hiiragiMaterial) //JsonObject -> HiiragiMaterial
                 .forEach(CACHE::add) //CACHEに一時保存
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e) //念のため例外処理

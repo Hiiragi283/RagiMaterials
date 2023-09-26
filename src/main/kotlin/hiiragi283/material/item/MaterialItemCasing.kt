@@ -4,7 +4,7 @@ import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.recipe.IMachineRecipe
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
@@ -36,7 +36,7 @@ object MaterialItemCasing : MaterialItem(
 
     //    IMachinePropertyItem    //
 
-    override val recipeType: (ItemStack) -> IMachineRecipe.Type = { _ -> IMachineRecipe.Type.NONE }
+    override val recipeType: (ItemStack) -> MachineType = { _ -> MachineType.NONE }
 
     override val processTime: (ItemStack) -> Int = { stack ->
         HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)

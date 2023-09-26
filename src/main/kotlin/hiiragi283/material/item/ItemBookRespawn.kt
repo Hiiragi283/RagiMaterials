@@ -1,8 +1,6 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.api.item.HiiragiItem
-import hiiragi283.material.api.module.IRecipeModuleItem
-import hiiragi283.material.api.recipe.IMachineRecipe
 import hiiragi283.material.util.executeCommand
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.EnumRarity
@@ -12,7 +10,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.world.World
 import net.minecraftforge.common.IRarity
 
-object ItemBookRespawn : HiiragiItem("book_respawn"), IRecipeModuleItem {
+object ItemBookRespawn : HiiragiItem("book_respawn") {
 
     //    General    //
 
@@ -33,9 +31,5 @@ object ItemBookRespawn : HiiragiItem("book_respawn"), IRecipeModuleItem {
         }
         return super.onItemRightClick(world, player, hand)
     }
-
-    //    IRecipeModuleItem    //
-
-    override val recipeType: IMachineRecipe.Type = IMachineRecipe.Type.TEST
 
 }
