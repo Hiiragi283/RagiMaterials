@@ -3,7 +3,7 @@ package hiiragi283.material.api.machine
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.FluidIngredient
-import hiiragi283.material.util.HiiragiIngredient
+import hiiragi283.material.util.ItemIngredient
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
@@ -14,7 +14,7 @@ interface IMachineRecipe {
 
     //    Input    //
 
-    fun getInputItems(): List<HiiragiIngredient>
+    fun getInputItems(): List<ItemIngredient>
 
     fun getInputFluids(): List<FluidIngredient>
 
@@ -71,16 +71,16 @@ interface IMachineRecipe {
             //スロット数の確認
             if (!recipe.canFit(tile.machineProperty.itemSlots, tile.machineProperty.fluidSlots)) return false
             //Input - Item
-            recipe.getInputItems().forEachIndexed { index: Int, ingredient: HiiragiIngredient ->
-                if (!ingredient.test(tile.inventoryInput.getStackInSlot(index))) {
-                    return false
-                }
+            (0..5).forEach { index: Int ->
+                val ingredient: ItemIngredient = recipe.getInputItems().getOrElse(index) { ItemIngredient.EMPTY }
+                val stack: ItemStack = tile.inventoryInput.getStackInSlot(index)
+                if (!ingredient.test(stack)) return false
             }
             //Input - Fluid
-            recipe.getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->
-                if (!ingredient.test(tile.getTank(index).fluid)) {
-                    return false
-                }
+            (0..2).forEach { index: Int ->
+                val ingredient: FluidIngredient = recipe.getInputFluids().getOrElse(index) { FluidIngredient.EMPTY }
+                val stack: FluidStack? = tile.getTank(index).fluid
+                if (!ingredient.test(stack)) return false
             }
             //Output - Item
             recipe.getOutputItems(tile).forEachIndexed { index: Int, stack: ItemStack ->
@@ -112,7 +112,7 @@ interface IMachineRecipe {
                 tile.getTank(index + 3).fill(fluidStack.copy(), true)
             }
             //Input
-            recipe.getInputItems().forEachIndexed { index: Int, ingredient: HiiragiIngredient ->
+            recipe.getInputItems().forEachIndexed { index: Int, ingredient: ItemIngredient ->
                 ingredient.onProcess(tile.inventoryInput, index)
             }
             recipe.getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->

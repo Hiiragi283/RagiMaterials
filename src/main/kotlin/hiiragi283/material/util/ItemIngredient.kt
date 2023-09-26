@@ -12,7 +12,7 @@ import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.oredict.OreDictionary
 import java.util.function.Predicate
 
-sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
+sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     abstract fun getMatchingStacks(): Collection<ItemStack>
 
@@ -20,9 +20,19 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
         inventory.extractItem(index, count, false)
     }
 
+    //    Empty    //
+
+    object EMPTY : ItemIngredient() {
+
+        override fun getMatchingStacks(): Collection<ItemStack> = listOf()
+
+        override fun test(t: ItemStack): Boolean = t.isEmpty
+
+    }
+
     //    ItemStack    //
 
-    class Stacks(vararg stacks: ItemStack, count: Int = 1) : HiiragiIngredient(count) {
+    class Stacks(vararg stacks: ItemStack, count: Int = 1) : ItemIngredient(count) {
 
         private val stacks: List<ItemStack> = stacks.map {
             it.count = count
@@ -38,7 +48,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     //    Block    //
 
-    class Blocks(vararg blocks: Block, count: Int = 1) : HiiragiIngredient(count) {
+    class Blocks(vararg blocks: Block, count: Int = 1) : ItemIngredient(count) {
 
         private val blocks: List<Block> = blocks.toList()
 
@@ -53,7 +63,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     //    Item    //
 
-    class Items(vararg items: Item, count: Int = 1) : HiiragiIngredient(count) {
+    class Items(vararg items: Item, count: Int = 1) : ItemIngredient(count) {
 
         private val items: List<Item> = items.toList()
 
@@ -65,7 +75,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     //    Ore Dictionary    //
 
-    class OreDicts(vararg oreDicts: String, count: Int = 1) : HiiragiIngredient(count) {
+    class OreDicts(vararg oreDicts: String, count: Int = 1) : ItemIngredient(count) {
 
         private val oreDicts: List<String> = oreDicts.toList()
 
@@ -82,7 +92,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     //    HiiragiPart    //
 
-    class Parts(private val part: HiiragiPart, count: Int = 1) : HiiragiIngredient(count) {
+    class Parts(private val part: HiiragiPart, count: Int = 1) : ItemIngredient(count) {
 
         constructor(shape: HiiragiShape, material: HiiragiMaterial, count: Int = 1) : this(
             HiiragiPart(shape, material),
@@ -97,7 +107,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     //    HiiragiMaterial    //
 
-    class Materials(private val material: HiiragiMaterial, count: Int = 1) : HiiragiIngredient(count) {
+    class Materials(private val material: HiiragiMaterial, count: Int = 1) : ItemIngredient(count) {
 
         override fun getMatchingStacks(): Collection<ItemStack> = material.getItemStacks()
 
@@ -107,7 +117,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     //    HiiragiShape    //
 
-    class Shapes(private val shape: HiiragiShape, count: Int = 1) : HiiragiIngredient(count) {
+    class Shapes(private val shape: HiiragiShape, count: Int = 1) : ItemIngredient(count) {
 
         override fun getMatchingStacks(): Collection<ItemStack> = shape.getItemStacks()
 
@@ -124,7 +134,7 @@ sealed class HiiragiIngredient(val count: Int = 1) : Predicate<ItemStack> {
         val process: (IItemHandlerModifiable, Int) -> Unit = { inventory: IItemHandlerModifiable, index: Int ->
             inventory.extractItem(index, count, false)
         }
-    ) : HiiragiIngredient(count) {
+    ) : ItemIngredient(count) {
 
         override fun getMatchingStacks(): Collection<ItemStack> = stacks()
 

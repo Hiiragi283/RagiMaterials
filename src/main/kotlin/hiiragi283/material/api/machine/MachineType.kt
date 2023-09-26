@@ -30,6 +30,7 @@ enum class MachineType {
         I18n.format(translationKey, material.getTranslatedName())
 
     companion object {
+
         fun createMachineBlock() {
             values()
                 .filter { it != NONE }
@@ -43,6 +44,9 @@ enum class MachineType {
                 .map(::RecipeModuleItem)
                 .forEach(HiiragiRegistries.ITEM::register)
         }
+
+        fun from(name: String): MachineType? = values().firstOrNull { it.name == name }
+
     }
 
 }

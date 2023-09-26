@@ -39,7 +39,7 @@ object HiiragiJsonUtil {
     fun machineProperty(jsonElement: JsonElement): IMachineProperty {
         val root: JsonObject = jsonElement.asJsonObject
         return IMachineProperty.of(
-            MachineType.valueOf(root.getAsJsonPrimitive("recipe_type").asString),
+            MachineType.from(root.getAsJsonPrimitive("recipe_type").asString) ?: MachineType.NONE,
             root.getAsJsonPrimitive("process_time").asInt,
             root.getAsJsonPrimitive("energy_rate").asInt,
             root.getAsJsonPrimitive("item_slots").asInt,
@@ -137,7 +137,7 @@ object HiiragiJsonUtil {
 
     }
 
-    fun hiiragiIngredient(jsonElement: JsonElement): HiiragiIngredient? {
+    fun hiiragiIngredient(jsonElement: JsonElement): ItemIngredient? {
 
         val root: JsonObject = jsonElement.asJsonObject
 
@@ -145,7 +145,7 @@ object HiiragiJsonUtil {
             root.has("stacks") -> {
                 val stacks: List<ItemStack> = root.getAsJsonArray("stacks").mapNotNull(::itemStack)
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                HiiragiIngredient.Stacks(*stacks.toTypedArray(), count = count)
+                ItemIngredient.Stacks(*stacks.toTypedArray(), count = count)
             }
 
             root.has("blocks") -> {
@@ -153,7 +153,7 @@ object HiiragiJsonUtil {
                     .map { it.asString }
                     .mapNotNull { getEntry<Block>(it) }
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                HiiragiIngredient.Blocks(*blocks.toTypedArray(), count = count)
+                ItemIngredient.Blocks(*blocks.toTypedArray(), count = count)
             }
 
             root.has("items") -> {
@@ -161,13 +161,13 @@ object HiiragiJsonUtil {
                     .map { it.asString }
                     .mapNotNull { getEntry<Item>(it) }
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                HiiragiIngredient.Items(*items.toTypedArray(), count = count)
+                ItemIngredient.Items(*items.toTypedArray(), count = count)
             }
 
             root.has("ore_dicts") -> {
                 val oreDicts: List<String> = root.getAsJsonArray("ore_dicts").map { it.asString }
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                HiiragiIngredient.OreDicts(*oreDicts.toTypedArray(), count = count)
+                ItemIngredient.OreDicts(*oreDicts.toTypedArray(), count = count)
             }
 
             root.has("parts") -> {
@@ -176,14 +176,14 @@ object HiiragiJsonUtil {
                 val material: HiiragiMaterial = root.getAsJsonPrimitive("material")?.asString
                     ?.let { HiiragiRegistries.MATERIAL.getValue(it) } ?: return null
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                HiiragiIngredient.Parts(shape, material, count)
+                ItemIngredient.Parts(shape, material, count)
             }
 
             root.has("materials") -> {
                 val material: HiiragiMaterial = root.getAsJsonPrimitive("material")?.asString
                     ?.let { HiiragiRegistries.MATERIAL.getValue(it) } ?: return null
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                HiiragiIngredient.Materials(material, count)
+                ItemIngredient.Materials(material, count)
             }
 
             else -> null

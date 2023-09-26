@@ -4,7 +4,7 @@ import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.util.FluidIngredient
-import hiiragi283.material.util.HiiragiIngredient
+import hiiragi283.material.util.ItemIngredient
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidStack
 class MachineRecipe private constructor() {
 
     val traits: MutableSet<MachineTrait> = mutableSetOf()
-    val inputItems: MutableList<HiiragiIngredient> = mutableListOf()
+    val inputItems: MutableList<ItemIngredient> = mutableListOf()
     val inputFluids: MutableList<FluidIngredient> = mutableListOf()
     val outputItems: MutableList<ItemStack> = mutableListOf()
     val outputFluids: MutableList<FluidStack> = mutableListOf()
@@ -27,7 +27,7 @@ class MachineRecipe private constructor() {
             builder.init()
             IMachineRecipe.register(registryName, object : IMachineRecipe {
 
-                override fun getInputItems(): List<HiiragiIngredient> = builder.inputItems
+                override fun getInputItems(): List<ItemIngredient> = builder.inputItems
 
                 override fun getInputFluids(): List<FluidIngredient> = builder.inputFluids
 

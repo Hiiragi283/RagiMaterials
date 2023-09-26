@@ -15,6 +15,16 @@ sealed class FluidIngredient(val amount: Int = 0) : Predicate<FluidStack?> {
         handler.drain(amount, true)
     }
 
+    //    Empty    //
+
+    object EMPTY : FluidIngredient() {
+
+        override fun getMatchingStack(): Collection<FluidStack> = listOf()
+
+        override fun test(t: FluidStack?): Boolean = t == null
+
+    }
+
     //    FluidStack    //
 
     class Fluids(vararg fluidStacks: FluidStack, amount: Int = 0) : FluidIngredient(amount) {

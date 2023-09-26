@@ -79,7 +79,7 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
         getMachinePropertyTag(stack).getTagListOrNull(IMachineProperty.KEY_TRAIT, Constants.NBT.TAG_STRING)
             ?.filterIsInstance<NBTTagString>()
             ?.map(NBTTagString::getString)
-            ?.map(MachineTrait::valueOf)
+            ?.mapNotNull(MachineTrait.Companion::from)
             ?.toSet() ?: setOf()
     }
 

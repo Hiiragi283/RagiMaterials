@@ -72,8 +72,7 @@ interface IMachineProperty : IJsonSerializable {
         const val KEY_TRAIT = "MachineTraits"
 
         fun of(tag: NBTTagCompound) = of(
-            recipeType = tag.getStringOrNull(KEY_TYPE)?.let { MachineType.valueOf(it) }
-                ?: MachineType.NONE,
+            recipeType = tag.getStringOrNull(KEY_TYPE)?.let(MachineType.Companion::from) ?: MachineType.NONE,
             processTime = tag.getIntegerOrNull(KEY_PROCESS) ?: 100,
             energyRate = tag.getIntegerOrNull(KEY_RATE) ?: 32,
             itemSlots = tag.getIntegerOrNull(KEY_ITEM) ?: 1,
@@ -85,7 +84,7 @@ interface IMachineProperty : IJsonSerializable {
             val tagList: NBTTagList = tag.getTagList(KEY_TRAIT, Constants.NBT.TAG_STRING)
             return (0 until tagList.tagCount())
                 .map(tagList::getStringTagAt)
-                .map(MachineTrait::valueOf)
+                .mapNotNull(MachineTrait.Companion::from)
                 .toSet()
         }
 

@@ -6,7 +6,7 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.util.FluidIngredient
-import hiiragi283.material.util.HiiragiIngredient
+import hiiragi283.material.util.ItemIngredient
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.IFluidHandler
@@ -14,7 +14,7 @@ import net.minecraftforge.items.IItemHandlerModifiable
 
 class MaterialMeltingRecipe(val material: HiiragiMaterial) : IMachineRecipe {
 
-    override fun getInputItems(): List<HiiragiIngredient> = listOf(HiiragiIngredient.Materials(material))
+    override fun getInputItems(): List<ItemIngredient> = listOf(ItemIngredient.Materials(material))
 
     override fun getInputFluids(): List<FluidIngredient> = listOf()
 

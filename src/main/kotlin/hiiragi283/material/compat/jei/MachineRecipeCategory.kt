@@ -2,8 +2,10 @@ package hiiragi283.material.compat.jei
 
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
+import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.util.*
 import mezz.jei.api.IGuiHelper
+import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
@@ -21,13 +23,16 @@ class MachineRecipeCategory(
     override val backGround: IDrawableStatic =
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/module_machine.png"), 0, 0, 176, 88)
 
+    override val iconDrawable: IDrawable? =
+        HiiragiRegistries.RECIPE_MODULE.getValue(type)!!.getItemStack().let { guiHelper.createDrawableIngredient(it) }
+
     private fun getSlotPosX(index: Int): Int = 8 + 18 * (index + 1)
 
     private fun getSlotPosY(index: Int): Int = 18 * (index + 1)
 
     override fun setRecipe(iRecipeLayout: IRecipeLayout, wrapper: Wrapper, iIngredients: IIngredients) {
         //Input - ItemStack
-        wrapper.getInputItems().forEachIndexed { index: Int, ingredient: HiiragiIngredient ->
+        wrapper.getInputItems().forEachIndexed { index: Int, ingredient: ItemIngredient ->
             iRecipeLayout.itemStacks.init(index, true, getSlotPosX(index % 3) - 1, getSlotPosY(index / 3) - 1)
             iRecipeLayout.itemStacks[index] = ingredient.getMatchingStacks().map(ItemStack::copy)
         }
@@ -85,7 +90,7 @@ class MachineRecipeCategory(
         override fun getIngredients(iIngredients: IIngredients) {
             iIngredients.setInputLists(
                 VanillaTypes.ITEM,
-                getInputItems().map(HiiragiIngredient::getMatchingStacks).map(Collection<ItemStack>::toList)
+                getInputItems().map(ItemIngredient::getMatchingStacks).map(Collection<ItemStack>::toList)
             )
             iIngredients.setInputLists(
                 VanillaTypes.FLUID,

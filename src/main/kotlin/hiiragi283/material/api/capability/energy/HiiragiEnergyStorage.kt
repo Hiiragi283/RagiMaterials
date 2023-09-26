@@ -10,17 +10,15 @@ import net.minecraftforge.energy.IEnergyStorage
 import kotlin.math.min
 
 class HiiragiEnergyStorage(
-    private var capacity: Int,
-    private var maxIn: Int = capacity,
-    private var maxOut: Int = capacity,
-    private var stored: Int = 0
+    var capacity: Int,
+    var stored: Int = 0
 ) : IEnergyStorage, INBTSerializable<NBTTagCompound> {
 
     //    IEnergyStorage    //
 
     override fun receiveEnergy(maxReceive: Int, simulate: Boolean): Int {
         if (!canReceive()) return 0
-        val energyReceived = min((capacity - energyStored), min(maxIn, maxReceive))
+        val energyReceived = min((capacity - energyStored), min(capacity, maxReceive))
         if (!simulate) stored += energyReceived
         return energyReceived
     }
@@ -39,7 +37,7 @@ class HiiragiEnergyStorage(
 
     override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {
         if (!canExtract()) return 0
-        val energyExtracted = min(stored, min(maxOut, maxExtract))
+        val energyExtracted = min(stored, min(capacity, maxExtract))
         if (!simulate) stored -= energyExtracted
         return energyExtracted
     }
@@ -60,17 +58,11 @@ class HiiragiEnergyStorage(
 
     override fun getMaxEnergyStored(): Int = capacity
 
-    override fun canExtract(): Boolean = maxOut > 0
+    override fun canExtract(): Boolean = stored > 0
 
-    override fun canReceive(): Boolean = maxIn > 0
+    override fun canReceive(): Boolean = getFreeCapacity() > 0
 
     fun getFreeCapacity(): Int = capacity - stored
-
-    fun setCapacity(capacity: Int) {
-        this.capacity = capacity
-        this.maxIn = capacity
-        this.maxOut = capacity
-    }
 
     //    INBTSerializable    //
 

@@ -143,7 +143,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, HiiragiMaterial.
             if (property.fluidSlots >= 3) {
                 tankInput2.setIOType(IOControllable.Type.INPUT)
             }
-            energyStorage.setCapacity(property.getEnergyCapacity())
+            energyStorage.capacity = property.getEnergyCapacity()
         }
     }
 

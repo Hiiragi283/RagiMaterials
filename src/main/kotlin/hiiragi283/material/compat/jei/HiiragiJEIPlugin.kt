@@ -59,6 +59,7 @@ class HiiragiJEIPlugin : IModPlugin {
         list.add(MachineWorkbenchCategory(guiHelper))
 
         MachineType.values()
+            .filter { it != MachineType.NONE }
             .map { MachineRecipeCategory(it, guiHelper) }
             .forEach(list::add)
 
@@ -76,7 +77,9 @@ class HiiragiJEIPlugin : IModPlugin {
         registry.addRecipes(MachineType.values().toList(), MACHINE_WORKBENCH)
         registry.addRecipeCatalyst(ItemStack(HiiragiBlocks.MACHINE_WORKBENCH), MACHINE_WORKBENCH)
         //Machine Recipe
-        MachineType.values().forEach { type ->
+        MachineType.values()
+            .filter { it != MachineType.NONE }
+            .forEach { type ->
             registry.handleRecipes(
                 IMachineRecipe::class.java,
                 MachineRecipeCategory::Wrapper,

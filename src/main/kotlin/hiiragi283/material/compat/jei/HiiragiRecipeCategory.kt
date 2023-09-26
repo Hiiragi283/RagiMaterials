@@ -4,6 +4,7 @@ import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import mezz.jei.api.IGuiHelper
+import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
 import mezz.jei.api.gui.IGuiIngredientGroup
 import mezz.jei.api.gui.IRecipeLayout
@@ -21,6 +22,10 @@ abstract class HiiragiRecipeCategory<T : IRecipeWrapper>(private val id: String,
     abstract val backGround: IDrawableStatic
 
     override fun getBackground() = backGround
+
+    open val iconDrawable : IDrawable? = null
+
+    override fun getIcon() = iconDrawable
 
     override fun getModName(): String = RMReference.MOD_NAME
 
