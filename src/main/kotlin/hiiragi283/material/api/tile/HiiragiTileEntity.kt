@@ -103,23 +103,11 @@ abstract class HiiragiTileEntity : TileEntity() {
 
     open fun onTileRemoved(world: World, pos: BlockPos, state: IBlockState) {}
 
-    abstract class Tickable(var maxCount: Int) : HiiragiTileEntity(), ITickable {
+    abstract class Tickable(val maxCount: Int) : HiiragiTileEntity(), ITickable {
 
         private var currentCount = 0
 
         fun getProgress(): Double = currentCount.toDouble() / maxCount.toDouble()
-
-        override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {
-            compound.setInteger("current", currentCount)
-            compound.setInteger("max", maxCount)
-            return super.writeToNBT(compound)
-        }
-
-        override fun readFromNBT(compound: NBTTagCompound) {
-            currentCount = compound.getInteger("current")
-            maxCount = compound.getInteger("max")
-            super.readFromNBT(compound)
-        }
 
         //    ITickable    //
 

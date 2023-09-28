@@ -1,5 +1,7 @@
 package hiiragi283.material
 
+import hiiragi283.material.api.ingredient.FluidIngredient
+import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
@@ -42,7 +44,7 @@ object HiiragiRecipes {
         //Primitive Machine
         CraftingBuilder(
             hiiragiLocation("primitive_former"),
-            HiiragiRegistries.MODULE_MACHINE.getValue(MachineType.SMELTER)!!.createMachineStack(
+            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.SMELTER)!!.createMachineStack(
                 MaterialCommon.STONE.index, IMachineProperty.of(
                     processTime = Int.MAX_VALUE,
                     energyRate = 0,

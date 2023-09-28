@@ -1,4 +1,4 @@
-package hiiragi283.material.chunk
+package hiiragi283.material.api.chunk
 
 interface IEntityChunkLoader {
 

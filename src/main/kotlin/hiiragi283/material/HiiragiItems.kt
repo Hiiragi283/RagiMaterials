@@ -1,7 +1,6 @@
 package hiiragi283.material
 
 import hiiragi283.material.api.item.MaterialItem
-import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -175,9 +174,5 @@ object HiiragiItems : HiiragiEntry.ITEM {
 
     @JvmField
     val WRENCH = HiiragiRegistries.ITEM.register(ItemWrench)
-
-    init {
-        MachineType.createRecipeModule()
-    }
 
 }

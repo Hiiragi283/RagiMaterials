@@ -1,9 +1,9 @@
 package hiiragi283.material.api.machine
 
+import hiiragi283.material.api.ingredient.FluidIngredient
+import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
-import hiiragi283.material.util.FluidIngredient
-import hiiragi283.material.util.ItemIngredient
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack

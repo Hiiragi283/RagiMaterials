@@ -127,10 +127,6 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
 
     //    HiiragiEntry    //
 
-    override fun onRegister() {
-        HiiragiRegistries.MODULE_MACHINE.register(type, this)
-    }
-
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
         blockColors.registerBlockColorHandler({ _: IBlockState?, world: IBlockAccess?, pos: BlockPos?, _: Int ->

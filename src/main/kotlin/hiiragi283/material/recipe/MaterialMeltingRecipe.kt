@@ -1,12 +1,12 @@
 package hiiragi283.material.recipe
 
+import hiiragi283.material.api.ingredient.FluidIngredient
+import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.getParts
-import hiiragi283.material.util.FluidIngredient
-import hiiragi283.material.util.ItemIngredient
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.IFluidHandler

@@ -44,7 +44,7 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
             ?.getItemStack()
             ?: ItemStack.EMPTY
 
-        val machine: ItemStack = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType)
+        val machine: ItemStack = HiiragiRegistries.BLOCK_MACHINE.getValue(recipeType)
             ?.getItemStackWild()
             ?: ItemStack.EMPTY
 

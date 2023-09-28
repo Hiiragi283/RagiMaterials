@@ -2,10 +2,10 @@ package hiiragi283.material.proxy
 
 import com.google.gson.JsonElement
 import hiiragi283.material.*
+import hiiragi283.material.api.chunk.HiiragiChunkLoadCallback
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.chunk.HiiragiChunkLoadCallback
 import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.config.HiiragiJSonHandler
@@ -41,6 +41,8 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiBlocks
         HiiragiEntities
         HiiragiItems
+        HiiragiRegistries.registerModuleMachine()
+        HiiragiRegistries.registerRecipeModule()
         HiiragiRegistries.registerShape()
         HiiragiRegistries.registerMaterial()
         MaterialFluid.register()

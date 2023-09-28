@@ -47,7 +47,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
         val recipeType: MachineType = recipeModule.getItemImplemented<RecipeModuleItem>()
             ?.recipeType ?: return
 
-        val machineBlock: ModuleMachineBlock = HiiragiRegistries.MODULE_MACHINE.getValue(recipeType) ?: return
+        val machineBlock: ModuleMachineBlock = HiiragiRegistries.BLOCK_MACHINE.getValue(recipeType) ?: return
 
         val baseProperty: IMachineProperty = casing.getItemImplemented<MaterialItemBlockCasing>()
             ?.toMachineProperty(casing)

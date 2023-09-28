@@ -2,8 +2,8 @@ package hiiragi283.material.entity
 
 import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
+import hiiragi283.material.api.chunk.IEntityChunkLoader
 import hiiragi283.material.api.entity.IHiiragiEntity
-import hiiragi283.material.chunk.IEntityChunkLoader
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import hiiragi283.material.util.HiiragiNBTUtil

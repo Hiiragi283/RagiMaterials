@@ -92,7 +92,7 @@ class HiiragiJEIPlugin : IModPlugin {
             HiiragiRegistries.RECIPE_MODULE.getValue(type)?.getItemStack()?.let { stack: ItemStack ->
                 registry.addRecipeCatalyst(stack, getRecipeTypeID(type))
             }
-            HiiragiRegistries.MODULE_MACHINE.getValue(type)?.getItemStackWild()?.let { stack: ItemStack ->
+            HiiragiRegistries.BLOCK_MACHINE.getValue(type)?.getItemStackWild()?.let { stack: ItemStack ->
                 registry.addRecipeCatalyst(stack, getRecipeTypeID(type))
             }
             registry.recipeTransferRegistry.addRecipeTransferHandler(

@@ -1,4 +1,4 @@
-package hiiragi283.material.util
+package hiiragi283.material.api.ingredient
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack

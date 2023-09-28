@@ -5,6 +5,7 @@ package hiiragi283.material.util
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import net.minecraft.block.Block
+import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.WorldClient
@@ -27,6 +28,7 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvent
@@ -50,15 +52,40 @@ import net.minecraftforge.registries.IForgeRegistryModifiable
 import org.lwjgl.input.Keyboard
 import java.util.*
 
-//    block    //
+//    BlockPos    //
+
+fun BlockPos.right(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.rotateY(), n)
+
+fun BlockPos.left(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.rotateYCCW(), n)
+
+fun BlockPos.back(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.opposite, n)
+
+//    BlockState    //
 
 fun Block.getItem(): Item = Item.getItemFromBlock(this)
+
+fun IBlockState.isSame(other: IBlockState): Boolean {
+    return when {
+        this.block != other.block -> false
+        !this.propertyKeys.hasSameElements(other.propertyKeys) -> false
+        else -> {
+            val properties: Map<IProperty<*>, Comparable<*>> = this.properties
+            val properties1 : Map<IProperty<*>, Comparable<*>> = other.properties
+            this.propertyKeys.all { key: IProperty<*> -> properties[key] == properties1[key] }
+        }
+    }
+}
 
 //    Calendar    //
 
 //4月1日かを判定するメソッド
 fun isAprilFools(): Boolean =
     RagiMaterials.CALENDAR.get(Calendar.MONTH) + 1 == 4 && RagiMaterials.CALENDAR.get(Calendar.DATE) == 1
+
+//    Collection    //
+
+fun <T> Collection<T>.hasSameElements(other: Collection<T>): Boolean =
+    this.containsAll(other) && other.containsAll(this)
 
 //    Drop    //
 

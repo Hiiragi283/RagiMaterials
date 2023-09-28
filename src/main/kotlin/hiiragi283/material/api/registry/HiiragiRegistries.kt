@@ -28,7 +28,18 @@ object HiiragiRegistries {
     //    Recipe    //
 
     @JvmField
-    val MODULE_MACHINE: HiiragiRegistry<MachineType, ModuleMachineBlock> = HiiragiRegistry("Module Machine")
+    val BLOCK_MACHINE: HiiragiRegistry<MachineType, ModuleMachineBlock> = HiiragiRegistry("Module Machine Blocks")
+
+    fun registerModuleMachine() {
+        MachineType.values()
+            .filter { it != MachineType.NONE }
+            .map(::ModuleMachineBlock)
+            .forEach { block: ModuleMachineBlock ->
+                BLOCK.register(block)
+                BLOCK_MACHINE.register(block.type, block)
+            }
+        BLOCK_MACHINE.lock()
+    }
 
     @JvmField
     val MACHINE_RECIPE: HiiragiRegistry<MachineType, HiiragiRegistry<ResourceLocation, IMachineRecipe>> =
@@ -43,6 +54,17 @@ object HiiragiRegistries {
 
     @JvmField
     val RECIPE_MODULE: HiiragiRegistry<MachineType, RecipeModuleItem> = HiiragiRegistry("Recipe Module")
+
+    fun registerRecipeModule() {
+        MachineType.values()
+            .filter { it != MachineType.NONE }
+            .map(::RecipeModuleItem)
+            .forEach { item: RecipeModuleItem ->
+                ITEM.register(item)
+                RECIPE_MODULE.register(item.recipeType, item)
+            }
+        RECIPE_MODULE.lock()
+    }
 
     //    Material    //
 

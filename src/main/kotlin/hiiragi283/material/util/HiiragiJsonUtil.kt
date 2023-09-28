@@ -5,6 +5,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import hiiragi283.material.api.fluid.MaterialFluidBlock
+import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType

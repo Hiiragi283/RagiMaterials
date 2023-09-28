@@ -18,7 +18,7 @@ object HiiragiCreativeTabs {
 
     val MACHINE by lazy {
         createCreativeTab("machine") {
-            HiiragiRegistries.MODULE_MACHINE.getValue(MachineType.SMELTER)!!.getItemStack()
+            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.SMELTER)!!.getItemStack()
         }
     }
 

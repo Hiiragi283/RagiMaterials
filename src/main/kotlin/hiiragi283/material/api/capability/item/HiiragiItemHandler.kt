@@ -33,6 +33,10 @@ open class HiiragiItemHandler(
         range.forEach { slot: Int -> setStackInSlot(slot, ItemStack.EMPTY) }
     }
 
+    open fun stacks(): List<ItemStack> = this.stacks
+
+    open fun copyStacks(): List<ItemStack> = stacks().map(ItemStack::copy)
+
     //実行結果の合否が返される
     open fun transferTo(slotFrom: Int, handlerTo: IItemHandler): Boolean {
         //搬出対象のItemStack

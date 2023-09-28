@@ -1,9 +1,11 @@
-package hiiragi283.material.util
+package hiiragi283.material.api.ingredient
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.util.getOreDicts
+import hiiragi283.material.util.isSameWithoutCount
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock

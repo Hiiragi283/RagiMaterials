@@ -1,4 +1,4 @@
-package hiiragi283.material.chunk
+package hiiragi283.material.api.chunk
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
