@@ -42,8 +42,7 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
         meta: Int,
         placer: EntityLivingBase,
         hand: EnumHand
-    ): IBlockState = defaultState.withProperty(BlockHorizontal.FACING, placer.horizontalFacing)
-
+    ): IBlockState = defaultState.withProperty(BlockHorizontal.FACING, facing.opposite)
 
     @Deprecated(
         "Deprecated in Java", ReplaceWith(

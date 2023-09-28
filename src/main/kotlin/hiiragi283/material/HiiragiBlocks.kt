@@ -9,6 +9,7 @@ import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.tile.TileEntityCapabilityRail
 import hiiragi283.material.tile.TileEntityMachineExtender
 import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileTransferStation
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.isDeobf
 import net.minecraft.tileentity.TileEntity
@@ -50,11 +51,18 @@ object HiiragiBlocks {
     @JvmField
     val TEST_CORE = HiiragiRegistries.BLOCK.registerOptional(BlockTestMultiblock) { isDeobf() }
 
+    @JvmField
+    val TEST_PIPE = HiiragiRegistries.BLOCK.registerOptional(BlockTransferPipe) { isDeobf() }
+
+    @JvmField
+    val TEST_STATION = HiiragiRegistries.BLOCK.registerOptional(BlockTransferStation) { isDeobf() }
+
     init {
         registerTileEntity(MaterialTileEntity::class.java, "material")
         registerTileEntity(TileEntityCapabilityRail::class.java, "capability_rail")
         registerTileEntity(TileEntityMachineExtender::class.java, "machine_extender")
         registerTileEntity(TileEntityModuleMachine::class.java, "module_machine")
+        registerTileEntity(TileTransferStation::class.java, "transfer_station")
     }
 
     private fun <T : TileEntity> registerTileEntity(clazz: Class<T>, name: String) {

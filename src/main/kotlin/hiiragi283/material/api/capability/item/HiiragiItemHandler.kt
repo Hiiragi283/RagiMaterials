@@ -3,6 +3,7 @@ package hiiragi283.material.api.capability.item
 import hiiragi283.material.api.capability.IOControllable
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getStringOrNull
+import hiiragi283.material.util.notEmpty
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
@@ -38,57 +39,29 @@ open class HiiragiItemHandler(
     open fun copyStacks(): List<ItemStack> = stacks().map(ItemStack::copy)
 
     //実行結果の合否が返される
-    open fun transferTo(slotFrom: Int, handlerTo: IItemHandler): Boolean {
-        //搬出対象のItemStack
-        val stack: ItemStack = stacks[slotFrom]
-        if (!stack.isEmpty) {
-            var cache: ItemStack = stack
-            //相手のIItemHandlerの各スロットに対して実行
-            (0 until handlerTo.slots).forEach {
-                //cacheが空になるまで搬入を試みる
-                if (!cache.isEmpty) {
-                    val cacheTried: ItemStack = handlerTo.insertItem(it, cache, true)
-                    //cacheが検証の前後で変化 -> 搬入可能なので実行
-                    if (cache !== cacheTried) {
-                        this.extractItem(slotFrom, cache.count - cacheTried.count, false)
-                        cache = handlerTo.insertItem(it, cache, false)
-                    }
-                }
+    open fun transferTo(slotFrom: Int, handlerTo: IItemHandler, simulate: Boolean): Boolean {
+        //搬出対象がEMPTY -> false
+        val stack: ItemStack = stacks[slotFrom].notEmpty() ?: return false
+        //一時的に結果を保存する
+        var cache: ItemStack = stack
+        for (slotTo: Int in (0 until handlerTo.slots)) {
+            //cacheがEMPTY -> true
+            if (cache.isEmpty) return true
+            //相手に搬入した際の戻り値を取得
+            val stackInserted: ItemStack = handlerTo.insertItem(slotTo, cache, true)
+            //搬入の前後で変化 -> 搬入する余地がある
+            if (cache != stackInserted) {
+                //実際に搬出，搬入を行う
+                this.extractItem(slotFrom, cache.count - stackInserted.count, simulate)
+                cache = handlerTo.insertItem(slotTo, cache, simulate)
             }
-            if (cache.isEmpty) return true
         }
         return false
     }
 
-    open fun transferAllTo(handlerTo: IItemHandler): Boolean {
+    open fun transferAllTo(handlerTo: IItemHandler, simulate: Boolean): Boolean {
         (0 until slots).forEach {
-            return transferTo(it, handlerTo)
-        }
-        return false
-    }
-
-    //実行結果の合否が返される
-    open fun transferFrom(slotTo: Int, handlerFrom: IItemHandler): Boolean {
-        //搬入対象のスロットにあるItemStack
-        val stack: ItemStack = stacks[slotTo]
-        //stackの個数が上限に達している場合はfalseを返す
-        if (stack.count == getSlotLimit(slotTo)) return false
-        //相手のIItemHandlerの各スロットに対して実行
-        for (slotFrom in 0 until handlerFrom.slots) {
-            val stackFrom: ItemStack = handlerFrom.getStackInSlot(slotFrom)
-            //相手のスロットにあるItemStackが空の場合はパス
-            if (stackFrom.isEmpty) continue
-            //搬入の検証結果をcacheに保存
-            val cache: ItemStack = insertItem(slotTo, handlerFrom.extractItem(slotFrom, stackFrom.count, false), false)
-            //cacheがEMPTY -> すべて搬入できた -> trueを返して終了
-            if (cache.isEmpty) return true
-        }
-        return false
-    }
-
-    open fun transferAllFrom(handlerFrom: IItemHandler): Boolean {
-        (0 until slots).forEach {
-            return transferFrom(it, handlerFrom)
+            return transferTo(it, handlerTo, simulate)
         }
         return false
     }
