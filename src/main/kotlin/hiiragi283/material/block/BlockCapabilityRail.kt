@@ -30,7 +30,7 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
         blockResistance = 5.0f
         creativeTab = HiiragiCreativeTabs.COMMON
         defaultState = blockState.baseState.withProperty(HiiragiProperty.RAIL_SHAPE, EnumRailDirection.NORTH_SOUTH)
-        translationKey = "capability_rail"
+        translationKey = "${RMReference.MOD_ID}.capability_rail"
         setRegistryName(RMReference.MOD_ID, "capability_rail")
     }
 

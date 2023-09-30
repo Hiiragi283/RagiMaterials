@@ -1,7 +1,7 @@
 package hiiragi283.material.container
 
 import hiiragi283.material.api.container.HiiragiContainer
-import hiiragi283.material.api.container.SlotOutputItemHandler
+import hiiragi283.material.api.container.SlotItemHandlerControllable
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import hiiragi283.material.tile.TileEntityModuleMachine
@@ -22,12 +22,12 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
         addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 3, getSlotPosX(1), getSlotPosY(1)))
         addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 4, getSlotPosX(2), getSlotPosY(1)))
         addSlotToContainer(SlotModuleMachine(tile, tile.inventoryInput, 5, getSlotPosX(3), getSlotPosY(1)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 0, getSlotPosX(5), getSlotPosY(0)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 1, getSlotPosX(6), getSlotPosY(0)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 2, getSlotPosX(7), getSlotPosY(0)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 3, getSlotPosX(5), getSlotPosY(1)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 4, getSlotPosX(6), getSlotPosY(1)))
-        addSlotToContainer(SlotOutputItemHandler(tile.inventoryOutput, 5, getSlotPosX(7), getSlotPosY(1)))
+        addSlotToContainer(SlotItemHandlerControllable(tile.inventoryOutput, 0, getSlotPosX(5), getSlotPosY(0)))
+        addSlotToContainer(SlotItemHandlerControllable(tile.inventoryOutput, 1, getSlotPosX(6), getSlotPosY(0)))
+        addSlotToContainer(SlotItemHandlerControllable(tile.inventoryOutput, 2, getSlotPosX(7), getSlotPosY(0)))
+        addSlotToContainer(SlotItemHandlerControllable(tile.inventoryOutput, 3, getSlotPosX(5), getSlotPosY(1)))
+        addSlotToContainer(SlotItemHandlerControllable(tile.inventoryOutput, 4, getSlotPosX(6), getSlotPosY(1)))
+        addSlotToContainer(SlotItemHandlerControllable(tile.inventoryOutput, 5, getSlotPosX(7), getSlotPosY(1)))
         initSlotsPlayer(84)
         HiiragiNetworkWrapper.sendToAll(HiiragiMessage.SyncCount(tile.pos, tile.currentCount))
     }
@@ -57,6 +57,7 @@ class ContainerModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer
         xPosition: Int,
         yPosition: Int
     ) : SlotItemHandler(itemHandler, index, xPosition, yPosition) {
+
         override fun isItemValid(stack: ItemStack): Boolean = tile.machineProperty.itemSlots >= slotIndex + 1
 
         override fun isEnabled(): Boolean = tile.machineProperty.itemSlots >= slotIndex + 1

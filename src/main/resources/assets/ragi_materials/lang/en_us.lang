@@ -1,6 +1,14 @@
 ##    Block    ##
 
+tile.ragi_materials.capability_rail.name=Capability Rail
+tile.ragi_materials.machine_extender.name=Machine Extender
 tile.ragi_materials.machine_workbench.name=Machine Workbench
+tile.ragi_materials.pipe_energy.name=Transfer Pipe (Energy)
+tile.ragi_materials.pipe_fluid.name=Transfer Pipe (Fluid)
+tile.ragi_materials.pipe_item.name=Transfer Pipe (Item)
+tile.ragi_materials.station_energy.name=Transfer Station (Energy)
+tile.ragi_materials.station_fluid.name=Transfer Station (Fluid)
+tile.ragi_materials.station_item.name=Transfer Station (Item)
 
 ##    CreativeTab    ##
 
@@ -13,6 +21,7 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 ##    Item    ##
 
 item.ragi_materials.book_respawn.name=[for Dev] Respawn Book
+item.ragi_materials.minecart_tank.name=Minecart with Tank
 item.ragi_materials.wrench.name=Rotation Wrench
 
 ##    JEI Tab    ##

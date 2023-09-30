@@ -14,17 +14,17 @@ object HiiragiPlugin : IHiiragiPlugin {
     private fun enableIntegration(name: String, config: Boolean): Boolean =
         HiiragiConfigs.INTEGRATION.forceIntegration || (Loader.isModLoaded(name) && config)
 
-    private val botania = { enableIntegration("botania", HiiragiConfigs.INTEGRATION.botania) }
-    private val embers = { enableIntegration("embers", HiiragiConfigs.INTEGRATION.embers) }
-    private val enderIO = { enableIntegration("enderio", HiiragiConfigs.INTEGRATION.enderIO) }
-    private val ic2Ex = { enableIntegration("ic2", HiiragiConfigs.INTEGRATION.ic2Ex) }
-    private val mekanism = { enableIntegration("mekanism", HiiragiConfigs.INTEGRATION.mekanism) }
-    private val projectRed = { enableIntegration("projectred-core", HiiragiConfigs.INTEGRATION.projectRed) }
-    private val railCraft = { enableIntegration("railcraft", HiiragiConfigs.INTEGRATION.railCraft) }
-    private val tCon = { enableIntegration("tconstruct", HiiragiConfigs.INTEGRATION.tCon) }
-    private val thaum = { enableIntegration("thaumcraft", HiiragiConfigs.INTEGRATION.thaum) }
-    private val thermal = { enableIntegration("thermalfoundation", HiiragiConfigs.INTEGRATION.thermal) }
-    private val top = { enableIntegration("theoneprobe", true) }
+    val botania = { enableIntegration("botania", HiiragiConfigs.INTEGRATION.botania) }
+    val embers = { enableIntegration("embers", HiiragiConfigs.INTEGRATION.embers) }
+    val enderIO = { enableIntegration("enderio", HiiragiConfigs.INTEGRATION.enderIO) }
+    val ic2Ex = { enableIntegration("ic2", HiiragiConfigs.INTEGRATION.ic2Ex) }
+    val mekanism = { enableIntegration("mekanism", HiiragiConfigs.INTEGRATION.mekanism) }
+    val projectRed = { enableIntegration("projectred-core", HiiragiConfigs.INTEGRATION.projectRed) }
+    val railCraft = { enableIntegration("railcraft", HiiragiConfigs.INTEGRATION.railCraft) }
+    val tCon = { enableIntegration("tconstruct", HiiragiConfigs.INTEGRATION.tCon) }
+    val thaum = { enableIntegration("thaumcraft", HiiragiConfigs.INTEGRATION.thaum) }
+    val thermal = { enableIntegration("thermalfoundation", HiiragiConfigs.INTEGRATION.thermal) }
+    val top = { enableIntegration("theoneprobe", true) }
 
     private val list: MutableList<IHiiragiPlugin> = mutableListOf(HiiragiVanillaPlugin)
 

@@ -4,30 +4,27 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import java.util.function.BiPredicate
 
-class MultiblockPattern() : BiPredicate<World, BlockPos> {
+class MultiblockPattern : BiPredicate<World, BlockPos> {
 
-    private val map: HashMap<BlockPos, MultiblockComponent> = hashMapOf()
+    val map: Map<BlockPos, MultiblockComponent>
 
-    constructor(vararg pairs: Pair<BlockPos, MultiblockComponent>) : this() {
-        pairs.forEach(::putPredicate)
+    constructor(map: Map<BlockPos, MultiblockComponent> = mapOf()) : super() {
+        this.map = map
     }
 
-    fun getPoses(origin: BlockPos): Collection<BlockPos> = map.keys.map(origin::add)
+    constructor(vararg list: Pair<BlockPos, MultiblockComponent>) {
+        map = list.toMap()
+    }
+
+    fun getAbsolutePoses(origin: BlockPos): Collection<BlockPos> = getRelativePoses().map(origin::add)
+
+    fun getRelativePoses(): Collection<BlockPos> = map.keys
 
     fun getComponent(pos: BlockPos): MultiblockComponent? = map[pos]
 
+    fun getComponents(): Collection<MultiblockComponent> = map.values
+
     fun hasComponent(pos: BlockPos): Boolean = map.containsKey(pos)
-
-    private fun putPredicate(pair: Pair<BlockPos, MultiblockComponent>) {
-        putPredicate(pair.first, pair.second)
-    }
-
-    fun putPredicate(pos: BlockPos, component: MultiblockComponent) {
-        if (map.containsKey(pos)) {
-            throw IllegalStateException("This relative position already has component!")
-        }
-        map[pos] = component
-    }
 
     //    BiPredicate    //
 

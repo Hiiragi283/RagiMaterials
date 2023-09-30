@@ -3,7 +3,7 @@ package hiiragi283.material.container
 import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.container.HiiragiContainer
-import hiiragi283.material.api.container.SlotOutputItemHandler
+import hiiragi283.material.api.container.SlotItemHandlerControllable
 import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.MachineTrait
@@ -11,9 +11,7 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.module.IModuleItem
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.item.MaterialItemBlockCasing
-import hiiragi283.material.util.dropInventoryItems
-import hiiragi283.material.util.getItemImplemented
-import hiiragi283.material.util.isItemImplemented
+import hiiragi283.material.util.*
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.inventory.Slot
 import net.minecraft.item.ItemStack
@@ -90,7 +88,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
         addSlotToContainer(object : SlotItemHandler(inputInventory, 2, getSlotPosX(4), getSlotPosY(1)) {
             override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<IModuleItem>()
         })
-        addSlotToContainer(object : SlotOutputItemHandler(outputInventory, 0, getSlotPosX(6), getSlotPosY(1)) {
+        addSlotToContainer(object : SlotItemHandlerControllable(outputInventory, 0, getSlotPosX(6), getSlotPosY(1)) {
             override fun onTake(player: EntityPlayer, stack: ItemStack): ItemStack {
                 inputInventory.clear()
                 return super.onTake(player, stack)

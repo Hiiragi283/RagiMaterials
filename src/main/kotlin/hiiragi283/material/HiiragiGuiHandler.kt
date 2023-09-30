@@ -1,14 +1,12 @@
 package hiiragi283.material
 
 import hiiragi283.material.block.BlockMachineWorkbench
-import hiiragi283.material.container.ContainerMachineWorkbench
-import hiiragi283.material.container.ContainerMinecartTank
-import hiiragi283.material.container.ContainerModuleMachine
+import hiiragi283.material.container.*
 import hiiragi283.material.entity.EntityMinecartTank
-import hiiragi283.material.gui.GuiMachineWorkbench
-import hiiragi283.material.gui.GuiMinecartTank
-import hiiragi283.material.gui.GuiModuleMachine
+import hiiragi283.material.gui.*
 import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.tile.TileTransferStationFluid
+import hiiragi283.material.tile.TileTransferStationItem
 import hiiragi283.material.util.getTile
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.EntityPlayer
@@ -28,6 +26,8 @@ object HiiragiGuiHandler : IGuiHandler {
         return getTile<TileEntity>(world, pos)?.let { tile: TileEntity ->
             when (tile) {
                 is TileEntityModuleMachine -> ContainerModuleMachine(tile, player)
+                is TileTransferStationFluid -> ContainerTransferStationFluid(tile, player)
+                is TileTransferStationItem -> ContainerTransferStationItem(tile, player)
                 else -> null
             }
         } ?: world.getEntityByID(id)?.let { entity: Entity ->
@@ -47,6 +47,8 @@ object HiiragiGuiHandler : IGuiHandler {
         return getTile<TileEntity>(world, pos)?.let { tile: TileEntity ->
             when (tile) {
                 is TileEntityModuleMachine -> GuiModuleMachine(tile, player)
+                is TileTransferStationFluid -> GuiTransferStationFluid(tile, player)
+                is TileTransferStationItem -> GuiTransferStationItem(tile, player)
                 else -> null
             }
         } ?: world.getEntityByID(id)?.let { entity: Entity ->

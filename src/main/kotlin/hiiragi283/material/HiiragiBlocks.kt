@@ -6,14 +6,14 @@ import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.block.*
 import hiiragi283.material.config.HiiragiConfigs
-import hiiragi283.material.tile.TileEntityCapabilityRail
-import hiiragi283.material.tile.TileEntityMachineExtender
-import hiiragi283.material.tile.TileEntityModuleMachine
-import hiiragi283.material.tile.TileTransferStation
+import hiiragi283.material.tile.*
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.isDeobf
 import net.minecraft.tileentity.TileEntity
+import net.minecraftforge.energy.CapabilityEnergy
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.items.CapabilityItemHandler
 
 object HiiragiBlocks {
 
@@ -43,6 +43,47 @@ object HiiragiBlocks {
     @JvmField
     val CAPABILITY_RAIL = HiiragiRegistries.BLOCK.register(BlockCapabilityRail)
 
+    @JvmField
+    val ITEM_PIPE = HiiragiRegistries.BLOCK.register(
+        BlockTransferPipe("item") { listOf(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) }
+    )
+
+    @JvmField
+    val FLUID_PIPE = HiiragiRegistries.BLOCK.register(
+        BlockTransferPipe("fluid") { listOf(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) }
+    )
+
+    @JvmField
+    val ENERGY_PIPE = HiiragiRegistries.BLOCK.register(
+        BlockTransferPipe("energy") { listOf(CapabilityEnergy.ENERGY) }
+    )
+
+    @JvmField
+    val ALL_PIPE = HiiragiRegistries.BLOCK.register(
+        BlockTransferPipe("all") {
+            listOf(
+                CapabilityItemHandler.ITEM_HANDLER_CAPABILITY,
+                CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+                CapabilityEnergy.ENERGY
+            )
+        }
+    )
+
+    @JvmField
+    val ITEM_STATION = HiiragiRegistries.BLOCK.register(
+        BlockTransferStation("item") { TileTransferStationItem() }
+    )
+
+    @JvmField
+    val FLUID_STATION = HiiragiRegistries.BLOCK.register(
+        BlockTransferStation("fluid") { TileTransferStationFluid() }
+    )
+
+    @JvmField
+    val ENERGY_STATION = HiiragiRegistries.BLOCK.register(
+        BlockTransferStation("energy") { TileTransferStationEnergy() }
+    )
+
     //    TEST    //
 
     @JvmField
@@ -51,18 +92,14 @@ object HiiragiBlocks {
     @JvmField
     val TEST_CORE = HiiragiRegistries.BLOCK.registerOptional(BlockTestMultiblock) { isDeobf() }
 
-    @JvmField
-    val TEST_PIPE = HiiragiRegistries.BLOCK.registerOptional(BlockTransferPipe) { isDeobf() }
-
-    @JvmField
-    val TEST_STATION = HiiragiRegistries.BLOCK.registerOptional(BlockTransferStation) { isDeobf() }
-
     init {
         registerTileEntity(MaterialTileEntity::class.java, "material")
         registerTileEntity(TileEntityCapabilityRail::class.java, "capability_rail")
         registerTileEntity(TileEntityMachineExtender::class.java, "machine_extender")
         registerTileEntity(TileEntityModuleMachine::class.java, "module_machine")
-        registerTileEntity(TileTransferStation::class.java, "transfer_station")
+        registerTileEntity(TileTransferStationEnergy::class.java, "energy_station")
+        registerTileEntity(TileTransferStationFluid::class.java, "fluid_station")
+        registerTileEntity(TileTransferStationItem::class.java, "item_station")
     }
 
     private fun <T : TileEntity> registerTileEntity(clazz: Class<T>, name: String) {

@@ -2,23 +2,22 @@ package hiiragi283.material.block
 
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlockContainer
-import hiiragi283.material.tile.TileTransferStation
+import hiiragi283.material.api.tile.HiiragiTileEntity
 import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
-import net.minecraft.util.Mirror
-import net.minecraft.util.Rotation
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-object BlockTransferStation : HiiragiBlockContainer<TileTransferStation>(
+class BlockTransferStation<T : HiiragiTileEntity>(type: String, supplier: () -> T) : HiiragiBlockContainer<T>(
     Material.IRON,
-    "transfer_station",
-    { TileTransferStation() }
+    "station_$type",
+    supplier
 ) {
 
     init {
@@ -79,5 +78,10 @@ object BlockTransferStation : HiiragiBlockContainer<TileTransferStation>(
         BlockDirectional.FACING,
         rot.rotate(state.getValue(BlockDirectional.FACING))
     )
+
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT_MIPPED
 
 }

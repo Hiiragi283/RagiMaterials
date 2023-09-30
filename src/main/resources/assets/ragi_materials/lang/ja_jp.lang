@@ -1,6 +1,14 @@
 ##    Block    ##
 
+tile.ragi_materials.capability_rail.name=キャパビリティレール
+tile.ragi_materials.machine_extender.name=Machine Extender
 tile.ragi_materials.machine_workbench.name=機械作業台
+tile.ragi_materials.pipe_energy.name=輸送パイプ (エネルギー)
+tile.ragi_materials.pipe_fluid.name=輸送パイプ (液体)
+tile.ragi_materials.pipe_item.name=輸送パイプ (アイテム)
+tile.ragi_materials.station_energy.name=巣層ステーション (エネルギー)
+tile.ragi_materials.station_fluid.name=巣層ステーション (液体)
+tile.ragi_materials.station_item.name=巣層ステーション (アイテム)
 
 ##    CreativeTab    ##
 
@@ -13,6 +21,8 @@ itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 ##    Item    ##
 
 item.ragi_materials.book_respawn.name=[開発用] リスポーン本
+item.ragi_materials.minecart_tank.name=タンク付きトロッコ
+item.ragi_materials.wrench.name=Rotation Wrench
 
 ##    JEI Tab    ##
 

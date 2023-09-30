@@ -1,0 +1,7 @@
+{
+  "parent": "ragi_materials:block/pipe/base",
+  "textures": {
+    "front": "ragi_materials:blocks/pipe_energy_front",
+    "side": "ragi_materials:blocks/pipe_energy_side"
+  }
+}

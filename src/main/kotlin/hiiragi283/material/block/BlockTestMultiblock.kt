@@ -62,7 +62,7 @@ object BlockTestMultiblock : HiiragiBlock(Material.TNT, "test_core"), IMultibloc
     ) {
         if (!world.isRemote) {
             succeeded(world, pos, player)
-            pattern.getPoses(pos).forEach(world::setBlockToAir)
+            pattern.getAbsolutePoses(pos).forEach(world::setBlockToAir)
             val snowman = EntitySnowman(world)
             snowman.setLocationAndAngles(pos.x + 0.5, pos.y - 2 + 0.05, pos.z + 0.5, 0f, 0f)
             world.spawnEntity(snowman)

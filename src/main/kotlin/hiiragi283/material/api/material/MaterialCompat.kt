@@ -1,6 +1,7 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.api.shape.HiiragiShapeTypes
+import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.util.HiiragiColor
 
 object MaterialCompat {
@@ -10,6 +11,9 @@ object MaterialCompat {
     @JvmField
     val REDSTONE = materialOf("redstone", 1000) {
         color = HiiragiColor.DARK_RED.rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
         formula = "Rs"
         shapeType = HiiragiShapeTypes.GEM_EMERALD
     }
@@ -23,6 +27,9 @@ object MaterialCompat {
     @JvmField
     val GLOWSTONE = materialOf("glowstone", 1002) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.YELLOW to 2).rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
         formula = "Gl"
         shapeType = HiiragiShapeTypes.GEM_EMERALD
     }
@@ -30,6 +37,9 @@ object MaterialCompat {
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
         formula = "En"
         oreDictAlt.add("ender")
         oreDictAlt.add("ender_pearl")
@@ -81,6 +91,9 @@ object MaterialCompat {
         mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialElements.SULFUR to 1)
     ) {
         color = HiiragiColor.YELLOW.rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
     }
 
     @JvmField
@@ -90,6 +103,9 @@ object MaterialCompat {
         mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommon.WATER.addBracket() to 1)
     ) {
         color = HiiragiColor.AQUA.rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
     }
 
     @JvmField
@@ -99,6 +115,9 @@ object MaterialCompat {
         mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommon.NITER.addBracket() to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
     }
 
     @JvmField
@@ -114,6 +133,9 @@ object MaterialCompat {
                 HiiragiColor.BLUE to 1,
                 HiiragiColor.RED to 1
             ).rgb
+        if (HiiragiPlugin.thermal()) {
+            fluidSupplier = { null }
+        }
     }
 
     //    Mekanism    //

@@ -2,7 +2,7 @@ package hiiragi283.material.block
 
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlock
-import hiiragi283.material.util.getBlockImplemented
+import hiiragi283.material.api.block.ITransferPipe
 import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -14,8 +14,12 @@ import net.minecraft.util.Mirror
 import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.common.capabilities.Capability
 
-object BlockTransferPipe : HiiragiBlock(Material.IRON, "transfer_pipe") {
+class BlockTransferPipe(
+    type: String,
+    override val capabilities: () -> Collection<Capability<*>>
+) : HiiragiBlock(Material.IRON, "pipe_$type"), ITransferPipe {
 
     init {
         creativeTab = HiiragiCreativeTabs.MACHINE
@@ -74,28 +78,5 @@ object BlockTransferPipe : HiiragiBlock(Material.IRON, "transfer_pipe") {
         BlockDirectional.FACING,
         rot.rotate(state.getValue(BlockDirectional.FACING))
     )
-
-    //    Transfer    //
-
-    fun isPipeTo(world: World, pos: BlockPos, state: IBlockState): Boolean {
-        val posTo: BlockPos = pos.offset(state.getValue(BlockDirectional.FACING))
-        val stateTo: IBlockState = world.getBlockState(posTo)
-        return stateTo.block is BlockTransferPipe
-    }
-
-    fun getPipeTo(world: World, pos: BlockPos, state: IBlockState): BlockTransferPipe? {
-        val posTo: BlockPos = pos.offset(state.getValue(BlockDirectional.FACING))
-        val stateTo: IBlockState = world.getBlockState(posTo)
-        return stateTo.getBlockImplemented()
-    }
-
-    tailrec fun getTerminalPos(world: World, pos: BlockPos, state: IBlockState): BlockPos {
-        val posTo: BlockPos = pos.offset(state.getValue(BlockDirectional.FACING))
-        val stateTo: IBlockState = world.getBlockState(posTo)
-        return when (stateTo.block) {
-            is BlockTransferPipe -> getTerminalPos(world, posTo, stateTo)
-            else -> posTo
-        }
-    }
 
 }

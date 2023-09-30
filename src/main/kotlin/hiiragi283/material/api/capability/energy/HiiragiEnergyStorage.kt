@@ -2,14 +2,11 @@ package hiiragi283.material.api.capability.energy
 
 import hiiragi283.material.util.HiiragiNBTUtil
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.util.INBTSerializable
-import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 import kotlin.math.min
 
-class HiiragiEnergyStorage(
+open class HiiragiEnergyStorage(
     var capacity: Int,
     var stored: Int = 0
 ) : IEnergyStorage, INBTSerializable<NBTTagCompound> {
@@ -19,7 +16,10 @@ class HiiragiEnergyStorage(
     override fun receiveEnergy(maxReceive: Int, simulate: Boolean): Int {
         if (!canReceive()) return 0
         val energyReceived = min((capacity - energyStored), min(capacity, maxReceive))
-        if (!simulate) stored += energyReceived
+        if (!simulate) {
+            stored += energyReceived
+            onContentsChanged()
+        }
         return energyReceived
     }
 
@@ -29,28 +29,19 @@ class HiiragiEnergyStorage(
         }
     }
 
-    fun receiveEnergyFrom(tileFrom: TileEntity, facingFrom: EnumFacing?, simulate: Boolean) {
-        tileFrom.getCapability(CapabilityEnergy.ENERGY, facingFrom)?.let {
-            receiveEnergyFrom(it, simulate)
-        }
-    }
-
     override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {
         if (!canExtract()) return 0
         val energyExtracted = min(stored, min(capacity, maxExtract))
-        if (!simulate) stored -= energyExtracted
+        if (!simulate) {
+            stored -= energyExtracted
+            onContentsChanged()
+        }
         return energyExtracted
     }
 
     fun extractEnergyTo(storageTo: IEnergyStorage, simulate: Boolean) {
         if (storageTo.canReceive() && this.canExtract()) {
             extractEnergy(storageTo.receiveEnergy(capacity, simulate), simulate)
-        }
-    }
-
-    fun extractEnergyTo(tileTo: TileEntity, facingTo: EnumFacing?, simulate: Boolean) {
-        tileTo.getCapability(CapabilityEnergy.ENERGY, facingTo)?.let {
-            extractEnergyTo(it, simulate)
         }
     }
 
@@ -62,7 +53,9 @@ class HiiragiEnergyStorage(
 
     override fun canReceive(): Boolean = getFreeCapacity() > 0
 
-    fun getFreeCapacity(): Int = capacity - stored
+    open fun getFreeCapacity(): Int = capacity - stored
+
+    open fun onContentsChanged() {}
 
     //    INBTSerializable    //
 

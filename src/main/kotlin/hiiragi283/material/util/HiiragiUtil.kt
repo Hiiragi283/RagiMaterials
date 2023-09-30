@@ -238,6 +238,24 @@ fun Block.setModelSame() {
     Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModelSame()
 }
 
+//異なるResourceLocationを割り当てるメソッド
+fun Item.setModelAlt(modelLocation: ModelResourceLocation) {
+    ModelLoader.registerItemVariants(this, modelLocation)
+    ModelLoader.setCustomMeshDefinition(this) { modelLocation }
+}
+
+fun Block.setModelAlt(modelLocation: ModelResourceLocation) {
+    Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModelAlt(modelLocation)
+}
+
+fun Item.setModelAlt(location: ResourceLocation) {
+    this.setModelAlt(ModelResourceLocation(location, "inventory"))
+}
+
+fun Block.setModelAlt(location: ResourceLocation) {
+    this.setModelAlt(ModelResourceLocation(location, "inventory"))
+}
+
 fun simpleStateMapper(modelLocation: ModelResourceLocation) = object : StateMapperBase() {
     override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = modelLocation
 }

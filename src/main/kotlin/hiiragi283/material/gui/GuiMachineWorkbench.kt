@@ -12,7 +12,7 @@ class GuiMachineWorkbench(player: EntityPlayer) :
 
     override val backGround: ResourceLocation = hiiragiLocation("textures/gui/module_installer.png")
 
-    override fun getContainerTitle(): String = I18n.format("tile.machine_workbench.name")
+    override fun getContainerTitle(): String = I18n.format("tile.ragi_materials.machine_workbench.name")
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawDefaultBackground()
