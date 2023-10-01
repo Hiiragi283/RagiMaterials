@@ -3,15 +3,15 @@ package hiiragi283.material.api.machine
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getIntegerOrNull
 import hiiragi283.material.util.getStringOrNull
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.nbt.NBTTagString
-import net.minecraft.util.IJsonSerializable
 import net.minecraftforge.common.util.Constants
 
-interface IMachineProperty : IJsonSerializable {
+interface IMachineProperty : HiiragiJsonSerializable {
 
     val recipeType: MachineType
     val processTime: Int
@@ -38,9 +38,9 @@ interface IMachineProperty : IJsonSerializable {
         tag.setTag(KEY_TRAIT, tagList)
     }
 
-    //    IJsonSerializable    //
+    //    HiiragiJsonSerializable    //
 
-    override fun getSerializableElement(): JsonElement {
+    override fun getJsonElement(): JsonElement {
 
         val root = JsonObject()
 
@@ -55,10 +55,6 @@ interface IMachineProperty : IJsonSerializable {
         root.add("machine_traits", traitsJson)
 
         return root
-
-    }
-
-    override fun fromJson(json: JsonElement) {
 
     }
 

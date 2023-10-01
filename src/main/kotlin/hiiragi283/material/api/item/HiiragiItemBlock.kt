@@ -1,5 +1,6 @@
 package hiiragi283.material.api.item
 
+import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.registry.HiiragiEntry
 import net.minecraft.block.Block
@@ -13,13 +14,12 @@ import kotlin.math.max
 
 open class HiiragiItemBlock(block: Block, maxMeta: Int = 0) : ItemBlock(block), HiiragiEntry.ITEM {
 
-    private val maxMeta: Int
+    private val maxMeta: Int = max(0, maxMeta)
 
     init {
-        registryName = block.registryName!!
-        creativeTab = CreativeTabs.MISC
+        creativeTab = HiiragiCreativeTabs.COMMON
         hasSubtypes = maxMeta > 0
-        this.maxMeta = max(0, maxMeta)
+        registryName = block.registryName!!
     }
 
     //    General    //

@@ -1,20 +1,26 @@
 package hiiragi283.material.api.ingredient
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.util.HiiragiJsonSerializable
+import hiiragi283.material.util.getJsonElement
 import hiiragi283.material.util.getOreDicts
 import hiiragi283.material.util.isSameWithoutCount
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.oredict.OreDictionary
 import java.util.function.Predicate
 
-sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
+sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJsonSerializable {
 
     abstract fun getMatchingStacks(): Collection<ItemStack>
 
@@ -29,6 +35,10 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
         override fun getMatchingStacks(): Collection<ItemStack> = listOf()
 
         override fun test(t: ItemStack): Boolean = t.isEmpty
+
+        override fun getJsonElement(): JsonElement {
+            throw UnsupportedOperationException()
+        }
 
     }
 
@@ -46,6 +56,20 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
         override fun test(t: ItemStack): Boolean =
             getMatchingStacks().any { stack -> stack.isSameWithoutCount(t) && t.count >= count }
 
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            val stackArray = JsonArray()
+            stacks.map(ItemStack::getJsonElement).forEach(stackArray::add)
+            root.add("stacks", stackArray)
+
+            root.addProperty("count", count)
+
+            return root
+
+        }
+
     }
 
     //    Block    //
@@ -61,6 +85,20 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
             return blocks.any { block: Block -> blockT == block && t.count >= count }
         }
 
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            val blockArray = JsonArray()
+            blocks.map(Block::getRegistryName).map(ResourceLocation?::toString).forEach(blockArray::add)
+            root.add("blocks", blockArray)
+
+            root.addProperty("count", count)
+
+            return root
+
+        }
+
     }
 
     //    Item    //
@@ -72,6 +110,20 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
         override fun getMatchingStacks(): Collection<ItemStack> = items.map { ItemStack(it, count, 0) }
 
         override fun test(t: ItemStack): Boolean = items.any { item: Item -> t.item == item && t.count >= count }
+
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            val itemArray = JsonArray()
+            items.map(Item::getRegistryName).map(ResourceLocation?::toString).forEach(itemArray::add)
+            root.add("items", itemArray)
+
+            root.addProperty("count", count)
+
+            return root
+
+        }
 
     }
 
@@ -90,6 +142,20 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
         override fun test(t: ItemStack): Boolean = oreDicts.any { oreDict: String -> oreDict in t.getOreDicts() }
 
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            val oreDictArray = JsonArray()
+            oreDicts.forEach(oreDictArray::add)
+            root.add("ore_dicts", oreDictArray)
+
+            root.addProperty("count", count)
+
+            return root
+
+        }
+
     }
 
     //    HiiragiPart    //
@@ -105,15 +171,37 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
         override fun test(t: ItemStack): Boolean = part in t.getParts()
 
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            root.add("parts", part.getJsonElement())
+            root.addProperty("count", count)
+
+            return root
+
+        }
+
     }
 
     //    HiiragiMaterial    //
 
     class Materials(private val material: HiiragiMaterial, count: Int = 1) : ItemIngredient(count) {
 
-        override fun getMatchingStacks(): Collection<ItemStack> = material.getItemStacks()
+        override fun getMatchingStacks(): Collection<ItemStack> = material.getItemStacks(count)
 
         override fun test(t: ItemStack): Boolean = material in t.getParts().map(HiiragiPart::material)
+
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            root.addProperty("materials", material.name)
+            root.addProperty("count", count)
+
+            return root
+
+        }
 
     }
 
@@ -121,9 +209,20 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
 
     class Shapes(private val shape: HiiragiShape, count: Int = 1) : ItemIngredient(count) {
 
-        override fun getMatchingStacks(): Collection<ItemStack> = shape.getItemStacks()
+        override fun getMatchingStacks(): Collection<ItemStack> = shape.getItemStacks(count)
 
         override fun test(t: ItemStack): Boolean = shape in t.getParts().map(HiiragiPart::shape)
+
+        override fun getJsonElement(): JsonElement {
+
+            val root = JsonObject()
+
+            root.addProperty("shapes", shape.name)
+            root.addProperty("count", count)
+
+            return root
+
+        }
 
     }
 
@@ -143,6 +242,10 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack> {
         override fun test(t: ItemStack): Boolean = predicate(t)
 
         override fun onProcess(inventory: IItemHandlerModifiable, index: Int) = process(inventory, index)
+
+        override fun getJsonElement(): JsonElement {
+            throw UnsupportedOperationException()
+        }
 
     }
 

@@ -6,6 +6,10 @@ import net.minecraftforge.common.config.Config
 @Config(modid = RMReference.MOD_ID)
 object HiiragiConfigs {
 
+    @Config.Name("Common")
+    @JvmField
+    val COMMON = Common()
+
     @Config.Name("Experimental")
     @JvmField
     val EXPERIMENTAL = Experimental()
@@ -17,6 +21,18 @@ object HiiragiConfigs {
     @Config.Name("Material")
     @JvmField
     val MATERIAL = Material()
+
+    class Common {
+
+        @Config.Name("Generate Sample Json for Shape/Material/Machine Recipe")
+        @JvmField
+        var generateSample: Boolean = true
+
+        @Config.Name("Print Registered Shapes/Materials on Log")
+        @JvmField
+        var printValues: Boolean = false
+
+    }
 
     class Experimental {
 
@@ -88,11 +104,6 @@ object HiiragiConfigs {
 
     class Material {
 
-        @Config.Name("Disable Vanilla Parts")
-        @Config.RequiresMcRestart
-        @JvmField
-        var disableVanillaParts: Boolean = false
-
         @Config.Name("Enable Lanthanides")
         @Config.RequiresMcRestart
         @JvmField
@@ -102,14 +113,6 @@ object HiiragiConfigs {
         @Config.RequiresMcRestart
         @JvmField
         var transUran: Boolean = true
-
-        @Config.Name("Generate Sample Json")
-        @JvmField
-        var sampleJson: Boolean = true
-
-        @Config.Name("Print Registered Materials on Log")
-        @JvmField
-        var printMaterials: Boolean = false
 
     }
 

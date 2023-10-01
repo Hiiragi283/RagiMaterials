@@ -5,8 +5,10 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import hiiragi283.material.api.fluid.MaterialFluidBlock
+import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
@@ -23,7 +25,41 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 
+
+fun ItemStack.getJsonElement(): JsonElement {
+
+    val root = JsonObject()
+
+    root.addProperty("item", this.item.registryName.toString())
+    root.addProperty("count", this.count)
+    root.addProperty("meta", this.metadata)
+
+    return root
+}
+
+fun FluidStack.getJsonElement(): JsonElement {
+
+    val root = JsonObject()
+
+    root.addProperty("fluid", this.fluid.name)
+    root.addProperty("amount", this.amount)
+
+    return root
+
+}
+
 object HiiragiJsonUtil {
+
+    //    HiiragiShape    //
+
+    fun hiiragiShape(jsonElement: JsonElement): HiiragiShape? {
+        val root: JsonObject = jsonElement.asJsonObject
+        val name: String = root.getAsJsonPrimitive("name")?.asString ?: return null
+        val scale: Int = root.getAsJsonPrimitive("scale")?.asInt ?: 0
+        return HiiragiShape(name, scale)
+    }
+
+    //    HiiragiMaterial    //
 
     fun shapeType(jsonElement: JsonElement): HiiragiShapeType {
         val root: JsonObject = jsonElement.asJsonObject
@@ -101,6 +137,8 @@ object HiiragiJsonUtil {
 
     }
 
+    //    IMachineRecipe    //
+
     fun itemStack(jsonElement: JsonElement): ItemStack? {
 
         val root: JsonObject = jsonElement.asJsonObject
@@ -138,7 +176,7 @@ object HiiragiJsonUtil {
 
     }
 
-    fun hiiragiIngredient(jsonElement: JsonElement): ItemIngredient? {
+    fun itemIngredient(jsonElement: JsonElement): ItemIngredient? {
 
         val root: JsonObject = jsonElement.asJsonObject
 
@@ -172,23 +210,82 @@ object HiiragiJsonUtil {
             }
 
             root.has("parts") -> {
-                val shape: HiiragiShape = root.getAsJsonPrimitive("shape")?.asString
-                    ?.let { HiiragiRegistries.SHAPE.getValue(it) } ?: return null
-                val material: HiiragiMaterial = root.getAsJsonPrimitive("material")?.asString
-                    ?.let { HiiragiRegistries.MATERIAL.getValue(it) } ?: return null
+                val part: HiiragiPart = hiiragiPart(root.get("parts")) ?: return null
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
-                ItemIngredient.Parts(shape, material, count)
+                ItemIngredient.Parts(part, count)
             }
 
             root.has("materials") -> {
-                val material: HiiragiMaterial = root.getAsJsonPrimitive("material")?.asString
-                    ?.let { HiiragiRegistries.MATERIAL.getValue(it) } ?: return null
+                val material: HiiragiMaterial = root.getAsJsonPrimitive("materials")?.asString
+                    ?.let(HiiragiRegistries.MATERIAL::getValue) ?: return null
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
                 ItemIngredient.Materials(material, count)
             }
 
+            root.has("shapes") -> {
+                val shape: HiiragiShape = root.getAsJsonPrimitive("shapes")?.asString
+                    ?.let(HiiragiRegistries.SHAPE::getValue) ?: return null
+                val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
+                ItemIngredient.Shapes(shape, count)
+            }
+
             else -> null
         }
+
+    }
+
+    fun fluidIngredient(jsonElement: JsonElement): FluidIngredient? {
+
+        val root: JsonObject = jsonElement.asJsonObject
+
+        return when {
+            root.has("fluids") -> {
+                val stacks: List<Fluid> = root.getAsJsonArray("fluids")
+                    .map { it.asJsonPrimitive.asString }
+                    .mapNotNull(FluidRegistry::getFluid)
+                val amount: Int = root.getAsJsonPrimitive("amount")?.asInt ?: 0
+                FluidIngredient.Fluids(*stacks.toTypedArray(), amount = amount)
+            }
+
+            root.has("materials") -> {
+                val stacks: List<HiiragiMaterial> = root.getAsJsonArray("materials")
+                    .map { it.asJsonPrimitive.asString }
+                    .mapNotNull(HiiragiRegistries.MATERIAL::getValue)
+                val amount: Int = root.getAsJsonPrimitive("amount")?.asInt ?: 0
+                FluidIngredient.Materials(*stacks.toTypedArray(), amount = amount)
+            }
+
+            else -> null
+        }
+
+    }
+
+    fun machineRecipe(pair: Pair<JsonElement, String>) {
+
+        val root: JsonObject = pair.first.asJsonObject
+
+        val type: MachineType = root.getAsJsonPrimitive("type")?.asString?.let(MachineType.Companion::from) ?: return
+        val traits: Set<MachineTrait> = root.getAsJsonArray("traits")
+            .map { it.asJsonPrimitive.asString }
+            .mapNotNull(MachineTrait.Companion::from)
+            .toSet()
+        val inputItems: List<ItemIngredient> = root.getAsJsonArray("input_items")
+            .mapNotNull(::itemIngredient)
+        val inputFluids: List<FluidIngredient> = root.getAsJsonArray("input_fluids")
+            .mapNotNull(::fluidIngredient)
+        val outputItems: List<ItemStack> = root.getAsJsonArray("output_items")
+            .mapNotNull(::itemStack)
+        val outputFluids: List<FluidStack> = root.getAsJsonArray("output_fluids")
+            .mapNotNull(::fluidStack)
+
+        IMachineRecipe.register(hiiragiLocation(pair.second), object : IMachineRecipe {
+            override fun getInputItems(): List<ItemIngredient> = inputItems
+            override fun getInputFluids(): List<FluidIngredient> = inputFluids
+            override fun getRequiredTraits(): Set<MachineTrait> = traits
+            override fun getRequiredType(): MachineType = type
+            override fun getOutputItems(): List<ItemStack> = outputItems
+            override fun getOutputFluids(): List<FluidStack> = outputFluids
+        })
 
     }
 

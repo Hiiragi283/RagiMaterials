@@ -4,6 +4,8 @@ package hiiragi283.material.util
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.block.Block
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.IBlockState
@@ -12,7 +14,6 @@ import net.minecraft.client.multiplayer.WorldClient
 import net.minecraft.client.renderer.BufferBuilder
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
-import net.minecraft.client.renderer.block.statemap.StateMapperBase
 import net.minecraft.client.renderer.texture.TextureAtlasSprite
 import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
@@ -86,6 +87,10 @@ fun isAprilFools(): Boolean =
 
 fun <T> Collection<T>.hasSameElements(other: Collection<T>): Boolean =
     this.containsAll(other) && other.containsAll(this)
+
+fun <K, V> Map<K, V>.reverse(): Map<V, K> = this.toList().associate(Pair<K, V>::reverse)
+
+fun <A, B> Pair<A, B>.reverse(): Pair<B, A> = this.second to this.first
 
 //    Drop    //
 
@@ -173,6 +178,10 @@ fun FluidStack.copyKt(
 fun FluidStack.isSameWithAmount(other: FluidStack?): Boolean =
     other !== null && this.isFluidEqual(other) && this.amount == other.amount
 
+fun Fluid.getMaterial(): HiiragiMaterial? = HiiragiRegistries.MATERIAL.getValue(this.name)
+
+fun FluidStack.getMaterial(): HiiragiMaterial? = this.fluid.getMaterial()
+
 //    FML    //
 
 fun isClient(): Boolean = FMLCommonHandler.instance().side.isClient
@@ -255,12 +264,6 @@ fun Item.setModelAlt(location: ResourceLocation) {
 fun Block.setModelAlt(location: ResourceLocation) {
     this.setModelAlt(ModelResourceLocation(location, "inventory"))
 }
-
-fun simpleStateMapper(modelLocation: ModelResourceLocation) = object : StateMapperBase() {
-    override fun getModelResourceLocation(state: IBlockState): ModelResourceLocation = modelLocation
-}
-
-fun simpleStateMapper(location: ResourceLocation, variant: String) = simpleStateMapper(ModelResourceLocation(location, variant))
 
 //    Ore Dictionary    //
 

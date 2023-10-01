@@ -34,6 +34,15 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object HiiragiEventHandler {
 
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    fun registerShapes(event: ShapeRegistryEvent) {
+        RagiMaterials.LOGGER.info("Registering Shapes...")
+        HiiragiShapes.register()
+
+        RagiMaterials.LOGGER.info("Registering Shapes from JSON...")
+        HiiragiJSonHandler.registerShape()
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun registerMaterials(event: MaterialRegistryEvent) {
 
@@ -49,14 +58,8 @@ object HiiragiEventHandler {
         HiiragiPlugin.registerMaterial()
 
         RagiMaterials.LOGGER.info("Registering Materials from JSON...")
-        HiiragiJSonHandler.register()
+        HiiragiJSonHandler.registerMaterial()
 
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    fun registerShapes(event: ShapeRegistryEvent) {
-        RagiMaterials.LOGGER.info("Registering Shapes...")
-        HiiragiShapes.register()
     }
 
     @SubscribeEvent

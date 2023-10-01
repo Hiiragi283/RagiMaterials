@@ -6,48 +6,132 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.ingredient.FluidIngredient
+import hiiragi283.material.api.ingredient.ItemIngredient
+import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.materialOf
-import hiiragi283.material.api.shape.HiiragiShapeTypes
+import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.api.shape.HiiragiShapeType
+import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.recipe.MachineRecipe
 import hiiragi283.material.util.HiiragiJsonUtil
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraft.init.Blocks
+import net.minecraft.init.Items
+import net.minecraft.item.ItemStack
+import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 import java.io.File
 
 object HiiragiJSonHandler {
 
-    lateinit var event: FMLPreInitializationEvent
+    lateinit var configFile: File
 
-    //"instance/config/ragi_materials"のディレクトリを取得
-    private val configs: File by lazy { File(event.modConfigurationDirectory, RMReference.MOD_ID) }
+    //instance/config/ragi_materials
+    private val parentFile: File by lazy { File(configFile, RMReference.MOD_ID) }
+
+    //instance/config/ragi_materials/shapes
+    private val shapeFile: File by lazy { File(parentFile, "shapes") }
+
+    //instance/config/ragi_materials/materials
+    private val materialFile: File by lazy { File(parentFile, "materials") }
+
+    //instance/config/ragi_materials/recipes
+    private val recipeFile: File by lazy { File(parentFile, "recipes") }
 
     private val gson: Gson = GsonBuilder().setPrettyPrinting().create()
 
     fun init() {
-        RagiMaterials.LOGGER.info("Config Folder: $configs")
         //フォルダがない場合は生成する
-        if (!configs.exists()) configs.mkdirs()
+        if (!parentFile.exists()) {
+            RagiMaterials.LOGGER.info("Created Config Folder: $parentFile")
+            parentFile.mkdirs()
+        }
+        if (!shapeFile.exists()) {
+            RagiMaterials.LOGGER.info("Created Config Folder: $shapeFile")
+            shapeFile.mkdirs()
+        }
+        if (!materialFile.exists()) {
+            RagiMaterials.LOGGER.info("Created Config Folder: $materialFile")
+            materialFile.mkdirs()
+        }
+        if (!recipeFile.exists()) {
+            RagiMaterials.LOGGER.info("Created Config Folder: $recipeFile")
+            recipeFile.mkdirs()
+        }
+
     }
 
-    //"instance/config/ragi_materials"フォルダ内にサンプルファイルを生成する
-    fun writeJson() {
+    private fun getJsonObjects(file: File): List<JsonObject> {
+        val files: Array<File> = file.listFiles() ?: return listOf()
+        return files.filter(File::exists) //Fileが存在しているか
+            .filter(File::isFile) //Fileオブジェクトがファイルか = フォルダではないか
+            .filter(File::canRead) //Fileが読み取り可能か
+            .map(File::readText) //Stringを読み取る
+            .map { gson.fromJson(it, JsonObject::class.java) } //String -> JsonObject
+    }
+
+    //    Shape    //
+
+    fun writeShape() {
         //サンプルを生成しない場合はパス
-        if (!HiiragiConfigs.MATERIAL.sampleJson) return
-        val sample = File(configs, "/example.json")
+        if (!HiiragiConfigs.COMMON.generateSample) return
+        val sample = File(shapeFile, "/sample.json")
         //ファイルを新規作成
         try {
             //サンプルファイルがない場合は新規作成
             if (!sample.exists()) sample.createNewFile()
             //書き込み可能な場合
             if (sample.canWrite()) {
-                val material: JsonElement = materialOf("example", -1) {
+                val shape: JsonElement = HiiragiShape("sample", 144).getJsonElement()
+                sample.writeText(gson.toJson(shape), Charsets.UTF_8)
+            }
+        } catch (e: Exception) {
+            RagiMaterials.LOGGER.error(e)
+        }
+    }
+
+    fun readShape() {
+        try {
+            getJsonObjects(shapeFile)
+                .mapNotNull(HiiragiJsonUtil::hiiragiShape) //JsonObject -> HiiragiShape
+                .forEach(shapes::add) //shapesに一時保存
+        } catch (e: Exception) {
+            RagiMaterials.LOGGER.error(e)
+        }
+    }
+
+    private val shapes: MutableList<HiiragiShape> = mutableListOf()
+
+    fun registerShape() {
+        shapes.forEach(HiiragiShape::register)
+    }
+
+    //    Material    //
+
+    fun writeMaterial() {
+        //サンプルを生成しない場合はパス
+        if (!HiiragiConfigs.COMMON.generateSample) return
+        val sample = File(materialFile, "/sample.json")
+        //ファイルを新規作成
+        try {
+            //サンプルファイルがない場合は新規作成
+            if (!sample.exists()) sample.createNewFile()
+            //書き込み可能な場合
+            if (sample.canWrite()) {
+                val material: JsonElement = materialOf("sample", -1) {
                     color = RagiMaterials.COLOR.rgb
                     fluidSupplier = { null }
                     formula = "HIIRAGI"
                     molar = 110.9
                     tempBoil = 2830
                     tempMelt = 1109
-                    shapeType = HiiragiShapeTypes.WILDCARD
-                }.serializableElement
+                    shapeType = HiiragiShapeType("wildcard", HiiragiRegistries.SHAPE.getValues())
+                }.getJsonElement()
                 sample.writeText(gson.toJson(material), Charsets.UTF_8)
             }
         } catch (e: Exception) {
@@ -55,26 +139,68 @@ object HiiragiJSonHandler {
         }
     }
 
-    //"instance/config/ragi_materials"フォルダ内のファイルを読み取る
-    fun readJson() {
+    fun readMaterial() {
         try {
-            val files: Array<File> = configs.listFiles() ?: return
-            files.filter(File::exists) //Fileが存在しているか
-                .filter(File::isFile) //Fileオブジェクトがファイルか = フォルダではないか
-                .filter(File::canRead) //Fileが読み取り可能か
-                .map(File::readText) //Stringを読み取る
-                .map { gson.fromJson(it, JsonObject::class.java) } //String -> JsonObject
+            getJsonObjects(materialFile)
                 .mapNotNull(HiiragiJsonUtil::hiiragiMaterial) //JsonObject -> HiiragiMaterial
-                .forEach(CACHE::add) //CACHEに一時保存
+                .forEach(materials::add) //materialsに一時保存
         } catch (e: Exception) {
             RagiMaterials.LOGGER.error(e) //念のため例外処理
         }
     }
 
-    private val CACHE: MutableList<HiiragiMaterial> = mutableListOf()
+    private val materials: MutableList<HiiragiMaterial> = mutableListOf()
 
-    fun register() {
-        CACHE.forEach(HiiragiMaterial::register)
+    fun registerMaterial() {
+        materials.forEach(HiiragiMaterial::register)
+    }
+
+    //    MachineRecipe    //
+
+    fun writeRecipe() {
+        //サンプルを生成しない場合はパス
+        if (!HiiragiConfigs.COMMON.generateSample) return
+        val sample = File(recipeFile, "/sample.json")
+        //ファイルを新規作成
+        try {
+            //サンプルファイルがない場合は新規作成
+            if (!sample.exists()) sample.createNewFile()
+            //書き込み可能な場合
+            if (sample.canWrite()) {
+                val recipe: JsonElement = MachineRecipe.build(
+                    MachineType.TEST
+                ) {
+                    inputItems.add(ItemIngredient.Stacks(ItemStack(Items.DYE, 1, 15), count = 6))
+                    inputItems.add(ItemIngredient.Blocks(Blocks.COBBLESTONE, count = 5))
+                    inputItems.add(ItemIngredient.Items(Items.DIAMOND, count = 4))
+                    inputItems.add(ItemIngredient.OreDicts("ingotIron", count = 3))
+                    inputItems.add(ItemIngredient.Materials(MaterialCommon.STEEL, count = 2))
+                    inputItems.add(ItemIngredient.Shapes(HiiragiShapes.BLOCK))
+                    inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = 250))
+                    inputFluids.add(FluidIngredient.Materials(MaterialElements.HELIUM))
+                    outputItems.add(ItemStack(Blocks.DIAMOND_BLOCK))
+                    outputFluids.add(FluidStack(FluidRegistry.LAVA, 4000))
+                    traits.addAll(MachineTrait.values())
+                }.getJsonElement()
+                sample.writeText(gson.toJson(recipe), Charsets.UTF_8)
+            }
+        } catch (e: Exception) {
+            RagiMaterials.LOGGER.error(e)
+        }
+    }
+
+    fun registerRecipe() {
+        try {
+            val files: Array<File> = recipeFile.listFiles() ?: return
+            files.filter(File::exists) //Fileが存在しているか
+                .filter(File::isFile) //Fileオブジェクトがファイルか = フォルダではないか
+                .filter(File::canRead) //Fileが読み取り可能か
+                .map { it.readText() to it.nameWithoutExtension } //テキストとファイル名を読み取る
+                .map { gson.fromJson(it.first, JsonObject::class.java) to it.second } //JsonObjectに変換
+                .forEach(HiiragiJsonUtil::machineRecipe) //IMachineRecipeの登録
+        } catch (e: Exception) {
+            RagiMaterials.LOGGER.error(e)
+        }
     }
 
 }

@@ -6,6 +6,7 @@ import hiiragi283.material.api.chunk.HiiragiChunkLoadCallback
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.compat.HiiragiPlugin
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.config.HiiragiJSonHandler
@@ -30,21 +31,23 @@ abstract class HiiragiProxy : IHiiragiProxy {
     }
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
-        //configから素材を取得
-        HiiragiJSonHandler.run {
-            this.event = event
-            init()
-            writeJson()
-            readJson()
-        }
+        //configフォルダのパスを取得
+        HiiragiJSonHandler.configFile = event.modConfigurationDirectory
+        HiiragiJSonHandler.init()
+        //Shapeの登録
+        HiiragiJSonHandler.writeShape()
+        HiiragiJSonHandler.readShape()
+        HiiragiRegistries.registerShape()
+        //Materialの登録
+        HiiragiJSonHandler.writeMaterial()
+        HiiragiJSonHandler.readMaterial()
+        HiiragiRegistries.registerMaterial()
         //レジストリへの登録
         HiiragiBlocks
         HiiragiEntities
         HiiragiItems
         HiiragiRegistries.registerModuleMachine()
         HiiragiRegistries.registerRecipeModule()
-        HiiragiRegistries.registerShape()
-        HiiragiRegistries.registerMaterial()
         MaterialFluid.register()
         //連携の登録
         HiiragiPlugin.onPreInit(event)
@@ -66,16 +69,24 @@ abstract class HiiragiProxy : IHiiragiProxy {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         //レシピの登録
+        HiiragiJSonHandler.writeRecipe()
+        HiiragiJSonHandler.registerRecipe()
         HiiragiRecipes.postInit()
         //連携の登録
         HiiragiPlugin.onPostInit(event)
     }
 
     override fun onComplete(event: FMLLoadCompleteEvent) {
-        //MaterialRegistryからログに出力
-        if (HiiragiConfigs.MATERIAL.printMaterials) {
+        //ログに出力
+        if (HiiragiConfigs.COMMON.printValues) {
+            RagiMaterials.LOGGER.info("Printing registered HiiragiShape values...")
+            HiiragiRegistries.SHAPE.getValues()
+                .map(HiiragiShape::getJsonElement)
+                .map<JsonElement, String>(RagiMaterials.GSON::toJson)
+                .forEach(RagiMaterials.LOGGER::info)
+            RagiMaterials.LOGGER.info("Printing registered HiiragiMaterial values...")
             HiiragiRegistries.MATERIAL.getValues()
-                .map(HiiragiMaterial::getSerializableElement)
+                .map(HiiragiMaterial::getJsonElement)
                 .map<JsonElement, String>(RagiMaterials.GSON::toJson)
                 .forEach(RagiMaterials.LOGGER::info)
         }

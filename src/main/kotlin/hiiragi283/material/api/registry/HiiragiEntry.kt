@@ -28,7 +28,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
         return if (scale >= 144) getItemStack(part.material, scale / 144) else ItemStack.EMPTY
     }
 
-    fun getItemStackWild(count: Int = 1): ItemStack = getItemStack(count, Short.MAX_VALUE.toInt())
+    fun getItemStackWild(count: Int = 1): ItemStack = getItemStack(HiiragiMaterial.WILDCARD, count)
 
     fun getObject(): T
 

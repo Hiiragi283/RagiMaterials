@@ -13,12 +13,12 @@ import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getTileImplemented
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
-import net.minecraft.util.IJsonSerializable
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fluids.Fluid
@@ -62,7 +62,7 @@ data class HiiragiMaterial(
     var tempBoil: Int = 0,
     var tempMelt: Int = 0,
     var translationKey: String = "hiiragi_material.$name"
-) : IJsonSerializable {
+) : HiiragiJsonSerializable {
 
     val oreDictAlt: MutableList<String> = mutableListOf()
     var fluidBlock: (Fluid) -> Block? = { null }
@@ -182,6 +182,9 @@ data class HiiragiMaterial(
         val UNKNOWN = formulaOf("?")
 
         @JvmField
+        val WILDCARD = materialOf("wildcard", Short.MAX_VALUE.toInt())
+
+        @JvmField
         val RUSSELL = materialOf("russell", 0) {
             color = RagiMaterials.COLOR.rgb
             shapeType = HiiragiShapeTypes.WILDCARD
@@ -227,9 +230,9 @@ data class HiiragiMaterial(
 
     }
 
-    //    IJsonSerializable    //
+    //    HiiragiJsonSerializable    //
 
-    override fun getSerializableElement(): JsonElement {
+    override fun getJsonElement(): JsonElement {
 
         val root = JsonObject()
 
@@ -250,22 +253,18 @@ data class HiiragiMaterial(
             }
         }
 
-        root.add("machineProperty", machineProperty?.serializableElement)
+        root.add("machineProperty", machineProperty?.getJsonElement())
         root.addProperty("molar", molar)
 
         val oreDictAltJson = JsonArray()
         oreDictAlt.forEach(oreDictAltJson::add)
         root.add("oreDictAlt", oreDictAltJson)
 
-        root.add("shapeType", shapeType.serializableElement)
+        root.add("shapeType", shapeType.getJsonElement())
         root.addProperty("tempBoil", tempBoil)
         root.addProperty("tempMelt", tempMelt)
 
         return root
-
-    }
-
-    override fun fromJson(json: JsonElement) {
 
     }
 

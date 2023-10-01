@@ -6,9 +6,9 @@ tile.ragi_materials.machine_workbench.name=機械作業台
 tile.ragi_materials.pipe_energy.name=輸送パイプ (エネルギー)
 tile.ragi_materials.pipe_fluid.name=輸送パイプ (液体)
 tile.ragi_materials.pipe_item.name=輸送パイプ (アイテム)
-tile.ragi_materials.station_energy.name=巣層ステーション (エネルギー)
-tile.ragi_materials.station_fluid.name=巣層ステーション (液体)
-tile.ragi_materials.station_item.name=巣層ステーション (アイテム)
+tile.ragi_materials.station_energy.name=輸送ステーション (エネルギー)
+tile.ragi_materials.station_fluid.name=輸送ステーション (液体)
+tile.ragi_materials.station_item.name=輸送ステーション (アイテム)
 
 ##    CreativeTab    ##
 
@@ -22,6 +22,15 @@ itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
 item.ragi_materials.book_respawn.name=[開発用] リスポーン本
 item.ragi_materials.minecart_tank.name=タンク付きトロッコ
+item.ragi_materials.shape_pattern_0.name=形状パターン (ブロック)
+item.ragi_materials.shape_pattern_1.name=形状パターン (筐体)
+item.ragi_materials.shape_pattern_2.name=形状パターン (粉末)
+item.ragi_materials.shape_pattern_3.name=形状パターン (歯車)
+item.ragi_materials.shape_pattern_4.name=形状パターン (宝石)
+item.ragi_materials.shape_pattern_5.name=形状パターン (インゴット)
+item.ragi_materials.shape_pattern_6.name=形状パターン (ナゲット)
+item.ragi_materials.shape_pattern_7.name=形状パターン (板)
+item.ragi_materials.shape_pattern_8.name=形状パターン (棒)
 item.ragi_materials.wrench.name=Rotation Wrench
 
 ##    JEI Tab    ##

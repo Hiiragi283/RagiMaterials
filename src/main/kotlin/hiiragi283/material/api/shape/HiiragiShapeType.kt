@@ -3,9 +3,9 @@ package hiiragi283.material.api.shape
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import net.minecraft.util.IJsonSerializable
+import hiiragi283.material.util.HiiragiJsonSerializable
 
-data class HiiragiShapeType(val name: String) : IJsonSerializable {
+data class HiiragiShapeType(val name: String) : HiiragiJsonSerializable {
 
     val shapes: Set<HiiragiShape>
         get() = shapesInternal
@@ -33,7 +33,7 @@ data class HiiragiShapeType(val name: String) : IJsonSerializable {
 
     //    IJsonSerializable    //
 
-    override fun getSerializableElement(): JsonElement {
+    override fun getJsonElement(): JsonElement {
 
         val root = JsonObject()
 
@@ -44,10 +44,6 @@ data class HiiragiShapeType(val name: String) : IJsonSerializable {
         root.add("shapes", shapesJson)
 
         return root
-
-    }
-
-    override fun fromJson(json: JsonElement) {
 
     }
 

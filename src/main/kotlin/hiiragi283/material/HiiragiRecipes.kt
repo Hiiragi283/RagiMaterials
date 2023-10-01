@@ -14,7 +14,9 @@ import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.item.ItemShapePattern
 import hiiragi283.material.recipe.MachineRecipe
+import hiiragi283.material.recipe.MaterialCastingRecipe
 import hiiragi283.material.recipe.MaterialMeltingRecipe
 import hiiragi283.material.util.*
 import net.minecraft.block.Block
@@ -160,6 +162,21 @@ object HiiragiRecipes {
             inputFluids.add(FluidIngredient.Fluids(FluidRegistry.LAVA, amount = 1000))
             outputItems.add(ItemStack(Blocks.MAGMA))
         }
+        //金属の鋳造レシピ
+        ItemShapePattern.SHAPE_MAP.values
+            .forEach { shape: HiiragiShape ->
+                HiiragiRegistries.MATERIAL_INDEX.getValues()
+                    .filter(shape::isValid)
+                    .filter(HiiragiMaterial::isSolid)
+                    .filter(HiiragiMaterial::hasFluid)
+                    .map(shape::getPart)
+                    .forEach { part: HiiragiPart ->
+                        IMachineRecipe.register(
+                            hiiragiLocation(part.toString()),
+                            MaterialCastingRecipe(part)
+                        )
+                    }
+            }
     }
 
     private fun grinder() {

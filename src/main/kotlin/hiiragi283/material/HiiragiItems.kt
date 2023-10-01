@@ -173,6 +173,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MINECART_TANK = HiiragiRegistries.ITEM.register(ItemMinecartTank)
 
     @JvmField
+    val SHAPE_PATTERN = HiiragiRegistries.ITEM.register(ItemShapePattern)
+
+    @JvmField
     val WRENCH = HiiragiRegistries.ITEM.register(ItemWrench)
 
 }

@@ -1,16 +1,21 @@
 package hiiragi283.material.api.machine
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
+import hiiragi283.material.util.HiiragiJsonSerializable
+import hiiragi283.material.util.getJsonElement
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.items.IItemHandlerModifiable
 
-interface IMachineRecipe {
+interface IMachineRecipe : HiiragiJsonSerializable {
 
     //    Input    //
 
@@ -64,6 +69,38 @@ interface IMachineRecipe {
         tile.getTank(1),
         tile.getTank(2)
     )
+
+    //    HiiragiJsonSerializable    //
+
+    override fun getJsonElement(): JsonElement {
+
+        val root = JsonObject()
+
+        root.addProperty("type", getRequiredType().name)
+
+        val traitArray = JsonArray()
+        getRequiredTraits().map(MachineTrait::name).forEach(traitArray::add)
+        root.add("traits", traitArray)
+
+        val inputItemArray = JsonArray()
+        getInputItems().map(ItemIngredient::getJsonElement).forEach(inputItemArray::add)
+        root.add("input_items", inputItemArray)
+
+        val inputFluidArray = JsonArray()
+        getInputFluids().map(FluidIngredient::getJsonElement).forEach(inputFluidArray::add)
+        root.add("input_fluids", inputFluidArray)
+
+        val outputItemArray = JsonArray()
+        getOutputItems().map(ItemStack::getJsonElement).forEach(outputItemArray::add)
+        root.add("output_items", outputItemArray)
+
+        val outputFluidArray = JsonArray()
+        getOutputFluids().map(FluidStack::getJsonElement).forEach(outputFluidArray::add)
+        root.add("output_fluids", outputFluidArray)
+
+        return root
+
+    }
 
     companion object {
 

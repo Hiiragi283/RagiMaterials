@@ -1,9 +1,12 @@
 package hiiragi283.material.api.part
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getOreDicts
 import hiiragi283.material.util.notEmpty
 import hiiragi283.material.util.toItemStack
@@ -25,7 +28,7 @@ fun IBlockState.getParts() = this.let(IBlockState::toItemStack).let(ItemStack::g
 
 fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.getOreDicts()?.mapNotNull(::getPart) ?: listOf()
 
-data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
+data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) : HiiragiJsonSerializable {
 
     val materialStack: MaterialStack = MaterialStack(material, shape.scale)
 
@@ -64,5 +67,18 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) {
     }
 
     override fun toString(): String = "${shape.name}:${material.name}"
+
+    //    HiiragiJsonSerializable    //
+
+    override fun getJsonElement(): JsonElement {
+
+        val root = JsonObject()
+
+        root.addProperty("shape", shape.name)
+        root.addProperty("material", material.name)
+
+        return root
+
+    }
 
 }

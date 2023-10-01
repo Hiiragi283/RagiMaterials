@@ -18,14 +18,14 @@ class MachineRecipe private constructor() {
     val outputFluids: MutableList<FluidStack> = mutableListOf()
 
     companion object {
-        fun buildAndRegister(
+
+        fun build(
             type: MachineType,
-            registryName: ResourceLocation,
             init: MachineRecipe.() -> Unit
-        ) {
+        ): IMachineRecipe {
             val builder = MachineRecipe()
             builder.init()
-            IMachineRecipe.register(registryName, object : IMachineRecipe {
+            return object : IMachineRecipe {
 
                 override fun getInputItems(): List<ItemIngredient> = builder.inputItems
 
@@ -39,7 +39,15 @@ class MachineRecipe private constructor() {
 
                 override fun getOutputFluids(): List<FluidStack> = builder.outputFluids
 
-            })
+            }
+        }
+
+        fun buildAndRegister(
+            type: MachineType,
+            registryName: ResourceLocation,
+            init: MachineRecipe.() -> Unit
+        ) {
+            IMachineRecipe.register(registryName, build(type, init))
         }
 
     }

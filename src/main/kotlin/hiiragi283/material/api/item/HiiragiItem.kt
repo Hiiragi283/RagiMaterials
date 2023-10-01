@@ -13,13 +13,12 @@ import kotlin.math.max
 
 abstract class HiiragiItem(id: String, maxMeta: Int = 0) : Item(), HiiragiEntry.ITEM {
 
-    private val maxMeta: Int
+    private val maxMeta: Int = max(0, maxMeta)
 
     init {
         setRegistryName(RMReference.MOD_ID, id)
         creativeTab = HiiragiCreativeTabs.COMMON
         hasSubtypes = maxMeta > 0
-        this.maxMeta = max(0, maxMeta)
         translationKey = "${RMReference.MOD_ID}.$id"
     }
 

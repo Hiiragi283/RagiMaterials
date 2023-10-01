@@ -1,8 +1,11 @@
 package hiiragi283.material.api.shape
 
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.util.HiiragiJsonSerializable
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import rechellatek.snakeToLowerCamelCase
@@ -13,10 +16,12 @@ import rechellatek.snakeToLowerCamelCase
  * Should be registered in [net.minecraftforge.event.RegistryEvent.Register]<[HiiragiShape]>
  */
 
-class HiiragiShape(val name: String, val scale: Int) {
+data class HiiragiShape(val name: String, val scale: Int) : HiiragiJsonSerializable {
 
     fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack? =
         HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.getItemStack(material, count)
+
+    fun getItemStackWild(count: Int = 1): ItemStack? = getItemStack(HiiragiMaterial.WILDCARD, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.MATERIAL_INDEX.getValues()
         .map(::getPart)
@@ -54,6 +59,15 @@ class HiiragiShape(val name: String, val scale: Int) {
 
     fun register() {
         HiiragiRegistries.SHAPE.register(name, this)
+    }
+
+    //    HiiragiJsonSerializable    //
+
+    override fun getJsonElement(): JsonElement {
+        val root = JsonObject()
+        root.addProperty("name", name)
+        root.addProperty("scale", scale)
+        return root
     }
 
 }

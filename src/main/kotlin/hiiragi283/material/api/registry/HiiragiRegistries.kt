@@ -110,6 +110,7 @@ object HiiragiRegistries {
     fun registerShape() {
         val event = ShapeRegistryEvent(SHAPE)
         MinecraftForge.EVENT_BUS.post(event)
+        SHAPE.sort { (name: String, _: HiiragiShape) -> name }
         SHAPE.lock()
     }
 

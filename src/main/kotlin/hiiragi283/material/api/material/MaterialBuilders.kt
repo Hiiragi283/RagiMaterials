@@ -20,7 +20,7 @@ fun isotopeOf(
     name: String,
     index: Int,
     parent: HiiragiMaterial,
-    init: HiiragiMaterial.() -> Unit
+    init: HiiragiMaterial.() -> Unit = {}
 ): HiiragiMaterial {
     val isotope: HiiragiMaterial = HiiragiMaterial(name, index).also { material ->
         material.color = parent.color
@@ -88,6 +88,21 @@ private fun initMolar(compound: HiiragiMaterial, components: Map<HiiragiMaterial
         .forEach { molar += it.key.molar * it.value }
     molar = (molar * 10.0).roundToInt() / 10.0 //小数点1桁まで
     compound.molar = molar
+}
+
+//    Allotrope    //
+
+fun allotropeOf(
+    name: String,
+    index: Int,
+    parent: HiiragiMaterial,
+    init: HiiragiMaterial.() -> Unit = {}
+): HiiragiMaterial {
+    val allotrope: HiiragiMaterial = isotopeOf(name, index, parent)
+    allotrope.formula = parent.formula
+    allotrope.molar = parent.molar
+    allotrope.init()
+    return allotrope
 }
 
 //    Alloy    //

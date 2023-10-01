@@ -57,11 +57,11 @@ object MaterialCommon {
 
     @JvmField
     val AQUAMARINE = compoundOf(
-        "aquamarine", 10401, mapOf(
+        "aquamarine", 10400, mapOf(
             MaterialElements.BERYLLIUM to 3,
             MaterialElements.ALUMINIUM to 2,
             MaterialElements.SILICON to 6,
-            MaterialElements.OXYGEN to 16
+            MaterialElements.OXYGEN to 18
         )
     ) {
         color = HiiragiColor.AQUA.rgb
@@ -69,17 +69,8 @@ object MaterialCommon {
     }
 
     @JvmField
-    val EMERALD = compoundOf(
-        "emerald", 10400, mapOf(
-            MaterialElements.BERYLLIUM to 3,
-            MaterialElements.ALUMINIUM to 2,
-            MaterialElements.SILICON to 6,
-            MaterialElements.OXYGEN to 16
-        )
-    ) {
+    val EMERALD = allotropeOf("emerald", 10401, AQUAMARINE) {
         color = HiiragiColor.GREEN.rgb
-        fluidSupplier = { null }
-        shapeType = HiiragiShapeTypes.GEM_EMERALD
     }
 
     //    Carbon    //
@@ -91,16 +82,11 @@ object MaterialCommon {
     }
 
     @JvmField
-    val CHARCOAL = compoundOf("charcoal", 10601, mapOf(MaterialElements.CARBON to 1)) {
-        fluidSupplier = { null }
-        shapeType = HiiragiShapeTypes.GEM_COAL
-    }
+    val CHARCOAL = allotropeOf("charcoal", 10601, COAL)
 
     @JvmField
-    val COKE = compoundOf("coke", 10602, mapOf(MaterialElements.CARBON to 1)) {
+    val COKE = allotropeOf("coke", 10602, COAL) {
         color = HiiragiColor.DARK_GRAY.rgb
-        fluidSupplier = { null }
-        shapeType = HiiragiShapeTypes.GEM_COAL
     }
 
     @JvmField

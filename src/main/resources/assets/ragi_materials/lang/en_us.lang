@@ -22,6 +22,15 @@ itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
 item.ragi_materials.book_respawn.name=[for Dev] Respawn Book
 item.ragi_materials.minecart_tank.name=Minecart with Tank
+item.ragi_materials.shape_pattern_0.name=Shape Pattern (Block)
+item.ragi_materials.shape_pattern_1.name=Shape Pattern (Casing)
+item.ragi_materials.shape_pattern_2.name=Shape Pattern (Dust)
+item.ragi_materials.shape_pattern_3.name=Shape Pattern (Gear)
+item.ragi_materials.shape_pattern_4.name=Shape Pattern (Gem)
+item.ragi_materials.shape_pattern_5.name=Shape Pattern (Ingot)
+item.ragi_materials.shape_pattern_6.name=Shape Pattern (Nugget)
+item.ragi_materials.shape_pattern_7.name=Shape Pattern (Plate)
+item.ragi_materials.shape_pattern_8.name=Shape Pattern (Stick)
 item.ragi_materials.wrench.name=Rotation Wrench
 
 ##    JEI Tab    ##
