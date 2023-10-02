@@ -13,10 +13,9 @@ import hiiragi283.material.compat.jei.ingredients.MaterialStackHelper
 import hiiragi283.material.compat.jei.ingredients.MaterialStackRenderer
 import hiiragi283.material.container.ContainerModuleMachine
 import hiiragi283.material.gui.GuiModuleMachine
-import mezz.jei.api.IGuiHelper
-import mezz.jei.api.IModPlugin
-import mezz.jei.api.IModRegistry
-import mezz.jei.api.JEIPlugin
+import hiiragi283.material.util.itemStack
+import hiiragi283.material.util.itemStackWild
+import mezz.jei.api.*
 import mezz.jei.api.ingredients.IIngredientBlacklist
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategory
@@ -71,11 +70,11 @@ class HiiragiJEIPlugin : IModPlugin {
         //HiiragiMaterial
         registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
         registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
-        registry.addRecipeCatalyst(HiiragiItems.MATERIAL_BOTTLE.getItemStackWild(), MATERIAL)
+        registry.addRecipeCatalyst(HiiragiItems.MATERIAL_BOTTLE.itemStackWild(), MATERIAL)
         //Machine Workbench
         registry.handleRecipes(MachineType::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
         registry.addRecipes(MachineType.values().toList(), MACHINE_WORKBENCH)
-        registry.addRecipeCatalyst(ItemStack(HiiragiBlocks.MACHINE_WORKBENCH), MACHINE_WORKBENCH)
+        registry.addRecipeCatalyst(HiiragiBlocks.MACHINE_WORKBENCH.itemStack(), MACHINE_WORKBENCH)
         //Machine Recipe
         MachineType.values()
             .filter { it != MachineType.NONE }
@@ -89,10 +88,10 @@ class HiiragiJEIPlugin : IModPlugin {
                 HiiragiRegistries.MACHINE_RECIPE.getValue(type)!!.getValues(),
                 getRecipeTypeID(type)
             )
-            HiiragiRegistries.RECIPE_MODULE.getValue(type)?.getItemStack()?.let { stack: ItemStack ->
+                HiiragiRegistries.RECIPE_MODULE.getValue(type)?.itemStack()?.let { stack: ItemStack ->
                 registry.addRecipeCatalyst(stack, getRecipeTypeID(type))
             }
-            HiiragiRegistries.BLOCK_MACHINE.getValue(type)?.getItemStackWild()?.let { stack: ItemStack ->
+                HiiragiRegistries.BLOCK_MACHINE.getValue(type)?.itemStackWild()?.let { stack: ItemStack ->
                 registry.addRecipeCatalyst(stack, getRecipeTypeID(type))
             }
             registry.recipeTransferRegistry.addRecipeTransferHandler(

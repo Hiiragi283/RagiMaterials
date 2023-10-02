@@ -21,7 +21,7 @@ class MaterialFluidBlock(fluid: Fluid) : BlockFluidClassic(fluid, Material.WATER
     //    HiiragiEntry    //
 
     override fun registerModel() {
-        val mapper = SimpleStateMapper(getLocation(), "fluid")
+        val mapper = SimpleStateMapper(registryName!!, "fluid")
         ModelLoader.setCustomStateMapper(this, mapper)
         ModelLoader.setCustomMeshDefinition(itemBlock, mapper)
     }

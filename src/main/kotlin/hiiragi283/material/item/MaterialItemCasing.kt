@@ -5,9 +5,11 @@ import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.machine.IMachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.itemStack
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
@@ -16,12 +18,12 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemCasing : MaterialItem(
     HiiragiShapes.CASING,
-    recipe = { entry, material ->
+    recipe = { item: MaterialItem, material: HiiragiMaterial ->
         if (HiiragiShapes.PLATE.isValid(material)) {
-            CraftingBuilder(entry.getItemStack(material))
+            CraftingBuilder(item.itemStack(material))
                 .setPattern("AAA", "ABA", "AAA")
                 .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
-                .setIngredient('B', HiiragiItems.WRENCH.getItemStackWild())
+                .setIngredient('B', HiiragiItems.WRENCH, true)
                 .build()
         }
     }

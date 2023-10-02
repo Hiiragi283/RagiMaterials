@@ -5,6 +5,8 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.hiiragiLocation
+import hiiragi283.material.util.itemStack
+import hiiragi283.material.util.itemStackWild
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.gui.IDrawableStatic
@@ -20,7 +22,8 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
     override val backGround: IDrawableStatic =
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/process1_1_1.png"), 0, 0, 18 * 5, 18)
 
-    override val iconDrawable: IDrawable? = guiHelper.createDrawableIngredient(HiiragiBlocks.MACHINE_WORKBENCH.getItemStack())
+    override val iconDrawable: IDrawable? =
+        guiHelper.createDrawableIngredient(HiiragiBlocks.MACHINE_WORKBENCH.itemStack())
 
     override fun setRecipe(iRecipeLayout: IRecipeLayout, wrapper: Wrapper, iIngredients: IIngredients) {
         //casing
@@ -37,15 +40,15 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
     class Wrapper(recipeType: MachineType) : IRecipeWrapper {
 
         val casing: ItemStack = HiiragiRegistries.MATERIAL_ITEM.getValue(HiiragiShapes.CASING)
-            ?.getItemStackWild()
+            ?.item()?.itemStackWild()
             ?: ItemStack.EMPTY
 
         val recipeModule: ItemStack = HiiragiRegistries.RECIPE_MODULE.getValue(recipeType)
-            ?.getItemStack()
+            ?.itemStack()
             ?: ItemStack.EMPTY
 
         val machine: ItemStack = HiiragiRegistries.BLOCK_MACHINE.getValue(recipeType)
-            ?.getItemStackWild()
+            ?.itemStackWild()
             ?: ItemStack.EMPTY
 
         override fun getIngredients(iIngredients: IIngredients) {

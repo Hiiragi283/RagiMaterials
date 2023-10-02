@@ -3,6 +3,7 @@ package hiiragi283.material.api.item
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.util.itemStack
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
@@ -28,7 +29,7 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
             .filter(shape::isValid)
-            .map { material: HiiragiMaterial -> getItemStack(material) }
+            .map(::itemStack)
             .forEach(subItems::add)
     }
 

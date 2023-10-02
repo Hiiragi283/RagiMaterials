@@ -9,9 +9,7 @@ import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.item.*
-import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.append
-import hiiragi283.material.util.toLocation
+import hiiragi283.material.util.*
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
@@ -29,14 +27,14 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_BLOCK = HiiragiRegistries.ITEM.registerOptional(
         MaterialItem(
             HiiragiShapes.BLOCK,
-            recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+            recipe = { item: MaterialItem, material: HiiragiMaterial ->
                 if (HiiragiShapes.INGOT.isValid(material)) {
-                    CraftingBuilder(entry.getItemStack(material))
+                    CraftingBuilder(item.itemStack(material))
                         .setPattern("AAA", "AAA", "AAA")
                         .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
                         .build()
                 } else if (HiiragiShapes.GEM.isValid(material)) {
-                    CraftingBuilder(entry.getItemStack(material))
+                    CraftingBuilder(item.itemStack(material))
                         .setPattern("AAA", "AAA", "AAA")
                         .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))
                         .build()
@@ -58,12 +56,12 @@ object HiiragiItems : HiiragiEntry.ITEM {
     @JvmField
     val MATERIAL_GEAR = HiiragiRegistries.ITEM.register(MaterialItem(
         HiiragiShapes.GEAR,
-        recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+        recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
-            CraftingBuilder(entry.getItemStack(material))
+            CraftingBuilder(item.itemStack(material))
                 .setPattern(" A ", "ABA", " A ")
                 .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-                .setIngredient('B', WRENCH.getItemStackWild())
+                .setIngredient('B', WRENCH, true)
                 .build()
         }
     ))
@@ -72,34 +70,34 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_GEM = HiiragiRegistries.ITEM.register(
         MaterialItem(
         HiiragiShapes.GEM,
-        model = { entry: HiiragiEntry<*> ->
+            model = { item: MaterialItem ->
 
             ModelLoader.registerItemVariants(
-                entry.asItem(),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_AMORPHOUS.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_COAL.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_CUBIC.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_DIAMOND.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_EMERALD.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_LAPIS.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_QUARTZ.name),
-                entry.getLocation().append("_" + HiiragiShapeTypes.GEM_RUBY.name)
+                item,
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_AMORPHOUS.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_COAL.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_CUBIC.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_DIAMOND.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_EMERALD.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_LAPIS.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_QUARTZ.name),
+                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_RUBY.name)
             )
 
-            ModelLoader.setCustomMeshDefinition(entry.asItem()) { stack: ItemStack ->
+            ModelLoader.setCustomMeshDefinition(item) { stack: ItemStack ->
                 HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.shapeType
                     ?.let { shapeType: HiiragiShapeType ->
                         ModelResourceLocation(
-                            entry.getLocation().append("_" + shapeType.name), "inventory"
+                            item.registryName!!.append("_" + shapeType.name), "inventory"
                         )
                     }
-                    ?: ModelResourceLocation(entry.getLocation(), "inventory")
+                    ?: ModelResourceLocation(item.registryName!!, "inventory")
             }
 
         },
-        recipe = { entry, material ->
+            recipe = { entry: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
-            CraftingBuilder(entry.getItemStack(material, 9))
+                CraftingBuilder(entry.itemStack(material, 9))
                 .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
                 .build()
         }
@@ -109,16 +107,16 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_INGOT = HiiragiRegistries.ITEM.register(
         MaterialItem(
         HiiragiShapes.INGOT,
-        recipe = { entry, material ->
+            recipe = { item: MaterialItem, material: HiiragiMaterial ->
             //nugget -> ingot
             if (!HiiragiShapes.NUGGET.isValid(material)) return@MaterialItem
-            CraftingBuilder(entry.getItemStack(material))
+                CraftingBuilder(item.itemStack(material))
                 .setPattern("AAA", "AAA", "AAA")
                 .setIngredient('A', HiiragiShapes.NUGGET.getOreDict(material))
                 .build()
             //block -> ingot
             if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
-            val ingot9 = entry.getItemStack(material, 9)
+                val ingot9 = item.itemStack(material, 9)
             CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
                 .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
                 .build()
@@ -129,9 +127,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_NUGGET = HiiragiRegistries.ITEM.register(
         MaterialItem(
         HiiragiShapes.NUGGET,
-        recipe = { entry, material ->
+            recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
-            CraftingBuilder(entry.getItemStack(material, 9))
+                CraftingBuilder(item.itemStack(material, 9))
                 .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.INGOT.getOreDict(material)))
                 .build()
         }
@@ -140,11 +138,11 @@ object HiiragiItems : HiiragiEntry.ITEM {
     @JvmField
     val MATERIAL_PLATE: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(
         HiiragiShapes.PLATE,
-        recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+        recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
-            CraftingBuilder(entry.getItemStack(material))
+            CraftingBuilder(item.itemStack(material))
                 .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.INGOT.getOreDict(material)))
-                .addIngredient(Ingredient.fromStacks(WRENCH.getItemStackWild()))
+                .addIngredient(Ingredient.fromStacks(WRENCH.itemStackWild()))
                 .build()
         }
     ))
@@ -152,12 +150,12 @@ object HiiragiItems : HiiragiEntry.ITEM {
     @JvmField
     val MATERIAL_STICK: MaterialItem = HiiragiRegistries.ITEM.register(MaterialItem(
         HiiragiShapes.STICK,
-        recipe = { entry: HiiragiEntry<*>, material: HiiragiMaterial ->
+        recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
-            CraftingBuilder(entry.getItemStack(material))
+            CraftingBuilder(item.itemStack(material))
                 .setPattern("AB", "A ")
                 .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-                .setIngredient('B', WRENCH.getItemStackWild())
+                .setIngredient('B', WRENCH, true)
                 .build()
         }
     ))

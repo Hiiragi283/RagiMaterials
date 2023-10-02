@@ -2,8 +2,9 @@ package hiiragi283.material.compat
 
 import hiiragi283.material.api.material.MaterialCompat
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.util.getItem
+import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
+import net.minecraft.item.Item
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object HiiragiEnderIOPlugin : IHiiragiPlugin {
@@ -24,17 +25,17 @@ object HiiragiEnderIOPlugin : IHiiragiPlugin {
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompat.SIGNALUM),
-            getItem("enderio:item_material"),
+            getEntry<Item>("enderio:item_material"),
             57
         )
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompat.ENDERIUM),
-            getItem("enderio:item_material"),
+            getEntry<Item>("enderio:item_material"),
             58
         )
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompat.LUMIUM),
-            getItem("enderio:item_material"),
+            getEntry<Item>("enderio:item_material"),
             59
         )
     }

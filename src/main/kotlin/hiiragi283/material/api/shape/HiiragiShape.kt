@@ -6,6 +6,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.util.HiiragiJsonSerializable
+import hiiragi283.material.util.itemStack
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import rechellatek.snakeToLowerCamelCase
@@ -19,7 +20,7 @@ import rechellatek.snakeToLowerCamelCase
 data class HiiragiShape(val name: String, val scale: Int) : HiiragiJsonSerializable {
 
     fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack? =
-        HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.getItemStack(material, count)
+        HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.item()?.itemStack(material, count)
 
     fun getItemStackWild(count: Int = 1): ItemStack? = getItemStack(HiiragiMaterial.WILDCARD, count)
 

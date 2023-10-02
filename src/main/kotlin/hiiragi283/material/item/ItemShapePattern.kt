@@ -3,6 +3,7 @@ package hiiragi283.material.item
 import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.reverse
 
 object ItemShapePattern : HiiragiItem("shape_pattern", 8) {
@@ -23,7 +24,7 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 8) {
         maxStackSize = 1
     }
 
-    fun getItemStack(shape: HiiragiShape) = getItemStack(meta = getMetaFromShape(shape))
+    fun getItemStack(shape: HiiragiShape) = itemStack(meta = getMetaFromShape(shape))
 
     fun getMetaFromShape(shape: HiiragiShape): Int = SHAPE_MAP.reverse()[shape] ?: 0
 

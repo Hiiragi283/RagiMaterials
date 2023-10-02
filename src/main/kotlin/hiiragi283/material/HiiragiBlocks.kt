@@ -1,8 +1,6 @@
 package hiiragi283.material
 
-import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.block.*
 import hiiragi283.material.config.HiiragiConfigs
@@ -20,8 +18,8 @@ object HiiragiBlocks {
     //    Material    //
 
     @JvmField
-    val MATERIAL_BLOCK: MaterialBlock =
-        HiiragiRegistries.BLOCK.registerOptional(MaterialBlock(HiiragiShapes.BLOCK))
+    val MATERIAL_BLOCK =
+        HiiragiRegistries.BLOCK.registerOptional(MaterialBlockStorage)
         { HiiragiConfigs.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField

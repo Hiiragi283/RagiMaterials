@@ -3,13 +3,11 @@ package hiiragi283.material.api.block
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.MaterialTileEntity
-import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.getTile
+import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.setModelSame
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
@@ -28,22 +26,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
-open class MaterialBlock(
+abstract class MaterialBlock(
     final override val shape: HiiragiShape,
-    val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
-    val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { entry, material ->
-        if (HiiragiShapes.INGOT.isValid(material)) {
-            CraftingBuilder(entry.getItemStack(material))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-                .build()
-        } else if (HiiragiShapes.GEM.isValid(material)) {
-            CraftingBuilder(entry.getItemStack(material))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))
-                .build()
-        }
-    }
+    val model: (MaterialBlock) -> Unit = { block: MaterialBlock -> block.setModelSame() },
+    val recipe: (MaterialBlock, HiiragiMaterial) -> Unit
 ) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
@@ -66,7 +52,7 @@ open class MaterialBlock(
         state: IBlockState,
         fortune: Int
     ) {
-        drops.add(getItemStack(getTile<MaterialTileEntity>(world, pos)?.material))
+        drops.add(itemStack(getTile<MaterialTileEntity>(world, pos)?.material))
     }
 
     override fun getPickBlock(
@@ -75,7 +61,7 @@ open class MaterialBlock(
         world: World,
         pos: BlockPos,
         player: EntityPlayer
-    ): ItemStack = getItemStack(getTile<MaterialTileEntity>(world, pos)?.material)
+    ): ItemStack = itemStack(getTile<MaterialTileEntity>(world, pos)?.material)
 
     override fun quantityDropped(random: Random): Int = 0
 
@@ -88,7 +74,7 @@ open class MaterialBlock(
     override fun registerOreDict() {
         HiiragiRegistries.MATERIAL.getValues()
             .filter(shape::isValid)
-            .forEach { material -> OreDictionary.registerOre(shape.getOreDict(material), getItemStack(material)) }
+            .forEach { material -> OreDictionary.registerOre(shape.getOreDict(material), itemStack(material)) }
     }
 
     override fun registerRecipe() {
@@ -99,16 +85,12 @@ open class MaterialBlock(
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler({ state: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
-            getMaterial(state, world, pos)?.color ?: -1
-        }, this)
+        blockColors.registerBlockColorHandler(HiiragiMaterial.BLOCK_COLOR, this)
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler({ stack, tintIndex ->
-            if (tintIndex == 0) getMaterial(stack)?.color ?: -1 else -1
-        }, this)
+        itemColors.registerItemColorHandler(HiiragiMaterial.ITEM_COLOR, this)
     }
 
     @SideOnly(Side.CLIENT)

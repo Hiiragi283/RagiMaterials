@@ -6,15 +6,16 @@ import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.item.MaterialItemBlockCasing
 import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.itemStack
 
 object MaterialBlockCasing : MaterialBlock(
     HiiragiShapes.CASING,
-    recipe = { entry, material ->
+    recipe = { block, material ->
         if (HiiragiShapes.PLATE.isValid(material)) {
-            CraftingBuilder(entry.getItemStack(material))
+            CraftingBuilder(block.itemStack(material))
                 .setPattern("AAA", "ABA", "AAA")
                 .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
-                .setIngredient('B', HiiragiItems.WRENCH.getItemStackWild())
+                .setIngredient('B', HiiragiItems.WRENCH, true)
                 .build()
         }
     }

@@ -1,5 +1,7 @@
 package hiiragi283.material.util
 
+import net.minecraft.block.Block
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
@@ -29,6 +31,12 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
         params.add(mark)
         params.add(input)
     }
+
+    fun setIngredient(mark: Char, input: Block, isWild: Boolean = false) =
+        setIngredient(mark, ItemStack(input, 1, if (isWild) Short.MAX_VALUE.toInt() else 0))
+
+    fun setIngredient(mark: Char, input: Item, isWild: Boolean = false) =
+        setIngredient(mark, ItemStack(input, 1, if (isWild) Short.MAX_VALUE.toInt() else 0))
 
     fun setIngredient(mark: Char, oredict: String) = also {
         params.add(mark)

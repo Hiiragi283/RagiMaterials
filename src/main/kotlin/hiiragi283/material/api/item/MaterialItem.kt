@@ -2,9 +2,9 @@ package hiiragi283.material.api.item
 
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
+import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.setModelSame
 import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.creativetab.CreativeTabs
@@ -16,8 +16,8 @@ import net.minecraftforge.oredict.OreDictionary
 
 open class MaterialItem(
     final override val shape: HiiragiShape,
-    val model: (HiiragiEntry<*>) -> Unit = { entry -> entry.asItem().setModelSame() },
-    val recipe: (HiiragiEntry<*>, HiiragiMaterial) -> Unit = { _, _ -> }
+    val model: (MaterialItem) -> Unit = { item: MaterialItem -> item.setModelSame() },
+    val recipe: (MaterialItem, HiiragiMaterial) -> Unit = { _, _ -> }
 ) : HiiragiItem(shape.name, Short.MAX_VALUE.toInt()), HiiragiMaterial.ITEM {
 
     init {
@@ -38,7 +38,7 @@ open class MaterialItem(
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
             .filter(shape::isValid)
-            .map { material: HiiragiMaterial -> getItemStack(material) }
+            .map(::itemStack)
             .forEach(subItems::add)
     }
 
@@ -53,7 +53,7 @@ open class MaterialItem(
             .filter(shape::isValid)
             .forEach { material: HiiragiMaterial ->
                 shape.getOreDicts(material).forEach {
-                    OreDictionary.registerOre(it, getItemStack(material))
+                    OreDictionary.registerOre(it, itemStack(material))
                 }
             }
     }
@@ -66,9 +66,7 @@ open class MaterialItem(
 
     @SideOnly(Side.CLIENT)
     override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler({ stack: ItemStack, tintIndex: Int ->
-            if (tintIndex == 0) getMaterial(stack)?.color ?: -1 else -1
-        }, this)
+        itemColors.registerItemColorHandler(HiiragiMaterial.ITEM_COLOR, this)
     }
 
     @SideOnly(Side.CLIENT)

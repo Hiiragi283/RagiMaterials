@@ -7,10 +7,7 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.util.HiiragiJsonSerializable
-import hiiragi283.material.util.getJsonElement
-import hiiragi283.material.util.getOreDicts
-import hiiragi283.material.util.isSameWithoutCount
+import hiiragi283.material.util.*
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemBlock
@@ -78,7 +75,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         private val blocks: List<Block> = blocks.toList()
 
-        override fun getMatchingStacks(): Collection<ItemStack> = blocks.map { ItemStack(it, count, 0) }
+        override fun getMatchingStacks(): Collection<ItemStack> = blocks.map { it.itemStack(count) }
 
         override fun test(t: ItemStack): Boolean {
             val blockT: Block = (t.item as? ItemBlock)?.block ?: return false
@@ -107,7 +104,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         private val items: List<Item> = items.toList()
 
-        override fun getMatchingStacks(): Collection<ItemStack> = items.map { ItemStack(it, count, 0) }
+        override fun getMatchingStacks(): Collection<ItemStack> = items.map { it.itemStack(count) }
 
         override fun test(t: ItemStack): Boolean = items.any { item: Item -> t.item == item && t.count >= count }
 
@@ -140,7 +137,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
                 return@map stack
             }
 
-        override fun test(t: ItemStack): Boolean = oreDicts.any { oreDict: String -> oreDict in t.getOreDicts() }
+        override fun test(t: ItemStack): Boolean = oreDicts.any { oreDict: String -> oreDict in t.oreDicts() }
 
         override fun getJsonElement(): JsonElement {
 

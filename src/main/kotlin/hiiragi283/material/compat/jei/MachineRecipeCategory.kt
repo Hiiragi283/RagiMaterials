@@ -26,7 +26,7 @@ class MachineRecipeCategory(
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/module_machine.png"), 0, 0, 176, 88)
 
     override val iconDrawable: IDrawable? =
-        HiiragiRegistries.RECIPE_MODULE.getValue(type)!!.getItemStack().let { guiHelper.createDrawableIngredient(it) }
+        HiiragiRegistries.RECIPE_MODULE.getValue(type)!!.itemStack().let { guiHelper.createDrawableIngredient(it) }
 
     private fun getSlotPosX(index: Int): Int = 8 + 18 * (index + 1)
 

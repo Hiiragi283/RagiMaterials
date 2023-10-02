@@ -7,7 +7,6 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.block.Block
-import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.WorldClient
@@ -25,7 +24,6 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Items
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
-import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
@@ -42,7 +40,6 @@ import net.minecraftforge.common.IRarity
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.FMLCommonHandler
-import net.minecraftforge.fml.common.registry.ForgeRegistries
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.items.IItemHandler
@@ -60,22 +57,6 @@ fun BlockPos.right(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.
 fun BlockPos.left(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.rotateYCCW(), n)
 
 fun BlockPos.back(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.opposite, n)
-
-//    BlockState    //
-
-fun Block.getItem(): Item = Item.getItemFromBlock(this)
-
-fun IBlockState.isSame(other: IBlockState): Boolean {
-    return when {
-        this.block != other.block -> false
-        !this.propertyKeys.hasSameElements(other.propertyKeys) -> false
-        else -> {
-            val properties: Map<IProperty<*>, Comparable<*>> = this.properties
-            val properties1 : Map<IProperty<*>, Comparable<*>> = other.properties
-            this.propertyKeys.all { key: IProperty<*> -> properties[key] == properties1[key] }
-        }
-    }
-}
 
 //    Calendar    //
 
@@ -188,33 +169,6 @@ fun isClient(): Boolean = FMLCommonHandler.instance().side.isClient
 
 fun isDeobf(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
 
-//    ItemStack    //
-
-fun Item.getBlock(): Block? = (this as? ItemBlock)?.block
-
-fun ItemStack.getBlock(): Block? = this.item.getBlock()
-
-fun ItemStack.getOreDicts(): List<String> = OreDictionary.getOreIDs(this).map(OreDictionary::getOreName)
-
-fun ItemStack.notEmpty(): ItemStack? = this.takeUnless(ItemStack::isEmpty)
-
-fun getItemStack(registryName: String, amount: Int, meta: Int): ItemStack? =
-    getEntry(ForgeRegistries.BLOCKS, registryName)?.let { block: Block -> ItemStack(block, amount, meta) }
-        ?: getItem(registryName)?.let { item: Item -> ItemStack(item, amount, meta) }
-
-fun IBlockState.toItemStack(amount: Int = 1): ItemStack =
-    ItemStack(this.block, amount, this.block.getMetaFromState(this))
-
-//ItemとMetadataのみで比較
-fun ItemStack.isSameWithoutCount(other: ItemStack): Boolean =
-    this.item == other.item && (this.metadata == other.metadata || this.metadata == 32767 || other.metadata == 32767)
-
-//Item, Count, Metadataで比較
-fun ItemStack.isSame(other: ItemStack): Boolean = this.isSameWithoutCount(other) && this.count == other.count
-
-//NBTタグも含めて比較
-fun ItemStack.isSameWithNBT(other: ItemStack): Boolean = this.isSame(other) && this.tagCompound == other.tagCompound
-
 //    Model    //
 
 fun Item.setModel() {
@@ -267,45 +221,22 @@ fun Block.setModelAlt(location: ResourceLocation) {
 
 //    Ore Dictionary    //
 
-//modIdに合致するItemStackを優先して返す関数
-//合致しない場合は最初のItemStackを返す
-fun findItemStack(
-    stacks: List<ItemStack>,
-    primalMod: String = "minecraft",
-    secondaryMod: String = RMReference.MOD_ID
-): ItemStack? = stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
-        ?: stacks.firstOrNull { it.item.getCreatorModId(it) == secondaryMod }
-        ?: stacks.getOrNull(0)
-
-fun findItemStack(
-    oredict: String,
-    primalMod: String = "minecraft",
-    secondaryMod: String = RMReference.MOD_ID
-): ItemStack? = findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
-
 fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
-    item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
+    item?.let { OreDictionary.registerOre(oredict, it.itemStack(meta = meta)) }
     share?.let { shareOredict(oredict, it) }
 }
 
 fun registerOreDict(oredict: String, block: Block?, meta: Int = 0, share: String? = null) {
-    block?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
+    block?.let { OreDictionary.registerOre(oredict, it.itemStack(meta = meta)) }
     share?.let { shareOredict(oredict, it) }
 }
 
 fun shareOredict(oredict1: String, oredict2: String) {
     OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
     OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
-
 }
 
 //    Registry    //
-
-fun getItem(registryName: String): Item? = getEntry(ForgeRegistries.ITEMS, registryName)
-
-fun getSound(registryName: ResourceLocation): SoundEvent? = getEntry(ForgeRegistries.SOUND_EVENTS, registryName)
-
-fun getSound(registryName: String): SoundEvent? = getSound(ResourceLocation(registryName))
 
 inline fun <reified T : IForgeRegistryEntry<T>> getEntry(registryName: String): T? =
     getEntry(GameRegistry.findRegistry(T::class.java), ResourceLocation(registryName))
@@ -449,7 +380,7 @@ fun playSound(
 }
 
 fun playSoundHypixel(world: World, pos: BlockPos) {
-    getSound("minecraft:entity.player.levelup")?.let { soundEvent: SoundEvent ->
+    getEntry<SoundEvent>("minecraft:entity.player.levelup")?.let { soundEvent: SoundEvent ->
         world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0f, 0.5f)
     }
 }

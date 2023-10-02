@@ -110,6 +110,7 @@ object HiiragiShapeTypes {
     @JvmField
     val STONE: HiiragiShapeType = SOLID.child(
         "stone", listOf(
+            HiiragiShapes.CASING,
             HiiragiShapes.GEAR,
             HiiragiShapes.PLATE,
             HiiragiShapes.STICK,

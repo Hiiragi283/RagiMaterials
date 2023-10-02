@@ -20,6 +20,7 @@ import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.recipe.MachineRecipe
 import hiiragi283.material.util.HiiragiJsonUtil
+import hiiragi283.material.util.itemStack
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -178,7 +179,7 @@ object HiiragiJSonHandler {
                     inputItems.add(ItemIngredient.Shapes(HiiragiShapes.BLOCK))
                     inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = 250))
                     inputFluids.add(FluidIngredient.Materials(MaterialElements.HELIUM))
-                    outputItems.add(ItemStack(Blocks.DIAMOND_BLOCK))
+                    outputItems.add(Blocks.DIAMOND_BLOCK.itemStack())
                     outputFluids.add(FluidStack(FluidRegistry.LAVA, 4000))
                     traits.addAll(MachineTrait.values())
                 }.getJsonElement()

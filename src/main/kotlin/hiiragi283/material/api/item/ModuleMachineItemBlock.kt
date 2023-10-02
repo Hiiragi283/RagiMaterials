@@ -8,10 +8,7 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.util.HiiragiNBTUtil
-import hiiragi283.material.util.getIntegerOrNull
-import hiiragi283.material.util.getOrCreateCompoundTag
-import hiiragi283.material.util.getTagListOrNull
+import hiiragi283.material.util.*
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -47,7 +44,7 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
             .filter(HiiragiShapes.CASING::isValid)
-            .map { getItemStack(it) }
+            .map(::itemStack)
             .forEach(subItems::add)
     }
 

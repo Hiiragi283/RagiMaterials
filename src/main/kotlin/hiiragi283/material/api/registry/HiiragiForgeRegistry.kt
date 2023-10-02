@@ -8,19 +8,15 @@ import net.minecraftforge.registries.IForgeRegistryEntry
 
 class HiiragiForgeRegistry<T: HiiragiEntry<U>, U: IForgeRegistryEntry<U>>(name: String) : HiiragiRegistry<ResourceLocation, T>(name) {
 
-    fun getForgeValues(): List<U> = getValues().map(HiiragiEntry<U>::getObject)
+    private fun getForgeValues(): List<U> = getValues().map(HiiragiEntry<U>::getObject)
 
     fun registerAll(entries: Collection<T>) {
         entries.forEach(this::register)
     }
 
-    fun registerAll(vararg entries: T) {
-        entries.forEach(this::register)
-    }
-
     fun <t: T> register(entry: t): t {
         entry.onRegister()
-        return register(entry.getLocation(), entry)
+        return register(entry.getObject().registryName!!, entry)
     }
 
     fun <t: T> registerOptional(entry: t, predicate: () -> Boolean): t {

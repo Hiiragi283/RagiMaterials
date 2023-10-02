@@ -15,9 +15,14 @@ import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getTileImplemented
+import hiiragi283.material.util.item
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.color.IBlockColor
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.resources.I18n
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
@@ -113,7 +118,7 @@ data class HiiragiMaterial(
     fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
 
     fun getItemStack(shape: HiiragiShape, count: Int = 1): ItemStack? =
-        HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.getItemStack(this, count)
+        HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.item()?.itemStack(this, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
         .map(::getPart)
@@ -190,6 +195,16 @@ data class HiiragiMaterial(
             shapeType = HiiragiShapeTypes.WILDCARD
         }
 
+        @JvmField
+        val BLOCK_COLOR: IBlockColor = IBlockColor { _: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
+            getTileImplemented<TILE>(world, pos)?.material?.color ?: -1
+        }
+
+        @JvmField
+        val ITEM_COLOR: IItemColor = IItemColor { stack: ItemStack, _: Int ->
+            HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1
+        }
+
     }
 
     //    Registration    //
@@ -205,22 +220,24 @@ data class HiiragiMaterial(
 
     //    Interface    //
 
-    interface BLOCK : HiiragiEntry.BLOCK {
-
-        val shape: HiiragiShape
+    interface BLOCK : ITEM {
 
         fun getMaterial(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): HiiragiMaterial? =
             getTileImplemented<TILE>(world, pos)?.material
 
-        fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        fun block() = this as Block
+
+        override fun item(): Item = block().item()
 
     }
 
-    interface ITEM : HiiragiEntry.ITEM {
+    interface ITEM {
 
         val shape: HiiragiShape
 
         fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+
+        fun item(): Item = this as Item
 
     }
 

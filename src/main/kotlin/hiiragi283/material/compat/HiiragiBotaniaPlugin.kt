@@ -2,8 +2,9 @@ package hiiragi283.material.compat
 
 import hiiragi283.material.api.material.MaterialCompat
 import hiiragi283.material.api.shape.HiiragiShapes
-import hiiragi283.material.util.getItem
+import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
+import net.minecraft.item.Item
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object HiiragiBotaniaPlugin : IHiiragiPlugin {
@@ -19,39 +20,39 @@ object HiiragiBotaniaPlugin : IHiiragiPlugin {
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompat.MANASTEEL),
-            getItem("botania:storage"),
+            getEntry<Item>("botania:storage"),
             0
         )
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompat.TERRASTEEL),
-            getItem("botania:storage"),
+            getEntry<Item>("botania:storage"),
             1
         )
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompat.ELEMENTIUM),
-            getItem("botania:storage"),
+            getEntry<Item>("botania:storage"),
             2
         )
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompat.MANA_DIAMOND),
-            getItem("botania:storage"),
+            getEntry<Item>("botania:storage"),
             3
         )
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompat.DRAGONSTONE),
-            getItem("botania:storage"),
+            getEntry<Item>("botania:storage"),
             4
         )
 
         registerOreDict(
             HiiragiShapes.GEM.getOreDict(MaterialCompat.MANA_DIAMOND),
-            getItem("botania:manaresource"),
+            getEntry<Item>("botania:manaresource"),
             2,
             "manaDiamond"
         )
         registerOreDict(
             HiiragiShapes.GEM.getOreDict(MaterialCompat.DRAGONSTONE),
-            getItem("botania:manaresource"),
+            getEntry<Item>("botania:manaresource"),
             9,
             "elvenDragonstone"
         )

@@ -7,6 +7,8 @@ import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.material.MaterialCommon
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.SimpleColorProvider
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.BlockColors
@@ -54,9 +56,9 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
     //    HiiragiEntry    //
 
     override fun registerRecipe() {
-        CraftingBuilder(getItemStack())
+        CraftingBuilder(itemStack())
             .setPattern("AAA", "BCB", "DDD")
-            .setIngredient('A', ItemStack(Blocks.CONCRETE, 1, EnumDyeColor.BLACK.metadata))
+            .setIngredient('A', Blocks.CONCRETE.itemStack(meta = EnumDyeColor.BLACK.metadata))
             .setIngredient('B', "dyeRed")
             .setIngredient('C', "workbench")
             .setIngredient('D', HiiragiShapes.PLATE.getOreDict(MaterialCommon.STEEL))
@@ -65,11 +67,11 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler({ _, _, _, _ -> RagiMaterials.COLOR.rgb }, this)
+        blockColors.registerBlockColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
     }
 
     override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler({ _, _ -> RagiMaterials.COLOR.rgb }, this)
+        itemColors.registerItemColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
     }
 
 }

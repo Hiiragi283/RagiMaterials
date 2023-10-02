@@ -7,9 +7,9 @@ import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.HiiragiJsonSerializable
-import hiiragi283.material.util.getOreDicts
+import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.notEmpty
-import hiiragi283.material.util.toItemStack
+import hiiragi283.material.util.oreDicts
 import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
@@ -24,9 +24,9 @@ fun getParts(oredict: String): List<HiiragiPart> = listOfNotNull(getPart(oredict
 
 fun getParts(oredicts: Collection<String>): List<HiiragiPart> = oredicts.mapNotNull(::getPart)
 
-fun IBlockState.getParts() = this.let(IBlockState::toItemStack).let(ItemStack::getParts)
+fun IBlockState.getParts() = this.let(IBlockState::itemStack).let(ItemStack::getParts)
 
-fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.getOreDicts()?.mapNotNull(::getPart) ?: listOf()
+fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.oreDicts()?.mapNotNull(::getPart) ?: listOf()
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) : HiiragiJsonSerializable {
 
@@ -44,7 +44,8 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) :
         material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
     }
 
-    fun getItemStack(count: Int = 1) = HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.getItemStack(material, count)
+    fun getItemStack(count: Int = 1): ItemStack? =
+        HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.item()?.itemStack(material, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
         .map(ItemStack::copy)

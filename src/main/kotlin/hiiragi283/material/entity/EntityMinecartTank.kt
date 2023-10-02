@@ -7,6 +7,7 @@ import hiiragi283.material.api.entity.IHiiragiEntity
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import hiiragi283.material.util.HiiragiNBTUtil
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityMinecart
 import net.minecraft.entity.player.EntityPlayer
@@ -46,7 +47,7 @@ class EntityMinecartTank : EntityMinecart, IEntityChunkLoader, IHiiragiEntity {
 
     //    EntityMinecart    //
 
-    override fun getCartItem(): ItemStack = HiiragiItems.MINECART_TANK.getItemStack()
+    override fun getCartItem(): ItemStack = HiiragiItems.MINECART_TANK.itemStack()
 
     override fun getDefaultDisplayTile(): IBlockState = Blocks.GLASS.defaultState
 

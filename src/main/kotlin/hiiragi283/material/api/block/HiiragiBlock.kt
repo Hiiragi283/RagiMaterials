@@ -6,6 +6,7 @@ import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -42,7 +43,7 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
 
     //    Block    //
 
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item = asItem()
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item = itemBlock
 
     override fun getPickBlock(
         state: IBlockState,
@@ -50,6 +51,6 @@ abstract class HiiragiBlock(material: Material, id: String) : Block(material), H
         world: World,
         pos: BlockPos,
         player: EntityPlayer
-    ): ItemStack = ItemStack(itemBlock)
+    ): ItemStack = itemBlock.itemStack()
 
 }

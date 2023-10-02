@@ -5,11 +5,12 @@ import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.item.ModuleMachineItemBlock
 import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getTile
+import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.setModelSame
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.material.Material
@@ -42,8 +43,8 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
     }
 
-    fun createMachineStack(meta: Int, machineProperty: IMachineProperty): ItemStack {
-        val machineStack = ItemStack(this, 1, meta)
+    fun createMachineStack(material: HiiragiMaterial?, machineProperty: IMachineProperty): ItemStack {
+        val machineStack: ItemStack = itemStack(material)
         machineStack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
             .setTag(HiiragiNBTUtil.MACHINE_PROPERTY, machineProperty.serialize())
         return machineStack
@@ -58,7 +59,7 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
         state: IBlockState,
         fortune: Int
     ) {
-        drops.add(getStackWithTileNBT(world, pos, getItemStack(getTile<TileEntityModuleMachine>(world, pos)?.material)))
+        drops.add(getStackWithTileNBT(world, pos, itemStack(getTile<TileEntityModuleMachine>(world, pos)?.material)))
     }
 
     override fun getPickBlock(
@@ -67,7 +68,7 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
         world: World,
         pos: BlockPos,
         player: EntityPlayer
-    ): ItemStack = getStackWithTileNBT(world, pos, getItemStack(getTile<TileEntityModuleMachine>(world, pos)?.material))
+    ): ItemStack = getStackWithTileNBT(world, pos, itemStack(getTile<TileEntityModuleMachine>(world, pos)?.material))
 
     override fun <T : HiiragiTileEntity> getTileNBT(tile: T): NBTTagCompound =
         NBTTagCompound().also { tag: NBTTagCompound ->
@@ -129,16 +130,12 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler({ _: IBlockState?, world: IBlockAccess?, pos: BlockPos?, _: Int ->
-            getTile<TileEntityModuleMachine>(world, pos)?.material?.color ?: -1
-        }, this)
+        blockColors.registerBlockColorHandler(HiiragiMaterial.BLOCK_COLOR, this)
     }
 
     @SideOnly(Side.CLIENT)
     override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler({ stack: ItemStack, tintIndex: Int ->
-            if (tintIndex == 0) HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1 else -1
-        }, this)
+        itemColors.registerItemColorHandler(HiiragiMaterial.ITEM_COLOR, this)
     }
 
     @SideOnly(Side.CLIENT)

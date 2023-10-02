@@ -3,6 +3,7 @@ package hiiragi283.material.block
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
@@ -13,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialBlockFrame : MaterialBlock(
     HiiragiShapes.FRAME,
-    recipe = { entry, material ->
-        CraftingBuilder(entry.getItemStack(material))
+    recipe = { block, material ->
+        CraftingBuilder(block.itemStack(material))
             .setPattern("AAA", "A A", "AAA")
             .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
             .build()

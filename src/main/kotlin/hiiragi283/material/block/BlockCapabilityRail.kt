@@ -6,6 +6,7 @@ import hiiragi283.material.api.block.property.HiiragiProperty
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.tile.TileEntityCapabilityRail
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.BlockRailBase
 import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.properties.IProperty
@@ -40,7 +41,7 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
 
     //    Block    //
 
-    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item = asItem()
+    override fun getItemDropped(state: IBlockState, rand: Random, fortune: Int): Item = itemBlock
 
     override fun getPickBlock(
         state: IBlockState,
@@ -48,7 +49,7 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
         world: World,
         pos: BlockPos,
         player: EntityPlayer
-    ): ItemStack = ItemStack(itemBlock)
+    ): ItemStack = itemBlock.itemStack()
 
     //    BlockState    //
 

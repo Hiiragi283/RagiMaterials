@@ -37,37 +37,53 @@ object HiiragiRecipes {
 
     private fun crafting() {
         //Recipe Modules
-        CraftingBuilder(HiiragiRegistries.RECIPE_MODULE.getValue(MachineType.SMELTER)!!.getItemStack())
+        CraftingBuilder(HiiragiRegistries.RECIPE_MODULE.getValue(MachineType.SMELTER)!!.itemStack())
             .setPattern("ABA", "BCB", "ABA")
             .setIngredient('A', "stone")
             .setIngredient('B', HiiragiShapes.INGOT.getOreDict(MaterialElements.IRON))
-            .setIngredient('C', ItemStack(Blocks.FURNACE))
+            .setIngredient('C', Blocks.FURNACE)
             .build()
         //Primitive Machine
+        val primitiveProperty: IMachineProperty = IMachineProperty.of(
+            processTime = Int.MAX_VALUE,
+            energyRate = 0,
+            machineTraits = setOf(MachineTrait.PRIMITIVE)
+        )
         CraftingBuilder(
-            hiiragiLocation("primitive_former"),
-            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.SMELTER)!!.createMachineStack(
-                MaterialCommon.STONE.index, IMachineProperty.of(
-                    processTime = Int.MAX_VALUE,
-                    energyRate = 0,
-                    machineTraits = setOf(MachineTrait.PRIMITIVE)
-                )
+            hiiragiLocation("primitive_grinder"),
+            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.GRINDER)!!.createMachineStack(
+                MaterialCommon.STONE,
+                primitiveProperty
             )
         )
-            .setPattern("AAA", "ABA", "CCC")
-            .setIngredient('A', "stone")
-            .setIngredient('B', HiiragiRegistries.RECIPE_MODULE.getValue(MachineType.SMELTER)!!.getItemStack())
-            .setIngredient('C', HiiragiShapes.SLAB.getOreDict(MaterialCommon.STONE))
+            .setPattern("ABA", "CCC", "ADA")
+            .setIngredient('A', Blocks.STONEBRICK, true)
+            .setIngredient('B', Blocks.DROPPER)
+            .setIngredient('C', Items.FLINT)
+            .setIngredient('D', Blocks.HOPPER)
+            .build()
+        CraftingBuilder(
+            hiiragiLocation("primitive_metal_former"),
+            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.METAL_FORMER)!!.createMachineStack(
+                MaterialCommon.STONE,
+                primitiveProperty
+            )
+        )
+            .setPattern("ABA", " C ", "ADA")
+            .setIngredient('A', Blocks.STONEBRICK, true)
+            .setIngredient('B', Blocks.PISTON, true)
+            .setIngredient('C', Blocks.ANVIL, true)
+            .setIngredient('D', "workbench")
             .build()
         //Raw Steel Dust
-        CraftingBuilder(HiiragiItems.MATERIAL_DUST.getItemStack(MaterialCommon.RAW_STEEL))
+        CraftingBuilder(HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL))
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON)))
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
             .build()
-        CraftingBuilder(HiiragiItems.MATERIAL_DUST.getItemStack(MaterialCommon.RAW_STEEL), "_alt")
+        CraftingBuilder(HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL), "_alt")
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON)))
             .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.COKE)))
             .build()
@@ -75,8 +91,8 @@ object HiiragiRecipes {
 
     private fun smelting() {
         SmeltingBuilder.addSmelting(
-            HiiragiItems.MATERIAL_DUST.getItemStack(MaterialCommon.RAW_STEEL),
-            HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STEEL)
+            HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL),
+            HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STEEL)
         )
     }
 
@@ -92,7 +108,7 @@ object HiiragiRecipes {
     private fun compressor() {
         MachineRecipe.buildAndRegister(MachineType.COMPRESSOR, Blocks.PACKED_ICE.registryName!!) {
             inputItems.add(ItemIngredient.Blocks(Blocks.ICE, count = 3))
-            outputItems.add(ItemStack(Blocks.PACKED_ICE))
+            outputItems.add(Blocks.PACKED_ICE.itemStack())
         }
     }
 
@@ -105,9 +121,9 @@ object HiiragiRecipes {
             ) {
                 traits.add(MachineTrait.PRIMITIVE)
                 inputItems.add(ItemIngredient.Stacks(stack, count = 8))
-                materials.getOrNull(0)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.getItemStack(it, 4)) }
-                materials.getOrNull(1)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.getItemStack(it, 2)) }
-                materials.getOrNull(2)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.getItemStack(it, 1)) }
+                materials.getOrNull(0)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(it, 4)) }
+                materials.getOrNull(1)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(it, 2)) }
+                materials.getOrNull(2)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(it, 1)) }
             }
 
         }
@@ -156,11 +172,11 @@ object HiiragiRecipes {
     private fun freezer() {
         MachineRecipe.buildAndRegister(MachineType.FREEZER, Blocks.ICE.registryName!!) {
             inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = 1000))
-            outputItems.add(ItemStack(Blocks.ICE))
+            outputItems.add(Blocks.ICE.itemStack())
         }
         MachineRecipe.buildAndRegister(MachineType.FREEZER, Blocks.MAGMA.registryName!!) {
             inputFluids.add(FluidIngredient.Fluids(FluidRegistry.LAVA, amount = 1000))
-            outputItems.add(ItemStack(Blocks.MAGMA))
+            outputItems.add(Blocks.MAGMA.itemStack())
         }
         //金属の鋳造レシピ
         ItemShapePattern.SHAPE_MAP.values
@@ -191,7 +207,7 @@ object HiiragiRecipes {
                     .forEach { part: HiiragiPart ->
                         MachineRecipe.buildAndRegister(MachineType.GRINDER, hiiragiLocation(part.toString())) {
                             inputItems.add(ItemIngredient.Parts(part))
-                            outputItems.add(HiiragiItems.MATERIAL_DUST.getItemStack(part))
+                            outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(part))
                         }
                     }
             }
@@ -200,12 +216,12 @@ object HiiragiRecipes {
 
     private fun rockGenerator() {
         fun addCopy(stone: Block, meta: Int = 0, water: Int = 0, lava: Int = 0) {
-            val stack = ItemStack(stone, 1, meta)
+            val stack = stone.itemStack(meta = meta)
             MachineRecipe.buildAndRegister(MachineType.ROCK_GENERATOR, stack.toLocation()) {
                 inputItems.add(
                     ItemIngredient.Custom(
                         stacks = { listOf(stack) },
-                        predicate = { stackIn: ItemStack -> stackIn.getBlock() == stone && stack.metadata == meta },
+                        predicate = { stackIn: ItemStack -> stackIn.block() == stone && stack.metadata == meta },
                         process = ItemIngredient.CATALYST_PROCESS
                     )
                 )
@@ -251,7 +267,7 @@ object HiiragiRecipes {
                     hiiragiLocation("${material.name}_ingot")
                 ) {
                     inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, material))
-                    outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(material))
+                    outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(material))
                 }
             }
         //合金レシピ
@@ -261,101 +277,101 @@ object HiiragiRecipes {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.CHROMIUM))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.MANGANESE))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.NICKEL))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STAINLESS_STEEL, 9))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STAINLESS_STEEL, 9))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("stainless_steel_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.IRON, 6))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.CHROMIUM))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.MANGANESE))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.NICKEL))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STAINLESS_STEEL, 9))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STAINLESS_STEEL, 9))
         }
         //Steel
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("steel_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.IRON))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialCommon.CHARCOAL, 4))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STEEL))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STEEL))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("steel_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.IRON))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialCommon.CHARCOAL, 4))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STEEL))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STEEL))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("steel_alloy_coke")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.IRON))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialCommon.COKE))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STEEL))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STEEL))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("steel_alloy1_coke")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.IRON))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialCommon.COKE))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.STEEL))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STEEL))
         }
         //Constantan
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("constantan_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.NICKEL))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.COPPER))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.CONSTANTAN, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.CONSTANTAN, 2))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("constantan_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.NICKEL))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.COPPER))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.CONSTANTAN, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.CONSTANTAN, 2))
         }
         //Invar
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("invar_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.NICKEL, 2))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.IRON))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.INVAR, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.INVAR, 2))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("invar_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.NICKEL, 2))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.IRON))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.INVAR, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.INVAR, 2))
         }
         //Brass
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("brass_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.COPPER, 3))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.ZINC))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.BRASS, 4))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.BRASS, 4))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("brass_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.COPPER, 3))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.ZINC))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.BRASS, 4))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.BRASS, 4))
         }
         //Bronze
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("bronze_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.COPPER, 3))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.TIN))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.BRONZE, 4))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.BRONZE, 4))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("bronze_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.COPPER, 3))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.TIN))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.BRONZE, 4))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.BRONZE, 4))
         }
         //Electrum
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("electrum_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.SILVER))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.GOLD))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.ELECTRUM, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.ELECTRUM, 2))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("electrum_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.SILVER))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.GOLD))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.ELECTRUM, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.ELECTRUM, 2))
         }
         //Tungsten Steel
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("tungsten_steel_alloy")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialElements.TUNGSTEN))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.DUST, MaterialCommon.STEEL))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.TUNGSTEN_STEEL, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.TUNGSTEN_STEEL, 2))
         }
         MachineRecipe.buildAndRegister(MachineType.SMELTER, hiiragiLocation("tungsten_steel_alloy1")) {
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialElements.TUNGSTEN))
             inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, MaterialCommon.STEEL))
-            outputItems.add(HiiragiItems.MATERIAL_INGOT.getItemStack(MaterialCommon.TUNGSTEN_STEEL, 2))
+            outputItems.add(HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.TUNGSTEN_STEEL, 2))
         }
         //金属の溶融レシピ
         HiiragiRegistries.MATERIAL_INDEX.getValues()
@@ -372,13 +388,13 @@ object HiiragiRecipes {
     private fun test() {
         MachineRecipe.buildAndRegister(MachineType.TEST, hiiragiLocation("smelt_test")) {
             inputItems.add(ItemIngredient.Blocks(Blocks.COBBLESTONE))
-            outputItems.add(ItemStack(Blocks.STONE))
+            outputItems.add(Blocks.STONE.itemStack())
         }
         MachineRecipe.buildAndRegister(MachineType.TEST, hiiragiLocation("almighty")) {
             inputItems.addAll(
                 listOf(
                     ItemIngredient.Items(Items.COAL),
-                    ItemIngredient.Stacks(ItemStack(Items.COAL, 1, 1)),
+                    ItemIngredient.Stacks(Items.COAL.itemStack(meta = 1)),
                     ItemIngredient.Blocks(Blocks.BEACON),
                     ItemIngredient.Blocks(Blocks.DIAMOND_BLOCK),
                     ItemIngredient.OreDicts("cobblestone"),
@@ -392,7 +408,7 @@ object HiiragiRecipes {
                     FluidIngredient.Materials(MaterialCommon.BRONZE, amount = 144 * 4)
                 )
             )
-            outputItems.add(ItemStack(Blocks.DIRT))
+            outputItems.add(Blocks.DIRT.itemStack())
             outputFluids.add(MaterialElements.HYDROGEN.getFluidStack(4000)!!)
         }
         IMachineRecipe.register(hiiragiLocation("test_impl"), TestImpl)
@@ -418,7 +434,7 @@ object HiiragiRecipes {
 
         override fun getRequiredType(): MachineType = MachineType.TEST
 
-        override fun getOutputItems(): List<ItemStack> = listOf(ItemStack(Blocks.DIAMOND_BLOCK))
+        override fun getOutputItems(): List<ItemStack> = listOf(Blocks.DIAMOND_BLOCK.itemStack())
 
         override fun getOutputFluids(): List<FluidStack> = listOf()
 
