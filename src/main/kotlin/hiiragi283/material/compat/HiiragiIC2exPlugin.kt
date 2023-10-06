@@ -10,7 +10,7 @@ import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object HiiragiIC2exPlugin : HiiragiPluginBase("ic2", "IC2ex", HiiragiConfigs.INTEGRATION::ic2Ex) {
+object HiiragiIC2exPlugin : HiiragiPluginBase("ic2", "IC2ex", { HiiragiConfigs.INTEGRATION.ic2Ex }) {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(

@@ -8,7 +8,7 @@ import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object HiiragiEnderIOPlugin : HiiragiPluginBase("enderio", "Ender IO", HiiragiConfigs.INTEGRATION::enderIO) {
+object HiiragiEnderIOPlugin : HiiragiPluginBase("enderio", "Ender IO", { HiiragiConfigs.INTEGRATION.enderIO }) {
 
     override fun registerMaterial() {
         MaterialCompat.ELECTRICAL_STEEL.register()

@@ -2,7 +2,7 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "forge_marker": 1,
   "defaults": {
-    "model": "furnace"
+    "model": "ragi_materials:extender_horizontal"
   },
   "variants": {
     "facing": {
@@ -15,6 +15,12 @@
       },
       "west": {
         "y": 270
+      },
+      "up": {
+        "model": "ragi_materials:extender_up"
+      },
+      "down": {
+        "model": "ragi_materials:extender_down"
       }
     }
   }

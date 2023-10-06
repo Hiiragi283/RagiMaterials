@@ -13,7 +13,7 @@ import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object HiiragiTOPPlugin : HiiragiPluginBase("theoneprobe", "TheOneProbe", HiiragiConfigs.INTEGRATION::top) {
+object HiiragiTOPPlugin : HiiragiPluginBase("theoneprobe", "TheOneProbe", { HiiragiConfigs.INTEGRATION.top }) {
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         TheOneProbe.theOneProbeImp.registerProvider(object : IProbeInfoProvider {

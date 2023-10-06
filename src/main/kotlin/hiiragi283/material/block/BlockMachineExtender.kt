@@ -3,17 +3,16 @@ package hiiragi283.material.block
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.tile.TileEntityMachineExtender
-import net.minecraft.block.BlockHorizontal
+import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
-import net.minecraft.util.EnumFacing
-import net.minecraft.util.EnumHand
-import net.minecraft.util.Mirror
-import net.minecraft.util.Rotation
+import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 @Suppress("OVERRIDE_DEPRECATION")
 object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
@@ -24,14 +23,20 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
 
     init {
         creativeTab = HiiragiCreativeTabs.MACHINE
-        defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
+        defaultState = defaultState.withProperty(BlockDirectional.FACING, EnumFacing.NORTH)
     }
+
+    //    General    //
+
+    override fun isFullCube(state: IBlockState): Boolean = false
+
+    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, BlockHorizontal.FACING)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, BlockDirectional.FACING)
 
-    override fun getMetaFromState(state: IBlockState): Int = state.getValue(BlockHorizontal.FACING).horizontalIndex
+    override fun getMetaFromState(state: IBlockState): Int = state.getValue(BlockDirectional.FACING).index
 
     override fun getStateForPlacement(
         world: World,
@@ -43,15 +48,20 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
         meta: Int,
         placer: EntityLivingBase,
         hand: EnumHand
-    ): IBlockState = defaultState.withProperty(BlockHorizontal.FACING, facing.opposite)
+    ): IBlockState = defaultState.withProperty(BlockDirectional.FACING, facing.opposite)
 
     override fun getStateFromMeta(meta: Int): IBlockState =
-        defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.byHorizontalIndex(meta))
+        defaultState.withProperty(BlockDirectional.FACING, EnumFacing.byIndex(meta))
 
     override fun withMirror(state: IBlockState, mirrorIn: Mirror): IBlockState =
-        state.withRotation(mirrorIn.toRotation(state.getValue(BlockHorizontal.FACING)))
+        state.withRotation(mirrorIn.toRotation(state.getValue(BlockDirectional.FACING)))
 
     override fun withRotation(state: IBlockState, rot: Rotation): IBlockState =
-        state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)))
+        state.withProperty(BlockDirectional.FACING, rot.rotate(state.getValue(BlockDirectional.FACING)))
+
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
 }

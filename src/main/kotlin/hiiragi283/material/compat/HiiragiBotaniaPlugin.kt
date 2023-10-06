@@ -8,7 +8,7 @@ import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object HiiragiBotaniaPlugin : HiiragiPluginBase("botania", "Botania", HiiragiConfigs.INTEGRATION::botania) {
+object HiiragiBotaniaPlugin : HiiragiPluginBase("botania", "Botania", { HiiragiConfigs.INTEGRATION.botania }) {
 
     override fun registerMaterial() {
         MaterialCompat.MANASTEEL.register()

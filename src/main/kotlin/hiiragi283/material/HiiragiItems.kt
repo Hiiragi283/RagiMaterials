@@ -27,6 +27,21 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val MATERIAL_BLOCK = HiiragiRegistries.ITEM.registerOptional(
         MaterialItem(
             HiiragiShapes.BLOCK,
+            model = { item: MaterialItem ->
+                ModelLoader.registerItemVariants(
+                    item,
+                    hiiragiLocation("block_gem"),
+                    hiiragiLocation("block_metal")
+                )
+                ModelLoader.setCustomMeshDefinition(item) { stack: ItemStack ->
+                    val material: HiiragiMaterial? = item.getMaterial(stack)
+                    when {
+                        material?.isMetal() == true -> hiiragiLocation("block_metal").toModelLocation()
+                        material?.isGem() == true -> hiiragiLocation("block_gem").toModelLocation()
+                        else -> item.registryName!!.toModelLocation()
+                    }
+                }
+            },
             recipe = { item: MaterialItem, material: HiiragiMaterial ->
                 if (HiiragiShapes.INGOT.isValid(material)) {
                     CraftingBuilder(item.itemStack(material))
