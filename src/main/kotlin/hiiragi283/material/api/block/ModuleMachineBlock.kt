@@ -8,10 +8,7 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.tile.TileEntityModuleMachine
-import hiiragi283.material.util.HiiragiNBTUtil
-import hiiragi283.material.util.getTile
-import hiiragi283.material.util.itemStack
-import hiiragi283.material.util.setModelSame
+import hiiragi283.material.util.*
 import net.minecraft.block.BlockHorizontal
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -30,6 +27,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
+@Suppress("OVERRIDE_DEPRECATION")
 class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
     "machine_${type.lowercase()}",
@@ -97,32 +95,12 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
     ): IBlockState = defaultState.withProperty(BlockHorizontal.FACING, placer.horizontalFacing.opposite)
 
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.byHorizontalIndex(meta))",
-            "net.minecraft.block.BlockHorizontal",
-            "net.minecraft.util.EnumFacing"
-        )
-    )
     override fun getStateFromMeta(meta: Int): IBlockState =
         defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.byHorizontalIndex(meta).opposite)
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "state.withRotation(mirrorIn.toRotation(state.getValue(BlockHorizontal.FACING)))",
-            "net.minecraft.block.BlockHorizontal"
-        )
-    )
     override fun withMirror(state: IBlockState, mirrorIn: Mirror): IBlockState =
         state.withRotation(mirrorIn.toRotation(state.getValue(BlockHorizontal.FACING)))
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)))",
-            "net.minecraft.block.BlockHorizontal",
-            "net.minecraft.block.BlockHorizontal"
-        )
-    )
     override fun withRotation(state: IBlockState, rot: Rotation): IBlockState =
         state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)))
 
@@ -140,7 +118,7 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
-        this.setModelSame()
+        this.setModelAlt(registryName!!.appendBefore("machine/"))
     }
 
 }

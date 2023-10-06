@@ -7,7 +7,7 @@ import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.compat.HiiragiPlugin
+import hiiragi283.material.compat.RagiMaterialsPlugin
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.config.HiiragiJSonHandler
 import hiiragi283.material.network.HiiragiNetworkManager
@@ -27,7 +27,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
         //レジストリの初期化
         HiiragiRegistries.initRecipeType()
         //連携の登録
-        HiiragiPlugin.onConstruct(event)
+        RagiMaterialsPlugin.onConstruct(event)
     }
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
@@ -50,7 +50,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiRegistries.registerRecipeModule()
         MaterialFluid.register()
         //連携の登録
-        HiiragiPlugin.onPreInit(event)
+        RagiMaterialsPlugin.onPreInit(event)
     }
 
     override fun onInit(event: FMLInitializationEvent) {
@@ -64,7 +64,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiRegistries.ITEM.registerRecipe()
         HiiragiRecipes.init()
         //連携の登録
-        HiiragiPlugin.onInit(event)
+        RagiMaterialsPlugin.onInit(event)
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
@@ -73,7 +73,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiJSonHandler.registerRecipe()
         HiiragiRecipes.postInit()
         //連携の登録
-        HiiragiPlugin.onPostInit(event)
+        RagiMaterialsPlugin.onPostInit(event)
     }
 
     override fun onComplete(event: FMLLoadCompleteEvent) {

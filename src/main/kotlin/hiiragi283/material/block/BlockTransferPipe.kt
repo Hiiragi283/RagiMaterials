@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 
+@Suppress("OVERRIDE_DEPRECATION")
 class BlockTransferPipe(
     type: String,
     override val capabilities: () -> Collection<Capability<*>>
@@ -45,35 +46,14 @@ class BlockTransferPipe(
     ): IBlockState =
         defaultState.withProperty(BlockDirectional.FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer))
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "defaultState.withProperty(BlockDirectional.FACING, EnumFacing.byIndex(meta))",
-            "net.minecraft.block.BlockDirectional",
-            "net.minecraft.util.EnumFacing"
-        )
-    )
     override fun getStateFromMeta(meta: Int): IBlockState =
         defaultState.withProperty(BlockDirectional.FACING, EnumFacing.byIndex(meta))
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "state.withProperty(BlockDirectional.FACING, mirrorIn.mirror(state.getValue(BlockDirectional.FACING)))",
-            "net.minecraft.block.BlockDirectional",
-            "net.minecraft.block.BlockDirectional"
-        )
-    )
     override fun withMirror(state: IBlockState, mirrorIn: Mirror): IBlockState = state.withProperty(
         BlockDirectional.FACING,
         mirrorIn.mirror(state.getValue(BlockDirectional.FACING))
     )
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "state.withProperty(BlockDirectional.FACING, rot.rotate(state.getValue(BlockDirectional.FACING)))",
-            "net.minecraft.block.BlockDirectional",
-            "net.minecraft.block.BlockDirectional"
-        )
-    )
     override fun withRotation(state: IBlockState, rot: Rotation): IBlockState = state.withProperty(
         BlockDirectional.FACING,
         rot.rotate(state.getValue(BlockDirectional.FACING))

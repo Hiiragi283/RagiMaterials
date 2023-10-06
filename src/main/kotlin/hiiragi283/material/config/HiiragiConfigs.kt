@@ -85,6 +85,11 @@ object HiiragiConfigs {
         @JvmField
         var railCraft: Boolean = true
 
+        @Config.Name("Enable Tinker's Construct")
+        @Config.RequiresMcRestart
+        @JvmField
+        var tCon: Boolean = true
+
         @Config.Name("Enable Thermal Series")
         @Config.RequiresMcRestart
         @JvmField
@@ -95,10 +100,10 @@ object HiiragiConfigs {
         @JvmField
         var thaum: Boolean = true
 
-        @Config.Name("Enable Tinker's Construct")
+        @Config.Name("Enable TheOneProbe")
         @Config.RequiresMcRestart
         @JvmField
-        var tCon: Boolean = true
+        var top: Boolean = true
 
     }
 

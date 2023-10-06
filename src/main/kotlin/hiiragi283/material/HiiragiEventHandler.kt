@@ -11,7 +11,7 @@ import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
-import hiiragi283.material.compat.HiiragiPlugin
+import hiiragi283.material.compat.RagiMaterialsPlugin
 import hiiragi283.material.config.HiiragiJSonHandler
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
@@ -55,7 +55,7 @@ object HiiragiEventHandler {
         MaterialCommon.register()
 
         RagiMaterials.LOGGER.info("Registering Materials for Integration...")
-        HiiragiPlugin.registerMaterial()
+        RagiMaterialsPlugin.registerMaterial()
 
         RagiMaterials.LOGGER.info("Registering Materials from JSON...")
         HiiragiJSonHandler.registerMaterial()

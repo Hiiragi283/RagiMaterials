@@ -24,6 +24,7 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import java.util.*
 
+@Suppress("OVERRIDE_DEPRECATION")
 object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiEntry.BLOCK {
 
     init {
@@ -57,17 +58,9 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
 
     override fun getMetaFromState(state: IBlockState): Int = 0 or state.getValue(HiiragiProperty.RAIL_SHAPE).metadata
 
-    @Deprecated(
-        "Deprecated in Java", ReplaceWith(
-            "defaultState.withProperty(HiiragiProperty.RAIL_SHAPE, EnumRailDirection.byMetadata(meta and 7))",
-            "hiiragi283.material.api.block.property.HiiragiProperty",
-            "net.minecraft.block.BlockRailBase.EnumRailDirection"
-        )
-    )
     override fun getStateFromMeta(meta: Int): IBlockState =
         defaultState.withProperty(HiiragiProperty.RAIL_SHAPE, EnumRailDirection.byMetadata(meta and 7))
 
-    @Deprecated("Deprecated in Java")
     override fun withRotation(state: IBlockState, rot: Rotation): IBlockState = when (rot) {
         Rotation.CLOCKWISE_180 -> when (state.getValue(HiiragiProperty.RAIL_SHAPE)) {
             EnumRailDirection.ASCENDING_EAST -> state.withProperty(
@@ -224,7 +217,6 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
         else -> state
     }
 
-    @Deprecated("Deprecated in Java")
     override fun withMirror(state: IBlockState, mirrorIn: Mirror): IBlockState {
         val railDirection: EnumRailDirection = state.getValue(HiiragiProperty.RAIL_SHAPE)
         return when (mirrorIn) {

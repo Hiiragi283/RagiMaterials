@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 
-object HiiragiVanillaPlugin : IHiiragiPlugin {
+object HiiragiVanillaPlugin : HiiragiPluginBase("minecraft", "Minecraft", { true }) {
 
     override fun registerMaterial() {
         MaterialCompat.REDSTONE.register()

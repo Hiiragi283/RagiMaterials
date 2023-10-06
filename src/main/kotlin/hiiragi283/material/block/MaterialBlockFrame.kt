@@ -12,6 +12,7 @@ import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
+@Suppress("OVERRIDE_DEPRECATION")
 object MaterialBlockFrame : MaterialBlock(
     HiiragiShapes.FRAME,
     recipe = { block, material ->
@@ -22,10 +23,8 @@ object MaterialBlockFrame : MaterialBlock(
     }
 ) {
 
-    @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isFullCube(state: IBlockState): Boolean = false
 
-    @Deprecated("Deprecated in Java", ReplaceWith("false"))
     override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    Client    //
@@ -34,7 +33,6 @@ object MaterialBlockFrame : MaterialBlock(
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
 
     @SideOnly(Side.CLIENT)
-    @Deprecated("Deprecated in Java", ReplaceWith("blockState != blockAccess.getBlockState(pos.offset(side))"))
     override fun shouldSideBeRendered(
         blockState: IBlockState,
         blockAccess: IBlockAccess,

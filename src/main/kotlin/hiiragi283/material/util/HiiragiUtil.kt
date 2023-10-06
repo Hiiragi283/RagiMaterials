@@ -296,14 +296,18 @@ fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.regi
 
 fun IBlockState.toLocation(): ResourceLocation =
     this.block.registryName!!.append(":" + this.block.getMetaFromState(this))
+
 fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
     val location = ResourceLocation("fluid", this.fluid.name)
     if (addAmount) location.append(":" + this.amount)
     return location
 }
 
-//ResourceLocationの末尾に付け足す関数
-fun ResourceLocation.append(path: String): ResourceLocation = ResourceLocation(this.namespace, this.path + path)
+fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, this.path + path)
+
+fun ResourceLocation.appendBefore(path: String) = ResourceLocation(this.namespace, path + this.path)
+
+fun ResourceLocation.toModelLocation(variant: String = "inventory") = ModelResourceLocation(this, variant)
 
 //    Result    //
 

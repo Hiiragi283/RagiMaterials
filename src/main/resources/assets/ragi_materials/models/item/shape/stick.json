@@ -2,7 +2,6 @@
   "credit": "Tweaked by Hiiragi Russell Tsubasa",
   "parent": "item/generated",
   "textures": {
-    "layer0": "items/sign",
-    "layer1": "ragi_materials:items/crushing_hammer"
+    "layer0": "ragi_materials:items/shape_stick"
   }
 }

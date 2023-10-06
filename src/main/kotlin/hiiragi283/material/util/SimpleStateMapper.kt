@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation
 
 class SimpleStateMapper(private val modelLocation: ModelResourceLocation) : StateMapperBase(), ItemMeshDefinition {
 
-    constructor(location: ResourceLocation, variant: String) : this(ModelResourceLocation(location, variant))
+    constructor(location: ResourceLocation, variant: String) : this(location.toModelLocation(variant))
 
     override fun getModelLocation(stack: ItemStack): ModelResourceLocation = modelLocation
 

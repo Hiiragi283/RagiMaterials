@@ -1,8 +1,9 @@
 package hiiragi283.material.compat
 
 import hiiragi283.material.api.material.MaterialCompat
+import hiiragi283.material.config.HiiragiConfigs
 
-object HiiragiThermalPlugin : IHiiragiPlugin {
+object HiiragiThermalPlugin : HiiragiPluginBase("thermalfoundation", "Thermal", HiiragiConfigs.INTEGRATION::thermal) {
 
     override fun registerMaterial() {
         MaterialCompat.MITHRIL.register()

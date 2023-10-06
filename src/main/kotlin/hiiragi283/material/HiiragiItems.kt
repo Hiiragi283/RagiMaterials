@@ -10,9 +10,9 @@ import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.item.*
 import hiiragi283.material.util.*
-import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.crafting.CraftingHelper
 
@@ -72,26 +72,25 @@ object HiiragiItems : HiiragiEntry.ITEM {
         HiiragiShapes.GEM,
             model = { item: MaterialItem ->
 
+                fun gemLocation(shapeType: HiiragiShapeType) = item.registryName!!.append("_${shapeType.name}")
+
             ModelLoader.registerItemVariants(
                 item,
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_AMORPHOUS.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_COAL.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_CUBIC.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_DIAMOND.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_EMERALD.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_LAPIS.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_QUARTZ.name),
-                item.registryName!!.append("_" + HiiragiShapeTypes.GEM_RUBY.name)
+                gemLocation(HiiragiShapeTypes.GEM_AMORPHOUS),
+                gemLocation(HiiragiShapeTypes.GEM_COAL),
+                gemLocation(HiiragiShapeTypes.GEM_CUBIC),
+                gemLocation(HiiragiShapeTypes.GEM_DIAMOND),
+                gemLocation(HiiragiShapeTypes.GEM_EMERALD),
+                gemLocation(HiiragiShapeTypes.GEM_LAPIS),
+                gemLocation(HiiragiShapeTypes.GEM_QUARTZ),
+                gemLocation(HiiragiShapeTypes.GEM_RUBY)
             )
 
             ModelLoader.setCustomMeshDefinition(item) { stack: ItemStack ->
                 HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.shapeType
-                    ?.let { shapeType: HiiragiShapeType ->
-                        ModelResourceLocation(
-                            item.registryName!!.append("_" + shapeType.name), "inventory"
-                        )
-                    }
-                    ?: ModelResourceLocation(item.registryName!!, "inventory")
+                    ?.let(::gemLocation)
+                    ?.let(ResourceLocation::toModelLocation)
+                    ?: item.registryName!!.toModelLocation()
             }
 
         },
@@ -168,12 +167,12 @@ object HiiragiItems : HiiragiEntry.ITEM {
     //    Common    //
 
     @JvmField
-    val MINECART_TANK = HiiragiRegistries.ITEM.register(ItemMinecartTank)
+    val MINECART_TANK = HiiragiRegistries.ITEM.registerOptional(ItemMinecartTank) { isDeobf() }
 
     @JvmField
     val SHAPE_PATTERN = HiiragiRegistries.ITEM.register(ItemShapePattern)
 
     @JvmField
-    val WRENCH = HiiragiRegistries.ITEM.register(ItemWrench)
+    val WRENCH = HiiragiRegistries.ITEM.registerOptional(ItemWrench) { isDeobf() }
 
 }

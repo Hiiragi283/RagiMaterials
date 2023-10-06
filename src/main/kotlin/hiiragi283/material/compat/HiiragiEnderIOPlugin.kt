@@ -2,12 +2,13 @@ package hiiragi283.material.compat
 
 import hiiragi283.material.api.material.MaterialCompat
 import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
-object HiiragiEnderIOPlugin : IHiiragiPlugin {
+object HiiragiEnderIOPlugin : HiiragiPluginBase("enderio", "Ender IO", HiiragiConfigs.INTEGRATION::enderIO) {
 
     override fun registerMaterial() {
         MaterialCompat.ELECTRICAL_STEEL.register()
@@ -25,17 +26,17 @@ object HiiragiEnderIOPlugin : IHiiragiPlugin {
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompat.SIGNALUM),
-            getEntry<Item>("enderio:item_material"),
+            getEntry<Item>(getResourceLocation("item_material")),
             57
         )
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompat.ENDERIUM),
-            getEntry<Item>("enderio:item_material"),
+            getEntry<Item>(getResourceLocation("item_material")),
             58
         )
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompat.LUMIUM),
-            getEntry<Item>("enderio:item_material"),
+            getEntry<Item>(getResourceLocation("item_material")),
             59
         )
     }
