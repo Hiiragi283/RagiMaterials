@@ -9,35 +9,36 @@ import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.toModelLocation
 import net.minecraft.item.ItemStack
 import net.minecraftforge.client.model.ModelLoader
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
-object MaterialBlockStorage : MaterialBlock(
-    HiiragiShapes.BLOCK,
-    model = { block: MaterialBlock ->
+object MaterialBlockStorage : MaterialBlock(HiiragiShapes.BLOCK) {
+
+    override fun registerRecipe(material: HiiragiMaterial) {
+        val builder: CraftingBuilder = CraftingBuilder(this.itemStack(material))
+            .setPattern("AAA", "AAA", "AAA")
+        if (HiiragiShapes.INGOT.isValid(material)) {
+            builder.setIngredient('A', HiiragiShapes.INGOT.getOreDict(material)).build()
+        } else if (HiiragiShapes.GEM.isValid(material)) {
+            builder.setIngredient('A', HiiragiShapes.GEM.getOreDict(material)).build()
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    override fun registerModel() {
         ModelLoader.registerItemVariants(
-            block.itemBlock,
+            itemBlock,
             hiiragiLocation("block_gem"),
             hiiragiLocation("block_metal")
         )
-        ModelLoader.setCustomMeshDefinition(block.itemBlock) { stack: ItemStack ->
-            val material: HiiragiMaterial? = block.getMaterial(stack)
+        ModelLoader.setCustomMeshDefinition(itemBlock) { stack: ItemStack ->
+            val material: HiiragiMaterial? = this.getMaterial(stack)
             when {
                 material?.isMetal() == true -> hiiragiLocation("block_metal").toModelLocation()
                 material?.isGem() == true -> hiiragiLocation("block_gem").toModelLocation()
-                else -> block.registryName!!.toModelLocation()
+                else -> this.registryName!!.toModelLocation()
             }
         }
-    },
-    recipe = { block: MaterialBlock, material: HiiragiMaterial ->
-        if (HiiragiShapes.INGOT.isValid(material)) {
-            CraftingBuilder(block.itemStack(material))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-                .build()
-        } else if (HiiragiShapes.GEM.isValid(material)) {
-            CraftingBuilder(block.itemStack(material))
-                .setPattern("AAA", "AAA", "AAA")
-                .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))
-                .build()
-        }
     }
-)
+
+}

@@ -2,7 +2,6 @@ package hiiragi283.material
 
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
-import hiiragi283.material.api.machine.IMachineProperty
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
@@ -24,7 +23,6 @@ import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
-import net.minecraftforge.common.crafting.CraftingHelper
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 
@@ -43,49 +41,36 @@ object HiiragiRecipes {
             .setIngredient('B', HiiragiShapes.INGOT.getOreDict(MaterialElements.IRON))
             .setIngredient('C', Blocks.FURNACE)
             .build()
-        //Primitive Machine
-        val primitiveProperty: IMachineProperty = IMachineProperty.of(
-            processTime = Int.MAX_VALUE,
-            energyRate = 0,
-            machineTraits = setOf(MachineTrait.PRIMITIVE)
-        )
-        CraftingBuilder(
-            hiiragiLocation("primitive_grinder"),
-            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.GRINDER)!!.createMachineStack(
-                MaterialCommon.STONE,
-                primitiveProperty
-            )
-        )
-            .setPattern("ABA", "CCC", "ADA")
-            .setIngredient('A', Blocks.STONEBRICK, true)
-            .setIngredient('B', Blocks.DROPPER)
-            .setIngredient('C', Items.FLINT)
-            .setIngredient('D', Blocks.HOPPER)
-            .build()
-        CraftingBuilder(
-            hiiragiLocation("primitive_metal_former"),
-            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.METAL_FORMER)!!.createMachineStack(
-                MaterialCommon.STONE,
-                primitiveProperty
-            )
-        )
-            .setPattern("ABA", " C ", "ADA")
-            .setIngredient('A', Blocks.STONEBRICK, true)
-            .setIngredient('B', Blocks.PISTON, true)
-            .setIngredient('C', Blocks.ANVIL, true)
-            .setIngredient('D', "workbench")
-            .build()
         //Raw Steel Dust
         CraftingBuilder(HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL))
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON)))
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL)))
+            .addIngredient(Items.IRON_INGOT)
+            .addIngredient(Items.COAL.itemStack(meta = 1))
+            .addIngredient(Items.COAL.itemStack(meta = 1))
+            .addIngredient(Items.COAL.itemStack(meta = 1))
+            .addIngredient(Items.COAL.itemStack(meta = 1))
+            .addIngredient(Items.FLINT)
+            .addIngredient(Items.BOWL)
             .build()
         CraftingBuilder(HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL), "_alt")
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON)))
-            .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.COKE)))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.CHARCOAL))
+            .build()
+        CraftingBuilder(HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL), "_alt2")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialCommon.COKE))
+            .build()
+        //Wooden Gear from Planks
+        CraftingBuilder(HiiragiItems.MATERIAL_GEAR.itemStack(MaterialCommon.WOOD), "_alt")
+            .setPattern(" A ", "A A", " A ")
+            .setIngredient('A', HiiragiShapes.PLANK.getOreDict(MaterialCommon.WOOD))
+            .build()
+        //Stone Gear from Wooden Gear
+        CraftingBuilder(HiiragiItems.MATERIAL_GEAR.itemStack(MaterialCommon.STONE), "_alt")
+            .setPattern(" A ", "A A", " A ")
+            .setIngredient('A', "cobblestone")
             .build()
     }
 
@@ -100,6 +85,7 @@ object HiiragiRecipes {
         compressor()
         freezer()
         grinder()
+        metalFormer()
         rockGenerator()
         smelter()
         test()
@@ -111,63 +97,6 @@ object HiiragiRecipes {
             outputItems.add(Blocks.PACKED_ICE.itemStack())
         }
     }
-
-    /*private fun extractor() {
-        fun addPrimitive(stone: Block, meta: Int = 0, materials: List<HiiragiMaterial>) {
-            val stack = ItemStack(stone, 8, meta)
-            MachineRecipe.buildAndRegister(
-                MachineType.EXTRACTOR,
-                stack.toLocation().append("_primitive")
-            ) {
-                traits.add(MachineTrait.PRIMITIVE)
-                inputItems.add(ItemIngredient.Stacks(stack, count = 8))
-                materials.getOrNull(0)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(it, 4)) }
-                materials.getOrNull(1)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(it, 2)) }
-                materials.getOrNull(2)?.let { outputItems.add(HiiragiItems.MATERIAL_DUST.itemStack(it, 1)) }
-            }
-
-        }
-        //Cobblestone -> Iron, Nickel
-        addPrimitive(
-            Blocks.COBBLESTONE,
-            0,
-            listOf(
-                MaterialElements.IRON,
-                MaterialElements.NICKEL,
-
-                )
-        )
-        //Granite -> Copper, Manganese, Gold
-        addPrimitive(
-            Blocks.STONE,
-            1,
-            listOf(
-                MaterialElements.COPPER,
-                MaterialElements.MANGANESE,
-                MaterialElements.GOLD
-            )
-        )
-        //Diorite -> Tin, Lead, Cobalt
-        addPrimitive(
-            Blocks.STONE,
-            3,
-            listOf(
-                MaterialElements.TIN,
-                MaterialElements.LEAD,
-                MaterialElements.COBALT
-            )
-        )
-        //Andesite -> Zinc, Silver, Chrome
-        addPrimitive(
-            Blocks.STONE,
-            5,
-            listOf(
-                MaterialElements.ZINC,
-                MaterialElements.SILVER,
-                MaterialElements.CHROMIUM
-            )
-        )
-    }*/
 
     private fun freezer() {
         MachineRecipe.buildAndRegister(MachineType.FREEZER, Blocks.ICE.registryName!!) {
@@ -213,6 +142,43 @@ object HiiragiRecipes {
             }
     }
 
+    private fun metalFormer() {
+        fun addShapeRecipe(shape: HiiragiShape, inputCount: Int = 1, outputCount: Int = 1) {
+            val shapePattern: ItemShapePattern = HiiragiItems.SHAPE_PATTERN
+            HiiragiRegistries.MATERIAL_INDEX.getValues()
+                .filter(HiiragiShapes.INGOT::isValid)
+                .filter(shape::isValid)
+                .map(shape::getPart)
+                .forEach { part: HiiragiPart ->
+                    MachineRecipe.buildAndRegister(
+                        MachineType.METAL_FORMER,
+                        hiiragiLocation(part.toString())
+                    ) {
+                        inputItems.add(ItemIngredient.Parts(HiiragiShapes.INGOT, part.material, inputCount))
+                        inputItems.add(
+                            ItemIngredient.Custom(
+                                stacks = { listOf(shapePattern.getItemStack(part.shape)) },
+                                predicate = { stack -> stack.isSameWithoutCount(shapePattern.getItemStack(part.shape)) },
+                                process = ItemIngredient.CATALYST_PROCESS
+                            )
+                        )
+                        outputItems.add(part.getItemStack(outputCount)!!)
+                    }
+                }
+        }
+        //9x Ingot -> 1x Block
+        addShapeRecipe(HiiragiShapes.BLOCK, inputCount = 9)
+        //8x Ingot -> 1x Casing
+        addShapeRecipe(HiiragiShapes.CASING, inputCount = 8)
+        //4x Ingot -> 1x Gear
+        addShapeRecipe(HiiragiShapes.GEAR, inputCount = 4)
+        //1x Ingot -> 9x Nugget
+        addShapeRecipe(HiiragiShapes.NUGGET, outputCount = 9)
+        //1x Ingot -> 1x Plate
+        addShapeRecipe(HiiragiShapes.PLATE)
+        //1x Ingot -> 2x Stick
+        addShapeRecipe(HiiragiShapes.STICK, outputCount = 2)
+    }
 
     private fun rockGenerator() {
         fun addCopy(stone: Block, meta: Int = 0, water: Int = 0, lava: Int = 0) {

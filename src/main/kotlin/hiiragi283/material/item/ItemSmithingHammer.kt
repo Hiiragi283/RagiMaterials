@@ -1,6 +1,10 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.api.item.HiiragiItem
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.util.CraftingBuilder
+import hiiragi283.material.util.itemStack
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
@@ -13,11 +17,11 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object ItemWrench : HiiragiItem("wrench") {
+object ItemSmithingHammer : HiiragiItem("smithing_hammer") {
 
     init {
         maxStackSize = 1
-        maxDamage = 1109
+        maxDamage = 1024
     }
 
     //    Crafting    //
@@ -54,5 +58,15 @@ object ItemWrench : HiiragiItem("wrench") {
 
     @SideOnly(Side.CLIENT)
     override fun isFull3D(): Boolean = true
+
+    //    HiiragiEntry    //
+
+    override fun registerRecipe() {
+        CraftingBuilder(this.itemStack())
+            .setPattern(" A ", " BA", "B  ")
+            .setIngredient('A', HiiragiShapes.INGOT.getOreDict(MaterialCommon.STEEL))
+            .setIngredient('B', HiiragiShapes.STICK.getOreDict(MaterialCommon.WOOD))
+            .build()
+    }
 
 }

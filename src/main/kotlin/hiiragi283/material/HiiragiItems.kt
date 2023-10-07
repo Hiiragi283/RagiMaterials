@@ -11,10 +11,8 @@ import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.item.*
 import hiiragi283.material.util.*
 import net.minecraft.item.ItemStack
-import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.common.crafting.CraftingHelper
 
 object HiiragiItems : HiiragiEntry.ITEM {
 
@@ -66,7 +64,19 @@ object HiiragiItems : HiiragiEntry.ITEM {
     { !HiiragiConfigs.EXPERIMENTAL.enableMetaTileBlock }
 
     @JvmField
-    val MATERIAL_DUST = HiiragiRegistries.ITEM.register(MaterialItem(HiiragiShapes.DUST))
+    val MATERIAL_DUST = HiiragiRegistries.ITEM.register(MaterialItem(
+        HiiragiShapes.DUST,
+        recipe = { item: MaterialItem, material: HiiragiMaterial ->
+            val builder: CraftingBuilder = CraftingBuilder(item.itemStack(material))
+                .setPattern("A", "B")
+                .setIngredient('A', SMITHING_HAMMER, true)
+            if (material.isMetal()) {
+                builder.setIngredient('B', HiiragiShapes.INGOT.getOreDict(material)).build()
+            } else if (material.isGem()) {
+                builder.setIngredient('B', HiiragiShapes.GEM.getOreDict(material)).build()
+            }
+        }
+    ))
 
     @JvmField
     val MATERIAL_GEAR = HiiragiRegistries.ITEM.register(MaterialItem(
@@ -76,7 +86,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
             CraftingBuilder(item.itemStack(material))
                 .setPattern(" A ", "ABA", " A ")
                 .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-                .setIngredient('B', WRENCH, true)
+                .setIngredient('B', SMITHING_HAMMER, true)
                 .build()
         }
     ))
@@ -112,7 +122,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
             recipe = { entry: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
                 CraftingBuilder(entry.itemStack(material, 9))
-                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
+                    .addIngredient(HiiragiShapes.BLOCK.getOreDict(material))
                 .build()
         }
     ))
@@ -132,7 +142,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
             if (!HiiragiShapes.BLOCK.isValid(material)) return@MaterialItem
                 val ingot9 = item.itemStack(material, 9)
             CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
-                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.BLOCK.getOreDict(material)))
+                .addIngredient(HiiragiShapes.BLOCK.getOreDict(material))
                 .build()
         }
     ))
@@ -144,7 +154,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
             recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
                 CraftingBuilder(item.itemStack(material, 9))
-                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.INGOT.getOreDict(material)))
+                    .addIngredient(HiiragiShapes.INGOT.getOreDict(material))
                 .build()
         }
     ))
@@ -155,8 +165,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
         recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(item.itemStack(material))
-                .addIngredient(CraftingHelper.getIngredient(HiiragiShapes.INGOT.getOreDict(material)))
-                .addIngredient(Ingredient.fromStacks(WRENCH.itemStackWild()))
+                .setPattern("AB")
+                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
+                .setIngredient('B', SMITHING_HAMMER, true)
                 .build()
         }
     ))
@@ -167,9 +178,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
         recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(item.itemStack(material))
-                .setPattern("AB", "A ")
-                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
-                .setIngredient('B', WRENCH, true)
+                .setPattern("AB")
+                .setIngredient('A', SMITHING_HAMMER, true)
+                .setIngredient('B', HiiragiShapes.INGOT.getOreDict(material))
                 .build()
         }
     ))
@@ -188,6 +199,6 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val SHAPE_PATTERN = HiiragiRegistries.ITEM.register(ItemShapePattern)
 
     @JvmField
-    val WRENCH = HiiragiRegistries.ITEM.registerOptional(ItemWrench) { isDeobf() }
+    val SMITHING_HAMMER = HiiragiRegistries.ITEM.register(ItemSmithingHammer)
 
 }

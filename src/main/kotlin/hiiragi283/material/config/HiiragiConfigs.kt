@@ -100,7 +100,7 @@ object HiiragiConfigs {
         @JvmField
         var thaum: Boolean = true
 
-        @Config.Name("Enable TheOneProbe")
+        @Config.Name("Enable The One Probe")
         @Config.RequiresMcRestart
         @JvmField
         var top: Boolean = true

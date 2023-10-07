@@ -31,7 +31,7 @@ item.ragi_materials.shape_pattern_5.name=形状パターン (インゴット)
 item.ragi_materials.shape_pattern_6.name=形状パターン (ナゲット)
 item.ragi_materials.shape_pattern_7.name=形状パターン (板)
 item.ragi_materials.shape_pattern_8.name=形状パターン (棒)
-item.ragi_materials.wrench.name=Rotation Wrench
+item.ragi_materials.smithing_hammer.name=鍛冶ハンマー
 
 ##    JEI Tab    ##
 

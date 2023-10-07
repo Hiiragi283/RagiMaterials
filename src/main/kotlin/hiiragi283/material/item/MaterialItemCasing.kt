@@ -23,7 +23,7 @@ object MaterialItemCasing : MaterialItem(
             CraftingBuilder(item.itemStack(material))
                 .setPattern("AAA", "ABA", "AAA")
                 .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
-                .setIngredient('B', HiiragiItems.WRENCH, true)
+                .setIngredient('B', HiiragiItems.SMITHING_HAMMER, true)
                 .build()
         }
     }

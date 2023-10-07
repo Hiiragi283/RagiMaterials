@@ -5,6 +5,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.common.crafting.CraftingHelper
 import net.minecraftforge.fml.common.registry.GameRegistry
 
 class CraftingBuilder(private val location: ResourceLocation, private val output: ItemStack) {
@@ -47,8 +48,8 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
 
     private val ingredients: MutableList<Ingredient> = mutableListOf()
 
-    fun addIngredient(vararg ings: Ingredient) = also {
-        ingredients.addAll(ings)
+    fun addIngredient(obj: Any) = also {
+        ingredients.add(CraftingHelper.getIngredient(obj))
     }
 
 }

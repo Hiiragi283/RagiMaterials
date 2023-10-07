@@ -7,11 +7,9 @@ import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.*
 import net.minecraft.item.Item
-import net.minecraft.item.crafting.Ingredient
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
-import net.minecraftforge.oredict.OreIngredient
 
 object ItemShapePattern : HiiragiItem("shape_pattern", 8) {
 
@@ -44,8 +42,8 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 8) {
             HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.let { index to it.item() }
         }.forEach { (index: Int, item: Item) ->
             CraftingBuilder(this.itemStack(meta = index))
-                .addIngredient(Ingredient.fromItem(item))
-                .addIngredient(OreIngredient(HiiragiShapes.PLATE.getOreDict(MaterialCommon.STEEL)))
+                .addIngredient(item)
+                .addIngredient(HiiragiShapes.PLATE.getOreDict(MaterialCommon.STEEL))
                 .build()
         }
     }

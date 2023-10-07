@@ -2,7 +2,7 @@ package hiiragi283.material.tile
 
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.util.getTile
-import net.minecraft.block.BlockHorizontal
+import net.minecraft.block.BlockDirectional
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumFacing
@@ -17,14 +17,14 @@ class TileEntityMachineExtender : HiiragiTileEntity() {
     //    Capability    //
 
     override fun hasCapability(capability: Capability<*>, facing: EnumFacing?): Boolean {
-        return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockHorizontal.FACING)))
+        return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockDirectional.FACING)))
             ?.takeUnless { it is TileEntityMachineExtender }
             ?.hasCapability(capability, facing)
             ?: super.hasCapability(capability, facing)
     }
 
     override fun <T> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockHorizontal.FACING)))
+        return getTile<TileEntity>(world, getPos().offset(getState().getValue(BlockDirectional.FACING)))
             ?.takeUnless { it is TileEntityMachineExtender }
             ?.getCapability(capability, facing)
             ?: super.getCapability(capability, facing)
@@ -44,8 +44,8 @@ class TileEntityMachineExtender : HiiragiTileEntity() {
                 player,
                 hand,
                 world,
-                pos.offset(getState().getValue(BlockHorizontal.FACING)),
-                getState().getValue(BlockHorizontal.FACING).opposite
+                pos.offset(getState().getValue(BlockDirectional.FACING)),
+                getState().getValue(BlockDirectional.FACING).opposite
             )
         } else true
     }

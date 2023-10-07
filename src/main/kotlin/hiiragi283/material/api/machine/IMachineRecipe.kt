@@ -131,12 +131,9 @@ interface IMachineRecipe : HiiragiJsonSerializable {
                     return false
                 }
             }
-            //PRIMITIVEの特性がある場合は電力チェックを飛ばせる
-            if (MachineTrait.PRIMITIVE !in tile.machineProperty.machineTraits) {
-                //energyStorageからエネルギーを消費できるかどうか
-                val energyRequired: Int = tile.machineProperty.getEnergyRequired()
-                if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
-            }
+            //energyStorageからエネルギーを消費できるかどうか
+            val energyRequired: Int = tile.machineProperty.getEnergyRequired()
+            if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
             return tile.machineProperty.machineTraits.containsAll(recipe.getRequiredTraits())
         }
 
@@ -156,9 +153,7 @@ interface IMachineRecipe : HiiragiJsonSerializable {
                 ingredient.onProcess(tile.getTank(index))
             }
             //Energy
-            if (MachineTrait.PRIMITIVE !in tile.machineProperty.machineTraits) {
-                tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
-            }
+            tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
         }
 
         fun register(registryName: ResourceLocation, recipe: IMachineRecipe) {

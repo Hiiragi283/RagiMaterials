@@ -1,6 +1,7 @@
 package hiiragi283.material.block
 
 import hiiragi283.material.api.block.MaterialBlock
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
@@ -13,15 +14,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 @Suppress("OVERRIDE_DEPRECATION")
-object MaterialBlockFrame : MaterialBlock(
-    HiiragiShapes.FRAME,
-    recipe = { block, material ->
-        CraftingBuilder(block.itemStack(material))
-            .setPattern("AAA", "A A", "AAA")
-            .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
-            .build()
-    }
-) {
+object MaterialBlockFrame : MaterialBlock(HiiragiShapes.FRAME) {
 
     override fun isFullCube(state: IBlockState): Boolean = false
 
@@ -39,5 +32,14 @@ object MaterialBlockFrame : MaterialBlock(
         pos: BlockPos,
         side: EnumFacing
     ): Boolean = blockState != blockAccess.getBlockState(pos.offset(side))
+
+    //    MaterialBlock    //
+
+    override fun registerRecipe(material: HiiragiMaterial) {
+        CraftingBuilder(this.itemStack(material))
+            .setPattern("AAA", "A A", "AAA")
+            .setIngredient('A', HiiragiShapes.STICK.getOreDict(material))
+            .build()
+    }
 
 }

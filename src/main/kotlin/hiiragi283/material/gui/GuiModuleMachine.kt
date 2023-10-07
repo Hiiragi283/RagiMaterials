@@ -21,9 +21,9 @@ class GuiModuleMachine(tile: TileEntityModuleMachine, player: EntityPlayer) :
 
     override fun initGui() {
         super.initGui()
-        if (MachineTrait.PRIMITIVE in container.tile.machineProperty.machineTraits) {
+        /*if (MachineTrait.PRIMITIVE in container.tile.machineProperty.machineTraits) {
             addButton(Button())
-        }
+        }*/
     }
 
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {

@@ -27,9 +27,7 @@ import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
 abstract class MaterialBlock(
-    final override val shape: HiiragiShape,
-    val model: (MaterialBlock) -> Unit = { block: MaterialBlock -> block.setModelSame() },
-    val recipe: (MaterialBlock, HiiragiMaterial) -> Unit
+    final override val shape: HiiragiShape
 ) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
@@ -80,8 +78,10 @@ abstract class MaterialBlock(
     override fun registerRecipe() {
         HiiragiRegistries.MATERIAL.getValues()
             .filter(shape::isValid)
-            .forEach { material -> recipe(this, material) }
+            .forEach(::registerRecipe)
     }
+
+    abstract fun registerRecipe(material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
     override fun registerBlockColor(blockColors: BlockColors) {
@@ -94,6 +94,6 @@ abstract class MaterialBlock(
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = model(this)
+    override fun registerModel() = this.setModelSame()
 
 }

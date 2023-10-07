@@ -31,7 +31,7 @@ item.ragi_materials.shape_pattern_5.name=Shape Pattern (Ingot)
 item.ragi_materials.shape_pattern_6.name=Shape Pattern (Nugget)
 item.ragi_materials.shape_pattern_7.name=Shape Pattern (Plate)
 item.ragi_materials.shape_pattern_8.name=Shape Pattern (Stick)
-item.ragi_materials.wrench.name=Rotation Wrench
+item.ragi_materials.smithing_hammer.name=Smithing Hammer
 
 ##    JEI Tab    ##
 
