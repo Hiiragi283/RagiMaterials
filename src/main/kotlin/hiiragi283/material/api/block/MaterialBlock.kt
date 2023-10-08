@@ -70,13 +70,13 @@ abstract class MaterialBlock(
     }
 
     override fun registerOreDict() {
-        HiiragiRegistries.MATERIAL.getValues()
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
             .forEach { material -> OreDictionary.registerOre(shape.getOreDict(material), itemStack(material)) }
     }
 
     override fun registerRecipe() {
-        HiiragiRegistries.MATERIAL.getValues()
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
             .forEach(::registerRecipe)
     }

@@ -1,5 +1,8 @@
 package hiiragi283.material.api.shape
 
+import hiiragi283.material.util.enableAccess
+import java.lang.reflect.Field
+
 object HiiragiShapes {
 
     @JvmField
@@ -37,6 +40,9 @@ object HiiragiShapes {
 
     @JvmField
     val DUST_TINY = HiiragiShape("dust_tiny", 144 / 9)
+
+    @JvmField
+    val DYE = HiiragiShape("dye", 0)
 
     @JvmField
     val FENCE = HiiragiShape("fence", 144 * 5 / 3)
@@ -125,7 +131,7 @@ object HiiragiShapes {
 
     fun register() {
         this::class.java.declaredFields
-            .map { it.also { it.isAccessible = true } }
+            .map(Field::enableAccess)
             .map { it.get(this) }
             .filterIsInstance<HiiragiShape>()
             .forEach(HiiragiShape::register)

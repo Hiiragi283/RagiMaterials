@@ -87,6 +87,7 @@ hiiragi_shape.crystal=%s Crystal
 hiiragi_shape.dust=%s Dust
 hiiragi_shape.dust_dirty=Dirty %s Dust
 hiiragi_shape.dust_tiny=Tiny Pile of %s Dust
+hiiragi_shape.dye=%s Dye
 hiiragi_shape.empty=%s
 hiiragi_shape.fence=%s Fence
 hiiragi_shape.frame=%s Frame
@@ -279,6 +280,25 @@ hiiragi_material.oganesson=Oganesson
 hiiragi_material.deuterium=Deuterium
 hiiragi_material.tritium=Tritium
 hiiragi_material.uranium235=Uranium 235
+
+### Color Materials ###
+
+hiiragi_material.color_black=Black
+hiiragi_material.color_blue=Blue
+hiiragi_material.color_brown=Brown
+hiiragi_material.color_cyan=Cyan
+hiiragi_material.color_gray=Gray
+hiiragi_material.color_green=Green
+hiiragi_material.color_light_blue=Light Blue
+hiiragi_material.color_lime=Lime
+hiiragi_material.color_magenta=Magenta
+hiiragi_material.color_orange=Orange
+hiiragi_material.color_pink=Pink
+hiiragi_material.color_purple=Purple
+hiiragi_material.color_red=Red
+hiiragi_material.color_silver=Silver
+hiiragi_material.color_white=White
+hiiragi_material.color_yellow=Yellow
 
 ### Common Materials ###
 

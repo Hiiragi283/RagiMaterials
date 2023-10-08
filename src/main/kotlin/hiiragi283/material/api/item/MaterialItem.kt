@@ -49,7 +49,7 @@ open class MaterialItem(
     }
 
     override fun registerOreDict() {
-        HiiragiRegistries.MATERIAL.getValues()
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
             .forEach { material: HiiragiMaterial ->
                 shape.getOreDicts(material).forEach {

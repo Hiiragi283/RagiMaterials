@@ -86,6 +86,7 @@ hiiragi_shape.crystal=%sの結晶
 hiiragi_shape.dust=%sの粉
 hiiragi_shape.dust_dirty=汚れた%sの粉
 hiiragi_shape.dust_tiny=小さな%sの粉
+hiiragi_shape.dye=%sの染料
 hiiragi_shape.empty=%s
 hiiragi_shape.fence=%sのフェンス
 hiiragi_shape.frame=%sの枠組み
@@ -275,6 +276,25 @@ hiiragi_material.oganesson=オガネソン
 hiiragi_material.deuterium=重水素
 hiiragi_material.tritium=三重水素
 hiiragi_material.uranium235=ウラン 235
+
+### Color Materials ###
+
+hiiragi_material.color_black=黒色
+hiiragi_material.color_blue=青色
+hiiragi_material.color_brown=茶色
+hiiragi_material.color_cyan=水色
+hiiragi_material.color_gray=灰色
+hiiragi_material.color_green=緑色
+hiiragi_material.color_light_blue=空色
+hiiragi_material.color_lime=黄緑色
+hiiragi_material.color_magenta=赤紫色
+hiiragi_material.color_orange=橙色
+hiiragi_material.color_pink=桃色
+hiiragi_material.color_purple=紫色
+hiiragi_material.color_red=赤色
+hiiragi_material.color_silver=薄灰色
+hiiragi_material.color_white=白色
+hiiragi_material.color_yellow=黄色
 
 ### Common Materials ###
 

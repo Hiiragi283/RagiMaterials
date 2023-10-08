@@ -48,6 +48,7 @@ import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
 import net.minecraftforge.registries.IForgeRegistryModifiable
 import org.lwjgl.input.Keyboard
+import java.lang.reflect.Field
 import java.util.*
 
 //    BlockPos    //
@@ -235,6 +236,10 @@ fun shareOredict(oredict1: String, oredict2: String) {
     OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
     OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
 }
+
+//    Reflection    //
+
+fun Field.enableAccess(): Field = also { it.isAccessible = true }
 
 //    Registry    //
 

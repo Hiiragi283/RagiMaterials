@@ -3,6 +3,7 @@ package hiiragi283.material.api.material
 import hiiragi283.material.api.fluid.MaterialFluidBlock
 import hiiragi283.material.api.shape.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiColor
+import hiiragi283.material.util.enableAccess
 import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
 import java.lang.reflect.Field
@@ -10,22 +11,34 @@ import java.lang.reflect.Field
 object MaterialCommon {
 
     @JvmField
-    val HYDROXIDE = compoundOf("hydroxide", -1, mapOf(MaterialElements.OXYGEN to 1, MaterialElements.HYDROGEN to 1))
+    val HYDROXIDE = compoundOf("hydroxide", -1, mapOf(MaterialElements.OXYGEN to 1, MaterialElements.HYDROGEN to 1)) {
+        fluidSupplier = { null }
+    }
 
     @JvmField
-    val CARBONATE = compoundOf("carbonate", -1, mapOf(MaterialElements.CARBON to 1, MaterialElements.OXYGEN to 3))
+    val CARBONATE = compoundOf("carbonate", -1, mapOf(MaterialElements.CARBON to 1, MaterialElements.OXYGEN to 3)) {
+        fluidSupplier = { null }
+    }
 
     @JvmField
-    val NITRATE = compoundOf("nitrate", -1, mapOf(MaterialElements.NITROGEN to 1, MaterialElements.OXYGEN to 3))
+    val NITRATE = compoundOf("nitrate", -1, mapOf(MaterialElements.NITROGEN to 1, MaterialElements.OXYGEN to 3)) {
+        fluidSupplier = { null }
+    }
 
     @JvmField
-    val SILICATE = compoundOf("silicate", -1, mapOf(MaterialElements.SILICON to 1, MaterialElements.OXYGEN to 2))
+    val SILICATE = compoundOf("silicate", -1, mapOf(MaterialElements.SILICON to 1, MaterialElements.OXYGEN to 2)) {
+        fluidSupplier = { null }
+    }
 
     @JvmField
-    val PHOSPHATE = compoundOf("phosphate", -1, mapOf(MaterialElements.PHOSPHORUS to 1, MaterialElements.OXYGEN to 3))
+    val PHOSPHATE = compoundOf("phosphate", -1, mapOf(MaterialElements.PHOSPHORUS to 1, MaterialElements.OXYGEN to 3)) {
+        fluidSupplier = { null }
+    }
 
     @JvmField
-    val SULFATE = compoundOf("sulfate", -1, mapOf(MaterialElements.SULFUR to 1, MaterialElements.OXYGEN to 4))
+    val SULFATE = compoundOf("sulfate", -1, mapOf(MaterialElements.SULFUR to 1, MaterialElements.OXYGEN to 4)) {
+        fluidSupplier = { null }
+    }
 
     //    Hydrogen    //
 
@@ -454,10 +467,9 @@ object MaterialCommon {
 
     fun register() {
         this::class.java.declaredFields
-            .map { field: Field -> field.also { field.isAccessible = true } }
-            .map { field: Field -> field.get(this) }
+            .map(Field::enableAccess)
+            .map { it.get(this) }
             .filterIsInstance<HiiragiMaterial>()
-            .filter(HiiragiMaterial::isValidIndex)
             .forEach(HiiragiMaterial::register)
     }
 

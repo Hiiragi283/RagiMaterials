@@ -1,6 +1,9 @@
 package hiiragi283.material.compat
 
+import hiiragi283.material.HiiragiItems
 import hiiragi283.material.RMReference
+import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -34,6 +37,11 @@ object RagiMaterialsPlugin : HiiragiPluginBase(RMReference.MOD_ID, RMReference.M
 
     override fun onInit(event: FMLInitializationEvent) {
         list.forEach { it.onInit(event) }
+        registerOreDict(
+            "dyeBlack",
+            HiiragiItems.MATERIAL_DUST,
+            MaterialCommon.CHARCOAL.index
+        )
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {

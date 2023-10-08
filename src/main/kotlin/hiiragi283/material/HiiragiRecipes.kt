@@ -72,9 +72,31 @@ object HiiragiRecipes {
             .setPattern(" A ", "A A", " A ")
             .setIngredient('A', "cobblestone")
             .build()
+        //1x Ore -> 2x Dust
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
+            .filter(HiiragiShapes.DUST::isValid)
+            .filter(HiiragiShapes.ORE::hasValidItem)
+            .forEach { material ->
+                CraftingBuilder(HiiragiItems.MATERIAL_DUST.itemStack(material, 2), "_ore")
+                    .addIngredient(HiiragiShapes.ORE.getOreDict(material))
+                    .addIngredient(HiiragiItems.SMITHING_HAMMER)
+                    .build()
+            }
     }
 
     private fun smelting() {
+        //融点が2000 K未満の金属の精錬レシピ
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
+            .filter(HiiragiShapes.DUST::isValid)
+            .filter(HiiragiShapes.INGOT::isValid)
+            .filter { it.tempMelt < 2000 }
+            .forEach { material ->
+                SmeltingBuilder.addSmelting(
+                    HiiragiItems.MATERIAL_DUST.itemStack(material),
+                    HiiragiItems.MATERIAL_INGOT.itemStack(material)
+                )
+            }
+        //Raw Steel Dust -> Steel Ingot
         SmeltingBuilder.addSmelting(
             HiiragiItems.MATERIAL_DUST.itemStack(MaterialCommon.RAW_STEEL),
             HiiragiItems.MATERIAL_INGOT.itemStack(MaterialCommon.STEEL)
@@ -211,8 +233,8 @@ object HiiragiRecipes {
         //インプットがDUST, アウトプットがINGOTのものは除外される
         FurnaceRecipes.instance().smeltingList.toList()
             .filter { (input: ItemStack, output: ItemStack) ->
-                HiiragiShapes.DUST !in input.getParts()
-                    .map(HiiragiPart::shape) && HiiragiShapes.INGOT !in output.getParts().map(HiiragiPart::shape)
+                HiiragiShapes.DUST !in input.getParts().map(HiiragiPart::shape)
+                        && HiiragiShapes.INGOT !in output.getParts().map(HiiragiPart::shape)
             }
             .forEach { (input: ItemStack, output: ItemStack) ->
                 MachineRecipe.buildAndRegister(

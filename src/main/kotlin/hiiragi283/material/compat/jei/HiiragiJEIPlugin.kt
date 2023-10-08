@@ -12,10 +12,14 @@ import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.compat.jei.ingredients.MaterialStackHelper
 import hiiragi283.material.compat.jei.ingredients.MaterialStackRenderer
 import hiiragi283.material.container.ContainerModuleMachine
+import hiiragi283.material.gui.GuiMachineWorkbench
 import hiiragi283.material.gui.GuiModuleMachine
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.itemStackWild
-import mezz.jei.api.*
+import mezz.jei.api.IGuiHelper
+import mezz.jei.api.IModPlugin
+import mezz.jei.api.IModRegistry
+import mezz.jei.api.JEIPlugin
 import mezz.jei.api.ingredients.IIngredientBlacklist
 import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategory
@@ -75,6 +79,14 @@ class HiiragiJEIPlugin : IModPlugin {
         registry.handleRecipes(MachineType::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
         registry.addRecipes(MachineType.values().toList(), MACHINE_WORKBENCH)
         registry.addRecipeCatalyst(HiiragiBlocks.MACHINE_WORKBENCH.itemStack(), MACHINE_WORKBENCH)
+        registry.addRecipeClickArea(
+            GuiMachineWorkbench::class.java as Class<out GuiContainer>,
+            8 + 18 * 5,
+            18 * 2,
+            18,
+            18,
+            MACHINE_WORKBENCH
+        )
         //Machine Recipe
         MachineType.values()
             .filter { it != MachineType.NONE }

@@ -4,8 +4,8 @@ enum class MachineTrait {
     CHEMICAL,
     CLEAN,
     LASER,
-    SHIELDING,
-    MELT;
+    MELT,
+    SHIELD;
 
     companion object {
 

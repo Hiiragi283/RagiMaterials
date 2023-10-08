@@ -53,6 +53,7 @@ import rechellatek.snakeToUpperCamelCase
  * @param color see also [hiiragi283.material.util.HiiragiColor]
  * @param formula empty value will be ignored
  * @param molar 0 or less value will be ignored
+ * @param shapeType determine the type of this material
  * @param tempBoil boiling point with kelvin Temperature, 0 or less will be ignored
  * @param tempMelt melting point with kelvin Temperature, 0 or less will be ignored
  * @param translationKey can be overridden
@@ -210,11 +211,11 @@ data class HiiragiMaterial(
     //    Registration    //
 
     fun register() {
+        HiiragiRegistries.MATERIAL.register(name, this)
         if (!isValidIndex()) {
             RagiMaterials.LOGGER.error("$this has invalid index: $index !!")
             return
         }
-        HiiragiRegistries.MATERIAL.register(name, this)
         HiiragiRegistries.MATERIAL_INDEX.register(index, this)
     }
 

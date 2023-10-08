@@ -101,6 +101,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
 
             ModelLoader.registerItemVariants(
                 item,
+                item.registryName!!,
                 gemLocation(HiiragiShapeTypes.GEM_AMORPHOUS),
                 gemLocation(HiiragiShapeTypes.GEM_COAL),
                 gemLocation(HiiragiShapeTypes.GEM_CUBIC),
@@ -177,7 +178,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
         HiiragiShapes.STICK,
         recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
-            CraftingBuilder(item.itemStack(material))
+            CraftingBuilder(item.itemStack(material, 2))
                 .setPattern("A", "B")
                 .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
                 .setIngredient('B', SMITHING_HAMMER, true)

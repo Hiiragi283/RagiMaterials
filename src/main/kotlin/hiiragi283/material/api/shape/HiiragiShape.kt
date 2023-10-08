@@ -9,6 +9,7 @@ import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.itemStack
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
+import net.minecraftforge.oredict.OreDictionary
 import rechellatek.snakeToLowerCamelCase
 
 /**
@@ -53,6 +54,8 @@ data class HiiragiShape(val name: String, val scale: Int) : HiiragiJsonSerializa
 
     fun isValid(material: HiiragiMaterial): Boolean =
         material.shapeType == HiiragiShapeTypes.WILDCARD || this in material.shapeType.shapes
+
+    fun hasValidItem(material: HiiragiMaterial): Boolean = getOreDicts(material).any(OreDictionary::doesOreNameExist)
 
     override fun toString(): String = "Shape:$name"
 
