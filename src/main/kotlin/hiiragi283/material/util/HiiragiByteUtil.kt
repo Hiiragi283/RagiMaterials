@@ -11,14 +11,22 @@ import net.minecraftforge.fml.common.network.ByteBufUtils
 
 fun ByteBuf.readBlockPos(): BlockPos = BlockPos(this.readInt(), this.readInt(), this.readInt())
 
+fun ByteBuf.readString(): String = ByteBufUtils.readUTF8String(this)
+
 fun ByteBuf.readNBTTag(): NBTTagCompound? = ByteBufUtils.readTag(this)
 
 //    Writer    //
 
-fun ByteBuf.writeBlockPos(pos: BlockPos) = also {
-    it.writeInt(pos.x)
-    it.writeInt(pos.y)
-    it.writeInt(pos.z)
+fun ByteBuf.writeBlockPos(pos: BlockPos) {
+    this.writeInt(pos.x)
+    this.writeInt(pos.y)
+    this.writeInt(pos.z)
 }
 
-fun ByteBuf.writeNBTTag(tag: NBTTagCompound) = also { ByteBufUtils.writeTag(this, tag) }
+fun ByteBuf.writeString(string: String) {
+    ByteBufUtils.writeUTF8String(this, string)
+}
+
+fun ByteBuf.writeNBTTag(tag: NBTTagCompound) {
+    ByteBufUtils.writeTag(this, tag)
+}

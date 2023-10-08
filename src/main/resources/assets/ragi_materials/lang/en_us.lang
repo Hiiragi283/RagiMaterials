@@ -1,34 +1,75 @@
 ##    Block    ##
 
-tile.crucible.name=Crucible
+tile.ragi_materials.capability_rail.name=Capability Rail
+tile.ragi_materials.machine_extender.name=Machine Extender
+tile.ragi_materials.machine_workbench.name=Machine Workbench
+tile.ragi_materials.pipe_energy.name=Transfer Pipe (Energy)
+tile.ragi_materials.pipe_fluid.name=Transfer Pipe (Fluid)
+tile.ragi_materials.pipe_item.name=Transfer Pipe (Item)
+tile.ragi_materials.station_energy.name=Transfer Station (Energy)
+tile.ragi_materials.station_fluid.name=Transfer Station (Fluid)
+tile.ragi_materials.station_item.name=Transfer Station (Item)
 
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - Bottles
 itemGroup.ragi_materials.common=RagiMaterials - Common
+itemGroup.ragi_materials.machine=RagiMaterials - Machines
 itemGroup.ragi_materials.material_block=RagiMaterials - Blocks
 itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
 ##    Item    ##
 
-item.book_respawn.name=[for Dev] Respawn Book
-item.cast_gear.name=Clay Cast (Gear)
-item.cast_ingot.name=Clay Cast (Ingot)
-item.cast_nugget.name=Clay Cast (Nugget)
-item.cast_plate.name=Clay Cast (Plate)
-item.cast_stick.name=Clay Cast (Stick)
-item.crushing_hammer.name=Crushing Hammer
-item.unfired_cast_0.name=Unfired Clay Cast (Ingot)
-item.unfired_cast_1.name=Unfired Clay Cast (Nugget)
-item.unfired_cast_2.name=Unfired Clay Cast (Gear)
-item.unfired_cast_3.name=Unfired Clay Cast (Plate)
-item.unfired_cast_4.name=Unfired Clay Cast (Stick)
+item.ragi_materials.book_respawn.name=[for Dev] Respawn Book
+item.ragi_materials.minecart_tank.name=Minecart with Tank
+item.ragi_materials.shape_pattern_0.name=Shape Pattern (Block)
+item.ragi_materials.shape_pattern_1.name=Shape Pattern (Casing)
+item.ragi_materials.shape_pattern_2.name=Shape Pattern (Gear)
+item.ragi_materials.shape_pattern_3.name=Shape Pattern (Gem)
+item.ragi_materials.shape_pattern_4.name=Shape Pattern (Ingot)
+item.ragi_materials.shape_pattern_5.name=Shape Pattern (Nugget)
+item.ragi_materials.shape_pattern_6.name=Shape Pattern (Plate)
+item.ragi_materials.shape_pattern_7.name=Shape Pattern (Stick)
+item.ragi_materials.smithing_hammer.name=Smithing Hammer
 
 ##    JEI Tab    ##
 
-gui.ragi_materials.crucible=Crucible
-gui.ragi_materials.crushing=Crushing
 gui.ragi_materials.material=Material
+
+gui.ragi_materials.machine_workbench=Machine Workbench
+
+gui.ragi_materials.assembler=Assembler
+gui.ragi_materials.centrifuge=Centrifuge
+gui.ragi_materials.compressor=Compressor
+gui.ragi_materials.cutting=Cutting Machine
+gui.ragi_materials.distiller=Distiller
+gui.ragi_materials.electrolyzer=Electrolyzer
+gui.ragi_materials.freezer=Freezer
+gui.ragi_materials.grinder=Grinder
+gui.ragi_materials.metal_former=Metal Former
+gui.ragi_materials.rock_generator=Rock Generator
+gui.ragi_materials.smelter=Smelter
+gui.ragi_materials.test=TEST MACHINE
+
+##    Machine    ##
+
+hiiragi_material.recipe_module=Recipe Module:
+
+hiiragi_machine.assembler=%s Assembler
+hiiragi_machine.centrifuge=%s Centrifuge
+hiiragi_machine.compressor=%s Compressor
+hiiragi_machine.cutting=%s Cutting Machine
+hiiragi_machine.distiller=%s Distiller
+hiiragi_machine.electrolyzer=%s Electrolyzer
+hiiragi_machine.freezer=%s Freezer
+hiiragi_machine.grinder=%s Grinder
+hiiragi_machine.melter=%s Melter
+hiiragi_machine.metal_former=%s Metal Former
+hiiragi_machine.mixer=%s Mixer
+hiiragi_machine.rock_generator=%s Rock Generator
+hiiragi_machine.smelter=%s Smelter
+hiiragi_machine.test=%s TEST MACHINE
+hiiragi_machine.none=§cINVALID MACHINE!!
 
 ##    Shape    ##
 
@@ -36,6 +77,7 @@ hiiragi_shape.ball=%s Grinding Ball
 hiiragi_shape.block=Block of %s
 hiiragi_shape.block_sheetmetal=%s Sheetmetal
 hiiragi_shape.bottle=%s Full-Bottle
+hiiragi_shape.casing=%s Casing
 hiiragi_shape.clump=%s Clump
 hiiragi_shape.cluster=Native %s Cluster
 hiiragi_shape.coin=%s Coin
@@ -47,6 +89,7 @@ hiiragi_shape.dust_dirty=Dirty %s Dust
 hiiragi_shape.dust_tiny=Tiny Pile of %s Dust
 hiiragi_shape.empty=%s
 hiiragi_shape.fence=%s Fence
+hiiragi_shape.frame=%s Frame
 hiiragi_shape.gear=%s Gear
 hiiragi_shape.gem=%s Gem
 hiiragi_shape.ingot=%s Ingot
@@ -81,6 +124,20 @@ error.ragi_materials.crucible.null_output=§cNot found output!
 
 ##    Tooltip    ##
 
+tips.ragi_materials.block.transfer_station=Import from back, Export to the terminal of Transfer Pipes
+tips.ragi_materials.block.machine_extender=Right-Click with Fluid Container to fill tanks of connected tile
+
+tips.ragi_materials.item.smithing_hammer=Right-Click block with this to rotate
+
+tips.ragi_materials.machine.recipe_type=- Recipe Type: §b%s§r§7
+tips.ragi_materials.machine.process_time=- Process Time: §b%s§r§7 tick
+tips.ragi_materials.machine.energy_rate=- Energy Rate: §b%s§r§7 FE/t
+tips.ragi_materials.machine.required_energy=- Required Energy: §b%s§r§7 FE/t
+tips.ragi_materials.machine.energy_capacity=- Energy Capacity: §b%s§r§7 FE
+tips.ragi_materials.machine.item_slots=- Item Slot: §b%s§r§7
+tips.ragi_materials.machine.fluid_slot=- Fluid Slot: §b%s§r§7
+tips.ragi_materials.machine.machine_traits=- Machine Traits: §b%s§r§7
+
 tips.ragi_materials.property.boil=- Boiling Point: §b%s§r§7 K
 tips.ragi_materials.property.formula=- Chemical Formula: §b%s§r
 tips.ragi_materials.property.melt=- Melting Point: §b%s§r§7 K
@@ -91,7 +148,7 @@ tips.ragi_materials.property.subl=- Sublimation Point: §b%s§r§7 K
 
 ##    Material    ##
 
-hiiragi_material.empty=EMPTY
+hiiragi_material.russell=Hiiragi R. Tsubasa
 
 ###   Elements   ###
 
@@ -268,6 +325,7 @@ hiiragi_material.lime=Lime
 hiiragi_material.rutile=Rutile
 hiiragi_material.stainless_steel=Stainless Steel
 hiiragi_material.steel=Steel
+hiiragi_material.raw_steel=Raw Steel
 hiiragi_material.constantan=Constantan
 hiiragi_material.invar=Invar
 hiiragi_material.brass=Brass

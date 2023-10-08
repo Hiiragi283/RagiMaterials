@@ -1,35 +1,74 @@
 ##    Block    ##
 
-tile.crucible.name=るつぼ
+tile.ragi_materials.capability_rail.name=キャパビリティレール
+tile.ragi_materials.machine_extender.name=Machine Extender
+tile.ragi_materials.machine_workbench.name=機械作業台
+tile.ragi_materials.pipe_energy.name=輸送パイプ (エネルギー)
+tile.ragi_materials.pipe_fluid.name=輸送パイプ (液体)
+tile.ragi_materials.pipe_item.name=輸送パイプ (アイテム)
+tile.ragi_materials.station_energy.name=輸送ステーション (エネルギー)
+tile.ragi_materials.station_fluid.name=輸送ステーション (液体)
+tile.ragi_materials.station_item.name=輸送ステーション (アイテム)
 
 ##    CreativeTab    ##
 
 itemGroup.ragi_materials.bottle=RagiMaterials - ボトル
 itemGroup.ragi_materials.bottle=RagiMaterials - 一般
+itemGroup.ragi_materials.machine=RagiMaterials - 機械
 itemGroup.ragi_materials.material_block=RagiMaterials - ブロック
 itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
 ##    Item    ##
 
-item.book_respawn.name=[開発用] リスポーン本
-item.cast_gear.name=粘土型 (歯車)
-item.cast_ingot.name=粘土型 (インゴット)
-item.cast_nugget.name=粘土型 (ナゲット)
-item.cast_plate.name=粘土型 (板材)
-item.cast_stick.name=粘土型 (棒材)
-item.crushing_hammer.name=破砕ハンマー
-item.unfired_cast_0.name=未焼成の粘土型 (インゴット)
-item.unfired_cast_1.name=未焼成の粘土型 (ナゲット)
-item.unfired_cast_2.name=未焼成の粘土型 (歯車)
-item.unfired_cast_3.name=未焼成の粘土型 (板材)
-item.unfired_cast_4.name=未焼成の粘土型 (棒材)
-
+item.ragi_materials.book_respawn.name=[開発用] リスポーン本
+item.ragi_materials.minecart_tank.name=タンク付きトロッコ
+item.ragi_materials.shape_pattern_0.name=形状パターン (ブロック)
+item.ragi_materials.shape_pattern_1.name=形状パターン (筐体)
+item.ragi_materials.shape_pattern_2.name=形状パターン (歯車)
+item.ragi_materials.shape_pattern_3.name=形状パターン (宝石)
+item.ragi_materials.shape_pattern_4.name=形状パターン (インゴット)
+item.ragi_materials.shape_pattern_5.name=形状パターン (ナゲット)
+item.ragi_materials.shape_pattern_6.name=形状パターン (板)
+item.ragi_materials.shape_pattern_7.name=形状パターン (棒)
+item.ragi_materials.smithing_hammer.name=鍛冶ハンマー
 
 ##    JEI Tab    ##
 
-gui.ragi_materials.crucible=るつぼ
-gui.ragi_materials.crushing=破砕
 gui.ragi_materials.material=素材
+
+gui.ragi_materials.machine_workbench=機械作業台
+
+gui.ragi_materials.assembler=組立機
+gui.ragi_materials.centrifuge=遠心分離機
+gui.ragi_materials.compressor=圧縮機
+gui.ragi_materials.cutting=切断機
+gui.ragi_materials.distiller=蒸留器
+gui.ragi_materials.electrolyzer=電気分解機
+gui.ragi_materials.freezer=冷凍機
+gui.ragi_materials.grinder=粉砕機
+gui.ragi_materials.metal_former=金属加工機
+gui.ragi_materials.rock_generator=岩石生成機
+gui.ragi_materials.smelter=精錬機
+gui.ragi_materials.test=テスト用
+
+##    Machine    ##
+
+hiiragi_material.recipe_module=レシピモジュール
+
+hiiragi_machine.assembler=組立機 (%s)
+hiiragi_machine.centrifuge=遠心分離機 (%s)
+hiiragi_machine.compressor=圧縮機 (%s)
+hiiragi_machine.cutting=切断機 (%s)
+hiiragi_machine.distiller=蒸留器 (%s)
+hiiragi_machine.electrolyzer=電気分解機 (%s)
+hiiragi_machine.freezer=冷凍機 (%s)
+hiiragi_machine.grinder=粉砕機 (%s)
+hiiragi_machine.metal_former=金属加工機 (%s)
+hiiragi_machine.mixer=ミキサー (%s)
+hiiragi_machine.rock_generator=岩石生成機 (%s)
+hiiragi_machine.smelter=精錬機 (%s)
+hiiragi_machine.test=テスト用 (%s)
+hiiragi_machine.none=§c無効な機械!!
 
 ##    Shape    ##
 
@@ -37,6 +76,7 @@ hiiragi_shape.ball=%sの粉砕用ボール
 hiiragi_shape.block=%sブロック
 hiiragi_shape.block_sheetmetal=%sの板金ブロック
 hiiragi_shape.bottle=%sフルボトル
+hiiragi_shape.casing=%sの筐体
 hiiragi_shape.clump=%sの塊
 hiiragi_shape.cluster=自然%sクラスター
 hiiragi_shape.coin=%sのコイン
@@ -48,6 +88,7 @@ hiiragi_shape.dust_dirty=汚れた%sの粉
 hiiragi_shape.dust_tiny=小さな%sの粉
 hiiragi_shape.empty=%s
 hiiragi_shape.fence=%sのフェンス
+hiiragi_shape.frame=%sの枠組み
 hiiragi_shape.gear=%sの歯車
 hiiragi_shape.gem=%s結晶
 hiiragi_shape.ingot=%sインゴット
@@ -79,6 +120,20 @@ error.ragi_materials.crucible.null_output=§c完成品が見つかりません�
 
 ##    Tooltip    ##
 
+tips.ragi_materials.block.transfer_station=背面から搬入し，輸送パイプの末端に搬出します
+tips.ragi_materials.block.machine_extender=液体コンテナで右クリックすると接続したタイルのタンクに液体を搬入します
+
+tips.ragi_materials.item.smithing_hammer=ブロックを右クリックして回転できます
+
+tips.ragi_materials.machine.recipe_type=- レシピタイプ: §b%s§r§7
+tips.ragi_materials.machine.process_time=- 処理時間: §b%s§r§7 tick
+tips.ragi_materials.machine.energy_rate=- 消費速度: §b%s§r§7 FE/t
+tips.ragi_materials.machine.required_energy=- 消費量: §b%s§r§7 FE/t
+tips.ragi_materials.machine.energy_capacity=- 蓄電容量: §b%s§r§7 FE
+tips.ragi_materials.machine.item_slots=- アイテムスロット: §b%s§r§7個
+tips.ragi_materials.machine.fluid_slot=- 液体スロット: §b%s§r§7個
+tips.ragi_materials.machine.machine_traits=- 特性: §b%s§r§7
+
 tips.ragi_materials.property.boil=- 沸点: §b%s§r§7 K
 tips.ragi_materials.property.formula=- 化学式: §b%s§r
 tips.ragi_materials.property.melt=- 融点: §b%s§r§7 K
@@ -88,6 +143,8 @@ tips.ragi_materials.property.scale=- 物質量: §b%s§r§7 mol
 tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 
 ##    Material    ##
+
+hiiragi_material.russell=柊ラッセルつばさ
 
 ###   Elements   ###
 
@@ -264,6 +321,7 @@ hiiragi_material.lime=石灰石
 hiiragi_material.rutile=ルチル
 hiiragi_material.stainless_steel=ステンレス鋼
 hiiragi_material.steel=鋼
+hiiragi_material.raw_steel=未精錬の鋼
 hiiragi_material.constantan=コンスタンタン
 hiiragi_material.invar=インバー
 hiiragi_material.brass=黄銅

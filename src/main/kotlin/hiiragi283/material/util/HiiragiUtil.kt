@@ -4,11 +4,18 @@ package hiiragi283.material.util
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.registry.HiiragiRegistries
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
 import net.minecraft.client.multiplayer.WorldClient
+import net.minecraft.client.renderer.BufferBuilder
+import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
+import net.minecraft.client.renderer.texture.TextureAtlasSprite
+import net.minecraft.client.renderer.texture.TextureMap
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.command.ICommandSender
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.enchantment.EnchantmentHelper
@@ -18,8 +25,9 @@ import net.minecraft.init.Items
 import net.minecraft.item.EnumRarity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.item.crafting.CraftingManager
+import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.util.EnumFacing
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundCategory
 import net.minecraft.util.SoundEvent
@@ -29,17 +37,26 @@ import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.common.IRarity
-import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.FMLCommonHandler
-import net.minecraftforge.fml.common.registry.ForgeRegistries
+import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.fml.relauncher.FMLLaunchHandler
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.registries.IForgeRegistry
+import net.minecraftforge.registries.IForgeRegistryEntry
 import net.minecraftforge.registries.IForgeRegistryModifiable
+import org.lwjgl.input.Keyboard
 import java.util.*
-import java.util.function.BiPredicate
+
+//    BlockPos    //
+
+fun BlockPos.right(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.rotateY(), n)
+
+fun BlockPos.left(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.rotateYCCW(), n)
+
+fun BlockPos.back(front: EnumFacing, n: Int = 1): BlockPos = this.offset(front.opposite, n)
 
 //    Calendar    //
 
@@ -47,9 +64,17 @@ import java.util.function.BiPredicate
 fun isAprilFools(): Boolean =
     RagiMaterials.CALENDAR.get(Calendar.MONTH) + 1 == 4 && RagiMaterials.CALENDAR.get(Calendar.DATE) == 1
 
+//    Collection    //
+
+fun <T> Collection<T>.hasSameElements(other: Collection<T>): Boolean =
+    this.containsAll(other) && other.containsAll(this)
+
+fun <K, V> Map<K, V>.reverse(): Map<V, K> = this.toList().associate(Pair<K, V>::reverse)
+
+fun <A, B> Pair<A, B>.reverse(): Pair<B, A> = this.second to this.first
+
 //    Drop    //
 
-@JvmOverloads
 fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
     val world = player.world
     if (!world.isRemote) {
@@ -58,7 +83,14 @@ fun dropItemAtPlayer(player: EntityPlayer, stack: ItemStack, x: Double = 0.0, y:
     }
 }
 
-@JvmOverloads
+fun dropInventoriesItems(
+    world: World,
+    pos: BlockPos,
+    vararg inventories: IItemHandler
+) {
+    inventories.forEach { inventory: IItemHandler -> dropInventoryItems(world, pos, inventory) }
+}
+
 fun dropInventoryItems(
     world: World,
     pos: BlockPos,
@@ -73,7 +105,6 @@ fun dropInventoryItems(
     }
 }
 
-@JvmOverloads
 fun dropItemFromTile(
     world: World,
     pos: BlockPos,
@@ -87,7 +118,6 @@ fun dropItemFromTile(
     dropItem(world, pos, stack, x, y, z)
 }
 
-@JvmOverloads
 fun dropItem(world: World, pos: BlockPos, stack: ItemStack, x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
     if (!world.isRemote && !stack.isEmpty) {
         val drop = EntityItem(world, pos.x.toDouble() + 0.5f, pos.y.toDouble(), pos.z.toDouble() + 0.5f, stack)
@@ -118,42 +148,26 @@ fun addEnchantments(vararg pairs: Pair<Enchantment, Int>, stack: ItemStack) {
 fun hasEnchantment(enchantment: Enchantment, stack: ItemStack) =
     EnchantmentHelper.getEnchantmentLevel(enchantment, stack) > 0
 
-//    FluidStack    //
+//    Fluid    //
 
-val FluidStack_EMPTY = FluidStack(FluidRegistry.WATER, 0)
+fun FluidStack.copyKt(
+    fluid: Fluid = this.fluid,
+    amount: Int = this.amount,
+    tag: NBTTagCompound? = this.tag
+) = FluidStack(fluid, amount, tag)
 
-fun Pair<String, Int>.toFluidStack(): FluidStack? = FluidRegistry.getFluidStack(this.first, this.second)
+fun FluidStack.isSameWithAmount(other: FluidStack?): Boolean =
+    other !== null && this.isFluidEqual(other) && this.amount == other.amount
 
-fun FluidStack.isEmpty(): Boolean = this.isFluidStackIdentical(FluidStack_EMPTY)
+fun Fluid.getMaterial(): HiiragiMaterial? = HiiragiRegistries.MATERIAL.getValue(this.name)
+
+fun FluidStack.getMaterial(): HiiragiMaterial? = this.fluid.getMaterial()
 
 //    FML    //
 
 fun isClient(): Boolean = FMLCommonHandler.instance().side.isClient
 
-fun isDeobfEnv(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
-
-//    ItemStack    //
-
-fun getItemStack(location: String, amount: Int, meta: Int): ItemStack? {
-    val block = getBlock(location)
-    if (block !== null) return ItemStack(block, amount, meta)
-    val item = getItem(location)
-    return if (item !== null) ItemStack(item, amount, meta) else null
-}
-
-@JvmOverloads
-fun IBlockState.toItemStack(amount: Int = 1): ItemStack =
-    ItemStack(this.block, amount, this.block.getMetaFromState(this))
-
-//ItemとMetadataのみで比較
-fun ItemStack.isSameWithoutCount(other: ItemStack): Boolean =
-    this.item == other.item && (this.metadata == other.metadata || this.metadata == 32767 || other.metadata == 32767)
-
-//Item, Count, Metadataで比較
-fun ItemStack.isSame(other: ItemStack): Boolean = this.isSameWithoutCount(other) && this.count == other.count
-
-//NBTタグも含めて比較
-fun ItemStack.isSameWithNBT(other: ItemStack): Boolean = this.isSame(other) && this.tagCompound == other.tagCompound
+fun isDeobf(): Boolean = FMLLaunchHandler.isDeobfuscatedEnvironment()
 
 //    Model    //
 
@@ -175,8 +189,7 @@ fun Item.setModel() {
 }
 
 fun Block.setModel() {
-    val item = Item.getItemFromBlock(this)
-    if (item != Items.AIR) item.setModel()
+    Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModel()
 }
 
 //メタデータによらず特定のモデルファイルだけを利用させるメソッド
@@ -185,32 +198,36 @@ fun Item.setModelSame() {
 }
 
 fun Block.setModelSame() {
-    val item = Item.getItemFromBlock(this)
-    if (item != Items.AIR) item.setModelSame()
+    Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModelSame()
+}
+
+//異なるResourceLocationを割り当てるメソッド
+fun Item.setModelAlt(modelLocation: ModelResourceLocation) {
+    ModelLoader.registerItemVariants(this, modelLocation)
+    ModelLoader.setCustomMeshDefinition(this) { modelLocation }
+}
+
+fun Block.setModelAlt(modelLocation: ModelResourceLocation) {
+    Item.getItemFromBlock(this).takeUnless { item: Item -> item == Items.AIR }?.setModelAlt(modelLocation)
+}
+
+fun Item.setModelAlt(location: ResourceLocation) {
+    this.setModelAlt(ModelResourceLocation(location, "inventory"))
+}
+
+fun Block.setModelAlt(location: ResourceLocation) {
+    this.setModelAlt(ModelResourceLocation(location, "inventory"))
 }
 
 //    Ore Dictionary    //
 
-//modIdに合致するItemStackを優先して返す関数
-//合致しない場合は最初のItemStackを返す
-fun findItemStack(stacks: List<ItemStack>, primalMod: String, secondaryMod: String): ItemStack {
-    return stacks.firstOrNull { it.item.getCreatorModId(it) == primalMod }
-        ?: stacks.firstOrNull { it.item.getCreatorModId(it) == secondaryMod }
-        ?: stacks.getOrElse(0) { ItemStack.EMPTY }
-}
-
-fun findItemStack(oredict: String, primalMod: String, secondaryMod: String): ItemStack =
-    findItemStack(OreDictionary.getOres(oredict), primalMod, secondaryMod)
-
-@JvmOverloads
 fun registerOreDict(oredict: String, item: Item?, meta: Int = 0, share: String? = null) {
-    item?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
+    item?.let { OreDictionary.registerOre(oredict, it.itemStack(meta = meta)) }
     share?.let { shareOredict(oredict, it) }
 }
 
-@JvmOverloads
 fun registerOreDict(oredict: String, block: Block?, meta: Int = 0, share: String? = null) {
-    block?.let { OreDictionary.registerOre(oredict, ItemStack(it, 1, meta)) }
+    block?.let { OreDictionary.registerOre(oredict, it.itemStack(meta = meta)) }
     share?.let { shareOredict(oredict, it) }
 }
 
@@ -221,50 +238,64 @@ fun shareOredict(oredict1: String, oredict2: String) {
 
 //    Registry    //
 
-fun getBlock(location: String): Block? = ForgeRegistries.BLOCKS.getValue(ResourceLocation(location))
+inline fun <reified T : IForgeRegistryEntry<T>> getEntry(registryName: String): T? =
+    getEntry(GameRegistry.findRegistry(T::class.java), ResourceLocation(registryName))
 
-fun getItem(location: String): Item? = ForgeRegistries.ITEMS.getValue(ResourceLocation(location))
+inline fun <reified T : IForgeRegistryEntry<T>> getEntry(registryName: ResourceLocation): T? =
+    getEntry(GameRegistry.findRegistry(T::class.java), registryName)
 
-fun getBlockState(location: String, meta: Int): IBlockState? = getBlock(location)?.getStateFromMeta(meta)
+fun <T : IForgeRegistryEntry<T>> getEntry(registry: IForgeRegistry<T>?, registryName: String): T? =
+    getEntry(registry, ResourceLocation(registryName))
 
-fun removeCrafting(registryName: ResourceLocation) {
-    CraftingManager.getRecipe(registryName)?.let {
-        removeRegistryEntry(ForgeRegistries.RECIPES, registryName)
-    } ?: RagiMaterials.LOGGER.debug("The recipe {} was not found...", registryName)
+fun <T : IForgeRegistryEntry<T>> getEntry(registry: IForgeRegistry<T>?, registryName: ResourceLocation): T? =
+    registry?.getValue(registryName)
+
+fun <T : IForgeRegistryEntry<T>> removeEntry(registry: IForgeRegistry<T>, registryName: String) {
+    removeEntry(registry, ResourceLocation(registryName))
 }
 
-fun removeCrafting(registryName: String) {
-    removeCrafting(ResourceLocation((registryName)))
+fun <T : IForgeRegistryEntry<T>> removeEntry(registry: IForgeRegistry<T>, registryName: ResourceLocation) {
+    (registry as? IForgeRegistryModifiable<T>)?.remove(registryName)
 }
 
-fun removeRegistryEntry(registry: IForgeRegistry<*>, registryName: ResourceLocation): Boolean {
-    return if (registry is IForgeRegistryModifiable<*>) {
-        registry.remove(registryName)
-        RagiMaterials.LOGGER.warn("The entry $registryName was removed from ${registry::class.java.name}!")
-        true
-    } else {
-        RagiMaterials.LOGGER.warn("The registry ${registry::class.java.name} is not implementing IForgeRegistryModifiable!")
-        false
-    }
+//    Render    //
+
+fun drawSquareTexture(minecraft: Minecraft, x: Int, y: Int, textureLocation: ResourceLocation) {
+    drawSquareTexture(minecraft, x.toDouble(), y.toDouble(), textureLocation)
 }
 
-fun removeRegistryEntry(registry: IForgeRegistry<*>, registryName: String): Boolean =
-    removeRegistryEntry(registry, ResourceLocation(registryName))
+fun drawSquareTexture(minecraft: Minecraft, x: Double, y: Double, textureLocation: ResourceLocation) {
+    //テクスチャを取得する
+    val textureMap: TextureMap = minecraft.textureMapBlocks
+    val sprite: TextureAtlasSprite = textureMap.getTextureExtry(textureLocation.toString()) ?: textureMap.missingSprite
+    minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
+    //TextureAtlasSpriteのx座標の左端と右端，y座標の下端と上端をDoubleに変換する
+    val uMin: Double = sprite.minU.toDouble()
+    val uMax: Double = sprite.maxU.toDouble()
+    val vMin: Double = sprite.minV.toDouble()
+    val vMax: Double = sprite.maxV.toDouble()
+    //GUiは2次元なのでz座標は適当?
+    val z = 100.0
+    //Tessellatorに設定を書き込んでいく
+    val tessellator: Tessellator = Tessellator.getInstance()
+    val vertexBuffer: BufferBuilder = tessellator.buffer
+    vertexBuffer.begin(7, DefaultVertexFormats.POSITION_TEX)
+    vertexBuffer.pos(x, y + 16, z).tex(uMin, vMax).endVertex() //左下
+    vertexBuffer.pos(x + 16, y + 16, z).tex(uMax, vMax).endVertex() //右下
+    vertexBuffer.pos(x + 16, y, z).tex(uMax, vMin).endVertex() //左上
+    vertexBuffer.pos(x, y, z).tex(uMin, vMin).endVertex() //右上
+    //いざ描画!!
+    tessellator.draw()
+}
 
 //    ResourceLocation    //
 
 fun hiiragiLocation(path: String): ResourceLocation = ResourceLocation(RMReference.MOD_ID, path)
 
-@JvmOverloads
 fun ItemStack.toLocation(split: String = ":"): ResourceLocation = this.item.registryName!!.append(split + this.metadata)
-
-fun ItemStack.toMetaLocation(): MetaResourceLocation = MetaResourceLocation(this.item.registryName!!, this.metadata)
 
 fun IBlockState.toLocation(): ResourceLocation =
     this.block.registryName!!.append(":" + this.block.getMetaFromState(this))
-
-fun IBlockState.toMetaLocation(): MetaResourceLocation =
-    MetaResourceLocation(this.block.registryName!!, this.block.getMetaFromState(this))
 
 fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
     val location = ResourceLocation("fluid", this.fluid.name)
@@ -272,80 +303,64 @@ fun FluidStack.toLocation(addAmount: Boolean): ResourceLocation {
     return location
 }
 
-//ResourceLocationの末尾に付け足す関数
 fun ResourceLocation.append(path: String) = ResourceLocation(this.namespace, this.path + path)
+
+fun ResourceLocation.appendBefore(path: String) = ResourceLocation(this.namespace, path + this.path)
+
+fun ResourceLocation.toModelLocation(variant: String = "inventory") = ModelResourceLocation(this, variant)
 
 //    Result    //
 
 private val WORLD_CLIENT: WorldClient by lazy { Minecraft.getMinecraft().world }
 private val PLAYER_CLIENT by lazy { Minecraft.getMinecraft().player }
 
-@JvmOverloads
-fun printResult(block: Block, player: ICommandSender = PLAYER_CLIENT, predicate: BiPredicate<Block, ICommandSender>) {
-    if (predicate.test(block, player)) succeeded(block, player) else failed(block, player)
+fun printResult(block: Block, player: ICommandSender = PLAYER_CLIENT, predicate: (Block, ICommandSender) -> Boolean) {
+    if (predicate(block, player)) succeeded(block, player) else failed(block, player)
 }
 
-@JvmOverloads
 fun printResult(
     world: IBlockAccess = WORLD_CLIENT,
     pos: BlockPos,
     player: ICommandSender = PLAYER_CLIENT,
-    predicate: TriPredicate<IBlockAccess, BlockPos, ICommandSender>
+    predicate: (IBlockAccess, BlockPos, ICommandSender) -> Boolean
 ) {
-    if (predicate.test(world, pos, player)) succeeded(world, pos, player) else failed(world, pos, player)
+    if (predicate(world, pos, player)) succeeded(world, pos, player) else failed(world, pos, player)
 }
 
-@JvmOverloads
 fun printResult(
     tile: TileEntity,
     player: ICommandSender = PLAYER_CLIENT,
-    predicate: BiPredicate<TileEntity, ICommandSender>
+    predicate: (TileEntity, ICommandSender) -> Boolean
 ) {
-    if (predicate.test(tile, player)) succeeded(tile, player) else failed(tile, player)
+    if (predicate(tile, player)) succeeded(tile, player) else failed(tile, player)
 }
 
-@JvmOverloads
 fun succeeded(block: Block, player: ICommandSender = PLAYER_CLIENT) {
     player.sendMessage(TextComponentTranslation("info.ragi_materials.succeeded", block.localizedName))
 }
 
-@JvmOverloads
 fun succeeded(world: IBlockAccess = WORLD_CLIENT, pos: BlockPos, player: ICommandSender = PLAYER_CLIENT) {
     succeeded(world.getBlockState(pos).block, player)
 }
 
-@JvmOverloads
 fun succeeded(tile: TileEntity, player: ICommandSender = PLAYER_CLIENT) {
     succeeded(tile.world, tile.pos, player)
 }
 
-@JvmOverloads
 fun failed(block: Block, player: ICommandSender = PLAYER_CLIENT) {
     player.sendMessage(TextComponentTranslation("info.ragi_materials.failed", block.localizedName))
 }
 
-@JvmOverloads
 fun failed(world: IBlockAccess = WORLD_CLIENT, pos: BlockPos, player: ICommandSender = PLAYER_CLIENT) {
     failed(world.getBlockState(pos).block, player)
 }
 
-@JvmOverloads
 fun failed(tile: TileEntity, player: ICommandSender = PLAYER_CLIENT) {
     failed(tile.world, tile.pos, player)
 }
 
 //    Sound    //
 
-fun getSound(location: ResourceLocation): SoundEvent {
-    return ForgeRegistries.SOUND_EVENTS.getValue(location)
-        ?: ForgeRegistries.SOUND_EVENTS.getValue(ResourceLocation("ambient.cave"))!!
-}
-
-fun getSound(registryName: String): SoundEvent {
-    return getSound(ResourceLocation(registryName))
-}
-
-@JvmOverloads
 fun playSound(
     world: World,
     pos: BlockPos,
@@ -358,7 +373,6 @@ fun playSound(
     world.playSound(player, pos, soundEvent, soundCategory, volume, pitch)
 }
 
-@JvmOverloads
 fun playSound(
     tile: TileEntity,
     soundEvent: SoundEvent,
@@ -370,17 +384,14 @@ fun playSound(
 }
 
 fun playSoundHypixel(world: World, pos: BlockPos) {
-    world.playSound(null, pos, getSound("minecraft:entity.player.levelup"), SoundCategory.BLOCKS, 1.0f, 0.5f)
+    getEntry<SoundEvent>("minecraft:entity.player.levelup")?.let { soundEvent: SoundEvent ->
+        world.playSound(null, pos, soundEvent, SoundCategory.BLOCKS, 1.0f, 0.5f)
+    }
 }
 
 fun playSoundHypixel(tile: TileEntity) {
     playSoundHypixel(tile.world, tile.pos)
 }
-
-//    TileEntity    //
-
-@Suppress("UNCHECKED_CAST")
-fun <T : TileEntity> getTile(world: IBlockAccess?, pos: BlockPos?): T? = pos?.let { world?.getTileEntity(it) } as? T
 
 //    Misc    //
 
@@ -396,3 +407,5 @@ fun getEnumRarity(name: String): IRarity {
         else -> EnumRarity.COMMON
     }
 }
+
+fun isShiftPressed(): Boolean = Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)

@@ -1,0 +1,7 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "parent": "ragi_materials:item/station_base",
+  "textures": {
+    "layer": "ragi_materials:blocks/station_item_layer"
+  }
+}

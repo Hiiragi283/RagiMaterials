@@ -1,0 +1,63 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "multipart": [
+    {
+      "apply": {
+        "model": "ragi_materials:machine_base"
+      }
+    },
+    {
+      "when": {
+        "facing": "north"
+      },
+      "apply": {
+        "model": "ragi_materials:station/fluid"
+      }
+    },
+    {
+      "when": {
+        "facing": "east"
+      },
+      "apply": {
+        "model": "ragi_materials:station/fluid",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south"
+      },
+      "apply": {
+        "model": "ragi_materials:station/fluid",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west"
+      },
+      "apply": {
+        "model": "ragi_materials:station/fluid",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "up"
+      },
+      "apply": {
+        "model": "ragi_materials:station/fluid",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "down"
+      },
+      "apply": {
+        "model": "ragi_materials:station/fluid",
+        "x": 90
+      }
+    }
+  ]
+}

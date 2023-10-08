@@ -1,0 +1,6 @@
+{
+  "parent": "ragi_materials:block/station/base",
+  "textures": {
+    "layer": "ragi_materials:blocks/station_item_layer"
+  }
+}

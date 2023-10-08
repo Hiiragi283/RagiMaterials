@@ -1,15 +1,18 @@
 package hiiragi283.material.util
 
+import net.minecraft.block.Block
+import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.common.crafting.CraftingHelper
 import net.minecraftforge.fml.common.registry.GameRegistry
 
 class CraftingBuilder(private val location: ResourceLocation, private val output: ItemStack) {
 
     constructor(location: String, output: ItemStack) : this(ResourceLocation(location), output)
 
-    constructor(output: ItemStack) : this(output.toLocation("_").append("_" + output.metadata), output)
+    constructor(output: ItemStack, alt: String = "") : this(output.toLocation("_").append(alt), output)
 
     fun build() {
         when {
@@ -30,6 +33,12 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
         params.add(input)
     }
 
+    fun setIngredient(mark: Char, input: Block, isWild: Boolean = false) =
+        setIngredient(mark, ItemStack(input, 1, if (isWild) Short.MAX_VALUE.toInt() else 0))
+
+    fun setIngredient(mark: Char, input: Item, isWild: Boolean = false) =
+        setIngredient(mark, ItemStack(input, 1, if (isWild) Short.MAX_VALUE.toInt() else 0))
+
     fun setIngredient(mark: Char, oredict: String) = also {
         params.add(mark)
         params.add(oredict)
@@ -39,8 +48,8 @@ class CraftingBuilder(private val location: ResourceLocation, private val output
 
     private val ingredients: MutableList<Ingredient> = mutableListOf()
 
-    fun addIngredient(vararg ings: Ingredient) = also {
-        ingredients.addAll(ings)
+    fun addIngredient(obj: Any) = also {
+        ingredients.add(CraftingHelper.getIngredient(obj))
     }
 
 }

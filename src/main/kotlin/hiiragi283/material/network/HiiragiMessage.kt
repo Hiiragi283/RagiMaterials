@@ -7,28 +7,55 @@ import hiiragi283.material.util.writeNBTTag
 import io.netty.buffer.ByteBuf
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.math.BlockPos
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage
 
-sealed class HiiragiMessage(var pos: BlockPos = BlockPos.ORIGIN) : IMessage {
+sealed class HiiragiMessage(
+    override var pos: BlockPos = BlockPos.ORIGIN,
+    override var tag: NBTTagCompound = NBTTagCompound()
+) : IHiiragiMessage {
 
     override fun fromBytes(buf: ByteBuf) {
         pos = buf.readBlockPos()
+        tag = buf.readNBTTag() ?: NBTTagCompound()
     }
 
     override fun toBytes(buf: ByteBuf) {
         buf.writeBlockPos(pos)
+        buf.writeNBTTag(tag)
     }
 
-    class ToClient(pos: BlockPos = BlockPos.ORIGIN, var tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos) {
+    class Client(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
+
+    class Server(pos: BlockPos = BlockPos.ORIGIN, tag: NBTTagCompound = NBTTagCompound()) : HiiragiMessage(pos, tag)
+
+    class Primitive(pos: BlockPos = BlockPos.ORIGIN) : HiiragiMessage(pos, NBTTagCompound())
+
+    class SyncCount(pos: BlockPos = BlockPos.ORIGIN, var count: Int = 0): HiiragiMessage(pos, NBTTagCompound()) {
 
         override fun fromBytes(buf: ByteBuf) {
             super.fromBytes(buf)
-            tag = buf.readNBTTag() ?: NBTTagCompound()
+            count = buf.readInt()
         }
 
         override fun toBytes(buf: ByteBuf) {
             super.toBytes(buf)
-            buf.writeNBTTag(tag)
+            buf.writeInt(count)
+        }
+
+    }
+
+    class MinecartTank(
+        tag: NBTTagCompound = NBTTagCompound(),
+        override var entityId: Int = 0
+    ) : HiiragiMessage(BlockPos.ORIGIN, tag), IHiiragiMessage.Entity {
+
+        override fun fromBytes(buf: ByteBuf) {
+            super.fromBytes(buf)
+            buf.writeInt(entityId)
+        }
+
+        override fun toBytes(buf: ByteBuf) {
+            super.toBytes(buf)
+            entityId = buf.readInt()
         }
 
     }

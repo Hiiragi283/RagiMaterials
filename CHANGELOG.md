@@ -1,5 +1,90 @@
 # CHANGELOG
 
+## v1.3.0 - Machine Update
+
+### Updated Dependencies
+
+- Removed `Mixinbooter` and `Modular UI`
+- Added `Shadowfact's Forgelin`
+  - Due to instability, Forgelin Bridge is discontinued
+
+### Configs
+
+- Removed values
+  - `Disable Vanilla Parts`
+  - `Generate Sample Json`: Moved to Common category
+  - `Print Registered Materials on Log`: Moved to Common category
+- Added values
+  - `Enable The One Probe`: Compat for The One Probe
+
+- Changed directory for Json Configs
+  - Adding shapes: `config/ragi_materials/shapes`
+  - Adding materials: `config/ragi_materials/materials`
+  - Adding recipes: `config/ragi_materials/recipes`
+
+### Module Machines
+
+- Added new block Module Machine: Customizable processing machine
+- Added new item Recipe Module: Components that determine the type of machine
+- Types
+  - `Assembler`
+  - `Cenrifuge`
+  - `Compressor`
+  - `Cutting Machine`
+  - `Distiller`
+  - `Electrolyzer`
+  - `Freezer`
+  - `Grinder`
+  - `Metal Former`
+  - `Mixer`
+  - `Rock Generator`
+  - `Smelter`
+
+### Blocks
+
+- Removed
+  - `Crucible`: Unified into Module Machines
+- Added
+  - `Casing`: Core of Module Machines
+  - `Machine Extender`: Add more face for front block
+  - `Machine Workbench`: Used to craft Module Machines
+  - `Capability Rail`: Read capabilities from entities on the rail
+  - `Transfer Pipe`: Not a pipe like other mods, but a guide for `Transfer Station`
+  - `Transfer Station`: Import Item/Fluid/Energy from back, Transfer it to the terminal of `Transfer Pipes`
+
+### Entities
+
+- Added (Experimental)
+  - `Minecart with Tank`: 16,000 mB of tank capacity, interact with Right-Clicking or `Capability Rail`
+
+### Items
+
+- Removed
+  - `Tiny Dusts`: There's no usage in this mod
+  - `Crushing Hammer`: Replaced with `Smithing Hammer`
+  - `Clay/Unfired Cast`: Replaced with `Shape Pattern`
+- Added
+  - `Shape Pattern`: Used for Casting or Metal Forming recipes
+  - `Smithing Hammer`: Not only transform material items, but also rotate blocks
+  - `[WIP] Motor`: Experimental item for upgrading Module Machines 
+
+### Materials
+
+- Added
+  - `Raw Steel`
+
+### Shapes
+
+- Added
+  - `Casing`
+  - `Frame`
+
+### Technical Changes
+
+- Updated `build.gradle`
+- MOVED MAIN PACKAGE FROM `hiiragi283` TO `hiiragi283/material`
+- Removed core mod
+
 ## v1.2.1
 
 ### Updated Dependencies

@@ -1,0 +1,12 @@
+{
+  "credit": "Tweaked by Hiiragi Russell Tsubasa",
+  "forge_marker": 1,
+  "defaults": {
+    "model": "ragi_materials:casing"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ]
+  }
+}

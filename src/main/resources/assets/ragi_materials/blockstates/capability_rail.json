@@ -1,0 +1,12 @@
+{
+    "credit": "Tweaked by Hiiragi Russell Tsubasa",
+    "forge_marker": 1,
+    "variants": {
+        "shape=north_south":  { "model": "detector_rail_flat" },
+        "shape=east_west":  { "model": "detector_rail_flat", "y": 90 },
+        "shape=ascending_east": { "model": "detector_rail_raised_ne", "y": 90 },
+        "shape=ascending_west": { "model": "detector_rail_raised_sw", "y": 90 },
+        "shape=ascending_north": { "model": "detector_rail_raised_ne" },
+        "shape=ascending_south": { "model": "detector_rail_raised_sw" }
+    }
+}
