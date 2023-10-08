@@ -6,6 +6,8 @@ import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.resources.I18n
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.EnumActionResult
@@ -44,17 +46,25 @@ object ItemSmithingHammer : HiiragiItem("smithing_hammer") {
     ): EnumActionResult {
         val state: IBlockState = world.getBlockState(pos)
         return if (!world.isRemote) {
+            val stack: ItemStack = player.getHeldItem(hand)
             if (player.isSneaking) {
                 world.setBlockState(pos, state.withRotation(Rotation.COUNTERCLOCKWISE_90))
+                stack.damageItem(1, player)
                 EnumActionResult.SUCCESS
             } else {
                 world.setBlockState(pos, state.withRotation(Rotation.CLOCKWISE_90))
+                stack.damageItem(1, player)
                 EnumActionResult.SUCCESS
             }
         } else super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand)
     }
 
     //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        tooltip.add(I18n.format("tips.ragi_materials.item.smithing_hammer"))
+    }
 
     @SideOnly(Side.CLIENT)
     override fun isFull3D(): Boolean = true

@@ -11,7 +11,7 @@ import net.minecraft.nbt.NBTTagList
 import net.minecraft.nbt.NBTTagString
 import net.minecraftforge.common.util.Constants
 
-interface IMachineProperty : HiiragiJsonSerializable {
+interface MachineProperty : HiiragiJsonSerializable {
 
     val recipeType: MachineType
     val processTime: Int
@@ -91,7 +91,7 @@ interface IMachineProperty : HiiragiJsonSerializable {
             itemSlots: Int = 1,
             fluidSlots: Int = 0,
             machineTraits: Set<MachineTrait> = mutableSetOf()
-        ): IMachineProperty = object : IMachineProperty {
+        ): MachineProperty = object : MachineProperty {
             override var recipeType: MachineType = recipeType
             override var processTime: Int = processTime
             override var energyRate: Int = energyRate

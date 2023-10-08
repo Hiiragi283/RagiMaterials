@@ -3,7 +3,7 @@ package hiiragi283.material.entity
 import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.chunk.IEntityChunkLoader
-import hiiragi283.material.api.entity.IHiiragiEntity
+import hiiragi283.material.api.entity.HiiragiEntity
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import hiiragi283.material.util.HiiragiNBTUtil
@@ -26,7 +26,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler
  * Thanks to defeatedcrow!
  * [: Source](https://github.com/defeatedcrow/HeatAndClimateMod/blob/1.12.2_v3/main/java/defeatedcrow/hac/machine/entity/EntityMinecartMotor.java)
  */
-class EntityMinecartTank : EntityMinecart, IEntityChunkLoader, IHiiragiEntity {
+class EntityMinecartTank : EntityMinecart, IEntityChunkLoader, HiiragiEntity {
 
     constructor(world: World, x: Double, y: Double, z: Double) : super(world, x, y, z)
 

@@ -1,4 +1,4 @@
-package hiiragi283.material.api.block
+package hiiragi283.material.api.transfer
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockDirectional
@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
 
-interface ITransferPipe {
+interface TransferPipe {
 
     val capabilities: () -> Collection<Capability<*>>
 
@@ -15,7 +15,7 @@ interface ITransferPipe {
         val posTo: BlockPos = pos.offset(state.getValue(BlockDirectional.FACING))
         val stateTo: IBlockState = world.getBlockState(posTo)
         val blockTo: Block = stateTo.block
-        return if (blockTo is ITransferPipe && blockTo.capabilities().containsAll(capabilities())) {
+        return if (blockTo is TransferPipe && blockTo.capabilities().containsAll(capabilities())) {
             blockTo.getTerminalPos(world, posTo, stateTo)
         } else posTo
     }

@@ -16,13 +16,12 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 8) {
     val SHAPE_MAP: Map<Int, HiiragiShape> = mapOf(
         0 to HiiragiShapes.BLOCK,
         1 to HiiragiShapes.CASING,
-        2 to HiiragiShapes.DUST,
-        3 to HiiragiShapes.GEAR,
-        4 to HiiragiShapes.GEM,
-        5 to HiiragiShapes.INGOT,
-        6 to HiiragiShapes.NUGGET,
-        7 to HiiragiShapes.PLATE,
-        8 to HiiragiShapes.STICK
+        2 to HiiragiShapes.GEAR,
+        3 to HiiragiShapes.GEM,
+        4 to HiiragiShapes.INGOT,
+        5 to HiiragiShapes.NUGGET,
+        6 to HiiragiShapes.PLATE,
+        7 to HiiragiShapes.STICK
     )
 
     init {

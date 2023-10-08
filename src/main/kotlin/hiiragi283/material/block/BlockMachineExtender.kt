@@ -1,13 +1,20 @@
 package hiiragi283.material.block
 
 import hiiragi283.material.HiiragiCreativeTabs
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.block.HiiragiBlockContainer
 import hiiragi283.material.tile.TileEntityMachineExtender
+import hiiragi283.material.util.SimpleColorProvider
 import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
+import net.minecraft.client.renderer.color.BlockColors
+import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.client.resources.I18n
+import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.item.ItemStack
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -25,12 +32,6 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
         creativeTab = HiiragiCreativeTabs.MACHINE
         defaultState = defaultState.withProperty(BlockDirectional.FACING, EnumFacing.NORTH)
     }
-
-    //    General    //
-
-    override fun isFullCube(state: IBlockState): Boolean = false
-
-    override fun isOpaqueCube(state: IBlockState): Boolean = false
 
     //    BlockState    //
 
@@ -62,6 +63,23 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
     //    Client    //
 
     @SideOnly(Side.CLIENT)
+    override fun addInformation(stack: ItemStack, world: World?, tooltip: MutableList<String>, flag: ITooltipFlag) {
+        tooltip.add(I18n.format("tips.ragi_materials.block.machine_extender"))
+    }
+
+    @SideOnly(Side.CLIENT)
     override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
+    //    HiiragiEntry    //
+
+    @SideOnly(Side.CLIENT)
+    override fun registerBlockColor(blockColors: BlockColors) {
+        blockColors.registerBlockColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
+    }
+
+    @SideOnly(Side.CLIENT)
+    override fun registerItemColor(itemColors: ItemColors) {
+        itemColors.registerItemColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
+    }
 
 }

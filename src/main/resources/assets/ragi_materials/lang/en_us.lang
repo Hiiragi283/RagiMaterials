@@ -24,13 +24,12 @@ item.ragi_materials.book_respawn.name=[for Dev] Respawn Book
 item.ragi_materials.minecart_tank.name=Minecart with Tank
 item.ragi_materials.shape_pattern_0.name=Shape Pattern (Block)
 item.ragi_materials.shape_pattern_1.name=Shape Pattern (Casing)
-item.ragi_materials.shape_pattern_2.name=Shape Pattern (Dust)
-item.ragi_materials.shape_pattern_3.name=Shape Pattern (Gear)
-item.ragi_materials.shape_pattern_4.name=Shape Pattern (Gem)
-item.ragi_materials.shape_pattern_5.name=Shape Pattern (Ingot)
-item.ragi_materials.shape_pattern_6.name=Shape Pattern (Nugget)
-item.ragi_materials.shape_pattern_7.name=Shape Pattern (Plate)
-item.ragi_materials.shape_pattern_8.name=Shape Pattern (Stick)
+item.ragi_materials.shape_pattern_2.name=Shape Pattern (Gear)
+item.ragi_materials.shape_pattern_3.name=Shape Pattern (Gem)
+item.ragi_materials.shape_pattern_4.name=Shape Pattern (Ingot)
+item.ragi_materials.shape_pattern_5.name=Shape Pattern (Nugget)
+item.ragi_materials.shape_pattern_6.name=Shape Pattern (Plate)
+item.ragi_materials.shape_pattern_7.name=Shape Pattern (Stick)
 item.ragi_materials.smithing_hammer.name=Smithing Hammer
 
 ##    JEI Tab    ##
@@ -124,6 +123,11 @@ error.ragi_materials.crucible.no_recipe=§cNot found ANY recipe!
 error.ragi_materials.crucible.null_output=§cNot found output!
 
 ##    Tooltip    ##
+
+tips.ragi_materials.block.transfer_station=Import from back, Export to the terminal of Transfer Pipes
+tips.ragi_materials.block.machine_extender=Right-Click with Fluid Container to fill tanks of connected tile
+
+tips.ragi_materials.item.smithing_hammer=Right-Click block with this to rotate
 
 tips.ragi_materials.machine.recipe_type=- Recipe Type: §b%s§r§7
 tips.ragi_materials.machine.process_time=- Process Time: §b%s§r§7 tick

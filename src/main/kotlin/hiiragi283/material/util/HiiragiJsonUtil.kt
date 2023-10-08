@@ -7,7 +7,7 @@ import com.google.gson.JsonPrimitive
 import hiiragi283.material.api.fluid.MaterialFluidBlock
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
-import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
@@ -73,9 +73,9 @@ object HiiragiJsonUtil {
         return HiiragiShapeTypes.INTERNAL
     }
 
-    fun machineProperty(jsonElement: JsonElement): IMachineProperty {
+    fun machineProperty(jsonElement: JsonElement): MachineProperty {
         val root: JsonObject = jsonElement.asJsonObject
-        return IMachineProperty.of(
+        return MachineProperty.of(
             MachineType.from(root.getAsJsonPrimitive("recipe_type").asString) ?: MachineType.NONE,
             root.getAsJsonPrimitive("process_time").asInt,
             root.getAsJsonPrimitive("energy_rate").asInt,

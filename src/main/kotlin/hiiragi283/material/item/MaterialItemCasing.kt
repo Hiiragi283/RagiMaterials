@@ -2,7 +2,7 @@ package hiiragi283.material.item
 
 import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.item.MaterialItem
-import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
@@ -27,7 +27,7 @@ object MaterialItemCasing : MaterialItem(
                 .build()
         }
     }
-), IMachinePropertyItem {
+), MachinePropertyItem {
 
     //    Client    //
 
@@ -36,7 +36,7 @@ object MaterialItemCasing : MaterialItem(
         this.addTooltip(stack, tooltip)
     }
 
-    //    IMachinePropertyItem    //
+    //    MachinePropertyItem    //
 
     override val recipeType: (ItemStack) -> MachineType = { _ -> MachineType.NONE }
 

@@ -7,8 +7,8 @@ import hiiragi283.material.api.capability.fluid.ModuleMachineFluidTank
 import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler
-import hiiragi283.material.api.machine.IMachineProperty
-import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.MachineProperty
+import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -42,7 +42,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, HiiragiMaterial.
 
     //    NBT    //
 
-    var machineProperty: IMachineProperty = IMachineProperty.of()
+    var machineProperty: MachineProperty = MachineProperty.of()
 
     override fun readFromNBT(compound: NBTTagCompound) {
         inventoryInput.deserializeNBT(compound.getCompoundTag("InventoryInput"))
@@ -54,7 +54,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, HiiragiMaterial.
         tankOutput1.deserializeNBT(compound.getCompoundTag("TankOutput1"))
         tankOutput2.deserializeNBT(compound.getCompoundTag("TankOutput2"))
         energyStorage.deserializeNBT(compound.getCompoundTag(HiiragiNBTUtil.BATTERY))
-        machineProperty = IMachineProperty.of(compound.getCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY))
+        machineProperty = MachineProperty.of(compound.getCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY))
         material = HiiragiRegistries.MATERIAL.getValue(compound.getString(HiiragiNBTUtil.MATERIAL))
         super.readFromNBT(compound)
     }
@@ -131,7 +131,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, HiiragiMaterial.
         stack: ItemStack
     ) {
         material = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
-        stack.getItemImplemented<IMachinePropertyItem>()?.toMachineProperty(stack)?.let { property ->
+        stack.getItemImplemented<MachinePropertyItem>()?.toMachineProperty(stack)?.let { property ->
             machineProperty = property
             inventoryInput.maxSlots = min(property.itemSlots, 6)
             if (property.fluidSlots >= 1) {

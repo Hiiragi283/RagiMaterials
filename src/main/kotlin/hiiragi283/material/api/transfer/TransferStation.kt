@@ -1,6 +1,5 @@
-package hiiragi283.material.api.tile
+package hiiragi283.material.api.transfer
 
-import hiiragi283.material.api.block.ITransferPipe
 import hiiragi283.material.util.getTile
 import net.minecraft.block.Block
 import net.minecraft.block.BlockDirectional
@@ -10,7 +9,7 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-interface ITransferStation {
+interface TransferStation {
 
     fun getFacing(state: IBlockState): EnumFacing = state.getValue(BlockDirectional.FACING)
 
@@ -18,7 +17,7 @@ interface ITransferStation {
         val posTo: BlockPos = pos.offset(getFacing(world.getBlockState(pos)))
         val stateTo: IBlockState = world.getBlockState(posTo)
         return when (val blockTo: Block = stateTo.block) {
-            is ITransferPipe -> blockTo.getTerminalPos(world, posTo, stateTo)
+            is TransferPipe -> blockTo.getTerminalPos(world, posTo, stateTo)
             else -> posTo
         }
     }

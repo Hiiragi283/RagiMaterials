@@ -2,7 +2,7 @@ package hiiragi283.material.block
 
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlock
-import hiiragi283.material.api.block.ITransferPipe
+import hiiragi283.material.api.transfer.TransferPipe
 import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
@@ -20,7 +20,7 @@ import net.minecraftforge.common.capabilities.Capability
 class BlockTransferPipe(
     type: String,
     override val capabilities: () -> Collection<Capability<*>>
-) : HiiragiBlock(Material.IRON, "pipe_$type"), ITransferPipe {
+) : HiiragiBlock(Material.IRON, "pipe_$type"), TransferPipe {
 
     init {
         creativeTab = HiiragiCreativeTabs.MACHINE

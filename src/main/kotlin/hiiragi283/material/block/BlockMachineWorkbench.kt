@@ -70,6 +70,7 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
         blockColors.registerBlockColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
     }
 
+    @SideOnly(Side.CLIENT)
     override fun registerItemColor(itemColors: ItemColors) {
         itemColors.registerItemColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
     }

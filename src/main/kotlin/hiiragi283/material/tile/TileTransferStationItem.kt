@@ -4,7 +4,7 @@ import hiiragi283.material.api.capability.IOControllable
 import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.api.tile.ITransferStation
+import hiiragi283.material.api.transfer.TransferStation
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.transferTo
 import net.minecraft.nbt.NBTTagCompound
@@ -14,7 +14,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.items.CapabilityItemHandler
 import net.minecraftforge.items.IItemHandler
 
-class TileTransferStationItem : HiiragiTileEntity.Tickable(100), ITransferStation {
+class TileTransferStationItem : HiiragiTileEntity.Tickable(100), TransferStation {
 
     override fun getDisplayName() = TextComponentTranslation("tile.ragi_materials.station_item.name")
 

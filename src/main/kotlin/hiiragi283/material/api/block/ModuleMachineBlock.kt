@@ -3,7 +3,7 @@ package hiiragi283.material.api.block
 import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.item.ModuleMachineItemBlock
-import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.tile.HiiragiTileEntity
@@ -41,7 +41,7 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
         defaultState = defaultState.withProperty(BlockHorizontal.FACING, EnumFacing.NORTH)
     }
 
-    fun createMachineStack(material: HiiragiMaterial?, machineProperty: IMachineProperty): ItemStack {
+    fun createMachineStack(material: HiiragiMaterial?, machineProperty: MachineProperty): ItemStack {
         val machineStack: ItemStack = itemStack(material)
         machineStack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
             .setTag(HiiragiNBTUtil.MACHINE_PROPERTY, machineProperty.serialize())

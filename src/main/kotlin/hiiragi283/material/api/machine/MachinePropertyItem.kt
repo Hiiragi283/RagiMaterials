@@ -4,7 +4,7 @@ import hiiragi283.material.util.isShiftPressed
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 
-interface IMachinePropertyItem {
+interface MachinePropertyItem {
 
     val recipeType: (ItemStack) -> MachineType
     val processTime: (ItemStack) -> Int
@@ -36,8 +36,8 @@ interface IMachinePropertyItem {
         }
     }
 
-    fun toMachineProperty(stack: ItemStack): IMachineProperty {
-        return IMachineProperty.of(
+    fun toMachineProperty(stack: ItemStack): MachineProperty {
+        return MachineProperty.of(
             recipeType(stack),
             processTime(stack),
             energyRate(stack),

@@ -1,7 +1,7 @@
 package hiiragi283.material.compat
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.getTile
@@ -29,7 +29,7 @@ object HiiragiTOPPlugin : HiiragiPluginBase("theoneprobe", "TheOneProbe", { Hiir
                 iProbeHitData: IProbeHitData
             ) {
                 getTile<TileEntityModuleMachine>(world, iProbeHitData.pos)?.let { tile ->
-                    val property: IMachineProperty = tile.machineProperty
+                    val property: MachineProperty = tile.machineProperty
                     iProbeInfo.progress(tile.currentCount, property.processTime, ProgressStyle().suffix("%"))
                     iProbeInfo.text(TextStyleClass.LABEL.toString() + "Process Time: " + TextStyleClass.INFO + property.processTime + " ticks");
                     iProbeInfo.text(TextStyleClass.LABEL.toString() + "Energy Rate: " + TextStyleClass.INFO + property.energyRate + " FE/ticks");

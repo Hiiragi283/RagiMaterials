@@ -1,8 +1,8 @@
 package hiiragi283.material.api.item
 
 import hiiragi283.material.api.block.ModuleMachineBlock
-import hiiragi283.material.api.machine.IMachineProperty
-import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.MachineProperty
+import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
@@ -20,7 +20,7 @@ import net.minecraftforge.common.util.Constants
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block, 32767), IMachinePropertyItem {
+class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block, 32767), MachinePropertyItem {
 
     val type: MachineType = block.type
 
@@ -48,7 +48,7 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
             .forEach(subItems::add)
     }
 
-    //    IMachinePropertyItem    //
+    //    MachinePropertyItem    //
 
     private fun getMachinePropertyTag(stack: ItemStack): NBTTagCompound =
         stack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
@@ -57,23 +57,23 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
     override val recipeType: (ItemStack) -> MachineType = { _ -> type }
 
     override val processTime: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_PROCESS) ?: 100
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_PROCESS) ?: 100
     }
 
     override val energyRate: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_RATE) ?: 32
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_RATE) ?: 32
     }
 
     override val itemSlots: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_ITEM) ?: 1
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_ITEM) ?: 1
     }
 
     override val fluidSlots: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(IMachineProperty.KEY_FLUID) ?: 0
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_FLUID) ?: 0
     }
 
     override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
-        getMachinePropertyTag(stack).getTagListOrNull(IMachineProperty.KEY_TRAIT, Constants.NBT.TAG_STRING)
+        getMachinePropertyTag(stack).getTagListOrNull(MachineProperty.KEY_TRAIT, Constants.NBT.TAG_STRING)
             ?.filterIsInstance<NBTTagString>()
             ?.map(NBTTagString::getString)
             ?.mapNotNull(MachineTrait.Companion::from)

@@ -1,7 +1,7 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.api.item.MaterialItemBlock
-import hiiragi283.material.api.machine.IMachinePropertyItem
+import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -12,7 +12,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(block), IMachinePropertyItem {
+class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(block), MachinePropertyItem {
 
     //    Client    //
 
@@ -22,7 +22,7 @@ class MaterialItemBlockCasing(block: MaterialBlockCasing) : MaterialItemBlock(bl
         this.addTooltip(stack, tooltip)
     }
 
-    //    IMachinePropertyItem    //
+    //    MachinePropertyItem    //
 
     override val recipeType: (ItemStack) -> MachineType = { _ -> MachineType.NONE }
 

@@ -4,7 +4,7 @@ import hiiragi283.material.api.capability.IOControllable
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTankWrapper
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.api.tile.ITransferStation
+import hiiragi283.material.api.transfer.TransferStation
 import hiiragi283.material.util.HiiragiNBTUtil
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -15,7 +15,7 @@ import net.minecraftforge.fluids.FluidUtil
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler
 import net.minecraftforge.fluids.capability.IFluidHandler
 
-class TileTransferStationFluid : HiiragiTileEntity.Tickable(100), ITransferStation {
+class TileTransferStationFluid : HiiragiTileEntity.Tickable(100), TransferStation {
 
     override fun getDisplayName() = TextComponentTranslation("tile.ragi_materials.station_fluid.name")
 

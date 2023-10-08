@@ -24,13 +24,12 @@ item.ragi_materials.book_respawn.name=[開発用] リスポーン本
 item.ragi_materials.minecart_tank.name=タンク付きトロッコ
 item.ragi_materials.shape_pattern_0.name=形状パターン (ブロック)
 item.ragi_materials.shape_pattern_1.name=形状パターン (筐体)
-item.ragi_materials.shape_pattern_2.name=形状パターン (粉末)
-item.ragi_materials.shape_pattern_3.name=形状パターン (歯車)
-item.ragi_materials.shape_pattern_4.name=形状パターン (宝石)
-item.ragi_materials.shape_pattern_5.name=形状パターン (インゴット)
-item.ragi_materials.shape_pattern_6.name=形状パターン (ナゲット)
-item.ragi_materials.shape_pattern_7.name=形状パターン (板)
-item.ragi_materials.shape_pattern_8.name=形状パターン (棒)
+item.ragi_materials.shape_pattern_2.name=形状パターン (歯車)
+item.ragi_materials.shape_pattern_3.name=形状パターン (宝石)
+item.ragi_materials.shape_pattern_4.name=形状パターン (インゴット)
+item.ragi_materials.shape_pattern_5.name=形状パターン (ナゲット)
+item.ragi_materials.shape_pattern_6.name=形状パターン (板)
+item.ragi_materials.shape_pattern_7.name=形状パターン (棒)
 item.ragi_materials.smithing_hammer.name=鍛冶ハンマー
 
 ##    JEI Tab    ##
@@ -120,6 +119,11 @@ error.ragi_materials.crucible.no_recipe=§cレシピが見つかりませんで�
 error.ragi_materials.crucible.null_output=§c完成品が見つかりませんでした!
 
 ##    Tooltip    ##
+
+tips.ragi_materials.block.transfer_station=背面から搬入し，輸送パイプの末端に搬出します
+tips.ragi_materials.block.machine_extender=液体コンテナで右クリックすると接続したタイルのタンクに液体を搬入します
+
+tips.ragi_materials.item.smithing_hammer=ブロックを右クリックして回転できます
 
 tips.ragi_materials.machine.recipe_type=- レシピタイプ: §b%s§r§7
 tips.ragi_materials.machine.process_time=- 処理時間: §b%s§r§7 tick

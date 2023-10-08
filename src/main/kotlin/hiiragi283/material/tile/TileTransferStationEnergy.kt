@@ -2,7 +2,7 @@ package hiiragi283.material.tile
 
 import hiiragi283.material.api.capability.energy.HiiragiEnergyStorage
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.api.tile.ITransferStation
+import hiiragi283.material.api.transfer.TransferStation
 import hiiragi283.material.util.HiiragiNBTUtil
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.EnumFacing
@@ -11,7 +11,7 @@ import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.energy.CapabilityEnergy
 import net.minecraftforge.energy.IEnergyStorage
 
-class TileTransferStationEnergy : HiiragiTileEntity.Tickable(100), ITransferStation {
+class TileTransferStationEnergy : HiiragiTileEntity.Tickable(100), TransferStation {
 
     override fun getDisplayName() = TextComponentTranslation("tile.ragi_materials.station_energy.name")
 

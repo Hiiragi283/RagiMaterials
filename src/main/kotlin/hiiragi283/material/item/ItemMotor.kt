@@ -2,12 +2,12 @@ package hiiragi283.material.item
 
 import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.module.IModuleItem
+import hiiragi283.material.api.module.ModuleItem
 import net.minecraft.item.ItemStack
 
-object ItemMotor : HiiragiItem("motor"), IModuleItem {
+object ItemMotor : HiiragiItem("motor"), ModuleItem {
 
-    //    IModuleItem    //
+    //    ModuleItem    //
 
     override val processTime: (stack: ItemStack, base: Int) -> Int = { _, base -> base - 10 }
 

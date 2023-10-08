@@ -5,7 +5,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
-import hiiragi283.material.api.machine.IMachineProperty
+import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.registry.HiiragiRegistries
@@ -72,7 +72,7 @@ data class HiiragiMaterial(
     val oreDictAlt: MutableList<String> = mutableListOf()
     var fluidBlock: (Fluid) -> Block? = { null }
     var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
-    var machineProperty: IMachineProperty? = null
+    var machineProperty: MachineProperty? = null
 
     fun addBracket() = copy(formula = "($formula)")
 

@@ -1,7 +1,7 @@
 package hiiragi283.material.block
 
 import hiiragi283.material.api.block.HiiragiBlock
-import hiiragi283.material.api.multiblock.IMultiblockCore
+import hiiragi283.material.api.multiblock.MultiblockCore
 import hiiragi283.material.api.multiblock.MultiblockComponent
 import hiiragi283.material.api.multiblock.MultiblockPattern
 import hiiragi283.material.util.failed
@@ -16,7 +16,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-object BlockTestMultiblock : HiiragiBlock(Material.TNT, "test_core"), IMultiblockCore {
+object BlockTestMultiblock : HiiragiBlock(Material.TNT, "test_core"), MultiblockCore {
 
     //    Event    //
 
@@ -43,7 +43,7 @@ object BlockTestMultiblock : HiiragiBlock(Material.TNT, "test_core"), IMultibloc
         } else true
     }
 
-    //    IMultiblockCore    //
+    //    MultiblockCore    //
 
     private val pattern: MultiblockPattern = MultiblockPattern(
         BlockPos.ORIGIN to MultiblockComponent.Block(this),

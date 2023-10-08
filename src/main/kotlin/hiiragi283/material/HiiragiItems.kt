@@ -178,9 +178,9 @@ object HiiragiItems : HiiragiEntry.ITEM {
         recipe = { item: MaterialItem, material: HiiragiMaterial ->
             if (!HiiragiShapes.INGOT.isValid(material)) return@MaterialItem
             CraftingBuilder(item.itemStack(material))
-                .setPattern("AB")
-                .setIngredient('A', SMITHING_HAMMER, true)
-                .setIngredient('B', HiiragiShapes.INGOT.getOreDict(material))
+                .setPattern("A", "B")
+                .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
+                .setIngredient('B', SMITHING_HAMMER, true)
                 .build()
         }
     ))

@@ -6,7 +6,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-interface IMultiblockCore {
+interface MultiblockCore {
 
     fun getPattern(world: World, pos: BlockPos): MultiblockPattern
 
