@@ -6,7 +6,6 @@ import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.registry.HiiragiEntry
-import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
@@ -19,7 +18,7 @@ import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import java.util.*
 
-abstract class HiiragiBlock(material: Material, id: String) : Block(material), HiiragiEntry.BLOCK, HiiragiRegistry.Entry<Block> {
+abstract class HiiragiBlock(material: Material, id: String) : Block(material), HiiragiEntry.BLOCK {
 
     init {
         blockHardness = 5.0f
