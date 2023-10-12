@@ -1,8 +1,9 @@
 package hiiragi283.material.compat
 
-import hiiragi283.material.HiiragiItems
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.MaterialCommon
+import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.util.registerOreDict
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -39,7 +40,7 @@ object RagiMaterialsPlugin : HiiragiPluginBase(RMReference.MOD_ID, RMReference.M
         list.forEach { it.onInit(event) }
         registerOreDict(
             "dyeBlack",
-            HiiragiItems.MATERIAL_DUST,
+            HiiragiRegistries.MATERIAL_ITEM.getValue(HiiragiShapes.DUST)?.item(),
             MaterialCommon.CHARCOAL.index
         )
     }

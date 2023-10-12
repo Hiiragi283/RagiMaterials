@@ -3,8 +3,8 @@ package hiiragi283.material.api.registry
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.util.setModel
 import net.minecraft.block.Block
-import net.minecraft.client.renderer.color.BlockColors
-import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.client.renderer.color.IBlockColor
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.item.Item
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -21,12 +21,10 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
     fun registerRecipe() {}
 
     @SideOnly(Side.CLIENT)
-    fun registerBlockColor(blockColors: BlockColors) {
-    }
+    fun getBlockColor(): IBlockColor? = null
 
     @SideOnly(Side.CLIENT)
-    fun registerItemColor(itemColors: ItemColors) {
-    }
+    fun getItemColor(): IItemColor? = null
 
     @SideOnly(Side.CLIENT)
     fun registerModel() {

@@ -44,8 +44,7 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) :
         material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
     }
 
-    fun getItemStack(count: Int = 1): ItemStack? =
-        HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.item()?.itemStack(material, count)
+    fun getItemStack(count: Int = 1): ItemStack = shape.getItemStack(material, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
         .map(ItemStack::copy)

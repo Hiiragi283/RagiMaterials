@@ -12,8 +12,8 @@ import hiiragi283.material.util.setModelSame
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.BlockColors
-import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.client.renderer.color.IBlockColor
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
@@ -84,14 +84,11 @@ abstract class MaterialBlock(
     abstract fun registerRecipe(material: HiiragiMaterial)
 
     @SideOnly(Side.CLIENT)
-    override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler(HiiragiMaterial.BLOCK_COLOR, this)
-    }
+    override fun getBlockColor(): IBlockColor = HiiragiMaterial.BLOCK_COLOR
 
     @SideOnly(Side.CLIENT)
-    override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler(HiiragiMaterial.ITEM_COLOR, this)
-    }
+
+    override fun getItemColor(): IItemColor = HiiragiMaterial.ITEM_COLOR
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() = this.setModelSame()

@@ -11,8 +11,8 @@ import hiiragi283.material.util.SimpleColorProvider
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.BlockColors
-import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.client.renderer.color.IBlockColor
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.item.EnumDyeColor
@@ -66,13 +66,9 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
-    }
+    override fun getBlockColor(): IBlockColor = SimpleColorProvider(RagiMaterials.COLOR)
 
     @SideOnly(Side.CLIENT)
-    override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
-    }
+    override fun getItemColor(): IItemColor = SimpleColorProvider(RagiMaterials.COLOR)
 
 }

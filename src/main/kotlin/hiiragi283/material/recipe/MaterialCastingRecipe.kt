@@ -33,7 +33,7 @@ class MaterialCastingRecipe(val shape: HiiragiShape, val material: HiiragiMateri
 
     override fun getRequiredType(): MachineType = MachineType.FREEZER
 
-    override fun getOutputItems(): List<ItemStack> = listOfNotNull(shape.getItemStack(material))
+    override fun getOutputItems(): List<ItemStack> = listOf(shape.getItemStack(material))
 
     override fun getOutputFluids(): List<FluidStack> = listOf()
 

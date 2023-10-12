@@ -6,7 +6,7 @@ import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.setModelSame
-import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
@@ -65,9 +65,7 @@ open class MaterialItem(
     }
 
     @SideOnly(Side.CLIENT)
-    override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler(HiiragiMaterial.ITEM_COLOR, this)
-    }
+    override fun getItemColor(): IItemColor = HiiragiMaterial.ITEM_COLOR
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() = model(this)

@@ -106,13 +106,19 @@ object HiiragiEventHandler {
 
         @SubscribeEvent
         fun registerBlockColor(event: ColorHandlerEvent.Block) {
-            HiiragiRegistries.BLOCK.registerBlockColor(event.blockColors)
+            HiiragiRegistries.BLOCK.getValues()
+                .filterNot { it.getBlockColor() == null }
+                .forEach { event.blockColors.registerBlockColorHandler(it.getBlockColor()!!, it.getObject()) }
         }
 
         @SubscribeEvent
         fun registerItemColor(event: ColorHandlerEvent.Item) {
-            HiiragiRegistries.BLOCK.registerItemColor(event.itemColors)
-            HiiragiRegistries.ITEM.registerItemColor(event.itemColors)
+            HiiragiRegistries.BLOCK.getValues()
+                .filterNot { it.getItemColor() == null }
+                .forEach { event.itemColors.registerItemColorHandler(it.getItemColor()!!, it.getObject()) }
+            HiiragiRegistries.ITEM.getValues()
+                .filterNot { it.getItemColor() == null }
+                .forEach { event.itemColors.registerItemColorHandler(it.getItemColor()!!, it.getObject()) }
         }
 
         @SubscribeEvent

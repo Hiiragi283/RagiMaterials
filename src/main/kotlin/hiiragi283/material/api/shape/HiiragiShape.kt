@@ -20,10 +20,15 @@ import rechellatek.snakeToLowerCamelCase
 
 data class HiiragiShape(val name: String, val scale: Int) : HiiragiJsonSerializable {
 
-    fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack? =
-        HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.item()?.itemStack(material, count)
+    fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack =
+        HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.item()?.itemStack(material, count) ?: ItemStack.EMPTY
 
-    fun getItemStackWild(count: Int = 1): ItemStack? = getItemStack(HiiragiMaterial.WILDCARD, count)
+    fun getItemStack(part: HiiragiPart): ItemStack {
+        val scale: Int = part.shape.scale
+        return if (scale >= 144) getItemStack(part.material, scale / 144) else ItemStack.EMPTY
+    }
+
+    fun getItemStackWild(count: Int = 1): ItemStack = getItemStack(HiiragiMaterial.WILDCARD, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.MATERIAL_INDEX.getValues()
         .map(::getPart)

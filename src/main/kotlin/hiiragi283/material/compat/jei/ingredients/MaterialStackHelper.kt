@@ -1,11 +1,8 @@
 package hiiragi283.material.compat.jei.ingredients
 
-import hiiragi283.material.HiiragiItems
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.MaterialStack
-import hiiragi283.material.util.itemStack
 import mezz.jei.api.ingredients.IIngredientHelper
-import net.minecraft.item.ItemStack
 
 object MaterialStackHelper : IIngredientHelper<MaterialStack> {
 
@@ -21,9 +18,6 @@ object MaterialStackHelper : IIngredientHelper<MaterialStack> {
     override fun getModId(stack: MaterialStack): String = RMReference.MOD_ID
 
     override fun getResourceId(stack: MaterialStack): String = stack.material.name
-
-    override fun getCheatItemStack(ingredient: MaterialStack): ItemStack =
-        HiiragiItems.MATERIAL_BOTTLE.itemStack(ingredient.material)
 
     override fun copyIngredient(stack: MaterialStack): MaterialStack = stack.copy()
 

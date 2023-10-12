@@ -1,7 +1,5 @@
 package hiiragi283.material.api.registry
 
-import net.minecraft.client.renderer.color.BlockColors
-import net.minecraft.client.renderer.color.ItemColors
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.registries.IForgeRegistry
 import net.minecraftforge.registries.IForgeRegistryEntry
@@ -35,14 +33,6 @@ class HiiragiForgeRegistry<T: HiiragiEntry<U>, U: IForgeRegistryEntry<U>>(name: 
 
     fun registerRecipe() {
         getValues().forEach(HiiragiEntry<U>::registerRecipe)
-    }
-
-    fun registerBlockColor(blockColors: BlockColors) {
-        getValues().forEach { it.registerBlockColor(blockColors) }
-    }
-
-    fun registerItemColor(itemColors: ItemColors) {
-        getValues().forEach { it.registerItemColor(itemColors) }
     }
 
     fun registerModel() {

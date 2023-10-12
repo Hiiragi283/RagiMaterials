@@ -15,7 +15,7 @@ object HiiragiCreativeTabs {
             override fun createIcon(): ItemStack = stack()
         }
 
-    val COMMON by lazy { createCreativeTab("common") { HiiragiItems.BOOK_RESPAWN.itemStack() } }
+    val COMMON by lazy { createCreativeTab("common") { Items.WRITABLE_BOOK.itemStack() } }
 
     val MACHINE by lazy {
         createCreativeTab("machine") {

@@ -9,8 +9,8 @@ import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.BlockColors
-import net.minecraft.client.renderer.color.ItemColors
+import net.minecraft.client.renderer.color.IBlockColor
+import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.resources.I18n
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.EntityLivingBase
@@ -73,13 +73,9 @@ object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
     //    HiiragiEntry    //
 
     @SideOnly(Side.CLIENT)
-    override fun registerBlockColor(blockColors: BlockColors) {
-        blockColors.registerBlockColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
-    }
+    override fun getBlockColor(): IBlockColor = SimpleColorProvider(RagiMaterials.COLOR)
 
     @SideOnly(Side.CLIENT)
-    override fun registerItemColor(itemColors: ItemColors) {
-        itemColors.registerItemColorHandler(SimpleColorProvider(RagiMaterials.COLOR), this)
-    }
+    override fun getItemColor(): IItemColor = SimpleColorProvider(RagiMaterials.COLOR)
 
 }
