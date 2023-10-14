@@ -18,6 +18,10 @@ itemGroup.ragi_materials.machine=RagiMaterials - Machines
 itemGroup.ragi_materials.material_block=RagiMaterials - Blocks
 itemGroup.ragi_materials.material_item=RagiMaterials - Items
 
+##    Entity    ##
+
+entity.ragi_materials.minecart_tank.name=Minecart with Tank
+
 ##    Item    ##
 
 item.ragi_materials.book_respawn.name=[for Dev] Respawn Book

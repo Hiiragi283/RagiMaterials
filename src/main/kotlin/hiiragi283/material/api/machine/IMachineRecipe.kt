@@ -5,7 +5,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getJsonElement

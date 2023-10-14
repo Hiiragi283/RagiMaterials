@@ -1,4 +1,4 @@
-package hiiragi283.material.api.registry
+package hiiragi283.material.init
 
 import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.event.MaterialRegistryEvent
@@ -8,7 +8,9 @@ import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.part.createAllParts
+import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -20,24 +22,21 @@ object HiiragiRegistries {
     //    Forge    //
 
     @JvmField
-    val BLOCK: HiiragiForgeRegistry<HiiragiEntry.BLOCK, Block> = HiiragiForgeRegistry("Blocks")
+    val BLOCK: HiiragiRegistry<String, Block> = HiiragiRegistry("Block")
 
     @JvmField
-    val ITEM: HiiragiForgeRegistry<HiiragiEntry.ITEM, Item> = HiiragiForgeRegistry("Item")
+    val ITEM: HiiragiRegistry<String, Item> = HiiragiRegistry("Item")
 
     //    Recipe    //
 
     @JvmField
-    val BLOCK_MACHINE: HiiragiRegistry<MachineType, ModuleMachineBlock> = HiiragiRegistry("Module Machine Blocks")
+    val BLOCK_MACHINE: HiiragiRegistry<MachineType, ModuleMachineBlock> = HiiragiRegistry("Module Machine Block")
 
     fun registerModuleMachine() {
         MachineType.values()
             .filter { it != MachineType.NONE }
             .map(::ModuleMachineBlock)
-            .forEach { block: ModuleMachineBlock ->
-                BLOCK.register(block)
-                BLOCK_MACHINE.register(block.type, block)
-            }
+            .forEach(ModuleMachineBlock::register)
         BLOCK_MACHINE.lock()
     }
 
@@ -59,10 +58,7 @@ object HiiragiRegistries {
         MachineType.values()
             .filter { it != MachineType.NONE }
             .map(::RecipeModuleItem)
-            .forEach { item: RecipeModuleItem ->
-                ITEM.register(item)
-                RECIPE_MODULE.register(item.recipeType, item)
-            }
+            .forEach(RecipeModuleItem::register)
         RECIPE_MODULE.lock()
     }
 
@@ -75,10 +71,10 @@ object HiiragiRegistries {
     val MATERIAL_INDEX: HiiragiRegistry<Int, HiiragiMaterial> = HiiragiRegistry("Material Index")
 
     @JvmField
-    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, HiiragiMaterial.BLOCK> = HiiragiRegistry("Material Block")
+    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, PartConvertible.BLOCK> = HiiragiRegistry("Material Block")
 
     @JvmField
-    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, HiiragiMaterial.ITEM> = HiiragiRegistry("Material Item")
+    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, PartConvertible.ITEM> = HiiragiRegistry("Material Item")
 
     fun registerMaterial() {
         val event = MaterialRegistryEvent(MATERIAL)

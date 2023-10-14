@@ -1,10 +1,10 @@
 package hiiragi283.material.compat
 
-import hiiragi283.material.api.material.MaterialCommon
-import hiiragi283.material.api.material.MaterialCompat
-import hiiragi283.material.api.material.MaterialElements
-import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.config.HiiragiConfigs
+import hiiragi283.material.init.HiiragiShapes
+import hiiragi283.material.init.materials.MaterialCommons
+import hiiragi283.material.init.materials.MaterialCompats
+import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
@@ -14,29 +14,29 @@ object HiiragiIC2exPlugin : HiiragiPluginBase("ic2", "IC2ex", { HiiragiConfigs.I
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
         registerOreDict(
-            HiiragiShapes.INGOT.getOreDict(MaterialCommon.RUBBER),
+            HiiragiShapes.INGOT.getOreDict(MaterialCommons.RUBBER),
             getEntry<Item>(getResourceLocation("crafting")),
             0,
             "itemRubber"
         )
         registerOreDict(
-            HiiragiShapes.DUST.getOreDict(MaterialCompat.ENDER_PEARL),
+            HiiragiShapes.DUST.getOreDict(MaterialCompats.ENDER_PEARL),
             getEntry<Item>(getResourceLocation("dust")),
             31,
             "dustEnderPearl"
         )
         registerOreDict(
-            HiiragiShapes.DUST.getOreDict(MaterialCommon.EMERALD),
+            HiiragiShapes.DUST.getOreDict(MaterialCommons.EMERALD),
             getEntry<Item>(getResourceLocation("dust")),
             34
         )
         registerOreDict(
-            HiiragiShapes.DUST_TINY.getOreDict(MaterialCommon.EMERALD),
+            HiiragiShapes.DUST_TINY.getOreDict(MaterialCommons.EMERALD),
             getEntry<Item>(getResourceLocation("dust")),
             35
         )
         registerOreDict(
-            HiiragiShapes.DUST.getOreDict(MaterialCommon.ASH),
+            HiiragiShapes.DUST.getOreDict(MaterialCommons.ASH),
             getEntry<Item>(getResourceLocation("misc_resource")),
             0,
         )

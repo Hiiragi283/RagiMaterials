@@ -1,7 +1,8 @@
 package hiiragi283.material.api.tile
 
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.part.PartConvertible
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.HiiragiNBTUtil
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
@@ -13,7 +14,7 @@ import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-class MaterialTileEntity : HiiragiTileEntity(), HiiragiMaterial.TILE {
+class MaterialTileEntity : HiiragiTileEntity(), PartConvertible.TILE {
 
     override var material: HiiragiMaterial? = null
 

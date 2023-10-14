@@ -18,6 +18,10 @@ itemGroup.ragi_materials.machine=RagiMaterials - 機械
 itemGroup.ragi_materials.material_block=RagiMaterials - ブロック
 itemGroup.ragi_materials.material_item=RagiMaterials - アイテム
 
+##    Entity    ##
+
+entity.ragi_materials.minecart_tank.name=タンク付きトロッコ
+
 ##    Item    ##
 
 item.ragi_materials.book_respawn.name=[開発用] リスポーン本

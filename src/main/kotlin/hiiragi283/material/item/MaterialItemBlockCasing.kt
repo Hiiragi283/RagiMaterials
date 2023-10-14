@@ -4,8 +4,8 @@ import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.block.MaterialBlockCasing
+import hiiragi283.material.init.HiiragiRegistries
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World

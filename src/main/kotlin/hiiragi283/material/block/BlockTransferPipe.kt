@@ -1,8 +1,8 @@
 package hiiragi283.material.block
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.block.HiiragiBlock
 import hiiragi283.material.api.transfer.TransferPipe
+import hiiragi283.material.init.HiiragiCreativeTabs
 import net.minecraft.block.BlockDirectional
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer

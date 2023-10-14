@@ -1,19 +1,18 @@
 package hiiragi283.material.compat.jei
 
-import hiiragi283.material.HiiragiBlocks
-import hiiragi283.material.HiiragiItems
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.compat.jei.ingredients.MaterialStackHelper
 import hiiragi283.material.compat.jei.ingredients.MaterialStackRenderer
 import hiiragi283.material.container.ContainerModuleMachine
 import hiiragi283.material.gui.GuiMachineWorkbench
 import hiiragi283.material.gui.GuiModuleMachine
+import hiiragi283.material.init.HiiragiBlocks
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.itemStackWild
 import mezz.jei.api.IGuiHelper
@@ -25,6 +24,7 @@ import mezz.jei.api.ingredients.IModIngredientRegistration
 import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import net.minecraft.client.gui.inventory.GuiContainer
+import net.minecraft.init.Items
 import net.minecraft.inventory.Container
 import net.minecraft.item.ItemStack
 
@@ -74,7 +74,7 @@ class HiiragiJEIPlugin : IModPlugin {
         //HiiragiMaterial
         registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
         registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
-        registry.addRecipeCatalyst(HiiragiItems.MATERIAL_BOTTLE.itemStackWild(), MATERIAL)
+        registry.addRecipeCatalyst(Items.IRON_INGOT, MATERIAL)
         //Machine Workbench
         registry.handleRecipes(MachineType::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
         registry.addRecipes(MachineType.values().toList(), MACHINE_WORKBENCH)

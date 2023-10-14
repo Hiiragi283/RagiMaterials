@@ -11,13 +11,13 @@ import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialCommon
-import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.materialOf
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.init.HiiragiShapes
+import hiiragi283.material.init.materials.MaterialCommons
+import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.recipe.MachineRecipe
 import hiiragi283.material.util.HiiragiJsonUtil
 import hiiragi283.material.util.itemStack
@@ -175,7 +175,7 @@ object HiiragiJSonHandler {
                     inputItems.add(ItemIngredient.Blocks(Blocks.COBBLESTONE, count = 5))
                     inputItems.add(ItemIngredient.Items(Items.DIAMOND, count = 4))
                     inputItems.add(ItemIngredient.OreDicts("ingotIron", count = 3))
-                    inputItems.add(ItemIngredient.Materials(MaterialCommon.STEEL, count = 2))
+                    inputItems.add(ItemIngredient.Materials(MaterialCommons.STEEL, count = 2))
                     inputItems.add(ItemIngredient.Shapes(HiiragiShapes.BLOCK))
                     inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = 250))
                     inputFluids.add(FluidIngredient.Materials(MaterialElements.HELIUM))

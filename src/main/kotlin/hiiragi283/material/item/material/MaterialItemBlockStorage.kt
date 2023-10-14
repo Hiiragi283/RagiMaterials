@@ -1,8 +1,8 @@
 package hiiragi283.material.item.material
 
-import hiiragi283.material.api.item.MaterialItemNew
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.itemStack
@@ -12,7 +12,7 @@ import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object MaterialItemBlockStorage : MaterialItemNew(HiiragiShapes.BLOCK) {
+object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
 
     override fun addRecipes(material: HiiragiMaterial) {
         // 9x Ingot -> 1x Block

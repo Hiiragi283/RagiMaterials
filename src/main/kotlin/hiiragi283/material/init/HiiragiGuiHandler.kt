@@ -1,4 +1,4 @@
-package hiiragi283.material
+package hiiragi283.material.init
 
 import hiiragi283.material.block.BlockMachineWorkbench
 import hiiragi283.material.container.*

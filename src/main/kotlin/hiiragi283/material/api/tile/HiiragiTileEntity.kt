@@ -1,7 +1,7 @@
 package hiiragi283.material.api.tile
 
-import hiiragi283.material.HiiragiGuiHandler
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.init.HiiragiGuiHandler
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper
 import net.minecraft.block.state.IBlockState

@@ -1,6 +1,5 @@
 package hiiragi283.material.recipe
 
-import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineRecipe
@@ -19,7 +18,7 @@ class MaterialCastingRecipe(val shape: HiiragiShape, val material: HiiragiMateri
 
     override fun getInputItems(): List<ItemIngredient> = listOf(
         ItemIngredient.Custom(
-            stacks = { listOf(HiiragiItems.SHAPE_PATTERN.getItemStack(shape)) },
+            stacks = { listOf(ItemShapePattern.getItemStack(shape)) },
             predicate = { stack -> stack.item is ItemShapePattern },
             process = ItemIngredient.CATALYST_PROCESS
         )

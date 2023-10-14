@@ -1,10 +1,10 @@
-package hiiragi283.material.api.block.property
+package hiiragi283.material.init
 
 import net.minecraft.block.BlockRailBase.EnumRailDirection
 import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.properties.PropertyInteger
 
-object HiiragiProperty {
+object HiiragiProperties {
 
     @JvmField
     val TYPE16: PropertyInteger = PropertyInteger.create("type", 0, 15)

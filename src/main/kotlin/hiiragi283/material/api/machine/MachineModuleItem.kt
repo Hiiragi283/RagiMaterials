@@ -1,9 +1,8 @@
-package hiiragi283.material.api.module
+package hiiragi283.material.api.machine
 
-import hiiragi283.material.api.machine.MachineTrait
 import net.minecraft.item.ItemStack
 
-interface ModuleItem {
+interface MachineModuleItem {
 
     val processTime: (stack: ItemStack, base: Int) -> Int
     val energyRate: (stack: ItemStack, base: Int) -> Int

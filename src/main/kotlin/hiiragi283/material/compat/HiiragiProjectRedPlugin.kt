@@ -1,7 +1,7 @@
 package hiiragi283.material.compat
 
-import hiiragi283.material.api.material.MaterialCompat
 import hiiragi283.material.config.HiiragiConfigs
+import hiiragi283.material.init.materials.MaterialCompats
 
 object HiiragiProjectRedPlugin : HiiragiPluginBase(
     "projectred-core",
@@ -10,9 +10,9 @@ object HiiragiProjectRedPlugin : HiiragiPluginBase(
 ) {
 
     override fun registerMaterial() {
-        MaterialCompat.ELECTROTINE.register()
-        MaterialCompat.RED_ALLOY.register()
-        MaterialCompat.ELECTROTINE_ALLOY.register()
+        MaterialCompats.ELECTROTINE.register()
+        MaterialCompats.RED_ALLOY.register()
+        MaterialCompats.ELECTROTINE_ALLOY.register()
     }
 
 }

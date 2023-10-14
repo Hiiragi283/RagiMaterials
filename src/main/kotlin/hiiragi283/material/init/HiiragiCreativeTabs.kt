@@ -1,7 +1,7 @@
-package hiiragi283.material
+package hiiragi283.material.init
 
+import hiiragi283.material.RMReference
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.util.itemStack
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks

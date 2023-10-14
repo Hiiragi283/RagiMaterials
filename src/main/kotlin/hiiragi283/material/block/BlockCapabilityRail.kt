@@ -1,10 +1,10 @@
 package hiiragi283.material.block
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RMReference
-import hiiragi283.material.api.block.property.HiiragiProperty
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.init.HiiragiCreativeTabs
+import hiiragi283.material.init.HiiragiProperties
 import hiiragi283.material.tile.TileEntityCapabilityRail
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.BlockRailBase
@@ -31,7 +31,7 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
         blockHardness = 5.0f
         blockResistance = 5.0f
         creativeTab = HiiragiCreativeTabs.COMMON
-        defaultState = blockState.baseState.withProperty(HiiragiProperty.RAIL_SHAPE, EnumRailDirection.NORTH_SOUTH)
+        defaultState = blockState.baseState.withProperty(HiiragiProperties.RAIL_SHAPE, EnumRailDirection.NORTH_SOUTH)
         translationKey = "${RMReference.MOD_ID}.capability_rail"
         setRegistryName(RMReference.MOD_ID, "capability_rail")
     }
@@ -54,160 +54,160 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
 
     //    BlockState    //
 
-    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, HiiragiProperty.RAIL_SHAPE)
+    override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, HiiragiProperties.RAIL_SHAPE)
 
-    override fun getMetaFromState(state: IBlockState): Int = 0 or state.getValue(HiiragiProperty.RAIL_SHAPE).metadata
+    override fun getMetaFromState(state: IBlockState): Int = 0 or state.getValue(HiiragiProperties.RAIL_SHAPE).metadata
 
     override fun getStateFromMeta(meta: Int): IBlockState =
-        defaultState.withProperty(HiiragiProperty.RAIL_SHAPE, EnumRailDirection.byMetadata(meta and 7))
+        defaultState.withProperty(HiiragiProperties.RAIL_SHAPE, EnumRailDirection.byMetadata(meta and 7))
 
     override fun withRotation(state: IBlockState, rot: Rotation): IBlockState = when (rot) {
-        Rotation.CLOCKWISE_180 -> when (state.getValue(HiiragiProperty.RAIL_SHAPE)) {
+        Rotation.CLOCKWISE_180 -> when (state.getValue(HiiragiProperties.RAIL_SHAPE)) {
             EnumRailDirection.ASCENDING_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_WEST
             )
 
             EnumRailDirection.ASCENDING_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_EAST
             )
 
             EnumRailDirection.ASCENDING_NORTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_SOUTH
             )
 
             EnumRailDirection.ASCENDING_SOUTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_NORTH
             )
 
             EnumRailDirection.SOUTH_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_WEST
             )
 
             EnumRailDirection.SOUTH_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_EAST
             )
 
             EnumRailDirection.NORTH_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.SOUTH_EAST
             )
 
             EnumRailDirection.NORTH_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.SOUTH_WEST
             )
 
             else -> state
         }
 
-        Rotation.COUNTERCLOCKWISE_90 -> when (state.getValue(HiiragiProperty.RAIL_SHAPE)) {
+        Rotation.COUNTERCLOCKWISE_90 -> when (state.getValue(HiiragiProperties.RAIL_SHAPE)) {
             EnumRailDirection.ASCENDING_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_NORTH
             )
 
             EnumRailDirection.ASCENDING_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_SOUTH
             )
 
             EnumRailDirection.ASCENDING_NORTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_WEST
             )
 
             EnumRailDirection.ASCENDING_SOUTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_EAST
             )
 
             EnumRailDirection.SOUTH_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_EAST
             )
 
             EnumRailDirection.SOUTH_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.SOUTH_EAST
             )
 
             EnumRailDirection.NORTH_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.SOUTH_WEST
             )
 
             EnumRailDirection.NORTH_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_WEST
             )
 
             EnumRailDirection.NORTH_SOUTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.EAST_WEST
             )
 
             EnumRailDirection.EAST_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_SOUTH
             )
 
             else -> state
         }
 
-        Rotation.CLOCKWISE_90 -> when (state.getValue(HiiragiProperty.RAIL_SHAPE)) {
+        Rotation.CLOCKWISE_90 -> when (state.getValue(HiiragiProperties.RAIL_SHAPE)) {
             EnumRailDirection.ASCENDING_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_SOUTH
             )
 
             EnumRailDirection.ASCENDING_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_NORTH
             )
 
             EnumRailDirection.ASCENDING_NORTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_EAST
             )
 
             EnumRailDirection.ASCENDING_SOUTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.ASCENDING_WEST
             )
 
             EnumRailDirection.SOUTH_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.SOUTH_WEST
             )
 
             EnumRailDirection.SOUTH_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_WEST
             )
 
             EnumRailDirection.NORTH_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_EAST
             )
 
             EnumRailDirection.NORTH_EAST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.SOUTH_EAST
             )
 
             EnumRailDirection.NORTH_SOUTH -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.EAST_WEST
             )
 
             EnumRailDirection.EAST_WEST -> state.withProperty(
-                HiiragiProperty.RAIL_SHAPE,
+                HiiragiProperties.RAIL_SHAPE,
                 EnumRailDirection.NORTH_SOUTH
             )
 
@@ -218,37 +218,37 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
     }
 
     override fun withMirror(state: IBlockState, mirrorIn: Mirror): IBlockState {
-        val railDirection: EnumRailDirection = state.getValue(HiiragiProperty.RAIL_SHAPE)
+        val railDirection: EnumRailDirection = state.getValue(HiiragiProperties.RAIL_SHAPE)
         return when (mirrorIn) {
             NONE -> state
             LEFT_RIGHT -> when (railDirection) {
                 EnumRailDirection.ASCENDING_NORTH -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.ASCENDING_SOUTH
                 )
 
                 EnumRailDirection.ASCENDING_SOUTH -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.ASCENDING_NORTH
                 )
 
                 EnumRailDirection.SOUTH_EAST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.NORTH_EAST
                 )
 
                 EnumRailDirection.SOUTH_WEST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.NORTH_WEST
                 )
 
                 EnumRailDirection.NORTH_WEST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.SOUTH_WEST
                 )
 
                 EnumRailDirection.NORTH_EAST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.SOUTH_EAST
                 )
 
@@ -257,32 +257,32 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
 
             FRONT_BACK -> when (railDirection) {
                 EnumRailDirection.ASCENDING_EAST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.ASCENDING_WEST
                 )
 
                 EnumRailDirection.ASCENDING_WEST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.ASCENDING_EAST
                 )
 
                 EnumRailDirection.SOUTH_EAST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.SOUTH_WEST
                 )
 
                 EnumRailDirection.SOUTH_WEST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.SOUTH_EAST
                 )
 
                 EnumRailDirection.NORTH_WEST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.NORTH_EAST
                 )
 
                 EnumRailDirection.NORTH_EAST -> state.withProperty(
-                    HiiragiProperty.RAIL_SHAPE,
+                    HiiragiProperties.RAIL_SHAPE,
                     EnumRailDirection.NORTH_WEST
                 )
 
@@ -293,7 +293,7 @@ object BlockCapabilityRail : BlockRailBase(false), ITileEntityProvider, HiiragiE
 
     //    BlockRailBase    //
 
-    override fun getShapeProperty(): IProperty<EnumRailDirection> = HiiragiProperty.RAIL_SHAPE
+    override fun getShapeProperty(): IProperty<EnumRailDirection> = HiiragiProperties.RAIL_SHAPE
 
     //    ITileEntityProvider    //
 

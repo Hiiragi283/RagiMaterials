@@ -1,4 +1,6 @@
-package hiiragi283.material.api.shape
+package hiiragi283.material.init
+
+import hiiragi283.material.api.shape.HiiragiShapeType
 
 object HiiragiShapeTypes {
 

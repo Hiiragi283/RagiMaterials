@@ -4,7 +4,7 @@ import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.*
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable

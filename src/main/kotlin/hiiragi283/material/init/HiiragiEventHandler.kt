@@ -1,18 +1,18 @@
-package hiiragi283.material
+package hiiragi283.material.init
 
+import hiiragi283.material.RMReference
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialCommon
-import hiiragi283.material.api.material.MaterialElements
 import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.part.getParts
 import hiiragi283.material.api.registry.HiiragiEntry
-import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.api.shape.HiiragiShapes
 import hiiragi283.material.api.tile.HiiragiProvider
 import hiiragi283.material.compat.RagiMaterialsPlugin
 import hiiragi283.material.config.HiiragiJSonHandler
+import hiiragi283.material.init.materials.MaterialCommons
+import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -52,7 +52,7 @@ object HiiragiEventHandler {
         MaterialElements.register()
 
         RagiMaterials.LOGGER.info("Registering Common Materials...")
-        MaterialCommon.register()
+        MaterialCommons.register()
 
         RagiMaterials.LOGGER.info("Registering Materials for Integration...")
         RagiMaterialsPlugin.registerMaterial()
@@ -64,16 +64,12 @@ object HiiragiEventHandler {
 
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
-        HiiragiRegistries.BLOCK.register(event.registry)
+        HiiragiRegistries.BLOCK.getValues().forEach(event.registry::register)
     }
 
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
-        HiiragiRegistries.ITEM.registerAll(
-            HiiragiRegistries.BLOCK.getValues().mapNotNull(HiiragiEntry.BLOCK::itemBlock)
-        )
-        HiiragiRegistries.ITEM.register(event.registry)
-
+        HiiragiRegistries.ITEM.getValues().forEach(event.registry::register)
     }
 
     private val keyInventory = hiiragiLocation("inventory")
@@ -107,6 +103,7 @@ object HiiragiEventHandler {
         @SubscribeEvent
         fun registerBlockColor(event: ColorHandlerEvent.Block) {
             HiiragiRegistries.BLOCK.getValues()
+                .filterIsInstance<HiiragiEntry.BLOCK>()
                 .filterNot { it.getBlockColor() == null }
                 .forEach { event.blockColors.registerBlockColorHandler(it.getBlockColor()!!, it.getObject()) }
         }
@@ -114,17 +111,23 @@ object HiiragiEventHandler {
         @SubscribeEvent
         fun registerItemColor(event: ColorHandlerEvent.Item) {
             HiiragiRegistries.BLOCK.getValues()
+                .filterIsInstance<HiiragiEntry.BLOCK>()
                 .filterNot { it.getItemColor() == null }
                 .forEach { event.itemColors.registerItemColorHandler(it.getItemColor()!!, it.getObject()) }
             HiiragiRegistries.ITEM.getValues()
+                .filterIsInstance<HiiragiEntry.ITEM>()
                 .filterNot { it.getItemColor() == null }
                 .forEach { event.itemColors.registerItemColorHandler(it.getItemColor()!!, it.getObject()) }
         }
 
         @SubscribeEvent
         fun registerModel(event: ModelRegistryEvent) {
-            HiiragiRegistries.BLOCK.registerModel()
-            HiiragiRegistries.ITEM.registerModel()
+            HiiragiRegistries.BLOCK.getValues()
+                .filterIsInstance<HiiragiEntry.BLOCK>()
+                .forEach(HiiragiEntry.BLOCK::registerModel)
+            HiiragiRegistries.ITEM.getValues()
+                .filterIsInstance<HiiragiEntry.ITEM>()
+                .forEach(HiiragiEntry.ITEM::registerModel)
         }
 
         @SubscribeEvent

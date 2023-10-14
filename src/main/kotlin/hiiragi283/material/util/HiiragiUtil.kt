@@ -5,7 +5,7 @@ package hiiragi283.material.util
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.init.HiiragiRegistries
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft

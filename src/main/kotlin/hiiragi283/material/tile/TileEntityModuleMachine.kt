@@ -7,12 +7,13 @@ import hiiragi283.material.api.capability.fluid.ModuleMachineFluidTank
 import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.capability.item.HiiragiItemHandlerWrapper
 import hiiragi283.material.api.capability.item.ModuleMachineInputItemHandler
+import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachinePropertyItem
-import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.tile.HiiragiTileEntity
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
@@ -33,7 +34,7 @@ import net.minecraftforge.items.CapabilityItemHandler
 import kotlin.math.min
 
 
-class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, HiiragiMaterial.TILE {
+class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, PartConvertible.TILE {
 
     override fun getDisplayName(): ITextComponent =
         TextComponentTranslation(machineProperty.recipeType.translationKey, material?.getTranslatedName())

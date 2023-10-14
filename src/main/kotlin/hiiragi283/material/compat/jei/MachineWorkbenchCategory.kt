@@ -1,9 +1,9 @@
 package hiiragi283.material.compat.jei
 
-import hiiragi283.material.HiiragiBlocks
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiBlocks
+import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.itemStackWild

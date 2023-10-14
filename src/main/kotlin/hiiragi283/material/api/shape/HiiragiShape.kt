@@ -4,7 +4,8 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.itemStack
 import net.minecraft.client.resources.I18n

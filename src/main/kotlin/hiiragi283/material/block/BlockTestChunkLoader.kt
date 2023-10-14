@@ -1,8 +1,8 @@
 package hiiragi283.material.block
 
 import hiiragi283.material.api.block.HiiragiBlock
-import hiiragi283.material.api.chunk.HiiragiChunkLoadCallback
 import hiiragi283.material.api.chunk.IBlockChunkLoader
+import hiiragi283.material.init.HiiragiChunkLoadCallback
 import hiiragi283.material.util.DimensionalBlockPos
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState

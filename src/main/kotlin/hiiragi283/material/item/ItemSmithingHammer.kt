@@ -1,8 +1,8 @@
 package hiiragi283.material.item
 
 import hiiragi283.material.api.item.HiiragiItem
-import hiiragi283.material.api.material.MaterialCommon
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiShapes
+import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.state.IBlockState
@@ -74,8 +74,8 @@ object ItemSmithingHammer : HiiragiItem("smithing_hammer") {
     override fun registerRecipe() {
         CraftingBuilder(this.itemStack())
             .setPattern(" A ", " BA", "B  ")
-            .setIngredient('A', HiiragiShapes.INGOT.getOreDict(MaterialCommon.STEEL))
-            .setIngredient('B', HiiragiShapes.STICK.getOreDict(MaterialCommon.WOOD))
+            .setIngredient('A', HiiragiShapes.INGOT.getOreDict(MaterialCommons.STEEL))
+            .setIngredient('B', HiiragiShapes.STICK.getOreDict(MaterialCommons.WOOD))
             .build()
     }
 

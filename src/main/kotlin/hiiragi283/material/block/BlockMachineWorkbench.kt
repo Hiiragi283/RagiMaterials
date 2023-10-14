@@ -1,11 +1,11 @@
 package hiiragi283.material.block
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.block.HiiragiBlock
 import hiiragi283.material.api.item.HiiragiItemBlock
-import hiiragi283.material.api.material.MaterialCommon
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiCreativeTabs
+import hiiragi283.material.init.HiiragiShapes
+import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.SimpleColorProvider
 import hiiragi283.material.util.itemStack
@@ -61,7 +61,7 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
             .setIngredient('A', Blocks.CONCRETE.itemStack(meta = EnumDyeColor.BLACK.metadata))
             .setIngredient('B', "dyeRed")
             .setIngredient('C', "workbench")
-            .setIngredient('D', HiiragiShapes.PLATE.getOreDict(MaterialCommon.STEEL))
+            .setIngredient('D', HiiragiShapes.PLATE.getOreDict(MaterialCommons.STEEL))
             .build()
     }
 

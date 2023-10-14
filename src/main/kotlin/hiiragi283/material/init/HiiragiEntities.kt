@@ -1,5 +1,7 @@
-package hiiragi283.material
+package hiiragi283.material.init
 
+import hiiragi283.material.RMReference
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.entity.EntityMinecartTank
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.entity.Entity

@@ -7,22 +7,21 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.registry.HiiragiEntry
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.api.shape.HiiragiShapeTypes
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.init.HiiragiShapeTypes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getTileImplemented
-import hiiragi283.material.util.item
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.resources.I18n
-import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
@@ -103,7 +102,7 @@ data class HiiragiMaterial(
         FluidRegistry.addBucketForFluid(fluid)
         fluidBlock(fluid)?.let { block: Block ->
             fluid.block = block
-            (block as? HiiragiEntry.BLOCK)?.let(HiiragiRegistries.BLOCK::register)
+            (block as? HiiragiEntry.BLOCK)?.register()
             FluidRegistry.registerFluid(fluid)
         }
     }
@@ -198,7 +197,7 @@ data class HiiragiMaterial(
 
         @JvmField
         val BLOCK_COLOR: IBlockColor = IBlockColor { _: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
-            getTileImplemented<TILE>(world, pos)?.material?.color ?: -1
+            getTileImplemented<PartConvertible.TILE>(world, pos)?.material?.color ?: -1
         }
 
         @JvmField
@@ -217,35 +216,6 @@ data class HiiragiMaterial(
             return
         }
         HiiragiRegistries.MATERIAL_INDEX.register(index, this)
-    }
-
-    //    Interface    //
-
-    interface BLOCK : ITEM {
-
-        fun getMaterial(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): HiiragiMaterial? =
-            getTileImplemented<TILE>(world, pos)?.material
-
-        fun block() = this as Block
-
-        override fun item(): Item = block().item()
-
-    }
-
-    interface ITEM {
-
-        val shape: HiiragiShape
-
-        fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
-
-        fun item(): Item = this as Item
-
-    }
-
-    interface TILE {
-
-        var material: HiiragiMaterial?
-
     }
 
     //    HiiragiJsonSerializable    //

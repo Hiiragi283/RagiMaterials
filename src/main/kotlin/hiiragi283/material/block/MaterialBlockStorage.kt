@@ -2,7 +2,7 @@ package hiiragi283.material.block
 
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.itemStack

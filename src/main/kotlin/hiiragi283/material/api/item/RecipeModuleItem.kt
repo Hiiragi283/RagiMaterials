@@ -1,8 +1,9 @@
 package hiiragi283.material.api.item
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.formulaOf
+import hiiragi283.material.init.HiiragiCreativeTabs
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.appendBefore
 import hiiragi283.material.util.setModelAlt
 import net.minecraft.item.ItemStack
@@ -25,6 +26,10 @@ class RecipeModuleItem(val recipeType: MachineType) : HiiragiItem("recipe_module
     }
 
     //    HiiragiEntry    //
+
+    override fun onRegister() {
+        HiiragiRegistries.RECIPE_MODULE.register(recipeType, this)
+    }
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {

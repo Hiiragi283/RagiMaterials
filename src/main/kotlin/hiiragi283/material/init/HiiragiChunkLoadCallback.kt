@@ -1,7 +1,9 @@
-package hiiragi283.material.api.chunk
+package hiiragi283.material.init
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.chunk.IBlockChunkLoader
+import hiiragi283.material.api.chunk.IEntityChunkLoader
 import hiiragi283.material.util.DimensionalBlockPos
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getBlockImplemented

@@ -5,12 +5,12 @@ import hiiragi283.material.api.capability.item.HiiragiItemHandler
 import hiiragi283.material.api.container.HiiragiContainer
 import hiiragi283.material.api.container.SlotItemHandlerControllable
 import hiiragi283.material.api.item.RecipeModuleItem
+import hiiragi283.material.api.machine.MachineModuleItem
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.module.ModuleItem
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.item.MaterialItemBlockCasing
 import hiiragi283.material.util.*
 import net.minecraft.entity.player.EntityPlayer
@@ -52,7 +52,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
         val baseProperty: MachineProperty = casingItem.toMachineProperty(casing)
         val material: HiiragiMaterial? = casingItem.getMaterial(casing)
 
-        val moduleProperty: ModuleItem? = module.getItemImplemented<ModuleItem>()
+        val moduleProperty: MachineModuleItem? = module.getItemImplemented<MachineModuleItem>()
 
         if (moduleProperty == null) {
             outputInventory.setStackInSlot(0, machineBlock.createMachineStack(material, baseProperty))
@@ -87,7 +87,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
             override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<RecipeModuleItem>()
         })
         addSlotToContainer(object : SlotItemHandler(inputInventory, 2, getSlotPosX(4), getSlotPosY(1)) {
-            override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<ModuleItem>()
+            override fun isItemValid(stack: ItemStack): Boolean = stack.isItemImplemented<MachineModuleItem>()
         })
         addSlotToContainer(object : SlotItemHandlerControllable(outputInventory, 0, getSlotPosX(6), getSlotPosY(1)) {
             override fun onTake(player: EntityPlayer, stack: ItemStack): ItemStack {

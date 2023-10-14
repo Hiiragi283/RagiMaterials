@@ -1,8 +1,8 @@
 package hiiragi283.material.block
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.block.HiiragiBlockContainer
+import hiiragi283.material.init.HiiragiCreativeTabs
 import hiiragi283.material.tile.TileEntityMachineExtender
 import hiiragi283.material.util.SimpleColorProvider
 import net.minecraft.block.BlockDirectional

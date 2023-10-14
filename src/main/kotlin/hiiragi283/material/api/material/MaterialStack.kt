@@ -1,6 +1,6 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.init.HiiragiRegistries
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.fluids.Fluid

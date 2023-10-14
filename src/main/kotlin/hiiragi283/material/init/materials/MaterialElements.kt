@@ -1,7 +1,9 @@
-package hiiragi283.material.api.material
+package hiiragi283.material.init.materials
 
-import hiiragi283.material.api.shape.HiiragiShapeTypes
+import hiiragi283.material.api.material.isotopeOf
+import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.config.HiiragiConfigs
+import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiColor
 
 /**

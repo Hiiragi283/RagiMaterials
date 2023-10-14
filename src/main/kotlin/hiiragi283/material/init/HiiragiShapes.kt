@@ -1,5 +1,6 @@
-package hiiragi283.material.api.shape
+package hiiragi283.material.init
 
+import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.enableAccess
 import java.lang.reflect.Field
 

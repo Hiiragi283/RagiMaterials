@@ -1,15 +1,15 @@
 package hiiragi283.material.item.material
 
-import hiiragi283.material.api.item.MaterialItemNew
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.append
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.toLocation
 import net.minecraft.item.ItemStack
 
-object MaterialItemIngot : MaterialItemNew(HiiragiShapes.INGOT) {
+object MaterialItemIngot : MaterialItem(HiiragiShapes.INGOT) {
 
     override fun addRecipes(material: HiiragiMaterial) {
         // 9x Nugget -> 1x Ingot

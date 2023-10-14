@@ -1,15 +1,15 @@
 package hiiragi283.material.proxy
 
 import com.google.gson.JsonElement
-import hiiragi283.material.*
-import hiiragi283.material.api.chunk.HiiragiChunkLoadCallback
+import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.compat.RagiMaterialsPlugin
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.config.HiiragiJSonHandler
+import hiiragi283.material.init.*
 import hiiragi283.material.network.HiiragiNetworkManager
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
@@ -57,11 +57,19 @@ abstract class HiiragiProxy : IHiiragiProxy {
         //レジストリへの登録
         HiiragiRegistries.registerPart()
         //鉱石辞書の登録
-        HiiragiRegistries.BLOCK.registerOreDict()
-        HiiragiRegistries.ITEM.registerOreDict()
+        HiiragiRegistries.BLOCK.getValues()
+            .filterIsInstance<HiiragiEntry.BLOCK>()
+            .forEach(HiiragiEntry.BLOCK::registerOreDict)
+        HiiragiRegistries.ITEM.getValues()
+            .filterIsInstance<HiiragiEntry.ITEM>()
+            .forEach(HiiragiEntry.ITEM::registerOreDict)
         //レシピの登録
-        HiiragiRegistries.BLOCK.registerRecipe()
-        HiiragiRegistries.ITEM.registerRecipe()
+        HiiragiRegistries.BLOCK.getValues()
+            .filterIsInstance<HiiragiEntry.BLOCK>()
+            .forEach(HiiragiEntry.BLOCK::registerRecipe)
+        HiiragiRegistries.ITEM.getValues()
+            .filterIsInstance<HiiragiEntry.ITEM>()
+            .forEach(HiiragiEntry.ITEM::registerRecipe)
         HiiragiRecipes.init()
         //連携の登録
         RagiMaterialsPlugin.onInit(event)

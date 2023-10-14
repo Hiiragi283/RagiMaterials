@@ -2,6 +2,7 @@
 
 package hiiragi283.material.api.material
 
+import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.HiiragiColor
 import java.awt.Color
 import kotlin.math.roundToInt
@@ -202,14 +203,14 @@ fun hydrateOf(
 
 fun initHydrate(hydrate: HiiragiMaterial, parent: HiiragiMaterial, amountWater: Int) {
     initFormula(hydrate, parent, amountWater)
-    hydrate.molar = parent.molar + amountWater * MaterialCommon.WATER.molar
+    hydrate.molar = parent.molar + amountWater * MaterialCommons.WATER.molar
 }
 
 fun initFormula(hydrate: HiiragiMaterial, parent: HiiragiMaterial, amountWater: Int) {
     hydrate.formula = StringBuilder(parent.formula).also { builder: StringBuilder ->
         builder.append("・")
         builder.append(amountWater)
-        builder.append(MaterialCommon.WATER.formula)
+        builder.append(MaterialCommons.WATER.formula)
     }.toString()
 }
 

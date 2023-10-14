@@ -1,8 +1,8 @@
 package hiiragi283.material.api.item
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.init.HiiragiCreativeTabs
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack

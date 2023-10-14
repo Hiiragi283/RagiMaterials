@@ -1,14 +1,15 @@
-package hiiragi283.material.api.material
+package hiiragi283.material.init.materials
 
 import hiiragi283.material.api.fluid.MaterialFluidBlock
-import hiiragi283.material.api.shape.HiiragiShapeTypes
+import hiiragi283.material.api.material.*
+import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.enableAccess
 import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
 import java.lang.reflect.Field
 
-object MaterialCommon {
+object MaterialCommons {
 
     @JvmField
     val HYDROXIDE = compoundOf("hydroxide", -1, mapOf(MaterialElements.OXYGEN to 1, MaterialElements.HYDROGEN to 1)) {

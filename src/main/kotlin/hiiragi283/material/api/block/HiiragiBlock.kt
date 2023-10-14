@@ -1,11 +1,11 @@
 package hiiragi283.material.api.block
 
-import hiiragi283.material.HiiragiCreativeTabs
-import hiiragi283.material.HiiragiGuiHandler
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.registry.HiiragiEntry
+import hiiragi283.material.init.HiiragiCreativeTabs
+import hiiragi283.material.init.HiiragiGuiHandler
 import hiiragi283.material.util.itemStack
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material

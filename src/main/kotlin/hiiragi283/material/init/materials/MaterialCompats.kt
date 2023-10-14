@@ -1,10 +1,11 @@
-package hiiragi283.material.api.material
+package hiiragi283.material.init.materials
 
-import hiiragi283.material.api.shape.HiiragiShapeTypes
+import hiiragi283.material.api.material.*
 import hiiragi283.material.compat.HiiragiThermalPlugin
+import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiColor
 
-object MaterialCompat {
+object MaterialCompats {
 
     //    Vanilla    //
 
@@ -100,7 +101,7 @@ object MaterialCompat {
     val CRYOTHEUM = compoundOf(
         "cryotheum",
         1015,
-        mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommon.WATER.addBracket() to 1)
+        mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommons.WATER.addBracket() to 1)
     ) {
         color = HiiragiColor.AQUA.rgb
         if (HiiragiThermalPlugin.enabled()) {
@@ -112,7 +113,7 @@ object MaterialCompat {
     val AEROTHEUM = compoundOf(
         "aerotheum",
         1016,
-        mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommon.NITER.addBracket() to 1)
+        mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommons.NITER.addBracket() to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
         if (HiiragiThermalPlugin.enabled()) {
@@ -124,7 +125,7 @@ object MaterialCompat {
     val PETROTHEUM = compoundOf(
         "petrotheum",
         1017,
-        mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommon.OBSIDIAN.addBracket() to 1)
+        mapOf(HiiragiMaterial.UNKNOWN to 2, REDSTONE to 1, MaterialCommons.OBSIDIAN.addBracket() to 1)
     ) {
         color =
             HiiragiColor.mixColor(
@@ -144,7 +145,7 @@ object MaterialCompat {
     val OBSIDIAN_REFINED = alloyOf(
         "refined_obsidian",
         1020,
-        mapOf(MaterialCommon.OBSIDIAN.addBracket() to 1, MaterialElements.OSMIUM to 1, MaterialCommon.DIAMOND to 1)
+        mapOf(MaterialCommons.OBSIDIAN.addBracket() to 1, MaterialElements.OSMIUM to 1, MaterialCommons.DIAMOND to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.BLUE to 5, HiiragiColor.WHITE to 2).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
@@ -228,7 +229,7 @@ object MaterialCompat {
     val DARK_STEEL = mixtureOf(
         "dark_steel",
         1036,
-        listOf(MaterialElements.IRON, MaterialElements.CARBON, MaterialCommon.OBSIDIAN)
+        listOf(MaterialElements.IRON, MaterialElements.CARBON, MaterialCommons.OBSIDIAN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 1, HiiragiColor.DARK_GRAY to 3).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
@@ -240,7 +241,7 @@ object MaterialCompat {
     val SOULARIUM = alloyOf(
         "soularium",
         1037,
-        mapOf(MaterialElements.GOLD to 1, MaterialCommon.SOUL_SAND.addBracket() to 1)
+        mapOf(MaterialElements.GOLD to 1, MaterialCommons.SOUL_SAND.addBracket() to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GRAY to 5, HiiragiColor.GOLD to 1).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
@@ -250,7 +251,7 @@ object MaterialCompat {
     val END_STEEL = mixtureOf(
         "end_steel",
         1038,
-        listOf(DARK_STEEL, MaterialCommon.END_STONE, MaterialCommon.OBSIDIAN)
+        listOf(DARK_STEEL, MaterialCommons.END_STONE, MaterialCommons.OBSIDIAN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.YELLOW to 1, HiiragiColor.WHITE to 3).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
@@ -306,7 +307,7 @@ object MaterialCompat {
     }
 
     @JvmField
-    val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommon.DIAMOND, MANA)) {
+    val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.AQUA.rgb
         shapeType = HiiragiShapeTypes.GEM_DIAMOND
     }
@@ -328,7 +329,7 @@ object MaterialCompat {
     }
 
     @JvmField
-    val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommon.DIAMOND, MANA)) {
+    val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         shapeType = HiiragiShapeTypes.GEM_DIAMOND
     }
@@ -397,7 +398,7 @@ object MaterialCompat {
     //    Immersive Engineering    //
 
     @JvmField
-    val TREATED_WOOD = mixtureOf("treated_wood", 1090, listOf(MaterialCommon.WOOD)) {
+    val TREATED_WOOD = mixtureOf("treated_wood", 1090, listOf(MaterialCommons.WOOD)) {
         shapeType = HiiragiShapeTypes.WOOD
     }
 

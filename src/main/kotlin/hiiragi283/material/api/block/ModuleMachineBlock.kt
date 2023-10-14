@@ -1,12 +1,13 @@
 package hiiragi283.material.api.block
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.item.ModuleMachineItemBlock
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.tile.HiiragiTileEntity
+import hiiragi283.material.init.HiiragiCreativeTabs
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.*
 import net.minecraft.block.BlockHorizontal
@@ -105,6 +106,11 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
         state.withProperty(BlockHorizontal.FACING, rot.rotate(state.getValue(BlockHorizontal.FACING)))
 
     //    HiiragiEntry    //
+
+    override fun onRegister() {
+        super.onRegister()
+        HiiragiRegistries.BLOCK_MACHINE.register(type, this)
+    }
 
     @SideOnly(Side.CLIENT)
     override fun getBlockColor(): IBlockColor = HiiragiMaterial.BLOCK_COLOR

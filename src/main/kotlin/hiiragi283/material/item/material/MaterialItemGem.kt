@@ -1,11 +1,11 @@
 package hiiragi283.material.item.material
 
-import hiiragi283.material.api.item.MaterialItemNew
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
 import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.api.shape.HiiragiShapeTypes
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.init.HiiragiShapeTypes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.append
 import hiiragi283.material.util.itemStack
@@ -16,7 +16,7 @@ import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object MaterialItemGem : MaterialItemNew(HiiragiShapes.GEM) {
+object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
 
     override fun addRecipes(material: HiiragiMaterial) {
         // 1x Block -> 9x Gem

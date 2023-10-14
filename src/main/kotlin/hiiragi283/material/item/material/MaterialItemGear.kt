@@ -1,13 +1,13 @@
 package hiiragi283.material.item.material
 
-import hiiragi283.material.HiiragiItems
-import hiiragi283.material.api.item.MaterialItemNew
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiItems
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
 
-object MaterialItemGear : MaterialItemNew(HiiragiShapes.GEAR) {
+object MaterialItemGear : MaterialItem(HiiragiShapes.GEAR) {
 
     override fun addRecipes(material: HiiragiMaterial) {
         // 4x Ingot + 1x Smithing Hammer -> 1x Gear

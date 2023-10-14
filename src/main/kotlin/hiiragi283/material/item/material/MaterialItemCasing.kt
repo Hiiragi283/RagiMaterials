@@ -1,13 +1,13 @@
 package hiiragi283.material.item.material
 
-import hiiragi283.material.HiiragiItems
-import hiiragi283.material.api.item.MaterialItemNew
+import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiItems
+import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
 import net.minecraft.client.util.ITooltipFlag
@@ -16,7 +16,7 @@ import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-object MaterialItemCasingNew : MaterialItemNew(HiiragiShapes.CASING), MachinePropertyItem {
+object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), MachinePropertyItem {
 
     override fun addRecipes(material: HiiragiMaterial) {
         // 8x Plate + 1x Smithing Hammer -> 1x Casing

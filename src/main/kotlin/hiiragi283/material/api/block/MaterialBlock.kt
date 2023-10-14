@@ -1,11 +1,12 @@
 package hiiragi283.material.api.block
 
-import hiiragi283.material.HiiragiCreativeTabs
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.registry.HiiragiRegistries
+import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.tile.MaterialTileEntity
+import hiiragi283.material.init.HiiragiCreativeTabs
+import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.setModelSame
@@ -32,7 +33,7 @@ abstract class MaterialBlock(
     Material.IRON,
     shape.name,
     { MaterialTileEntity() }
-), HiiragiMaterial.BLOCK {
+), PartConvertible.BLOCK {
 
     override val itemBlock = MaterialItemBlock(this)
 
@@ -66,6 +67,7 @@ abstract class MaterialBlock(
     //    HiiragiEntry    //
 
     override fun onRegister() {
+        super.onRegister()
         HiiragiRegistries.MATERIAL_BLOCK.register(shape, this)
     }
 

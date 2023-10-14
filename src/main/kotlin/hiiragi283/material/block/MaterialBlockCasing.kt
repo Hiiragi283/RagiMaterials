@@ -1,10 +1,10 @@
 package hiiragi283.material.block
 
-import hiiragi283.material.HiiragiItems
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShapes
+import hiiragi283.material.init.HiiragiItems
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.item.MaterialItemBlockCasing
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
