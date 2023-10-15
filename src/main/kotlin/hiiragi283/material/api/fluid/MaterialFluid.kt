@@ -9,8 +9,8 @@ import net.minecraftforge.fluids.Fluid
 
 class MaterialFluid(
     val material: HiiragiMaterial,
-    still: ResourceLocation = ResourceLocation("blocks/concrete_white"),
-    flowing: ResourceLocation = still
+    still: ResourceLocation,
+    flowing: ResourceLocation
 ) : Fluid(material.name, still, flowing) {
 
     init {

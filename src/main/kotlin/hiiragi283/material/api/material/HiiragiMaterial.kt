@@ -11,6 +11,7 @@ import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
+import hiiragi283.material.compat.HiiragiTConPlugin
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
@@ -23,6 +24,7 @@ import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fluids.Fluid
@@ -57,6 +59,7 @@ import rechellatek.snakeToUpperCamelCase
  * @param tempMelt melting point with kelvin Temperature, 0 or less will be ignored
  * @param translationKey can be overridden
  */
+
 data class HiiragiMaterial(
     val name: String,
     val index: Int,
@@ -71,7 +74,7 @@ data class HiiragiMaterial(
 
     val oreDictAlt: MutableList<String> = mutableListOf()
     var fluidBlock: (Fluid) -> Block? = { null }
-    var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
+    var fluidSupplier: (ResourceLocation, ResourceLocation) -> Fluid? = { texStill, texFlow -> MaterialFluid(this, texStill, texFlow) }
     var machineProperty: MachineProperty? = null
 
     fun addBracket() = copy(formula = "($formula)")
@@ -96,7 +99,7 @@ data class HiiragiMaterial(
     }
 
     fun createFluid() {
-        val fluid: Fluid = fluidSupplier() ?: return
+        val fluid: Fluid = fluidSupplier(HiiragiTConPlugin.getTexStill(), HiiragiTConPlugin.getTexFlow()) ?: return
         if (FluidRegistry.isFluidRegistered(name)) return
         FluidRegistry.registerFluid(fluid)
         FluidRegistry.addBucketForFluid(fluid)
@@ -230,7 +233,7 @@ data class HiiragiMaterial(
         root.addProperty("color", color)
         root.addProperty("formula", formula)
 
-        val fluid: Fluid? = fluidSupplier()
+        val fluid: Fluid? = fluidSupplier(HiiragiTConPlugin.getTexStill(), HiiragiTConPlugin.getTexFlow())
         if (fluid == null) {
             root.addProperty("has_fluid", false)
             root.addProperty("has_fluid_block", false)

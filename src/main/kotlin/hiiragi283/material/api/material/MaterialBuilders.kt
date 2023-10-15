@@ -9,11 +9,8 @@ import kotlin.math.roundToInt
 
 //    Material    //
 
-fun materialOf(name: String, index: Int, init: HiiragiMaterial.() -> Unit = {}): HiiragiMaterial {
-    val material = HiiragiMaterial(name, index)
-    material.init()
-    return material
-}
+fun materialOf(name: String, index: Int, init: HiiragiMaterial.() -> Unit = {}): HiiragiMaterial =
+    HiiragiMaterial(name, index).also(init)
 
 //    Isotope    //
 
@@ -22,16 +19,12 @@ fun isotopeOf(
     index: Int,
     parent: HiiragiMaterial,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val isotope: HiiragiMaterial = HiiragiMaterial(name, index).also { material ->
-        material.color = parent.color
-        material.tempBoil = parent.tempBoil
-        material.tempMelt = parent.tempMelt
-        material.shapeType = parent.shapeType
-    }
-    isotope.init()
-    return isotope
-}
+): HiiragiMaterial = materialOf(name, index) {
+    color = parent.color
+    tempBoil = parent.tempBoil
+    tempMelt = parent.tempMelt
+    shapeType = parent.shapeType
+}.also(init)
 
 //    Compound    //
 
@@ -40,12 +33,7 @@ fun compoundOf(
     index: Int,
     components: Map<HiiragiMaterial, Int>,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val compound = HiiragiMaterial(name, index)
-    initCompound(compound, components)
-    compound.init()
-    return compound
-}
+): HiiragiMaterial = materialOf(name, index) { initCompound(this, components) }.also(init)
 
 private fun initCompound(compound: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
     initColor(compound, components)
@@ -98,13 +86,10 @@ fun allotropeOf(
     index: Int,
     parent: HiiragiMaterial,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val allotrope: HiiragiMaterial = isotopeOf(name, index, parent)
-    allotrope.formula = parent.formula
-    allotrope.molar = parent.molar
-    allotrope.init()
-    return allotrope
-}
+): HiiragiMaterial = isotopeOf(name, index, parent) {
+    formula = parent.formula
+    molar = parent.molar
+}.also(init)
 
 //    Alloy    //
 
@@ -113,19 +98,15 @@ fun alloyOf(
     index: Int,
     components: Map<HiiragiMaterial, Int>,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val alloy = HiiragiMaterial(name, index)
-    initCompound(alloy, components)
-    initAlloy(alloy, components)
-    alloy.init()
-    return alloy
-}
+): HiiragiMaterial = materialOf(name, index) {
+    initCompound(this, components)
+    initAlloy(this, components)
+}.also(init)
 
 private fun initAlloy(alloy: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
     initTempBoil(alloy, components)
     initTempMelt(alloy, components)
 }
-
 
 //沸点を自動で生成
 private fun initTempBoil(alloy: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
@@ -160,12 +141,7 @@ fun mixtureOf(
     index: Int,
     components: List<HiiragiMaterial>,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val mixture = HiiragiMaterial(name, index)
-    initMixture(mixture, components)
-    mixture.init()
-    return mixture
-}
+): HiiragiMaterial = materialOf(name, index) { initMixture(this, components) }.also(init)
 
 private fun initMixture(mixture: HiiragiMaterial, components: List<HiiragiMaterial>) {
     initFormula(mixture, components)
@@ -194,12 +170,7 @@ fun hydrateOf(
     parent: HiiragiMaterial,
     amountWater: Int,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val hydrate = HiiragiMaterial(name, index)
-    initHydrate(hydrate, parent, amountWater)
-    hydrate.init()
-    return hydrate
-}
+): HiiragiMaterial = materialOf(name, index) { initHydrate(this, parent, amountWater) }.also(init)
 
 fun initHydrate(hydrate: HiiragiMaterial, parent: HiiragiMaterial, amountWater: Int) {
     initFormula(hydrate, parent, amountWater)
@@ -221,11 +192,8 @@ fun polymerOf(
     index: Int,
     monomar: Map<HiiragiMaterial, Int>,
     init: HiiragiMaterial.() -> Unit = {}
-): HiiragiMaterial {
-    val polymer = HiiragiMaterial(name, index)
-    initCompound(polymer, monomar)
-    polymer.formula = "(${polymer.formula})n"
-    polymer.molar = -1.0 //Invalidate molar
-    polymer.init()
-    return polymer
-}
+): HiiragiMaterial = materialOf(name, index) {
+    initCompound(this, monomar)
+    formula = "(${formula})n"
+    molar = -1.0 //Invalidate molar
+}.also(init)
