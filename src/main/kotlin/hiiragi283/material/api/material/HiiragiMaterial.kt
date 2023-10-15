@@ -11,7 +11,6 @@ import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.compat.HiiragiTConPlugin
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
@@ -24,7 +23,6 @@ import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
 import net.minecraftforge.fluids.Fluid
@@ -74,7 +72,7 @@ data class HiiragiMaterial(
 
     val oreDictAlt: MutableList<String> = mutableListOf()
     var fluidBlock: (Fluid) -> Block? = { null }
-    var fluidSupplier: (ResourceLocation, ResourceLocation) -> Fluid? = { texStill, texFlow -> MaterialFluid(this, texStill, texFlow) }
+    var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
     var machineProperty: MachineProperty? = null
 
     fun addBracket() = copy(formula = "($formula)")
@@ -99,7 +97,7 @@ data class HiiragiMaterial(
     }
 
     fun createFluid() {
-        val fluid: Fluid = fluidSupplier(HiiragiTConPlugin.getTexStill(), HiiragiTConPlugin.getTexFlow()) ?: return
+        val fluid: Fluid = fluidSupplier() ?: return
         if (FluidRegistry.isFluidRegistered(name)) return
         FluidRegistry.registerFluid(fluid)
         FluidRegistry.addBucketForFluid(fluid)
@@ -153,13 +151,13 @@ data class HiiragiMaterial(
 
     fun isFluid(): Boolean = isGas() || isLiquid()
 
-    fun isGas(): Boolean = HiiragiShapes.GAS.isValid(this)
+    fun isGas(): Boolean = HiiragiShapes.GAS.isValid(this) || tempBoil < 298
 
-    fun isLiquid(): Boolean = HiiragiShapes.LIQUID.isValid(this)
+    fun isLiquid(): Boolean = HiiragiShapes.LIQUID.isValid(this) || (tempMelt < 298 && tempBoil >= 298)
 
     fun isValidIndex(): Boolean = index >= 0
 
-    fun isSolid(): Boolean = HiiragiShapes.SOLID.isValid(this)
+    fun isSolid(): Boolean = HiiragiShapes.SOLID.isValid(this) || tempMelt >= 298
 
     fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
 
@@ -233,7 +231,7 @@ data class HiiragiMaterial(
         root.addProperty("color", color)
         root.addProperty("formula", formula)
 
-        val fluid: Fluid? = fluidSupplier(HiiragiTConPlugin.getTexStill(), HiiragiTConPlugin.getTexFlow())
+        val fluid: Fluid? = fluidSupplier()
         if (fluid == null) {
             root.addProperty("has_fluid", false)
             root.addProperty("has_fluid_block", false)

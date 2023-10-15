@@ -1,6 +1,7 @@
 package hiiragi283.material.compat
 
 import hiiragi283.material.RMReference
+import hiiragi283.material.compat.tcon.HiiragiTConPlugin
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.init.materials.MaterialCommons

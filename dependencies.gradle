@@ -23,6 +23,7 @@
  */
 dependencies {
 
+    implementation("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.684")
     implementation(rfg.deobf("curse.maven:baubles-227083:2518667"))
     implementation(rfg.deobf("curse.maven:had-enough-items-557549:4451828"))
     implementation(rfg.deobf("curse.maven:redstone-flux-270789:2920436"))
@@ -128,12 +129,14 @@ dependencies {
     }
 
     //Tinker's Construct
-    def tcon = rfg.deobf("curse.maven:tinkers-construct-74072:2902483")
+    def mantle = rfg.deobf("slimeknights.mantle:Mantle:1.12-1.3.3.55")
+    def tcon = rfg.deobf("slimeknights:TConstruct:1.12.2-2.13.0.183")
     if (enable_tcon.toBoolean()) {
         implementation(tcon)
-        runtimeOnly(rfg.deobf("curse.maven:mantle-74924:2713386"))
+        runtimeOnly(mantle)
     } else {
         compileOnly(tcon)
+        compileOnly(mantle)
     }
 
 }

@@ -43,7 +43,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
         override fun getRegistry(): HiiragiRegistry<String, Block> = HiiragiRegistries.BLOCK
 
         override fun onRegister() {
-            itemBlock?.let { HiiragiRegistries.ITEM.register(it.registryName!!.path, it) }
+            itemBlock?.register()
         }
 
         @SideOnly(Side.CLIENT)

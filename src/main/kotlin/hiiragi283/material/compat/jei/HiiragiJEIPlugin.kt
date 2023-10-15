@@ -74,7 +74,7 @@ class HiiragiJEIPlugin : IModPlugin {
         //HiiragiMaterial
         registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
         registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
-        registry.addRecipeCatalyst(Items.IRON_INGOT, MATERIAL)
+        registry.addRecipeCatalyst(Items.IRON_INGOT.itemStack(), MATERIAL)
         //Machine Workbench
         registry.handleRecipes(MachineType::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
         registry.addRecipes(MachineType.values().toList(), MACHINE_WORKBENCH)
