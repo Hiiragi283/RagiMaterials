@@ -58,9 +58,10 @@ import rechellatek.snakeToUpperCamelCase
  * @param translationKey can be overridden
  */
 
-data class HiiragiMaterial(
+class HiiragiMaterial private constructor(
     val name: String,
     val index: Int,
+    val type: MaterialType,
     var color: Int = 0xFFFFFF,
     var formula: String = "",
     var molar: Double = 0.0,
@@ -75,7 +76,7 @@ data class HiiragiMaterial(
     var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
     var machineProperty: MachineProperty? = null
 
-    fun addBracket() = copy(formula = "($formula)")
+    fun addBracket() = HiiragiMaterial(name, index, type, color, "($formula)", molar, shapeType, tempBoil, tempMelt)
 
     fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
         addTooltip(tooltip, shape.getTranslatedName(this), shape.scale)
@@ -206,6 +207,17 @@ data class HiiragiMaterial(
             HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.color ?: -1
         }
 
+        @JvmStatic
+        fun of(
+            name: String,
+            index: Int,
+            type: MaterialType,
+            component: Map<HiiragiMaterial, Int>,
+            init: HiiragiMaterial.() -> Unit = {}
+        ): HiiragiMaterial = HiiragiMaterial(name, index, type)
+            .also { type.preInit(it, component) }
+            .also(init)
+            .also { type.postInit(it, component) }
     }
 
     //    Registration    //
@@ -227,6 +239,7 @@ data class HiiragiMaterial(
 
         root.addProperty("name", name)
         root.addProperty("index", index)
+        root.addProperty("type", type.name)
 
         root.addProperty("color", color)
         root.addProperty("formula", formula)

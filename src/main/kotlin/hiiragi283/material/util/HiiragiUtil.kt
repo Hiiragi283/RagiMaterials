@@ -414,3 +414,7 @@ fun getEnumRarity(name: String): IRarity {
 }
 
 fun isShiftPressed(): Boolean = Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
+
+val EMPTY_CONSUMER: (Any?) -> Unit = {  }
+
+val EMPTY_BICONSUMER: (Any?, Any?) -> Unit = { _, _ -> }

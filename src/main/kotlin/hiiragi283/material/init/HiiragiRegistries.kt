@@ -7,6 +7,7 @@ import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialType
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.part.createAllParts
@@ -84,6 +85,9 @@ object HiiragiRegistries {
         MATERIAL_INDEX.sort { (index: Int, _: HiiragiMaterial) -> index }
         MATERIAL_INDEX.lock()
     }
+
+    @JvmField
+    val MATERIAL_TYPE: HiiragiRegistry<String, MaterialType> = HiiragiRegistry("Material Type")
 
     //    Part    //
 

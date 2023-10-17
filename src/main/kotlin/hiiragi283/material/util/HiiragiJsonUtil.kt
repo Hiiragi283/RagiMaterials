@@ -12,7 +12,7 @@ import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.materialOf
+import hiiragi283.material.api.material.MaterialType
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
@@ -98,11 +98,14 @@ object HiiragiJsonUtil {
 
         val root: JsonObject = jsonElement.asJsonObject
 
-        val jsonName: String = root.getAsJsonPrimitive("name")?.asString ?: return null
-        val jsonIndex: Int = root.getAsJsonPrimitive("index")?.asInt ?: return null
+        val jsonName: String = root.getAsJsonPrimitive("name").asString
+        val jsonIndex: Int = root.getAsJsonPrimitive("index").asInt
+        val jsonType: MaterialType = HiiragiRegistries.MATERIAL_TYPE.getValue(
+            root.getAsJsonPrimitive("type").asString
+        ) ?: return null
         if (jsonName.isEmpty() || jsonIndex < 0) return null
 
-        val material: HiiragiMaterial = materialOf(jsonName, jsonIndex)
+        val material: HiiragiMaterial = HiiragiMaterial.of(jsonName, jsonIndex, jsonType, mapOf())
 
         setValue(root, "color", JsonPrimitive::getAsInt) { color -> material.color = color }
 
