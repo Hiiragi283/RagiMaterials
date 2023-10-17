@@ -1,5 +1,42 @@
 # CHANGELOG
 
+## v1.3.1
+
+- [WIP] Adding new compat with CraftTweaker
+  - Planned: Adding materials/machine recipes, tweaking existing materials, and so on
+- Eliminated version restrictions on JEI
+- Fixed crash when shift + click item on inventory of `Minecart with Tank` or `Transfer Station (Fluid)`
+- Added ore crushing crafting: 1x Ore + Smithing Hammer -> 2x Dust
+
+### Machine
+
+- Renamed MachineTrait: `SHIELDING` -> `SHIELD`
+
+### Material
+
+- When Tinker's Construct is enabled, molten Material Fluids use TCon's texture instead of default one
+
+### Technical Changes
+
+- Create new package: `hiiragi283\material\init`
+  - package `material`
+    - `MaterialCommons`: renamed from `hiiragi283.material.api.material.MaterialCommon`
+    - `MaterialCompats`: renamed from `hiiragi283.material.api.material.MaterialCompats`
+    - `MaterialElements`
+  - `HiiragiBlocks`
+  - `HiiragichunkLoadCallback`
+  - `HiiragiCreativeTabs`
+  - `HiiragiEntities`
+  - `HiiragiEventHandler`
+  - `HiiragiGuiHandler`
+  - `HiiragiItems`
+  - `HiiragiProperties`: renamed from `hiiragi283.material.api.block.proprety.HiiragiProperty`
+  - `HiiragiRecipes`
+  - `HiiragiRegistries`
+  - `HiiragiShapes`
+  - `HiiragiShapeTypes`
+- Renamed `ModuleItem` to `MachineModuleItem`
+
 ## v1.3.0 - Machine Update
 
 ### Updated Dependencies

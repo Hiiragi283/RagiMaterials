@@ -17,7 +17,7 @@ import java.util.*
     modid = RMReference.MOD_ID,
     name = RMReference.MOD_NAME,
     version = RMReference.VERSION,
-    dependencies = "after-required:forgelin;after:gregtech;after:jei@[4.24.5,)",
+    dependencies = "after-required:forgelin;after:gregtech;after:jei",
     acceptedMinecraftVersions = "[1.12,1.12.2]",
     modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter"
     //modLanguageAdapter = "io.github.chaosunity.forgelin.KotlinAdapter"
