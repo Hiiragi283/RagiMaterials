@@ -46,6 +46,10 @@ open class HiiragiRegistry<K, V>(val name: String, private val mutable: Boolean 
         else -> registry.remove(key)
     }
 
+    //    Operation    //
+
+    fun containsKey(key: K): Boolean = registry.containsKey(key)
+
     @Synchronized
     fun <T : Comparable<T>> sort(sorter: (Pair<K, V>) -> T) {
         val mapSorted: Map<K, V> = registry.toList().sortedBy(sorter).toMap()

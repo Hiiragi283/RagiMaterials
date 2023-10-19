@@ -825,7 +825,7 @@ object MaterialElements {
     val MERCURY = materialOf("mercury", 80) {
         formula = "Hg"
         molar = 200.6
-        shapeType = HiiragiShapeTypes.METAL_COMMON
+        shapeType = HiiragiShapeTypes.LIQUID
         tempBoil = 670
         tempMelt = 234
     }

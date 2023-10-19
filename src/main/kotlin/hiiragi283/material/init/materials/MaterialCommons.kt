@@ -56,7 +56,7 @@ object MaterialCommons {
         ).rgb
         fluidSupplier = { null }
         shapeType = HiiragiShapeTypes.WOOD
-        }
+    }.setSmelted(MaterialElements.CARBON)
 
     @JvmField
     val WATER = compoundOf("water", 10101, mapOf(MaterialElements.HYDROGEN to 2, MaterialElements.OXYGEN to 1)) {
@@ -111,7 +111,7 @@ object MaterialCommons {
         crystalType = CrystalType.DIAMOND
         fluidSupplier = { null }
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
-    }
+    }.setSmelted(MaterialElements.CARBON)
 
     @JvmField
     val SUGAR = compoundOf(
@@ -122,7 +122,7 @@ object MaterialCommons {
         color = HiiragiColor.WHITE.rgb
         fluidSupplier = { null }
         shapeType = HiiragiShapeTypes.SOLID
-    }
+    }.setSmelted(MaterialElements.CARBON)
 
     @JvmField
     val AMBER = compoundOf("amber", 10605, mapOf(WOOD to 1)) {
@@ -133,12 +133,15 @@ object MaterialCommons {
     }
 
     @JvmField
-    val ASH =
-        mixtureOf("ash", 10606, listOf(MaterialElements.CARBON, MaterialElements.SODIUM, MaterialElements.POTASSIUM)) {
+    val ASH = mixtureOf(
+        "ash",
+        10606,
+        listOf(MaterialElements.CARBON, MaterialElements.SODIUM, MaterialElements.POTASSIUM)
+    ) {
             color = HiiragiColor.GRAY.rgb
             fluidSupplier = { null }
             shapeType = HiiragiShapeTypes.SOLID
-        }
+    }
 
     @JvmField
     val RUBBER = polymerOf("rubber", 10607, mapOf(MaterialElements.CARBON to 5, MaterialElements.HYDROGEN to 8)) {
@@ -148,7 +151,7 @@ object MaterialCommons {
         /*validShapes.add("block")
         validShapes.add("ingot")
         validShapes.add("plate")*/
-    }
+    }.setSmelted(MaterialElements.CARBON)
 
     @JvmField
     val PLASTIC = polymerOf("plastic", 10608, mapOf(MaterialElements.CARBON to 2, MaterialElements.HYDROGEN to 4)) {
@@ -159,7 +162,7 @@ object MaterialCommons {
         validShapes.add("scaffolding")
         validShapes.add("ingot")
         validShapes.add("plate")*/
-    }
+    }.setSmelted(MaterialElements.CARBON)
 
     //    Nitrogen    //
 
@@ -170,7 +173,6 @@ object MaterialCommons {
         oreDictAlt.add("saltpeter")
         shapeType = HiiragiShapeTypes.GEM_9x
     }
-
 
     @JvmField
     val NITRIC_ACID = compoundOf("nitric_acid", 10701, mapOf(MaterialElements.HYDROGEN to 1, NITRATE to 1)) {
@@ -211,12 +213,15 @@ object MaterialCommons {
     }
 
     @JvmField
-    val HYDROGEN_FLUORIDE =
-        compoundOf("hydrogen_fluoride", 10902, mapOf(MaterialElements.HYDROGEN to 1, MaterialElements.FLUORINE to 1)) {
+    val HYDROGEN_FLUORIDE = compoundOf(
+        "hydrogen_fluoride",
+        10902,
+        mapOf(MaterialElements.HYDROGEN to 1, MaterialElements.FLUORINE to 1)
+    ) {
             fluidSupplier = { null }
             tempBoil = WATER.tempBoil
             tempMelt = WATER.tempMelt
-        }
+    }
 
     //    Sodium    //
 
@@ -351,17 +356,19 @@ object MaterialCommons {
     //    Chlorine    //
 
     @JvmField
-    val HYDROGEN_CHLORIDE =
-        compoundOf("hydrogen_chloride", 11700, mapOf(MaterialElements.HYDROGEN to 1, MaterialElements.CHLORINE to 1)) {
+    val HYDROGEN_CHLORIDE = compoundOf(
+        "hydrogen_chloride",
+        11700,
+        mapOf(MaterialElements.HYDROGEN to 1, MaterialElements.CHLORINE to 1)
+    ) {
             tempBoil = WATER.tempBoil
             tempMelt = WATER.tempMelt
-        }
+    }
 
     //    Calcium    //
 
     @JvmField
-    val APATITE =
-        compoundOf(
+    val APATITE = compoundOf(
             "apatite",
             12000,
             mapOf(MaterialElements.CALCIUM to 5, PHOSPHATE.addBracket() to 3, HYDROXIDE to 1)
@@ -369,7 +376,7 @@ object MaterialCommons {
             color = HiiragiColor.mixColor(HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
             crystalType = CrystalType.EMERALD
             shapeType = HiiragiShapeTypes.GEM_9x
-        }
+    }
 
     @JvmField
     val GYPSUM = compoundOf("gypsum", 12001, mapOf(MaterialElements.CALCIUM to 1, SULFATE to 1)) {
@@ -404,8 +411,7 @@ object MaterialCommons {
             MaterialElements.MANGANESE to 1,
             MaterialElements.NICKEL to 1
         )
-    )
-    {
+    ) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY, HiiragiColor.WHITE).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
@@ -427,13 +433,30 @@ object MaterialCommons {
         shapeType = HiiragiShapeTypes.SOLID
     }.setSmelted(STEEL)
 
+    @JvmField
+    val HEMATITE = compoundOf("hematite", 12602, mapOf(MaterialElements.IRON to 2, MaterialElements.OXYGEN to 3)) {
+        color = HiiragiColor.mixColor(HiiragiColor.BLACK to 1, HiiragiColor.DARK_RED to 2, HiiragiColor.GOLD to 1).rgb
+        fluidSupplier = { null }
+        shapeType = HiiragiShapeTypes.SOLID
+    }.setSmelted(MaterialElements.IRON)
+
+    @JvmField
+    val MAGNETITE = compoundOf("magnetite", 12603, mapOf(MaterialElements.IRON to 3, MaterialElements.OXYGEN to 4)) {
+        color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.GRAY).rgb
+        fluidSupplier = { null }
+        shapeType = HiiragiShapeTypes.SOLID
+    }.setSmelted(MaterialElements.IRON)
+
     //    Nickel    //
 
     @JvmField
-    val CONSTANTAN =
-        alloyOf("constantan", 12800, mapOf(MaterialElements.NICKEL to 1, MaterialElements.COPPER to 1)) {
+    val CONSTANTAN = alloyOf(
+        "constantan",
+        12800,
+        mapOf(MaterialElements.NICKEL to 1, MaterialElements.COPPER to 1)
+    ) {
             shapeType = HiiragiShapeTypes.METAL_ADVANCED
-        }
+    }
 
     @JvmField
     val INVAR = alloyOf("invar", 12801, mapOf(MaterialElements.NICKEL to 2, MaterialElements.IRON to 1)) {
@@ -444,6 +467,16 @@ object MaterialCommons {
         ).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
+
+    @JvmField
+    val GARNIERITE = compoundOf(
+        "garnierite",
+        12802,
+        mapOf(MaterialElements.NICKEL to 1, MaterialElements.OXYGEN to 1)
+    ) {
+        fluidSupplier = { null }
+        shapeType = HiiragiShapeTypes.SOLID
+    }.setSmelted(MaterialElements.NICKEL)
 
     //    Copper    //
 
@@ -458,15 +491,35 @@ object MaterialCommons {
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
+    @JvmField
+    val MALACHITE = compoundOf(
+        "malachite",
+        12902,
+        mapOf(MaterialElements.COPPER to 2, CARBONATE.addBracket() to 1, HYDROXIDE.addBracket() to 2)
+    ) {
+        color = HiiragiColor.mixColor(HiiragiColor.GREEN, HiiragiColor.AQUA).rgb
+        fluidSupplier = { null }
+        shapeType = HiiragiShapeTypes.SOLID
+    }.setSmelted(MaterialElements.COPPER)
+
     //    Silver    //
 
+    @JvmField
     val ELECTRUM = alloyOf("electrum", 14700, mapOf(MaterialElements.SILVER to 1, MaterialElements.GOLD to 1)) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
+    @JvmField
+    val ARGENTITE = compoundOf("argentite", 14701, mapOf(MaterialElements.SILVER to 2, MaterialElements.SULFUR to 1)) {
+        color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.GRAY).rgb
+        fluidSupplier = { null }
+        shapeType = HiiragiShapeTypes.SOLID
+    }.setSmelted(MaterialElements.SILVER)
+
     //    Tungsten    //
 
+    @JvmField
     val TUNGSTEN_STEEL = alloyOf("tungsten_steel", 17400, mapOf(STEEL to 1, MaterialElements.TUNGSTEN to 1)) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.DARK_GRAY).rgb
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
@@ -474,6 +527,7 @@ object MaterialCommons {
 
     //    Mercury    //
 
+    @JvmField
     val CINNABAR = compoundOf("cinnabar", 18000, mapOf(MaterialElements.MERCURY to 1, MaterialElements.SULFUR to 1)) {
         color = HiiragiColor.RED.rgb
         crystalType = CrystalType.EMERALD

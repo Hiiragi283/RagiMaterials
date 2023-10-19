@@ -158,6 +158,8 @@ data class HiiragiMaterial private constructor(
 
     fun isSolid(): Boolean = HiiragiShapes.SOLID.isValid(this) || tempMelt >= 298
 
+    fun isRegistered(): Boolean = HiiragiRegistries.MATERIAL.containsKey(name)
+
     //    Setter    //
 
     fun setSmelted(smelted: HiiragiMaterial) = also { HiiragiRegistries.MATERIAL_SMELTED.register(this, smelted) }

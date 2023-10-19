@@ -99,25 +99,31 @@ object HiiragiRecipes {
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.NICKEL))
             .build()
-        //Invar
+        //Brass
         CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.BRASS, 4), "_alt")
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.ZINC))
             .build()
-        //Invar
+        //Bronze
         CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.BRONZE, 4), "_alt")
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
             .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.TIN))
             .build()
+        //Electrum
+        CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.ELECTRUM, 2), "_alt")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.SILVER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.GOLD))
+            .build()
     }
 
     private fun smelting() {
         //レジストリからかまど精錬レシピを生成
         HiiragiRegistries.MATERIAL_SMELTED.getEntries()
+            .filter { (input: HiiragiMaterial, output: HiiragiMaterial) -> input.isRegistered() && output.isRegistered() }
             .filter { (input: HiiragiMaterial, output: HiiragiMaterial) -> input.isSolid() && output.isSolid() }
             .filter { HiiragiShapes.DUST.isValid(it.first) }
             .forEach { (input: HiiragiMaterial, output: HiiragiMaterial) ->
