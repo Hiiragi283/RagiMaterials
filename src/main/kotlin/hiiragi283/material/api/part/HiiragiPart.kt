@@ -18,15 +18,15 @@ import net.minecraftforge.oredict.OreDictionary
 fun createAllParts(): List<HiiragiPart> = HiiragiRegistries.SHAPE.getValues()
     .flatMap { shape: HiiragiShape -> HiiragiRegistries.MATERIAL.getValues().map(shape::getPart) }
 
-fun getPart(oreDict: String): HiiragiPart? = HiiragiRegistries.PART.getValue(oreDict)
+fun String.getPart(): HiiragiPart? = HiiragiRegistries.PART.getValue(this)
 
-fun getParts(oredict: String): List<HiiragiPart> = listOfNotNull(getPart(oredict))
+fun String.getParts(): List<HiiragiPart> = listOfNotNull(this.getPart())
 
-fun getParts(oredicts: Collection<String>): List<HiiragiPart> = oredicts.mapNotNull(::getPart)
+fun Collection<String>.getParts(): List<HiiragiPart> = this.mapNotNull(String::getPart)
 
 fun IBlockState.getParts() = this.let(IBlockState::itemStack).let(ItemStack::getParts)
 
-fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.oreDicts()?.mapNotNull(::getPart) ?: listOf()
+fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.oreDicts()?.mapNotNull(String::getPart) ?: listOf()
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) : HiiragiJsonSerializable {
 

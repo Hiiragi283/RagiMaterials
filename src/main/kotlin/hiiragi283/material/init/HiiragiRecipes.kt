@@ -77,14 +77,59 @@ object HiiragiRecipes {
                     .addIngredient(HiiragiItems.SMITHING_HAMMER)
                     .build()
             }
+        //Stainless Steel Dust
+        CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.STAINLESS_STEEL, 9), "_alt")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.CHROMIUM))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.MANGANESE))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.NICKEL))
+            .build()
+        //Constantan
+        CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.CONSTANTAN, 2), "_alt")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.NICKEL))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .build()
+        //Invar
+        CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.INVAR, 2), "_alt")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.IRON))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.NICKEL))
+            .build()
+        //Invar
+        CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.BRASS, 4), "_alt")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.ZINC))
+            .build()
+        //Invar
+        CraftingBuilder(HiiragiShapes.DUST.getItemStack(MaterialCommons.BRONZE, 4), "_alt")
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.COPPER))
+            .addIngredient(HiiragiShapes.DUST.getOreDict(MaterialElements.TIN))
+            .build()
     }
 
     private fun smelting() {
-        //Raw Steel Dust -> Steel Ingot
-        SmeltingBuilder.addSmelting(
-            HiiragiShapes.DUST.getItemStack(MaterialCommons.RAW_STEEL),
-            HiiragiShapes.INGOT.getItemStack(MaterialCommons.STEEL)
-        )
+        //レジストリからかまど精錬レシピを生成
+        HiiragiRegistries.MATERIAL_SMELTED.getEntries()
+            .filter { (input: HiiragiMaterial, output: HiiragiMaterial) -> input.isSolid() && output.isSolid() }
+            .filter { HiiragiShapes.DUST.isValid(it.first) }
+            .forEach { (input: HiiragiMaterial, output: HiiragiMaterial) ->
+                SmeltingBuilder.addSmelting(
+                    HiiragiShapes.DUST.getItemStack(input),
+                    when {
+                        output.isMetal() -> HiiragiShapes.INGOT
+                        output.isGem() -> HiiragiShapes.GEM
+                        else -> HiiragiShapes.DUST
+                    }.getItemStack(output)
+                )
+            }
     }
 
     fun postInit() {

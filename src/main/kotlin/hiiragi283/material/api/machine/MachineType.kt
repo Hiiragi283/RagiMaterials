@@ -23,8 +23,9 @@ enum class MachineType {
 
     fun lowercase() = name.lowercase()
 
-    fun getTranslatedName(material: HiiragiMaterial): String =
-        I18n.format(translationKey, material.getTranslatedName())
+    fun getTranslatedName(material: HiiragiMaterial): String = getTranslatedName(material.getTranslatedName())
+
+    fun getTranslatedName(name: String): String = I18n.format(translationKey, name)
 
     companion object {
 

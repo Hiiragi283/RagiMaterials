@@ -53,23 +53,6 @@ object HiiragiShapeTypes {
     )
 
     @JvmField
-    val GEM_AMORPHOUS: HiiragiShapeType = GEM_9x.child("amorphous")
-    @JvmField
-    val GEM_COAL: HiiragiShapeType = GEM_9x.child("coal")
-    @JvmField
-    val GEM_CUBIC: HiiragiShapeType = GEM_9x.child("cubic")
-    @JvmField
-    val GEM_DIAMOND: HiiragiShapeType = GEM_9x_ADVANCED.child("diamond")
-    @JvmField
-    val GEM_EMERALD: HiiragiShapeType = GEM_9x_ADVANCED.child("emerald")
-    @JvmField
-    val GEM_LAPIS: HiiragiShapeType = GEM_9x_ADVANCED.child("lapis")
-    @JvmField
-    val GEM_QUARTZ: HiiragiShapeType = GEM_4x_ADVANCED.child("quartz")
-    @JvmField
-    val GEM_RUBY: HiiragiShapeType = GEM_9x_ADVANCED.child("ruby")
-
-    @JvmField
     val LIQUID: HiiragiShapeType = INTERNAL.child("liquid", listOf(HiiragiShapes.LIQUID))
 
     @JvmField

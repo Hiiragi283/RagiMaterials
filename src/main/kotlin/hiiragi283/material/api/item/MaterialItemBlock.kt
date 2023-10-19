@@ -20,7 +20,7 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.let(shape::getTranslatedName)
             ?: super.getItemStackDisplayName(stack)
 

@@ -71,14 +71,8 @@ object HiiragiRegistries {
     @JvmField
     val MATERIAL_INDEX: HiiragiRegistry<Int, HiiragiMaterial> = HiiragiRegistry("Material Index")
 
-    @JvmField
-    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, PartConvertible.BLOCK> = HiiragiRegistry("Material Block")
-
-    @JvmField
-    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, PartConvertible.ITEM> = HiiragiRegistry("Material Item")
-
     fun registerMaterial() {
-        val event = MaterialRegistryEvent(MATERIAL)
+        val event = MaterialRegistryEvent()
         MinecraftForge.EVENT_BUS.post(event)
         MATERIAL.sort { (name: String, _: HiiragiMaterial) -> name }
         MATERIAL.lock()
@@ -87,7 +81,16 @@ object HiiragiRegistries {
     }
 
     @JvmField
+    val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, PartConvertible.BLOCK> = HiiragiRegistry("Material Block")
+
+    @JvmField
+    val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, PartConvertible.ITEM> = HiiragiRegistry("Material Item")
+
+    @JvmField
     val MATERIAL_TYPE: HiiragiRegistry<String, MaterialType> = HiiragiRegistry("Material Type")
+
+    @JvmField
+    val MATERIAL_SMELTED: HiiragiRegistry<HiiragiMaterial, HiiragiMaterial> = HiiragiRegistry("Material Smelted")
 
     //    Part    //
 
@@ -108,7 +111,7 @@ object HiiragiRegistries {
     val SHAPE: HiiragiRegistry<String, HiiragiShape> = HiiragiRegistry("Shape")
 
     fun registerShape() {
-        val event = ShapeRegistryEvent(SHAPE)
+        val event = ShapeRegistryEvent()
         MinecraftForge.EVENT_BUS.post(event)
         SHAPE.sort { (name: String, _: HiiragiShape) -> name }
         SHAPE.lock()

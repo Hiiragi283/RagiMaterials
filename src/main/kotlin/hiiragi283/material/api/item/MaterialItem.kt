@@ -36,7 +36,7 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.let(shape::getTranslatedName)
             ?: super.getItemStackDisplayName(stack)
 

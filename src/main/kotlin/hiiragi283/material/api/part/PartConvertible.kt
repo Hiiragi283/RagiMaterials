@@ -19,6 +19,9 @@ object PartConvertible {
         fun getMaterial(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): HiiragiMaterial? =
             getTileImplemented<TILE>(world, pos)?.material
 
+        fun getPart(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): HiiragiPart? =
+            getMaterial(state, world, pos)?.getPart(shape)
+
         fun block() = this as Block
 
         override fun item(): Item = block().item()

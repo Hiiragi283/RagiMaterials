@@ -1,17 +1,13 @@
 package hiiragi283.material.item.material
 
 import hiiragi283.material.api.item.MaterialItem
+import hiiragi283.material.api.material.CrystalType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.init.HiiragiRegistries
-import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.append
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.toModelLocation
 import net.minecraft.item.ItemStack
-import net.minecraft.util.ResourceLocation
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
@@ -32,26 +28,12 @@ object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
 
-        fun gemLocation(shapeType: HiiragiShapeType) = registryName!!.append("_${shapeType.name}")
-
         ModelLoader.registerItemVariants(
-            this,
-            registryName!!,
-            gemLocation(HiiragiShapeTypes.GEM_AMORPHOUS),
-            gemLocation(HiiragiShapeTypes.GEM_COAL),
-            gemLocation(HiiragiShapeTypes.GEM_CUBIC),
-            gemLocation(HiiragiShapeTypes.GEM_DIAMOND),
-            gemLocation(HiiragiShapeTypes.GEM_EMERALD),
-            gemLocation(HiiragiShapeTypes.GEM_LAPIS),
-            gemLocation(HiiragiShapeTypes.GEM_QUARTZ),
-            gemLocation(HiiragiShapeTypes.GEM_RUBY)
+            this, *CrystalType.values().map { it.getModelLocation(this) }.toTypedArray()
         )
 
         ModelLoader.setCustomMeshDefinition(this) { stack: ItemStack ->
-            HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)?.shapeType
-                ?.let(::gemLocation)
-                ?.let(ResourceLocation::toModelLocation)
-                ?: registryName!!.toModelLocation()
+            (getMaterial(stack)?.crystalType ?: CrystalType.NONE).getModelLocation(this).toModelLocation()
         }
 
     }

@@ -2,6 +2,7 @@ package hiiragi283.material.init
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.event.MaterialBuiltEvent
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.material.HiiragiMaterial
@@ -41,6 +42,10 @@ object HiiragiEventHandler {
 
         RagiMaterials.LOGGER.info("Registering Shapes from JSON...")
         HiiragiJSonHandler.registerShape()
+    }
+
+    fun modifyMaterial(event: MaterialBuiltEvent) {
+        val builder: HiiragiMaterial.Builder = event.builder
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)

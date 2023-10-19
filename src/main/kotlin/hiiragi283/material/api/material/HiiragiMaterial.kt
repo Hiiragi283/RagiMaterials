@@ -4,11 +4,11 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.event.MaterialBuiltEvent
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
-import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.init.HiiragiRegistries
@@ -25,6 +25,7 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockAccess
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
@@ -58,25 +59,26 @@ import rechellatek.snakeToUpperCamelCase
  * @param translationKey can be overridden
  */
 
-class HiiragiMaterial private constructor(
+@Suppress("DataClassPrivateConstructor")
+data class HiiragiMaterial private constructor(
     val name: String,
     val index: Int,
-    val type: MaterialType,
-    var color: Int = 0xFFFFFF,
-    var formula: String = "",
-    var molar: Double = 0.0,
-    var shapeType: HiiragiShapeType = HiiragiShapeTypes.INTERNAL,
-    var tempBoil: Int = 0,
-    var tempMelt: Int = 0,
-    var translationKey: String = "hiiragi_material.$name"
+    val color: Int,
+    val crystalType: CrystalType,
+    val fluidSupplier: MaterialFluidSupplier,
+    val formula: String,
+    val machineProperty: MachineProperty?,
+    val molar: Double,
+    val oreDictAlt: List<String>,
+    val shapeType: HiiragiShapeType,
+    val tempBoil: Int,
+    val tempMelt: Int,
+    val translationKey: String
 ) : HiiragiJsonSerializable {
 
-    val oreDictAlt: MutableList<String> = mutableListOf()
-    var fluidBlock: (Fluid) -> Block? = { null }
-    var fluidSupplier: () -> Fluid? = { MaterialFluid(this) }
-    var machineProperty: MachineProperty? = null
+    //    Conversion    //
 
-    fun addBracket() = HiiragiMaterial(name, index, type, color, "($formula)", molar, shapeType, tempBoil, tempMelt)
+    fun addBracket() = copy(formula = "($formula)")
 
     fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
         addTooltip(tooltip, shape.getTranslatedName(this), shape.scale)
@@ -98,15 +100,7 @@ class HiiragiMaterial private constructor(
     }
 
     fun createFluid() {
-        val fluid: Fluid = fluidSupplier() ?: return
-        if (FluidRegistry.isFluidRegistered(name)) return
-        FluidRegistry.registerFluid(fluid)
-        FluidRegistry.addBucketForFluid(fluid)
-        fluidBlock(fluid)?.let { block: Block ->
-            fluid.block = block
-            (block as? HiiragiEntry.BLOCK)?.register()
-            FluidRegistry.registerFluid(fluid)
-        }
+        fluidSupplier.register(this)
     }
 
     fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
@@ -134,6 +128,10 @@ class HiiragiMaterial private constructor(
 
     fun getTranslatedName(): String = I18n.format(translationKey)
 
+    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
+
+    //    Predicate    //
+
     fun hasOreDictAlt(): Boolean = oreDictAlt.isNotEmpty()
 
     fun hasFluid(): Boolean = FluidRegistry.isFluidRegistered(name)
@@ -160,7 +158,11 @@ class HiiragiMaterial private constructor(
 
     fun isSolid(): Boolean = HiiragiShapes.SOLID.isValid(this) || tempMelt >= 298
 
-    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
+    //    Setter    //
+
+    fun setSmelted(smelted: HiiragiMaterial) = also { HiiragiRegistries.MATERIAL_SMELTED.register(this, smelted) }
+
+    //    Any    //
 
     override fun equals(other: Any?): Boolean = when (other) {
         null -> false
@@ -168,18 +170,7 @@ class HiiragiMaterial private constructor(
         else -> other.name == this.name
     }
 
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + index
-        result = 31 * result + color
-        result = 31 * result + formula.hashCode()
-        result = 31 * result + molar.hashCode()
-        result = 31 * result + shapeType.hashCode()
-        result = 31 * result + tempBoil
-        result = 31 * result + tempMelt
-        result = 31 * result + translationKey.hashCode()
-        return result
-    }
+    override fun hashCode(): Int = name.hashCode()
 
     override fun toString(): String = "Material:$name"
 
@@ -189,7 +180,7 @@ class HiiragiMaterial private constructor(
         val UNKNOWN = formulaOf("?")
 
         @JvmField
-        val WILDCARD = materialOf("wildcard", Short.MAX_VALUE.toInt())
+        val WILDCARD = build("wildcard", Short.MAX_VALUE.toInt())
 
         @JvmField
         val RUSSELL = materialOf("russell", 0) {
@@ -208,16 +199,18 @@ class HiiragiMaterial private constructor(
         }
 
         @JvmStatic
-        fun of(
+        fun build(
             name: String,
             index: Int,
-            type: MaterialType,
-            component: Map<HiiragiMaterial, Int>,
-            init: HiiragiMaterial.() -> Unit = {}
-        ): HiiragiMaterial = HiiragiMaterial(name, index, type)
-            .also { type.preInit(it, component) }
-            .also(init)
-            .also { type.postInit(it, component) }
+            type: MaterialType = MaterialType.EMPTY,
+            component: Map<HiiragiMaterial, Int> = mapOf(),
+            init: Builder.() -> Unit = {}
+        ): HiiragiMaterial = Builder(name, index)
+            .apply { type.preInit(this, component) }
+            .apply(init)
+            .build()
+            .apply { type.postInit(this, component) }
+
     }
 
     //    Registration    //
@@ -239,20 +232,19 @@ class HiiragiMaterial private constructor(
 
         root.addProperty("name", name)
         root.addProperty("index", index)
-        root.addProperty("type", type.name)
 
         root.addProperty("color", color)
         root.addProperty("formula", formula)
 
-        val fluid: Fluid? = fluidSupplier()
-        if (fluid == null) {
-            root.addProperty("has_fluid", false)
-            root.addProperty("has_fluid_block", false)
-        } else {
+        val hasFluid: Boolean = fluidSupplier.hasFluid(this)
+        if (hasFluid) {
             root.addProperty("has_fluid", true)
-            if (fluidBlock(fluid) != null) {
+            if (fluidSupplier.hasBlock(this)) {
                 root.addProperty("has_fluid_block", true)
             }
+        } else {
+            root.addProperty("has_fluid", false)
+            root.addProperty("has_fluid_block", false)
         }
 
         root.add("machineProperty", machineProperty?.getJsonElement())
@@ -267,6 +259,45 @@ class HiiragiMaterial private constructor(
         root.addProperty("tempMelt", tempMelt)
 
         return root
+
+    }
+
+    //    Builder    //
+
+    class Builder(val name: String, val index: Int) {
+
+        val oreDictAlt: MutableList<String> = mutableListOf()
+        var color: Int = 0xFFFFFF
+        var crystalType: CrystalType = CrystalType.NONE
+        var fluidBlock: (Fluid) -> Block? = { null }
+        var fluidSupplier: (HiiragiMaterial) -> Fluid? = { MaterialFluid(it) }
+        var formula: String = ""
+        var hasBucket: Boolean = true
+        var machineProperty: MachineProperty? = null
+        var molar: Double = 0.0
+        var shapeType: HiiragiShapeType = HiiragiShapeTypes.INTERNAL
+        var tempBoil: Int = 0
+        var tempMelt: Int = 0
+        var translationKey: String = "hiiragi_material.$name"
+
+        fun build(): HiiragiMaterial {
+            MinecraftForge.EVENT_BUS.post(MaterialBuiltEvent(this))
+            return HiiragiMaterial(
+                name,
+                index,
+                color,
+                crystalType,
+                MaterialFluidSupplier(fluidSupplier, fluidBlock, hasBucket),
+                formula,
+                machineProperty,
+                molar,
+                oreDictAlt,
+                shapeType,
+                tempBoil,
+                tempMelt,
+                translationKey,
+            )
+        }
 
     }
 

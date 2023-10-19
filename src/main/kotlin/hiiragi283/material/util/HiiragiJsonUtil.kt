@@ -12,7 +12,6 @@ import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialType
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
@@ -100,43 +99,40 @@ object HiiragiJsonUtil {
 
         val jsonName: String = root.getAsJsonPrimitive("name").asString
         val jsonIndex: Int = root.getAsJsonPrimitive("index").asInt
-        val jsonType: MaterialType = HiiragiRegistries.MATERIAL_TYPE.getValue(
-            root.getAsJsonPrimitive("type").asString
-        ) ?: return null
         if (jsonName.isEmpty() || jsonIndex < 0) return null
 
-        val material: HiiragiMaterial = HiiragiMaterial.of(jsonName, jsonIndex, jsonType, mapOf())
+        val builder = HiiragiMaterial.Builder(jsonName, jsonIndex)
 
-        setValue(root, "color", JsonPrimitive::getAsInt) { color -> material.color = color }
+        setValue(root, "color", JsonPrimitive::getAsInt) { color -> builder.color = color }
 
-        setValue(root, "formula", JsonPrimitive::getAsString) { formula -> material.formula = formula }
+        setValue(root, "formula", JsonPrimitive::getAsString) { formula -> builder.formula = formula }
 
         setValue(root, "has_fluid", JsonPrimitive::getAsBoolean) { hasFluid ->
-            if (!hasFluid) material.fluidSupplier = { null }
+            if (!hasFluid) builder.fluidSupplier = { null }
         }
 
         setValue(root, "has_fluid_block", JsonPrimitive::getAsBoolean) { hasFluidBlock ->
-            if (hasFluidBlock) material.fluidBlock = { fluid: Fluid -> MaterialFluidBlock(fluid) }
+            if (hasFluidBlock) builder.fluidBlock = { fluid: Fluid -> MaterialFluidBlock(fluid) }
         }
 
         setValue(root, "machineProperty", JsonObject::getAsJsonObject) { jsonObject ->
-            material.machineProperty = machineProperty(jsonObject)
+            builder.machineProperty = machineProperty(jsonObject)
         }
 
-        setValue(root, "molar", JsonPrimitive::getAsDouble) { molar -> material.molar = molar }
+        setValue(root, "molar", JsonPrimitive::getAsDouble) { molar -> builder.molar = molar }
 
         setValue(root, "oreDictAlt", JsonArray::getAsJsonArray) { oreDictAlt ->
-            oreDictAlt.map { it.asString }.forEach(material.oreDictAlt::add)
+            oreDictAlt.map { it.asString }.forEach(builder.oreDictAlt::add)
         }
 
         setValue(root, "shapeType", JsonObject::getAsJsonObject) { jsonObject ->
-            material.shapeType = shapeType(jsonObject)
+            builder.shapeType = shapeType(jsonObject)
         }
 
-        setValue(root, "tempBoil", JsonPrimitive::getAsInt) { tempBoil -> material.tempBoil = tempBoil }
-        setValue(root, "tempMelt", JsonPrimitive::getAsInt) { tempMelt -> material.tempMelt = tempMelt }
+        setValue(root, "tempBoil", JsonPrimitive::getAsInt) { tempBoil -> builder.tempBoil = tempBoil }
+        setValue(root, "tempMelt", JsonPrimitive::getAsInt) { tempMelt -> builder.tempMelt = tempMelt }
 
-        return material
+        return builder.build()
 
     }
 

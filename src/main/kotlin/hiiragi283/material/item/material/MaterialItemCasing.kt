@@ -6,7 +6,6 @@ import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.init.HiiragiItems
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
@@ -45,35 +44,35 @@ object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), MachinePropertyI
     override val recipeType: (ItemStack) -> MachineType = { _ -> MachineType.NONE }
 
     override val processTime: (ItemStack) -> Int = { stack ->
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.machineProperty
             ?.processTime
             ?: 100
     }
 
     override val energyRate: (ItemStack) -> Int = { stack ->
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.machineProperty
             ?.energyRate
             ?: 32
     }
 
     override val itemSlots: (ItemStack) -> Int = { stack ->
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.machineProperty
             ?.itemSlots
             ?: 1
     }
 
     override val fluidSlots: (ItemStack) -> Int = { stack ->
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.machineProperty
             ?.fluidSlots
             ?: 0
     }
 
     override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        getMaterial(stack)
             ?.machineProperty
             ?.machineTraits
             ?: setOf()

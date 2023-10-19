@@ -12,39 +12,43 @@ object MaterialCompats {
     @JvmField
     val REDSTONE = materialOf("redstone", 1000) {
         color = HiiragiColor.DARK_RED.rgb
+        crystalType = CrystalType.EMERALD
         if (HiiragiThermalPlugin.enabled()) {
             fluidSupplier = { null }
         }
         formula = "Rs"
-        shapeType = HiiragiShapeTypes.GEM_EMERALD
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     @JvmField
     val LAPIS = materialOf("lapis", 1001) {
         color = HiiragiColor.BLUE.rgb
-        shapeType = HiiragiShapeTypes.GEM_LAPIS
+        crystalType = CrystalType.LAPIS
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     @JvmField
     val GLOWSTONE = materialOf("glowstone", 1002) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.YELLOW to 2).rgb
+        crystalType = CrystalType.EMERALD
         if (HiiragiThermalPlugin.enabled()) {
             fluidSupplier = { null }
         }
         formula = "Gl"
-        shapeType = HiiragiShapeTypes.GEM_EMERALD
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
+        crystalType = CrystalType.EMERALD
         if (HiiragiThermalPlugin.enabled()) {
             fluidSupplier = { null }
         }
         formula = "En"
         oreDictAlt.add("ender")
         oreDictAlt.add("ender_pearl")
-        shapeType = HiiragiShapeTypes.GEM_EMERALD
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     //    Thermal Series    //
@@ -309,7 +313,8 @@ object MaterialCompats {
     @JvmField
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.AQUA.rgb
-        shapeType = HiiragiShapeTypes.GEM_DIAMOND
+        crystalType = CrystalType.DIAMOND
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     @JvmField
@@ -331,7 +336,8 @@ object MaterialCompats {
     @JvmField
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
-        shapeType = HiiragiShapeTypes.GEM_DIAMOND
+        crystalType = CrystalType.DIAMOND
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     //    Embers    //
