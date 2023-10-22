@@ -308,8 +308,10 @@ hiiragi_material.color_yellow=Yellow
 
 hiiragi_material.wood=Wood
 hiiragi_material.water=Water
+
 hiiragi_material.aquamarine=Aquamarine
 hiiragi_material.emerald=Emerald
+
 hiiragi_material.coal=Coal
 hiiragi_material.charcoal=Charcoal
 hiiragi_material.coke=Coke
@@ -319,19 +321,25 @@ hiiragi_material.amber=Amber
 hiiragi_material.ash=Ash
 hiiragi_material.rubber=Rubber
 hiiragi_material.plastic=Plastic
+
 hiiragi_material.niter=Niter
 hiiragi_material.nitric_acid=Nitric Acid
 hiiragi_material.gunpowder=Gunpowder
+
 hiiragi_material.cryolite=Cryolite
 hiiragi_material.fluorite=Fluorite
 hiiragi_material.hydrogen_fluoride=Hydrogen Fluoride
+
 hiiragi_material.salt=Salt
+
 hiiragi_material.olivine=Olivine
 hiiragi_material.peridot=Peridot
+
 hiiragi_material.alumina=Alumina
 hiiragi_material.bauxite=Bauxite
 hiiragi_material.ruby=Ruby
 hiiragi_material.sapphire=Sapphire
+
 hiiragi_material.clay=Clay
 hiiragi_material.end_stone=End Stone
 hiiragi_material.glass=Glass
@@ -341,22 +349,55 @@ hiiragi_material.obsidian=Obsidian
 hiiragi_material.quartz=Quartz
 hiiragi_material.soul_sand=Soul Sand
 hiiragi_material.stone=Stone
+
 hiiragi_material.sulfuric_acid=Sulfuric Acid
 hiiragi_material.hydrogen_chloride=Hydrogen Chloride
+
 hiiragi_material.apatite=Apatite
+
 hiiragi_material.gypsum=Gypsum
 hiiragi_material.lime=Lime
+
 hiiragi_material.rutile=Rutile
+
 hiiragi_material.stainless_steel=Stainless Steel
+hiiragi_material.chromite=Chromite
+
+hiiragi_material.pyrolusite=Pyrolusite
+
 hiiragi_material.steel=Steel
 hiiragi_material.raw_steel=Raw Steel
+hiiragi_material.hematite=Hematite
+hiiragi_material.magnetite=Magnetite
+hiiragi_material.pyrite=Pyrite
+
+hiiragi_material.cobaltite=Cobaltite
+
 hiiragi_material.constantan=Constantan
 hiiragi_material.invar=Invar
+hiiragi_material.garnierite=Garnierite
+
 hiiragi_material.brass=Brass
 hiiragi_material.bronze=Bronze
+hiiragi_material.malachite=Malachite
+hiiragi_material.chalcocite=Chalcocite
+
+hiiragi_material.sphalerite=Sphalerite
+
+hiiragi_material.molybdenite=Molybdenite
+
 hiiragi_material.electrum=Electrum
+hiiragi_material.argentite=Argentite
+
+hiiragi_material.cassiterite=Cassiterite
+
 hiiragi_material.tungsten_steel=Tungsten Steel
+
 hiiragi_material.cinnabar=Cinnabar
+
+hiiragi_material.galena=Galena
+
+hiiragi_material.bismuthinite=Bismuthinite
 
 hiiragi_material.dhmo=DHMO
 

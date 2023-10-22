@@ -1,4 +1,4 @@
-package hiiragi283.material.api.gui
+package hiiragi283.material.api.client.gui
 
 import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
 import hiiragi283.material.api.container.HiiragiContainer

@@ -1,6 +1,6 @@
-package hiiragi283.material.gui
+package hiiragi283.material.client.gui
 
-import hiiragi283.material.api.gui.HiiragiGuiContainer
+import hiiragi283.material.api.client.gui.HiiragiGuiContainer
 import hiiragi283.material.container.ContainerMachineWorkbench
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.client.resources.I18n

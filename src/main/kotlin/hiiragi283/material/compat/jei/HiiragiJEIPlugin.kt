@@ -5,12 +5,12 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.client.gui.GuiMachineWorkbench
+import hiiragi283.material.client.gui.GuiModuleMachine
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.compat.jei.ingredients.MaterialStackHelper
 import hiiragi283.material.compat.jei.ingredients.MaterialStackRenderer
 import hiiragi283.material.container.ContainerModuleMachine
-import hiiragi283.material.gui.GuiMachineWorkbench
-import hiiragi283.material.gui.GuiModuleMachine
 import hiiragi283.material.init.HiiragiBlocks
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.itemStack

@@ -162,7 +162,9 @@ data class HiiragiMaterial private constructor(
 
     //    Setter    //
 
-    fun setSmelted(smelted: HiiragiMaterial) = also { HiiragiRegistries.MATERIAL_SMELTED.register(this, smelted) }
+    fun setSmelted(smelted: HiiragiMaterial, count: Int = 1) = also {
+        HiiragiRegistries.MATERIAL_SMELTED.register(this, smelted to count)
+    }
 
     //    Any    //
 

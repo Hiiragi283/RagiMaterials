@@ -90,7 +90,8 @@ object HiiragiRegistries {
     val MATERIAL_TYPE: HiiragiRegistry<String, MaterialType> = HiiragiRegistry("Material Type")
 
     @JvmField
-    val MATERIAL_SMELTED: HiiragiRegistry<HiiragiMaterial, HiiragiMaterial> = HiiragiRegistry("Material Smelted", true)
+    val MATERIAL_SMELTED: HiiragiRegistry<HiiragiMaterial, Pair<HiiragiMaterial, Int>> =
+        HiiragiRegistry("Material Smelted", true)
 
     //    Part    //
 

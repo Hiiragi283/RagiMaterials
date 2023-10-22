@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack
 
 object HiiragiCreativeTabs {
 
+    @JvmStatic
     private fun createCreativeTab(id: String, stack: () -> ItemStack): CreativeTabs =
         object : CreativeTabs("${RMReference.MOD_ID}.$id") {
             override fun createIcon(): ItemStack = stack()

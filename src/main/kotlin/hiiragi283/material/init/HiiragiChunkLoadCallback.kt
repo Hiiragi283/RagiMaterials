@@ -20,8 +20,10 @@ import net.minecraftforge.common.ForgeChunkManager
  */
 object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
 
+    @JvmStatic
     private val mapBlockTicket: HashMap<DimensionalBlockPos, ForgeChunkManager.Ticket> = hashMapOf()
 
+    @JvmStatic
     private val mapEntityTicket: HashMap<Int, ForgeChunkManager.Ticket> = hashMapOf()
 
     init {
@@ -64,10 +66,12 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
 
     //    Block Ticket    //
 
+    @JvmStatic
     private fun isBlockTicket(ticket: ForgeChunkManager.Ticket): Boolean = ticket.modData.let { tag: NBTTagCompound ->
         tag.getString(HiiragiNBTUtil.OWNER) == RMReference.MOD_ID && tag.getString(HiiragiNBTUtil.TYPE) == "block"
     }
 
+    @JvmStatic
     fun activateBlockTicket(world: World, pos: DimensionalBlockPos) {
         //ForgeChunkManagerにticketを要求する
         val ticket: ForgeChunkManager.Ticket =
@@ -93,6 +97,7 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
             tag.setInteger(HiiragiNBTUtil.DIM_ID, pos.dimId)
         }
 
+    @JvmStatic
     fun inactivateBlockTicket(world: World, pos: DimensionalBlockPos) {
         //指定された座標に対してticketが発行されていて，チャンクが読み込まれている -> 読み込みを停止 & ticketを解放
         val ticket: ForgeChunkManager.Ticket = mapBlockTicket[pos] ?: return
@@ -109,10 +114,12 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
 
     //    Entity Ticket    //
 
+    @JvmStatic
     private fun isEntityTicket(ticket: ForgeChunkManager.Ticket): Boolean = ticket.modData.let { tag: NBTTagCompound ->
         tag.getString(HiiragiNBTUtil.OWNER) == RMReference.MOD_ID && tag.getString(HiiragiNBTUtil.TYPE) == "entity"
     }
 
+    @JvmStatic
     fun activateEntityTicket(world: World, entity: Entity) {
         //ForgeChunkManagerにticketを要求する
         val ticket: ForgeChunkManager.Ticket =
@@ -129,6 +136,7 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
         RagiMaterials.LOGGER.info("Chunk Loading on Entity: $entity is activated!")
     }
 
+    @JvmStatic
     private fun ForgeChunkManager.Ticket.setEntityData(): ForgeChunkManager.Ticket =
         also { ticket: ForgeChunkManager.Ticket ->
             val tag: NBTTagCompound = ticket.modData
@@ -137,8 +145,10 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
             //tag.setInteger(HiiragiNBTUtil.ENTITY_ID, entity.entityId)
         }
 
+    @JvmStatic
     private fun Entity.getChunk(world: World): Chunk = world.getChunk(this.chunkCoordX, this.chunkCoordZ)
 
+    @JvmStatic
     fun inactivateEntityTicket(world: World, entity: Entity) {
         //指定されたentityのidに対してticketが発行されていて，チャンクが読み込まれている -> 読み込みを停止 & ticketを解放
         val ticket: ForgeChunkManager.Ticket = mapEntityTicket[entity.entityId] ?: return

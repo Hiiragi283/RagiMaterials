@@ -123,17 +123,18 @@ object HiiragiRecipes {
     private fun smelting() {
         //レジストリからかまど精錬レシピを生成
         HiiragiRegistries.MATERIAL_SMELTED.getEntries()
-            .filter { (input: HiiragiMaterial, output: HiiragiMaterial) -> input.isRegistered() && output.isRegistered() }
-            .filter { (input: HiiragiMaterial, output: HiiragiMaterial) -> input.isSolid() && output.isSolid() }
+            .filter { (input: HiiragiMaterial, pair: Pair<HiiragiMaterial, Int>) -> input.isRegistered() && pair.first.isRegistered() }
+            .filter { (input: HiiragiMaterial, pair: Pair<HiiragiMaterial, Int>) -> input.isSolid() && pair.first.isSolid() }
             .filter { HiiragiShapes.DUST.isValid(it.first) }
-            .forEach { (input: HiiragiMaterial, output: HiiragiMaterial) ->
+            .forEach { (input: HiiragiMaterial, pair: Pair<HiiragiMaterial, Int>) ->
+                val (output: HiiragiMaterial, count: Int) = pair
                 SmeltingBuilder.addSmelting(
                     HiiragiShapes.DUST.getItemStack(input),
                     when {
                         output.isMetal() -> HiiragiShapes.INGOT
                         output.isGem() -> HiiragiShapes.GEM
                         else -> HiiragiShapes.DUST
-                    }.getItemStack(output)
+                    }.getItemStack(output, count)
                 )
             }
     }

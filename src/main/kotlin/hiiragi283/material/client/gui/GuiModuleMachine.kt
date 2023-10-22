@@ -1,9 +1,7 @@
-package hiiragi283.material.gui
+package hiiragi283.material.client.gui
 
-import hiiragi283.material.api.capability.fluid.HiiragiFluidTank
-import hiiragi283.material.api.gui.HiiragiGuiButton
-import hiiragi283.material.api.gui.HiiragiGuiContainer
-import hiiragi283.material.api.machine.MachineTrait
+import hiiragi283.material.api.client.gui.HiiragiGuiButton
+import hiiragi283.material.api.client.gui.HiiragiGuiContainer
 import hiiragi283.material.container.ContainerModuleMachine
 import hiiragi283.material.network.HiiragiMessage
 import hiiragi283.material.network.HiiragiNetworkWrapper

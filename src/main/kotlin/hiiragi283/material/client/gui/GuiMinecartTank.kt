@@ -1,6 +1,6 @@
-package hiiragi283.material.gui
+package hiiragi283.material.client.gui
 
-import hiiragi283.material.api.gui.HiiragiGuiContainer
+import hiiragi283.material.api.client.gui.HiiragiGuiContainer
 import hiiragi283.material.container.ContainerMinecartTank
 import hiiragi283.material.entity.EntityMinecartTank
 import hiiragi283.material.util.hiiragiLocation

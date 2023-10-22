@@ -404,13 +404,17 @@ fun executeCommand(sender: ICommandSender, command: String) {
     Minecraft.getMinecraft().integratedServer?.getCommandManager()?.executeCommand(sender, command)
 }
 
-fun getEnumRarity(name: String): IRarity {
-    return when (name) {
-        "Uncommon" -> EnumRarity.UNCOMMON
-        "Rare" -> EnumRarity.RARE
-        "Epic" -> EnumRarity.EPIC
-        else -> EnumRarity.COMMON
-    }
+fun getEnumRarity(name: String): IRarity = when (name) {
+    "Uncommon" -> EnumRarity.UNCOMMON
+    "Rare" -> EnumRarity.RARE
+    "Epic" -> EnumRarity.EPIC
+    else -> EnumRarity.COMMON
 }
 
 fun isShiftPressed(): Boolean = Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
+
+infix fun <T> Boolean.soThat(value: T?): T? = value.takeIf { this }
+
+fun test() {
+    val result = (true soThat "Succeed") ?: "Failed"
+}

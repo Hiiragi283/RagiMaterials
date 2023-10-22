@@ -1,6 +1,5 @@
 package hiiragi283.material.api.material
 
-import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.HiiragiColor
@@ -26,7 +25,7 @@ sealed class MaterialType(val name: String) {
     object ELEMENT : MaterialType("ELEMENT") {
 
         override fun postInit(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
-            HiiragiRegistries.MATERIAL_SMELTED.register(material, material)
+            material.setSmelted(material)
         }
 
     }
@@ -42,7 +41,7 @@ sealed class MaterialType(val name: String) {
         }
 
         override fun postInit(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
-            HiiragiRegistries.MATERIAL_SMELTED.register(material, material)
+            material.setSmelted(material)
         }
 
     }
@@ -141,7 +140,7 @@ sealed class MaterialType(val name: String) {
         }
 
         override fun postInit(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
-            HiiragiRegistries.MATERIAL_SMELTED.register(material, material)
+            material.setSmelted(material)
         }
 
     }
@@ -184,7 +183,7 @@ sealed class MaterialType(val name: String) {
         }
 
         override fun postInit(material: HiiragiMaterial, components: Map<HiiragiMaterial, Int>) {
-            HiiragiRegistries.MATERIAL_SMELTED.register(material, components.toList()[0].first)
+            material.setSmelted(components.toList()[0].first)
         }
 
     }

@@ -304,8 +304,10 @@ hiiragi_material.color_yellow=黄色
 
 hiiragi_material.wood=木材
 hiiragi_material.water=水
+
 hiiragi_material.aquamarine=アクアマリン
 hiiragi_material.emerald=エメラルド
+
 hiiragi_material.coal=石炭
 hiiragi_material.charcoal=木炭
 hiiragi_material.coke=コークス
@@ -315,19 +317,25 @@ hiiragi_material.amber=琥珀
 hiiragi_material.ash=灰
 hiiragi_material.rubber=ゴム
 hiiragi_material.plastic=プラスチック
+
 hiiragi_material.niter=硝石
 hiiragi_material.nitric_acid=硝酸
 hiiragi_material.gunpowder=火薬
+
 hiiragi_material.cryolite=氷晶石
 hiiragi_material.fluorite=蛍石
 hiiragi_material.hydrogen_fluoride=フッ化水素
+
 hiiragi_material.salt=塩
+
 hiiragi_material.olivine=カンラン石
 hiiragi_material.peridot=ペリドット
+
 hiiragi_material.alumina=アルミナ
 hiiragi_material.bauxite=ボーキサイト
 hiiragi_material.ruby=ルビー
 hiiragi_material.sapphire=サファイア
+
 hiiragi_material.clay=粘土
 hiiragi_material.end_stone=エンドストーン
 hiiragi_material.glass=ガラス
@@ -337,24 +345,54 @@ hiiragi_material.obsidian=黒曜石
 hiiragi_material.quartz=水晶
 hiiragi_material.soul_sand=ソウルサンド
 hiiragi_material.stone=石
+
 hiiragi_material.sulfuric_acid=硫酸
 hiiragi_material.hydrogen_chloride=塩酸
+
 hiiragi_material.apatite=アパタイト
 hiiragi_material.gypsum=石膏
 hiiragi_material.lime=石灰石
+
 hiiragi_material.rutile=ルチル
+
 hiiragi_material.stainless_steel=ステンレス鋼
+hiiragi_material.chromite=クロム鉄鉱
+
+hiiragi_material.pyrolusite=軟マンガン鉱
+
 hiiragi_material.steel=鋼
 hiiragi_material.raw_steel=未精錬の鋼
+hiiragi_material.hematite=赤鉄鉱
+hiiragi_material.magnetite=磁鉄鉱
+hiiragi_material.pyrite=黄鉄鉱
+
 hiiragi_material.constantan=コンスタンタン
 hiiragi_material.invar=インバー
+hiiragi_material.garnierite=針ニッケル鉱
+
 hiiragi_material.brass=黄銅
 hiiragi_material.bronze=青銅
+hiiragi_material.malachite=孔雀石
+hiiragi_material.chalcocite=黄銅鉱
+
+hiiragi_material.sphalerite=閃亜鉛鉱
+
+hiiragi_material.molybdenite=輝水鉛鉱
+
 hiiragi_material.electrum=エレクトラム
+hiiragi_material.argentite=輝銀鉱
+
+hiiragi_material.cassiterite=錫石
+
 hiiragi_material.tungsten_steel=タングステン鋼
+
 hiiragi_material.cinnabar=辰砂
 
-hiiragi_material.dhmo=DHMO (一水素化二酸素)
+hiiragi_material.galena=方鉛鉱
+
+hiiragi_material.bismuthinite=輝蒼鉛鉱
+
+hiiragi_material.dhmo=DHMO (二水素化一酸素)
 
 ### Vanilla Elements ###
 

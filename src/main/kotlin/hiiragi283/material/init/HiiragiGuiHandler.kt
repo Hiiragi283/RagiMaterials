@@ -1,9 +1,9 @@
 package hiiragi283.material.init
 
 import hiiragi283.material.block.BlockMachineWorkbench
+import hiiragi283.material.client.gui.*
 import hiiragi283.material.container.*
 import hiiragi283.material.entity.EntityMinecartTank
-import hiiragi283.material.gui.*
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.tile.TileTransferStationFluid
 import hiiragi283.material.tile.TileTransferStationItem

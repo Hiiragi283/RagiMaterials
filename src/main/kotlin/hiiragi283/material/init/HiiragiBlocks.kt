@@ -54,6 +54,11 @@ object HiiragiBlocks {
     @JvmField
     val ENERGY_STATION = BlockTransferStation("energy") { TileTransferStationEnergy() }.register()
 
+    //    Mineral    //
+
+    @JvmField
+    val ORE_GENERATED = BlockOreGenerated.register()
+
     //    TEST    //
 
     @JvmField

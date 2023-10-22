@@ -1,4 +1,4 @@
-package hiiragi283.material.api.gui
+package hiiragi283.material.api.client.gui
 
 import net.minecraft.client.gui.GuiButton
 
