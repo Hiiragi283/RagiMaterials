@@ -11,6 +11,7 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
+@Suppress("DEPRECATION")
 open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()),
     PartConvertible.ITEM {
 

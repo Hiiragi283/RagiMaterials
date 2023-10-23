@@ -9,7 +9,7 @@ import hiiragi283.material.util.itemStack
 
 object MaterialItemStick : MaterialItem(HiiragiShapes.STICK) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Ingot + 1x Smithing Hammer -> 2x Stick
         if (HiiragiShapes.INGOT.isValid(material)) {
             CraftingBuilder(itemStack(material, 2))

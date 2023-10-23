@@ -6,7 +6,7 @@ import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.part.getParts
+import hiiragi283.material.api.part.PartDictionary
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.capability.IFluidHandler
@@ -32,7 +32,7 @@ class MaterialMeltingRecipe(val material: HiiragiMaterial) : IMachineRecipe {
         tank1: IFluidHandler,
         tank2: IFluidHandler
     ): List<FluidStack> {
-        val amount: Int = inventory.getStackInSlot(0).getParts().getOrNull(0)?.shape?.scale ?: return listOf()
+        val amount: Int = PartDictionary.getPart(inventory.getStackInSlot(0))?.shape?.scale ?: return listOf()
         return listOfNotNull(material.getFluidStack(amount))
     }
 

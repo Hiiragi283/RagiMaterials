@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 9x Ingot -> 1x Block
         if (HiiragiShapes.INGOT.isValid(material)) {
             CraftingBuilder(itemStack(material))

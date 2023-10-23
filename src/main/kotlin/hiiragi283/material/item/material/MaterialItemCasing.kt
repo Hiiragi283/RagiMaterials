@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), MachinePropertyItem {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 8x Plate + 1x Smithing Hammer -> 1x Casing
         if (HiiragiShapes.PLATE.isValid(material)) {
             CraftingBuilder(itemStack(material))

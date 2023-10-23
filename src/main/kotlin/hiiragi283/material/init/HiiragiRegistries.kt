@@ -22,9 +22,11 @@ object HiiragiRegistries {
 
     //    Forge    //
 
+    @Deprecated("Only Internal Use")
     @JvmField
     val BLOCK: HiiragiRegistry<String, Block> = HiiragiRegistry("Block")
 
+    @Deprecated("Only Internal Use")
     @JvmField
     val ITEM: HiiragiRegistry<String, Item> = HiiragiRegistry("Item")
 
@@ -80,9 +82,11 @@ object HiiragiRegistries {
         MATERIAL_INDEX.lock()
     }
 
+    @Deprecated("Only Internal Use")
     @JvmField
     val MATERIAL_BLOCK: HiiragiRegistry<HiiragiShape, PartConvertible.BLOCK> = HiiragiRegistry("Material Block")
 
+    @Deprecated("Only Internal Use")
     @JvmField
     val MATERIAL_ITEM: HiiragiRegistry<HiiragiShape, PartConvertible.ITEM> = HiiragiRegistry("Material Item")
 
@@ -95,6 +99,7 @@ object HiiragiRegistries {
 
     //    Part    //
 
+    @Deprecated("Will be removed")
     @JvmField
     val PART: HiiragiRegistry<String, HiiragiPart> = HiiragiRegistry("Part")
 

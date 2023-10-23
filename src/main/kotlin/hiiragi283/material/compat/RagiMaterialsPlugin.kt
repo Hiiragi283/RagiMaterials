@@ -2,7 +2,6 @@ package hiiragi283.material.compat
 
 import hiiragi283.material.RMReference
 import hiiragi283.material.compat.tcon.HiiragiTConPlugin
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.registerOreDict
@@ -41,7 +40,7 @@ object RagiMaterialsPlugin : HiiragiPluginBase(RMReference.MOD_ID, RMReference.M
         list.forEach { it.onInit(event) }
         registerOreDict(
             "dyeBlack",
-            HiiragiRegistries.MATERIAL_ITEM.getValue(HiiragiShapes.DUST)?.item(),
+            HiiragiShapes.DUST.getItem()?.item(),
             MaterialCommons.CHARCOAL.index
         )
     }

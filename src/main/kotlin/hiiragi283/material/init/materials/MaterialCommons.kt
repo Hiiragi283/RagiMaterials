@@ -614,6 +614,8 @@ object MaterialCommons {
         color = HiiragiColor.RED.rgb
         crystalType = CrystalType.EMERALD
         fluidSupplier = { null }
+        oreDictAlt.add("quicksilver")
+        oreDictAlt.add("quick_silver")
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 

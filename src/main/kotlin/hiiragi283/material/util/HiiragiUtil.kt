@@ -233,8 +233,12 @@ fun registerOreDict(oredict: String, block: Block?, meta: Int = 0, share: String
 }
 
 fun shareOredict(oredict1: String, oredict2: String) {
-    OreDictionary.getOres(oredict1).forEach { OreDictionary.registerOre(oredict2, it) }
-    OreDictionary.getOres(oredict2).forEach { OreDictionary.registerOre(oredict1, it) }
+    OreDictionary.getOres(oredict1)
+        .filter { OreDictionary.containsMatch(false, OreDictionary.getOres(oredict2), it) } //重複する値を除外
+        .forEach { stack -> OreDictionary.registerOre(oredict2, stack) }
+    OreDictionary.getOres(oredict2)
+        .filter { OreDictionary.containsMatch(false, OreDictionary.getOres(oredict1), it) } //重複する値を除外
+        .forEach { stack -> OreDictionary.registerOre(oredict1, stack) }
 }
 
 //    Reflection    //

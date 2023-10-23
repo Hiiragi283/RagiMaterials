@@ -15,7 +15,9 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import net.minecraftforge.oredict.OreDictionary
 
+@Suppress("DEPRECATION")
 abstract class HiiragiProxy : IHiiragiProxy {
 
     override fun onConstruct(event: FMLConstructionEvent) {
@@ -56,20 +58,13 @@ abstract class HiiragiProxy : IHiiragiProxy {
     override fun onInit(event: FMLInitializationEvent) {
         //レジストリへの登録
         HiiragiRegistries.registerPart()
-        //鉱石辞書の登録
+        //鉱石辞書, PartDictionary, レシピの登録
         HiiragiRegistries.BLOCK.getValues()
             .filterIsInstance<HiiragiEntry.BLOCK>()
-            .forEach(HiiragiEntry.BLOCK::registerOreDict)
+            .forEach(HiiragiEntry.BLOCK::onInit)
         HiiragiRegistries.ITEM.getValues()
             .filterIsInstance<HiiragiEntry.ITEM>()
-            .forEach(HiiragiEntry.ITEM::registerOreDict)
-        //レシピの登録
-        HiiragiRegistries.BLOCK.getValues()
-            .filterIsInstance<HiiragiEntry.BLOCK>()
-            .forEach(HiiragiEntry.BLOCK::registerRecipe)
-        HiiragiRegistries.ITEM.getValues()
-            .filterIsInstance<HiiragiEntry.ITEM>()
-            .forEach(HiiragiEntry.ITEM::registerRecipe)
+            .forEach(HiiragiEntry.ITEM::onInit)
         HiiragiRecipes.init()
         //連携の登録
         RagiMaterialsPlugin.onInit(event)
@@ -80,30 +75,38 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiJSonHandler.writeRecipe()
         HiiragiJSonHandler.registerRecipe()
         HiiragiRecipes.postInit()
+        //鉱石辞書の同期処理
+
         //連携の登録
         RagiMaterialsPlugin.onPostInit(event)
     }
 
     override fun onComplete(event: FMLLoadCompleteEvent) {
         //ログに出力
-        if (HiiragiConfigs.COMMON.printValues) {
-            RagiMaterials.LOGGER.info("Printing registered HiiragiShape values...")
-            HiiragiRegistries.SHAPE.getValues()
-                .map(HiiragiShape::getJsonElement)
-                .map<JsonElement, String>(RagiMaterials.GSON::toJson)
-                .forEach(RagiMaterials.LOGGER::info)
-            RagiMaterials.LOGGER.info("Printing registered HiiragiMaterial values...")
-            HiiragiRegistries.MATERIAL.getValues()
-                .map(HiiragiMaterial::getJsonElement)
-                .map<JsonElement, String>(RagiMaterials.GSON::toJson)
-                .forEach(RagiMaterials.LOGGER::info)
-        }
+        if (HiiragiConfigs.COMMON.printValues) printValues()
         //GUi操作を登録
         NetworkRegistry.INSTANCE.registerGuiHandler(RagiMaterials.Instance, HiiragiGuiHandler)
         //パケット送信の登録
         HiiragiNetworkManager.register()
         //チャンク読み込みの登録
         HiiragiChunkLoadCallback
+    }
+
+    private fun printValues() {
+        RagiMaterials.LOGGER.info("Printing registered HiiragiShape values...")
+        HiiragiRegistries.SHAPE.getValues()
+            .map(HiiragiShape::getJsonElement)
+            .map<JsonElement, String>(RagiMaterials.GSON::toJson)
+            .forEach(RagiMaterials.LOGGER::info)
+        RagiMaterials.LOGGER.info("Printing registered HiiragiMaterial values...")
+        HiiragiRegistries.MATERIAL.getValues()
+            .map(HiiragiMaterial::getJsonElement)
+            .map<JsonElement, String>(RagiMaterials.GSON::toJson)
+            .forEach(RagiMaterials.LOGGER::info)
+    }
+
+    private fun syncOreDicts() {
+        OreDictionary.getOreNames()
     }
 
     class Server : HiiragiProxy()

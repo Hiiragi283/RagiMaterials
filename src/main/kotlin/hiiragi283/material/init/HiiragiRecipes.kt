@@ -6,8 +6,7 @@ import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.api.part.getParts
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.recipe.MachineRecipe
@@ -206,8 +205,8 @@ object HiiragiRecipes {
         //インプットがDUST, アウトプットがINGOTのものは除外される
         FurnaceRecipes.instance().smeltingList.toList()
             .filter { (input: ItemStack, output: ItemStack) ->
-                HiiragiShapes.DUST !in input.getParts().map(HiiragiPart::shape)
-                        && HiiragiShapes.INGOT !in output.getParts().map(HiiragiPart::shape)
+                HiiragiShapes.DUST != PartDictionary.getPart(input)?.shape
+                        && HiiragiShapes.INGOT != PartDictionary.getPart(output)?.shape
             }
             .forEach { (input: ItemStack, output: ItemStack) ->
                 MachineRecipe.buildAndRegister(

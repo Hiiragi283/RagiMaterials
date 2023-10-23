@@ -5,6 +5,7 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.init.HiiragiCreativeTabs
 import hiiragi283.material.init.HiiragiRegistries
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
+@Suppress("DEPRECATION")
 open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     shape.name,
     Short.MAX_VALUE.toInt()
@@ -56,23 +58,17 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
         HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
     }
 
-    override fun registerOreDict() {
+    override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
             .forEach { material: HiiragiMaterial ->
-                shape.getOreDicts(material).forEach {
-                    OreDictionary.registerOre(it, itemStack(material))
-                }
+                OreDictionary.registerOre(shape.getOreDict(material), itemStack(material))
+                PartDictionary.add(this, material.index, shape.getPart(material))
+                registerRecipe(material)
             }
     }
 
-    override fun registerRecipe() {
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter { material: HiiragiMaterial -> material.isSolid() && shape.isValid(material) }
-            .forEach { addRecipes(it) }
-    }
-
-    open fun addRecipes(material: HiiragiMaterial) {}
+    open fun registerRecipe(material: HiiragiMaterial) {}
 
     fun addGrinderRecipe(material: HiiragiMaterial) {
         if (shape.scale < 144) return

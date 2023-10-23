@@ -9,7 +9,7 @@ import hiiragi283.material.util.itemStack
 
 object MaterialItemDust : MaterialItem(HiiragiShapes.DUST) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Ingot/Gem + 1x Smithing Hammer -> 1x Dust
         val builder: CraftingBuilder = CraftingBuilder(this.itemStack(material))
             .setPattern("A", "B")

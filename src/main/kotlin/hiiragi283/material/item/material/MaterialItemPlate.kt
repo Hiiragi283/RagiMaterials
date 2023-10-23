@@ -9,7 +9,7 @@ import hiiragi283.material.util.itemStack
 
 object MaterialItemPlate : MaterialItem(HiiragiShapes.PLATE) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Ingot + 1x Smithing Hammer -> 1x Plate
         if (HiiragiShapes.INGOT.isValid(material)) {
             CraftingBuilder(itemStack(material))

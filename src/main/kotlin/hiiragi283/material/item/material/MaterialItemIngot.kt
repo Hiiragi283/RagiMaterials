@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack
 
 object MaterialItemIngot : MaterialItem(HiiragiShapes.INGOT) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 9x Nugget -> 1x Ingot
         if (!HiiragiShapes.NUGGET.isValid(material)) {
             CraftingBuilder(itemStack(material))

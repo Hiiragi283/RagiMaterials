@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistryEntry
 
+@Suppress("DEPRECATION")
 interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun getObject(): T
@@ -26,9 +27,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun onRegister() {}
 
-    fun registerOreDict() {}
-
-    fun registerRecipe() {}
+    fun onInit() {}
 
     @SideOnly(Side.CLIENT)
     fun registerModel() {

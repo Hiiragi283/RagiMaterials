@@ -55,7 +55,7 @@ object BlockMachineWorkbench : HiiragiBlock(Material.IRON, "machine_workbench") 
 
     //    HiiragiEntry    //
 
-    override fun registerRecipe() {
+    override fun onInit() {
         CraftingBuilder(itemStack())
             .setPattern("AAA", "BCB", "DDD")
             .setIngredient('A', Blocks.CONCRETE.itemStack(meta = EnumDyeColor.BLACK.metadata))

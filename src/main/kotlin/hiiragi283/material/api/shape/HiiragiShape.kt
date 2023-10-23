@@ -4,10 +4,11 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.PartConvertible
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiJsonSerializable
-import hiiragi283.material.util.itemStack
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.oredict.OreDictionary
@@ -21,8 +22,10 @@ import rechellatek.snakeToLowerCamelCase
 
 data class HiiragiShape(val name: String, val scale: Int) : HiiragiJsonSerializable {
 
+    fun getItem(): PartConvertible.ITEM? = HiiragiRegistries.MATERIAL_ITEM.getValue(this)
+
     fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack =
-        HiiragiRegistries.MATERIAL_ITEM.getValue(this)?.item()?.itemStack(material, count) ?: ItemStack.EMPTY
+        PartDictionary.getPrimalStack(getPart(material))?.also { it.count = count } ?: ItemStack.EMPTY
 
     fun getItemStack(part: HiiragiPart): ItemStack {
         val scale: Int = part.shape.scale

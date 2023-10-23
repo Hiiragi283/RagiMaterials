@@ -39,7 +39,7 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
 
     class Wrapper(recipeType: MachineType) : IRecipeWrapper {
 
-        val casing: ItemStack = HiiragiRegistries.MATERIAL_ITEM.getValue(HiiragiShapes.CASING)
+        val casing: ItemStack = HiiragiShapes.CASING.getItem()
             ?.item()?.itemStackWild()
             ?: ItemStack.EMPTY
 

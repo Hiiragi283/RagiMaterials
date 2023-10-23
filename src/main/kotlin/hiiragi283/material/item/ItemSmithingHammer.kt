@@ -71,7 +71,7 @@ object ItemSmithingHammer : HiiragiItem("smithing_hammer") {
 
     //    HiiragiEntry    //
 
-    override fun registerRecipe() {
+    override fun onInit() {
         CraftingBuilder(this.itemStack())
             .setPattern(" A ", " BA", "B  ")
             .setIngredient('A', HiiragiShapes.INGOT.getOreDict(MaterialCommons.STEEL))

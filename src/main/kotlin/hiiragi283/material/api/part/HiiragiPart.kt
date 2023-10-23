@@ -7,26 +7,12 @@ import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.HiiragiJsonSerializable
-import hiiragi283.material.util.itemStack
-import hiiragi283.material.util.notEmpty
-import hiiragi283.material.util.oreDicts
-import net.minecraft.block.state.IBlockState
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.oredict.OreDictionary
 
 fun createAllParts(): List<HiiragiPart> = HiiragiRegistries.SHAPE.getValues()
     .flatMap { shape: HiiragiShape -> HiiragiRegistries.MATERIAL.getValues().map(shape::getPart) }
-
-fun String.getPart(): HiiragiPart? = HiiragiRegistries.PART.getValue(this)
-
-fun String.getParts(): List<HiiragiPart> = listOfNotNull(this.getPart())
-
-fun Collection<String>.getParts(): List<HiiragiPart> = this.mapNotNull(String::getPart)
-
-fun IBlockState.getParts() = this.let(IBlockState::itemStack).let(ItemStack::getParts)
-
-fun ItemStack.getParts(): List<HiiragiPart> = this.notEmpty()?.oreDicts()?.mapNotNull(String::getPart) ?: listOf()
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) : HiiragiJsonSerializable {
 

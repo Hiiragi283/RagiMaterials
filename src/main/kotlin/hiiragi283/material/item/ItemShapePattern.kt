@@ -44,10 +44,10 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 7) {
 
     //    HiiragiEntry    //
 
-    override fun registerRecipe() {
+    override fun onInit() {
         // 1x Shape + 1x Steel Plate -> 1x Shape Pattern
         SHAPE_MAP.mapNotNull { (index: Int, shape: HiiragiShape) ->
-            HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.let { index to it.item() }
+            shape.getItem()?.let { index to it.item() }
         }.forEach { (index: Int, item: Item) ->
             CraftingBuilder(this.itemStack(meta = index))
                 .addIngredient(item)

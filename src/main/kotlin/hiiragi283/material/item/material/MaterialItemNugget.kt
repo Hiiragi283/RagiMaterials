@@ -8,7 +8,7 @@ import hiiragi283.material.util.itemStack
 
 object MaterialItemNugget : MaterialItem(HiiragiShapes.NUGGET) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Ingot -> 9x Nugget
         if (HiiragiShapes.INGOT.isValid(material)) {
             CraftingBuilder(itemStack(material, 9))

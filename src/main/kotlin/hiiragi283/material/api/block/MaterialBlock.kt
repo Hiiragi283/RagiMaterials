@@ -3,6 +3,7 @@ package hiiragi283.material.api.block
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartConvertible
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.init.HiiragiCreativeTabs
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
+@Suppress("DEPRECATION")
 abstract class MaterialBlock(
     final override val shape: HiiragiShape
 ) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
@@ -71,16 +73,14 @@ abstract class MaterialBlock(
         HiiragiRegistries.MATERIAL_BLOCK.register(shape, this)
     }
 
-    override fun registerOreDict() {
+    override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
-            .forEach { material -> OreDictionary.registerOre(shape.getOreDict(material), itemStack(material)) }
-    }
-
-    override fun registerRecipe() {
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(shape::isValid)
-            .forEach(::registerRecipe)
+            .forEach { material: HiiragiMaterial ->
+                OreDictionary.registerOre(shape.getOreDict(material), itemStack(material))
+                PartDictionary.add(this, material.index, shape.getPart(material))
+                registerRecipe(material)
+            }
     }
 
     abstract fun registerRecipe(material: HiiragiMaterial)

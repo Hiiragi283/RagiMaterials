@@ -7,7 +7,7 @@ import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialStack
-import hiiragi283.material.api.part.getParts
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.tile.HiiragiProvider
 import hiiragi283.material.compat.RagiMaterialsPlugin
@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
+@Suppress("DEPRECATION")
 object HiiragiEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -139,7 +140,9 @@ object HiiragiEventHandler {
         fun onTooltip(event: ItemTooltipEvent) {
             if (event.itemStack.isEmpty) return
 
-            event.itemStack.getParts().toSet().forEach { it.addTooltip(event) }
+            //event.itemStack.getParts().toSet().forEach { it.addTooltip(event) }
+
+            PartDictionary.getPart(event.itemStack)?.addTooltip(event)
 
             event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 ?.tankProperties

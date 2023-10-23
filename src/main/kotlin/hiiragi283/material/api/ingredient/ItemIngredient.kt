@@ -5,7 +5,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
-import hiiragi283.material.api.part.getParts
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.util.*
 import net.minecraft.block.Block
@@ -50,8 +50,8 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = stacks
 
-        override fun test(t: ItemStack): Boolean =
-            getMatchingStacks().any { stack -> stack.isSameWithoutCount(t) && t.count >= count }
+        override fun test(stack: ItemStack): Boolean =
+            getMatchingStacks().any { stackIn -> stackIn.isSameWithoutCount(stack) && stack.count >= count }
 
         override fun getJsonElement(): JsonElement {
 
@@ -77,9 +77,9 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = blocks.map { it.itemStack(count) }
 
-        override fun test(t: ItemStack): Boolean {
-            val blockT: Block = (t.item as? ItemBlock)?.block ?: return false
-            return blocks.any { block: Block -> blockT == block && t.count >= count }
+        override fun test(stack: ItemStack): Boolean {
+            val blockT: Block = (stack.item as? ItemBlock)?.block ?: return false
+            return blocks.any { block: Block -> blockT == block && stack.count >= count }
         }
 
         override fun getJsonElement(): JsonElement {
@@ -106,7 +106,8 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = items.map { it.itemStack(count) }
 
-        override fun test(t: ItemStack): Boolean = items.any { item: Item -> t.item == item && t.count >= count }
+        override fun test(stack: ItemStack): Boolean =
+            items.any { item: Item -> stack.item == item && stack.count >= count }
 
         override fun getJsonElement(): JsonElement {
 
@@ -137,7 +138,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
                 return@map stack
             }
 
-        override fun test(t: ItemStack): Boolean = oreDicts.any { oreDict: String -> oreDict in t.oreDicts() }
+        override fun test(stack: ItemStack): Boolean = oreDicts.any { oreDict: String -> oreDict in stack.oreDicts() }
 
         override fun getJsonElement(): JsonElement {
 
@@ -166,7 +167,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = part.getItemStacks(count)
 
-        override fun test(t: ItemStack): Boolean = part in t.getParts()
+        override fun test(stack: ItemStack): Boolean = part == PartDictionary.getPart(stack)
 
         override fun getJsonElement(): JsonElement {
 
@@ -187,7 +188,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = material.getItemStacks(count)
 
-        override fun test(t: ItemStack): Boolean = material in t.getParts().map(HiiragiPart::material)
+        override fun test(stack: ItemStack): Boolean = material == PartDictionary.getPart(stack)?.material
 
         override fun getJsonElement(): JsonElement {
 
@@ -208,7 +209,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = shape.getItemStacks(count)
 
-        override fun test(t: ItemStack): Boolean = shape in t.getParts().map(HiiragiPart::shape)
+        override fun test(stack: ItemStack): Boolean = shape == PartDictionary.getPart(stack)?.shape
 
         override fun getJsonElement(): JsonElement {
 
@@ -236,7 +237,7 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
         override fun getMatchingStacks(): Collection<ItemStack> = stacks()
 
-        override fun test(t: ItemStack): Boolean = predicate(t)
+        override fun test(stack: ItemStack): Boolean = predicate(stack)
 
         override fun onProcess(inventory: IItemHandlerModifiable, index: Int) = process(inventory, index)
 

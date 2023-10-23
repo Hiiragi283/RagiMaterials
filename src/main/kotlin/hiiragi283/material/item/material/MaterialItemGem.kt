@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
 
-    override fun addRecipes(material: HiiragiMaterial) {
+    override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Block -> 9x Gem
         if (HiiragiShapes.BLOCK.isValid(material)) {
             CraftingBuilder(itemStack(material, 9))
