@@ -3,7 +3,6 @@ package hiiragi283.material.item.material
 import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
-import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.init.HiiragiItems
 import hiiragi283.material.init.HiiragiShapes
@@ -41,41 +40,29 @@ object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), MachinePropertyI
 
     //    MachinePropertyItem    //
 
-    override val recipeType: (ItemStack) -> MachineType = { _ -> MachineType.NONE }
+    override fun getProcessTime(stack: ItemStack): Int = getMaterial(stack)
+        ?.machineProperty
+        ?.processTime
+        ?: super.getProcessTime(stack)
 
-    override val processTime: (ItemStack) -> Int = { stack ->
-        getMaterial(stack)
-            ?.machineProperty
-            ?.processTime
-            ?: 100
-    }
+    override fun getEnergyRate(stack: ItemStack): Int = getMaterial(stack)
+        ?.machineProperty
+        ?.energyRate
+        ?: super.getEnergyRate(stack)
 
-    override val energyRate: (ItemStack) -> Int = { stack ->
-        getMaterial(stack)
-            ?.machineProperty
-            ?.energyRate
-            ?: 32
-    }
+    override fun getItemSlots(stack: ItemStack): Int = getMaterial(stack)
+        ?.machineProperty
+        ?.itemSlots
+        ?: super.getItemSlots(stack)
 
-    override val itemSlots: (ItemStack) -> Int = { stack ->
-        getMaterial(stack)
-            ?.machineProperty
-            ?.itemSlots
-            ?: 1
-    }
+    override fun getFluidSlots(stack: ItemStack): Int = getMaterial(stack)
+        ?.machineProperty
+        ?.fluidSlots
+        ?: super.getFluidSlots(stack)
 
-    override val fluidSlots: (ItemStack) -> Int = { stack ->
-        getMaterial(stack)
-            ?.machineProperty
-            ?.fluidSlots
-            ?: 0
-    }
-
-    override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
-        getMaterial(stack)
-            ?.machineProperty
-            ?.machineTraits
-            ?: setOf()
-    }
+    override fun getMachineTraits(stack: ItemStack): Set<MachineTrait> = getMaterial(stack)
+        ?.machineProperty
+        ?.machineTraits
+        ?: super.getMachineTraits(stack)
 
 }

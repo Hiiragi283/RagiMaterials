@@ -4,7 +4,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
-import hiiragi283.material.api.fluid.MaterialFluidBlock
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.IMachineRecipe
@@ -62,14 +61,11 @@ object HiiragiJsonUtil {
 
     fun shapeType(jsonElement: JsonElement): HiiragiShapeType {
         val root: JsonObject = jsonElement.asJsonObject
-        val name: String? = root.getAsJsonPrimitive("name")?.asString
-        val shapesJson: JsonArray? = root.getAsJsonArray("shapes")
-        if (name != null && shapesJson != null) {
-            val shapes: List<HiiragiShape> =
-                shapesJson.map { it.asString }.mapNotNull(HiiragiRegistries.SHAPE::getValue)
-            return HiiragiShapeType(name, shapes)
-        }
-        return HiiragiShapeTypes.INTERNAL
+        return root.getAsJsonArray("shapes")?.let { jsonArray ->
+            val shapes: List<HiiragiShape> = jsonArray.map { it.asString }
+                .mapNotNull(HiiragiRegistries.SHAPE::getValue)
+            HiiragiShapeType.build { this.shapes.addAll(shapes) }
+        } ?: HiiragiShapeTypes.INTERNAL
     }
 
     fun machineProperty(jsonElement: JsonElement): MachineProperty {
@@ -107,12 +103,10 @@ object HiiragiJsonUtil {
 
         setValue(root, "formula", JsonPrimitive::getAsString) { formula -> builder.formula = formula }
 
-        setValue(root, "has_fluid", JsonPrimitive::getAsBoolean) { hasFluid ->
-            if (!hasFluid) builder.fluidSupplier = { null }
-        }
+        setValue(root, "has_fluid", JsonPrimitive::getAsBoolean) { hasFluid -> builder.hasFluid = hasFluid }
 
         setValue(root, "has_fluid_block", JsonPrimitive::getAsBoolean) { hasFluidBlock ->
-            if (hasFluidBlock) builder.fluidBlock = { fluid: Fluid -> MaterialFluidBlock(fluid) }
+            builder.hasFluidBlock = hasFluidBlock
         }
 
         setValue(root, "machineProperty", JsonObject::getAsJsonObject) { jsonObject ->

@@ -4,6 +4,7 @@ import hiiragi283.material.api.item.HiiragiItem
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
@@ -54,10 +55,13 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 7) {
                 .addIngredient(HiiragiShapes.PLATE.getOreDict(MaterialCommons.STEEL))
                 .build()
         }
+    }
+
+    override fun onPostInit() {
         // Metal Casting Recipe
         SHAPE_MAP.values.forEach { shape: HiiragiShape ->
             HiiragiRegistries.MATERIAL_INDEX.getValues()
-                .filter(shape::isValid)
+                .filter { PartDictionary.hasItemStack(shape.getPart(it)) }
                 .filter(HiiragiMaterial::isSolid)
                 .filter(HiiragiMaterial::hasFluid)
                 .map(shape::getPart)

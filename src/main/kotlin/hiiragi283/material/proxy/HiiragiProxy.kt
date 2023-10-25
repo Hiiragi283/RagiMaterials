@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.compat.RagiMaterialsPlugin
@@ -56,9 +57,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
     }
 
     override fun onInit(event: FMLInitializationEvent) {
-        //レジストリへの登録
-        HiiragiRegistries.registerPart()
-        //鉱石辞書, PartDictionary, レシピの登録
+        //鉱石辞書の登録
         HiiragiRegistries.BLOCK.getValues()
             .filterIsInstance<HiiragiEntry.BLOCK>()
             .forEach(HiiragiEntry.BLOCK::onInit)
@@ -71,10 +70,18 @@ abstract class HiiragiProxy : IHiiragiProxy {
     }
 
     override fun onPostInit(event: FMLPostInitializationEvent) {
+        //鉱石辞書とHiiragiPartの同期処理
+        PartDictionary.init()
         //レシピの登録
         HiiragiJSonHandler.writeRecipe()
         HiiragiJSonHandler.registerRecipe()
         HiiragiRecipes.postInit()
+        HiiragiRegistries.BLOCK.getValues()
+            .filterIsInstance<HiiragiEntry.BLOCK>()
+            .forEach(HiiragiEntry.BLOCK::onPostInit)
+        HiiragiRegistries.ITEM.getValues()
+            .filterIsInstance<HiiragiEntry.ITEM>()
+            .forEach(HiiragiEntry.ITEM::onPostInit)
         //鉱石辞書の同期処理
 
         //連携の登録

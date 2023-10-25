@@ -60,16 +60,16 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
 
             val machineTraits: MutableSet<MachineTrait> = mutableSetOf()
             machineTraits.addAll(baseProperty.machineTraits)
-            machineTraits.addAll(moduleProperty.machineTraits(module))
+            machineTraits.addAll(moduleProperty.getMachineTraits(module))
 
             outputInventory.setStackInSlot(
                 0, machineBlock.createMachineStack(
                     material, MachineProperty.of(
                         recipeType = recipeType,
-                        processTime = moduleProperty.processTime(module, baseProperty.processTime),
-                        energyRate = moduleProperty.energyRate(module, baseProperty.energyRate),
-                        itemSlots = moduleProperty.itemSlots(module, baseProperty.itemSlots),
-                        fluidSlots = moduleProperty.fluidSlots(module, baseProperty.fluidSlots),
+                        processTime = moduleProperty.getProcessTime(module, baseProperty.processTime),
+                        energyRate = moduleProperty.getEnergyRate(module, baseProperty.energyRate),
+                        itemSlots = moduleProperty.getItemSlots(module, baseProperty.itemSlots),
+                        fluidSlots = moduleProperty.getFluidSlots(module, baseProperty.fluidSlots),
                         machineTraits = machineTraits
                     )
                 )

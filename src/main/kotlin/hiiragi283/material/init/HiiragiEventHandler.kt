@@ -136,13 +136,11 @@ object HiiragiEventHandler {
                 .forEach(HiiragiEntry.ITEM::registerModel)
         }
 
-        @SubscribeEvent
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
         fun onTooltip(event: ItemTooltipEvent) {
             if (event.itemStack.isEmpty) return
 
-            //event.itemStack.getParts().toSet().forEach { it.addTooltip(event) }
-
-            PartDictionary.getPart(event.itemStack)?.addTooltip(event)
+            PartDictionary.getObject(event.itemStack)?.addTooltip(event)
 
             event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 ?.tankProperties

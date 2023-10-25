@@ -52,6 +52,9 @@ object HiiragiShapes {
     val FRAME = HiiragiShape("frame", 144 * 4)
 
     @JvmField
+    val FUEL = HiiragiShape("fuel", 144)
+
+    @JvmField
     val GEAR = HiiragiShape("gear", 144 * 4)
 
     @JvmField

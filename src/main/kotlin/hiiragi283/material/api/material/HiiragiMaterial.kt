@@ -5,7 +5,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.event.MaterialBuiltEvent
-import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
@@ -16,8 +15,6 @@ import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getTileImplemented
-import hiiragi283.material.util.itemStack
-import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IBlockColor
 import net.minecraft.client.renderer.color.IItemColor
@@ -113,12 +110,9 @@ data class HiiragiMaterial private constructor(
 
     fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
 
-    fun getItemStack(shape: HiiragiShape, count: Int = 1): ItemStack? =
-        HiiragiRegistries.MATERIAL_ITEM.getValue(shape)?.item()?.itemStack(this, count)
+    fun getItemStack(count: Int = 1): ItemStack? = MaterialDictionary.getPrimalStack(this, count)
 
-    fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.SHAPE.getValues()
-        .map(::getPart)
-        .flatMap { it.getItemStacks(count) }
+    fun getItemStacks(count: Int = 1): List<ItemStack> = MaterialDictionary.getItemStacks(this, count)
 
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
@@ -240,10 +234,10 @@ data class HiiragiMaterial private constructor(
         root.addProperty("color", color)
         root.addProperty("formula", formula)
 
-        val hasFluid: Boolean = fluidSupplier.hasFluid(this)
+        val hasFluid: Boolean = fluidSupplier.hasFluid
         if (hasFluid) {
             root.addProperty("has_fluid", true)
-            if (fluidSupplier.hasBlock(this)) {
+            if (fluidSupplier.hasBucket) {
                 root.addProperty("has_fluid_block", true)
             }
         } else {
@@ -273,10 +267,10 @@ data class HiiragiMaterial private constructor(
         val oreDictAlt: MutableList<String> = mutableListOf()
         var color: Int = 0xFFFFFF
         var crystalType: CrystalType = CrystalType.NONE
-        var fluidBlock: (Fluid) -> Block? = { null }
-        var fluidSupplier: (HiiragiMaterial) -> Fluid? = { MaterialFluid(it) }
         var formula: String = ""
         var hasBucket: Boolean = true
+        var hasFluid: Boolean = true
+        var hasFluidBlock: Boolean = false
         var machineProperty: MachineProperty? = null
         var molar: Double = 0.0
         var shapeType: HiiragiShapeType = HiiragiShapeTypes.INTERNAL
@@ -291,7 +285,7 @@ data class HiiragiMaterial private constructor(
                 index,
                 color,
                 crystalType,
-                MaterialFluidSupplier(fluidSupplier, fluidBlock, hasBucket),
+                MaterialFluidSupplier(hasFluid, hasFluidBlock, hasBucket),
                 formula,
                 machineProperty,
                 molar,

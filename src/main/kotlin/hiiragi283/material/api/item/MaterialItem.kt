@@ -5,7 +5,6 @@ import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
-import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.init.HiiragiCreativeTabs
 import hiiragi283.material.init.HiiragiRegistries
@@ -61,11 +60,13 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
-            .forEach { material: HiiragiMaterial ->
-                OreDictionary.registerOre(shape.getOreDict(material), itemStack(material))
-                PartDictionary.add(this, material.index, shape.getPart(material))
-                registerRecipe(material)
-            }
+            .forEach { OreDictionary.registerOre(shape.getOreDict(it), itemStack(it)) }
+    }
+
+    override fun onPostInit() {
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
+            .filter(shape::isValid)
+            .forEach(::registerRecipe)
     }
 
     open fun registerRecipe(material: HiiragiMaterial) {}
@@ -86,7 +87,7 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     }
 
     fun addMetalFormerRecipe(material: HiiragiMaterial, inputCount: Int = 1, outputCount: Int = 1) {
-        if (!HiiragiShapes.INGOT.isValid(material) || !shape.isValid(material)) return
+        if (!material.isMetal()) return
         val part: HiiragiPart = shape.getPart(material)
         MachineRecipe.buildAndRegister(
             MachineType.METAL_FORMER,

@@ -4,6 +4,7 @@ import hiiragi283.material.api.material.isotopeOf
 import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.init.HiiragiShapeTypes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiColor
 
 /**
@@ -69,8 +70,8 @@ object MaterialElements {
     @JvmField
     val CARBON = materialOf("carbon", 6) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK, HiiragiColor.DARK_GRAY).rgb
-        fluidSupplier = { null }
         formula = "C"
+        hasFluid = false
         molar = 12.0
         shapeType = HiiragiShapeTypes.SOLID
         //tempBoil = 4300
@@ -277,7 +278,10 @@ object MaterialElements {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY to 1, HiiragiColor.WHITE to 2).rgb
         formula = "Fe"
         molar = 55.8
-        shapeType = HiiragiShapeTypes.METAL_ADVANCED
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED.copy {
+            shapes.remove(HiiragiShapes.BLOCK)
+            shapes.remove(HiiragiShapes.INGOT)
+        }
         tempBoil = 3134
         tempMelt = 1811
     }
@@ -345,8 +349,8 @@ object MaterialElements {
     @JvmField
     val ARSENIC = materialOf("arsenic", 33) {
         color = HiiragiColor.GRAY.rgb
-        fluidSupplier = { null }
         formula = "As"
+        hasFluid = false
         molar = 74.9
         shapeType = HiiragiShapeTypes.SOLID
         //tempBoil = 887
@@ -816,7 +820,10 @@ object MaterialElements {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW).rgb
         formula = "Au"
         molar = 197.0
-        shapeType = HiiragiShapeTypes.METAL_ADVANCED
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED.copy {
+            shapes.remove(HiiragiShapes.BLOCK)
+            shapes.remove(HiiragiShapes.INGOT)
+        }
         tempBoil = 3129
         tempMelt = 1337
     }

@@ -126,12 +126,12 @@ object HiiragiJSonHandler {
             if (sample.canWrite()) {
                 val material: JsonElement = materialOf("sample", -1) {
                     color = RagiMaterials.COLOR.rgb
-                    fluidSupplier = { null }
                     formula = "HIIRAGI"
+                    hasFluid = false
                     molar = 110.9
+                    shapeType = HiiragiShapeType.build { shapes.addAll(HiiragiRegistries.SHAPE.getValues()) }
                     tempBoil = 2830
                     tempMelt = 1109
-                    shapeType = HiiragiShapeType("wildcard", HiiragiRegistries.SHAPE.getValues())
                 }.getJsonElement()
                 sample.writeText(gson.toJson(material), Charsets.UTF_8)
             }

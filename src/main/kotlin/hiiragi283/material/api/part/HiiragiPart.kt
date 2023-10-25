@@ -9,10 +9,6 @@ import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.HiiragiJsonSerializable
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
-import net.minecraftforge.oredict.OreDictionary
-
-fun createAllParts(): List<HiiragiPart> = HiiragiRegistries.SHAPE.getValues()
-    .flatMap { shape: HiiragiShape -> HiiragiRegistries.MATERIAL.getValues().map(shape::getPart) }
 
 data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) : HiiragiJsonSerializable {
 
@@ -30,29 +26,23 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) :
         material.addTooltip(tooltip, shape.getTranslatedName(material), shape.scale * stack.count)
     }
 
-    fun getItemStack(count: Int = 1): ItemStack = shape.getItemStack(material, count)
+    fun getItemStack(count: Int = 1): ItemStack = PartDictionary.getPrimalStack(this, count) ?: ItemStack.EMPTY
 
-    fun getItemStacks(count: Int = 1): List<ItemStack> = getOreDicts().flatMap(OreDictionary::getOres)
-        .map(ItemStack::copy)
-        .map { stack: ItemStack ->
-            stack.count = count
-            return@map stack
-        }
+    fun getItemStacks(count: Int = 1): List<ItemStack> = PartDictionary.getItemStacks(this, count)
 
     fun getOreDict(): String = shape.getOreDict(material)
 
     fun getOreDicts(): List<String> = shape.getOreDicts(material)
 
-    fun isInOreDictionary(): Boolean {
-        getOreDicts().forEach { oreDict: String ->
-            if (OreDictionary.doesOreNameExist(oreDict)) {
-                return true
-            }
-        }
-        return false
-    }
-
     override fun toString(): String = "${shape.name}:${material.name}"
+
+    companion object {
+
+        @JvmSynthetic
+        fun createAllParts(): List<HiiragiPart> = HiiragiRegistries.SHAPE.getValues()
+            .flatMap { shape: HiiragiShape -> HiiragiRegistries.MATERIAL.getValues().map(shape::getPart) }
+
+    }
 
     //    HiiragiJsonSerializable    //
 

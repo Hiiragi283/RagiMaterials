@@ -5,7 +5,6 @@ import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
-import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.util.HiiragiJsonSerializable
@@ -24,19 +23,11 @@ data class HiiragiShape(val name: String, val scale: Int) : HiiragiJsonSerializa
 
     fun getItem(): PartConvertible.ITEM? = HiiragiRegistries.MATERIAL_ITEM.getValue(this)
 
-    fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack =
-        PartDictionary.getPrimalStack(getPart(material))?.also { it.count = count } ?: ItemStack.EMPTY
+    fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack = getPart(material).getItemStack(count)
 
-    fun getItemStack(part: HiiragiPart): ItemStack {
-        val scale: Int = part.shape.scale
-        return if (scale >= 144) getItemStack(part.material, scale / 144) else ItemStack.EMPTY
-    }
+    fun getItemStack(count: Int = 1): ItemStack? = ShapeDictionary.getPrimalStack(this, count)
 
-    fun getItemStackWild(count: Int = 1): ItemStack = getItemStack(HiiragiMaterial.WILDCARD, count)
-
-    fun getItemStacks(count: Int = 1): List<ItemStack> = HiiragiRegistries.MATERIAL_INDEX.getValues()
-        .map(::getPart)
-        .flatMap { it.getItemStacks(count) }
+    fun getItemStacks(count: Int = 1): List<ItemStack> = ShapeDictionary.getItemStacks(this, count)
 
     fun getOreDict(material: HiiragiMaterial): String = name.snakeToLowerCamelCase() + material.getOreDictName()
 

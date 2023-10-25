@@ -54,30 +54,25 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
         stack.getOrCreateSubCompound(HiiragiNBTUtil.BLOCK_ENTITY_TAG)
             .getOrCreateCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY)
 
-    override val recipeType: (ItemStack) -> MachineType = { _ -> type }
+    override fun getRecipeType(stack: ItemStack): MachineType = type
 
-    override val processTime: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_PROCESS) ?: 100
-    }
+    override fun getProcessTime(stack: ItemStack): Int =
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_PROCESS) ?: super.getProcessTime(stack)
 
-    override val energyRate: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_RATE) ?: 32
-    }
+    override fun getEnergyRate(stack: ItemStack): Int =
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_RATE) ?: super.getEnergyRate(stack)
 
-    override val itemSlots: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_ITEM) ?: 1
-    }
+    override fun getItemSlots(stack: ItemStack): Int =
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_ITEM) ?: super.getItemSlots(stack)
 
-    override val fluidSlots: (ItemStack) -> Int = { stack ->
-        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_FLUID) ?: 0
-    }
+    override fun getFluidSlots(stack: ItemStack): Int =
+        getMachinePropertyTag(stack).getIntegerOrNull(MachineProperty.KEY_FLUID) ?: super.getFluidSlots(stack)
 
-    override val machineTraits: (ItemStack) -> Set<MachineTrait> = { stack ->
+    override fun getMachineTraits(stack: ItemStack): Set<MachineTrait> =
         getMachinePropertyTag(stack).getTagListOrNull(MachineProperty.KEY_TRAIT, Constants.NBT.TAG_STRING)
             ?.filterIsInstance<NBTTagString>()
             ?.map(NBTTagString::getString)
             ?.mapNotNull(MachineTrait.Companion::from)
-            ?.toSet() ?: setOf()
-    }
+            ?.toSet() ?: super.getMachineTraits(stack)
 
 }

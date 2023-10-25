@@ -3,6 +3,7 @@ package hiiragi283.material.init.materials
 import hiiragi283.material.api.material.*
 import hiiragi283.material.compat.HiiragiThermalPlugin
 import hiiragi283.material.init.HiiragiShapeTypes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiColor
 
 object MaterialCompats {
@@ -13,42 +14,50 @@ object MaterialCompats {
     val REDSTONE = materialOf("redstone", 1000) {
         color = HiiragiColor.DARK_RED.rgb
         crystalType = CrystalType.EMERALD
-        if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
-        }
         formula = "Rs"
-        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
+        if (HiiragiThermalPlugin.enabled()) {
+            hasFluid = false
+        }
+        shapeType = HiiragiShapeTypes.SOLID.copy {
+            shapes.remove(HiiragiShapes.DUST)
+        }
     }
 
     @JvmField
     val LAPIS = materialOf("lapis", 1001) {
         color = HiiragiColor.BLUE.rgb
         crystalType = CrystalType.LAPIS
-        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
+        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED.copy {
+            shapes.remove(HiiragiShapes.BLOCK)
+            shapes.remove(HiiragiShapes.GEM)
+        }
     }
 
     @JvmField
     val GLOWSTONE = materialOf("glowstone", 1002) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.YELLOW to 2).rgb
         crystalType = CrystalType.EMERALD
-        if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
-        }
         formula = "Gl"
-        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
+        if (HiiragiThermalPlugin.enabled()) {
+            hasFluid = false
+        }
+        shapeType = HiiragiShapeTypes.SOLID.copy {
+            shapes.remove(HiiragiShapes.DUST)
+        }
+
     }
 
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
         crystalType = CrystalType.EMERALD
-        if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
-        }
         formula = "En"
+        if (HiiragiThermalPlugin.enabled()) {
+            hasFluid = false
+        }
         oreDictAlt.add("ender")
         oreDictAlt.add("ender_pearl")
-        shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
+        shapeType = HiiragiShapeTypes.SOLID
     }
 
     //    Thermal Series    //
@@ -97,7 +106,7 @@ object MaterialCompats {
     ) {
         color = HiiragiColor.YELLOW.rgb
         if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
+            hasFluid = false
         }
     }
 
@@ -109,7 +118,7 @@ object MaterialCompats {
     ) {
         color = HiiragiColor.AQUA.rgb
         if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
+            hasFluid = false
         }
     }
 
@@ -121,7 +130,7 @@ object MaterialCompats {
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
         if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
+            hasFluid = false
         }
     }
 
@@ -139,7 +148,7 @@ object MaterialCompats {
                 HiiragiColor.RED to 1
             ).rgb
         if (HiiragiThermalPlugin.enabled()) {
-            fluidSupplier = { null }
+            hasFluid = false
         }
     }
 

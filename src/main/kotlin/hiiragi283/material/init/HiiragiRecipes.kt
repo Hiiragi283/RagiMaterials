@@ -7,6 +7,7 @@ import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartDictionary
+import hiiragi283.material.api.shape.ShapeDictionary
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.recipe.MachineRecipe
@@ -124,7 +125,7 @@ object HiiragiRecipes {
         HiiragiRegistries.MATERIAL_SMELTED.getEntries()
             .filter { (input: HiiragiMaterial, pair: Pair<HiiragiMaterial, Int>) -> input.isRegistered() && pair.first.isRegistered() }
             .filter { (input: HiiragiMaterial, pair: Pair<HiiragiMaterial, Int>) -> input.isSolid() && pair.first.isSolid() }
-            .filter { HiiragiShapes.DUST.isValid(it.first) }
+            .filter { PartDictionary.hasItemStack(HiiragiShapes.DUST.getPart(it.first)) }
             .forEach { (input: HiiragiMaterial, pair: Pair<HiiragiMaterial, Int>) ->
                 val (output: HiiragiMaterial, count: Int) = pair
                 SmeltingBuilder.addSmelting(
@@ -205,8 +206,8 @@ object HiiragiRecipes {
         //インプットがDUST, アウトプットがINGOTのものは除外される
         FurnaceRecipes.instance().smeltingList.toList()
             .filter { (input: ItemStack, output: ItemStack) ->
-                HiiragiShapes.DUST != PartDictionary.getPart(input)?.shape
-                        && HiiragiShapes.INGOT != PartDictionary.getPart(output)?.shape
+                HiiragiShapes.DUST != ShapeDictionary.getObject(input)
+                        && HiiragiShapes.INGOT != ShapeDictionary.getObject(output)
             }
             .forEach { (input: ItemStack, output: ItemStack) ->
                 MachineRecipe.buildAndRegister(

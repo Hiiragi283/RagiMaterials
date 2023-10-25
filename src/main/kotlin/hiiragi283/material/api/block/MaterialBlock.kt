@@ -3,7 +3,6 @@ package hiiragi283.material.api.block
 import hiiragi283.material.api.item.MaterialItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartConvertible
-import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.init.HiiragiCreativeTabs
@@ -76,11 +75,13 @@ abstract class MaterialBlock(
     override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::isValid)
-            .forEach { material: HiiragiMaterial ->
-                OreDictionary.registerOre(shape.getOreDict(material), itemStack(material))
-                PartDictionary.add(this, material.index, shape.getPart(material))
-                registerRecipe(material)
-            }
+            .forEach { OreDictionary.registerOre(shape.getOreDict(it), itemStack(it)) }
+    }
+
+    override fun onPostInit() {
+        HiiragiRegistries.MATERIAL_INDEX.getValues()
+            .filter(shape::isValid)
+            .forEach(::registerRecipe)
     }
 
     abstract fun registerRecipe(material: HiiragiMaterial)

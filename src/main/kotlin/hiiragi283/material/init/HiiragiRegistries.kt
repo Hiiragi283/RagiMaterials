@@ -8,9 +8,7 @@ import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.MaterialType
-import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
-import hiiragi283.material.api.part.createAllParts
 import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.api.shape.HiiragiShape
 import net.minecraft.block.Block
@@ -96,20 +94,6 @@ object HiiragiRegistries {
     @JvmField
     val MATERIAL_SMELTED: HiiragiRegistry<HiiragiMaterial, Pair<HiiragiMaterial, Int>> =
         HiiragiRegistry("Material Smelted", true)
-
-    //    Part    //
-
-    @Deprecated("Will be removed")
-    @JvmField
-    val PART: HiiragiRegistry<String, HiiragiPart> = HiiragiRegistry("Part")
-
-    fun registerPart() {
-        createAllParts().forEach { part: HiiragiPart ->
-            part.getOreDicts().forEach { oreDict: String ->
-                PART.register(oreDict, part)
-            }
-        }
-    }
 
     //    Shape    //
 

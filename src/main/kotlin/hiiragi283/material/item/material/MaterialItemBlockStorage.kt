@@ -37,6 +37,7 @@ object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
     override fun registerModel() {
         ModelLoader.registerItemVariants(
             this,
+            registryName,
             hiiragiLocation("block_gem"),
             hiiragiLocation("block_metal")
         )
