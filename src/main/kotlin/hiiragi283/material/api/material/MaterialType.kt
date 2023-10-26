@@ -1,5 +1,6 @@
 package hiiragi283.material.api.material
 
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.HiiragiColor
@@ -111,6 +112,7 @@ sealed class MaterialType(val name: String) {
 
         override fun preInit(builder: HiiragiMaterial.Builder, components: Map<HiiragiMaterial, Int>) {
             COMPOUND.preInit(builder, components)
+            builder.iconSet = HiiragiIconSets.METAL
             initTempBoil(builder, components)
             initTempMelt(builder, components)
         }

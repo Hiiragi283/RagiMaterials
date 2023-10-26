@@ -2,6 +2,7 @@ package hiiragi283.material.init.materials
 
 import hiiragi283.material.api.material.*
 import hiiragi283.material.compat.HiiragiThermalPlugin
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiColor
@@ -13,7 +14,6 @@ object MaterialCompats {
     @JvmField
     val REDSTONE = materialOf("redstone", 1000) {
         color = HiiragiColor.DARK_RED.rgb
-        crystalType = CrystalType.EMERALD
         formula = "Rs"
         if (HiiragiThermalPlugin.enabled()) {
             hasFluid = false
@@ -27,6 +27,7 @@ object MaterialCompats {
     val LAPIS = materialOf("lapis", 1001) {
         color = HiiragiColor.BLUE.rgb
         crystalType = CrystalType.LAPIS
+        iconSet = HiiragiIconSets.LAPIS
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED.copy {
             shapes.remove(HiiragiShapes.BLOCK)
             shapes.remove(HiiragiShapes.GEM)
@@ -36,7 +37,6 @@ object MaterialCompats {
     @JvmField
     val GLOWSTONE = materialOf("glowstone", 1002) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.YELLOW to 2).rgb
-        crystalType = CrystalType.EMERALD
         formula = "Gl"
         if (HiiragiThermalPlugin.enabled()) {
             hasFluid = false
@@ -50,7 +50,6 @@ object MaterialCompats {
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
-        crystalType = CrystalType.EMERALD
         formula = "En"
         if (HiiragiThermalPlugin.enabled()) {
             hasFluid = false
@@ -65,6 +64,7 @@ object MaterialCompats {
     @JvmField
     val MITHRIL = materialOf("mithril", 1010) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE, HiiragiColor.AQUA, HiiragiColor.WHITE).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
@@ -75,6 +75,7 @@ object MaterialCompats {
         mapOf(MaterialElements.COPPER to 4, MaterialElements.GOLD to 1, REDSTONE to 10)
     ) {
         color = 0xFF9E08
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
@@ -85,6 +86,7 @@ object MaterialCompats {
         mapOf(MaterialElements.TIN to 4, MaterialElements.SILVER to 1, GLOWSTONE to 4)
     ) {
         color = 0xDFE58F
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
@@ -95,6 +97,7 @@ object MaterialCompats {
         mapOf(MaterialElements.LEAD to 4, MaterialElements.PLATINUM to 1, ENDER_PEARL to 4)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN to 1, HiiragiColor.BLUE to 1).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
@@ -161,6 +164,7 @@ object MaterialCompats {
         mapOf(MaterialCommons.OBSIDIAN.addBracket() to 1, MaterialElements.OSMIUM to 1, MaterialCommons.DIAMOND to 1)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.BLUE to 5, HiiragiColor.WHITE to 2).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
@@ -171,6 +175,7 @@ object MaterialCompats {
         mapOf(GLOWSTONE to 1, MaterialElements.OSMIUM to 1)
     ) {
         color = HiiragiColor.YELLOW.rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
@@ -183,6 +188,7 @@ object MaterialCompats {
         listOf(MaterialElements.IRON, MaterialElements.SILICON, MaterialElements.CARBON)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY to 1, HiiragiColor.WHITE to 2).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
@@ -245,6 +251,7 @@ object MaterialCompats {
         listOf(MaterialElements.IRON, MaterialElements.CARBON, MaterialCommons.OBSIDIAN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 1, HiiragiColor.DARK_GRAY to 3).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
@@ -267,6 +274,7 @@ object MaterialCompats {
         listOf(DARK_STEEL, MaterialCommons.END_STONE, MaterialCommons.OBSIDIAN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.YELLOW to 1, HiiragiColor.WHITE to 3).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
@@ -279,6 +287,7 @@ object MaterialCompats {
         listOf(HiiragiMaterial.UNKNOWN, MaterialElements.IRON, HiiragiMaterial.UNKNOWN)
     ) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE, HiiragiColor.GREEN, HiiragiColor.RED).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
@@ -289,6 +298,7 @@ object MaterialCompats {
     @JvmField
     val THAUMIUM = materialOf("thaumium", 1040) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.BLUE to 5, HiiragiColor.WHITE to 4).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         formula = "✡"
     }
@@ -300,8 +310,9 @@ object MaterialCompats {
             HiiragiColor.DARK_PURPLE to 1,
             HiiragiColor.BLUE to 1
         ).rgb
-        shapeType = HiiragiShapeTypes.METAL_ADVANCED
         formula = "Vm9pZA=="
+        iconSet = HiiragiIconSets.METAL
+        shapeType = HiiragiShapeTypes.METAL_ADVANCED
     }
 
     //    Botania    //
@@ -314,6 +325,7 @@ object MaterialCompats {
     @JvmField
     val MANASTEEL = mixtureOf("manasteel", 1050, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.BLUE.rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
@@ -323,12 +335,14 @@ object MaterialCompats {
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.AQUA.rgb
         crystalType = CrystalType.DIAMOND
+        iconSet = HiiragiIconSets.DIAMOND
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
     @JvmField
     val TERRASTEEL = mixtureOf("terrasteel", 1053, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_GREEN, HiiragiColor.GREEN).rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MANASTEEL.tempBoil
         tempMelt = MANASTEEL.tempMelt
@@ -337,6 +351,7 @@ object MaterialCompats {
     @JvmField
     val ELEMENTIUM = mixtureOf("elven_elementium", 1054, listOf(MaterialElements.IRON, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MANASTEEL.tempBoil
         tempMelt = MANASTEEL.tempMelt
@@ -346,6 +361,7 @@ object MaterialCompats {
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
         crystalType = CrystalType.DIAMOND
+        iconSet = HiiragiIconSets.DIAMOND
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
@@ -387,6 +403,7 @@ object MaterialCompats {
     val ARDITE = materialOf("ardite", 1080) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_RED to 2, HiiragiColor.GOLD to 1).rgb
         formula = "Ad"
+        iconSet = HiiragiIconSets.METAL
         molar = 116.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5000
@@ -400,15 +417,18 @@ object MaterialCompats {
     }
 
     @JvmField
-    val ALUMINIUM_BRASS =
-        alloyOf("aluminium_brass", 1084, mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)) {
+    val ALUMINIUM_BRASS = alloyOf(
+        "aluminium_brass",
+        1084,
+        mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)
+    ) {
             color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
             oreDictAlt.add("alubrass")
             oreDictAlt.add("aluminiumbrass")
             oreDictAlt.add("aluminum_brass")
             oreDictAlt.add("aluminumbrass")
             shapeType = HiiragiShapeTypes.METAL_COMMON
-        }
+    }
 
     //    Immersive Engineering    //
 

@@ -23,7 +23,7 @@ class HiiragiShapeType private constructor(val shapes: Set<HiiragiShape>) : Hiir
 
     //    Builder    //
 
-    fun copy(init: Builder.() -> Unit = {}) = Builder()
+    fun copy(init: Builder.() -> Unit = {}): HiiragiShapeType = Builder()
         .apply { shapes.addAll(this@HiiragiShapeType.shapes) }
         .apply(init)
         .build()

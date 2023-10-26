@@ -3,6 +3,7 @@ package hiiragi283.material.init.materials
 import hiiragi283.material.api.material.*
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.enableAccess
 import hiiragi283.material.util.isAprilFools
@@ -80,6 +81,7 @@ object MaterialCommons {
     ) {
         color = HiiragiColor.AQUA.rgb
         crystalType = CrystalType.EMERALD
+        iconSet = HiiragiIconSets.EMERALD
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
@@ -98,6 +100,7 @@ object MaterialCommons {
     val COAL = compoundOf("coal", 10600, mapOf(MaterialElements.CARBON to 1)) {
         crystalType = CrystalType.COAL
         hasFluid = false
+        iconSet = HiiragiIconSets.COAL
         shapeType = HiiragiShapeTypes.GEM_9x.copy {
             shapes.remove(HiiragiShapes.BLOCK)
             shapes.remove(HiiragiShapes.GEM)
@@ -126,6 +129,7 @@ object MaterialCommons {
         color = HiiragiColor.AQUA.rgb
         crystalType = CrystalType.DIAMOND
         hasFluid = false
+        iconSet = HiiragiIconSets.DIAMOND
         shapeType = HiiragiShapeTypes.GEM_9x.copy {
             shapes.remove(HiiragiShapes.BLOCK)
             shapes.remove(HiiragiShapes.GEM)
@@ -140,7 +144,9 @@ object MaterialCommons {
     ) {
         color = HiiragiColor.WHITE.rgb
         hasFluid = false
-        shapeType = HiiragiShapeTypes.SOLID
+        shapeType = HiiragiShapeTypes.SOLID.copy {
+            shapes.remove(HiiragiShapes.DUST)
+        }
     }.setSmelted(MaterialElements.CARBON, 6)
 
     @JvmField
@@ -148,6 +154,7 @@ object MaterialCommons {
         color = HiiragiColor.GOLD.rgb
         crystalType = CrystalType.AMORPHOUS
         hasFluid = false
+        iconSet = HiiragiIconSets.AMORPHOUS
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 
@@ -189,6 +196,7 @@ object MaterialCommons {
     val NITER = compoundOf("niter", 10700, mapOf(MaterialElements.POTASSIUM to 1, NITRATE to 1)) {
         color = HiiragiColor.WHITE.rgb
         crystalType = CrystalType.CUBIC
+        iconSet = HiiragiIconSets.CUBIC
         oreDictAlt.add("saltpeter")
         shapeType = HiiragiShapeTypes.GEM_9x
     }
@@ -208,7 +216,9 @@ object MaterialCommons {
     ) {
         color = HiiragiColor.DARK_GRAY.rgb
         hasFluid = false
-        shapeType = HiiragiShapeTypes.SOLID
+        shapeType = HiiragiShapeTypes.SOLID.copy {
+            shapes.remove(HiiragiShapes.DUST)
+        }
     }
 
     //    Fluorine    //
@@ -221,6 +231,7 @@ object MaterialCommons {
     ) {
         color = HiiragiColor.WHITE.rgb
         crystalType = CrystalType.CUBIC
+        iconSet = HiiragiIconSets.CUBIC
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 
@@ -228,6 +239,7 @@ object MaterialCommons {
     val FLUORITE = compoundOf("fluorite", 10901, mapOf(MaterialElements.CALCIUM to 1, MaterialElements.FLUORINE to 2)) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN, HiiragiColor.AQUA).rgb
         crystalType = CrystalType.CUBIC
+        iconSet = HiiragiIconSets.CUBIC
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 
@@ -264,6 +276,7 @@ object MaterialCommons {
         color = HiiragiColor.GREEN.rgb
         crystalType = CrystalType.EMERALD
         hasFluid = false
+        iconSet = HiiragiIconSets.EMERALD
         oreDictAlt.add("olivine")
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
@@ -287,6 +300,7 @@ object MaterialCommons {
     val RUBY = compoundOf("ruby", 11302, mapOf(ALUMINA to 1)) {
         color = HiiragiColor.RED.rgb
         crystalType = CrystalType.RUBY
+        iconSet = HiiragiIconSets.RUBY
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
@@ -294,6 +308,7 @@ object MaterialCommons {
     val SAPPHIRE = compoundOf("sapphire", 11303, mapOf(ALUMINA to 1)) {
         color = HiiragiColor.BLUE.rgb
         crystalType = CrystalType.RUBY
+        iconSet = HiiragiIconSets.RUBY
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
 
@@ -346,6 +361,7 @@ object MaterialCommons {
         color = HiiragiColor.WHITE.rgb
         crystalType = CrystalType.QUARTZ
         hasFluid = false
+        iconSet = HiiragiIconSets.QUARTZ
         oreDictAlt.add("nether_quartz")
         shapeType = HiiragiShapeTypes.GEM_4x_ADVANCED.copy {
             shapes.remove(HiiragiShapes.GEM)
@@ -394,14 +410,16 @@ object MaterialCommons {
             12000,
             mapOf(MaterialElements.CALCIUM to 5, PHOSPHATE.addBracket() to 3, HYDROXIDE to 1)
         ) {
-            color = HiiragiColor.mixColor(HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
-            crystalType = CrystalType.EMERALD
+        color = HiiragiColor.mixColor(HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
+        crystalType = CrystalType.EMERALD
+        iconSet = HiiragiIconSets.EMERALD
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 
     @JvmField
     val GYPSUM = compoundOf("gypsum", 12001, mapOf(MaterialElements.CALCIUM to 1, SULFATE to 1)) {
         crystalType = CrystalType.CUBIC
+        iconSet = HiiragiIconSets.CUBIC
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 
@@ -419,6 +437,7 @@ object MaterialCommons {
         color = HiiragiColor.YELLOW.rgb
         crystalType = CrystalType.CUBIC
         hasFluid = false
+        iconSet = HiiragiIconSets.CUBIC
         shapeType = HiiragiShapeTypes.GEM_9x
     }
 
@@ -464,6 +483,7 @@ object MaterialCommons {
     @JvmField
     val STEEL = mixtureOf("steel", 12600, listOf(MaterialElements.IRON, MaterialElements.CARBON)) {
         color = HiiragiColor.GRAY.rgb
+        iconSet = HiiragiIconSets.METAL
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = MaterialElements.IRON.tempBoil
         tempMelt = MaterialElements.IRON.tempMelt
@@ -495,6 +515,7 @@ object MaterialCommons {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW).rgb
         crystalType = CrystalType.CUBIC
         hasFluid = false
+        iconSet = HiiragiIconSets.CUBIC
         shapeType = HiiragiShapeTypes.GEM_9x
         if (isAprilFools()) translationKey = MaterialElements.GOLD.translationKey
     }.setSmelted(MaterialElements.IRON)
@@ -635,6 +656,7 @@ object MaterialCommons {
         color = HiiragiColor.RED.rgb
         crystalType = CrystalType.EMERALD
         hasFluid = false
+        iconSet = HiiragiIconSets.EMERALD
         oreDictAlt.add("quicksilver")
         oreDictAlt.add("quick_silver")
         shapeType = HiiragiShapeTypes.GEM_9x
@@ -659,6 +681,7 @@ object MaterialCommons {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE, HiiragiColor.AQUA).rgb
         crystalType = CrystalType.RUBY
         hasFluid = false
+        iconSet = HiiragiIconSets.RUBY
         shapeType = HiiragiShapeTypes.GEM_9x
     }.setSmelted(MaterialElements.BISMUTH, 2)
 

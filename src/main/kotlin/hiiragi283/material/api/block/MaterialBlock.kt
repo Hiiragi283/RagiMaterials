@@ -9,7 +9,7 @@ import hiiragi283.material.init.HiiragiCreativeTabs
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.itemStack
-import hiiragi283.material.util.setModelSame
+import hiiragi283.material.util.toModelLocation
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
@@ -18,10 +18,12 @@ import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.NonNullList
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.IBlockAccess
 import net.minecraft.world.World
+import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
@@ -94,6 +96,15 @@ abstract class MaterialBlock(
     override fun getItemColor(): IItemColor = HiiragiMaterial.ITEM_COLOR
 
     @SideOnly(Side.CLIENT)
-    override fun registerModel() = this.setModelSame()
+    override fun registerModel() {
+        val allIcons: Set<ResourceLocation> = HiiragiRegistries.MATERIAL_INDEX.getValues()
+            .map(HiiragiMaterial::iconSet)
+            .mapNotNull { it[shape] }
+            .toSet()
+        ModelLoader.registerItemVariants(itemBlock, *allIcons.toTypedArray())
+        ModelLoader.setCustomMeshDefinition(itemBlock) { stack: ItemStack ->
+            (getMaterial(stack)?.iconSet?.get(shape) ?: this.registryName!!).toModelLocation()
+        }
+    }
 
 }

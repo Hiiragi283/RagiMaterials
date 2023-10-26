@@ -3,6 +3,7 @@ package hiiragi283.material.init.materials
 import hiiragi283.material.api.material.isotopeOf
 import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.config.HiiragiConfigs
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiColor
@@ -41,6 +42,7 @@ object MaterialElements {
     val LITHIUM = materialOf("lithium", 3) {
         color = HiiragiColor.GRAY.rgb
         formula = "Li"
+        iconSet = HiiragiIconSets.METAL
         molar = 6.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1560
@@ -51,6 +53,7 @@ object MaterialElements {
     val BERYLLIUM = materialOf("beryllium", 4) {
         color = HiiragiColor.DARK_GREEN.rgb
         formula = "Be"
+        iconSet = HiiragiIconSets.METAL
         molar = 9.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2742
@@ -123,6 +126,7 @@ object MaterialElements {
     val SODIUM = materialOf("sodium", 11) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 1, HiiragiColor.BLUE to 4).rgb
         formula = "Na"
+        iconSet = HiiragiIconSets.METAL
         molar = 23.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1156
@@ -133,6 +137,7 @@ object MaterialElements {
     val MAGNESIUM = materialOf("magnesium", 12) {
         color = HiiragiColor.mixColor(HiiragiColor.LIGHT_PURPLE, HiiragiColor.WHITE).rgb
         formula = "Mg"
+        iconSet = HiiragiIconSets.METAL
         molar = 24.3
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1363
@@ -143,6 +148,7 @@ object MaterialElements {
     val ALUMINIUM = materialOf("aluminium", 13) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.WHITE to 5).rgb
         formula = "Al"
+        iconSet = HiiragiIconSets.METAL
         molar = 27.0
         oreDictAlt.add("aluminum")
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
@@ -154,6 +160,7 @@ object MaterialElements {
     val SILICON = materialOf("silicon", 14) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 2, HiiragiColor.GRAY to 1, HiiragiColor.BLUE to 1).rgb
         formula = "Si"
+        iconSet = HiiragiIconSets.METAL
         molar = 28.1
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3538
@@ -206,6 +213,7 @@ object MaterialElements {
     val POTASSIUM = materialOf("potassium", 19) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 2, HiiragiColor.BLUE to 3).rgb
         formula = "K"
+        iconSet = HiiragiIconSets.METAL
         molar = 39.1
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1032
@@ -216,6 +224,7 @@ object MaterialElements {
     val CALCIUM = materialOf("calcium", 20) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ca"
+        iconSet = HiiragiIconSets.METAL
         molar = 40.1
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1757
@@ -226,6 +235,7 @@ object MaterialElements {
     val SCANDIUM = materialOf("scandium", 21) {
         color = HiiragiColor.GRAY.rgb
         formula = "Sc"
+        iconSet = HiiragiIconSets.METAL
         molar = 45.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3109
@@ -236,6 +246,7 @@ object MaterialElements {
     val TITANIUM = materialOf("titanium", 22) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD to 1, HiiragiColor.WHITE to 2).rgb
         formula = "Ti"
+        iconSet = HiiragiIconSets.METAL
         molar = 47.9
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3560
@@ -246,6 +257,7 @@ object MaterialElements {
     val VANADIUM = materialOf("vanadium", 23) {
         color = HiiragiColor.GRAY.rgb
         formula = "V"
+        iconSet = HiiragiIconSets.METAL
         molar = 50.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3680
@@ -256,6 +268,7 @@ object MaterialElements {
     val CHROMIUM = materialOf("chromium", 24) {
         color = HiiragiColor.GREEN.rgb
         formula = "Cr"
+        iconSet = HiiragiIconSets.METAL
         molar = 52.0
         oreDictAlt.add("chrome")
         shapeType = HiiragiShapeTypes.METAL_COMMON
@@ -267,6 +280,7 @@ object MaterialElements {
     val MANGANESE = materialOf("manganese", 25) {
         color = HiiragiColor.mixColor(HiiragiColor.RED, HiiragiColor.WHITE).rgb
         formula = "Mn"
+        iconSet = HiiragiIconSets.METAL
         molar = 54.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2334
@@ -277,6 +291,7 @@ object MaterialElements {
     val IRON = materialOf("iron", 26) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY to 1, HiiragiColor.WHITE to 2).rgb
         formula = "Fe"
+        iconSet = HiiragiIconSets.METAL
         molar = 55.8
         shapeType = HiiragiShapeTypes.METAL_ADVANCED.copy {
             shapes.remove(HiiragiShapes.BLOCK)
@@ -290,6 +305,7 @@ object MaterialElements {
     val COBALT = materialOf("cobalt", 27) {
         color = HiiragiColor.BLUE.rgb
         formula = "Co"
+        iconSet = HiiragiIconSets.METAL
         molar = 58.9
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3200
@@ -300,6 +316,7 @@ object MaterialElements {
     val NICKEL = materialOf("nickel", 28) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.WHITE).rgb
         formula = "Ni"
+        iconSet = HiiragiIconSets.METAL
         molar = 58.7
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 3186
@@ -310,6 +327,7 @@ object MaterialElements {
     val COPPER = materialOf("copper", 29) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.RED).rgb
         formula = "Cu"
+        iconSet = HiiragiIconSets.METAL
         molar = 63.5
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2835
@@ -320,6 +338,7 @@ object MaterialElements {
     val ZINC = materialOf("zinc", 30) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN to 1, HiiragiColor.WHITE to 2).rgb
         formula = "Zn"
+        iconSet = HiiragiIconSets.METAL
         molar = 65.4
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 1180
@@ -330,6 +349,7 @@ object MaterialElements {
     val GALLIUM = materialOf("gallium", 31) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ga"
+        iconSet = HiiragiIconSets.METAL
         molar = 69.7
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2673
@@ -340,6 +360,7 @@ object MaterialElements {
     val GERMANIUM = materialOf("germanium", 32) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ge"
+        iconSet = HiiragiIconSets.METAL
         molar = 72.6
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3106
@@ -393,6 +414,7 @@ object MaterialElements {
     val RUBIDIUM = materialOf("rubidium", 37) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 3, HiiragiColor.BLUE to 2).rgb
         formula = "Rb"
+        iconSet = HiiragiIconSets.METAL
         molar = 85.5
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 961
@@ -403,6 +425,7 @@ object MaterialElements {
     val STRONTIUM = materialOf("strontium", 38) {
         color = HiiragiColor.GRAY.rgb
         formula = "Sr"
+        iconSet = HiiragiIconSets.METAL
         molar = 87.6
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1655
@@ -413,6 +436,7 @@ object MaterialElements {
     val YTTRIUM = materialOf("yttrium", 39) {
         color = HiiragiColor.GRAY.rgb
         formula = "Y"
+        iconSet = HiiragiIconSets.METAL
         molar = 88.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3609
@@ -423,6 +447,7 @@ object MaterialElements {
     val ZIRCONIUM = materialOf("zirconium", 40) {
         color = HiiragiColor.GRAY.rgb
         formula = "Zr"
+        iconSet = HiiragiIconSets.METAL
         molar = 91.2
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4682
@@ -433,6 +458,7 @@ object MaterialElements {
     val NIOBIUM = materialOf("niobium", 41) {
         color = HiiragiColor.GRAY.rgb
         formula = "Nb"
+        iconSet = HiiragiIconSets.METAL
         molar = 92.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5017
@@ -441,18 +467,20 @@ object MaterialElements {
 
     @JvmField
     val MOLYBDENUM = materialOf("molybdenum", 42) {
-        tempMelt = 2896
-        tempBoil = 4912
-        shapeType = HiiragiShapeTypes.METAL_COMMON
-        molar = 96.0
-        formula = "Mo"
         color = HiiragiColor.GRAY.rgb
+        formula = "Mo"
+        iconSet = HiiragiIconSets.METAL
+        molar = 96.0
+        shapeType = HiiragiShapeTypes.METAL_COMMON
+        tempBoil = 4912
+        tempMelt = 2896
     }
 
     @JvmField
     val TECHNETIUM = materialOf("technetium", 43) {
         color = HiiragiColor.GRAY.rgb
         formula = "Tc"
+        iconSet = HiiragiIconSets.METAL
         //molar = 97.0/98.0/99.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4538
@@ -463,6 +491,7 @@ object MaterialElements {
     val RUTHENIUM = materialOf("ruthenium", 44) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.LIGHT_PURPLE to 3).rgb
         formula = "Ru"
+        iconSet = HiiragiIconSets.METAL
         molar = 101.1
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4423
@@ -473,6 +502,7 @@ object MaterialElements {
     val RHODIUM = materialOf("rhodium", 45) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.RED to 3).rgb
         formula = "Rh"
+        iconSet = HiiragiIconSets.METAL
         molar = 102.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3968
@@ -483,6 +513,7 @@ object MaterialElements {
     val PALLADIUM = materialOf("palladium", 46) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.YELLOW to 3).rgb
         formula = "Pd"
+        iconSet = HiiragiIconSets.METAL
         molar = 106.4
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3236
@@ -493,6 +524,7 @@ object MaterialElements {
     val SILVER = materialOf("silver", 47) {
         color = HiiragiColor.mixColor(HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 3).rgb
         formula = "Ag"
+        iconSet = HiiragiIconSets.METAL
         molar = 107.9
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2435
@@ -503,6 +535,7 @@ object MaterialElements {
     val CADMIUM = materialOf("cadmium", 48) {
         color = HiiragiColor.GRAY.rgb
         formula = "Cd"
+        iconSet = HiiragiIconSets.METAL
         molar = 112.4
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1040
@@ -513,6 +546,7 @@ object MaterialElements {
     val INDIUM = materialOf("indium", 49) {
         color = HiiragiColor.GRAY.rgb
         formula = "In"
+        iconSet = HiiragiIconSets.METAL
         molar = 114.8
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2345
@@ -523,6 +557,7 @@ object MaterialElements {
     val TIN = materialOf("tin", 50) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 3).rgb
         formula = "Sn"
+        iconSet = HiiragiIconSets.METAL
         molar = 118.7
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2875
@@ -533,6 +568,7 @@ object MaterialElements {
     val ANTIMONY = materialOf("antimony", 51) {
         color = HiiragiColor.GRAY.rgb
         formula = "Sb"
+        iconSet = HiiragiIconSets.METAL
         molar = 121.8
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1860
@@ -575,6 +611,7 @@ object MaterialElements {
     val CAESIUM = materialOf("caesium", 55) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE to 4, HiiragiColor.BLUE to 1).rgb
         formula = "Cs"
+        iconSet = HiiragiIconSets.METAL
         molar = 132.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 944
@@ -585,6 +622,7 @@ object MaterialElements {
     val BARIUM = materialOf("barium", 56) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ba"
+        iconSet = HiiragiIconSets.METAL
         molar = 137.3
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2170
@@ -597,6 +635,7 @@ object MaterialElements {
     val LANTHANUM = materialOf("lanthanum", 57) {
         color = HiiragiColor.GRAY.rgb
         formula = "La"
+        iconSet = HiiragiIconSets.METAL
         molar = 138.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3737
@@ -607,6 +646,7 @@ object MaterialElements {
     val CERIUM = materialOf("cerium", 58) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ce"
+        iconSet = HiiragiIconSets.METAL
         molar = 140.1
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3716
@@ -617,6 +657,7 @@ object MaterialElements {
     val PRASEODYMIUM = materialOf("praseodymium", 59) {
         color = HiiragiColor.GRAY.rgb
         formula = "Pr"
+        iconSet = HiiragiIconSets.METAL
         molar = 140.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3793
@@ -627,6 +668,7 @@ object MaterialElements {
     val NEODYMIUM = materialOf("neodymium", 60) {
         color = HiiragiColor.GRAY.rgb
         formula = "Nd"
+        iconSet = HiiragiIconSets.METAL
         molar = 144.2
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3347
@@ -637,6 +679,7 @@ object MaterialElements {
     val PROMETHIUM = materialOf("promethium", 61) {
         color = HiiragiColor.GRAY.rgb
         formula = "Pm"
+        iconSet = HiiragiIconSets.METAL
         //molar = 145.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3237
@@ -647,6 +690,7 @@ object MaterialElements {
     val SAMARIUM = materialOf("samarium", 62) {
         color = HiiragiColor.GRAY.rgb
         formula = "Sm"
+        iconSet = HiiragiIconSets.METAL
         molar = 150.4
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2067
@@ -657,6 +701,7 @@ object MaterialElements {
     val EUROPIUM = materialOf("europium", 63) {
         color = HiiragiColor.GRAY.rgb
         formula = "Eu"
+        iconSet = HiiragiIconSets.METAL
         molar = 152.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1802
@@ -667,6 +712,7 @@ object MaterialElements {
     val GADOLINIUM = materialOf("gadolinium", 64) {
         color = HiiragiColor.GRAY.rgb
         formula = "Gd"
+        iconSet = HiiragiIconSets.METAL
         molar = 157.3
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3546
@@ -677,6 +723,7 @@ object MaterialElements {
     val TERBIUM = materialOf("terbium", 65) {
         color = HiiragiColor.GRAY.rgb
         formula = "Tb"
+        iconSet = HiiragiIconSets.METAL
         molar = 158.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3503
@@ -687,6 +734,7 @@ object MaterialElements {
     val DYSPROSIUM = materialOf("dysprosium", 66) {
         color = HiiragiColor.GRAY.rgb
         formula = "Dy"
+        iconSet = HiiragiIconSets.METAL
         molar = 157.3
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2840
@@ -697,6 +745,7 @@ object MaterialElements {
     val HOLMIUM = materialOf("holmium", 67) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ho"
+        iconSet = HiiragiIconSets.METAL
         molar = 164.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2993
@@ -707,6 +756,7 @@ object MaterialElements {
     val ERBIUM = materialOf("erbium", 68) {
         color = HiiragiColor.GRAY.rgb
         formula = "Er"
+        iconSet = HiiragiIconSets.METAL
         molar = 167.3
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3141
@@ -717,6 +767,7 @@ object MaterialElements {
     val THULIUM = materialOf("thulium", 69) {
         color = HiiragiColor.GRAY.rgb
         formula = "Tm"
+        iconSet = HiiragiIconSets.METAL
         molar = 168.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2223
@@ -727,6 +778,7 @@ object MaterialElements {
     val YTTERBIUM = materialOf("ytterbium", 70) {
         color = HiiragiColor.GRAY.rgb
         formula = "Yb"
+        iconSet = HiiragiIconSets.METAL
         molar = 173.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1469
@@ -737,6 +789,7 @@ object MaterialElements {
     val LUTETIUM = materialOf("lutetium", 71) {
         color = HiiragiColor.GRAY.rgb
         formula = "Lu"
+        iconSet = HiiragiIconSets.METAL
         molar = 175.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3675
@@ -749,6 +802,7 @@ object MaterialElements {
     val HAFNIUM = materialOf("hafnium", 72) {
         color = HiiragiColor.GRAY.rgb
         formula = "Hf"
+        iconSet = HiiragiIconSets.METAL
         molar = 178.5
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4876
@@ -759,6 +813,7 @@ object MaterialElements {
     val TANTALUM = materialOf("tantalum", 73) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ta"
+        iconSet = HiiragiIconSets.METAL
         molar = 180.9
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5731
@@ -769,6 +824,7 @@ object MaterialElements {
     val TUNGSTEN = materialOf("tungsten", 74) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 2, HiiragiColor.DARK_GRAY to 1).rgb
         formula = "W"
+        iconSet = HiiragiIconSets.METAL
         molar = 183.8
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 5828
@@ -779,6 +835,7 @@ object MaterialElements {
     val RHENIUM = materialOf("rhenium", 75) {
         color = HiiragiColor.GRAY.rgb
         formula = "Re"
+        iconSet = HiiragiIconSets.METAL
         molar = 186.2
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5869
@@ -789,6 +846,7 @@ object MaterialElements {
     val OSMIUM = materialOf("osmium", 76) {
         color = HiiragiColor.mixColor(HiiragiColor.BLUE to 1, HiiragiColor.WHITE to 3).rgb
         formula = "Os"
+        iconSet = HiiragiIconSets.METAL
         molar = 190.2
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 5285
@@ -799,6 +857,7 @@ object MaterialElements {
     val IRIDIUM = materialOf("iridium", 77) {
         color = HiiragiColor.mixColor(HiiragiColor.AQUA to 1, HiiragiColor.WHITE to 3).rgb
         formula = "Ir"
+        iconSet = HiiragiIconSets.METAL
         molar = 192.2
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 4701
@@ -809,6 +868,7 @@ object MaterialElements {
     val PLATINUM = materialOf("platinum", 78) {
         color = HiiragiColor.mixColor(HiiragiColor.GREEN to 1, HiiragiColor.WHITE to 3).rgb
         formula = "Pt"
+        iconSet = HiiragiIconSets.METAL
         molar = 195.1
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 4098
@@ -819,6 +879,7 @@ object MaterialElements {
     val GOLD = materialOf("gold", 79) {
         color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW).rgb
         formula = "Au"
+        iconSet = HiiragiIconSets.METAL
         molar = 197.0
         shapeType = HiiragiShapeTypes.METAL_ADVANCED.copy {
             shapes.remove(HiiragiShapes.BLOCK)
@@ -841,6 +902,7 @@ object MaterialElements {
     val THALLIUM = materialOf("thallium", 81) {
         color = HiiragiColor.GRAY.rgb
         formula = "Tl"
+        iconSet = HiiragiIconSets.METAL
         molar = 204.4
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1749
@@ -851,6 +913,7 @@ object MaterialElements {
     val LEAD = materialOf("lead", 82) {
         color = HiiragiColor.mixColor(HiiragiColor.DARK_BLUE, HiiragiColor.DARK_GRAY, HiiragiColor.WHITE).rgb
         formula = "Pb"
+        iconSet = HiiragiIconSets.METAL
         molar = 207.2
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2022
@@ -861,6 +924,7 @@ object MaterialElements {
     val BISMUTH = materialOf("bismuth", 83) {
         color = HiiragiColor.AQUA.rgb
         formula = "Bi"
+        iconSet = HiiragiIconSets.METAL
         molar = 209.0
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 1837
@@ -871,6 +935,7 @@ object MaterialElements {
     val POLONIUM = materialOf("polonium", 84) {
         color = HiiragiColor.GRAY.rgb
         formula = "Po"
+        iconSet = HiiragiIconSets.METAL
         //molar = 209.0/210.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 1235
@@ -903,6 +968,7 @@ object MaterialElements {
     val FRANCIUM = materialOf("francium", 87) {
         color = HiiragiColor.DARK_BLUE.rgb
         formula = "Fr"
+        iconSet = HiiragiIconSets.METAL
         //molar = 223.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 890
@@ -913,6 +979,7 @@ object MaterialElements {
     val RADIUM = materialOf("radium", 88) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ra"
+        iconSet = HiiragiIconSets.METAL
         //molar = 226.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2010
@@ -925,6 +992,7 @@ object MaterialElements {
     val ACTINIUM = materialOf("actinium", 89) {
         color = HiiragiColor.GRAY.rgb
         formula = "Ac"
+        iconSet = HiiragiIconSets.METAL
         //molar = 227.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3471
@@ -935,6 +1003,7 @@ object MaterialElements {
     val THORIUM = materialOf("thorium", 90) {
         color = HiiragiColor.mixColor(HiiragiColor.BLACK to 2, HiiragiColor.DARK_GREEN to 1, HiiragiColor.GRAY to 1).rgb
         formula = "Th"
+        iconSet = HiiragiIconSets.METAL
         molar = 232.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 5061
@@ -945,6 +1014,7 @@ object MaterialElements {
     val PROTACTINIUM = materialOf("protactinium", 91) {
         color = HiiragiColor.GRAY.rgb
         formula = "Pa"
+        iconSet = HiiragiIconSets.METAL
         molar = 231.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4300
@@ -955,6 +1025,7 @@ object MaterialElements {
     val URANIUM = materialOf("uranium", 92) {
         color = HiiragiColor.GREEN.rgb
         formula = "U"
+        iconSet = HiiragiIconSets.METAL
         molar = 238.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4404
@@ -965,6 +1036,7 @@ object MaterialElements {
     val NEPTUNIUM = materialOf("neptunium", 93) {
         color = HiiragiColor.BLUE.rgb
         formula = "Np"
+        iconSet = HiiragiIconSets.METAL
         //molar = 237.0
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 4273
@@ -975,6 +1047,7 @@ object MaterialElements {
     val PLUTONIUM = materialOf("plutonium", 94) {
         color = HiiragiColor.RED.rgb
         formula = "Pu244"
+        iconSet = HiiragiIconSets.METAL
         molar = 244.1
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 3501

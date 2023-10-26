@@ -14,6 +14,7 @@ import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getTileImplemented
 import net.minecraft.block.state.IBlockState
@@ -65,6 +66,7 @@ data class HiiragiMaterial private constructor(
     val crystalType: CrystalType,
     val fluidSupplier: MaterialFluidSupplier,
     val formula: String,
+    val iconSet: MaterialIconSet,
     val machineProperty: MachineProperty?,
     val molar: Double,
     val oreDictAlt: List<String>,
@@ -278,6 +280,7 @@ data class HiiragiMaterial private constructor(
         var hasBucket: Boolean = true
         var hasFluid: Boolean = true
         var hasFluidBlock: Boolean = false
+        var iconSet: MaterialIconSet = HiiragiIconSets.DEFAULT
         var machineProperty: MachineProperty? = null
         var molar: Double = 0.0
         var shapeType: HiiragiShapeType = HiiragiShapeTypes.INTERNAL
@@ -294,6 +297,7 @@ data class HiiragiMaterial private constructor(
                 crystalType,
                 MaterialFluidSupplier(hasFluid, hasFluidBlock, hasBucket),
                 formula,
+                iconSet,
                 machineProperty,
                 molar,
                 oreDictAlt,

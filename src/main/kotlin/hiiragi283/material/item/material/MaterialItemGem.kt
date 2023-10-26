@@ -1,16 +1,10 @@
 package hiiragi283.material.item.material
 
 import hiiragi283.material.api.item.MaterialItem
-import hiiragi283.material.api.material.CrystalType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
 import hiiragi283.material.util.itemStack
-import hiiragi283.material.util.toModelLocation
-import net.minecraft.item.ItemStack
-import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
 
@@ -25,7 +19,7 @@ object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
         addGrinderRecipe(material)
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     override fun registerModel() {
 
         ModelLoader.registerItemVariants(
@@ -36,6 +30,6 @@ object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
             (getMaterial(stack)?.crystalType ?: CrystalType.NONE).getModelLocation(this).toModelLocation()
         }
 
-    }
+    }*/
 
 }

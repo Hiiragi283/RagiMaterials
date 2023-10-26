@@ -4,13 +4,7 @@ import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.itemStack
-import hiiragi283.material.util.toModelLocation
-import net.minecraft.item.ItemStack
-import net.minecraftforge.client.model.ModelLoader
-import net.minecraftforge.fml.relauncher.Side
-import net.minecraftforge.fml.relauncher.SideOnly
 
 object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
 
@@ -33,7 +27,7 @@ object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
         addGrinderRecipe(material)
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     override fun registerModel() {
         ModelLoader.registerItemVariants(
             this,
@@ -49,6 +43,6 @@ object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
                 else -> registryName!!.toModelLocation()
             }
         }
-    }
+    }*/
 
 }
