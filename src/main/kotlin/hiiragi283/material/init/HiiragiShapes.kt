@@ -131,7 +131,10 @@ object HiiragiShapes {
     //    Type    //
 
     @JvmField
-    val METAL = HiiragiShape("metal", 0)
+    val IS_GEM = HiiragiShape("is_gem", 0)
+
+    @JvmField
+    val IS_METAL = HiiragiShape("is_metal", 0)
 
     fun register() {
         this::class.java.declaredFields

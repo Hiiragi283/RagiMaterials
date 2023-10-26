@@ -32,7 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable<TileEntityModuleMachine>(
     Material.IRON,
     "machine_${type.lowercase()}",
-    { TileEntityModuleMachine() }
+    ::TileEntityModuleMachine
 ) {
 
     override val itemBlock: HiiragiItemBlock = ModuleMachineItemBlock(this)

@@ -59,7 +59,7 @@ class MachineRecipeBuilder @ZenConstructor constructor() {
 
     @ZenMethod
     fun addInputFluids(vararg stacks: ILiquidStack, amount: Int) {
-        inputFluids.add(FluidIngredient.Fluids(*stacks.map(ILiquidStack::toFluid).toTypedArray(), amount = amount))
+        inputFluids.add(FluidIngredient(*stacks.map(ILiquidStack::toFluid).toTypedArray(), amount = amount))
     }
 
     //    Item Output    //

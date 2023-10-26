@@ -5,18 +5,22 @@ import hiiragi283.material.api.item.HiiragiItemBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.init.HiiragiProperties
 import hiiragi283.material.init.materials.MaterialCommons
+import hiiragi283.material.util.itemStack
+import hiiragi283.material.util.setModelSame
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
-import net.minecraft.client.renderer.color.IBlockColor
-import net.minecraft.client.renderer.color.IItemColor
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
+import net.minecraft.util.BlockRenderLayer
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumHand
 import net.minecraft.util.math.BlockPos
-import net.minecraft.world.IBlockAccess
+import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
+import net.minecraftforge.fml.relauncher.Side
+import net.minecraftforge.fml.relauncher.SideOnly
 
 @Suppress("OVERRIDE_DEPRECATION")
 object BlockOreGenerated : HiiragiBlock(Material.ROCK, "ore_generated") {
@@ -43,6 +47,14 @@ object BlockOreGenerated : HiiragiBlock(Material.ROCK, "ore_generated") {
 
     override val itemBlock: HiiragiItemBlock = HiiragiItemBlock(this, HiiragiProperties.TYPE16.allowedValues.size - 1)
 
+    override fun getPickBlock(
+        state: IBlockState,
+        target: RayTraceResult,
+        world: World,
+        pos: BlockPos,
+        player: EntityPlayer
+    ): ItemStack = itemBlock.itemStack(state.getValue(HiiragiProperties.TYPE16))
+
     //    BlockState    //
 
     override fun createBlockState(): BlockStateContainer = BlockStateContainer(this, HiiragiProperties.TYPE16)
@@ -64,15 +76,15 @@ object BlockOreGenerated : HiiragiBlock(Material.ROCK, "ore_generated") {
     override fun getStateFromMeta(meta: Int): IBlockState =
         defaultState.withProperty(HiiragiProperties.TYPE16, meta % 16)
 
+    //    Client    //
+
+    @SideOnly(Side.CLIENT)
+    override fun getRenderLayer(): BlockRenderLayer = BlockRenderLayer.CUTOUT
+
     //    HiiragiEntry    //
 
-    override fun getBlockColor(): IBlockColor =
-        IBlockColor { state: IBlockState, _: IBlockAccess?, _: BlockPos?, _: Int ->
-            getPrimalMaterial(state.getValue(HiiragiProperties.TYPE16))?.color ?: -1
-        }
-
-    override fun getItemColor(): IItemColor = IItemColor { stack: ItemStack, _: Int ->
-        getPrimalMaterial(stack.metadata)?.color ?: -1
+    override fun registerModel() {
+        this.setModelSame()
     }
 
 }

@@ -15,11 +15,12 @@ import net.minecraft.util.Rotation
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.Capability
+import java.util.function.Supplier
 
 @Suppress("OVERRIDE_DEPRECATION")
 class BlockTransferPipe(
     type: String,
-    override val capabilities: () -> Collection<Capability<*>>
+    override val capabilities: Supplier<Collection<Capability<*>>>
 ) : HiiragiBlock(Material.IRON, "pipe_$type"), TransferPipe {
 
     init {

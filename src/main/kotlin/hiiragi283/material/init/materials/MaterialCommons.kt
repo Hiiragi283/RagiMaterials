@@ -114,6 +114,7 @@ object MaterialCommons {
     @JvmField
     val COKE = allotropeOf("coke", 10602, COAL) {
         color = HiiragiColor.DARK_GRAY.rgb
+        oreDictAlt.add("fuel_coke")
         shapeType = shapeType.copy {
             shapes.add(HiiragiShapes.BLOCK)
             shapes.add(HiiragiShapes.GEM)

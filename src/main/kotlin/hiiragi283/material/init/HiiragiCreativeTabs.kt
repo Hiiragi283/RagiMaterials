@@ -7,16 +7,17 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
+import java.util.function.Supplier
 
 object HiiragiCreativeTabs {
 
     @JvmStatic
-    private fun createCreativeTab(id: String, stack: () -> ItemStack): CreativeTabs =
+    private fun createCreativeTab(id: String, stack: Supplier<ItemStack>): CreativeTabs =
         object : CreativeTabs("${RMReference.MOD_ID}.$id") {
-            override fun createIcon(): ItemStack = stack()
+            override fun createIcon(): ItemStack = stack.get()
         }
 
-    val COMMON by lazy { createCreativeTab("common") { Items.WRITABLE_BOOK.itemStack() } }
+    val COMMON by lazy { createCreativeTab("common", Items.WRITABLE_BOOK::itemStack) }
 
     val MACHINE by lazy {
         createCreativeTab("machine") {
@@ -24,8 +25,8 @@ object HiiragiCreativeTabs {
         }
     }
 
-    val MATERIAL_BLOCK by lazy { createCreativeTab("material_block") { Blocks.IRON_BLOCK.itemStack() } }
+    val MATERIAL_BLOCK by lazy { createCreativeTab("material_block", Blocks.IRON_BLOCK::itemStack) }
 
-    val MATERIAL_ITEM by lazy { createCreativeTab("material_item") { Items.IRON_INGOT.itemStack() } }
+    val MATERIAL_ITEM by lazy { createCreativeTab("material_item", Items.IRON_INGOT::itemStack) }
 
 }

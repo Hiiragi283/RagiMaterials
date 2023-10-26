@@ -16,14 +16,14 @@ object MaterialItemBlockStorage : MaterialItem(HiiragiShapes.BLOCK) {
 
     override fun registerRecipe(material: HiiragiMaterial) {
         // 9x Ingot -> 1x Block
-        if (HiiragiShapes.INGOT.isValid(material)) {
+        if (HiiragiShapes.INGOT.canCreateMaterialItem(material)) {
             CraftingBuilder(itemStack(material))
                 .setPattern("AAA", "AAA", "AAA")
                 .setIngredient('A', HiiragiShapes.INGOT.getOreDict(material))
                 .build()
         }
         // 9x Gem -> 1x Block
-        else if (HiiragiShapes.GEM.isValid(material)) {
+        else if (HiiragiShapes.GEM.canCreateMaterialItem(material)) {
             CraftingBuilder(itemStack(material))
                 .setPattern("AAA", "AAA", "AAA")
                 .setIngredient('A', HiiragiShapes.GEM.getOreDict(material))

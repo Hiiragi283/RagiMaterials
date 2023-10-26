@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceResult
 import net.minecraft.world.World
 import java.util.function.BiPredicate
+import java.util.function.Predicate
 
 sealed class MultiblockComponent(val displayState: IBlockState) : BiPredicate<World, BlockPos> {
 
@@ -27,18 +28,27 @@ sealed class MultiblockComponent(val displayState: IBlockState) : BiPredicate<Wo
 
     object EMPTY : MultiblockComponent(Blocks.AIR.defaultState) {
 
-        override fun test(t: World, u: BlockPos): Boolean = true
+        override fun test(world: World, pos: BlockPos): Boolean = world.isAirBlock(pos)
 
     }
+
+    //    WILDCARD    //
+
+    object WILDCARD : MultiblockComponent(Blocks.AIR.defaultState) {
+
+        override fun test(world: World, pos: BlockPos): Boolean = true
+
+    }
+
 
     //    Tile    //
 
     class Tile(
         displayState: IBlockState,
-        val predicate: (World, BlockPos) -> Boolean
+        private val predicate: BiPredicate<World, BlockPos>
     ) : MultiblockComponent(displayState) {
 
-        override fun test(t: World, u: BlockPos): Boolean = predicate(t, u)
+        override fun test(world: World, pos: BlockPos): Boolean = predicate.test(world, pos)
 
     }
 
@@ -46,10 +56,10 @@ sealed class MultiblockComponent(val displayState: IBlockState) : BiPredicate<Wo
 
     class State(
         displayState: IBlockState,
-        val predicate: (IBlockState) -> Boolean
+        private val predicate: Predicate<IBlockState>
     ) : MultiblockComponent(displayState) {
 
-        override fun test(t: World, u: BlockPos): Boolean = predicate(t.getBlockState(u))
+        override fun test(world: World, pos: BlockPos): Boolean = predicate.test(world.getBlockState(pos))
 
     }
 
@@ -57,7 +67,7 @@ sealed class MultiblockComponent(val displayState: IBlockState) : BiPredicate<Wo
 
     class Block(val block: net.minecraft.block.Block) : MultiblockComponent(block.defaultState) {
 
-        override fun test(t: World, u: BlockPos): Boolean = t.getBlockState(u).block == block
+        override fun test(world: World, pos: BlockPos): Boolean = world.getBlockState(pos).block == block
 
     }
 

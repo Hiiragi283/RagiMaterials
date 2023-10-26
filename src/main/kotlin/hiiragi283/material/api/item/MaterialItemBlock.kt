@@ -30,7 +30,7 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
         if (!isInCreativeTab(tab)) return
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
-            .filter(shape::isValid)
+            .filter(shape::canCreateMaterialItem)
             .map(::itemStack)
             .forEach(subItems::add)
     }

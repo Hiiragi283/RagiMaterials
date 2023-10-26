@@ -43,7 +43,7 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
         if (!isInCreativeTab(tab)) return
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
-            .filter(HiiragiShapes.CASING::isValid)
+            .filter(HiiragiShapes.CASING::canCreateMaterialItem)
             .map(::itemStack)
             .forEach(subItems::add)
     }

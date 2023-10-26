@@ -16,9 +16,10 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import java.util.function.Supplier
 
 @Suppress("OVERRIDE_DEPRECATION")
-class BlockTransferStation<T : HiiragiTileEntity>(type: String, supplier: () -> T) : HiiragiBlockContainer<T>(
+class BlockTransferStation<T : HiiragiTileEntity>(type: String, supplier: Supplier<T>) : HiiragiBlockContainer<T>(
     Material.IRON,
     "station_$type",
     supplier

@@ -16,7 +16,10 @@ object PartDictionary : HiiragiDictionary<HiiragiPart>("Part") {
 
     fun init() {
         HiiragiPart.createAllParts().forEach { part: HiiragiPart ->
-            part.getOreDicts().forEach { oreDict: String ->
+            OreDictionary.getOres(part.getOreDict()).forEach { stack: ItemStack ->
+                register(stack, part)
+            }
+            part.getOreDictAlts().forEach { oreDict: String ->
                 OreDictionary.getOres(oreDict).forEach { stack: ItemStack ->
                     register(stack, part)
                 }

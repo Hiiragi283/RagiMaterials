@@ -6,7 +6,7 @@ import hiiragi283.material.init.materials.MaterialCompats
 import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
 
 object HiiragiBotaniaPlugin : HiiragiPluginBase("botania", "Botania", { HiiragiConfigs.INTEGRATION.botania }) {
 
@@ -18,7 +18,7 @@ object HiiragiBotaniaPlugin : HiiragiPluginBase("botania", "Botania", { HiiragiC
         MaterialCompats.DRAGONSTONE.register()
     }
 
-    override fun onPostInit(event: FMLPostInitializationEvent) {
+    override fun onInit(event: FMLInitializationEvent) {
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompats.MANASTEEL),
             getEntry<Item>(getResourceLocation("storage")),

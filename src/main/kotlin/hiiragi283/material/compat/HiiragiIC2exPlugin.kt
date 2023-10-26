@@ -8,11 +8,11 @@ import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
 
 object HiiragiIC2exPlugin : HiiragiPluginBase("ic2", "IC2ex", { HiiragiConfigs.INTEGRATION.ic2Ex }) {
 
-    override fun onPostInit(event: FMLPostInitializationEvent) {
+    override fun onInit(event: FMLInitializationEvent) {
         registerOreDict(
             HiiragiShapes.INGOT.getOreDict(MaterialCommons.RUBBER),
             getEntry<Item>(getResourceLocation("crafting")),

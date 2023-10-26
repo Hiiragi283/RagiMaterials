@@ -16,7 +16,7 @@ object HiiragiItems : HiiragiEntry.ITEM {
     val BOOK_RESPAWN = ItemBookRespawn.register()
 
     @JvmField
-    val MINECART_TANK = ItemMinecartTank.registerOptional { isDeobf() }
+    val MINECART_TANK = ItemMinecartTank.registerOptional(::isDeobf)
 
     @JvmField
     val MOTOR = ItemMotor.register()

@@ -17,7 +17,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.oredict.OreDictionary
+import java.util.function.BiConsumer
 import java.util.function.Predicate
+import java.util.function.Supplier
 
 sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJsonSerializable {
 
@@ -230,18 +232,18 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
     class Custom(
         count: Int = 1,
-        val stacks: () -> Collection<ItemStack>,
-        val predicate: (ItemStack) -> Boolean,
-        val process: (IItemHandlerModifiable, Int) -> Unit = { inventory: IItemHandlerModifiable, index: Int ->
+        val stacks: Supplier<Collection<ItemStack>>,
+        val predicate: Predicate<ItemStack>,
+        val process: BiConsumer<IItemHandlerModifiable, Int> = BiConsumer { inventory: IItemHandlerModifiable, index: Int ->
             inventory.extractItem(index, count, false)
         }
     ) : ItemIngredient(count) {
 
-        override fun getMatchingStacks(): Collection<ItemStack> = stacks()
+        override fun getMatchingStacks(): Collection<ItemStack> = stacks.get()
 
-        override fun test(stack: ItemStack): Boolean = predicate(stack)
+        override fun test(stack: ItemStack): Boolean = predicate.test(stack)
 
-        override fun onProcess(inventory: IItemHandlerModifiable, index: Int) = process(inventory, index)
+        override fun onProcess(inventory: IItemHandlerModifiable, index: Int) = process.accept(inventory, index)
 
         override fun getJsonElement(): JsonElement {
             throw UnsupportedOperationException()
@@ -251,9 +253,11 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
     companion object {
 
-        val CATALYST_PROCESS: (IItemHandlerModifiable, Int) -> Unit = { _: IItemHandlerModifiable, _: Int -> }
+        val CATALYST_PROCESS: BiConsumer<IItemHandlerModifiable, Int> =
+            BiConsumer { _: IItemHandlerModifiable, _: Int -> }
 
-        val TOOL_PROCESS: (IItemHandlerModifiable, Int) -> Unit = { inventory: IItemHandlerModifiable, index: Int ->
+        val TOOL_PROCESS: BiConsumer<IItemHandlerModifiable, Int> =
+            BiConsumer { inventory: IItemHandlerModifiable, index: Int ->
             val tool: ItemStack = inventory.getStackInSlot(index)
             if (tool.itemDamage >= tool.maxDamage) {
                 inventory.setStackInSlot(index, ItemStack.EMPTY)

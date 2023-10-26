@@ -17,9 +17,9 @@ object MaterialBlockStorage : MaterialBlock(HiiragiShapes.BLOCK) {
     override fun registerRecipe(material: HiiragiMaterial) {
         val builder: CraftingBuilder = CraftingBuilder(this.itemStack(material))
             .setPattern("AAA", "AAA", "AAA")
-        if (HiiragiShapes.INGOT.isValid(material)) {
+        if (HiiragiShapes.INGOT.canCreateMaterialItem(material)) {
             builder.setIngredient('A', HiiragiShapes.INGOT.getOreDict(material)).build()
-        } else if (HiiragiShapes.GEM.isValid(material)) {
+        } else if (HiiragiShapes.GEM.canCreateMaterialItem(material)) {
             builder.setIngredient('A', HiiragiShapes.GEM.getOreDict(material)).build()
         }
     }

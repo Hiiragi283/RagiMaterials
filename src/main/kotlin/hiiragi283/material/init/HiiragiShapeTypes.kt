@@ -31,7 +31,10 @@ object HiiragiShapeTypes {
     val GAS: HiiragiShapeType = INTERNAL.copy { shapes.add(HiiragiShapes.GAS) }
 
     @JvmField
-    val GEM_4x: HiiragiShapeType = SOLID.copy { shapes.add(HiiragiShapes.GEM) }
+    val GEM_4x: HiiragiShapeType = SOLID.copy {
+        shapes.add(HiiragiShapes.GEM)
+        shapes.add(HiiragiShapes.IS_GEM)
+    }
 
     @JvmField
     val GEM_4x_ADVANCED: HiiragiShapeType = SOLID.copy {
@@ -74,7 +77,7 @@ object HiiragiShapeTypes {
                 HiiragiShapes.CRYSTAL,
                 HiiragiShapes.DUST_DIRTY,
                 HiiragiShapes.INGOT,
-                HiiragiShapes.METAL,
+                HiiragiShapes.IS_METAL,
                 HiiragiShapes.NUGGET,
                 HiiragiShapes.SHARD,
                 HiiragiShapes.SLAB

@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
@@ -12,11 +13,11 @@ import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.config.HiiragiJSonHandler
 import hiiragi283.material.init.*
 import hiiragi283.material.network.HiiragiNetworkManager
+import hiiragi283.material.util.shareOredict
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.network.NetworkRegistry
-import net.minecraftforge.oredict.OreDictionary
 
 @Suppress("DEPRECATION")
 abstract class HiiragiProxy : IHiiragiProxy {
@@ -64,7 +65,6 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiRegistries.ITEM.getValues()
             .filterIsInstance<HiiragiEntry.ITEM>()
             .forEach(HiiragiEntry.ITEM::onInit)
-        HiiragiRecipes.init()
         //連携の登録
         RagiMaterialsPlugin.onInit(event)
     }
@@ -75,17 +75,27 @@ abstract class HiiragiProxy : IHiiragiProxy {
         //レシピの登録
         HiiragiJSonHandler.writeRecipe()
         HiiragiJSonHandler.registerRecipe()
-        HiiragiRecipes.postInit()
         HiiragiRegistries.BLOCK.getValues()
             .filterIsInstance<HiiragiEntry.BLOCK>()
             .forEach(HiiragiEntry.BLOCK::onPostInit)
         HiiragiRegistries.ITEM.getValues()
             .filterIsInstance<HiiragiEntry.ITEM>()
             .forEach(HiiragiEntry.ITEM::onPostInit)
+        HiiragiRecipes.init()
         //鉱石辞書の同期処理
-
+        shareOreDictAlts()
         //連携の登録
         RagiMaterialsPlugin.onPostInit(event)
+    }
+
+    private fun shareOreDictAlts() {
+        HiiragiPart.createAllParts()
+            .filter { it.material.hasOreDictAlt() }
+            .forEach { part: HiiragiPart ->
+                part.getOreDictAlts().forEach { oreDict: String ->
+                    shareOredict(part.getOreDict(), oreDict)
+                }
+            }
     }
 
     override fun onComplete(event: FMLLoadCompleteEvent) {
@@ -110,10 +120,6 @@ abstract class HiiragiProxy : IHiiragiProxy {
             .map(HiiragiMaterial::getJsonElement)
             .map<JsonElement, String>(RagiMaterials.GSON::toJson)
             .forEach(RagiMaterials.LOGGER::info)
-    }
-
-    private fun syncOreDicts() {
-        OreDictionary.getOreNames()
     }
 
     class Server : HiiragiProxy()

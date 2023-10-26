@@ -115,7 +115,8 @@ interface IMachineRecipe : HiiragiJsonSerializable {
             }
             //Input - Fluid
             (0..2).forEach { index: Int ->
-                val ingredient: FluidIngredient = recipe.getInputFluids().getOrElse(index) { FluidIngredient.EMPTY }
+                val ingredient: FluidIngredient =
+                    recipe.getInputFluids().getOrElse(index) { FluidIngredient.EMPTY }
                 val stack: FluidStack? = tile.getTank(index).fluid
                 if (!ingredient.test(stack)) return false
             }

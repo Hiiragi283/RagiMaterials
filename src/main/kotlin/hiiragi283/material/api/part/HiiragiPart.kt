@@ -32,7 +32,9 @@ data class HiiragiPart(val shape: HiiragiShape, val material: HiiragiMaterial) :
 
     fun getOreDict(): String = shape.getOreDict(material)
 
-    fun getOreDicts(): List<String> = shape.getOreDicts(material)
+    fun getOreDictAlts(): List<String> = shape.getOreDictAlts(material)
+
+    fun hasItemStack(): Boolean = PartDictionary.hasItemStack(this)
 
     override fun toString(): String = "${shape.name}:${material.name}"
 

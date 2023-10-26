@@ -33,7 +33,7 @@ abstract class MaterialBlock(
 ) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
     Material.IRON,
     shape.name,
-    { MaterialTileEntity() }
+    ::MaterialTileEntity
 ), PartConvertible.BLOCK {
 
     override val itemBlock = MaterialItemBlock(this)
@@ -74,13 +74,13 @@ abstract class MaterialBlock(
 
     override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(shape::isValid)
+            .filter(shape::canCreateMaterialItem)
             .forEach { OreDictionary.registerOre(shape.getOreDict(it), itemStack(it)) }
     }
 
     override fun onPostInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(shape::isValid)
+            .filter(shape::canCreateMaterialItem)
             .forEach(::registerRecipe)
     }
 

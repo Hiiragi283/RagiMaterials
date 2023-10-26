@@ -27,6 +27,7 @@ import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.init.Items
 import net.minecraft.inventory.Container
 import net.minecraft.item.ItemStack
+import kotlin.math.min
 
 @JEIPlugin
 class HiiragiJEIPlugin : IModPlugin {
@@ -47,7 +48,7 @@ class HiiragiJEIPlugin : IModPlugin {
     override fun registerIngredients(registry: IModIngredientRegistration) {
         registry.register(
             HiiragiIngredientTypes.MATERIAL,
-            HiiragiRegistries.MATERIAL.getValues().map { it.toMaterialStack() },
+            HiiragiRegistries.MATERIAL.getValues().map(HiiragiMaterial::toMaterialStack),
             MaterialStackHelper,
             MaterialStackRenderer,
         )
@@ -72,8 +73,8 @@ class HiiragiJEIPlugin : IModPlugin {
 
     override fun register(registry: IModRegistry) {
         //HiiragiMaterial
-        registry.handleRecipes(HiiragiMaterial::class.java, HiiragiMaterialCategory::Wrapper, MATERIAL)
-        registry.addRecipes(HiiragiRegistries.MATERIAL.getValues(), MATERIAL)
+        registry.handleRecipes(HiiragiMaterialCategory.Wrapper::class.java, { it }, MATERIAL)
+        registry.addRecipes(createMaterialWrapper(), MATERIAL)
         registry.addRecipeCatalyst(Items.IRON_INGOT.itemStack(), MATERIAL)
         //Machine Workbench
         registry.handleRecipes(MachineType::class.java, MachineWorkbenchCategory::Wrapper, MACHINE_WORKBENCH)
@@ -126,8 +127,16 @@ class HiiragiJEIPlugin : IModPlugin {
         //Blacklist
         val blacklist: IIngredientBlacklist = registry.jeiHelpers.ingredientBlacklist
         HiiragiRegistries.MATERIAL.getValues()
-            .map { it.toMaterialStack() }
+            .map(HiiragiMaterial::toMaterialStack)
             .forEach(blacklist::addIngredientToBlacklist)
     }
+
+    private fun createMaterialWrapper(): Collection<HiiragiMaterialCategory.Wrapper> =
+        HiiragiRegistries.MATERIAL.getValues().flatMap { material: HiiragiMaterial ->
+            val stacks: List<ItemStack> = material.getItemStacks()
+            (0..stacks.size / 45)
+                .map { index: Int -> stacks.subList(0 + 45 * index, min(stacks.size, 45 + 45 * index)) }
+                .map { stackList: List<ItemStack> -> HiiragiMaterialCategory.Wrapper(material, stackList) }
+        }
 
 }

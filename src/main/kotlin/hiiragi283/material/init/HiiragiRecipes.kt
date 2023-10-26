@@ -24,8 +24,18 @@ import net.minecraftforge.fluids.FluidStack
 object HiiragiRecipes {
 
     fun init() {
+
         crafting()
         smelting()
+
+        compressor()
+        freezer()
+        grinder()
+        metalFormer()
+        rockGenerator()
+        smelter()
+        test()
+
     }
 
     private fun crafting() {
@@ -69,8 +79,8 @@ object HiiragiRecipes {
             .build()
         //1x Ore -> 2x Dust
         HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(HiiragiShapes.DUST::isValid)
-            .filter(HiiragiShapes.ORE::hasValidItem)
+            .filter(HiiragiShapes.DUST::hasItemStack)
+            .filter(HiiragiShapes.ORE::hasItemStack)
             .forEach { material ->
                 CraftingBuilder(HiiragiShapes.DUST.getItemStack(material, 2), "_ore")
                     .addIngredient(HiiragiShapes.ORE.getOreDict(material))
@@ -139,16 +149,6 @@ object HiiragiRecipes {
             }
     }
 
-    fun postInit() {
-        compressor()
-        freezer()
-        grinder()
-        metalFormer()
-        rockGenerator()
-        smelter()
-        test()
-    }
-
     private fun compressor() {
         MachineRecipe.buildAndRegister(MachineType.COMPRESSOR, Blocks.PACKED_ICE.registryName!!) {
             inputItems.add(ItemIngredient.Blocks(Blocks.ICE, count = 3))
@@ -158,11 +158,11 @@ object HiiragiRecipes {
 
     private fun freezer() {
         MachineRecipe.buildAndRegister(MachineType.FREEZER, Blocks.ICE.registryName!!) {
-            inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = 1000))
+            inputFluids.add(FluidIngredient(FluidRegistry.WATER, amount = 1000))
             outputItems.add(Blocks.ICE.itemStack())
         }
         MachineRecipe.buildAndRegister(MachineType.FREEZER, Blocks.MAGMA.registryName!!) {
-            inputFluids.add(FluidIngredient.Fluids(FluidRegistry.LAVA, amount = 1000))
+            inputFluids.add(FluidIngredient(FluidRegistry.LAVA, amount = 1000))
             outputItems.add(Blocks.MAGMA.itemStack())
         }
     }
@@ -186,8 +186,8 @@ object HiiragiRecipes {
                         process = ItemIngredient.CATALYST_PROCESS
                     )
                 )
-                inputFluids.add(FluidIngredient.Fluids(FluidRegistry.WATER, amount = water))
-                inputFluids.add(FluidIngredient.Fluids(FluidRegistry.LAVA, amount = lava))
+                inputFluids.add(FluidIngredient(FluidRegistry.WATER, amount = water))
+                inputFluids.add(FluidIngredient(FluidRegistry.LAVA, amount = lava))
                 outputItems.add(stack)
             }
         }
@@ -351,9 +351,9 @@ object HiiragiRecipes {
             )
             inputFluids.addAll(
                 listOf(
-                    FluidIngredient.Fluids(FluidRegistry.WATER, amount = 1000),
-                    FluidIngredient.Fluids(FluidRegistry.LAVA, amount = 500),
-                    FluidIngredient.Materials(MaterialCommons.BRONZE, amount = 144 * 4)
+                    FluidIngredient(FluidRegistry.WATER, amount = 1000),
+                    FluidIngredient(FluidRegistry.LAVA, amount = 500),
+                    FluidIngredient(MaterialCommons.BRONZE, amount = 144 * 4)
                 )
             )
             outputItems.add(Blocks.DIRT.itemStack())

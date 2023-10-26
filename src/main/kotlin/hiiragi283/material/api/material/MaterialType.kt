@@ -35,6 +35,8 @@ sealed class MaterialType(val name: String) {
         override fun preInit(builder: HiiragiMaterial.Builder, components: Map<HiiragiMaterial, Int>) {
             val parent: HiiragiMaterial = components.toList()[0].first
             builder.color = parent.color
+            builder.crystalType = parent.crystalType
+            builder.machineProperty = parent.machineProperty
             builder.tempBoil = parent.tempBoil
             builder.tempMelt = parent.tempMelt
             builder.shapeType = parent.shapeType

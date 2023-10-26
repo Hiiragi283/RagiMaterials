@@ -4,10 +4,12 @@ import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialCompats
+import hiiragi283.material.util.shareOredict
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
 import net.minecraft.item.EnumDyeColor
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 
 object HiiragiVanillaPlugin : HiiragiPluginBase("minecraft", "Minecraft", { true }) {
 
@@ -50,6 +52,15 @@ object HiiragiVanillaPlugin : HiiragiPluginBase("minecraft", "Minecraft", { true
         registerOreDict(HiiragiShapes.STICK.getOreDict(MaterialCommons.WOOD), Items.STICK, share = "stick")
 
         shareOredict("fuelCoke", "gemCoke")*/
+    }
+
+    override fun onPostInit(event: FMLPostInitializationEvent) {
+        shareOredict(HiiragiShapes.DUST.getOreDict(MaterialCommons.GUNPOWDER), "gunpowder")
+        shareOredict(HiiragiShapes.GEM.getOreDict(MaterialCompats.ENDER_PEARL), "enderpearl")
+        shareOredict(
+            HiiragiShapes.FUEL.getOreDict(MaterialCommons.COKE),
+            HiiragiShapes.GEM.getOreDict(MaterialCommons.COKE)
+        )
     }
 
 }

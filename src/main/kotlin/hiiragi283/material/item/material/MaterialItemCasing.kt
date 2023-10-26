@@ -18,7 +18,7 @@ object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), MachinePropertyI
 
     override fun registerRecipe(material: HiiragiMaterial) {
         // 8x Plate + 1x Smithing Hammer -> 1x Casing
-        if (HiiragiShapes.PLATE.isValid(material)) {
+        if (HiiragiShapes.PLATE.canCreateMaterialItem(material)) {
             CraftingBuilder(itemStack(material))
                 .setPattern("AAA", "ABA", "AAA")
                 .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))

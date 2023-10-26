@@ -14,7 +14,7 @@ object MaterialBlockCasing : MaterialBlock(HiiragiShapes.CASING) {
     override val itemBlock: MaterialItemBlock = MaterialItemBlockCasing(this)
 
     override fun registerRecipe(material: HiiragiMaterial) {
-        if (!HiiragiShapes.PLATE.isValid(material)) return
+        if (!HiiragiShapes.PLATE.canCreateMaterialItem(material)) return
         CraftingBuilder(this.itemStack(material))
             .setPattern("AAA", "ABA", "AAA")
             .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))

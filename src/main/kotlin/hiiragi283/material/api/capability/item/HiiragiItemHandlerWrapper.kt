@@ -18,9 +18,9 @@ class HiiragiItemHandlerWrapper(vararg itemHandlers: HiiragiItemHandler)
     private val pairs: MutableList<Pair<HiiragiItemHandler, Int>> = mutableListOf()
 
     init {
-        for (itemHandler in itemHandlers) {
-            for (slot in 0 until itemHandler.slots) {
-                pairs.add(itemHandler to slot)
+        itemHandlers.forEach { itemHandler ->
+            (0 until itemHandler.slots).forEach { index ->
+                pairs.add(itemHandler to index)
             }
         }
     }

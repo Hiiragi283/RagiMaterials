@@ -8,6 +8,7 @@ import hiiragi283.material.api.event.MaterialBuiltEvent
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
+import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
 import hiiragi283.material.init.HiiragiRegistries
@@ -110,6 +111,8 @@ data class HiiragiMaterial private constructor(
 
     fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
 
+    fun getFluidStacks(amount: Int = 1000): List<FluidStack> = getFluids().map { FluidStack(it, amount) }
+
     fun getItemStack(count: Int = 1): ItemStack? = MaterialDictionary.getPrimalStack(this, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = MaterialDictionary.getItemStacks(this, count)
@@ -132,25 +135,29 @@ data class HiiragiMaterial private constructor(
 
     fun hasFormula(): Boolean = formula.isNotEmpty()
 
+    fun hasItemStack(): Boolean = MaterialDictionary.hasItemStack(this)
+
+    fun hasItemStack(shape: HiiragiShape): Boolean = PartDictionary.hasItemStack(getPart(shape))
+
     fun hasMolar(): Boolean = molar > 0.0
 
     fun hasTempBoil(): Boolean = tempBoil > 0
 
     fun hasTempMelt(): Boolean = tempMelt > 0
 
-    fun isGem(): Boolean = HiiragiShapes.GEM.isValid(this)
+    fun isGem(): Boolean = HiiragiShapes.IS_GEM.canCreateMaterialItem(this)
 
-    fun isMetal(): Boolean = HiiragiShapes.METAL.isValid(this)
+    fun isMetal(): Boolean = HiiragiShapes.IS_METAL.canCreateMaterialItem(this)
 
     fun isFluid(): Boolean = isGas() || isLiquid()
 
-    fun isGas(): Boolean = HiiragiShapes.GAS.isValid(this) || tempBoil < 298
+    fun isGas(): Boolean = HiiragiShapes.GAS.canCreateMaterialItem(this) || tempBoil < 298
 
-    fun isLiquid(): Boolean = HiiragiShapes.LIQUID.isValid(this) || (tempMelt < 298 && tempBoil >= 298)
+    fun isLiquid(): Boolean = HiiragiShapes.LIQUID.canCreateMaterialItem(this) || (tempMelt < 298 && tempBoil >= 298)
 
     fun isValidIndex(): Boolean = index >= 0
 
-    fun isSolid(): Boolean = HiiragiShapes.SOLID.isValid(this) || tempMelt >= 298
+    fun isSolid(): Boolean = HiiragiShapes.SOLID.canCreateMaterialItem(this) || tempMelt >= 298
 
     fun isRegistered(): Boolean = HiiragiRegistries.MATERIAL.containsKey(name)
 

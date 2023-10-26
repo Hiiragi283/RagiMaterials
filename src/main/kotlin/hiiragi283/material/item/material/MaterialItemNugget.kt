@@ -10,7 +10,7 @@ object MaterialItemNugget : MaterialItem(HiiragiShapes.NUGGET) {
 
     override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Ingot -> 9x Nugget
-        if (HiiragiShapes.INGOT.isValid(material)) {
+        if (HiiragiShapes.INGOT.canCreateMaterialItem(material)) {
             CraftingBuilder(itemStack(material, 9))
                 .addIngredient(HiiragiShapes.INGOT.getOreDict(material))
                 .build()

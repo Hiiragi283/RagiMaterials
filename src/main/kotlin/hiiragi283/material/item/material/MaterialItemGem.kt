@@ -16,7 +16,7 @@ object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
 
     override fun registerRecipe(material: HiiragiMaterial) {
         // 1x Block -> 9x Gem
-        if (HiiragiShapes.BLOCK.isValid(material)) {
+        if (HiiragiShapes.BLOCK.canCreateMaterialItem(material)) {
             CraftingBuilder(itemStack(material, 9))
                 .addIngredient(HiiragiShapes.BLOCK.getOreDict(material))
                 .build()

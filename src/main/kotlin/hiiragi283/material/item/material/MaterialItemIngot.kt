@@ -13,14 +13,14 @@ object MaterialItemIngot : MaterialItem(HiiragiShapes.INGOT) {
 
     override fun registerRecipe(material: HiiragiMaterial) {
         // 9x Nugget -> 1x Ingot
-        if (!HiiragiShapes.NUGGET.isValid(material)) {
+        if (!HiiragiShapes.NUGGET.canCreateMaterialItem(material)) {
             CraftingBuilder(itemStack(material))
                 .setPattern("AAA", "AAA", "AAA")
                 .setIngredient('A', HiiragiShapes.NUGGET.getOreDict(material))
                 .build()
         }
         // 1x Block -> 9x Ingot
-        if (!HiiragiShapes.BLOCK.isValid(material)) {
+        if (!HiiragiShapes.BLOCK.canCreateMaterialItem(material)) {
             val ingot9: ItemStack = itemStack(material, 9)
             CraftingBuilder(ingot9.toLocation("_").append("_alt"), ingot9)
                 .addIngredient(HiiragiShapes.BLOCK.getOreDict(material))

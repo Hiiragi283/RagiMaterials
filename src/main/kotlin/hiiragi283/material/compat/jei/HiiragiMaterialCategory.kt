@@ -13,7 +13,6 @@ import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeWrapper
 import net.minecraft.client.Minecraft
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 
 class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
@@ -27,24 +26,23 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         getMaterialStacks(iRecipeLayout).init(0, false, 4 + 1, 4 + 1)
         getMaterialStacks(iRecipeLayout)[0] = wrapper.getMaterialStack()
         //FluidStack
-        iRecipeLayout.fluidStacks.init(0, true, 5, 18 + 5)
+        iRecipeLayout.fluidStacks.init(0, true, 18 * 8 + 5, 5)
         iRecipeLayout.fluidStacks[0] = wrapper.getFluids()
         //ItemStack
         for (i in wrapper.getStacks().indices) {
-            iRecipeLayout.itemStacks.init(i, true, 18 * ((i + 1) % 9) + 4, 18 * ((i + 1) / 9) + 18 + 4)
+            iRecipeLayout.itemStacks.init(i, true, 18 * (i % 9) + 4, 18 * (i / 9) + 18 + 4)
             iRecipeLayout.itemStacks[i] = wrapper.getStacks()[i]
         }
     }
 
-    class Wrapper(material: HiiragiMaterial) : IRecipeWrapper {
+    class Wrapper(
+        material: HiiragiMaterial,
+        private val stacks: Collection<ItemStack>
+    ) : IRecipeWrapper {
 
         private val materialStack: MaterialStack = material.toMaterialStack()
-        private val fluids: Collection<FluidStack> = material.getFluids()
-            .map { fluid: Fluid -> FluidStack(fluid, 1000) }
-        private val stacks: Collection<ItemStack> = material.getItemStacks()
-            .map { it.item to it.metadata }
-            .toSet()
-            .map { ItemStack(it.first, 1, it.second) }
+
+        private val fluids: Collection<FluidStack> = material.getFluidStacks()
 
         fun getMaterialStack(): MaterialStack = materialStack.copy()
 
@@ -60,7 +58,12 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         }
 
         override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {
-            minecraft.fontRenderer.drawString(getMaterialStack().material.getTranslatedName(), 24, 10, HiiragiColor.WHITE.rgb)
+            minecraft.fontRenderer.drawString(
+                getMaterialStack().material.getTranslatedName(),
+                24,
+                10,
+                HiiragiColor.WHITE.rgb
+            )
         }
 
     }

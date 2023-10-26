@@ -6,7 +6,7 @@ import hiiragi283.material.init.materials.MaterialCompats
 import hiiragi283.material.util.getEntry
 import hiiragi283.material.util.registerOreDict
 import net.minecraft.item.Item
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
+import net.minecraftforge.fml.common.event.FMLInitializationEvent
 
 object HiiragiEnderIOPlugin : HiiragiPluginBase("enderio", "Ender IO", { HiiragiConfigs.INTEGRATION.enderIO }) {
 
@@ -23,7 +23,7 @@ object HiiragiEnderIOPlugin : HiiragiPluginBase("enderio", "Ender IO", { Hiiragi
         MaterialCompats.IRON_ALLOY.register()
     }
 
-    override fun onPostInit(event: FMLPostInitializationEvent) {
+    override fun onInit(event: FMLInitializationEvent) {
         registerOreDict(
             HiiragiShapes.BALL.getOreDict(MaterialCompats.SIGNALUM),
             getEntry<Item>(getResourceLocation("item_material")),

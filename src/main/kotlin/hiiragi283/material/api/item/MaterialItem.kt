@@ -46,7 +46,7 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
         if (!isInCreativeTab(tab)) return
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(HiiragiMaterial::isValidIndex)
-            .filter(shape::isValid)
+            .filter(shape::canCreateMaterialItem)
             .map(::itemStack)
             .forEach(subItems::add)
     }
@@ -59,13 +59,13 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
 
     override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(shape::isValid)
+            .filter(shape::canCreateMaterialItem)
             .forEach { OreDictionary.registerOre(shape.getOreDict(it), itemStack(it)) }
     }
 
     override fun onPostInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(shape::isValid)
+            .filter(shape::canCreateMaterialItem)
             .forEach(::registerRecipe)
     }
 
@@ -89,6 +89,7 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     fun addMetalFormerRecipe(material: HiiragiMaterial, inputCount: Int = 1, outputCount: Int = 1) {
         if (!material.isMetal()) return
         val part: HiiragiPart = shape.getPart(material)
+        if (!part.hasItemStack()) return
         MachineRecipe.buildAndRegister(
             MachineType.METAL_FORMER,
             hiiragiLocation(part.toString())

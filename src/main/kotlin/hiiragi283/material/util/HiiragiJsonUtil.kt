@@ -19,7 +19,6 @@ import hiiragi283.material.init.HiiragiShapeTypes
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 
@@ -231,25 +230,11 @@ object HiiragiJsonUtil {
 
         val root: JsonObject = jsonElement.asJsonObject
 
-        return when {
-            root.has("fluids") -> {
-                val stacks: List<Fluid> = root.getAsJsonArray("fluids")
-                    .map { it.asJsonPrimitive.asString }
-                    .mapNotNull(FluidRegistry::getFluid)
-                val amount: Int = root.getAsJsonPrimitive("amount")?.asInt ?: 0
-                FluidIngredient.Fluids(*stacks.toTypedArray(), amount = amount)
-            }
-
-            root.has("materials") -> {
-                val stacks: List<HiiragiMaterial> = root.getAsJsonArray("materials")
-                    .map { it.asJsonPrimitive.asString }
-                    .mapNotNull(HiiragiRegistries.MATERIAL::getValue)
-                val amount: Int = root.getAsJsonPrimitive("amount")?.asInt ?: 0
-                FluidIngredient.Materials(*stacks.toTypedArray(), amount = amount)
-            }
-
-            else -> null
-        }
+        val names: List<String> = root.getAsJsonArray("fluids")
+            .map(JsonElement::getAsJsonPrimitive)
+            .map(JsonPrimitive::getAsString)
+        val amount: Int = root.getAsJsonPrimitive("amount")?.asInt ?: 0
+        return FluidIngredient(names, amount)
 
     }
 

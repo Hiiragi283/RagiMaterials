@@ -46,13 +46,13 @@ object HiiragiBlocks {
     }.register()
 
     @JvmField
-    val ITEM_STATION = BlockTransferStation("item") { TileTransferStationItem() }.register()
+    val ITEM_STATION = BlockTransferStation("item", ::TileTransferStationItem).register()
 
     @JvmField
-    val FLUID_STATION = BlockTransferStation("fluid") { TileTransferStationFluid() }.register()
+    val FLUID_STATION = BlockTransferStation("fluid", ::TileTransferStationFluid).register()
 
     @JvmField
-    val ENERGY_STATION = BlockTransferStation("energy") { TileTransferStationEnergy() }.register()
+    val ENERGY_STATION = BlockTransferStation("energy", ::TileTransferStationEnergy).register()
 
     //    Mineral    //
 
@@ -62,10 +62,10 @@ object HiiragiBlocks {
     //    TEST    //
 
     @JvmField
-    val CHUNK_LOADER = BlockTestChunkLoader.registerOptional { isDeobf() }
+    val CHUNK_LOADER = BlockTestChunkLoader.registerOptional(::isDeobf)
 
     @JvmField
-    val TEST_CORE = BlockTestMultiblock.registerOptional { isDeobf() }
+    val TEST_CORE = BlockTestMultiblock.registerOptional(::isDeobf)
 
     init {
 

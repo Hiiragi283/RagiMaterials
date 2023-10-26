@@ -25,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 object BlockMachineExtender : HiiragiBlockContainer<TileEntityMachineExtender>(
     Material.IRON,
     "machine_extender",
-    { TileEntityMachineExtender() }
+    ::TileEntityMachineExtender
 ) {
 
     init {

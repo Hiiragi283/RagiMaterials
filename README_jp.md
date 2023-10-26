@@ -64,6 +64,7 @@
 - アドバイスをくれた方々にスペシャルなサンキュー!
     - [a1lic](https://github.com/a1lic)
     - [defeatedcrow](https://github.com/defeatedcrow)
+    - [Katudonsan](https://github.com/Katudonsan)
     - [HalsekiRaika(RechellaTek)](https://github.com/HalsekiRaika)
     - [karakufire](https://github.com/karakufire)
     - [Ko_no](https://github.com/MrKono)

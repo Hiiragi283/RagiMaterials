@@ -10,6 +10,7 @@ import net.minecraft.item.Item
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistryEntry
+import java.util.function.Supplier
 
 @Suppress("DEPRECATION")
 interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
@@ -23,7 +24,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
         return registry.register(getObject().registryName!!.path, getObject())
     } ?: getObject()
 
-    fun registerOptional(predicate: () -> Boolean): T = if (predicate()) register() else getObject()
+    fun registerOptional(predicate: Supplier<Boolean>): T = if (predicate.get()) register() else getObject()
 
     fun onRegister() {}
 
