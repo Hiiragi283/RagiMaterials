@@ -6,8 +6,7 @@ import java.lang.reflect.Field
 
 object HiiragiShapes {
 
-    @JvmField
-    val BALL = HiiragiShape("ball", 30)
+    //    Material Item    //
 
     @JvmField
     val BLOCK = HiiragiShape("block", 144 * 9)
@@ -17,6 +16,34 @@ object HiiragiShapes {
 
     @JvmField
     val CASING = HiiragiShape("casing", 144 * 8)
+
+    @JvmField
+    val DUST = HiiragiShape("dust", 144)
+
+    @JvmField
+    val GEAR = HiiragiShape("gear", 144 * 4)
+
+    @JvmField
+    val GEM = HiiragiShape("gem", 144)
+        .addPrefixAlt("fuel")
+
+    @JvmField
+    val INGOT = HiiragiShape("ingot", 144)
+
+    @JvmField
+    val NUGGET = HiiragiShape("nugget", 144 / 9)
+
+    @JvmField
+    val PLATE = HiiragiShape("plate", 144)
+
+    @JvmField
+    val STICK = HiiragiShape("stick", 144 / 2)
+        .addPrefixAlt("rod")
+
+    //    Compat    //
+
+    @JvmField
+    val BALL = HiiragiShape("ball", 30)
 
     @JvmField
     val CLUMP = HiiragiShape("clump", 144)
@@ -34,16 +61,10 @@ object HiiragiShapes {
     val CRYSTAL = HiiragiShape("crystal", 144)
 
     @JvmField
-    val DUST = HiiragiShape("dust", 144)
-
-    @JvmField
     val DUST_DIRTY = HiiragiShape("dust_dirty", 144)
 
     @JvmField
     val DUST_TINY = HiiragiShape("dust_tiny", 144 / 9)
-
-    @JvmField
-    val DYE = HiiragiShape("dye", 0)
 
     @JvmField
     val FENCE = HiiragiShape("fence", 144 * 5 / 3)
@@ -52,22 +73,7 @@ object HiiragiShapes {
     val FRAME = HiiragiShape("frame", 144 * 4)
 
     @JvmField
-    val FUEL = HiiragiShape("fuel", 144)
-
-    @JvmField
-    val GEAR = HiiragiShape("gear", 144 * 4)
-
-    @JvmField
-    val GEM = HiiragiShape("gem", 144)
-
-    @JvmField
-    val INGOT = HiiragiShape("ingot", 144)
-
-    @JvmField
     val LOG = HiiragiShape("log", 144 * 4)
-
-    @JvmField
-    val NUGGET = HiiragiShape("nugget", 144 / 9)
 
     @JvmField
     val ORE = HiiragiShape("ore", 144 * 2)
@@ -79,10 +85,10 @@ object HiiragiShapes {
     val ORE_POOR = HiiragiShape("ore_poor", 144 / 3)
 
     @JvmField
-    val PLANK = HiiragiShape("plank", 144)
+    val PANE = HiiragiShape("pane", 375)
 
     @JvmField
-    val PLATE = HiiragiShape("plate", 144)
+    val PLANK = HiiragiShape("plank", 144)
 
     @JvmField
     val PLATE_DENSE = HiiragiShape("plate_dense", 144 * 9)
@@ -107,9 +113,6 @@ object HiiragiShapes {
 
     @JvmField
     val SLAB_SHEETMETAL = HiiragiShape("slab_sheetmetal", 144 / 2)
-
-    @JvmField
-    val STICK = HiiragiShape("stick", 144 / 2)
 
     @JvmField
     val STONE = HiiragiShape("stone", 144)

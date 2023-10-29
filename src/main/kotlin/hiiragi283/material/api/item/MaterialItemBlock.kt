@@ -21,9 +21,7 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        getMaterial(stack)
-            ?.let(shape::getTranslatedName)
-            ?: super.getItemStackDisplayName(stack)
+        getPart(stack)?.getTranslatedName() ?: super.getItemStackDisplayName(stack)
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {

@@ -19,17 +19,4 @@ object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
         addGrinderRecipe(material)
     }
 
-    /*@SideOnly(Side.CLIENT)
-    override fun registerModel() {
-
-        ModelLoader.registerItemVariants(
-            this, *CrystalType.values().map { it.getModelLocation(this) }.toTypedArray()
-        )
-
-        ModelLoader.setCustomMeshDefinition(this) { stack: ItemStack ->
-            (getMaterial(stack)?.crystalType ?: CrystalType.NONE).getModelLocation(this).toModelLocation()
-        }
-
-    }*/
-
 }

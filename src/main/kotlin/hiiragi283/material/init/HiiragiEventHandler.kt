@@ -1,7 +1,6 @@
 package hiiragi283.material.init
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.event.MaterialBuiltEvent
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
@@ -14,6 +13,7 @@ import hiiragi283.material.compat.RagiMaterialsPlugin
 import hiiragi283.material.config.HiiragiJSonHandler
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialElements
+import hiiragi283.material.util.HiiragiLogger
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -33,15 +33,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Suppress("DEPRECATION")
+@Suppress("unused", "UNUSED_PARAMETER", "DEPRECATION", "UNUSED_VARIABLE")
 object HiiragiEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     fun registerShapes(event: ShapeRegistryEvent) {
-        RagiMaterials.LOGGER.info("Registering Shapes...")
+        HiiragiLogger.info("Registering Shapes...")
         HiiragiShapes.register()
 
-        RagiMaterials.LOGGER.info("Registering Shapes from JSON...")
+        HiiragiLogger.info("Registering Shapes from JSON...")
         HiiragiJSonHandler.registerShape()
     }
 
@@ -54,16 +54,16 @@ object HiiragiEventHandler {
 
         HiiragiMaterial.RUSSELL.register()
 
-        RagiMaterials.LOGGER.info("Registering Elemental Materials...")
+        HiiragiLogger.info("Registering Elemental Materials...")
         MaterialElements.register()
 
-        RagiMaterials.LOGGER.info("Registering Common Materials...")
+        HiiragiLogger.info("Registering Common Materials...")
         MaterialCommons.register()
 
-        RagiMaterials.LOGGER.info("Registering Materials for Integration...")
+        HiiragiLogger.info("Registering Materials for Integration...")
         RagiMaterialsPlugin.registerMaterial()
 
-        RagiMaterials.LOGGER.info("Registering Materials from JSON...")
+        HiiragiLogger.info("Registering Materials from JSON...")
         HiiragiJSonHandler.registerMaterial()
 
     }
@@ -98,7 +98,7 @@ object HiiragiEventHandler {
     fun onConfigChanged(event: ConfigChangedEvent.OnConfigChangedEvent) {
         if (event.modID != RMReference.MOD_ID) return
         ConfigManager.sync(RMReference.MOD_ID, Config.Type.INSTANCE)
-        RagiMaterials.LOGGER.info("Config Reloaded!")
+        HiiragiLogger.info("Config Reloaded!")
     }
 
     //    Client    //
@@ -140,7 +140,7 @@ object HiiragiEventHandler {
         fun onTooltip(event: ItemTooltipEvent) {
             if (event.itemStack.isEmpty) return
 
-            PartDictionary.getObject(event.itemStack)?.addTooltip(event)
+            PartDictionary.getPart(event.itemStack)?.addTooltip(event)
 
             event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 ?.tankProperties

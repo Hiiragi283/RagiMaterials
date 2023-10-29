@@ -4,10 +4,8 @@ import hiiragi283.material.api.item.MaterialItem
 import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.init.HiiragiItems
+import hiiragi283.material.block.MaterialBlockCasing
 import hiiragi283.material.init.HiiragiShapes
-import hiiragi283.material.util.CraftingBuilder
-import hiiragi283.material.util.itemStack
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
@@ -17,18 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly
 object MaterialItemCasing : MaterialItem(HiiragiShapes.CASING), MachinePropertyItem {
 
     override fun registerRecipe(material: HiiragiMaterial) {
-        // 8x Plate + 1x Smithing Hammer -> 1x Casing
-        if (HiiragiShapes.PLATE.canCreateMaterialItem(material)) {
-            CraftingBuilder(itemStack(material))
-                .setPattern("AAA", "ABA", "AAA")
-                .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
-                .setIngredient('B', HiiragiItems.SMITHING_HAMMER, true)
-                .build()
-        }
-        //Metal Former Recipe
-        addMetalFormerRecipe(material, inputCount = 8)
-        //Grinder Recipe
-        addGrinderRecipe(material)
+        MaterialBlockCasing.registerRecipe(material)
     }
 
     //    Client    //

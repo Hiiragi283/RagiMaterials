@@ -20,6 +20,7 @@ import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.recipe.MachineRecipe
 import hiiragi283.material.util.HiiragiJsonUtil
+import hiiragi283.material.util.HiiragiLogger
 import hiiragi283.material.util.itemStack
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -49,19 +50,19 @@ object HiiragiJSonHandler {
     fun init() {
         //フォルダがない場合は生成する
         if (!parentFile.exists()) {
-            RagiMaterials.LOGGER.info("Created Config Folder: $parentFile")
+            HiiragiLogger.info("Created Config Folder: $parentFile")
             parentFile.mkdirs()
         }
         if (!shapeFile.exists()) {
-            RagiMaterials.LOGGER.info("Created Config Folder: $shapeFile")
+            HiiragiLogger.info("Created Config Folder: $shapeFile")
             shapeFile.mkdirs()
         }
         if (!materialFile.exists()) {
-            RagiMaterials.LOGGER.info("Created Config Folder: $materialFile")
+            HiiragiLogger.info("Created Config Folder: $materialFile")
             materialFile.mkdirs()
         }
         if (!recipeFile.exists()) {
-            RagiMaterials.LOGGER.info("Created Config Folder: $recipeFile")
+            HiiragiLogger.info("Created Config Folder: $recipeFile")
             recipeFile.mkdirs()
         }
 
@@ -92,7 +93,7 @@ object HiiragiJSonHandler {
                 sample.writeText(gson.toJson(shape), Charsets.UTF_8)
             }
         } catch (e: Exception) {
-            RagiMaterials.LOGGER.error(e)
+            HiiragiLogger.error(e)
         }
     }
 
@@ -102,7 +103,7 @@ object HiiragiJSonHandler {
                 .mapNotNull(HiiragiJsonUtil::hiiragiShape) //JsonObject -> HiiragiShape
                 .forEach(shapes::add) //shapesに一時保存
         } catch (e: Exception) {
-            RagiMaterials.LOGGER.error(e)
+            HiiragiLogger.error(e)
         }
     }
 
@@ -136,7 +137,7 @@ object HiiragiJSonHandler {
                 sample.writeText(gson.toJson(material), Charsets.UTF_8)
             }
         } catch (e: Exception) {
-            RagiMaterials.LOGGER.error(e)
+            HiiragiLogger.error(e)
         }
     }
 
@@ -146,7 +147,7 @@ object HiiragiJSonHandler {
                 .mapNotNull(HiiragiJsonUtil::hiiragiMaterial) //JsonObject -> HiiragiMaterial
                 .forEach(materials::add) //materialsに一時保存
         } catch (e: Exception) {
-            RagiMaterials.LOGGER.error(e) //念のため例外処理
+            HiiragiLogger.error(e) //念のため例外処理
         }
     }
 
@@ -179,14 +180,14 @@ object HiiragiJSonHandler {
                     inputItems.add(ItemIngredient.Shapes(HiiragiShapes.BLOCK))
                     inputFluids.add(FluidIngredient(FluidRegistry.WATER, amount = 250))
                     inputFluids.add(FluidIngredient(MaterialElements.HELIUM))
-                    outputItems.add(Blocks.DIAMOND_BLOCK.itemStack())
-                    outputFluids.add(FluidStack(FluidRegistry.LAVA, 4000))
+                    outputItems.add(Blocks.DIAMOND_BLOCK::itemStack)
+                    outputFluids.add { FluidStack(FluidRegistry.LAVA, 4000) }
                     traits.addAll(MachineTrait.values())
                 }.getJsonElement()
                 sample.writeText(gson.toJson(recipe), Charsets.UTF_8)
             }
         } catch (e: Exception) {
-            RagiMaterials.LOGGER.error(e)
+            HiiragiLogger.error(e)
         }
     }
 
@@ -200,7 +201,7 @@ object HiiragiJSonHandler {
                 .map { gson.fromJson(it.first, JsonObject::class.java) to it.second } //JsonObjectに変換
                 .forEach(HiiragiJsonUtil::machineRecipe) //IMachineRecipeの登録
         } catch (e: Exception) {
-            RagiMaterials.LOGGER.error(e)
+            HiiragiLogger.error(e)
         }
     }
 

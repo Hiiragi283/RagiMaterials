@@ -5,6 +5,7 @@ import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.chunk.IBlockChunkLoader
 import hiiragi283.material.api.chunk.IEntityChunkLoader
 import hiiragi283.material.util.DimensionalBlockPos
+import hiiragi283.material.util.HiiragiLogger
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.getBlockImplemented
 import net.minecraft.entity.Entity
@@ -83,7 +84,7 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
         //ForgeChunkManagerに読み込みを行わせる
         ForgeChunkManager.forceChunk(ticket, world.getChunk(pos.pos).pos)
         //ログに出力する
-        RagiMaterials.LOGGER.info("Chunk Loading on blockPos: $pos is activated!")
+        HiiragiLogger.info("Chunk Loading on blockPos: $pos is activated!")
     }
 
     private fun ForgeChunkManager.Ticket.setBlockData(pos: DimensionalBlockPos): ForgeChunkManager.Ticket =
@@ -109,7 +110,7 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
         //mapから座標とticketの組を消す
         mapBlockTicket.remove(pos)
         //ログに出力する
-        RagiMaterials.LOGGER.info("Chunk Loading on blockPos: $pos is inactivated...")
+        HiiragiLogger.info("Chunk Loading on blockPos: $pos is inactivated...")
     }
 
     //    Entity Ticket    //
@@ -133,7 +134,7 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
         //ForgeChunkManagerに読み込みを行わせる
         ForgeChunkManager.forceChunk(ticket, entity.getChunk(world).pos)
         //ログに出力する
-        RagiMaterials.LOGGER.info("Chunk Loading on Entity: $entity is activated!")
+        HiiragiLogger.info("Chunk Loading on Entity: $entity is activated!")
     }
 
     @JvmStatic
@@ -157,7 +158,7 @@ object HiiragiChunkLoadCallback : ForgeChunkManager.LoadingCallback {
             ForgeChunkManager.unforceChunk(ticket, entity.getChunk(world).pos)
             ForgeChunkManager.releaseTicket(ticket)
             //ログに出力する
-            RagiMaterials.LOGGER.info("Chunk Loading on Entity: $entity is inactivated...")
+            HiiragiLogger.info("Chunk Loading on Entity: $entity is inactivated...")
         }
     }
 

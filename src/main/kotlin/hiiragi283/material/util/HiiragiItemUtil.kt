@@ -1,7 +1,6 @@
 package hiiragi283.material.util
 
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.part.HiiragiPart
 import net.minecraft.block.Block
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.state.IBlockState
@@ -18,11 +17,6 @@ fun Block.itemStack(count: Int = 1, meta: Int = 0) = ItemStack(this, count, meta
 
 fun Block.itemStack(material: HiiragiMaterial?, count: Int = 1): ItemStack =
     material?.let { this.itemStack(count, it.index) } ?: ItemStack.EMPTY
-
-fun Block.itemStack(part: HiiragiPart): ItemStack {
-    val scale: Int = part.shape.scale
-    return if (scale >= 144) this.itemStack(part.material, scale / 144) else ItemStack.EMPTY
-}
 
 fun Block.itemStackWild(count: Int = 1) = this.itemStack(count, Short.MAX_VALUE.toInt())
 
@@ -50,11 +44,6 @@ fun Item.itemStack(count: Int = 1, meta: Int = 0) = ItemStack(this, count, meta)
 
 fun Item.itemStack(material: HiiragiMaterial?, count: Int = 1): ItemStack =
     material?.let { this.itemStack(count, it.index) } ?: ItemStack.EMPTY
-
-fun Item.itemStack(part: HiiragiPart): ItemStack {
-    val scale: Int = part.shape.scale
-    return if (scale >= 144) this.itemStack(part.material, scale / 144) else ItemStack.EMPTY
-}
 
 fun Item.itemStackWild(count: Int = 1) = this.itemStack(count, Short.MAX_VALUE.toInt())
 

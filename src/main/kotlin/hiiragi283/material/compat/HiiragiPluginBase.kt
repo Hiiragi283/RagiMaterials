@@ -1,8 +1,8 @@
 package hiiragi283.material.compat
 
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.proxy.IHiiragiProxy
+import hiiragi283.material.util.HiiragiLogger
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLConstructionEvent
@@ -18,7 +18,7 @@ abstract class HiiragiPluginBase(
 
     fun apply(list: MutableList<HiiragiPluginBase>) {
         if (enabled()) {
-            RagiMaterials.LOGGER.info("Integration Enabled: $modName")
+            HiiragiLogger.info("Integration Enabled: $modName")
             list.add(this)
         }
     }

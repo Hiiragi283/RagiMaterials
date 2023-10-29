@@ -44,8 +44,7 @@ object MaterialCompats {
         shapeType = HiiragiShapeTypes.SOLID.copy {
             shapes.remove(HiiragiShapes.DUST)
         }
-
-    }
+    }.setScale(HiiragiShapes.BLOCK, 144 * 4)
 
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
@@ -57,6 +56,15 @@ object MaterialCompats {
         oreDictAlt.add("ender")
         oreDictAlt.add("ender_pearl")
         shapeType = HiiragiShapeTypes.SOLID
+    }
+
+    @JvmField
+    val BLAZE = materialOf("blaze", 1004) {
+        color = HiiragiColor.mixColor(HiiragiColor.GOLD to 2, HiiragiColor.YELLOW to 1).rgb
+        formula = "Bl"
+        shapeType = HiiragiShapeTypes.SOLID.copy {
+            shapes.remove(HiiragiShapes.DUST)
+        }
     }
 
     //    Thermal Series    //

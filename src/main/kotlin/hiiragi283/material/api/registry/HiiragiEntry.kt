@@ -30,8 +30,6 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun onInit() {}
 
-    fun onPostInit() {}
-
     @SideOnly(Side.CLIENT)
     fun registerModel() {
     }

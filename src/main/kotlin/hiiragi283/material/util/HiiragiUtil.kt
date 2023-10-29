@@ -1,4 +1,5 @@
 @file:JvmName("HiiragiUtil")
+@file:Suppress("unused")
 
 package hiiragi283.material.util
 
@@ -418,7 +419,3 @@ fun getEnumRarity(name: String): IRarity = when (name) {
 fun isShiftPressed(): Boolean = Keyboard.isCreated() && Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
 
 infix fun <T> Boolean.soThat(value: T?): T? = value.takeIf { this }
-
-fun test() {
-    val result = (true soThat "Succeed") ?: "Failed"
-}

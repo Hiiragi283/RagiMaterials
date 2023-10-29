@@ -14,12 +14,18 @@ object MaterialBlockCasing : MaterialBlock(HiiragiShapes.CASING) {
     override val itemBlock: MaterialItemBlock = MaterialItemBlockCasing(this)
 
     override fun registerRecipe(material: HiiragiMaterial) {
-        if (!HiiragiShapes.PLATE.canCreateMaterialItem(material)) return
-        CraftingBuilder(this.itemStack(material))
-            .setPattern("AAA", "ABA", "AAA")
-            .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
-            .setIngredient('B', HiiragiItems.SMITHING_HAMMER, true)
-            .build()
+        // 8x Plate + 1x Smithing Hammer -> 1x Casing
+        if (material.isMetal()) {
+            CraftingBuilder(itemStack(material))
+                .setPattern("AAA", "ABA", "AAA")
+                .setIngredient('A', HiiragiShapes.PLATE.getOreDict(material))
+                .setIngredient('B', HiiragiItems.SMITHING_HAMMER, true)
+                .build()
+        }
+        //Metal Former Recipe
+        addMetalFormerRecipe(material, inputCount = 8)
+        //Grinder Recipe
+        addGrinderRecipe(material)
     }
 
 }

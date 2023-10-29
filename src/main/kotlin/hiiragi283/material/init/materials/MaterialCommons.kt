@@ -1,9 +1,9 @@
 package hiiragi283.material.init.materials
 
 import hiiragi283.material.api.material.*
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
-import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.enableAccess
 import hiiragi283.material.util.isAprilFools
@@ -56,6 +56,7 @@ object MaterialCommons {
             HiiragiColor.YELLOW to 1
         ).rgb
         hasFluid = false
+        oreDictAlt.add("saw_dust")
         shapeType = HiiragiShapeTypes.WOOD
     }.setSmelted(MaterialElements.CARBON)
 
@@ -156,7 +157,7 @@ object MaterialCommons {
         hasFluid = false
         iconSet = HiiragiIconSets.AMORPHOUS
         shapeType = HiiragiShapeTypes.GEM_9x
-    }
+    }.setScale(HiiragiShapes.BLOCK, 144 * 4)
 
     @JvmField
     val ASH = mixtureOf(
@@ -319,7 +320,7 @@ object MaterialCommons {
         color = 0xC8C8DC
         hasFluid = false
         shapeType = HiiragiShapeTypes.SOLID
-    }
+    }.setScale(HiiragiShapes.BLOCK, 144 * 4)
 
     @JvmField
     val END_STONE = compoundOf("end_stone", 11401, mapOf(SILICATE to 1)) {
@@ -332,7 +333,7 @@ object MaterialCommons {
     val GLASS = compoundOf("glass", 11402, mapOf(SILICATE to 1)) {
         color = HiiragiColor.WHITE.rgb
         shapeType = HiiragiShapeTypes.SOLID
-    }
+    }.setScale(HiiragiShapes.BLOCK, 1000)
 
     @JvmField
     val LAVA = compoundOf("lava", 11403, mapOf(SILICATE to 1)) {
@@ -366,7 +367,7 @@ object MaterialCommons {
         shapeType = HiiragiShapeTypes.GEM_4x_ADVANCED.copy {
             shapes.remove(HiiragiShapes.GEM)
         }
-    }
+    }.setScale(HiiragiShapes.BLOCK, 144 * 4)
 
     @JvmField
     val SOUL_SAND = compoundOf("soul_sand", 11407, mapOf(SILICATE to 1)) {

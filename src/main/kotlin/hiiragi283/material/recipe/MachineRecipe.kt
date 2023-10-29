@@ -8,14 +8,15 @@ import hiiragi283.material.api.machine.MachineType
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidStack
+import java.util.function.Supplier
 
 class MachineRecipe private constructor() {
 
     val traits: MutableSet<MachineTrait> = mutableSetOf()
     val inputItems: MutableList<ItemIngredient> = mutableListOf()
     val inputFluids: MutableList<FluidIngredient> = mutableListOf()
-    val outputItems: MutableList<ItemStack> = mutableListOf()
-    val outputFluids: MutableList<FluidStack> = mutableListOf()
+    val outputItems: MutableList<Supplier<ItemStack>> = mutableListOf()
+    val outputFluids: MutableList<Supplier<FluidStack>> = mutableListOf()
 
     companion object {
 
@@ -35,9 +36,9 @@ class MachineRecipe private constructor() {
 
                 override fun getRequiredType(): MachineType = type
 
-                override fun getOutputItems(): List<ItemStack> = builder.outputItems
+                override fun getOutputItems(): List<ItemStack> = builder.outputItems.map(Supplier<ItemStack>::get)
 
-                override fun getOutputFluids(): List<FluidStack> = builder.outputFluids
+                override fun getOutputFluids(): List<FluidStack> = builder.outputFluids.map(Supplier<FluidStack>::get)
 
             }
         }

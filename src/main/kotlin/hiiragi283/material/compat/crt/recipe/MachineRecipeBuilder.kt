@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidStack
 import stanhebben.zenscript.annotations.ZenClass
 import stanhebben.zenscript.annotations.ZenConstructor
 import stanhebben.zenscript.annotations.ZenMethod
+import java.util.function.Supplier
 
 @Suppress("unused")
 @ZenClass("${RMReference.MOD_ID}.recipe.MachineRecipe")
@@ -28,8 +29,8 @@ class MachineRecipeBuilder @ZenConstructor constructor() {
     private val traits: MutableSet<MachineTrait> = mutableSetOf()
     private val inputItems: MutableList<ItemIngredient> = mutableListOf()
     private val inputFluids: MutableList<FluidIngredient> = mutableListOf()
-    private val outputItems: MutableList<ItemStack> = mutableListOf()
-    private val outputFluids: MutableList<FluidStack> = mutableListOf()
+    private val outputItems: MutableList<Supplier<ItemStack>> = mutableListOf()
+    private val outputFluids: MutableList<Supplier<FluidStack>> = mutableListOf()
 
     //    MachineTrait    //
 
@@ -66,13 +67,17 @@ class MachineRecipeBuilder @ZenConstructor constructor() {
 
     @ZenMethod
     fun addOutputItem(vararg stacks: IItemStack) {
-        outputItems.addAll(CraftTweakerMC.getItemStacks(*stacks))
+        CraftTweakerMC.getItemStacks(*stacks).forEach { stack: ItemStack ->
+            outputItems.add { stack }
+        }
     }
 
     //    Fluid Output    //
 
     fun addOutputFluid(vararg stacks: ILiquidStack) {
-        outputFluids.addAll(CraftTweakerMC.getLiquidStacks(stacks))
+        CraftTweakerMC.getLiquidStacks(stacks).forEach { stack: FluidStack ->
+            outputFluids.add { stack }
+        }
     }
 
     //    Register    //

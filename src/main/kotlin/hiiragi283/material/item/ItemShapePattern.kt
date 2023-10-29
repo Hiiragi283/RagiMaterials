@@ -55,13 +55,10 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 7) {
                 .addIngredient(HiiragiShapes.PLATE.getOreDict(MaterialCommons.STEEL))
                 .build()
         }
-    }
-
-    override fun onPostInit() {
         // Metal Casting Recipe
         SHAPE_MAP.values.forEach { shape: HiiragiShape ->
             HiiragiRegistries.MATERIAL_INDEX.getValues()
-                .filter { PartDictionary.hasItemStack(shape.getPart(it)) }
+                .filter { PartDictionary.hasStack(shape.getPart(it)) }
                 .filter(HiiragiMaterial::isSolid)
                 .filter(HiiragiMaterial::hasFluid)
                 .map(shape::getPart)

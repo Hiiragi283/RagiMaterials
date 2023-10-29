@@ -1,7 +1,6 @@
 package hiiragi283.material.compat.jei
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
@@ -13,6 +12,7 @@ import hiiragi283.material.compat.jei.ingredients.MaterialStackRenderer
 import hiiragi283.material.container.ContainerModuleMachine
 import hiiragi283.material.init.HiiragiBlocks
 import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.util.HiiragiLogger
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.itemStackWild
 import mezz.jei.api.IGuiHelper
@@ -33,7 +33,7 @@ import kotlin.math.min
 class HiiragiJEIPlugin : IModPlugin {
 
     init {
-        RagiMaterials.LOGGER.info("Enabled Integration: JEI / HEI")
+        HiiragiLogger.info("Enabled Integration: JEI / HEI")
     }
 
     companion object {

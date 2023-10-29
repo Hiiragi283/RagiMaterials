@@ -25,7 +25,7 @@ class MaterialCastingRecipe(val shape: HiiragiShape, val material: HiiragiMateri
     )
 
     override fun getInputFluids(): List<FluidIngredient> = listOf(
-        FluidIngredient(material, amount = shape.scale)
+        FluidIngredient(material, amount = shape.getScale(material))
     )
 
     override fun getRequiredTraits(): Set<MachineTrait> = setOf()

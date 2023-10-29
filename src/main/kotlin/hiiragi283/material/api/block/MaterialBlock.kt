@@ -77,13 +77,10 @@ abstract class MaterialBlock(
     override fun onInit() {
         HiiragiRegistries.MATERIAL_INDEX.getValues()
             .filter(shape::canCreateMaterialItem)
-            .forEach { OreDictionary.registerOre(shape.getOreDict(it), itemStack(it)) }
-    }
-
-    override fun onPostInit() {
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
-            .filter(shape::canCreateMaterialItem)
-            .forEach(::registerRecipe)
+            .forEach { material: HiiragiMaterial ->
+                OreDictionary.registerOre(shape.getOreDict(material), itemStack(material))
+                registerRecipe(material)
+            }
     }
 
     abstract fun registerRecipe(material: HiiragiMaterial)

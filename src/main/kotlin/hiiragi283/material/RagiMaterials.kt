@@ -8,8 +8,6 @@ import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.SidedProxy
 import net.minecraftforge.fml.common.event.*
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
 import java.awt.Color
 import java.util.*
 
@@ -28,7 +26,6 @@ object RagiMaterials : IHiiragiProxy {
     internal val CALENDAR: Calendar = Calendar.getInstance()
     internal val COLOR: Color = Color(255, 0, 31)
     internal val GSON: Gson = GsonBuilder().serializeNulls().create()
-    internal val LOGGER: Logger = LogManager.getLogger(RMReference.MOD_NAME)
 
     @SidedProxy(
         serverSide = "hiiragi283.material.proxy.HiiragiProxy\$Server",
@@ -40,6 +37,10 @@ object RagiMaterials : IHiiragiProxy {
     lateinit var Instance: RagiMaterials
 
     init {
+        checkGregTech()
+    }
+
+    private fun checkGregTech() {
         if (Loader.isModLoaded("gregtech")) {
             throw RuntimeException(
                 "\n" +

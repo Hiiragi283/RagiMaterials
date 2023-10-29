@@ -11,11 +11,12 @@ import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
+import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
-import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.util.HiiragiJsonSerializable
+import hiiragi283.material.util.HiiragiLogger
 import hiiragi283.material.util.getTileImplemented
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.renderer.color.IBlockColor
@@ -29,6 +30,8 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import rechellatek.snakeToUpperCamelCase
+import java.util.function.Function
+import java.util.function.IntFunction
 
 /**
  * An object which contains several properties of material
@@ -69,117 +72,12 @@ data class HiiragiMaterial private constructor(
     val iconSet: MaterialIconSet,
     val machineProperty: MachineProperty?,
     val molar: Double,
-    val oreDictAlt: List<String>,
+    private val oreDictAlt: Set<String>,
     val shapeType: HiiragiShapeType,
     val tempBoil: Int,
     val tempMelt: Int,
     val translationKey: String
 ) : HiiragiJsonSerializable {
-
-    //    Conversion    //
-
-    fun addBracket() = copy(formula = "($formula)")
-
-    fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
-        addTooltip(tooltip, shape.getTranslatedName(this), shape.scale)
-    }
-
-    fun addTooltip(tooltip: MutableList<String>, name: String, scale: Int) {
-        tooltip.add(I18n.format("tips.ragi_materials.property.name", name))
-        tooltip.add("§e=== Property ===")
-        if (hasFormula())
-            tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
-        if (hasMolar())
-            tooltip.add(I18n.format("tips.ragi_materials.property.mol", molar))
-        if (scale > 0)
-            tooltip.add(I18n.format("tips.ragi_materials.property.scale", scale))
-        if (hasTempMelt())
-            tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
-        if (hasTempBoil())
-            tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
-    }
-
-    fun createFluid() {
-        fluidSupplier.register(this)
-    }
-
-    fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
-
-    fun getFluids(): List<Fluid> {
-        val list: MutableList<Fluid> = listOfNotNull(getFluid()).toMutableList()
-        list.addAll(oreDictAlt.mapNotNull(FluidRegistry::getFluid))
-        return list
-    }
-
-    fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
-
-    fun getFluidStacks(amount: Int = 1000): List<FluidStack> = getFluids().map { FluidStack(it, amount) }
-
-    fun getItemStack(count: Int = 1): ItemStack? = MaterialDictionary.getPrimalStack(this, count)
-
-    fun getItemStacks(count: Int = 1): List<ItemStack> = MaterialDictionary.getItemStacks(this, count)
-
-    fun getOreDictName(): String = name.snakeToUpperCamelCase()
-
-    fun getOreDictNameAlt(): List<String> = oreDictAlt.map(String::snakeToUpperCamelCase)
-
-    fun getPart(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, this)
-
-    fun getTranslatedName(): String = I18n.format(translationKey)
-
-    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
-
-    //    Predicate    //
-
-    fun hasOreDictAlt(): Boolean = oreDictAlt.isNotEmpty()
-
-    fun hasFluid(): Boolean = FluidRegistry.isFluidRegistered(name)
-
-    fun hasFormula(): Boolean = formula.isNotEmpty()
-
-    fun hasItemStack(): Boolean = MaterialDictionary.hasItemStack(this)
-
-    fun hasItemStack(shape: HiiragiShape): Boolean = PartDictionary.hasItemStack(getPart(shape))
-
-    fun hasMolar(): Boolean = molar > 0.0
-
-    fun hasTempBoil(): Boolean = tempBoil > 0
-
-    fun hasTempMelt(): Boolean = tempMelt > 0
-
-    fun isGem(): Boolean = HiiragiShapes.IS_GEM.canCreateMaterialItem(this)
-
-    fun isMetal(): Boolean = HiiragiShapes.IS_METAL.canCreateMaterialItem(this)
-
-    fun isFluid(): Boolean = isGas() || isLiquid()
-
-    fun isGas(): Boolean = HiiragiShapes.GAS.canCreateMaterialItem(this) || tempBoil < 298
-
-    fun isLiquid(): Boolean = HiiragiShapes.LIQUID.canCreateMaterialItem(this) || (tempMelt < 298 && tempBoil >= 298)
-
-    fun isValidIndex(): Boolean = index >= 0
-
-    fun isSolid(): Boolean = HiiragiShapes.SOLID.canCreateMaterialItem(this) || tempMelt >= 298
-
-    fun isRegistered(): Boolean = HiiragiRegistries.MATERIAL.containsKey(name)
-
-    //    Setter    //
-
-    fun setSmelted(smelted: HiiragiMaterial, count: Int = 1) = also {
-        HiiragiRegistries.MATERIAL_SMELTED.register(this, smelted to count)
-    }
-
-    //    Any    //
-
-    override fun equals(other: Any?): Boolean = when (other) {
-        null -> false
-        !is HiiragiMaterial -> false
-        else -> other.name == this.name
-    }
-
-    override fun hashCode(): Int = name.hashCode()
-
-    override fun toString(): String = "Material:$name"
 
     companion object {
 
@@ -220,12 +118,124 @@ data class HiiragiMaterial private constructor(
 
     }
 
+    //    Conversion    //
+
+    fun addBracket(function: Function<String, String> = Function { "($it)" }) = copy(formula = function.apply(formula))
+
+    fun addTooltip(tooltip: MutableList<String>, shape: HiiragiShape) {
+        addTooltip(tooltip, shape.getTranslatedName(this), shape.getScale(this))
+    }
+
+    fun addTooltip(tooltip: MutableList<String>, name: String, scale: Int) {
+        tooltip.add(I18n.format("tips.ragi_materials.property.name", name))
+        tooltip.add("§e=== Property ===")
+        if (hasFormula())
+            tooltip.add(I18n.format("tips.ragi_materials.property.formula", formula))
+        if (hasMolar())
+            tooltip.add(I18n.format("tips.ragi_materials.property.mol", molar))
+        if (scale > 0)
+            tooltip.add(I18n.format("tips.ragi_materials.property.scale", scale))
+        if (hasTempMelt())
+            tooltip.add(I18n.format("tips.ragi_materials.property.melt", tempMelt))
+        if (hasTempBoil())
+            tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
+    }
+
+    fun createFluid() {
+        fluidSupplier.register(this)
+    }
+
+    fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
+
+    fun getFluids(): List<Fluid> {
+        val list: MutableList<Fluid> = listOfNotNull(getFluid()).toMutableList()
+        list.addAll(oreDictAlt.mapNotNull(FluidRegistry::getFluid))
+        return list
+    }
+
+    fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
+
+    fun getFluidStacks(amount: Int = 1000): List<FluidStack> = getFluids().map { FluidStack(it, amount) }
+
+    fun getItemStack(count: Int = 1): ItemStack? = PartDictionary.getStack(this, count)
+
+    fun getItemStacks(count: Int = 1): List<ItemStack> = PartDictionary.getStacks(this, count)
+
+    fun getOreDictName(): String = name.snakeToUpperCamelCase()
+
+    fun getPart(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, this)
+
+    fun getTranslatedName(): String = I18n.format(translationKey)
+
+    fun toMaterialStack(amount: Int = 144): MaterialStack = MaterialStack(this, amount)
+
+    //    Predicate    //
+
+    fun hasFluid(): Boolean = FluidRegistry.isFluidRegistered(name)
+
+    fun hasFormula(): Boolean = formula.isNotEmpty()
+
+    fun hasItemStack(): Boolean = PartDictionary.hasStack(this)
+
+    fun hasItemStack(shape: HiiragiShape): Boolean = PartDictionary.hasStack(getPart(shape))
+
+    fun hasMolar(): Boolean = molar > 0.0
+
+    fun hasTempBoil(): Boolean = tempBoil > 0
+
+    fun hasTempMelt(): Boolean = tempMelt > 0
+
+    fun isGem(): Boolean = HiiragiShapes.IS_GEM.canCreateMaterialItem(this)
+
+    fun isMetal(): Boolean = HiiragiShapes.IS_METAL.canCreateMaterialItem(this)
+
+    fun isFluid(): Boolean = isGas() || isLiquid()
+
+    fun isGas(): Boolean = HiiragiShapes.GAS.canCreateMaterialItem(this) || tempBoil < 298
+
+    fun isLiquid(): Boolean = HiiragiShapes.LIQUID.canCreateMaterialItem(this) || (tempMelt < 298 && tempBoil >= 298)
+
+    fun isValidIndex(): Boolean = index >= 0
+
+    fun isSolid(): Boolean = HiiragiShapes.SOLID.canCreateMaterialItem(this) || tempMelt >= 298
+
+    fun isRegistered(): Boolean = HiiragiRegistries.MATERIAL.containsKey(name)
+
+    //    Setter    //
+
+    fun setSmelted(smelted: HiiragiMaterial, count: Int = 1) = also {
+        HiiragiRegistries.MATERIAL_SMELTED.register(this, smelted to count)
+    }
+
+    fun setScale(shape: HiiragiShape, function: IntFunction<Int>) = also {
+        shape.setScale(this, function)
+    }
+
+    fun setScale(shape: HiiragiShape, scale: Int) = also {
+        shape.setScale(this, scale)
+    }
+
+    //    Any    //
+
+    override fun equals(other: Any?): Boolean = when (other) {
+        null -> false
+        !is HiiragiMaterial -> false
+        else -> other.name == this.name
+    }
+
+    override fun hashCode(): Int = name.hashCode()
+
+    override fun toString(): String = "Material:$name"
+
     //    Registration    //
 
     fun register() {
         HiiragiRegistries.MATERIAL.register(name, this)
+        oreDictAlt.forEach { nameAlt: String ->
+            HiiragiRegistries.MATERIAL.register(nameAlt, this)
+        }
         if (!isValidIndex()) {
-            RagiMaterials.LOGGER.error("$this has invalid index: $index !!")
+            HiiragiLogger.error("$this has invalid index: $index !!")
             return
         }
         HiiragiRegistries.MATERIAL_INDEX.register(index, this)
@@ -273,7 +283,7 @@ data class HiiragiMaterial private constructor(
 
     class Builder(val name: String, val index: Int) {
 
-        val oreDictAlt: MutableList<String> = mutableListOf()
+        val oreDictAlt: MutableSet<String> = mutableSetOf()
         var color: Int = 0xFFFFFF
         var crystalType: CrystalType = CrystalType.NONE
         var formula: String = ""

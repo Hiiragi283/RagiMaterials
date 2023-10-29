@@ -5,7 +5,8 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.util.HiiragiJsonSerializable
 
-class HiiragiShapeType private constructor(val shapes: Set<HiiragiShape>) : HiiragiJsonSerializable {
+class HiiragiShapeType private constructor(val shapes: Set<HiiragiShape>) :
+    HiiragiJsonSerializable, Set<HiiragiShape> by shapes {
 
     //    IJsonSerializable    //
 
@@ -35,9 +36,7 @@ class HiiragiShapeType private constructor(val shapes: Set<HiiragiShape>) : Hiir
 
     }
 
-    class Builder {
-
-        val shapes: MutableSet<HiiragiShape> = mutableSetOf()
+    class Builder(val shapes: MutableSet<HiiragiShape> = mutableSetOf()) : MutableSet<HiiragiShape> by shapes {
 
         fun build() = HiiragiShapeType(shapes)
 

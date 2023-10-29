@@ -7,7 +7,7 @@ import hiiragi283.material.util.HiiragiColor
 import java.awt.Color
 import kotlin.math.roundToInt
 
-sealed class MaterialType(val name: String) {
+abstract class MaterialType(val name: String) {
 
     init {
         HiiragiRegistries.MATERIAL_TYPE.register(name, this)

@@ -4,11 +4,9 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialDictionary
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.api.shape.ShapeDictionary
 import hiiragi283.material.util.*
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -169,9 +167,9 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
             count
         )
 
-        override fun getMatchingStacks(): Collection<ItemStack> = PartDictionary.getItemStacks(part, count)
+        override fun getMatchingStacks(): Collection<ItemStack> = PartDictionary.getStacks(part, count)
 
-        override fun test(stack: ItemStack): Boolean = part == PartDictionary.getObject(stack)
+        override fun test(stack: ItemStack): Boolean = part == PartDictionary.getPart(stack)
 
         override fun getJsonElement(): JsonElement {
 
@@ -190,9 +188,9 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
     class Materials(private val material: HiiragiMaterial, count: Int = 1) : ItemIngredient(count) {
 
-        override fun getMatchingStacks(): Collection<ItemStack> = MaterialDictionary.getItemStacks(material, count)
+        override fun getMatchingStacks(): Collection<ItemStack> = PartDictionary.getStacks(material, count)
 
-        override fun test(stack: ItemStack): Boolean = material == MaterialDictionary.getObject(stack)
+        override fun test(stack: ItemStack): Boolean = material == PartDictionary.getPart(stack)?.material
 
         override fun getJsonElement(): JsonElement {
 
@@ -211,9 +209,9 @@ sealed class ItemIngredient(val count: Int = 1) : Predicate<ItemStack>, HiiragiJ
 
     class Shapes(private val shape: HiiragiShape, count: Int = 1) : ItemIngredient(count) {
 
-        override fun getMatchingStacks(): Collection<ItemStack> = ShapeDictionary.getItemStacks(shape, count)
+        override fun getMatchingStacks(): Collection<ItemStack> = PartDictionary.getStacks(shape, count)
 
-        override fun test(stack: ItemStack): Boolean = shape == ShapeDictionary.getObject(stack)
+        override fun test(stack: ItemStack): Boolean = shape == PartDictionary.getPart(stack)?.shape
 
         override fun getJsonElement(): JsonElement {
 
