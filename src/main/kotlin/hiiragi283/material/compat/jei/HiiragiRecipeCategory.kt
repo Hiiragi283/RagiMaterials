@@ -1,7 +1,7 @@
 package hiiragi283.material.compat.jei
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.api.material.MaterialStack
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
@@ -14,7 +14,7 @@ import net.minecraft.client.resources.I18n
 
 abstract class HiiragiRecipeCategory<T : IRecipeWrapper>(private val id: String, val guiHelper: IGuiHelper) : IRecipeCategory<T> {
 
-    fun getMaterialStacks(layout: IRecipeLayout): IGuiIngredientGroup<MaterialStack> =
+    fun getMaterialStacks(layout: IRecipeLayout): IGuiIngredientGroup<HiiragiMaterial> =
         layout.getIngredientsGroup(HiiragiIngredientTypes.MATERIAL)
 
     //    HiiragiRecipeCategory    //

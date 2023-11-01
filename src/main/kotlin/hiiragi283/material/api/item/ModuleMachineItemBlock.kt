@@ -6,7 +6,6 @@ import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.*
 import net.minecraft.client.util.ITooltipFlag
@@ -34,14 +33,14 @@ class ModuleMachineItemBlock(block: ModuleMachineBlock) : HiiragiItemBlock(block
 
     @SideOnly(Side.CLIENT)
     override fun getItemStackDisplayName(stack: ItemStack): String =
-        HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        HiiragiMaterial.REGISTRY[stack.metadata]
             ?.let(type::getTranslatedName)
             ?: super.getItemStackDisplayName(stack)
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValidIndexValues()
             .filter(HiiragiMaterial::isValidIndex)
             .filter(HiiragiShapes.CASING::canCreateMaterialItem)
             .map(::itemStack)

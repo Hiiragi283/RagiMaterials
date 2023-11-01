@@ -6,7 +6,6 @@ package hiiragi283.material.util
 import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.init.HiiragiRegistries
 import net.minecraft.block.Block
 import net.minecraft.block.state.IBlockState
 import net.minecraft.client.Minecraft
@@ -161,7 +160,7 @@ fun FluidStack.copyKt(
 fun FluidStack.isSameWithAmount(other: FluidStack?): Boolean =
     other !== null && this.isFluidEqual(other) && this.amount == other.amount
 
-fun Fluid.getMaterial(): HiiragiMaterial? = HiiragiRegistries.MATERIAL.getValue(this.name)
+fun Fluid.getMaterial(): HiiragiMaterial? = HiiragiMaterial.REGISTRY[this.name]
 
 fun FluidStack.getMaterial(): HiiragiMaterial? = this.fluid.getMaterial()
 

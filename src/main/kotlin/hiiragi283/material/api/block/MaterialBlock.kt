@@ -6,7 +6,6 @@ import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.tile.MaterialTileEntity
 import hiiragi283.material.init.HiiragiCreativeTabs
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.getTile
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.toModelLocation
@@ -29,7 +28,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
-@Suppress("DEPRECATION")
 abstract class MaterialBlock(
     final override val shape: HiiragiShape
 ) : HiiragiBlockContainer.Holdable<MaterialTileEntity>(
@@ -71,11 +69,11 @@ abstract class MaterialBlock(
 
     override fun onRegister() {
         super.onRegister()
-        HiiragiRegistries.MATERIAL_BLOCK.register(shape, this)
+        PartConvertible.BLOCK.register(this)
     }
 
     override fun onInit() {
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValidIndexValues()
             .filter(shape::canCreateMaterialItem)
             .forEach { material: HiiragiMaterial ->
                 OreDictionary.registerOre(shape.getOreDict(material), itemStack(material))
@@ -94,7 +92,7 @@ abstract class MaterialBlock(
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
-        val allIcons: Set<ResourceLocation> = HiiragiRegistries.MATERIAL_INDEX.getValues()
+        val allIcons: Set<ResourceLocation> = HiiragiMaterial.REGISTRY.getValidIndexValues()
             .map(HiiragiMaterial::iconSet)
             .mapNotNull { it[shape] }
             .toSet()

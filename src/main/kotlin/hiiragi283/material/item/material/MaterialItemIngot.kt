@@ -26,8 +26,6 @@ object MaterialItemIngot : MaterialItem(HiiragiShapes.INGOT) {
                 .addIngredient(HiiragiShapes.BLOCK.getOreDict(material))
                 .build()
         }
-        // Grinder Recipe
-        addGrinderRecipe(material)
     }
 
 }

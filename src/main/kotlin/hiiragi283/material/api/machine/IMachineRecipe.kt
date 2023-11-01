@@ -5,7 +5,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
-import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.getJsonElement
@@ -16,6 +16,79 @@ import net.minecraftforge.fluids.capability.IFluidHandler
 import net.minecraftforge.items.IItemHandlerModifiable
 
 interface IMachineRecipe : HiiragiJsonSerializable {
+
+    object REGISTRY :
+        HiiragiRegistry<MachineType, HiiragiRegistry<ResourceLocation, IMachineRecipe>>("Machine Recipe") {
+
+        internal fun init() {
+            MachineType.values().forEach { type: MachineType ->
+                this[type] = HiiragiRegistry("Machine Recipe - ${type.name}", true)
+            }
+            lock()
+        }
+
+    }
+
+    companion object {
+
+        fun matches(recipe: IMachineRecipe, tile: TileEntityModuleMachine): Boolean {
+            //スロット数の確認
+            if (!recipe.canFit(tile.machineProperty.itemSlots, tile.machineProperty.fluidSlots)) return false
+            //Input - Item
+            (0..5).forEach { index: Int ->
+                val ingredient: ItemIngredient = recipe.getInputItems().getOrElse(index) { ItemIngredient.EMPTY }
+                val stack: ItemStack = tile.inventoryInput.getStackInSlot(index)
+                if (!ingredient.test(stack)) return false
+            }
+            //Input - Fluid
+            (0..2).forEach { index: Int ->
+                val ingredient: FluidIngredient =
+                    recipe.getInputFluids().getOrElse(index) { FluidIngredient.EMPTY }
+                val stack: FluidStack? = tile.getTank(index).fluid
+                if (!ingredient.test(stack)) return false
+            }
+            //Output - Item
+            recipe.getOutputItems(tile).forEachIndexed { index: Int, stack: ItemStack ->
+                if (!tile.inventoryOutput.insertItem(index, stack, true).isEmpty) {
+                    return false
+                }
+            }
+            //Output - Fluid
+            recipe.getOutputFluids(tile).forEachIndexed { index: Int, fluidStack: FluidStack ->
+                if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
+                    return false
+                }
+            }
+            //energyStorageからエネルギーを消費できるかどうか
+            val energyRequired: Int = tile.machineProperty.getEnergyRequired()
+            if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
+            return tile.machineProperty.machineTraits.containsAll(recipe.getRequiredTraits())
+        }
+
+        fun process(recipe: IMachineRecipe, tile: TileEntityModuleMachine) {
+            //Output
+            recipe.getOutputItems(tile).forEachIndexed { index: Int, stack: ItemStack ->
+                tile.inventoryOutput.insertItem(index, stack.copy(), false)
+            }
+            recipe.getOutputFluids(tile).forEachIndexed { index: Int, fluidStack: FluidStack ->
+                tile.getTank(index + 3).fill(fluidStack.copy(), true)
+            }
+            //Input
+            recipe.getInputItems().forEachIndexed { index: Int, ingredient: ItemIngredient ->
+                ingredient.onProcess(tile.inventoryInput, index)
+            }
+            recipe.getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->
+                ingredient.onProcess(tile.getTank(index))
+            }
+            //Energy
+            tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
+        }
+
+        fun register(registryName: ResourceLocation, recipe: IMachineRecipe) {
+            REGISTRY[recipe.getRequiredType()]?.set(registryName, recipe)
+        }
+
+    }
 
     //    Input    //
 
@@ -99,67 +172,6 @@ interface IMachineRecipe : HiiragiJsonSerializable {
         root.add("output_fluids", outputFluidArray)
 
         return root
-
-    }
-
-    companion object {
-
-        fun matches(recipe: IMachineRecipe, tile: TileEntityModuleMachine): Boolean {
-            //スロット数の確認
-            if (!recipe.canFit(tile.machineProperty.itemSlots, tile.machineProperty.fluidSlots)) return false
-            //Input - Item
-            (0..5).forEach { index: Int ->
-                val ingredient: ItemIngredient = recipe.getInputItems().getOrElse(index) { ItemIngredient.EMPTY }
-                val stack: ItemStack = tile.inventoryInput.getStackInSlot(index)
-                if (!ingredient.test(stack)) return false
-            }
-            //Input - Fluid
-            (0..2).forEach { index: Int ->
-                val ingredient: FluidIngredient =
-                    recipe.getInputFluids().getOrElse(index) { FluidIngredient.EMPTY }
-                val stack: FluidStack? = tile.getTank(index).fluid
-                if (!ingredient.test(stack)) return false
-            }
-            //Output - Item
-            recipe.getOutputItems(tile).forEachIndexed { index: Int, stack: ItemStack ->
-                if (!tile.inventoryOutput.insertItem(index, stack, true).isEmpty) {
-                    return false
-                }
-            }
-            //Output - Fluid
-            recipe.getOutputFluids(tile).forEachIndexed { index: Int, fluidStack: FluidStack ->
-                if (tile.getTank(index + 3).fill(fluidStack, false) != fluidStack.amount) {
-                    return false
-                }
-            }
-            //energyStorageからエネルギーを消費できるかどうか
-            val energyRequired: Int = tile.machineProperty.getEnergyRequired()
-            if (tile.energyStorage.extractEnergy(energyRequired, true) != energyRequired) return false
-            return tile.machineProperty.machineTraits.containsAll(recipe.getRequiredTraits())
-        }
-
-        fun process(recipe: IMachineRecipe, tile: TileEntityModuleMachine) {
-            //Output
-            recipe.getOutputItems(tile).forEachIndexed { index: Int, stack: ItemStack ->
-                tile.inventoryOutput.insertItem(index, stack.copy(), false)
-            }
-            recipe.getOutputFluids(tile).forEachIndexed { index: Int, fluidStack: FluidStack ->
-                tile.getTank(index + 3).fill(fluidStack.copy(), true)
-            }
-            //Input
-            recipe.getInputItems().forEachIndexed { index: Int, ingredient: ItemIngredient ->
-                ingredient.onProcess(tile.inventoryInput, index)
-            }
-            recipe.getInputFluids().forEachIndexed { index: Int, ingredient: FluidIngredient ->
-                ingredient.onProcess(tile.getTank(index))
-            }
-            //Energy
-            tile.energyStorage.extractEnergy(tile.machineProperty.getEnergyRequired(), false)
-        }
-
-        fun register(registryName: ResourceLocation, recipe: IMachineRecipe) {
-            HiiragiRegistries.MACHINE_RECIPE.getValue(recipe.getRequiredType())?.register(registryName, recipe)
-        }
 
     }
 

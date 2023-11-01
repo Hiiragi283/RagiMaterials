@@ -1,7 +1,6 @@
 package hiiragi283.material.api.registry
 
 import hiiragi283.material.api.item.HiiragiItemBlock
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.setModel
 import net.minecraft.block.Block
 import net.minecraft.client.renderer.color.IBlockColor
@@ -12,7 +11,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.registries.IForgeRegistryEntry
 import java.util.function.Supplier
 
-@Suppress("DEPRECATION")
 interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun getObject(): T
@@ -21,7 +19,7 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     fun register(): T = getRegistry()?.let { registry: HiiragiRegistry<String, T> ->
         onRegister()
-        return registry.register(getObject().registryName!!.path, getObject())
+        return registry.set(getObject().registryName!!.path, getObject())
     } ?: getObject()
 
     fun registerOptional(predicate: Supplier<Boolean>): T = if (predicate.get()) register() else getObject()
@@ -36,11 +34,13 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     interface BLOCK : HiiragiEntry<Block> {
 
+        object REGISTRY : HiiragiRegistry<String, Block>("Block")
+
         val itemBlock: HiiragiItemBlock?
 
         override fun getObject(): Block = this as Block
 
-        override fun getRegistry(): HiiragiRegistry<String, Block> = HiiragiRegistries.BLOCK
+        override fun getRegistry(): HiiragiRegistry<String, Block> = REGISTRY
 
         override fun onRegister() {
             itemBlock?.register()
@@ -61,9 +61,11 @@ interface HiiragiEntry<T : IForgeRegistryEntry<T>> {
 
     interface ITEM : HiiragiEntry<Item> {
 
+        object REGISTRY : HiiragiRegistry<String, Item>("Item")
+
         override fun getObject(): Item = this as Item
 
-        override fun getRegistry(): HiiragiRegistry<String, Item> = HiiragiRegistries.ITEM
+        override fun getRegistry(): HiiragiRegistry<String, Item> = REGISTRY
 
         @SideOnly(Side.CLIENT)
         fun getItemColor(): IItemColor? = null

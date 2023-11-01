@@ -1,6 +1,7 @@
 package hiiragi283.material.init
 
 import hiiragi283.material.RMReference
+import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.util.itemStack
 import net.minecraft.creativetab.CreativeTabs
@@ -21,7 +22,7 @@ object HiiragiCreativeTabs {
 
     val MACHINE by lazy {
         createCreativeTab("machine") {
-            HiiragiRegistries.BLOCK_MACHINE.getValue(MachineType.SMELTER)!!.itemStack()
+            ModuleMachineBlock.REGISTRY[MachineType.SMELTER]!!.itemStack()
         }
     }
 

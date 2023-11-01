@@ -15,8 +15,6 @@ object MaterialItemGem : MaterialItem(HiiragiShapes.GEM) {
                 .addIngredient(HiiragiShapes.BLOCK.getOreDict(material))
                 .build()
         }
-        //Grinder Recipe
-        addGrinderRecipe(material)
     }
 
 }

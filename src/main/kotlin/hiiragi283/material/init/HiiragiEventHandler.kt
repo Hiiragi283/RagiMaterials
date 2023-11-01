@@ -5,8 +5,7 @@ import hiiragi283.material.api.event.MaterialBuiltEvent
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialStack
-import hiiragi283.material.api.part.PartDictionary
+import hiiragi283.material.api.part.PartStack
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.tile.HiiragiProvider
 import hiiragi283.material.compat.RagiMaterialsPlugin
@@ -25,15 +24,13 @@ import net.minecraftforge.common.config.ConfigManager
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler
-import net.minecraftforge.fluids.capability.IFluidTankProperties
 import net.minecraftforge.fml.client.event.ConfigChangedEvent
 import net.minecraftforge.fml.common.eventhandler.EventPriority
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Suppress("unused", "UNUSED_PARAMETER", "DEPRECATION", "UNUSED_VARIABLE")
+@Suppress("unused", "UNUSED_PARAMETER", "UNUSED_VARIABLE")
 object HiiragiEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -70,12 +67,12 @@ object HiiragiEventHandler {
 
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {
-        HiiragiRegistries.BLOCK.getValues().forEach(event.registry::register)
+        HiiragiEntry.BLOCK.REGISTRY.getValues().forEach(event.registry::register)
     }
 
     @SubscribeEvent
     fun registerItems(event: RegistryEvent.Register<Item>) {
-        HiiragiRegistries.ITEM.getValues().forEach(event.registry::register)
+        HiiragiEntry.ITEM.REGISTRY.getValues().forEach(event.registry::register)
     }
 
     private val keyInventory = hiiragiLocation("inventory")
@@ -108,7 +105,7 @@ object HiiragiEventHandler {
 
         @SubscribeEvent
         fun registerBlockColor(event: ColorHandlerEvent.Block) {
-            HiiragiRegistries.BLOCK.getValues()
+            HiiragiEntry.BLOCK.REGISTRY.getValues()
                 .filterIsInstance<HiiragiEntry.BLOCK>()
                 .filterNot { it.getBlockColor() == null }
                 .forEach { event.blockColors.registerBlockColorHandler(it.getBlockColor()!!, it.getObject()) }
@@ -116,11 +113,11 @@ object HiiragiEventHandler {
 
         @SubscribeEvent
         fun registerItemColor(event: ColorHandlerEvent.Item) {
-            HiiragiRegistries.BLOCK.getValues()
+            HiiragiEntry.BLOCK.REGISTRY.getValues()
                 .filterIsInstance<HiiragiEntry.BLOCK>()
                 .filterNot { it.getItemColor() == null }
                 .forEach { event.itemColors.registerItemColorHandler(it.getItemColor()!!, it.getObject()) }
-            HiiragiRegistries.ITEM.getValues()
+            HiiragiEntry.ITEM.REGISTRY.getValues()
                 .filterIsInstance<HiiragiEntry.ITEM>()
                 .filterNot { it.getItemColor() == null }
                 .forEach { event.itemColors.registerItemColorHandler(it.getItemColor()!!, it.getObject()) }
@@ -128,10 +125,10 @@ object HiiragiEventHandler {
 
         @SubscribeEvent
         fun registerModel(event: ModelRegistryEvent) {
-            HiiragiRegistries.BLOCK.getValues()
+            HiiragiEntry.BLOCK.REGISTRY.getValues()
                 .filterIsInstance<HiiragiEntry.BLOCK>()
                 .forEach(HiiragiEntry.BLOCK::registerModel)
-            HiiragiRegistries.ITEM.getValues()
+            HiiragiEntry.ITEM.REGISTRY.getValues()
                 .filterIsInstance<HiiragiEntry.ITEM>()
                 .forEach(HiiragiEntry.ITEM::registerModel)
         }
@@ -140,14 +137,14 @@ object HiiragiEventHandler {
         fun onTooltip(event: ItemTooltipEvent) {
             if (event.itemStack.isEmpty) return
 
-            PartDictionary.getPart(event.itemStack)?.addTooltip(event)
+            PartStack.fromStack(event.itemStack)?.addTooltip(event)
 
-            event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
+            /*event.itemStack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
                 ?.tankProperties
                 ?.mapNotNull(IFluidTankProperties::getContents)
                 ?.mapNotNull(MaterialStack::of)
                 ?.toSet()
-                ?.forEach { it.addTooltip(event) }
+                ?.forEach { it.addTooltip(event) }*/
 
         }
 

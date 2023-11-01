@@ -22,11 +22,12 @@ object MaterialCompats {
             shapes.remove(HiiragiShapes.DUST)
         }
     }
+        .setBlockScale(900)
+        .setIngotScale(100)
 
     @JvmField
     val LAPIS = materialOf("lapis", 1001) {
         color = HiiragiColor.BLUE.rgb
-        crystalType = CrystalType.LAPIS
         iconSet = HiiragiIconSets.LAPIS
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED.copy {
             shapes.remove(HiiragiShapes.BLOCK)
@@ -44,7 +45,9 @@ object MaterialCompats {
         shapeType = HiiragiShapeTypes.SOLID.copy {
             shapes.remove(HiiragiShapes.DUST)
         }
-    }.setScale(HiiragiShapes.BLOCK, 144 * 4)
+    }
+        .setBlockScale(1000)
+        .setIngotScale(250)
 
     @JvmField
     val ENDER_PEARL = materialOf("enderpearl", 1003) {
@@ -57,6 +60,7 @@ object MaterialCompats {
         oreDictAlt.add("ender_pearl")
         shapeType = HiiragiShapeTypes.SOLID
     }
+        .setIngotScale(250)
 
     @JvmField
     val BLAZE = materialOf("blaze", 1004) {
@@ -161,6 +165,13 @@ object MaterialCompats {
         if (HiiragiThermalPlugin.enabled()) {
             hasFluid = false
         }
+    }
+
+    @JvmField
+    val ROCKWOOL = mixtureOf("rockwool", 1018, listOf(MaterialElements.SILICON, MaterialElements.OXYGEN)) {
+        color = HiiragiColor.GRAY.rgb
+        hasFluid = false
+        shapeType = HiiragiShapeTypes.SOLID
     }
 
     //    Mekanism    //
@@ -342,7 +353,6 @@ object MaterialCompats {
     @JvmField
     val MANA_DIAMOND = mixtureOf("mana_diamond", 1052, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.AQUA.rgb
-        crystalType = CrystalType.DIAMOND
         iconSet = HiiragiIconSets.DIAMOND
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
@@ -368,7 +378,6 @@ object MaterialCompats {
     @JvmField
     val DRAGONSTONE = mixtureOf("elven_dragonstone", 1055, listOf(MaterialCommons.DIAMOND, MANA)) {
         color = HiiragiColor.LIGHT_PURPLE.rgb
-        crystalType = CrystalType.DIAMOND
         iconSet = HiiragiIconSets.DIAMOND
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
@@ -441,8 +450,15 @@ object MaterialCompats {
     //    Immersive Engineering    //
 
     @JvmField
-    val TREATED_WOOD = mixtureOf("treated_wood", 1090, listOf(MaterialCommons.WOOD)) {
-        shapeType = HiiragiShapeTypes.WOOD
+    val TREATED_WOOD = allotropeOf("treated_wood", 1090, MaterialCommons.WOOD) {
+        hasFluid = false
+    }
+
+    @JvmField
+    val HOP_GRAPHITE = compoundOf("h_o_p_graphite", 1091, mapOf(MaterialElements.CARBON to 8)) {
+        hasFluid = false
+        iconSet = HiiragiIconSets.METAL
+        shapeType = HiiragiShapeTypes.METAL_COMMON
     }
 
 }

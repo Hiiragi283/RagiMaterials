@@ -4,7 +4,6 @@ import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.item.ItemShapePattern
 import hiiragi283.material.recipe.MachineRecipe
@@ -24,6 +23,18 @@ object PartConvertible {
 
     interface BLOCK : ITEM {
 
+        companion object {
+
+            private val registry: MutableMap<HiiragiShape, BLOCK> = mutableMapOf()
+
+            fun register(block: BLOCK) {
+                registry.putIfAbsent(block.shape, block)
+            }
+
+            operator fun get(shape: HiiragiShape): BLOCK? = registry[shape]
+
+        }
+
         fun getMaterial(state: IBlockState, world: IBlockAccess?, pos: BlockPos?): HiiragiMaterial? =
             getTileImplemented<TILE>(world, pos)?.material
 
@@ -38,23 +49,25 @@ object PartConvertible {
 
     interface ITEM {
 
+        companion object {
+
+            private val registry: MutableMap<HiiragiShape, ITEM> = mutableMapOf()
+
+            fun register(item: ITEM) {
+                registry.putIfAbsent(item.shape, item)
+            }
+
+            operator fun get(shape: HiiragiShape): ITEM? = registry[shape]
+
+        }
+
         val shape: HiiragiShape
 
-        fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        fun getMaterial(stack: ItemStack): HiiragiMaterial? = HiiragiMaterial.REGISTRY[stack.metadata]
 
         fun getPart(stack: ItemStack): HiiragiPart? = getMaterial(stack)?.getPart(shape)
 
         fun item(): Item = this as Item
-
-        fun addGrinderRecipe(material: HiiragiMaterial) {
-            val ingotCount: Int = shape.getIngotCount(material)
-            if (ingotCount == 0) return
-            val part: HiiragiPart = shape.getPart(material)
-            MachineRecipe.buildAndRegister(MachineType.GRINDER, hiiragiLocation(part.toString())) {
-                inputItems.add(ItemIngredient.Parts(part))
-                outputItems.add(Supplier { HiiragiShapes.DUST.getPart(material).getItemStack(ingotCount) })
-            }
-        }
 
         fun addMetalFormerRecipe(material: HiiragiMaterial, inputCount: Int = 1, outputCount: Int = 1) {
             if (!material.isMetal()) return

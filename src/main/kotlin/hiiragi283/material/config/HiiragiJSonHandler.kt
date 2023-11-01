@@ -14,7 +14,6 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialElements
@@ -89,7 +88,7 @@ object HiiragiJSonHandler {
             if (!sample.exists()) sample.createNewFile()
             //書き込み可能な場合
             if (sample.canWrite()) {
-                val shape: JsonElement = HiiragiShape("sample", 144).getJsonElement()
+                val shape: JsonElement = HiiragiShape("sample") { 144 }.getJsonElement()
                 sample.writeText(gson.toJson(shape), Charsets.UTF_8)
             }
         } catch (e: Exception) {
@@ -130,7 +129,7 @@ object HiiragiJSonHandler {
                     formula = "HIIRAGI"
                     hasFluid = false
                     molar = 110.9
-                    shapeType = HiiragiShapeType.build { shapes.addAll(HiiragiRegistries.SHAPE.getValues()) }
+                    shapeType = HiiragiShapeType.build { shapes.addAll(HiiragiShape.REGISTRY.getValues()) }
                     tempBoil = 2830
                     tempMelt = 1109
                 }.getJsonElement()

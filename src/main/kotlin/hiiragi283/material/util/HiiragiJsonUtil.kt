@@ -14,7 +14,6 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -53,7 +52,7 @@ object HiiragiJsonUtil {
         val root: JsonObject = jsonElement.asJsonObject
         val name: String = root.getAsJsonPrimitive("name")?.asString ?: return null
         val scale: Int = root.getAsJsonPrimitive("scale")?.asInt ?: 0
-        return HiiragiShape(name, scale)
+        return HiiragiShape(name, { scale })
     }
 
     //    HiiragiMaterial    //
@@ -62,7 +61,7 @@ object HiiragiJsonUtil {
         val root: JsonObject = jsonElement.asJsonObject
         return root.getAsJsonArray("shapes")?.let { jsonArray ->
             val shapes: List<HiiragiShape> = jsonArray.map { it.asString }
-                .mapNotNull(HiiragiRegistries.SHAPE::getValue)
+                .mapNotNull(HiiragiShape.REGISTRY::get)
             HiiragiShapeType.build { this.shapes.addAll(shapes) }
         } ?: HiiragiShapeTypes.INTERNAL
     }
@@ -161,8 +160,8 @@ object HiiragiJsonUtil {
         val shapeString: String = root.getAsJsonPrimitive("shape")?.asString ?: return null
         val materialString: String = root.getAsJsonPrimitive("material")?.asString ?: return null
 
-        val shape: HiiragiShape = HiiragiRegistries.SHAPE.getValue(shapeString) ?: return null
-        val material: HiiragiMaterial = HiiragiRegistries.MATERIAL.getValue(materialString) ?: return null
+        val shape: HiiragiShape = HiiragiShape.REGISTRY[shapeString] ?: return null
+        val material: HiiragiMaterial = HiiragiMaterial.REGISTRY[materialString] ?: return null
 
         return HiiragiPart(shape, material)
 
@@ -209,14 +208,14 @@ object HiiragiJsonUtil {
 
             root.has("materials") -> {
                 val material: HiiragiMaterial = root.getAsJsonPrimitive("materials")?.asString
-                    ?.let(HiiragiRegistries.MATERIAL::getValue) ?: return null
+                    ?.let(HiiragiMaterial.REGISTRY::get) ?: return null
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
                 ItemIngredient.Materials(material, count)
             }
 
             root.has("shapes") -> {
                 val shape: HiiragiShape = root.getAsJsonPrimitive("shapes")?.asString
-                    ?.let(HiiragiRegistries.SHAPE::getValue) ?: return null
+                    ?.let(HiiragiShape.REGISTRY::get) ?: return null
                 val count: Int = root.getAsJsonPrimitive("count")?.asInt ?: 1
                 ItemIngredient.Shapes(shape, count)
             }

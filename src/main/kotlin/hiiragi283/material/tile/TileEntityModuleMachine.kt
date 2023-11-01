@@ -13,7 +13,6 @@ import hiiragi283.material.api.machine.MachinePropertyItem
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.tile.HiiragiTileEntity
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.HiiragiNBTUtil
 import hiiragi283.material.util.dropInventoriesItems
 import hiiragi283.material.util.getItemImplemented
@@ -56,7 +55,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, PartConvertible.
         tankOutput2.deserializeNBT(compound.getCompoundTag("TankOutput2"))
         energyStorage.deserializeNBT(compound.getCompoundTag(HiiragiNBTUtil.BATTERY))
         machineProperty = MachineProperty.of(compound.getCompoundTag(HiiragiNBTUtil.MACHINE_PROPERTY))
-        material = HiiragiRegistries.MATERIAL.getValue(compound.getString(HiiragiNBTUtil.MATERIAL))
+        material = HiiragiMaterial.REGISTRY[compound.getString(HiiragiNBTUtil.MATERIAL)]
         super.readFromNBT(compound)
     }
 
@@ -131,7 +130,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, PartConvertible.
         placer: EntityLivingBase,
         stack: ItemStack
     ) {
-        material = HiiragiRegistries.MATERIAL_INDEX.getValue(stack.metadata)
+        material = HiiragiMaterial.REGISTRY[stack.metadata]
         stack.getItemImplemented<MachinePropertyItem>()?.toMachineProperty(stack)?.let { property ->
             machineProperty = property
             inventoryInput.maxSlots = min(property.itemSlots, 6)
@@ -170,7 +169,7 @@ class TileEntityModuleMachine : HiiragiTileEntity(), ITickable, PartConvertible.
     }
 
     fun processRecipe() {
-        HiiragiRegistries.MACHINE_RECIPE.getValue(machineProperty.recipeType)?.getValues()
+        IMachineRecipe.REGISTRY[machineProperty.recipeType]?.getValues()
             ?.firstOrNull { recipe: IMachineRecipe -> IMachineRecipe.matches(recipe, this) }
             ?.let { recipe: IMachineRecipe -> IMachineRecipe.process(recipe, this) }
     }

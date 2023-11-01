@@ -4,7 +4,7 @@ open class HiiragiRegistry<K, V>(val name: String, private val mutable: Boolean 
 
     //    Lock    //
 
-    private var isLocked: Boolean = false
+    protected var isLocked: Boolean = false
 
     fun lock() {
         isLocked = true
@@ -12,24 +12,20 @@ open class HiiragiRegistry<K, V>(val name: String, private val mutable: Boolean 
 
     //    Registration    //
 
-    private val registry: LinkedHashMap<K, V> = linkedMapOf()
+    protected val registry: LinkedHashMap<K, V> = linkedMapOf()
 
     fun getEntries(): List<Pair<K, V>> = registry.toList()
 
     fun getValues(): Collection<V> = registry.values
 
-    fun getValue(key: K): V? = registry[key]
+    operator fun get(key: K): V? = registry[key]
 
-    private val reversed: LinkedHashMap<V, K> = linkedMapOf()
+    protected val reversed: LinkedHashMap<V, K> = linkedMapOf()
 
     fun getReversedEntries(): List<Pair<V, K>> = reversed.toList()
 
-    fun getKeys(): Collection<K> = registry.keys
-
-    fun getKey(value: V): K? = reversed[value]
-
     @Synchronized
-    fun <T : V> register(key: K, value: T): T = when {
+    internal operator fun <T : V> set(key: K, value: T): T = when {
         isLocked -> throw IllegalStateException("[$name] This registry is locked!")
         registry.containsKey(key) && !mutable -> throw IllegalStateException("[$name] The key: $key is already registered!")
         else -> {
@@ -48,13 +44,6 @@ open class HiiragiRegistry<K, V>(val name: String, private val mutable: Boolean 
 
     //    Operation    //
 
-    fun containsKey(key: K): Boolean = registry.containsKey(key)
-
-    @Synchronized
-    fun <T : Comparable<T>> sort(sorter: (Pair<K, V>) -> T) {
-        val mapSorted: Map<K, V> = registry.toList().sortedBy(sorter).toMap()
-        registry.clear()
-        registry.putAll(mapSorted)
-    }
+    operator fun contains(key: K): Boolean = registry.containsKey(key)
 
 }

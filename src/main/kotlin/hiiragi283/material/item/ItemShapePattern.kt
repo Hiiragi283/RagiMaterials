@@ -6,7 +6,6 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.recipe.MaterialCastingRecipe
@@ -57,7 +56,7 @@ object ItemShapePattern : HiiragiItem("shape_pattern", 7) {
         }
         // Metal Casting Recipe
         SHAPE_MAP.values.forEach { shape: HiiragiShape ->
-            HiiragiRegistries.MATERIAL_INDEX.getValues()
+            HiiragiMaterial.REGISTRY.getValues()
                 .filter { PartDictionary.hasStack(shape.getPart(it)) }
                 .filter(HiiragiMaterial::isSolid)
                 .filter(HiiragiMaterial::hasFluid)

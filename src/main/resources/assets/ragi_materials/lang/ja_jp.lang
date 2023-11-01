@@ -444,3 +444,6 @@ hiiragi_material.electrotine_alloy=青合金
 hiiragi_material.ardite=アーダイト
 hiiragi_material.manyullyn=マニュリン
 hiiragi_material.aluminium_brass=アルミ黄銅
+
+hiiragi_material.treated_wood=防腐木材
+hiiragi_material.h_o_p_graphite=高配向パイログラファイト

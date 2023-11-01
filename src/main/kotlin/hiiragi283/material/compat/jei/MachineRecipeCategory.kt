@@ -2,9 +2,9 @@ package hiiragi283.material.compat.jei
 
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
+import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.*
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IDrawable
@@ -26,7 +26,7 @@ class MachineRecipeCategory(
         guiHelper.createDrawable(hiiragiLocation("textures/gui/jei/module_machine.png"), 0, 0, 176, 88)
 
     override val iconDrawable: IDrawable? =
-        HiiragiRegistries.RECIPE_MODULE.getValue(type)!!.itemStack().let { guiHelper.createDrawableIngredient(it) }
+        RecipeModuleItem.REGISTRY[type]!!.itemStack().let { guiHelper.createDrawableIngredient(it) }
 
     private fun getSlotPosX(index: Int): Int = 8 + 18 * (index + 1)
 

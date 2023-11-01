@@ -15,9 +15,9 @@ abstract class HiiragiContainer(val player: EntityPlayer) : Container() {
 
     fun getSlotPosY(index: Int): Int = 18 * (index + 1)
 
-    override fun canInteractWith(playerIn: EntityPlayer): Boolean = true
+    override fun canInteractWith(player: EntityPlayer): Boolean = true
 
-    override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack = ItemStack.EMPTY
+    override fun transferStackInSlot(player: EntityPlayer, index: Int): ItemStack = ItemStack.EMPTY
 
     fun initSlotsPlayer(posY: Int) {
         //プレイヤーのインベントリのスロットを設定

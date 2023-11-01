@@ -20,8 +20,6 @@ object MaterialItemPlate : MaterialItem(HiiragiShapes.PLATE) {
         }
         //Metal Former Recipe
         addMetalFormerRecipe(material)
-        // Grinder Recipe
-        addGrinderRecipe(material)
     }
 
 }

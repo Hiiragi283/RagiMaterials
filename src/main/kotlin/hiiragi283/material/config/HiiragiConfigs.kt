@@ -70,6 +70,11 @@ object HiiragiConfigs {
         @JvmField
         var ic2Ex: Boolean = true
 
+        @Config.Name("Enable Immersive Engineering")
+        @Config.RequiresMcRestart
+        @JvmField
+        var immersive: Boolean = true
+
         @Config.Name("Enable Mekanism")
         @Config.RequiresMcRestart
         @JvmField

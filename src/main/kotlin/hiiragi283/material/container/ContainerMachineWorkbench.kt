@@ -10,7 +10,6 @@ import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.item.MaterialItemBlockCasing
 import hiiragi283.material.util.*
 import net.minecraft.entity.player.EntityPlayer
@@ -46,7 +45,7 @@ class ContainerMachineWorkbench(player: EntityPlayer) : HiiragiContainer(player)
         val recipeType: MachineType = recipeModule.getItemImplemented<RecipeModuleItem>()
             ?.recipeType ?: return
 
-        val machineBlock: ModuleMachineBlock = HiiragiRegistries.BLOCK_MACHINE.getValue(recipeType) ?: return
+        val machineBlock: ModuleMachineBlock = ModuleMachineBlock.REGISTRY[recipeType] ?: return
 
         val casingItem: MaterialItemBlockCasing = casing.getItemImplemented<MaterialItemBlockCasing>() ?: return
         val baseProperty: MachineProperty = casingItem.toMachineProperty(casing)

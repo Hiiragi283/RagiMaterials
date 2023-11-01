@@ -21,8 +21,6 @@ object MaterialBlockStorage : MaterialBlock(HiiragiShapes.BLOCK) {
         } else if (HiiragiShapes.GEM.canCreateMaterialItem(material)) {
             builder.setIngredient('A', HiiragiShapes.GEM.getOreDict(material)).build()
         }
-        //Grinder Recipe
-        addGrinderRecipe(material)
     }
 
 }

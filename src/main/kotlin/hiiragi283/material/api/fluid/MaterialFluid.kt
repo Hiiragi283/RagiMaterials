@@ -2,7 +2,6 @@ package hiiragi283.material.api.fluid
 
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.compat.tcon.HiiragiTConPlugin
-import hiiragi283.material.init.HiiragiRegistries
 import net.minecraft.init.SoundEvents
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.SoundEvent
@@ -51,7 +50,7 @@ class MaterialFluid(
     companion object {
 
         fun register() {
-            HiiragiRegistries.MATERIAL.getValues().forEach(HiiragiMaterial::createFluid)
+            HiiragiMaterial.REGISTRY.getValues().forEach(HiiragiMaterial::createFluid)
         }
 
     }

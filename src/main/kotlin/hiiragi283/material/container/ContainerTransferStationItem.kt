@@ -15,7 +15,7 @@ class ContainerTransferStationItem(tile: TileTransferStationItem, player: Entity
         initSlotsPlayer(51)
     }
 
-    override fun transferStackInSlot(playerIn: EntityPlayer, index: Int): ItemStack {
+    override fun transferStackInSlot(player: EntityPlayer, index: Int): ItemStack {
         var stack: ItemStack = ItemStack.EMPTY
         val slot: Slot = inventorySlots[index]
         if (slot.hasStack) {

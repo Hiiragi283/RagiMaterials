@@ -1,26 +1,26 @@
 package hiiragi283.material.compat.jei.ingredients
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.api.material.MaterialStack
+import hiiragi283.material.api.material.HiiragiMaterial
 import mezz.jei.api.ingredients.IIngredientHelper
 
-object MaterialStackHelper : IIngredientHelper<MaterialStack> {
+object MaterialStackHelper : IIngredientHelper<HiiragiMaterial> {
 
-    override fun getMatch(iterator: MutableIterable<MaterialStack>, toMatch: MaterialStack): MaterialStack? =
-        iterator.firstOrNull { it.equalsMaterial(toMatch) }
+    override fun getMatch(iterator: MutableIterable<HiiragiMaterial>, toMatch: HiiragiMaterial): HiiragiMaterial? =
+        iterator.firstOrNull { it == toMatch }
 
-    override fun getDisplayName(stack: MaterialStack): String = stack.material.getTranslatedName()
+    override fun getDisplayName(material: HiiragiMaterial): String = material.getTranslatedName()
 
-    override fun getUniqueId(stack: MaterialStack): String = stack.material.toString()
+    override fun getUniqueId(material: HiiragiMaterial): String = material.toString()
 
-    override fun getWildcardId(stack: MaterialStack): String = getUniqueId(stack)
+    override fun getWildcardId(material: HiiragiMaterial): String = getUniqueId(material)
 
-    override fun getModId(stack: MaterialStack): String = RMReference.MOD_ID
+    override fun getModId(material: HiiragiMaterial): String = RMReference.MOD_ID
 
-    override fun getResourceId(stack: MaterialStack): String = stack.material.name
+    override fun getResourceId(material: HiiragiMaterial): String = material.name
 
-    override fun copyIngredient(stack: MaterialStack): MaterialStack = stack.copy()
+    override fun copyIngredient(material: HiiragiMaterial): HiiragiMaterial = material.copy()
 
-    override fun getErrorInfo(stack: MaterialStack?): String = stack?.let { "Errored with $stack" } ?: "null"
+    override fun getErrorInfo(material: HiiragiMaterial?): String = material?.let { "Errored with $material" } ?: "null"
 
 }

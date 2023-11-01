@@ -20,8 +20,6 @@ object MaterialItemGear : MaterialItem(HiiragiShapes.GEAR) {
         }
         //Metal Former Recipe
         addMetalFormerRecipe(material, inputCount = 4)
-        //Grinder Recipe
-        addGrinderRecipe(material)
     }
 
 }

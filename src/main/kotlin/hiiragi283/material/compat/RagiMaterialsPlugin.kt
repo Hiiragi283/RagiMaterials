@@ -19,6 +19,7 @@ object RagiMaterialsPlugin : HiiragiPluginBase(RMReference.MOD_ID, RMReference.M
         HiiragiEmbersPlugin.apply(list)
         HiiragiEnderIOPlugin.apply(list)
         HiiragiIC2exPlugin.apply(list)
+        HiiragiImmersivePlugin.apply(list)
         HiiragiMekanismPlugin.apply(list)
         HiiragiProjectRedPlugin.apply(list)
         HiiragiRailCraftPlugin.apply(list)

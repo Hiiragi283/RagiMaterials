@@ -1,17 +1,12 @@
 package hiiragi283.material.api.material
 
 import hiiragi283.material.init.HiiragiIconSets
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.util.HiiragiColor
 import java.awt.Color
 import kotlin.math.roundToInt
 
 abstract class MaterialType(val name: String) {
-
-    init {
-        HiiragiRegistries.MATERIAL_TYPE.register(name, this)
-    }
 
     //    Pre Init    //
 
@@ -36,7 +31,7 @@ abstract class MaterialType(val name: String) {
         override fun preInit(builder: HiiragiMaterial.Builder, components: Map<HiiragiMaterial, Int>) {
             val parent: HiiragiMaterial = components.toList()[0].first
             builder.color = parent.color
-            builder.crystalType = parent.crystalType
+            builder.iconSet = parent.iconSet
             builder.machineProperty = parent.machineProperty
             builder.tempBoil = parent.tempBoil
             builder.tempMelt = parent.tempMelt

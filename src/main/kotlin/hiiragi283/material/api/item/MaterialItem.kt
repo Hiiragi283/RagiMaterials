@@ -4,7 +4,6 @@ import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.init.HiiragiCreativeTabs
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.itemStack
 import hiiragi283.material.util.toModelLocation
 import net.minecraft.client.renderer.color.IItemColor
@@ -17,7 +16,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import net.minecraftforge.oredict.OreDictionary
 
-@Suppress("DEPRECATION")
 open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     shape.name,
     Short.MAX_VALUE.toInt()
@@ -36,7 +34,7 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValidIndexValues()
             .filter(HiiragiMaterial::isValidIndex)
             .filter(shape::canCreateMaterialItem)
             .map(::itemStack)
@@ -46,11 +44,11 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
     //    HiiragiEntry    //
 
     override fun onRegister() {
-        HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
+        PartConvertible.ITEM.register(this)
     }
 
     override fun onInit() {
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValidIndexValues()
             .filter(shape::canCreateMaterialItem)
             .forEach {
                 OreDictionary.registerOre(shape.getOreDict(it), itemStack(it))
@@ -65,7 +63,7 @@ open class MaterialItem(final override val shape: HiiragiShape) : HiiragiItem(
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
-        val allIcons: Set<ResourceLocation> = HiiragiRegistries.MATERIAL_INDEX.getValues()
+        val allIcons: Set<ResourceLocation> = HiiragiMaterial.REGISTRY.getValidIndexValues()
             .map(HiiragiMaterial::iconSet)
             .mapNotNull { it[shape] }
             .toSet()

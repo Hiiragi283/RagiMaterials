@@ -1,7 +1,6 @@
 package hiiragi283.material.compat.jei
 
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.api.material.MaterialStack
 import hiiragi283.material.compat.jei.ingredients.HiiragiIngredientTypes
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.hiiragiLocation
@@ -24,7 +23,7 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
     override fun setRecipe(iRecipeLayout: IRecipeLayout, wrapper: Wrapper, iIngredients: IIngredients) {
         //MaterialStack
         getMaterialStacks(iRecipeLayout).init(0, false, 4 + 1, 4 + 1)
-        getMaterialStacks(iRecipeLayout)[0] = wrapper.getMaterialStack()
+        getMaterialStacks(iRecipeLayout)[0] = wrapper.material
         //FluidStack
         iRecipeLayout.fluidStacks.init(0, true, 18 * 8 + 5, 5)
         iRecipeLayout.fluidStacks[0] = wrapper.getFluids()
@@ -36,15 +35,11 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
     }
 
     class Wrapper(
-        material: HiiragiMaterial,
+        val material: HiiragiMaterial,
         private val stacks: Collection<ItemStack>
     ) : IRecipeWrapper {
 
-        private val materialStack: MaterialStack = material.toMaterialStack()
-
         private val fluids: Collection<FluidStack> = material.getFluidStacks()
-
-        fun getMaterialStack(): MaterialStack = materialStack.copy()
 
         fun getFluids(): List<FluidStack> = fluids.toList()
 
@@ -54,12 +49,12 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         override fun getIngredients(iIngredients: IIngredients) {
             iIngredients.setInputs(VanillaTypes.ITEM, getStacks())
             iIngredients.setInputs(VanillaTypes.FLUID, getFluids())
-            iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, getMaterialStack())
+            iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, material)
         }
 
         override fun drawInfo(minecraft: Minecraft, recipeWidth: Int, recipeHeight: Int, mouseX: Int, mouseY: Int) {
             minecraft.fontRenderer.drawString(
-                getMaterialStack().material.getTranslatedName(),
+                material.getTranslatedName(),
                 24,
                 10,
                 HiiragiColor.WHITE.rgb

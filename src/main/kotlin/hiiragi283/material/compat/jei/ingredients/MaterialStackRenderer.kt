@@ -1,6 +1,6 @@
 package hiiragi283.material.compat.jei.ingredients
 
-import hiiragi283.material.api.material.MaterialStack
+import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.drawSquareTexture
 import mezz.jei.api.ingredients.IIngredientRenderer
@@ -10,23 +10,23 @@ import net.minecraft.client.renderer.texture.TextureMap
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.util.ResourceLocation
 
-object MaterialStackRenderer : IIngredientRenderer<MaterialStack> {
+object MaterialStackRenderer : IIngredientRenderer<HiiragiMaterial> {
 
-    override fun render(minecraft: Minecraft, xPosition: Int, yPosition: Int, stack: MaterialStack?) {
+    override fun render(minecraft: Minecraft, xPosition: Int, yPosition: Int, material: HiiragiMaterial?) {
         GlStateManager.enableBlend()
         GlStateManager.enableAlpha()
 
-        drawMaterial(minecraft, xPosition, yPosition, stack)
+        drawMaterial(minecraft, xPosition, yPosition, material)
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
 
         GlStateManager.disableAlpha()
         GlStateManager.disableBlend()
     }
 
-    private fun drawMaterial(minecraft: Minecraft, xPosition: Int, yPosition: Int, stack: MaterialStack?) {
-        if (stack !== null) {
+    private fun drawMaterial(minecraft: Minecraft, xPosition: Int, yPosition: Int, material: HiiragiMaterial?) {
+        if (material !== null) {
             minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)
-            HiiragiColor.setGLColor(stack.material.color)
+            HiiragiColor.setGLColor(material.color)
             drawSquareTexture(
                 minecraft,
                 xPosition.toDouble(),
@@ -38,10 +38,8 @@ object MaterialStackRenderer : IIngredientRenderer<MaterialStack> {
 
     override fun getTooltip(
         minecraft: Minecraft,
-        ingredient: MaterialStack,
+        ingredient: HiiragiMaterial,
         tooltipFlag: ITooltipFlag
-    ): MutableList<String> = mutableListOf<String>().also {
-        ingredient.addTooltip(it)
-    }
+    ): MutableList<String> = mutableListOf<String>().also(ingredient::addTooltip)
 
 }

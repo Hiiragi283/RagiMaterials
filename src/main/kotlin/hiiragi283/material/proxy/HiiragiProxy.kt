@@ -2,7 +2,10 @@ package hiiragi283.material.proxy
 
 import com.google.gson.JsonElement
 import hiiragi283.material.RagiMaterials
+import hiiragi283.material.api.block.ModuleMachineBlock
 import hiiragi283.material.api.fluid.MaterialFluid
+import hiiragi283.material.api.item.RecipeModuleItem
+import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.registry.HiiragiEntry
@@ -18,7 +21,6 @@ import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.network.NetworkRegistry
 
-@Suppress("DEPRECATION")
 abstract class HiiragiProxy : IHiiragiProxy {
 
     override fun onConstruct(event: FMLConstructionEvent) {
@@ -28,7 +30,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
         MinecraftForge.EVENT_BUS.register(HiiragiEventHandler)
         MinecraftForge.EVENT_BUS.register(PartDictionary)
         //レジストリの初期化
-        HiiragiRegistries.initRecipeType()
+        IMachineRecipe.REGISTRY.init()
         //連携の登録
         RagiMaterialsPlugin.onConstruct(event)
     }
@@ -40,17 +42,17 @@ abstract class HiiragiProxy : IHiiragiProxy {
         //Shapeの登録
         HiiragiJSonHandler.writeShape()
         HiiragiJSonHandler.readShape()
-        HiiragiRegistries.registerShape()
+        HiiragiShape.REGISTRY.init()
         //Materialの登録
         HiiragiJSonHandler.writeMaterial()
         HiiragiJSonHandler.readMaterial()
-        HiiragiRegistries.registerMaterial()
+        HiiragiMaterial.REGISTRY.init()
         //レジストリへの登録
         HiiragiBlocks
         HiiragiEntities
         HiiragiItems
-        HiiragiRegistries.registerModuleMachine()
-        HiiragiRegistries.registerRecipeModule()
+        ModuleMachineBlock.REGISTRY.init()
+        RecipeModuleItem.REGISTRY.init()
         MaterialFluid.register()
         //連携の登録
         RagiMaterialsPlugin.onPreInit(event)
@@ -59,10 +61,10 @@ abstract class HiiragiProxy : IHiiragiProxy {
     override fun onInit(event: FMLInitializationEvent) {
         //鉱石辞書の登録
         PartDictionary.reloadOreDicts()
-        HiiragiRegistries.BLOCK.getValues()
+        HiiragiEntry.BLOCK.REGISTRY.getValues()
             .filterIsInstance<HiiragiEntry.BLOCK>()
             .forEach(HiiragiEntry.BLOCK::onInit)
-        HiiragiRegistries.ITEM.getValues()
+        HiiragiEntry.ITEM.REGISTRY.getValues()
             .filterIsInstance<HiiragiEntry.ITEM>()
             .forEach(HiiragiEntry.ITEM::onInit)
         //レシピの登録
@@ -91,12 +93,12 @@ abstract class HiiragiProxy : IHiiragiProxy {
 
     private fun printValues() {
         HiiragiLogger.info("Printing registered HiiragiShape values...")
-        HiiragiRegistries.SHAPE.getValues()
+        HiiragiShape.REGISTRY.getValues()
             .map(HiiragiShape::getJsonElement)
             .map<JsonElement, String>(RagiMaterials.GSON::toJson)
             .forEach(HiiragiLogger::info)
         HiiragiLogger.info("Printing registered HiiragiMaterial values...")
-        HiiragiRegistries.MATERIAL.getValues()
+        HiiragiMaterial.REGISTRY.getValues()
             .map(HiiragiMaterial::getJsonElement)
             .map<JsonElement, String>(RagiMaterials.GSON::toJson)
             .forEach(HiiragiLogger::info)

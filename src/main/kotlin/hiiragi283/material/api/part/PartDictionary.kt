@@ -32,6 +32,7 @@ object PartDictionary {
         HiiragiLogger.info("Reloading Ore Dictionary for Part Dictionary...")
         OreDictionary.getOreNames().forEach { oreDict: String ->
             OreDictionary.getOres(oreDict)
+                .filterNot<ItemStack>(::isRegistered)
                 .map { stack: ItemStack -> OreDictionary.OreRegisterEvent(oreDict, stack) }
                 .forEach(::onOreDictRegistered)
         }
@@ -94,6 +95,17 @@ object PartDictionary {
         MATERIAL_TO_ITEM[material] = materialSet
     }
 
+    @JvmStatic
+    fun isRegistered(stack: ItemStack): Boolean = isRegistered(stack.item, stack.metadata)
+
+    @JvmStatic
+    fun isRegistered(block: Block, metadata: Int): Boolean = isRegistered(Item.getItemFromBlock(block), metadata)
+
+    @JvmStatic
+    fun isRegistered(item: Item, metadata: Int): Boolean = isRegistered(item to metadata)
+
+    private fun isRegistered(metaItem: MetaItem): Boolean = ITEM_TO_PART.containsKey(metaItem)
+
     //    getPart    //
 
     @JvmStatic
@@ -127,9 +139,6 @@ object PartDictionary {
     fun hasStack(shape: HiiragiShape): Boolean = SHAPE_TO_ITEM.containsKey(shape)
 
     @JvmStatic
-    fun getStack(shape: HiiragiShape, count: Int = 1): ItemStack? = findPair(getPairs(shape))?.toStack(count)
-
-    @JvmStatic
     fun getStacks(shape: HiiragiShape, count: Int = 1): List<ItemStack> =
         getPairs(shape).map { it.toStack(count) }
 
@@ -139,9 +148,6 @@ object PartDictionary {
 
     @JvmStatic
     fun hasStack(material: HiiragiMaterial): Boolean = MATERIAL_TO_ITEM.containsKey(material)
-
-    @JvmStatic
-    fun getStack(material: HiiragiMaterial, count: Int = 1): ItemStack? = findPair(getPairs(material))?.toStack(count)
 
     @JvmStatic
     fun getStacks(material: HiiragiMaterial, count: Int = 1): List<ItemStack> =

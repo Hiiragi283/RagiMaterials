@@ -2,15 +2,18 @@ package hiiragi283.material.init
 
 import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
+import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartDictionary
+import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.init.materials.MaterialCommons
 import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.recipe.MachineRecipe
-import hiiragi283.material.recipe.MaterialMeltingRecipe
+import hiiragi283.material.recipe.MaterialMeltingRecipeNew
 import hiiragi283.material.util.*
 import net.minecraft.block.Block
 import net.minecraft.init.Blocks
@@ -19,6 +22,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.FurnaceRecipes
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
+import java.util.function.Supplier
 
 object HiiragiRecipes {
 
@@ -39,7 +43,7 @@ object HiiragiRecipes {
 
     private fun crafting() {
         //Recipe Modules
-        CraftingBuilder(HiiragiRegistries.RECIPE_MODULE.getValue(MachineType.SMELTER)!!.itemStack())
+        CraftingBuilder(RecipeModuleItem.REGISTRY[MachineType.SMELTER]!!.itemStack())
             .setPattern("ABA", "BCB", "ABA")
             .setIngredient('A', "stone")
             .setIngredient('B', HiiragiShapes.INGOT.getOreDict(MaterialElements.IRON))
@@ -77,7 +81,7 @@ object HiiragiRecipes {
             .setIngredient('A', "cobblestone")
             .build()
         //1x Ore -> 2x Dust
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValues()
             .filter(HiiragiShapes.DUST::hasItemStack)
             .filter(HiiragiShapes.ORE::hasItemStack)
             .forEach { material ->
@@ -167,7 +171,19 @@ object HiiragiRecipes {
     }
 
     private fun grinder() {
-
+        //金属の粉砕レシピ
+        for (material: HiiragiMaterial in HiiragiMaterial.REGISTRY.getValues().filter(HiiragiMaterial::isSolid)) {
+            for (shape: HiiragiShape in HiiragiShape.REGISTRY.getValues()) {
+                val ingotCount: Int = shape.getIngotCount(material)
+                if (ingotCount <= 0) return
+                val part: HiiragiPart = shape.getPart(material)
+                if (!part.hasItemStack() || !HiiragiShapes.DUST.getPart(material).hasItemStack()) return
+                MachineRecipe.buildAndRegister(MachineType.GRINDER, hiiragiLocation(part.toString())) {
+                    inputItems.add(ItemIngredient.Parts(part))
+                    outputItems.add(Supplier { HiiragiShapes.DUST.getPart(material).getItemStack(ingotCount) })
+                }
+            }
+        }
     }
 
     private fun metalFormer() {
@@ -321,14 +337,19 @@ object HiiragiRecipes {
             outputItems.add { HiiragiShapes.INGOT.getItemStack(MaterialCommons.TUNGSTEN_STEEL, 2) }
         }
         //金属の溶融レシピ
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValues()
             .filter(HiiragiMaterial::isSolid)
             .filter(HiiragiMaterial::hasFluid)
             .forEach { material: HiiragiMaterial ->
-                IMachineRecipe.register(
-                    hiiragiLocation(material.name),
-                    MaterialMeltingRecipe(material)
-                )
+                HiiragiShape.REGISTRY.getValues()
+                    .map { it.getPart(material) }
+                    .filter(HiiragiPart::hasItemStack)
+                    .forEach { part ->
+                        IMachineRecipe.register(
+                            hiiragiLocation(part.toString()),
+                            MaterialMeltingRecipeNew(part)
+                        )
+                    }
             }
     }
 

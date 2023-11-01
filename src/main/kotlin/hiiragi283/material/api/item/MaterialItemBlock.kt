@@ -3,7 +3,6 @@ package hiiragi283.material.api.item
 import hiiragi283.material.api.block.MaterialBlock
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartConvertible
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.util.itemStack
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
@@ -11,7 +10,6 @@ import net.minecraft.util.NonNullList
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Suppress("DEPRECATION")
 open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Short.MAX_VALUE.toInt()),
     PartConvertible.ITEM {
 
@@ -26,7 +24,7 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, subItems: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return
-        HiiragiRegistries.MATERIAL_INDEX.getValues()
+        HiiragiMaterial.REGISTRY.getValidIndexValues()
             .filter(HiiragiMaterial::isValidIndex)
             .filter(shape::canCreateMaterialItem)
             .map(::itemStack)
@@ -36,7 +34,7 @@ open class MaterialItemBlock(block: MaterialBlock) : HiiragiItemBlock(block, Sho
     //    HiiragiEntry    //
 
     override fun onRegister() {
-        HiiragiRegistries.MATERIAL_ITEM.register(shape, this)
+        PartConvertible.ITEM.register(this)
     }
 
 }

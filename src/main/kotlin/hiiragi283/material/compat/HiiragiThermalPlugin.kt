@@ -14,6 +14,7 @@ object HiiragiThermalPlugin : HiiragiPluginBase("thermalfoundation", "Thermal", 
         MaterialCompats.CRYOTHEUM.register()
         MaterialCompats.AEROTHEUM.register()
         MaterialCompats.PETROTHEUM.register()
+        MaterialCompats.ROCKWOOL.register()
     }
 
 }

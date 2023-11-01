@@ -2,17 +2,20 @@ package hiiragi283.material.api.shape
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import hiiragi283.material.api.event.ShapeRegistryEvent
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.part.PartDictionary
-import hiiragi283.material.init.HiiragiRegistries
+import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.init.HiiragiShapeTypes
+import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiJsonSerializable
 import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
+import net.minecraftforge.common.MinecraftForge
 import rechellatek.snakeToLowerCamelCase
-import java.util.function.IntFunction
+import java.util.function.Function
 
 /**
  * An object which represents the shape of [net.minecraft.item.Item]
@@ -20,25 +23,54 @@ import java.util.function.IntFunction
  * Should be registered in [net.minecraftforge.event.RegistryEvent.Register]<[HiiragiShape]>
  */
 
-data class HiiragiShape(val name: String, private val scaleDefault: Int) : HiiragiJsonSerializable {
+data class HiiragiShape(val name: String, private val scaleFunction: Function<HiiragiMaterial, Int>) :
+    HiiragiJsonSerializable {
+
+    constructor(name: String, scaleDefault: Int) : this(name, { scaleDefault })
 
     private val scaleMap: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
 
     private val prefixAlts: MutableSet<String> = mutableSetOf()
 
+    //    Registry    //
+
+    fun register() {
+        REGISTRY[name] = this
+        prefixAlts.forEach { prefixAlt: String ->
+            REGISTRY[prefixAlt] = this
+        }
+    }
+
+    object REGISTRY : HiiragiRegistry<String, HiiragiShape>("Shape") {
+
+        internal fun init() {
+
+            val event = ShapeRegistryEvent()
+            MinecraftForge.EVENT_BUS.post(event)
+
+            val nameSorted: List<Pair<String, HiiragiShape>> = registry.toList()
+                .sortedBy { (name: String, _: HiiragiShape) -> name }
+            registry.clear()
+            registry.putAll(nameSorted)
+
+            isLocked = true
+
+        }
+
+    }
+
+
     //    Conversion    //
 
-    fun getBlockCount(material: HiiragiMaterial) = getIngotCount(material) / 9
+    fun getBlockCount(material: HiiragiMaterial) = getScale(material) / HiiragiShapes.BLOCK.getScale(material)
 
-    fun getIngotCount(material: HiiragiMaterial) = getScale(material) / 144
+    fun getIngotCount(material: HiiragiMaterial) = getScale(material) / HiiragiShapes.INGOT.getScale(material)
 
-    fun getNuggetCount(material: HiiragiMaterial) = getIngotCount(material) * 9
+    fun getNuggetCount(material: HiiragiMaterial) = getScale(material) / HiiragiShapes.NUGGET.getScale(material)
 
-    fun getItem(): PartConvertible.ITEM? = HiiragiRegistries.MATERIAL_ITEM.getValue(this)
+    fun getItem(): PartConvertible.ITEM? = PartConvertible.ITEM[this]
 
     fun getItemStack(material: HiiragiMaterial, count: Int = 1): ItemStack = getPart(material).getItemStack(count)
-
-    fun getItemStack(count: Int = 1): ItemStack? = PartDictionary.getStack(this, count)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = PartDictionary.getStacks(this, count)
 
@@ -46,7 +78,7 @@ data class HiiragiShape(val name: String, private val scaleDefault: Int) : Hiira
 
     fun getPart(material: HiiragiMaterial): HiiragiPart = HiiragiPart(this, material)
 
-    fun getScale(material: HiiragiMaterial): Int = scaleMap[material] ?: scaleDefault
+    fun getScale(material: HiiragiMaterial): Int = scaleMap[material] ?: scaleFunction.apply(material)
 
     fun getTranslatedName(material: HiiragiMaterial): String =
         I18n.format("hiiragi_shape.$name", material.getTranslatedName())
@@ -62,10 +94,6 @@ data class HiiragiShape(val name: String, private val scaleDefault: Int) : Hiira
 
     //    Setter    //
 
-    fun setScale(material: HiiragiMaterial, function: IntFunction<Int>) = also {
-        setScale(material, function.apply(scaleDefault))
-    }
-
     fun setScale(material: HiiragiMaterial, scale: Int) = also {
         scaleMap[material] = scale
     }
@@ -78,26 +106,12 @@ data class HiiragiShape(val name: String, private val scaleDefault: Int) : Hiira
         prefixAlts.remove(prefix)
     }
 
-    //    Registration    //
-
-    fun register() {
-        HiiragiRegistries.SHAPE.register(name, this)
-        prefixAlts.forEach { prefixAlt: String ->
-            HiiragiRegistries.SHAPE.register(prefixAlt, this)
-        }
-    }
-
     //    Any    //
 
     override fun toString(): String = "Shape:$name"
 
     //    HiiragiJsonSerializable    //
 
-    override fun getJsonElement(): JsonElement {
-        val root = JsonObject()
-        root.addProperty("name", name)
-        root.addProperty("scale", scaleDefault)
-        return root
-    }
+    override fun getJsonElement(): JsonElement = JsonObject().apply { this.addProperty("name", name) }
 
 }

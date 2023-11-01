@@ -1,8 +1,9 @@
 package hiiragi283.material.compat.jei
 
+import hiiragi283.material.api.block.ModuleMachineBlock
+import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.init.HiiragiBlocks
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.hiiragiLocation
 import hiiragi283.material.util.itemStack
@@ -43,11 +44,11 @@ class MachineWorkbenchCategory(guiHelper: IGuiHelper) :
             ?.item()?.itemStackWild()
             ?: ItemStack.EMPTY
 
-        val recipeModule: ItemStack = HiiragiRegistries.RECIPE_MODULE.getValue(recipeType)
+        val recipeModule: ItemStack = RecipeModuleItem.REGISTRY[recipeType]
             ?.itemStack()
             ?: ItemStack.EMPTY
 
-        val machine: ItemStack = HiiragiRegistries.BLOCK_MACHINE.getValue(recipeType)
+        val machine: ItemStack = ModuleMachineBlock.REGISTRY[recipeType]
             ?.itemStackWild()
             ?: ItemStack.EMPTY
 

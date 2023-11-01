@@ -5,9 +5,9 @@ import hiiragi283.material.api.item.ModuleMachineItemBlock
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.registry.HiiragiRegistry
 import hiiragi283.material.api.tile.HiiragiTileEntity
 import hiiragi283.material.init.HiiragiCreativeTabs
-import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.tile.TileEntityModuleMachine
 import hiiragi283.material.util.*
 import net.minecraft.block.BlockHorizontal
@@ -34,6 +34,18 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
     "machine_${type.lowercase()}",
     ::TileEntityModuleMachine
 ) {
+
+    object REGISTRY : HiiragiRegistry<MachineType, ModuleMachineBlock>("Module Machine Block") {
+
+        internal fun init() {
+            MachineType.values()
+                .filter { it != MachineType.NONE }
+                .map(::ModuleMachineBlock)
+                .forEach(ModuleMachineBlock::register)
+            lock()
+        }
+
+    }
 
     override val itemBlock: HiiragiItemBlock = ModuleMachineItemBlock(this)
 
@@ -109,7 +121,7 @@ class ModuleMachineBlock(val type: MachineType) : HiiragiBlockContainer.Holdable
 
     override fun onRegister() {
         super.onRegister()
-        HiiragiRegistries.BLOCK_MACHINE.register(type, this)
+        REGISTRY[type] = this
     }
 
     @SideOnly(Side.CLIENT)

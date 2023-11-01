@@ -5,7 +5,6 @@ import crafttweaker.annotations.BracketHandler
 import crafttweaker.annotations.ZenRegister
 import crafttweaker.zenscript.IBracketHandler
 import hiiragi283.material.api.material.HiiragiMaterial
-import hiiragi283.material.init.HiiragiRegistries
 import stanhebben.zenscript.compiler.IEnvironmentGlobal
 import stanhebben.zenscript.expression.ExpressionCallStatic
 import stanhebben.zenscript.expression.ExpressionString
@@ -29,7 +28,7 @@ class HiiragiMaterialBracketHandler : IBracketHandler {
 
         @JvmStatic
         fun getMaterial(name: String): HiiragiMaterial {
-            val result: HiiragiMaterial? = HiiragiRegistries.MATERIAL.getValue(name)
+            val result: HiiragiMaterial? = HiiragiMaterial.REGISTRY[name]
             if (result == null) {
                 CraftTweakerAPI.logError("Could not find material with name $name")
             }
