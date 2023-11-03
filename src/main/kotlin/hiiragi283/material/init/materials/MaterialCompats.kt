@@ -9,6 +9,8 @@ import hiiragi283.material.util.HiiragiColor
 
 object MaterialCompats {
 
+    fun init() {}
+
     //    Vanilla    //
 
     @JvmField
@@ -22,7 +24,7 @@ object MaterialCompats {
             shapes.remove(HiiragiShapes.DUST)
         }
     }
-        .setBlockScale(900)
+        .setBlockMultiplier(9)
         .setIngotScale(100)
 
     @JvmField
@@ -46,7 +48,7 @@ object MaterialCompats {
             shapes.remove(HiiragiShapes.DUST)
         }
     }
-        .setBlockScale(1000)
+        .setBlockMultiplier(4)
         .setIngotScale(250)
 
     @JvmField
@@ -56,10 +58,9 @@ object MaterialCompats {
         if (HiiragiThermalPlugin.enabled()) {
             hasFluid = false
         }
-        oreDictAlt.add("ender")
-        oreDictAlt.add("ender_pearl")
         shapeType = HiiragiShapeTypes.SOLID
     }
+        .addAlternativeName("ender", "ender_pearl")
         .setIngotScale(250)
 
     @JvmField
@@ -440,12 +441,9 @@ object MaterialCompats {
         mapOf(MaterialElements.ALUMINIUM to 3, MaterialElements.COPPER to 1)
     ) {
             color = HiiragiColor.mixColor(HiiragiColor.GOLD, HiiragiColor.YELLOW, HiiragiColor.WHITE).rgb
-            oreDictAlt.add("alubrass")
-            oreDictAlt.add("aluminiumbrass")
-            oreDictAlt.add("aluminum_brass")
-            oreDictAlt.add("aluminumbrass")
             shapeType = HiiragiShapeTypes.METAL_COMMON
     }
+        .addAlternativeName("alubrass", "aluminiumbrass", "aluminum_brass", "aluminumbrass")
 
     //    Immersive Engineering    //
 

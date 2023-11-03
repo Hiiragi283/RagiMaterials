@@ -1,10 +1,9 @@
 package hiiragi283.material.api.material
 
-import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import hiiragi283.material.RagiMaterials
-import hiiragi283.material.api.event.MaterialBuiltEvent
+import hiiragi283.material.api.event.MaterialBuildEvent
 import hiiragi283.material.api.event.MaterialRegistryEvent
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
@@ -71,7 +70,6 @@ data class HiiragiMaterial private constructor(
     val iconSet: MaterialIconSet,
     val machineProperty: MachineProperty?,
     val molar: Double,
-    private val oreDictAlt: Set<String>,
     val shapeType: HiiragiShapeType,
     val tempBoil: Int,
     val tempMelt: Int,
@@ -81,16 +79,16 @@ data class HiiragiMaterial private constructor(
     companion object {
 
         @JvmField
+        val DEFAULT = materialOf("default", 0) {
+            color = RagiMaterials.COLOR.rgb
+            shapeType = HiiragiShapeTypes.WILDCARD
+        }
+
+        @JvmField
         val UNKNOWN = formulaOf("?")
 
         @JvmField
         val WILDCARD = build("wildcard", Short.MAX_VALUE.toInt())
-
-        @JvmField
-        val RUSSELL = materialOf("russell", 0) {
-            color = RagiMaterials.COLOR.rgb
-            shapeType = HiiragiShapeTypes.WILDCARD
-        }
 
         @JvmField
         val BLOCK_COLOR: IBlockColor = IBlockColor { _: IBlockState, world: IBlockAccess?, pos: BlockPos?, _: Int ->
@@ -118,18 +116,6 @@ data class HiiragiMaterial private constructor(
     }
 
     //    Registry    //
-
-    fun register() {
-        REGISTRY.register(name, this)
-        oreDictAlt.forEach { nameAlt: String ->
-            REGISTRY.register(nameAlt, this)
-        }
-        if (!isValidIndex()) {
-            HiiragiLogger.error("$this has invalid index: $index !!")
-            return
-        }
-        REGISTRY.register(index, this)
-    }
 
     object REGISTRY {
 
@@ -160,6 +146,10 @@ data class HiiragiMaterial private constructor(
         operator fun get(name: String): HiiragiMaterial? = nameRegistry[name]
 
         operator fun get(index: Int): HiiragiMaterial? = indexRegistry[index]
+
+        fun getMap(): Map<String, HiiragiMaterial> = nameRegistry
+
+        fun getValidIndexMap(): Map<Int, HiiragiMaterial> = indexRegistry
 
         fun getValues(): Collection<HiiragiMaterial> = nameRegistry.values
 
@@ -210,15 +200,7 @@ data class HiiragiMaterial private constructor(
 
     fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
 
-    fun getFluids(): List<Fluid> {
-        val list: MutableList<Fluid> = listOfNotNull(getFluid()).toMutableList()
-        list.addAll(oreDictAlt.mapNotNull(FluidRegistry::getFluid))
-        return list
-    }
-
     fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
-
-    fun getFluidStacks(amount: Int = 1000): List<FluidStack> = getFluids().map { FluidStack(it, amount) }
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = PartDictionary.getStacks(this, count)
 
@@ -260,22 +242,22 @@ data class HiiragiMaterial private constructor(
 
     fun isRegistered(): Boolean = REGISTRY.contains(name)
 
-    //    Setter    //
+    //    Function    //
+
+    fun addAlternativeName(vararg name: String) = also {
+        name.forEach { REGISTRY.register(it, this) }
+    }
 
     fun setSmelted(smelted: HiiragiMaterial, count: Int = 1) = also {
         HiiragiRegistries.MATERIAL_SMELTED[this] = smelted to count
     }
 
-    fun setBlockScale(scale: Int) = also {
-        HiiragiShapes.BLOCK.setScale(this, scale)
+    fun setBlockMultiplier(multiplier: Int) = also {
+        HiiragiShape.setBlockMultiplier(this, multiplier)
     }
 
     fun setIngotScale(scale: Int) = also {
-        HiiragiShapes.INGOT.setScale(this, scale)
-    }
-
-    fun setNuggetScale(scale: Int) = also {
-        HiiragiShapes.NUGGET.setScale(this, scale)
+        HiiragiShape.setIngotScale(this, scale)
     }
 
     //    Any    //
@@ -316,10 +298,6 @@ data class HiiragiMaterial private constructor(
         root.add("machineProperty", machineProperty?.getJsonElement())
         root.addProperty("molar", molar)
 
-        val oreDictAltJson = JsonArray()
-        oreDictAlt.forEach(oreDictAltJson::add)
-        root.add("oreDictAlt", oreDictAltJson)
-
         root.add("shapeType", shapeType.getJsonElement())
         root.addProperty("tempBoil", tempBoil)
         root.addProperty("tempMelt", tempMelt)
@@ -332,7 +310,6 @@ data class HiiragiMaterial private constructor(
 
     class Builder(val name: String, val index: Int) {
 
-        val oreDictAlt: MutableSet<String> = mutableSetOf()
         var color: Int = 0xFFFFFF
         var formula: String = ""
         var hasBucket: Boolean = true
@@ -347,7 +324,7 @@ data class HiiragiMaterial private constructor(
         var translationKey: String = "hiiragi_material.$name"
 
         fun build(): HiiragiMaterial {
-            MinecraftForge.EVENT_BUS.post(MaterialBuiltEvent(this))
+            MinecraftForge.EVENT_BUS.post(MaterialBuildEvent(this))
             return HiiragiMaterial(
                 name,
                 index,
@@ -357,12 +334,20 @@ data class HiiragiMaterial private constructor(
                 iconSet,
                 machineProperty,
                 molar,
-                oreDictAlt,
                 shapeType,
                 tempBoil,
                 tempMelt,
                 translationKey,
-            )
+            ).also { material: HiiragiMaterial ->
+                REGISTRY.register(name, material)
+                if (!material.isValidIndex()) {
+                    HiiragiLogger.error("Material: $name has invalid index: $index !!")
+                    HiiragiLogger.debugInfo("Material: $name is registered!")
+                    return@also
+                }
+                REGISTRY.register(index, material)
+                HiiragiLogger.debugInfo("Material: $name is registered!")
+            }
         }
 
     }

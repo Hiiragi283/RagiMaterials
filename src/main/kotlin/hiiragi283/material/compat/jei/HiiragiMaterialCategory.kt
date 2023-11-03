@@ -26,29 +26,24 @@ class HiiragiMaterialCategory(guiHelper: IGuiHelper) :
         getMaterialStacks(iRecipeLayout)[0] = wrapper.material
         //FluidStack
         iRecipeLayout.fluidStacks.init(0, true, 18 * 8 + 5, 5)
-        iRecipeLayout.fluidStacks[0] = wrapper.getFluids()
+        wrapper.fluidStack?.let { iRecipeLayout.fluidStacks[0] = it }
         //ItemStack
-        for (i in wrapper.getStacks().indices) {
+        for (i in wrapper.stacks.indices) {
             iRecipeLayout.itemStacks.init(i, true, 18 * (i % 9) + 4, 18 * (i / 9) + 18 + 4)
-            iRecipeLayout.itemStacks[i] = wrapper.getStacks()[i]
+            iRecipeLayout.itemStacks[i] = wrapper.stacks[i]
         }
     }
 
     class Wrapper(
         val material: HiiragiMaterial,
-        private val stacks: Collection<ItemStack>
+        val stacks: List<ItemStack>,
+        val fluidStack: FluidStack?
     ) : IRecipeWrapper {
-
-        private val fluids: Collection<FluidStack> = material.getFluidStacks()
-
-        fun getFluids(): List<FluidStack> = fluids.toList()
-
-        fun getStacks(): List<ItemStack> = stacks.toList()
 
         //    IRecipeWrapper    //
         override fun getIngredients(iIngredients: IIngredients) {
-            iIngredients.setInputs(VanillaTypes.ITEM, getStacks())
-            iIngredients.setInputs(VanillaTypes.FLUID, getFluids())
+            iIngredients.setInputs(VanillaTypes.ITEM, stacks)
+            fluidStack?.let { iIngredients.setInput(VanillaTypes.FLUID, it) }
             iIngredients.setOutput(HiiragiIngredientTypes.MATERIAL, material)
         }
 

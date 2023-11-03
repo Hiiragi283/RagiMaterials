@@ -149,7 +149,7 @@ tips.ragi_materials.property.subl=- 昇華点: §b%s§r§7 K
 
 ##    Material    ##
 
-hiiragi_material.russell=柊ラッセルつばさ
+hiiragi_material.default=デフォルト
 
 ###   Elements   ###
 

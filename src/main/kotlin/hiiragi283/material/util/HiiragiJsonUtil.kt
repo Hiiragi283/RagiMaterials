@@ -1,6 +1,5 @@
 package hiiragi283.material.util
 
-import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
@@ -20,6 +19,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
+import java.util.function.Function
 
 
 fun ItemStack.getJsonElement(): JsonElement {
@@ -52,7 +52,9 @@ object HiiragiJsonUtil {
         val root: JsonObject = jsonElement.asJsonObject
         val name: String = root.getAsJsonPrimitive("name")?.asString ?: return null
         val scale: Int = root.getAsJsonPrimitive("scale")?.asInt ?: 0
-        return HiiragiShape(name, { scale })
+        return HiiragiShape.build(name) {
+            scaleFunction = Function { scale }
+        }
     }
 
     //    HiiragiMaterial    //
@@ -112,10 +114,6 @@ object HiiragiJsonUtil {
         }
 
         setValue(root, "molar", JsonPrimitive::getAsDouble) { molar -> builder.molar = molar }
-
-        setValue(root, "oreDictAlt", JsonArray::getAsJsonArray) { oreDictAlt ->
-            oreDictAlt.map { it.asString }.forEach(builder.oreDictAlt::add)
-        }
 
         setValue(root, "shapeType", JsonObject::getAsJsonObject) { jsonObject ->
             builder.shapeType = shapeType(jsonObject)

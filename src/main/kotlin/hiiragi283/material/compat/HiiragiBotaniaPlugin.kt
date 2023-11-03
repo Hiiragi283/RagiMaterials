@@ -10,14 +10,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 
 object HiiragiBotaniaPlugin : HiiragiPluginBase("botania", "Botania", { HiiragiConfigs.INTEGRATION.botania }) {
 
-    override fun registerMaterial() {
-        MaterialCompats.MANASTEEL.register()
-        MaterialCompats.MANA_DIAMOND.register()
-        MaterialCompats.TERRASTEEL.register()
-        MaterialCompats.ELEMENTIUM.register()
-        MaterialCompats.DRAGONSTONE.register()
-    }
-
     override fun onInit(event: FMLInitializationEvent) {
         registerOreDict(
             HiiragiShapes.BLOCK.getOreDict(MaterialCompats.MANASTEEL),

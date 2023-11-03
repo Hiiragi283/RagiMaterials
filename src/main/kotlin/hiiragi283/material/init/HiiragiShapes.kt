@@ -1,150 +1,213 @@
 package hiiragi283.material.init
 
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.util.enableAccess
-import java.lang.reflect.Field
+import java.util.function.Function
 
 object HiiragiShapes {
+
+    fun init() {}
 
     //    Material Item    //
 
     @JvmField
-    val BLOCK = HiiragiShape("block", 144 * 9)
+    val BLOCK = HiiragiShape.build("block") {
+        scaleFunction = Function(HiiragiShape.Companion::getBlockScale)
+    }
 
     @JvmField
-    val INGOT = HiiragiShape("ingot", 144)
+    val INGOT = HiiragiShape.build("ingot") {
+        scaleFunction = Function(HiiragiShape.Companion::getIngotScale)
+    }
 
     @JvmField
-    val NUGGET = HiiragiShape("nugget", 144 / 9)
+    val NUGGET = HiiragiShape.build("nugget") {
+        scaleFunction = Function { INGOT.getScale(it) / 9 }
+    }
 
     @JvmField
-    val BOTTLE = HiiragiShape("bottle", INGOT::getScale)
+    val BOTTLE = HiiragiShape.build("bottle") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val CASING = HiiragiShape("casing") { INGOT.getScale(it) * 8 }
+    val CASING = HiiragiShape.build("casing") {
+        scaleFunction = Function { INGOT.getScale(it) * 8 }
+    }
 
     @JvmField
-    val DUST = HiiragiShape("dust", INGOT::getScale)
+    val DUST = HiiragiShape.build("dust") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val GEAR = HiiragiShape("gear") { INGOT.getScale(it) * 4 }
+    val GEAR = HiiragiShape.build("gear") {
+        scaleFunction = Function { INGOT.getScale(it) * 4 }
+    }
 
     @JvmField
-    val GEM = HiiragiShape("gem", INGOT::getScale)
-        .addPrefixAlt("fuel")
+    val GEM = HiiragiShape.build("gem") {
+        scaleFunction = Function(INGOT::getScale)
+    }.addAlternativeName("fuel")
 
     @JvmField
-    val PLATE = HiiragiShape("plate", INGOT::getScale)
+    val PLATE = HiiragiShape.build("plate") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val STICK = HiiragiShape("stick") { INGOT.getScale(it) / 2 }
-        .addPrefixAlt("rod")
+    val STICK = HiiragiShape.build("stick") {
+        scaleFunction = Function { INGOT.getScale(it) / 2 }
+    }.addAlternativeName("rod")
 
     //    Compat    //
 
     @JvmField
-    val BALL = HiiragiShape("ball") { INGOT.getScale(it) * 5 / 24 }
+    val BALL = HiiragiShape.build("ball") {
+        scaleFunction = Function { INGOT.getScale(it) * 5 / 24 }
+    }
 
     @JvmField
-    val CLUMP = HiiragiShape("clump", INGOT::getScale)
+    val CLUMP = HiiragiShape.build("clump") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val CLUSTER = HiiragiShape("cluster") { INGOT.getScale(it) * 2 }
+    val CLUSTER = HiiragiShape.build("cluster") {
+        scaleFunction = Function { INGOT.getScale(it) * 2 }
+    }
 
     @JvmField
-    val COIN = HiiragiShape("coin") { INGOT.getScale(it) / 3 }
+    val COIN = HiiragiShape.build("coin") {
+        scaleFunction = Function { INGOT.getScale(it) / 3 }
+    }
 
     @JvmField
-    val CRUSHED = HiiragiShape("crushed", INGOT::getScale)
+    val CRUSHED = HiiragiShape.build("crushed") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val CRYSTAL = HiiragiShape("crystal", INGOT::getScale)
+    val CRYSTAL = HiiragiShape.build("crystal") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val DUST_DIRTY = HiiragiShape("dust_dirty", INGOT::getScale)
+    val DUST_DIRTY = HiiragiShape.build("dust_dirty") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val DUST_TINY = HiiragiShape("dust_tiny", NUGGET::getScale)
+    val DUST_TINY = HiiragiShape.build("dust_tiny") {
+        scaleFunction = Function(NUGGET::getScale)
+    }
 
     @JvmField
-    val FENCE = HiiragiShape("fence") { INGOT.getScale(it) * 5 / 3 }
+    val FENCE = HiiragiShape.build("fence") {
+        scaleFunction = Function { INGOT.getScale(it) * 5 / 3 }
+    }
 
     @JvmField
-    val FRAME = HiiragiShape("frame") { INGOT.getScale(it) * 4 }
+    val FRAME = HiiragiShape.build("frame") {
+        scaleFunction = Function { INGOT.getScale(it) * 4 }
+    }
 
     @JvmField
-    val LOG = HiiragiShape("log") { INGOT.getScale(it) * 4 }
+    val LOG = HiiragiShape.build("log") {
+        scaleFunction = Function { INGOT.getScale(it) * 4 }
+    }
 
     @JvmField
-    val ORE = HiiragiShape("ore") { INGOT.getScale(it) * 2 }
+    val ORE = HiiragiShape.build("ore") {
+        scaleFunction = Function { INGOT.getScale(it) * 2 }
+    }
 
     @JvmField
-    val ORE_DENSE = HiiragiShape("ore_dense") { INGOT.getScale(it) * 2 }
+    val ORE_DENSE = HiiragiShape.build("ore_dense") {
+        scaleFunction = Function { INGOT.getScale(it) * 2 }
+    }
 
     @JvmField
-    val ORE_POOR = HiiragiShape("ore_poor") { INGOT.getScale(it) / 3 }
+    val ORE_POOR = HiiragiShape.build("ore_poor") {
+        scaleFunction = Function { INGOT.getScale(it) / 3 }
+    }
 
     @JvmField
-    val PANE = HiiragiShape("pane", 375)
+    val PANE = HiiragiShape.build("pane") {
+        scaleFunction = Function { 375 }
+    }
 
     @JvmField
-    val PLANK = HiiragiShape("plank", INGOT::getScale)
+    val PLANK = HiiragiShape.build("plank") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val PLATE_DENSE = HiiragiShape("plate_dense", BLOCK::getScale)
+    val PLATE_DENSE = HiiragiShape.build("plate_dense") {
+        scaleFunction = Function { INGOT.getScale(it) * 9 }
+    }
 
     @JvmField
-    val PURIFIED = HiiragiShape("crushed_purified", INGOT::getScale)
+    val PURIFIED = HiiragiShape.build("crushed_purified") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val SAND = HiiragiShape("sand", INGOT::getScale)
+    val SAND = HiiragiShape.build("sand") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val SCAFFOLDING = HiiragiShape("scaffolding") { (INGOT.getScale(it) * 4 + INGOT.getScale(it) / 2) / 6 }
+    val SCAFFOLDING = HiiragiShape.build("scaffolding") {
+        scaleFunction = Function { (INGOT.getScale(it) * 4 + INGOT.getScale(it) / 2) / 6 }
+    }
 
     @JvmField
-    val SHARD = HiiragiShape("shard", INGOT::getScale)
+    val SHARD = HiiragiShape.build("shard") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val SHEETMETAL = HiiragiShape("block_sheetmetal", INGOT::getScale)
+    val SHEETMETAL = HiiragiShape.build("block_sheetmetal") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val SLAB = HiiragiShape("slab") { BLOCK.getScale(it) / 2 }
+    val SLAB = HiiragiShape.build("slab") {
+        scaleFunction = Function { BLOCK.getScale(it) / 2 }
+    }
 
     @JvmField
-    val SLAB_SHEETMETAL = HiiragiShape("slab_sheetmetal") { INGOT.getScale(it) / 2 }
+    val SLAB_SHEETMETAL = HiiragiShape.build("slab_sheetmetal") {
+        scaleFunction = Function { INGOT.getScale(it) / 2 }
+    }
 
     @JvmField
-    val STONE = HiiragiShape("stone", INGOT::getScale)
+    val STONE = HiiragiShape.build("stone") {
+        scaleFunction = Function(INGOT::getScale)
+    }
 
     @JvmField
-    val WIRE = HiiragiShape("wire") { INGOT.getScale(it) / 2 }
+    val WIRE = HiiragiShape.build("wire") {
+        scaleFunction = Function { INGOT.getScale(it) / 2 }
+    }
 
     //    State    //
 
     @JvmField
-    val SOLID = HiiragiShape("solid", 0)
+    val SOLID = HiiragiShape.build("solid")
 
     @JvmField
-    val LIQUID = HiiragiShape("liquid", 0)
+    val LIQUID = HiiragiShape.build("liquid")
 
     @JvmField
-    val GAS = HiiragiShape("gas", 0)
+    val GAS = HiiragiShape.build("gas")
 
     //    Type    //
 
     @JvmField
-    val IS_GEM = HiiragiShape("is_gem", 0)
+    val IS_GEM = HiiragiShape.build("is_gem")
 
     @JvmField
-    val IS_METAL = HiiragiShape("is_metal", 0)
-
-    fun register() {
-        this::class.java.declaredFields
-            .map(Field::enableAccess)
-            .map { it.get(this) }
-            .filterIsInstance<HiiragiShape>()
-            .forEach(HiiragiShape::register)
-    }
+    val IS_METAL = HiiragiShape.build("is_metal")
 
 }

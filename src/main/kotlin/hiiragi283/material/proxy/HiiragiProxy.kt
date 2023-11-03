@@ -11,9 +11,13 @@ import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.compat.RagiMaterialsPlugin
+import hiiragi283.material.compat.crt.HiiragiCrTPlugin
 import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.config.HiiragiJSonHandler
 import hiiragi283.material.init.*
+import hiiragi283.material.init.materials.MaterialCommons
+import hiiragi283.material.init.materials.MaterialCompats
+import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.network.HiiragiNetworkManager
 import hiiragi283.material.util.HiiragiLogger
 import net.minecraftforge.common.MinecraftForge
@@ -21,6 +25,7 @@ import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.network.NetworkRegistry
 
+@Suppress("unused")
 abstract class HiiragiProxy : IHiiragiProxy {
 
     override fun onConstruct(event: FMLConstructionEvent) {
@@ -40,10 +45,15 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiJSonHandler.configFile = event.modConfigurationDirectory
         HiiragiJSonHandler.init()
         //Shapeの登録
+        HiiragiShapes.init()
         HiiragiJSonHandler.writeShape()
         HiiragiJSonHandler.readShape()
         HiiragiShape.REGISTRY.init()
         //Materialの登録
+        MaterialElements.init()
+        MaterialCompats.init()
+        MaterialCommons.init()
+        HiiragiCrTPlugin.registerMaterial()
         HiiragiJSonHandler.writeMaterial()
         HiiragiJSonHandler.readMaterial()
         HiiragiMaterial.REGISTRY.init()

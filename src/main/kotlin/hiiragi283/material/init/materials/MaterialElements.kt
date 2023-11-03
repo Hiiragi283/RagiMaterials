@@ -2,7 +2,6 @@ package hiiragi283.material.init.materials
 
 import hiiragi283.material.api.material.isotopeOf
 import hiiragi283.material.api.material.materialOf
-import hiiragi283.material.config.HiiragiConfigs
 import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
@@ -13,6 +12,8 @@ import hiiragi283.material.util.HiiragiColor
  * @author turtton
  */
 object MaterialElements {
+
+    fun init() {}
 
     //    1st Period    //
 
@@ -150,11 +151,11 @@ object MaterialElements {
         formula = "Al"
         iconSet = HiiragiIconSets.METAL
         molar = 27.0
-        oreDictAlt.add("aluminum")
         shapeType = HiiragiShapeTypes.METAL_ADVANCED
         tempBoil = 2792
         tempMelt = 933
     }
+        .addAlternativeName("aluminum")
 
     @JvmField
     val SILICON = materialOf("silicon", 14) {
@@ -270,11 +271,11 @@ object MaterialElements {
         formula = "Cr"
         iconSet = HiiragiIconSets.METAL
         molar = 52.0
-        oreDictAlt.add("chrome")
         shapeType = HiiragiShapeTypes.METAL_COMMON
         tempBoil = 2944
         tempMelt = 2180
     }
+        .addAlternativeName("chrome")
 
     @JvmField
     val MANGANESE = materialOf("manganese", 25) {
@@ -1268,142 +1269,4 @@ object MaterialElements {
         molar = 235.0
     }
 
-    fun register() {
-        // --1st Period--
-        HYDROGEN.register()
-        HELIUM.register()
-        // --2nd Period--
-        LITHIUM.register()
-        BERYLLIUM.register()
-        BORON.register()
-        CARBON.register()
-        NITROGEN.register()
-        OXYGEN.register()
-        FLUORINE.register()
-        NEON.register()
-        // --3rd Period--
-        SODIUM.register()
-        MAGNESIUM.register()
-        ALUMINIUM.register()
-        SILICON.register()
-        PHOSPHORUS.register()
-        SULFUR.register()
-        CHLORINE.register()
-        ARGON.register()
-        // --4th Period--
-        POTASSIUM.register()
-        CALCIUM.register()
-        SCANDIUM.register()
-        TITANIUM.register()
-        VANADIUM.register()
-        CHROMIUM.register()
-        MANGANESE.register()
-        IRON.register()
-        COBALT.register()
-        NICKEL.register()
-        COPPER.register()
-        ZINC.register()
-        GALLIUM.register()
-        GERMANIUM.register()
-        ARSENIC.register()
-        SELENIUM.register()
-        BROMINE.register()
-        KRYPTON.register()
-        // --5th Period--
-        RUBIDIUM.register()
-        STRONTIUM.register()
-        YTTRIUM.register()
-        ZIRCONIUM.register()
-        NIOBIUM.register()
-        MOLYBDENUM.register()
-        TECHNETIUM.register()
-        RUTHENIUM.register()
-        RHODIUM.register()
-        PALLADIUM.register()
-        SILVER.register()
-        CADMIUM.register()
-        INDIUM.register()
-        TIN.register()
-        ANTIMONY.register()
-        TELLURIUM.register()
-        IODINE.register()
-        XENON.register()
-        // --6th Period--
-        CAESIUM.register()
-        BARIUM.register()
-        // --Lanthanides--
-        if (HiiragiConfigs.MATERIAL.lanthanoides) {
-            LANTHANUM.register()
-            CERIUM.register()
-            PRASEODYMIUM.register()
-            NEODYMIUM.register()
-            PROMETHIUM.register()
-            SAMARIUM.register()
-            EUROPIUM.register()
-            GADOLINIUM.register()
-            TERBIUM.register()
-            DYSPROSIUM.register()
-            HOLMIUM.register()
-            ERBIUM.register()
-            THULIUM.register()
-            YTTERBIUM.register()
-            LUTETIUM.register()
-        }
-        HAFNIUM.register()
-        TANTALUM.register()
-        TUNGSTEN.register()
-        RHENIUM.register()
-        OSMIUM.register()
-        IRIDIUM.register()
-        PLATINUM.register()
-        GOLD.register()
-        MERCURY.register()
-        THALLIUM.register()
-        LEAD.register()
-        BISMUTH.register()
-        POLONIUM.register()
-        ASTATINE.register()
-        RADON.register()
-        // --7th Period--
-        FRANCIUM.register()
-        RADIUM.register()
-        // --Actinides Start--
-        ACTINIUM.register()
-        THORIUM.register()
-        PROTACTINIUM.register()
-        URANIUM.register()
-        NEPTUNIUM.register()
-        PLUTONIUM.register()
-        if (HiiragiConfigs.MATERIAL.transUran) {
-            AMERICIUM.register()
-            CURIUM.register()
-            BERKELIUM.register()
-            CALIFORNIUM.register()
-            EINSTEINIUM.register()
-            FERMIUM.register()
-            MENDELEVIUM.register()
-            NOBELIUM.register()
-            LAWRENCIUM.register()
-            // --Actinides End--
-            RUTHERFORDIUM.register()
-            DUBNIUM.register()
-            SEABORGIUM.register()
-            BOHRIUM.register()
-            HASSIUM.register()
-            MEITNERIUM.register()
-            DARMSTADTIUM.register()
-            ROENTGENIUM.register()
-            COPERNICIUM.register()
-            NIHONIUM.register()
-            FLEROVIUM.register()
-            MOSCOVIUM.register()
-            LIVERMORIUM.register()
-            TENNESSINE.register()
-            OGANESSON.register()
-        }
-        // --Isotope--
-        DEUTERIUM.register()
-        TRITIUM.register()
-        URANIUM235.register()
-    }
 }

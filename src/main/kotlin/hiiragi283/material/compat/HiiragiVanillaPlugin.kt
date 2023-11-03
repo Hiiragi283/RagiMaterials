@@ -15,14 +15,6 @@ import net.minecraftforge.oredict.OreDictionary
 
 object HiiragiVanillaPlugin : HiiragiPluginBase("minecraft", "Minecraft", { true }) {
 
-    override fun registerMaterial() {
-        MaterialCompats.REDSTONE.register()
-        MaterialCompats.LAPIS.register()
-        MaterialCompats.GLOWSTONE.register()
-        MaterialCompats.ENDER_PEARL.register()
-        MaterialCompats.BLAZE.register()
-    }
-
     override fun onInit(event: FMLInitializationEvent) {
         //reloadOreDicts()
         PartDictionary.register(Blocks.STONE, 0, HiiragiShapes.STONE.getPart(MaterialCommons.STONE))

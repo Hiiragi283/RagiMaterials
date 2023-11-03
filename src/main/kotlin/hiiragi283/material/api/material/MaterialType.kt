@@ -163,8 +163,6 @@ abstract class MaterialType(val name: String) {
 
     }
 
-    object FORMULA : MaterialType("FORMULA")
-
     object HYDRATE : MaterialType("HYDRATE") {
 
         override fun preInit(builder: HiiragiMaterial.Builder, components: Map<HiiragiMaterial, Int>) {

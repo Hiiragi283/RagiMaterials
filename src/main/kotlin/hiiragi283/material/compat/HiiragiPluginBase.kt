@@ -29,8 +29,6 @@ abstract class HiiragiPluginBase(
         throw UnsupportedOperationException()
     }
 
-    open fun registerMaterial() {}
-
     override fun onComplete(event: FMLLoadCompleteEvent) {
         throw UnsupportedOperationException()
     }

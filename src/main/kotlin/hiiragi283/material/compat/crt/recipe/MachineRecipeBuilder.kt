@@ -1,5 +1,6 @@
 package hiiragi283.material.compat.crt.recipe
 
+import crafttweaker.CraftTweakerAPI
 import crafttweaker.annotations.ZenRegister
 import crafttweaker.api.item.IItemStack
 import crafttweaker.api.liquid.ILiquidStack
@@ -10,6 +11,7 @@ import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
+import hiiragi283.material.compat.crt.HiiragiAction
 import hiiragi283.material.compat.crt.toFluid
 import hiiragi283.material.compat.crt.toItem
 import hiiragi283.material.recipe.MachineRecipe
@@ -84,17 +86,18 @@ class MachineRecipeBuilder @ZenConstructor constructor() {
 
     @ZenMethod
     fun buildAndRegister(type: String, registryName: String) {
-        MachineRecipe.buildAndRegister(
-            MachineType.valueOf(type),
-            ResourceLocation(registryName)
-        ) {
-            this.traits.addAll(this@MachineRecipeBuilder.traits)
-            this.inputItems.addAll(this@MachineRecipeBuilder.inputItems)
-            this.inputFluids.addAll(this@MachineRecipeBuilder.inputFluids)
-            this.outputItems.addAll(this@MachineRecipeBuilder.outputItems)
-            this.outputFluids.addAll(this@MachineRecipeBuilder.outputFluids)
-        }
-
+        CraftTweakerAPI.apply(HiiragiAction("") {
+            MachineRecipe.buildAndRegister(
+                MachineType.valueOf(type),
+                ResourceLocation(registryName)
+            ) {
+                this.traits.addAll(this@MachineRecipeBuilder.traits)
+                this.inputItems.addAll(this@MachineRecipeBuilder.inputItems)
+                this.inputFluids.addAll(this@MachineRecipeBuilder.inputFluids)
+                this.outputItems.addAll(this@MachineRecipeBuilder.outputItems)
+                this.outputFluids.addAll(this@MachineRecipeBuilder.outputFluids)
+            }
+        })
     }
 
 }

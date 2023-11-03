@@ -6,7 +6,7 @@ import hiiragi283.material.compat.HiiragiPluginBase
 
 object HiiragiCrTPlugin : HiiragiPluginBase("crafttweaker", "Crafttweaker", { true }) {
 
-    override fun registerMaterial() {
+    fun registerMaterial() {
         CraftTweakerAPI.tweaker.loadScript(false, RMReference.MOD_ID)
     }
 

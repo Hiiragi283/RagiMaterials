@@ -10,7 +10,6 @@ import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
-import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
@@ -27,6 +26,7 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import java.io.File
+import java.util.function.Function
 
 object HiiragiJSonHandler {
 
@@ -88,7 +88,9 @@ object HiiragiJSonHandler {
             if (!sample.exists()) sample.createNewFile()
             //書き込み可能な場合
             if (sample.canWrite()) {
-                val shape: JsonElement = HiiragiShape("sample") { 144 }.getJsonElement()
+                val shape: JsonElement = HiiragiShape.build("sample") {
+                    scaleFunction = Function { 144 }
+                }.getJsonElement()
                 sample.writeText(gson.toJson(shape), Charsets.UTF_8)
             }
         } catch (e: Exception) {
@@ -98,18 +100,10 @@ object HiiragiJSonHandler {
 
     fun readShape() {
         try {
-            getJsonObjects(shapeFile)
-                .mapNotNull(HiiragiJsonUtil::hiiragiShape) //JsonObject -> HiiragiShape
-                .forEach(shapes::add) //shapesに一時保存
+            getJsonObjects(shapeFile).forEach(HiiragiJsonUtil::hiiragiShape) //JsonObject -> HiiragiShape
         } catch (e: Exception) {
             HiiragiLogger.error(e)
         }
-    }
-
-    private val shapes: MutableList<HiiragiShape> = mutableListOf()
-
-    fun registerShape() {
-        shapes.forEach(HiiragiShape::register)
     }
 
     //    Material    //
@@ -142,18 +136,10 @@ object HiiragiJSonHandler {
 
     fun readMaterial() {
         try {
-            getJsonObjects(materialFile)
-                .mapNotNull(HiiragiJsonUtil::hiiragiMaterial) //JsonObject -> HiiragiMaterial
-                .forEach(materials::add) //materialsに一時保存
+            getJsonObjects(materialFile).mapNotNull(HiiragiJsonUtil::hiiragiMaterial) //JsonObject -> HiiragiMaterial
         } catch (e: Exception) {
             HiiragiLogger.error(e) //念のため例外処理
         }
-    }
-
-    private val materials: MutableList<HiiragiMaterial> = mutableListOf()
-
-    fun registerMaterial() {
-        materials.forEach(HiiragiMaterial::register)
     }
 
     //    MachineRecipe    //

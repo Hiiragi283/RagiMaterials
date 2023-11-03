@@ -1,17 +1,9 @@
 package hiiragi283.material.init
 
 import hiiragi283.material.RMReference
-import hiiragi283.material.api.event.MaterialBuiltEvent
-import hiiragi283.material.api.event.MaterialRegistryEvent
-import hiiragi283.material.api.event.ShapeRegistryEvent
-import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.PartStack
 import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.tile.HiiragiProvider
-import hiiragi283.material.compat.RagiMaterialsPlugin
-import hiiragi283.material.config.HiiragiJSonHandler
-import hiiragi283.material.init.materials.MaterialCommons
-import hiiragi283.material.init.materials.MaterialElements
 import hiiragi283.material.util.HiiragiLogger
 import hiiragi283.material.util.hiiragiLocation
 import net.minecraft.block.Block
@@ -30,40 +22,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
-@Suppress("unused", "UNUSED_PARAMETER", "UNUSED_VARIABLE")
+@Suppress("unused", "UNUSED_PARAMETER")
 object HiiragiEventHandler {
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    fun registerShapes(event: ShapeRegistryEvent) {
-        HiiragiLogger.info("Registering Shapes...")
-        HiiragiShapes.register()
-
-        HiiragiLogger.info("Registering Shapes from JSON...")
-        HiiragiJSonHandler.registerShape()
-    }
-
-    fun modifyMaterial(event: MaterialBuiltEvent) {
-        val builder: HiiragiMaterial.Builder = event.builder
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    fun registerMaterials(event: MaterialRegistryEvent) {
-
-        HiiragiMaterial.RUSSELL.register()
-
-        HiiragiLogger.info("Registering Elemental Materials...")
-        MaterialElements.register()
-
-        HiiragiLogger.info("Registering Common Materials...")
-        MaterialCommons.register()
-
-        HiiragiLogger.info("Registering Materials for Integration...")
-        RagiMaterialsPlugin.registerMaterial()
-
-        HiiragiLogger.info("Registering Materials from JSON...")
-        HiiragiJSonHandler.registerMaterial()
-
-    }
 
     @SubscribeEvent
     fun registerBlocks(event: RegistryEvent.Register<Block>) {

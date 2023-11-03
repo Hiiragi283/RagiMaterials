@@ -59,12 +59,11 @@ fun mixtureOf(
 
 //    Formula String    //
 
-fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial.build(
-    formula,
-    -1,
-    MaterialType.FORMULA,
-    mapOf()
-) { this.formula = formula }
+fun formulaOf(formula: String): HiiragiMaterial = HiiragiMaterial.DEFAULT.copy(
+    name = formula,
+    index = -1,
+    formula = formula
+)
 
 //    Hydrate    //
 

@@ -1,6 +1,7 @@
 package hiiragi283.material.compat
 
 import hiiragi283.material.RMReference
+import hiiragi283.material.compat.crt.HiiragiCrTPlugin
 import hiiragi283.material.compat.tcon.HiiragiTConPlugin
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.init.materials.MaterialCommons
@@ -16,6 +17,7 @@ object RagiMaterialsPlugin : HiiragiPluginBase(RMReference.MOD_ID, RMReference.M
 
     override fun onConstruct(event: FMLConstructionEvent) {
         HiiragiBotaniaPlugin.apply(list)
+        HiiragiCrTPlugin.apply(list)
         HiiragiEmbersPlugin.apply(list)
         HiiragiEnderIOPlugin.apply(list)
         HiiragiIC2exPlugin.apply(list)
@@ -31,10 +33,6 @@ object RagiMaterialsPlugin : HiiragiPluginBase(RMReference.MOD_ID, RMReference.M
 
     override fun onPreInit(event: FMLPreInitializationEvent) {
         list.forEach { it.onPreInit(event) }
-    }
-
-    override fun registerMaterial() {
-        list.forEach { it.registerMaterial() }
     }
 
     override fun onInit(event: FMLInitializationEvent) {

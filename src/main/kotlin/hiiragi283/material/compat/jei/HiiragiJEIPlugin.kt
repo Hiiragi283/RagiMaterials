@@ -28,6 +28,7 @@ import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.init.Items
 import net.minecraft.inventory.Container
 import net.minecraft.item.ItemStack
+import net.minecraftforge.fluids.FluidRegistry
 import kotlin.math.min
 
 @JEIPlugin
@@ -131,11 +132,17 @@ class HiiragiJEIPlugin : IModPlugin {
     }
 
     private fun createMaterialWrapper(): Collection<HiiragiMaterialCategory.Wrapper> =
-        HiiragiMaterial.REGISTRY.getValues().flatMap { material: HiiragiMaterial ->
+        HiiragiMaterial.REGISTRY.getMap().flatMap { (name: String, material: HiiragiMaterial) ->
             val stacks: List<ItemStack> = material.getItemStacks()
             (0..stacks.size / 45)
                 .map { index: Int -> stacks.subList(0 + 45 * index, min(stacks.size, 45 + 45 * index)) }
-                .map { stackList: List<ItemStack> -> HiiragiMaterialCategory.Wrapper(material, stackList) }
+                .map { stackList: List<ItemStack> ->
+                    HiiragiMaterialCategory.Wrapper(
+                        material,
+                        stackList,
+                        FluidRegistry.getFluidStack(name, 0)
+                    )
+                }
         }
 
 }

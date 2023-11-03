@@ -5,12 +5,12 @@ import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiColor
-import hiiragi283.material.util.enableAccess
 import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
-import java.lang.reflect.Field
 
 object MaterialCommons {
+
+    fun init() {}
 
     @JvmField
     val HYDROXIDE = compoundOf("hydroxide", -1, mapOf(MaterialElements.OXYGEN to 1, MaterialElements.HYDROGEN to 1)) {
@@ -56,10 +56,10 @@ object MaterialCommons {
             HiiragiColor.YELLOW to 1
         ).rgb
         hasFluid = false
-        oreDictAlt.add("saw_dust")
         shapeType = HiiragiShapeTypes.WOOD
     }
-        .setBlockScale(144)
+        .addAlternativeName("saw_dust")
+        .setBlockMultiplier(1)
         .setSmelted(MaterialElements.CARBON)
 
     @JvmField
@@ -118,12 +118,12 @@ object MaterialCommons {
     @JvmField
     val COKE = allotropeOf("coke", 10602, COAL) {
         color = HiiragiColor.DARK_GRAY.rgb
-        oreDictAlt.add("fuel_coke")
         shapeType = shapeType.copy {
             shapes.add(HiiragiShapes.BLOCK)
             shapes.add(HiiragiShapes.GEM)
         }
     }
+        .addAlternativeName("fuel_coke")
 
     @JvmField
     val DIAMOND = compoundOf("diamond", 10603, mapOf(MaterialElements.CARBON to 1)) {
@@ -156,7 +156,7 @@ object MaterialCommons {
         iconSet = HiiragiIconSets.AMORPHOUS
         shapeType = HiiragiShapeTypes.GEM_9x
     }
-        .setBlockScale(144 * 4)
+        .setBlockMultiplier(4)
 
     @JvmField
     val ASH = mixtureOf(
@@ -182,13 +182,14 @@ object MaterialCommons {
     @JvmField
     val PLASTIC = polymerOf("plastic", 10608, mapOf(MaterialElements.CARBON to 2, MaterialElements.HYDROGEN to 4)) {
         color = HiiragiColor.mixColor(HiiragiColor.GRAY, HiiragiColor.WHITE).rgb
-        oreDictAlt.add("polyethylene")
         shapeType = HiiragiShapeTypes.SOLID
         /*validShapes.add("block")
         validShapes.add("scaffolding")
         validShapes.add("ingot")
         validShapes.add("plate")*/
-    }.setSmelted(MaterialElements.CARBON, 2)
+    }
+        .addAlternativeName("polyethylene")
+        .setSmelted(MaterialElements.CARBON, 2)
 
     //    Nitrogen    //
 
@@ -196,9 +197,9 @@ object MaterialCommons {
     val NITER = compoundOf("niter", 10700, mapOf(MaterialElements.POTASSIUM to 1, NITRATE to 1)) {
         color = HiiragiColor.WHITE.rgb
         iconSet = HiiragiIconSets.CUBIC
-        oreDictAlt.add("saltpeter")
         shapeType = HiiragiShapeTypes.GEM_9x
     }
+        .addAlternativeName("saltpeter")
 
     @JvmField
     val NITRIC_ACID = compoundOf("nitric_acid", 10701, mapOf(MaterialElements.HYDROGEN to 1, NITRATE to 1)) {
@@ -273,9 +274,9 @@ object MaterialCommons {
         color = HiiragiColor.GREEN.rgb
         hasFluid = false
         iconSet = HiiragiIconSets.EMERALD
-        oreDictAlt.add("olivine")
         shapeType = HiiragiShapeTypes.GEM_9x_ADVANCED
     }
+        .addAlternativeName("olivine")
 
     //    Aluminium    //
 
@@ -314,7 +315,7 @@ object MaterialCommons {
         hasFluid = false
         shapeType = HiiragiShapeTypes.SOLID
     }
-        .setBlockScale(144 * 4)
+        .setBlockMultiplier(4)
 
     @JvmField
     val END_STONE = compoundOf("end_stone", 11401, mapOf(SILICATE to 1)) {
@@ -328,7 +329,8 @@ object MaterialCommons {
         color = HiiragiColor.WHITE.rgb
         shapeType = HiiragiShapeTypes.SOLID
     }
-        .setBlockScale(1000)
+        .setBlockMultiplier(1)
+        .setIngotScale(1000)
 
     @JvmField
     val LAVA = compoundOf("lava", 11403, mapOf(SILICATE to 1)) {
@@ -357,12 +359,12 @@ object MaterialCommons {
         color = HiiragiColor.WHITE.rgb
         hasFluid = false
         iconSet = HiiragiIconSets.QUARTZ
-        oreDictAlt.add("nether_quartz")
         shapeType = HiiragiShapeTypes.GEM_4x_ADVANCED.copy {
             shapes.remove(HiiragiShapes.GEM)
         }
     }
-        .setBlockScale(144 * 4)
+        .addAlternativeName("nether_quartz")
+        .setBlockMultiplier(4)
 
     @JvmField
     val SOUL_SAND = compoundOf("soul_sand", 11407, mapOf(SILICATE to 1)) {
@@ -648,10 +650,9 @@ object MaterialCommons {
         color = HiiragiColor.RED.rgb
         hasFluid = false
         iconSet = HiiragiIconSets.EMERALD
-        oreDictAlt.add("quicksilver")
-        oreDictAlt.add("quick_silver")
         shapeType = HiiragiShapeTypes.GEM_9x
     }
+        .addAlternativeName("quicksilver", "quick_silver")
 
     //    Lead    //
 
@@ -674,13 +675,5 @@ object MaterialCommons {
         iconSet = HiiragiIconSets.RUBY
         shapeType = HiiragiShapeTypes.GEM_9x
     }.setSmelted(MaterialElements.BISMUTH, 2)
-
-    fun register() {
-        this::class.java.declaredFields
-            .map(Field::enableAccess)
-            .map { it.get(this) }
-            .filterIsInstance<HiiragiMaterial>()
-            .forEach(HiiragiMaterial::register)
-    }
 
 }
