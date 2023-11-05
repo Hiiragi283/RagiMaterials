@@ -10,6 +10,7 @@ import hiiragi283.material.api.ingredient.FluidIngredient
 import hiiragi283.material.api.ingredient.ItemIngredient
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
+import hiiragi283.material.api.material.MaterialScaleFunction
 import hiiragi283.material.api.material.materialOf
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
@@ -26,7 +27,6 @@ import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import java.io.File
-import java.util.function.Function
 
 object HiiragiJSonHandler {
 
@@ -89,7 +89,7 @@ object HiiragiJSonHandler {
             //書き込み可能な場合
             if (sample.canWrite()) {
                 val shape: JsonElement = HiiragiShape.build("sample") {
-                    scaleFunction = Function { 144 }
+                    scaleFunction = MaterialScaleFunction { 144 }
                 }.getJsonElement()
                 sample.writeText(gson.toJson(shape), Charsets.UTF_8)
             }

@@ -4,43 +4,35 @@ import crafttweaker.CraftTweakerAPI
 import crafttweaker.annotations.ZenRegister
 import crafttweaker.api.item.IItemStack
 import crafttweaker.api.oredict.IOreDictEntry
-import crafttweaker.mc1120.item.MCItemStack
 import crafttweaker.mc1120.oredict.MCOreDictEntry
 import hiiragi283.material.RMReference
 import hiiragi283.material.api.material.HiiragiMaterial
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.compat.crt.material.IHiiragiMaterial
-import hiiragi283.material.compat.crt.shape.IHiiragiShape
+import hiiragi283.material.compat.crt.toIItemStacks
 import stanhebben.zenscript.annotations.ZenClass
 import stanhebben.zenscript.annotations.ZenGetter
 import stanhebben.zenscript.annotations.ZenMethod
 
 @Suppress("unused")
-@ZenClass("${RMReference.MOD_ID}.part.IHiiragiPart")
+@ZenClass("${RMReference.MOD_ID}.part.HiiragiPart")
 @ZenRegister
-interface IHiiragiPart {
+interface IHiiragiPart : IOreDictEntry {
 
     val part: HiiragiPart
 
     //    Property    //
 
     @ZenGetter("shape")
-    fun getShape(): IHiiragiShape = IHiiragiShape.Impl(part.shape)
+    fun getShape(): HiiragiShape = part.shape
 
     @ZenGetter("material")
-    fun getMaterial(): IHiiragiMaterial = IHiiragiMaterial.Impl(part.material)
+    fun getMaterial(): HiiragiMaterial = part.material
 
     //    Method    //
 
     @ZenMethod
-    fun getIItemStack(count: Int): IItemStack = MCItemStack(part.getItemStack(count))
-
-    @ZenMethod
-    fun getIItemStacks(count: Int): List<IItemStack> = part.getItemStacks(count).map(::MCItemStack)
-
-    @ZenMethod
-    fun getOreDict(): IOreDictEntry = MCOreDictEntry(part.getOreDict())
+    fun getIItemStacks(count: Int): List<IItemStack> = part.getItemStacks(count).toIItemStacks()
 
     @ZenMethod
     fun getScale(): Int = part.getScale()
@@ -66,7 +58,7 @@ interface IHiiragiPart {
 
     //    Implementation    //
 
-    class Impl(override val part: HiiragiPart) : IHiiragiPart {
+    class Impl(override val part: HiiragiPart) : MCOreDictEntry(part.getOreDict()), IHiiragiPart {
 
         constructor(shape: HiiragiShape, material: HiiragiMaterial) : this(shape.getPart(material))
 

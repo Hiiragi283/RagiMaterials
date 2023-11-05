@@ -32,7 +32,7 @@ object PartDictionary {
         HiiragiLogger.info("Reloading Ore Dictionary for Part Dictionary...")
         OreDictionary.getOreNames().forEach { oreDict: String ->
             OreDictionary.getOres(oreDict)
-                .filterNot<ItemStack>(::isRegistered)
+                .filterNot<ItemStack>(this::contains)
                 .map { stack: ItemStack -> OreDictionary.OreRegisterEvent(oreDict, stack) }
                 .forEach(::onOreDictRegistered)
         }
@@ -96,15 +96,16 @@ object PartDictionary {
     }
 
     @JvmStatic
-    fun isRegistered(stack: ItemStack): Boolean = isRegistered(stack.item, stack.metadata)
+    operator fun contains(stack: ItemStack): Boolean = contains(stack.item, stack.metadata)
 
     @JvmStatic
-    fun isRegistered(block: Block, metadata: Int): Boolean = isRegistered(Item.getItemFromBlock(block), metadata)
+    fun contains(block: Block, metadata: Int): Boolean =
+        contains(Item.getItemFromBlock(block), metadata)
 
     @JvmStatic
-    fun isRegistered(item: Item, metadata: Int): Boolean = isRegistered(item to metadata)
+    fun contains(item: Item, metadata: Int): Boolean = contains(item to metadata)
 
-    private fun isRegistered(metaItem: MetaItem): Boolean = ITEM_TO_PART.containsKey(metaItem)
+    private fun contains(metaItem: MetaItem): Boolean = ITEM_TO_PART.containsKey(metaItem)
 
     //    getPart    //
 

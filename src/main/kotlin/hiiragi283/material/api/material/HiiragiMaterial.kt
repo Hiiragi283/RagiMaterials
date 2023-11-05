@@ -2,15 +2,27 @@ package hiiragi283.material.api.material
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import crafttweaker.annotations.ZenRegister
+import crafttweaker.api.item.IItemStack
+import crafttweaker.api.liquid.ILiquidDefinition
+import crafttweaker.api.liquid.ILiquidStack
+import hiiragi283.material.RMReference
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.event.MaterialBuildEvent
 import hiiragi283.material.api.event.MaterialRegistryEvent
+import hiiragi283.material.api.fluid.MaterialFluid
+import hiiragi283.material.api.fluid.MaterialFluidBlock
 import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.part.PartDictionary
+import hiiragi283.material.api.registry.HiiragiEntry
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
+import hiiragi283.material.compat.crt.part.IHiiragiPart
+import hiiragi283.material.compat.crt.toIItemStacks
+import hiiragi283.material.compat.crt.toILiquidDefinition
+import hiiragi283.material.compat.crt.toILiquidStack
 import hiiragi283.material.init.HiiragiIconSets
 import hiiragi283.material.init.HiiragiRegistries
 import hiiragi283.material.init.HiiragiShapeTypes
@@ -30,6 +42,7 @@ import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import rechellatek.snakeToUpperCamelCase
+import stanhebben.zenscript.annotations.*
 import java.util.function.Function
 
 /**
@@ -61,19 +74,20 @@ import java.util.function.Function
  */
 
 @Suppress("DataClassPrivateConstructor")
+@ZenClass("${RMReference.MOD_ID}.material.HiiragiMaterial")
+@ZenRegister
 data class HiiragiMaterial private constructor(
-    val name: String,
-    val index: Int,
-    val color: Int,
-    private val fluidSupplier: MaterialFluidSupplier,
-    val formula: String,
-    val iconSet: MaterialIconSet,
-    val machineProperty: MachineProperty?,
-    val molar: Double,
-    val shapeType: HiiragiShapeType,
-    val tempBoil: Int,
-    val tempMelt: Int,
-    val translationKey: String
+    @JvmField @ZenProperty val name: String,
+    @JvmField @ZenProperty val index: Int,
+    @JvmField @ZenProperty val color: Int,
+    @JvmField @ZenProperty val formula: String,
+    @JvmField val iconSet: MaterialIconSet,
+    @JvmField val machineProperty: MachineProperty?,
+    @JvmField @ZenProperty val molar: Double,
+    @JvmField val shapeType: HiiragiShapeType,
+    @JvmField @ZenProperty val tempBoil: Int,
+    @JvmField @ZenProperty val tempMelt: Int,
+    @JvmField @ZenProperty val translationKey: String
 ) : HiiragiJsonSerializable {
 
     companion object {
@@ -177,6 +191,7 @@ data class HiiragiMaterial private constructor(
 
     //    Conversion    //
 
+    @ZenMethod
     fun addBracket(function: Function<String, String> = Function { "($it)" }) = copy(formula = function.apply(formula))
 
     fun addTooltip(tooltip: MutableList<String>, name: String = getTranslatedName(), scale: Int = 0) {
@@ -194,74 +209,90 @@ data class HiiragiMaterial private constructor(
             tooltip.add(I18n.format("tips.ragi_materials.property.boil", tempBoil))
     }
 
-    fun createFluid() {
-        fluidSupplier.register(this)
-    }
-
     fun getFluid(): Fluid? = if (FluidRegistry.isFluidRegistered(name)) FluidRegistry.getFluid(name) else null
 
     fun getFluidStack(amount: Int = 1000): FluidStack? = FluidRegistry.getFluidStack(name, amount)
 
     fun getItemStacks(count: Int = 1): List<ItemStack> = PartDictionary.getStacks(this, count)
 
+    @ZenMethod
     fun getOreDictName(): String = name.snakeToUpperCamelCase()
 
     fun getPart(shape: HiiragiShape): HiiragiPart = HiiragiPart(shape, this)
 
+    @ZenGetter("translatedName")
     fun getTranslatedName(): String = I18n.format(translationKey)
 
     //    Predicate    //
 
+    @ZenMethod
     fun hasFluid(): Boolean = FluidRegistry.isFluidRegistered(name)
 
+    @ZenMethod
     fun hasFormula(): Boolean = formula.isNotEmpty()
 
+    @ZenMethod
     fun hasItemStack(): Boolean = PartDictionary.hasStack(this)
 
+    @ZenMethod
     fun hasItemStack(shape: HiiragiShape): Boolean = PartDictionary.hasStack(getPart(shape))
 
+    @ZenMethod
     fun hasMolar(): Boolean = molar > 0.0
 
+    @ZenMethod
     fun hasTempBoil(): Boolean = tempBoil > 0
 
+    @ZenMethod
     fun hasTempMelt(): Boolean = tempMelt > 0
 
+    @ZenMethod
     fun isGem(): Boolean = HiiragiShapes.IS_GEM.canCreateMaterialItem(this)
 
+    @ZenMethod
     fun isMetal(): Boolean = HiiragiShapes.IS_METAL.canCreateMaterialItem(this)
 
+    @ZenMethod
     fun isFluid(): Boolean = isGas() || isLiquid()
 
+    @ZenMethod
     fun isGas(): Boolean = HiiragiShapes.GAS.canCreateMaterialItem(this) || tempBoil < 298
 
+    @ZenMethod
     fun isLiquid(): Boolean = HiiragiShapes.LIQUID.canCreateMaterialItem(this) || (tempMelt < 298 && tempBoil >= 298)
 
     fun isValidIndex(): Boolean = index >= 0
 
+    @ZenMethod
     fun isSolid(): Boolean = HiiragiShapes.SOLID.canCreateMaterialItem(this) || tempMelt >= 298
 
     fun isRegistered(): Boolean = REGISTRY.contains(name)
 
     //    Function    //
 
+    @ZenMethod
     fun addAlternativeName(vararg name: String) = also {
         name.forEach { REGISTRY.register(it, this) }
     }
 
+    @ZenMethod
     fun setSmelted(smelted: HiiragiMaterial, count: Int = 1) = also {
         HiiragiRegistries.MATERIAL_SMELTED[this] = smelted to count
     }
 
+    @ZenMethod
     fun setBlockMultiplier(multiplier: Int) = also {
         HiiragiShape.setBlockMultiplier(this, multiplier)
     }
 
+    @ZenMethod
     fun setIngotScale(scale: Int) = also {
         HiiragiShape.setIngotScale(this, scale)
     }
 
     //    Any    //
 
+    @ZenOperator(OperatorType.EQUALS)
     override fun equals(other: Any?): Boolean = when (other) {
         null -> false
         !is HiiragiMaterial -> false
@@ -284,17 +315,6 @@ data class HiiragiMaterial private constructor(
         root.addProperty("color", color)
         root.addProperty("formula", formula)
 
-        val hasFluid: Boolean = fluidSupplier.hasFluid
-        if (hasFluid) {
-            root.addProperty("has_fluid", true)
-            if (fluidSupplier.hasBucket) {
-                root.addProperty("has_fluid_block", true)
-            }
-        } else {
-            root.addProperty("has_fluid", false)
-            root.addProperty("has_fluid_block", false)
-        }
-
         root.add("machineProperty", machineProperty?.getJsonElement())
         root.addProperty("molar", molar)
 
@@ -306,21 +326,72 @@ data class HiiragiMaterial private constructor(
 
     }
 
+    //    CraftTweaker    //
+
+    @ZenGetter("liquidDefinition")
+    fun getILiquidDefinition(): ILiquidDefinition? = getFluid()?.toILiquidDefinition()
+
+    @ZenMethod
+    fun getILiquidStack(amount: Int): ILiquidStack? = getFluidStack(amount)?.toILiquidStack()
+
+    @ZenMethod
+    fun getIItemStacks(count: Int): List<IItemStack> = getItemStacks(count).toIItemStacks()
+
+    @ZenMethod("getPart")
+    fun getPartCT(shape: HiiragiShape): IHiiragiPart = IHiiragiPart.Impl(getPart(shape))
+
     //    Builder    //
 
-    class Builder(val name: String, val index: Int) {
+    @ZenClass("${RMReference.MOD_ID}.material.MaterialBuilder")
+    @ZenRegister
+    class Builder(
+        @JvmField @ZenProperty val name: String,
+        @JvmField @ZenProperty val index: Int
+    ) {
 
+        @JvmField
+        @ZenProperty
         var color: Int = 0xFFFFFF
+
+        @JvmField
+        @ZenProperty
         var formula: String = ""
+
+        @JvmField
+        @ZenProperty
         var hasBucket: Boolean = true
+
+        @JvmField
+        @ZenProperty
         var hasFluid: Boolean = true
+
+        @JvmField
+        @ZenProperty
         var hasFluidBlock: Boolean = false
+
+        @JvmField
         var iconSet: MaterialIconSet = HiiragiIconSets.DEFAULT
+
+        @JvmField
         var machineProperty: MachineProperty? = null
+
+        @JvmField
+        @ZenProperty
         var molar: Double = 0.0
+
+        @JvmField
         var shapeType: HiiragiShapeType = HiiragiShapeTypes.INTERNAL
+
+        @JvmField
+        @ZenProperty
         var tempBoil: Int = 0
+
+        @JvmField
+        @ZenProperty
         var tempMelt: Int = 0
+
+        @JvmField
+        @ZenProperty
         var translationKey: String = "hiiragi_material.$name"
 
         fun build(): HiiragiMaterial {
@@ -329,7 +400,6 @@ data class HiiragiMaterial private constructor(
                 name,
                 index,
                 color,
-                MaterialFluidSupplier(hasFluid, hasFluidBlock, hasBucket),
                 formula,
                 iconSet,
                 machineProperty,
@@ -338,15 +408,31 @@ data class HiiragiMaterial private constructor(
                 tempBoil,
                 tempMelt,
                 translationKey,
-            ).also { material: HiiragiMaterial ->
-                REGISTRY.register(name, material)
-                if (!material.isValidIndex()) {
-                    HiiragiLogger.error("Material: $name has invalid index: $index !!")
-                    HiiragiLogger.debugInfo("Material: $name is registered!")
-                    return@also
-                }
-                REGISTRY.register(index, material)
+            ).also(::register).also(::registerFluid)
+        }
+
+        private fun register(material: HiiragiMaterial) {
+            REGISTRY.register(name, material)
+            if (!material.isValidIndex()) {
+                HiiragiLogger.error("Material: $name has invalid index: $index !!")
                 HiiragiLogger.debugInfo("Material: $name is registered!")
+                return
+            }
+            REGISTRY.register(index, material)
+            HiiragiLogger.debugInfo("Material: $name is registered!")
+        }
+
+        private fun registerFluid(material: HiiragiMaterial) {
+            val fluid: Fluid = MaterialFluid(material).takeIf { hasFluid } ?: return
+            if (FluidRegistry.isFluidRegistered(fluid.name)) return
+            FluidRegistry.registerFluid(fluid)
+            if (hasBucket) FluidRegistry.addBucketForFluid(fluid)
+            if (hasFluidBlock) {
+                MaterialFluidBlock(fluid).run {
+                    fluid.block = this
+                    (this as? HiiragiEntry.BLOCK)?.register()
+                    FluidRegistry.registerFluid(fluid)
+                }
             }
         }
 

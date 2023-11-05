@@ -47,12 +47,4 @@ class MaterialFluid(
 
     override fun getUnlocalizedName(): String = material.translationKey
 
-    companion object {
-
-        fun register() {
-            HiiragiMaterial.REGISTRY.getValues().forEach(HiiragiMaterial::createFluid)
-        }
-
-    }
-
 }

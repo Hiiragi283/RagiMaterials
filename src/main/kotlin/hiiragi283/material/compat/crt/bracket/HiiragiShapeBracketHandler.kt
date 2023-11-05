@@ -5,7 +5,6 @@ import crafttweaker.annotations.BracketHandler
 import crafttweaker.annotations.ZenRegister
 import crafttweaker.zenscript.IBracketHandler
 import hiiragi283.material.api.shape.HiiragiShape
-import hiiragi283.material.compat.crt.shape.IHiiragiShape
 import stanhebben.zenscript.compiler.IEnvironmentGlobal
 import stanhebben.zenscript.expression.ExpressionCallStatic
 import stanhebben.zenscript.expression.ExpressionString
@@ -28,12 +27,12 @@ class HiiragiShapeBracketHandler : IBracketHandler {
         )
 
         @JvmStatic
-        fun getShape(name: String): IHiiragiShape {
+        fun getShape(name: String): HiiragiShape {
             val result: HiiragiShape? = HiiragiShape.REGISTRY[name]
             if (result == null) {
                 CraftTweakerAPI.logError("Could not find shape with name $name")
             }
-            return IHiiragiShape.Impl(result!!)
+            return result!!
         }
 
     }

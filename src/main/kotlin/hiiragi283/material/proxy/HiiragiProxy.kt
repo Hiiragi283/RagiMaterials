@@ -3,7 +3,6 @@ package hiiragi283.material.proxy
 import com.google.gson.JsonElement
 import hiiragi283.material.RagiMaterials
 import hiiragi283.material.api.block.ModuleMachineBlock
-import hiiragi283.material.api.fluid.MaterialFluid
 import hiiragi283.material.api.item.RecipeModuleItem
 import hiiragi283.material.api.machine.IMachineRecipe
 import hiiragi283.material.api.material.HiiragiMaterial
@@ -34,6 +33,7 @@ abstract class HiiragiProxy : IHiiragiProxy {
         //Eventを登録
         MinecraftForge.EVENT_BUS.register(HiiragiEventHandler)
         MinecraftForge.EVENT_BUS.register(PartDictionary)
+        HiiragiCrTPlugin.registerEvent()
         //レジストリの初期化
         IMachineRecipe.REGISTRY.init()
         //連携の登録
@@ -44,8 +44,11 @@ abstract class HiiragiProxy : IHiiragiProxy {
         //configフォルダのパスを取得
         HiiragiJSonHandler.configFile = event.modConfigurationDirectory
         HiiragiJSonHandler.init()
+        //CraftTweakerのスクリプトを読み込み
+        HiiragiCrTPlugin.loadScript()
         //Shapeの登録
         HiiragiShapes.init()
+        HiiragiCrTPlugin.registerShape()
         HiiragiJSonHandler.writeShape()
         HiiragiJSonHandler.readShape()
         HiiragiShape.REGISTRY.init()
@@ -63,7 +66,6 @@ abstract class HiiragiProxy : IHiiragiProxy {
         HiiragiItems
         ModuleMachineBlock.REGISTRY.init()
         RecipeModuleItem.REGISTRY.init()
-        MaterialFluid.register()
         //連携の登録
         RagiMaterialsPlugin.onPreInit(event)
     }

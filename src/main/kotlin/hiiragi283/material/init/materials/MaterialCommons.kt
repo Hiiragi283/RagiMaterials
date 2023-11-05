@@ -8,6 +8,7 @@ import hiiragi283.material.util.HiiragiColor
 import hiiragi283.material.util.isAprilFools
 import net.minecraftforge.fluids.FluidRegistry
 
+@Suppress("unused")
 object MaterialCommons {
 
     fun init() {}

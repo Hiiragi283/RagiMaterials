@@ -10,6 +10,7 @@ import hiiragi283.material.api.machine.MachineProperty
 import hiiragi283.material.api.machine.MachineTrait
 import hiiragi283.material.api.machine.MachineType
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialScaleFunction
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.shape.HiiragiShape
 import hiiragi283.material.api.shape.HiiragiShapeType
@@ -19,7 +20,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
-import java.util.function.Function
 
 
 fun ItemStack.getJsonElement(): JsonElement {
@@ -53,7 +53,7 @@ object HiiragiJsonUtil {
         val name: String = root.getAsJsonPrimitive("name")?.asString ?: return null
         val scale: Int = root.getAsJsonPrimitive("scale")?.asInt ?: 0
         return HiiragiShape.build(name) {
-            scaleFunction = Function { scale }
+            scaleFunction = MaterialScaleFunction { scale }
         }
     }
 

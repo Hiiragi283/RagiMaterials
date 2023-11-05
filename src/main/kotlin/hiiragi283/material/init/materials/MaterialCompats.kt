@@ -7,6 +7,7 @@ import hiiragi283.material.init.HiiragiShapeTypes
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiColor
 
+@Suppress("unused")
 object MaterialCompats {
 
     fun init() {}

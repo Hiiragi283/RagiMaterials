@@ -2,12 +2,21 @@ package hiiragi283.material.api.shape
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import crafttweaker.CraftTweakerAPI
+import crafttweaker.annotations.ZenRegister
+import crafttweaker.api.item.IItemStack
+import hiiragi283.material.RMReference
 import hiiragi283.material.api.event.ShapeBuildEvent
 import hiiragi283.material.api.material.HiiragiMaterial
+import hiiragi283.material.api.material.MaterialPredicate
+import hiiragi283.material.api.material.MaterialScaleFunction
 import hiiragi283.material.api.part.HiiragiPart
 import hiiragi283.material.api.part.PartConvertible
 import hiiragi283.material.api.part.PartDictionary
 import hiiragi283.material.api.registry.HiiragiRegistry
+import hiiragi283.material.compat.crt.HiiragiAction
+import hiiragi283.material.compat.crt.toIItemStack
+import hiiragi283.material.compat.crt.toIItemStacks
 import hiiragi283.material.init.HiiragiShapes
 import hiiragi283.material.util.HiiragiJsonSerializable
 import hiiragi283.material.util.HiiragiLogger
@@ -15,8 +24,9 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.item.ItemStack
 import net.minecraftforge.common.MinecraftForge
 import rechellatek.snakeToLowerCamelCase
-import java.util.function.Function
-import java.util.function.Predicate
+import stanhebben.zenscript.annotations.ZenClass
+import stanhebben.zenscript.annotations.ZenMethod
+import stanhebben.zenscript.annotations.ZenProperty
 
 /**
  * An object which represents the shape of [net.minecraft.item.Item]
@@ -24,10 +34,12 @@ import java.util.function.Predicate
  * Should be registered in [net.minecraftforge.event.RegistryEvent.Register]<[HiiragiShape]>
  */
 
+@ZenClass("${RMReference.MOD_ID}.shape.HiiragiShape")
+@ZenRegister
 data class HiiragiShape(
-    val name: String,
-    private val scaleFunction: Function<HiiragiMaterial, Int>,
-    private val itemPredicate: Predicate<HiiragiMaterial>
+    @JvmField @ZenProperty val name: String,
+    private val scaleFunction: MaterialScaleFunction,
+    private val itemPredicate: MaterialPredicate
 ) : HiiragiJsonSerializable {
 
     companion object {
@@ -35,20 +47,39 @@ data class HiiragiShape(
         private val ingotScales: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
 
         @JvmStatic
+        @ZenMethod
         fun getIngotScale(material: HiiragiMaterial): Int = ingotScales.getOrDefault(material, 144)
 
         @JvmStatic
         fun setIngotScale(material: HiiragiMaterial, scale: Int) = ingotScales.put(material, scale)
 
+        @JvmStatic
+        @ZenMethod("setIngotScale")
+        fun setIngotScaleCT(material: HiiragiMaterial, scale: Int) {
+            CraftTweakerAPI.apply(HiiragiAction("Setting ingot scale for the material: $material with $scale mb") {
+                setIngotScale(material, scale)
+            })
+        }
+
         private val blockMultiplier: MutableMap<HiiragiMaterial, Int> = mutableMapOf()
 
         @JvmStatic
+        @ZenMethod
         fun getBlockMultiplier(material: HiiragiMaterial): Int = blockMultiplier.getOrDefault(material, 9)
 
         @JvmStatic
         fun setBlockMultiplier(material: HiiragiMaterial, multiplier: Int) = blockMultiplier.put(material, multiplier)
 
         @JvmStatic
+        @ZenMethod("setBlockMultiplier")
+        fun setBlockMultiplierCT(material: HiiragiMaterial, multiplier: Int) {
+            CraftTweakerAPI.apply(HiiragiAction("Setting block multiplier for the material: $material with x$multiplier") {
+                setBlockMultiplier(material, multiplier)
+            })
+        }
+
+        @JvmStatic
+        @ZenMethod
         fun getBlockScale(material: HiiragiMaterial): Int = getIngotScale(material) * getBlockMultiplier(material)
 
         fun build(name: String, init: Builder.() -> Unit = {}): HiiragiShape = Builder(name).apply(init).build()
@@ -74,7 +105,8 @@ data class HiiragiShape(
 
     //    Conversion    //
 
-    fun getIngotCount(material: HiiragiMaterial) = getScale(material) / HiiragiShapes.INGOT.getScale(material)
+    @ZenMethod
+    fun getIngotCount(material: HiiragiMaterial): Int = getScale(material) / HiiragiShapes.INGOT.getScale(material)
 
     fun getItem(): PartConvertible.ITEM? = PartConvertible.ITEM[this]
 
@@ -86,6 +118,7 @@ data class HiiragiShape(
 
     fun getPart(material: HiiragiMaterial): HiiragiPart = HiiragiPart(this, material)
 
+    @ZenMethod
     fun getScale(material: HiiragiMaterial): Int = scaleFunction.apply(material)
 
     fun getTranslatedName(material: HiiragiMaterial): String =
@@ -101,6 +134,7 @@ data class HiiragiShape(
 
     //    Function    //
 
+    @ZenMethod
     fun addAlternativeName(vararg name: String) = also {
         name.forEach { REGISTRY[it] = this }
     }
@@ -113,13 +147,29 @@ data class HiiragiShape(
 
     override fun getJsonElement(): JsonElement = JsonObject().apply { this.addProperty("name", name) }
 
+    //    CraftTweaker    //
+
+    @ZenMethod
+    fun getIItemStack(material: HiiragiMaterial, count: Int): IItemStack = getItemStack(material, count).toIItemStack()
+
+    @ZenMethod
+    fun getIItemStacks(count: Int): List<IItemStack> = getItemStacks(count).toIItemStacks()
+
     //    Builder    //
 
-    class Builder(val name: String) {
+    @ZenClass("${RMReference.MOD_ID}.shape.ShapeBuilder")
+    @ZenRegister
+    class Builder(@JvmField @ZenProperty val name: String) {
 
-        var scaleFunction: Function<HiiragiMaterial, Int> = Function { 0 }
-        var itemPredicate: Predicate<HiiragiMaterial> =
-            Predicate { it.shapeType.map(HiiragiShape::name).contains(name) }
+        @JvmField
+        @ZenProperty
+        var scaleFunction: MaterialScaleFunction = MaterialScaleFunction { 0 }
+
+        @JvmField
+        @ZenProperty
+        var itemPredicate: MaterialPredicate = MaterialPredicate {
+            it.shapeType.map(HiiragiShape::name).contains(name)
+        }
 
         fun build(): HiiragiShape {
             MinecraftForge.EVENT_BUS.post(ShapeBuildEvent(this))

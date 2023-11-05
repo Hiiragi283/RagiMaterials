@@ -14,7 +14,7 @@ abstract class HiiragiPluginBase(
     val config: () -> Boolean
 ) : IHiiragiProxy {
 
-    fun enabled(): Boolean = HiiragiConfigs.INTEGRATION.forceIntegration || Loader.isModLoaded(modid) && config()
+    open fun enabled(): Boolean = HiiragiConfigs.INTEGRATION.forceIntegration || Loader.isModLoaded(modid) && config()
 
     fun apply(list: MutableList<HiiragiPluginBase>) {
         if (enabled()) {
